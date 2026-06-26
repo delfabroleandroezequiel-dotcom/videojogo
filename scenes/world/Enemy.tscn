@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/world/Enemy.cs" id="1_script"]
 [ext_resource type="Script" path="res://scripts/shared/Stats.cs" id="2_stats"]
+[ext_resource type="PackedScene" path="res://scenes/ui/StatBar.tscn" id="3_statbar"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
 size = Vector2(32, 32)
@@ -22,3 +23,10 @@ MaxHealth = 30
 AttackPower = 5
 Defense = 0
 MaxStamina = 50
+
+[node name="HealthBar" parent="." instance=ExtResource("3_statbar")]
+position = Vector2(0, 20)
+
+[node name="StaminaBar" parent="." instance=ExtResource("3_statbar")]
+position = Vector2(0, 26)
+FillColor = Color(0.2, 0.6, 1, 1)

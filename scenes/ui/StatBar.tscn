@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://e5k9m2p7q1w3z"]
+
+[ext_resource type="Script" path="res://scripts/ui/StatBar.cs" id="1_script"]
+
+[node name="StatBar" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="."]
+position = Vector2(-16, 0)
+size = Vector2(32, 4)
+color = Color(0.1, 0.1, 0.1, 0.8)
+
+[node name="Fill" type="ColorRect" parent="."]
+position = Vector2(-16, 0)
+size = Vector2(32, 4)
+color = Color(0, 1, 0, 1)

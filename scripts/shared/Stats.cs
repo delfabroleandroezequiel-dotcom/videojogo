@@ -13,6 +13,8 @@ public partial class Stats : Node
 	public int CurrentHealth { get; private set; }
 	public int CurrentStamina { get; private set; }
 
+	private float _staminaAccumulator;
+
 	[Signal] public delegate void HealthChangedEventHandler(int current, int max);
 	[Signal] public delegate void StaminaChangedEventHandler(int current, int max);
 	[Signal] public delegate void DiedEventHandler();
@@ -27,8 +29,14 @@ public partial class Stats : Node
 	{
 		if (CurrentStamina < MaxStamina)
 		{
-			CurrentStamina = Mathf.Min(MaxStamina, CurrentStamina + (int)(StaminaRegenPerSecond * delta));
-			EmitSignal(SignalName.StaminaChanged, CurrentStamina, MaxStamina);
+			_staminaAccumulator += StaminaRegenPerSecond * (float)delta;
+			int wholeUnits = (int)_staminaAccumulator;
+			if (wholeUnits > 0)
+			{
+				_staminaAccumulator -= wholeUnits;
+				CurrentStamina = Mathf.Min(MaxStamina, CurrentStamina + wholeUnits);
+				EmitSignal(SignalName.StaminaChanged, CurrentStamina, MaxStamina);
+			}
 		}
 	}
 

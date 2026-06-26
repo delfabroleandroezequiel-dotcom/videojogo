@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://scripts/player/Hitbox.cs" id="2_hitbox"]
 [ext_resource type="Script" path="res://scripts/shared/Stats.cs" id="3_stats"]
 [ext_resource type="Script" path="res://scripts/player/PlayerAbilities.cs" id="4_abilities"]
+[ext_resource type="PackedScene" path="res://scenes/ui/StatBar.tscn" id="5_statbar"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
 size = Vector2(32, 64)
@@ -46,3 +47,10 @@ MaxStamina = 100
 script = ExtResource("4_abilities")
 StartWithDoubleJump = true
 StartWithDash = true
+
+[node name="HealthBar" parent="." instance=ExtResource("5_statbar")]
+position = Vector2(0, 40)
+
+[node name="StaminaBar" parent="." instance=ExtResource("5_statbar")]
+position = Vector2(0, 46)
+FillColor = Color(0.2, 0.6, 1, 1)
