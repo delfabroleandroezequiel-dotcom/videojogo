@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1_player"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemy.tscn" id="2_enemy"]
+[ext_resource type="PackedScene" path="res://scenes/world/AbilityPickup.tscn" id="3_pickup"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(800, 32)
@@ -23,3 +24,11 @@ position = Vector2(400, 300)
 
 [node name="Enemy" parent="." instance=ExtResource("2_enemy")]
 position = Vector2(550, 368)
+
+[node name="DashPickup" parent="." instance=ExtResource("3_pickup")]
+position = Vector2(200, 368)
+AbilityId = "dash"
+
+[node name="DoubleJumpPickup" parent="." instance=ExtResource("3_pickup")]
+position = Vector2(650, 368)
+AbilityId = "double_jump"
