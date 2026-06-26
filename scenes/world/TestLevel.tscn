@@ -1,34 +1,69 @@
 [gd_scene format=3 uid="uid://dq8x2k4nap1r5"]
 
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1_player"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemy.tscn" id="2_enemy"]
+[ext_resource type="PackedScene" path="res://scenes/world/MeleeEnemy.tscn" id="2_melee"]
 [ext_resource type="PackedScene" path="res://scenes/world/AbilityPickup.tscn" id="3_pickup"]
+[ext_resource type="PackedScene" path="res://scenes/world/Door.tscn" id="4_door"]
+[ext_resource type="PackedScene" path="res://scenes/world/RangedEnemy.tscn" id="5_ranged"]
+[ext_resource type="PackedScene" path="res://scenes/world/Boss.tscn" id="6_boss"]
+[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="7_bootstrap"]
+[ext_resource type="PackedScene" path="res://scenes/world/SavePoint.tscn" id="8_savepoint"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
-size = Vector2(800, 32)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor_a"]
+size = Vector2(1350, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor_b"]
+size = Vector2(460, 32)
 
 [node name="TestLevel" type="Node2D"]
+script = ExtResource("7_bootstrap")
+ScenePath = "res://scenes/world/TestLevel.tscn"
 
-[node name="Floor" type="StaticBody2D" parent="."]
-position = Vector2(400, 400)
+[node name="FloorA" type="StaticBody2D" parent="."]
+position = Vector2(675, 400)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-shape = SubResource("RectangleShape2D_floor")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorA"]
+shape = SubResource("RectangleShape2D_floor_a")
 
-[node name="Visual" type="Polygon2D" parent="Floor"]
+[node name="Visual" type="Polygon2D" parent="FloorA"]
 color = Color(0.35, 0.25, 0.2, 1)
-polygon = PackedVector2Array(-400, -16, 400, -16, 400, 16, -400, 16)
+polygon = PackedVector2Array(-675, -16, 675, -16, 675, 16, -675, 16)
+
+[node name="FloorB" type="StaticBody2D" parent="."]
+position = Vector2(1650, 400)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorB"]
+shape = SubResource("RectangleShape2D_floor_b")
+
+[node name="Visual" type="Polygon2D" parent="FloorB"]
+color = Color(0.35, 0.25, 0.2, 1)
+polygon = PackedVector2Array(-230, -16, 230, -16, 230, 16, -230, 16)
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
-position = Vector2(400, 300)
+position = Vector2(100, 300)
 
-[node name="Enemy" parent="." instance=ExtResource("2_enemy")]
-position = Vector2(550, 368)
-
-[node name="DashPickup" parent="." instance=ExtResource("3_pickup")]
-position = Vector2(200, 368)
-AbilityId = "dash"
+[node name="RangedEnemy" parent="." instance=ExtResource("5_ranged")]
+position = Vector2(350, 340)
 
 [node name="DoubleJumpPickup" parent="." instance=ExtResource("3_pickup")]
-position = Vector2(650, 368)
+position = Vector2(550, 368)
 AbilityId = "double_jump"
+
+[node name="Door1" parent="." instance=ExtResource("4_door")]
+position = Vector2(700, 284)
+
+[node name="MeleeEnemy" parent="." instance=ExtResource("2_melee")]
+position = Vector2(900, 300)
+
+[node name="DashPickup" parent="." instance=ExtResource("3_pickup")]
+position = Vector2(1100, 368)
+AbilityId = "dash"
+
+[node name="Door2" parent="." instance=ExtResource("4_door")]
+position = Vector2(1250, 284)
+
+[node name="Boss" parent="." instance=ExtResource("6_boss")]
+position = Vector2(1750, 320)
+
+[node name="SavePoint" parent="." instance=ExtResource("8_savepoint")]
+position = Vector2(1870, 368)

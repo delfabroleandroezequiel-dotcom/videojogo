@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://q8r4n2m6p9w3x"]
+
+[ext_resource type="Script" path="res://scripts/world/SavePoint.cs" id="1_script"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_detect"]
+radius = 24.0
+
+[node name="SavePoint" type="Area2D"]
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_detect")
+
+[node name="UnlitVisual" type="Node2D" parent="."]
+
+[node name="Crystal" type="Polygon2D" parent="UnlitVisual"]
+color = Color(0.3, 0.3, 0.32, 1)
+polygon = PackedVector2Array(0, -28, 10, -8, 6, 16, -6, 16, -10, -8)
+
+[node name="LitVisual" type="Node2D" parent="."]
+visible = false
+
+[node name="Glow" type="Polygon2D" parent="LitVisual"]
+color = Color(0.2, 0.9, 0.8, 0.35)
+polygon = PackedVector2Array(-20, -28, 20, -28, 20, 16, -20, 16)
+
+[node name="Crystal" type="Polygon2D" parent="LitVisual"]
+color = Color(0.25, 0.95, 0.85, 1)
+polygon = PackedVector2Array(0, -28, 10, -8, 6, 16, -6, 16, -10, -8)

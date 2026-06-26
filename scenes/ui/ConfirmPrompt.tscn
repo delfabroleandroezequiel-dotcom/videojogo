@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://r6n3p8q1m5w7y"]
+
+[ext_resource type="Script" path="res://scripts/ui/ConfirmPrompt.cs" id="1_script"]
+
+[node name="ConfirmPrompt" type="CanvasLayer"]
+script = ExtResource("1_script")
+
+[node name="Panel" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Background" type="ColorRect" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = -50.0
+offset_right = 110.0
+offset_bottom = 50.0
+theme_override_constants/separation = 8
+
+[node name="Question" type="Label" parent="Panel/VBox"]
+horizontal_alignment = 1
+text = "¿Desea continuar?"
+
+[node name="YesButton" type="Button" parent="Panel/VBox"]
+custom_minimum_size = Vector2(220, 32)
+text = "Sí"
+
+[node name="NoButton" type="Button" parent="Panel/VBox"]
+custom_minimum_size = Vector2(220, 32)
+text = "No"

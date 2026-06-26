@@ -30,4 +30,6 @@ public partial class PlayerAbilities : Node
 	}
 
 	public bool Has(string abilityId) => _unlocked.Contains(abilityId);
+
+	public IReadOnlyCollection<string> GetUnlocked() => _unlocked;
 }

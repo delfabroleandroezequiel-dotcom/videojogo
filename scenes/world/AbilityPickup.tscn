@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://f8m3n6q2p4w7y"]
+[gd_scene format=3 uid="uid://cd7724ts5w2g7"]
 
 [ext_resource type="Script" path="res://scripts/world/AbilityPickup.cs" id="1_script"]
 

@@ -1,0 +1,96 @@
+[gd_scene format=3 uid="uid://p7q2n5m9r3w6x"]
+
+[ext_resource type="Script" path="res://scripts/ui/MainMenu.cs" id="1_script"]
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.1, 0.1, 0.15, 1)
+
+[node name="Title" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.12
+anchor_right = 0.5
+anchor_bottom = 0.12
+offset_left = -200.0
+offset_top = -30.0
+offset_right = 200.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+text = "METROIDVANIA"
+
+[node name="TopMenu" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -40.0
+offset_right = 90.0
+offset_bottom = 40.0
+theme_override_constants/separation = 8
+
+[node name="ContinueButton" type="Button" parent="TopMenu"]
+custom_minimum_size = Vector2(180, 36)
+text = "Continuar"
+
+[node name="NewGameButton" type="Button" parent="TopMenu"]
+custom_minimum_size = Vector2(180, 36)
+text = "Nueva Partida"
+
+[node name="SlotMenu" type="VBoxContainer" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.2
+anchor_right = 0.5
+anchor_bottom = 0.2
+offset_left = -160.0
+offset_top = 0.0
+offset_right = 160.0
+offset_bottom = 360.0
+theme_override_constants/separation = 6
+
+[node name="SlotMenuTitle" type="Label" parent="SlotMenu"]
+horizontal_alignment = 1
+text = "Elegí una partida vacía"
+
+[node name="SlotsContainer" type="VBoxContainer" parent="SlotMenu"]
+theme_override_constants/separation = 6
+
+[node name="BackButton" type="Button" parent="SlotMenu"]
+custom_minimum_size = Vector2(120, 32)
+text = "Volver"
+
+[node name="NamePrompt" type="VBoxContainer" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = -70.0
+offset_right = 110.0
+offset_bottom = 70.0
+theme_override_constants/separation = 8
+
+[node name="NameLabel" type="Label" parent="NamePrompt"]
+horizontal_alignment = 1
+text = "Nombre del personaje:"
+
+[node name="NameEdit" type="LineEdit" parent="NamePrompt"]
+custom_minimum_size = Vector2(220, 32)
+placeholder_text = "Ej: Aria"
+
+[node name="ConfirmButton" type="Button" parent="NamePrompt"]
+custom_minimum_size = Vector2(220, 32)
+text = "Comenzar"
+
+[node name="CancelButton" type="Button" parent="NamePrompt"]
+custom_minimum_size = Vector2(220, 32)
+text = "Cancelar"

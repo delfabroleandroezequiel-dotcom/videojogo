@@ -1,4 +1,5 @@
 using Godot;
+using Metroidvania.Save;
 using Metroidvania.Shared;
 using Metroidvania.UI;
 
@@ -22,6 +23,8 @@ public partial class Player : CharacterBody2D
 	[Export] public float WeaponRestAngle = -20f;
 	[Export] public float WeaponSwingStartAngle = -70f;
 	[Export] public float WeaponSwingEndAngle = 60f;
+	[Export] public float KnockbackDuration = 0.2f;
+	[Export] public float FallDeathY = 700f;
 
 	private Hitbox _hitbox;
 	private Stats _stats;
@@ -39,6 +42,9 @@ public partial class Player : CharacterBody2D
 	private bool _canDash = true;
 	private bool _crouching;
 	private float _dashDirection;
+	private float _knockbackTimer;
+	private Vector2 _knockbackVelocity;
+	private bool _isDead;
 
 	public override void _Ready()
 	{
@@ -59,9 +65,34 @@ public partial class Player : CharacterBody2D
 		_stats.StaminaChanged += (current, max) => staminaBar.SetRatio((float)current / max);
 	}
 
+	public void ApplyKnockback(Vector2 direction, float force)
+	{
+		_knockbackVelocity = direction * force;
+		_knockbackTimer = KnockbackDuration;
+	}
+
 	public override void _PhysicsProcess(double delta)
 	{
+		if (_isDead)
+			return;
+
+		if (GlobalPosition.Y > FallDeathY)
+		{
+			_stats.Kill();
+			return;
+		}
+
 		Vector2 velocity = Velocity;
+
+		if (_knockbackTimer > 0)
+		{
+			_knockbackTimer -= (float)delta;
+			velocity.X = _knockbackVelocity.X;
+			velocity.Y = IsOnFloor() ? 0 : velocity.Y + Gravity * (float)delta;
+			Velocity = velocity;
+			MoveAndSlide();
+			return;
+		}
 
 		if (_isDashing)
 		{
@@ -169,6 +200,8 @@ public partial class Player : CharacterBody2D
 
 	private void OnDied()
 	{
-		QueueFree();
+		_isDead = true;
+		if (GetTree().CurrentScene is LevelBootstrap level)
+			level.RespawnPlayer();
 	}
 }

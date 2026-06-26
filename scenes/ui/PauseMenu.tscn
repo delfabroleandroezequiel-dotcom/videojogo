@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://ckjnxvvg3gbtp"]
+
+[ext_resource type="Script" path="res://scripts/ui/PauseMenu.cs" id="1_script"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+script = ExtResource("1_script")
+
+[node name="Panel" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Background" type="ColorRect" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.6)
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -80.0
+offset_right = 80.0
+offset_bottom = 80.0
+
+[node name="Label" type="Label" parent="Panel/VBox"]
+theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
+text = "PAUSA"
+
+[node name="ResumeButton" type="Button" parent="Panel/VBox"]
+custom_minimum_size = Vector2(160, 36)
+text = "Continuar"
+
+[node name="MainMenuButton" type="Button" parent="Panel/VBox"]
+custom_minimum_size = Vector2(160, 36)
+text = "Menú Principal"

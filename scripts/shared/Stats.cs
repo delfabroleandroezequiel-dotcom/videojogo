@@ -50,6 +50,16 @@ public partial class Stats : Node
 			EmitSignal(SignalName.Died);
 	}
 
+	public void Kill()
+	{
+		if (CurrentHealth <= 0)
+			return;
+
+		CurrentHealth = 0;
+		EmitSignal(SignalName.HealthChanged, CurrentHealth, MaxHealth);
+		EmitSignal(SignalName.Died);
+	}
+
 	public bool TrySpendStamina(int amount)
 	{
 		if (CurrentStamina < amount)

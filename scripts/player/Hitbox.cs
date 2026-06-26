@@ -5,6 +5,8 @@ namespace Metroidvania.Player;
 
 public partial class Hitbox : Area2D
 {
+	[Export] public float KnockbackForce = 250f;
+
 	private CollisionShape2D _shape;
 	private Stats _attackerStats;
 
@@ -29,5 +31,12 @@ public partial class Hitbox : Area2D
 			return;
 
 		targetStats.TakeDamage(_attackerStats.AttackPower);
+
+		if (body.HasMethod("ApplyKnockback"))
+		{
+			Vector2 knockDirection = (body.GlobalPosition - GlobalPosition);
+			knockDirection = knockDirection == Vector2.Zero ? Vector2.Right : knockDirection.Normalized();
+			body.Call("ApplyKnockback", knockDirection, KnockbackForce);
+		}
 	}
 }

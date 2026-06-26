@@ -1,62 +1,46 @@
-[gd_scene format=3 uid="uid://b3xqj8m0p7v2k"]
+[gd_scene format=3 uid="uid://cexihxsolu6jg"]
 
-[ext_resource type="Script" path="res://scripts/player/Player.cs" id="1_script"]
+[ext_resource type="Script" path="res://scripts/world/MeleeEnemy.cs" id="1_script"]
 [ext_resource type="Script" path="res://scripts/player/Hitbox.cs" id="2_hitbox"]
 [ext_resource type="Script" path="res://scripts/shared/Stats.cs" id="3_stats"]
-[ext_resource type="Script" path="res://scripts/player/PlayerAbilities.cs" id="4_abilities"]
-[ext_resource type="PackedScene" path="res://scenes/ui/StatBar.tscn" id="5_statbar"]
+[ext_resource type="PackedScene" path="res://scenes/ui/StatBar.tscn" id="4_statbar"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
-size = Vector2(32, 64)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_visual"]
 size = Vector2(32, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
 size = Vector2(24, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_crouch"]
-size = Vector2(32, 32)
-
-[node name="Player" type="CharacterBody2D" groups=["player"]]
+[node name="MeleeEnemy" type="CharacterBody2D"]
 script = ExtResource("1_script")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_collision")
 
-[node name="CrouchCollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 16)
-shape = SubResource("RectangleShape2D_crouch")
-disabled = true
-
 [node name="Visual" type="Node2D" parent="."]
 
 [node name="Head" type="Polygon2D" parent="Visual"]
-color = Color(0.85, 0.7, 0.55, 1)
+color = Color(0.7, 0.35, 0.3, 1)
 polygon = PackedVector2Array(-8, -32, 8, -32, 8, -16, -8, -16)
 
-[node name="Nose" type="Polygon2D" parent="Visual/Head"]
-color = Color(0.65, 0.5, 0.35, 1)
-polygon = PackedVector2Array(8, -26, 14, -24, 8, -22)
-
 [node name="Torso" type="Polygon2D" parent="Visual"]
-color = Color(0.2, 0.6, 1, 1)
+color = Color(0.6, 0.15, 0.15, 1)
 polygon = PackedVector2Array(-10, -16, 10, -16, 10, 8, -10, 8)
 
 [node name="ArmLeft" type="Polygon2D" parent="Visual"]
-color = Color(0.15, 0.45, 0.8, 1)
+color = Color(0.45, 0.1, 0.1, 1)
 polygon = PackedVector2Array(-14, -14, -10, -14, -10, 4, -14, 4)
 
 [node name="ArmRight" type="Polygon2D" parent="Visual"]
-color = Color(0.15, 0.45, 0.8, 1)
+color = Color(0.45, 0.1, 0.1, 1)
 polygon = PackedVector2Array(10, -14, 14, -14, 14, 4, 10, 4)
 
 [node name="LegLeft" type="Polygon2D" parent="Visual"]
-color = Color(0.15, 0.2, 0.35, 1)
+color = Color(0.3, 0.05, 0.05, 1)
 polygon = PackedVector2Array(-9, 8, -1, 8, -1, 32, -9, 32)
 
 [node name="LegRight" type="Polygon2D" parent="Visual"]
-color = Color(0.15, 0.2, 0.35, 1)
+color = Color(0.3, 0.05, 0.05, 1)
 polygon = PackedVector2Array(1, 8, 9, 8, 9, 32, 1, 32)
 
 [node name="WeaponPivot" type="Node2D" parent="Visual"]
@@ -71,9 +55,6 @@ polygon = PackedVector2Array(-4, -3, 0, -3, 0, 3, -4, 3)
 color = Color(0.75, 0.78, 0.8, 1)
 polygon = PackedVector2Array(0, -2, 26, -3, 30, 0, 26, 3, 0, 2)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position_smoothing_enabled = true
-
 [node name="AttackHitbox" type="Area2D" parent="."]
 position = Vector2(24, 0)
 script = ExtResource("2_hitbox")
@@ -84,19 +65,14 @@ disabled = true
 
 [node name="Stats" type="Node" parent="."]
 script = ExtResource("3_stats")
-MaxHealth = 100
-AttackPower = 15
-Defense = 5
-MaxStamina = 100
+MaxHealth = 40
+AttackPower = 8
+Defense = 0
+MaxStamina = 50
 
-[node name="Abilities" type="Node" parent="."]
-script = ExtResource("4_abilities")
-StartWithDoubleJump = false
-StartWithDash = false
-
-[node name="HealthBar" parent="." instance=ExtResource("5_statbar")]
+[node name="HealthBar" parent="." instance=ExtResource("4_statbar")]
 position = Vector2(0, 40)
 
-[node name="StaminaBar" parent="." instance=ExtResource("5_statbar")]
+[node name="StaminaBar" parent="." instance=ExtResource("4_statbar")]
 position = Vector2(0, 46)
 FillColor = Color(0.2, 0.6, 1, 1)
