@@ -1,12 +1,18 @@
 [gd_scene format=3 uid="uid://b3xqj8m0p7v2k"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.cs" id="1_script"]
+[ext_resource type="Script" path="res://scripts/player/Hitbox.cs" id="2_hitbox"]
+[ext_resource type="Script" path="res://scripts/shared/Stats.cs" id="3_stats"]
+[ext_resource type="Script" path="res://scripts/player/PlayerAbilities.cs" id="4_abilities"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
 size = Vector2(32, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_visual"]
 size = Vector2(32, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(24, 32)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_script")
@@ -20,3 +26,23 @@ polygon = PackedVector2Array(-16, -32, 16, -32, 16, 32, -16, 32)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true
+
+[node name="AttackHitbox" type="Area2D" parent="."]
+position = Vector2(24, 0)
+script = ExtResource("2_hitbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+shape = SubResource("RectangleShape2D_hitbox")
+disabled = true
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("3_stats")
+MaxHealth = 100
+AttackPower = 15
+Defense = 5
+MaxStamina = 100
+
+[node name="Abilities" type="Node" parent="."]
+script = ExtResource("4_abilities")
+StartWithDoubleJump = true
+StartWithDash = true
