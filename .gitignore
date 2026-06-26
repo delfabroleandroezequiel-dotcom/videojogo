@@ -1,0 +1,17 @@
+# Godot 4+ specific ignores
+.godot/
+.mono/
+data_*/
+
+# Mono-specific ignores
+.mono/
+data_*/
+
+# .NET / C#
+*.csproj.user
+bin/
+obj/
+.vs/
+
+# Test artifact
+test.txt
