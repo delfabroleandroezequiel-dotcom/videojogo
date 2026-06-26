@@ -15,15 +15,29 @@ public partial class Player : CharacterBody2D
 	[Export] public float DashDuration = 0.2f;
 	[Export] public float DashCooldown = 0.5f;
 	[Export] public int DashStaminaCost = 20;
+	[Export] public float CrouchSpeedMultiplier = 0.5f;
+	[Export] public float LookUpOffset = -80f;
+	[Export] public float LookSmoothSpeed = 4f;
+	[Export] public float HeadLookUpAngle = -25f;
+	[Export] public float WeaponRestAngle = -20f;
+	[Export] public float WeaponSwingStartAngle = -70f;
+	[Export] public float WeaponSwingEndAngle = 60f;
 
 	private Hitbox _hitbox;
 	private Stats _stats;
 	private PlayerAbilities _abilities;
+	private Node2D _visual;
+	private Node2D _head;
+	private Node2D _weaponPivot;
+	private CollisionShape2D _standCollision;
+	private CollisionShape2D _crouchCollision;
+	private Camera2D _camera;
 	private bool _facingRight = true;
 	private bool _attacking;
 	private int _jumpCount;
 	private bool _isDashing;
 	private bool _canDash = true;
+	private bool _crouching;
 	private float _dashDirection;
 
 	public override void _Ready()
@@ -31,6 +45,12 @@ public partial class Player : CharacterBody2D
 		_hitbox = GetNode<Hitbox>("AttackHitbox");
 		_stats = GetNode<Stats>("Stats");
 		_abilities = GetNode<PlayerAbilities>("Abilities");
+		_visual = GetNode<Node2D>("Visual");
+		_head = GetNode<Node2D>("Visual/Head");
+		_weaponPivot = GetNode<Node2D>("Visual/WeaponPivot");
+		_standCollision = GetNode<CollisionShape2D>("CollisionShape2D");
+		_crouchCollision = GetNode<CollisionShape2D>("CrouchCollisionShape2D");
+		_camera = GetNode<Camera2D>("Camera2D");
 		_stats.Died += OnDied;
 
 		StatBar healthBar = GetNode<StatBar>("HealthBar");
@@ -64,11 +84,19 @@ public partial class Player : CharacterBody2D
 			_jumpCount++;
 		}
 
+		UpdateCrouch();
+
+		float speed = _crouching ? Speed * CrouchSpeedMultiplier : Speed;
 		float direction = Input.GetAxis("move_left", "move_right");
-		velocity.X = direction != 0 ? direction * Speed : Mathf.MoveToward(velocity.X, 0, Speed);
+		velocity.X = direction != 0 ? direction * speed : Mathf.MoveToward(velocity.X, 0, speed);
 
 		if (direction != 0)
 			_facingRight = direction > 0;
+
+		_visual.Scale = new Vector2(_facingRight ? 1 : -1, _crouching ? 0.7f : 1f);
+		_visual.Position = new Vector2(0, _crouching ? 13 : 0);
+
+		UpdateLookUp(delta);
 
 		if (Input.IsActionJustPressed("dash") && _abilities.Has(PlayerAbilities.Dash) && _canDash)
 			StartDash();
@@ -78,6 +106,28 @@ public partial class Player : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+	}
+
+	private void UpdateCrouch()
+	{
+		bool wantsCrouch = Input.IsActionPressed("ui_down") && IsOnFloor();
+		if (wantsCrouch == _crouching)
+			return;
+
+		_crouching = wantsCrouch;
+		_standCollision.Disabled = _crouching;
+		_crouchCollision.Disabled = !_crouching;
+	}
+
+	private void UpdateLookUp(double delta)
+	{
+		bool lookingUp = Input.IsActionPressed("ui_up");
+
+		Vector2 targetOffset = lookingUp ? new Vector2(0, LookUpOffset) : Vector2.Zero;
+		_camera.Offset = _camera.Offset.Lerp(targetOffset, (float)delta * LookSmoothSpeed);
+
+		float targetHeadAngle = lookingUp ? HeadLookUpAngle : 0f;
+		_head.RotationDegrees = Mathf.Lerp(_head.RotationDegrees, targetHeadAngle, (float)delta * LookSmoothSpeed);
 	}
 
 	private async void StartDash()
@@ -104,9 +154,17 @@ public partial class Player : CharacterBody2D
 		_attacking = true;
 		_hitbox.Position = new Vector2(_facingRight ? 24 : -24, 0);
 		_hitbox.Activate(_stats);
+
+		_weaponPivot.RotationDegrees = WeaponSwingStartAngle;
+		Tween swingTween = GetTree().CreateTween();
+		swingTween.TweenProperty(_weaponPivot, "rotation_degrees", WeaponSwingEndAngle, AttackDuration);
+
 		await ToSignal(GetTree().CreateTimer(AttackDuration), SceneTreeTimer.SignalName.Timeout);
 		_hitbox.Deactivate();
 		_attacking = false;
+
+		Tween returnTween = GetTree().CreateTween();
+		returnTween.TweenProperty(_weaponPivot, "rotation_degrees", WeaponRestAngle, 0.1f);
 	}
 
 	private void OnDied()

@@ -13,9 +13,27 @@ script = ExtResource("1_script")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_collision")
 
-[node name="Visual" type="Polygon2D" parent="."]
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Body" type="Polygon2D" parent="Visual"]
 color = Color(0.8, 0.2, 0.2, 1)
-polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+polygon = PackedVector2Array(0, -16, 14, -4, 10, 16, -10, 16, -14, -4)
+
+[node name="EyeLeft" type="Polygon2D" parent="Visual"]
+color = Color(1, 1, 1, 1)
+polygon = PackedVector2Array(-8, -6, -2, -6, -2, 0, -8, 0)
+
+[node name="EyeRight" type="Polygon2D" parent="Visual"]
+color = Color(1, 1, 1, 1)
+polygon = PackedVector2Array(2, -6, 8, -6, 8, 0, 2, 0)
+
+[node name="PupilLeft" type="Polygon2D" parent="Visual"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-6, -5, -3, -5, -3, -1, -6, -1)
+
+[node name="PupilRight" type="Polygon2D" parent="Visual"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(4, -5, 7, -5, 7, -1, 4, -1)
 
 [node name="Stats" type="Node" parent="."]
 script = ExtResource("2_stats")

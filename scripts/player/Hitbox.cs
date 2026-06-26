@@ -25,6 +25,9 @@ public partial class Hitbox : Area2D
 	private void OnBodyEntered(Node2D body)
 	{
 		Stats targetStats = body.GetNodeOrNull<Stats>("Stats");
-		targetStats?.TakeDamage(_attackerStats.AttackPower);
+		if (targetStats is null || targetStats == _attackerStats)
+			return;
+
+		targetStats.TakeDamage(_attackerStats.AttackPower);
 	}
 }
