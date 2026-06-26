@@ -25,6 +25,12 @@ public partial class Player : CharacterBody2D
 	[Export] public float WeaponSwingEndAngle = 60f;
 	[Export] public float KnockbackDuration = 0.2f;
 	[Export] public float FallDeathY = 700f;
+	[Export] public float SprintSpeedMultiplier = 1.6f;
+	[Export] public float WalkSwingAmplitudeDeg = 18f;
+	[Export] public float RunSwingAmplitudeDeg = 30f;
+	[Export] public float WalkCycleSpeed = 8f;
+	[Export] public float JumpLegAngleDeg = -15f;
+	[Export] public float JumpArmAngleDeg = 20f;
 
 	private Hitbox _hitbox;
 	private Stats _stats;
@@ -32,6 +38,11 @@ public partial class Player : CharacterBody2D
 	private Node2D _visual;
 	private Node2D _head;
 	private Node2D _weaponPivot;
+	private Node2D _legLeft;
+	private Node2D _legRight;
+	private Node2D _armLeft;
+	private Node2D _armRight;
+	private float _walkPhase;
 	private CollisionShape2D _standCollision;
 	private CollisionShape2D _crouchCollision;
 	private Camera2D _camera;
@@ -54,6 +65,10 @@ public partial class Player : CharacterBody2D
 		_visual = GetNode<Node2D>("Visual");
 		_head = GetNode<Node2D>("Visual/Head");
 		_weaponPivot = GetNode<Node2D>("Visual/WeaponPivot");
+		_legLeft = GetNode<Node2D>("Visual/LegLeft");
+		_legRight = GetNode<Node2D>("Visual/LegRight");
+		_armLeft = GetNode<Node2D>("Visual/ArmLeft");
+		_armRight = GetNode<Node2D>("Visual/ArmRight");
 		_standCollision = GetNode<CollisionShape2D>("CollisionShape2D");
 		_crouchCollision = GetNode<CollisionShape2D>("CrouchCollisionShape2D");
 		_camera = GetNode<Camera2D>("Camera2D");
@@ -91,6 +106,7 @@ public partial class Player : CharacterBody2D
 			velocity.Y = IsOnFloor() ? 0 : velocity.Y + Gravity * (float)delta;
 			Velocity = velocity;
 			MoveAndSlide();
+			UpdateAnimation(delta, false);
 			return;
 		}
 
@@ -100,6 +116,7 @@ public partial class Player : CharacterBody2D
 			velocity.Y = 0;
 			Velocity = velocity;
 			MoveAndSlide();
+			UpdateAnimation(delta, false);
 			return;
 		}
 
@@ -117,8 +134,10 @@ public partial class Player : CharacterBody2D
 
 		UpdateCrouch();
 
-		float speed = _crouching ? Speed * CrouchSpeedMultiplier : Speed;
 		float direction = Input.GetAxis("move_left", "move_right");
+		bool sprinting = _abilities.Has(PlayerAbilities.Sprint) && Input.IsActionPressed("sprint")
+			&& !_crouching && direction != 0;
+		float speed = _crouching ? Speed * CrouchSpeedMultiplier : sprinting ? Speed * SprintSpeedMultiplier : Speed;
 		velocity.X = direction != 0 ? direction * speed : Mathf.MoveToward(velocity.X, 0, speed);
 
 		if (direction != 0)
@@ -137,6 +156,50 @@ public partial class Player : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+		UpdateAnimation(delta, sprinting, velocity.X);
+	}
+
+	private void UpdateAnimation(double delta, bool sprinting, float velocityX = 0f)
+	{
+		if (_isDashing)
+		{
+			_legLeft.RotationDegrees = -10f;
+			_legRight.RotationDegrees = -14f;
+			_armLeft.RotationDegrees = -30f;
+			_armRight.RotationDegrees = -30f;
+			return;
+		}
+
+		if (!IsOnFloor())
+		{
+			_legLeft.RotationDegrees = JumpLegAngleDeg;
+			_legRight.RotationDegrees = JumpLegAngleDeg * 0.6f;
+			_armLeft.RotationDegrees = -JumpArmAngleDeg;
+			_armRight.RotationDegrees = JumpArmAngleDeg;
+			return;
+		}
+
+		float speedRatio = Mathf.Abs(velocityX) / Speed;
+		if (speedRatio < 0.05f)
+		{
+			float t = (float)delta * 10f;
+			_legLeft.RotationDegrees = Mathf.Lerp(_legLeft.RotationDegrees, 0f, t);
+			_legRight.RotationDegrees = Mathf.Lerp(_legRight.RotationDegrees, 0f, t);
+			_armLeft.RotationDegrees = Mathf.Lerp(_armLeft.RotationDegrees, 0f, t);
+			_armRight.RotationDegrees = Mathf.Lerp(_armRight.RotationDegrees, 0f, t);
+			_walkPhase = 0f;
+			return;
+		}
+
+		float amplitude = sprinting ? RunSwingAmplitudeDeg : WalkSwingAmplitudeDeg;
+		float cycleSpeed = WalkCycleSpeed * (sprinting ? 1.6f : 1f) * Mathf.Max(speedRatio, 0.3f);
+		_walkPhase += cycleSpeed * (float)delta;
+
+		float swing = Mathf.Sin(_walkPhase) * amplitude;
+		_legLeft.RotationDegrees = swing;
+		_legRight.RotationDegrees = -swing;
+		_armLeft.RotationDegrees = -swing * 0.7f;
+		_armRight.RotationDegrees = swing * 0.7f;
 	}
 
 	private void UpdateCrouch()

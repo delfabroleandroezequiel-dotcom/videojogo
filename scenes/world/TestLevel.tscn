@@ -42,6 +42,10 @@ polygon = PackedVector2Array(-230, -16, 230, -16, 230, 16, -230, 16)
 [node name="Player" parent="." instance=ExtResource("1_player")]
 position = Vector2(100, 300)
 
+[node name="SprintPickup" parent="." instance=ExtResource("3_pickup")]
+position = Vector2(200, 368)
+AbilityId = "sprint"
+
 [node name="RangedEnemy" parent="." instance=ExtResource("5_ranged")]
 position = Vector2(350, 340)
 
