@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://dialogue_box_main"]
+
+[ext_resource type="Script" path="res://scripts/ui/DialogueBox.cs" id="1_script"]
+
+[node name="DialogueBox" type="CanvasLayer"]
+script = ExtResource("1_script")
+
+[node name="Panel" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Background" type="ColorRect" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -150.0
+offset_right = 320.0
+offset_bottom = -30.0
+color = Color(0, 0, 0, 0.75)
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -140.0
+offset_right = 300.0
+offset_bottom = -40.0
+theme_override_constants/separation = 6
+
+[node name="Name" type="Label" parent="Panel/VBox"]
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+text = "NPC"
+
+[node name="Text" type="Label" parent="Panel/VBox"]
+autowrap_mode = 3
+text = "..."
+
+[node name="ContinueHint" type="Label" parent="Panel/VBox"]
+horizontal_alignment = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "[E] continuar"

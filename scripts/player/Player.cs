@@ -2,6 +2,7 @@ using Godot;
 using Metroidvania.Save;
 using Metroidvania.Shared;
 using Metroidvania.UI;
+using Metroidvania.World;
 
 namespace Metroidvania.Player;
 
@@ -31,6 +32,9 @@ public partial class Player : CharacterBody2D
 	[Export] public float WalkCycleSpeed = 8f;
 	[Export] public float JumpLegAngleDeg = -15f;
 	[Export] public float JumpArmAngleDeg = 20f;
+	[Export] public float ClimbSpeed = 130f;
+	[Export] public float ClimbHorizontalSpeedMultiplier = 0.6f;
+	[Export] public float LadderJumpLockoutDuration = 0.25f;
 
 	private Hitbox _hitbox;
 	private Stats _stats;
@@ -46,9 +50,11 @@ public partial class Player : CharacterBody2D
 	private CollisionShape2D _standCollision;
 	private CollisionShape2D _crouchCollision;
 	private Camera2D _camera;
+	private AnimatedSprite2D _sprite;
 	private bool _facingRight = true;
 	private bool _attacking;
 	private int _jumpCount;
+	private bool _isDoubleJumping;
 	private bool _isDashing;
 	private bool _canDash = true;
 	private bool _crouching;
@@ -56,6 +62,9 @@ public partial class Player : CharacterBody2D
 	private float _knockbackTimer;
 	private Vector2 _knockbackVelocity;
 	private bool _isDead;
+	private Ladder _ladder;
+	private bool _isClimbing;
+	private float _ladderGrabLockout;
 
 	public override void _Ready()
 	{
@@ -72,18 +81,42 @@ public partial class Player : CharacterBody2D
 		_standCollision = GetNode<CollisionShape2D>("CollisionShape2D");
 		_crouchCollision = GetNode<CollisionShape2D>("CrouchCollisionShape2D");
 		_camera = GetNode<Camera2D>("Camera2D");
+		_sprite = GetNode<AnimatedSprite2D>("Visual/CharacterSprite");
 		_stats.Died += OnDied;
 
-		StatBar healthBar = GetNode<StatBar>("HealthBar");
-		StatBar staminaBar = GetNode<StatBar>("StaminaBar");
+		HudBar healthBar = GetNode<HudBar>("HUD/VBox/HealthBar");
+		HudBar staminaBar = GetNode<HudBar>("HUD/VBox/StaminaBar");
 		_stats.HealthChanged += (current, max) => healthBar.SetRatio((float)current / max);
 		_stats.StaminaChanged += (current, max) => staminaBar.SetRatio((float)current / max);
+		_stats.HitTaken += () => FlashHit(_visual, new Color(1f, 0.2f, 0.2f));
+		_hitbox.HitDealt += () => FlashHit(_visual, new Color(1f, 1f, 0.2f));
+	}
+
+	private void FlashHit(Node2D visual, Color flashColor)
+	{
+		var tween = CreateTween();
+		visual.Modulate = flashColor * 2f;
+		tween.TweenProperty(visual, "modulate", Colors.White, 0.25f);
 	}
 
 	public void ApplyKnockback(Vector2 direction, float force)
 	{
 		_knockbackVelocity = direction * force;
 		_knockbackTimer = KnockbackDuration;
+	}
+
+	public void EnterLadder(Ladder ladder)
+	{
+		_ladder = ladder;
+	}
+
+	public void ExitLadder(Ladder ladder)
+	{
+		if (_ladder != ladder)
+			return;
+
+		_ladder = null;
+		_isClimbing = false;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -120,16 +153,64 @@ public partial class Player : CharacterBody2D
 			return;
 		}
 
+		if (_ladderGrabLockout > 0f)
+			_ladderGrabLockout -= (float)delta;
+
+		if (_ladder != null)
+		{
+			if (!_isClimbing && _ladderGrabLockout <= 0f
+				&& (Input.IsActionPressed("ui_up") || Input.IsActionPressed("ui_down")))
+			{
+				_isClimbing = true;
+				GlobalPosition = new Vector2(_ladder.GlobalPosition.X, GlobalPosition.Y);
+			}
+		}
+		else
+		{
+			_isClimbing = false;
+		}
+
+		if (_isClimbing)
+		{
+			float climbInput = (Input.IsActionPressed("ui_down") ? 1f : 0f) - (Input.IsActionPressed("ui_up") ? 1f : 0f);
+			velocity.Y = climbInput * ClimbSpeed;
+
+			float climbDirection = Input.GetAxis("move_left", "move_right");
+			velocity.X = climbDirection * Speed * ClimbHorizontalSpeedMultiplier;
+			if (climbDirection != 0)
+				_facingRight = climbDirection > 0;
+
+			_visual.Scale = new Vector2(_facingRight ? 1 : -1, 1f);
+			_visual.Position = Vector2.Zero;
+
+			if (Input.IsActionJustPressed("jump"))
+			{
+				_isClimbing = false;
+				_ladderGrabLockout = LadderJumpLockoutDuration;
+				velocity.Y = JumpVelocity;
+				_jumpCount = 1;
+			}
+
+			Velocity = velocity;
+			MoveAndSlide();
+			UpdateAnimation(delta, false, velocity.X, _isClimbing);
+			return;
+		}
+
 		if (!IsOnFloor())
 			velocity.Y += Gravity * (float)delta;
 		else
+		{
 			_jumpCount = 0;
+			_isDoubleJumping = false;
+		}
 
 		int maxJumps = _abilities.Has(PlayerAbilities.DoubleJump) ? 2 : 1;
 		if (Input.IsActionJustPressed("jump") && (IsOnFloor() || _jumpCount < maxJumps))
 		{
 			velocity.Y = JumpVelocity;
 			_jumpCount++;
+			_isDoubleJumping = _jumpCount >= 2;
 		}
 
 		UpdateCrouch();
@@ -159,19 +240,36 @@ public partial class Player : CharacterBody2D
 		UpdateAnimation(delta, sprinting, velocity.X);
 	}
 
-	private void UpdateAnimation(double delta, bool sprinting, float velocityX = 0f)
+	private void UpdateAnimation(double delta, bool sprinting, float velocityX = 0f, bool isClimbing = false)
 	{
-		if (_isDashing)
+		if (isClimbing)
 		{
+			_sprite.Play("idle");
+			_walkPhase += Mathf.Abs(Velocity.Y) * (float)delta * 0.3f;
+			float climbSwing = Mathf.Sin(_walkPhase) * 15f;
+			_legLeft.RotationDegrees = climbSwing;
+			_legRight.RotationDegrees = -climbSwing;
+			_armLeft.RotationDegrees = -climbSwing;
+			_armRight.RotationDegrees = climbSwing;
+			return;
+		}
+
+		if (_attacking)
+		{
+			_sprite.Play("attack");
+		}
+		else if (_isDashing)
+		{
+			_sprite.Play("run");
 			_legLeft.RotationDegrees = -10f;
 			_legRight.RotationDegrees = -14f;
 			_armLeft.RotationDegrees = -30f;
 			_armRight.RotationDegrees = -30f;
 			return;
 		}
-
-		if (!IsOnFloor())
+		else if (!IsOnFloor())
 		{
+			_sprite.Play(_isDoubleJumping ? "double_jump" : "jump");
 			_legLeft.RotationDegrees = JumpLegAngleDeg;
 			_legRight.RotationDegrees = JumpLegAngleDeg * 0.6f;
 			_armLeft.RotationDegrees = -JumpArmAngleDeg;
@@ -182,6 +280,9 @@ public partial class Player : CharacterBody2D
 		float speedRatio = Mathf.Abs(velocityX) / Speed;
 		if (speedRatio < 0.05f)
 		{
+			if (!_attacking)
+				_sprite.Play("idle");
+
 			float t = (float)delta * 10f;
 			_legLeft.RotationDegrees = Mathf.Lerp(_legLeft.RotationDegrees, 0f, t);
 			_legRight.RotationDegrees = Mathf.Lerp(_legRight.RotationDegrees, 0f, t);
@@ -190,6 +291,9 @@ public partial class Player : CharacterBody2D
 			_walkPhase = 0f;
 			return;
 		}
+
+		if (!_attacking)
+			_sprite.Play("run");
 
 		float amplitude = sprinting ? RunSwingAmplitudeDeg : WalkSwingAmplitudeDeg;
 		float cycleSpeed = WalkCycleSpeed * (sprinting ? 1.6f : 1f) * Mathf.Max(speedRatio, 0.3f);

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Godot;
+using Metroidvania.Save;
 
 namespace Metroidvania.Player;
 
@@ -25,12 +26,18 @@ public partial class PlayerAbilities : Node
 			Unlock(Dash);
 		if (StartWithSprint)
 			Unlock(Sprint);
+
+		foreach (string abilityId in SaveManager.Instance.GetUnlockedAbilities())
+			Unlock(abilityId);
 	}
 
 	public void Unlock(string abilityId)
 	{
 		if (_unlocked.Add(abilityId))
+		{
+			SaveManager.Instance.UnlockAbility(abilityId);
 			EmitSignal(SignalName.AbilityUnlocked, abilityId);
+		}
 	}
 
 	public bool Has(string abilityId) => _unlocked.Contains(abilityId);

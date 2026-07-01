@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" format=3]
+
+[ext_resource type="Script" path="res://scripts/items/Item.cs" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+Id = "item_ring_vitality"
+ItemName = "Anillo de vitalidad"
+Description = "Aumenta tu vida máxima en 20 puntos."
+Type = 1
+HealthBonus = 20

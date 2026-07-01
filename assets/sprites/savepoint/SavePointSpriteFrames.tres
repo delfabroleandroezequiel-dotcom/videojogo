@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/savepoint/lit/frame_000.png" id="1_f0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/savepoint/lit/frame_001.png" id="2_f1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/savepoint/lit/frame_002.png" id="3_f2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/savepoint/lit/frame_003.png" id="4_f3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/savepoint/lit/frame_004.png" id="5_f4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/savepoint/lit/frame_005.png" id="6_f5"]
+[ext_resource type="Texture2D" path="res://assets/sprites/savepoint/lit/frame_006.png" id="7_f6"]
+[ext_resource type="Texture2D" path="res://assets/sprites/savepoint/lit/frame_007.png" id="8_f7"]
+[ext_resource type="Texture2D" path="res://assets/sprites/savepoint/lit/frame_008.png" id="9_f8"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_f0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_f1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_f2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_f3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_f4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_f5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_f6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_f7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_f8")
+}],
+"loop": true,
+"name": &"lit",
+"speed": 8.0
+}]

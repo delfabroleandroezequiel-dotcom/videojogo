@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://d8tq20x6upcu"]
+
+[ext_resource type="Script" path="res://scripts/world/Npc.cs" id="1_script"]
+[ext_resource type="Script" path="res://scripts/shared/Stats.cs" id="2_stats"]
+[ext_resource type="PackedScene" path="res://scenes/ui/StatBar.tscn" id="3_statbar"]
+[ext_resource type="SpriteFrames" path="res://assets/sprites/npc_warrior/NpcSpriteFrames.tres" id="4_spriteframes"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
+size = Vector2(32, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_interact"]
+size = Vector2(64, 80)
+
+[node name="Npc" type="CharacterBody2D" groups=["npc"]]
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual"]
+position = Vector2(0, 8)
+scale = Vector2(1.4, 1.4)
+sprite_frames = ExtResource("4_spriteframes")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+shape = SubResource("RectangleShape2D_interact")
+
+[node name="InteractPrompt" type="Label" parent="."]
+offset_left = -8.0
+offset_top = -52.0
+offset_right = 8.0
+offset_bottom = -36.0
+text = "E"
+horizontal_alignment = 1
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("2_stats")
+MaxHealth = 30
+AttackPower = 0
+Defense = 0
+MaxStamina = 50
+
+[node name="HealthBar" parent="." instance=ExtResource("3_statbar")]
+position = Vector2(0, 40)
+
+[node name="StaminaBar" parent="." instance=ExtResource("3_statbar")]
+position = Vector2(0, 46)
+FillColor = Color(0.2, 0.6, 1, 1)

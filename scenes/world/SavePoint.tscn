@@ -1,11 +1,15 @@
-[gd_scene format=3 uid="uid://q8r4n2m6p9w3x"]
+[gd_scene format=3 uid="uid://br5nbtx6hhf2v"]
 
 [ext_resource type="Script" path="res://scripts/world/SavePoint.cs" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/savepoint/unlit/unlit.png" id="2_unlit_tex"]
+[ext_resource type="SpriteFrames" path="res://assets/sprites/savepoint/SavePointSpriteFrames.tres" id="3_lit_frames"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_detect"]
 radius = 24.0
 
 [node name="SavePoint" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("1_script")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -13,17 +17,17 @@ shape = SubResource("CircleShape2D_detect")
 
 [node name="UnlitVisual" type="Node2D" parent="."]
 
-[node name="Crystal" type="Polygon2D" parent="UnlitVisual"]
-color = Color(0.3, 0.3, 0.32, 1)
-polygon = PackedVector2Array(0, -28, 10, -8, 6, 16, -6, 16, -10, -8)
+[node name="Sprite2D" type="Sprite2D" parent="UnlitVisual"]
+position = Vector2(0, -12)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("2_unlit_tex")
 
 [node name="LitVisual" type="Node2D" parent="."]
 visible = false
 
-[node name="Glow" type="Polygon2D" parent="LitVisual"]
-color = Color(0.2, 0.9, 0.8, 0.35)
-polygon = PackedVector2Array(-20, -28, 20, -28, 20, 16, -20, 16)
-
-[node name="Crystal" type="Polygon2D" parent="LitVisual"]
-color = Color(0.25, 0.95, 0.85, 1)
-polygon = PackedVector2Array(0, -28, 10, -8, 6, 16, -6, 16, -10, -8)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="LitVisual"]
+position = Vector2(0, -12)
+scale = Vector2(1.2, 1.2)
+sprite_frames = ExtResource("3_lit_frames")
+animation = &"lit"
+autoplay = "lit"

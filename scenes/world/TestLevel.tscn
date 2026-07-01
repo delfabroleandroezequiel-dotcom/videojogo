@@ -1,13 +1,21 @@
 [gd_scene format=3 uid="uid://dq8x2k4nap1r5"]
 
-[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1_player"]
-[ext_resource type="PackedScene" path="res://scenes/world/MeleeEnemy.tscn" id="2_melee"]
-[ext_resource type="PackedScene" path="res://scenes/world/AbilityPickup.tscn" id="3_pickup"]
-[ext_resource type="PackedScene" path="res://scenes/world/Door.tscn" id="4_door"]
-[ext_resource type="PackedScene" path="res://scenes/world/RangedEnemy.tscn" id="5_ranged"]
-[ext_resource type="PackedScene" path="res://scenes/world/Boss.tscn" id="6_boss"]
-[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="7_bootstrap"]
-[ext_resource type="PackedScene" path="res://scenes/world/SavePoint.tscn" id="8_savepoint"]
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://cexihxsolu6jg" path="res://scenes/world/MeleeEnemy.tscn" id="2_melee"]
+[ext_resource type="PackedScene" path="res://scenes/world/ItemPickup.tscn" id="3_pickup"]
+[ext_resource type="PackedScene" uid="uid://dfb6y3py6t2d8" path="res://scenes/world/Door.tscn" id="4_door"]
+[ext_resource type="PackedScene" uid="uid://dgydh5wklq6qh" path="res://scenes/world/RangedEnemy.tscn" id="5_ranged"]
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="7_bootstrap"]
+[ext_resource type="PackedScene" uid="uid://br5nbtx6hhf2v" path="res://scenes/world/SavePoint.tscn" id="8_savepoint"]
+[ext_resource type="PackedScene" uid="uid://d8tq20x6upcu" path="res://scenes/world/Npc.tscn" id="9_npc"]
+[ext_resource type="Resource" path="res://resources/quests/main_defeat_boss.tres" id="10_boss_quest"]
+[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="11_transition"]
+[ext_resource type="Resource" path="res://resources/items/ability_sprint.tres" id="12_item_sprint"]
+[ext_resource type="Resource" path="res://resources/items/ability_double_jump.tres" id="13_item_double_jump"]
+[ext_resource type="Resource" path="res://resources/items/ability_dash.tres" id="14_item_dash"]
+[ext_resource type="Resource" path="res://resources/items/ring_vitality.tres" id="15_item_ring_vitality"]
+[ext_resource type="Resource" path="res://resources/items/lore_note_guardian.tres" id="17_item_lore"]
+[ext_resource type="Texture2D" uid="uid://bbytuodk58h1" path="res://assets/sprites/terrain/grass_flowers_blue.png" id="18_grass_tile"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor_a"]
 size = Vector2(1350, 32)
@@ -15,59 +23,95 @@ size = Vector2(1350, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor_b"]
 size = Vector2(460, 32)
 
-[node name="TestLevel" type="Node2D"]
+[node name="TestLevel" type="Node2D" unique_id=1559116955]
 script = ExtResource("7_bootstrap")
-ScenePath = "res://scenes/world/TestLevel.tscn"
 
-[node name="FloorA" type="StaticBody2D" parent="."]
+[node name="FloorA" type="StaticBody2D" parent="." unique_id=1568139996]
 position = Vector2(675, 400)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorA"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorA" unique_id=1465597949]
 shape = SubResource("RectangleShape2D_floor_a")
 
-[node name="Visual" type="Polygon2D" parent="FloorA"]
+[node name="Visual" type="Polygon2D" parent="FloorA" unique_id=1834981852]
 color = Color(0.35, 0.25, 0.2, 1)
 polygon = PackedVector2Array(-675, -16, 675, -16, 675, 16, -675, 16)
 
-[node name="FloorB" type="StaticBody2D" parent="."]
+[node name="GrassCap" type="TextureRect" parent="FloorA" unique_id=122330978]
+offset_left = -676.0
+offset_top = -16.0
+offset_right = 674.0
+offset_bottom = 16.0
+texture = ExtResource("18_grass_tile")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="FloorB" type="StaticBody2D" parent="." unique_id=824662205]
 position = Vector2(1650, 400)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorB"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorB" unique_id=1688476382]
 shape = SubResource("RectangleShape2D_floor_b")
 
-[node name="Visual" type="Polygon2D" parent="FloorB"]
+[node name="Visual" type="Polygon2D" parent="FloorB" unique_id=761493280]
 color = Color(0.35, 0.25, 0.2, 1)
 polygon = PackedVector2Array(-230, -16, 230, -16, 230, 16, -230, 16)
 
-[node name="Player" parent="." instance=ExtResource("1_player")]
-position = Vector2(100, 300)
+[node name="GrassCap" type="TextureRect" parent="FloorB" unique_id=377483337]
+offset_left = -230.0
+offset_top = -16.0
+offset_right = 230.0
+offset_bottom = 16.0
+texture = ExtResource("18_grass_tile")
+expand_mode = 1
+stretch_mode = 1
 
-[node name="SprintPickup" parent="." instance=ExtResource("3_pickup")]
+[node name="Player" parent="." unique_id=1159828681 instance=ExtResource("1_player")]
+position = Vector2(87, 357)
+
+[node name="SprintPickup" parent="." unique_id=1726984569 instance=ExtResource("3_pickup")]
 position = Vector2(200, 368)
-AbilityId = "sprint"
+Item = ExtResource("12_item_sprint")
 
-[node name="RangedEnemy" parent="." instance=ExtResource("5_ranged")]
-position = Vector2(350, 340)
+[node name="RangedEnemy" parent="." unique_id=296643125 instance=ExtResource("5_ranged")]
+position = Vector2(359, 367)
 
-[node name="DoubleJumpPickup" parent="." instance=ExtResource("3_pickup")]
+[node name="DoubleJumpPickup" parent="." unique_id=1173923809 instance=ExtResource("3_pickup")]
 position = Vector2(550, 368)
-AbilityId = "double_jump"
+Item = ExtResource("13_item_double_jump")
 
-[node name="Door1" parent="." instance=ExtResource("4_door")]
+[node name="Door1" parent="." unique_id=932223773 instance=ExtResource("4_door")]
 position = Vector2(700, 284)
 
-[node name="MeleeEnemy" parent="." instance=ExtResource("2_melee")]
-position = Vector2(900, 300)
+[node name="MeleeEnemy" parent="." unique_id=1928748813 instance=ExtResource("2_melee")]
+position = Vector2(880, 355)
 
-[node name="DashPickup" parent="." instance=ExtResource("3_pickup")]
+[node name="LorePickup" parent="." unique_id=781895400 instance=ExtResource("3_pickup")]
+position = Vector2(820, 368)
+Item = ExtResource("17_item_lore")
+
+[node name="RingVitalityPickup" parent="." unique_id=14296291 instance=ExtResource("3_pickup")]
+position = Vector2(1030, 368)
+Item = ExtResource("15_item_ring_vitality")
+
+[node name="DashPickup" parent="." unique_id=1536628136 instance=ExtResource("3_pickup")]
 position = Vector2(1100, 368)
-AbilityId = "dash"
+Item = ExtResource("14_item_dash")
 
-[node name="Door2" parent="." instance=ExtResource("4_door")]
+[node name="Door2" parent="." unique_id=1166589955 instance=ExtResource("4_door")]
 position = Vector2(1250, 284)
 
-[node name="Boss" parent="." instance=ExtResource("6_boss")]
-position = Vector2(1750, 320)
+[node name="SavePoint" parent="." unique_id=887454072 instance=ExtResource("8_savepoint")]
+position = Vector2(1313, 386)
 
-[node name="SavePoint" parent="." instance=ExtResource("8_savepoint")]
-position = Vector2(1870, 368)
+[node name="VillagerNpc" parent="." unique_id=1520785772 instance=ExtResource("9_npc")]
+position = Vector2(279, 348)
+NpcName = "Aldeano"
+DialogueLines = PackedStringArray("Hay un guardián bloqueando el desfiladero al este.", "Si lo derrotás, te voy a recompensar.")
+InProgressDialogueLines = PackedStringArray("¿Ya te encargaste del guardián? Está más allá del desfiladero.")
+CompletedDialogueLines = PackedStringArray("¡Lo lograste! El camino está libre, gracias.")
+Quest = ExtResource("10_boss_quest")
+GrantsOwnObjective = false
+
+[node name="BossPortal" parent="." unique_id=231620411 instance=ExtResource("11_transition")]
+position = Vector2(1860, 320)
+TargetScenePath = "res://scenes/world/BossArena.tscn"
+TargetSpawnPosition = Vector2(100, 300)

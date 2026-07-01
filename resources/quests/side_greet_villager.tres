@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Quest" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/Quest.cs" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+Id = "side_greet_villager"
+Title = "Un saludo en el camino"
+Description = "Hablá con el aldeano cerca del primer claro."
+IsMainQuest = false
+ObjectiveTarget = 1
+ObjectiveLabel = "Hablar con el aldeano"
+RewardText = ""

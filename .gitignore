@@ -15,3 +15,6 @@ obj/
 
 # Test artifact
 test.txt
+
+# Secrets
+.env

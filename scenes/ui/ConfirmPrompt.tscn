@@ -1,6 +1,7 @@
-[gd_scene format=3 uid="uid://r6n3p8q1m5w7y"]
+[gd_scene format=3 uid="uid://cp1md021edf6w"]
 
 [ext_resource type="Script" path="res://scripts/ui/ConfirmPrompt.cs" id="1_script"]
+[ext_resource type="Theme" path="res://resources/ui/MainTheme.tres" id="2_theme"]
 
 [node name="ConfirmPrompt" type="CanvasLayer"]
 script = ExtResource("1_script")
@@ -8,6 +9,7 @@ script = ExtResource("1_script")
 [node name="Panel" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource("2_theme")
 
 [node name="Background" type="ColorRect" parent="Panel"]
 anchor_right = 1.0

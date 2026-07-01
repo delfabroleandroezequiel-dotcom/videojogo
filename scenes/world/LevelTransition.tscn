@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://level_transition_main"]
+
+[ext_resource type="Script" path="res://scripts/world/LevelTransition.cs" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
+size = Vector2(32, 200)
+
+[node name="LevelTransition" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="Visual" type="Polygon2D" parent="."]
+color = Color(0.2, 0.8, 0.9, 0.35)
+polygon = PackedVector2Array(-16, -100, 16, -100, 16, 100, -16, 100)

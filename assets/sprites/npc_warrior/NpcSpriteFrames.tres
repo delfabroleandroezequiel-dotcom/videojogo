@@ -1,0 +1,26 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/npc_warrior/animations/Breathing_Idle/east/frame_000.png" id="1_idle0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npc_warrior/animations/Breathing_Idle/east/frame_001.png" id="2_idle1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npc_warrior/animations/Breathing_Idle/east/frame_002.png" id="3_idle2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npc_warrior/animations/Breathing_Idle/east/frame_003.png" id="4_idle3"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_idle0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_idle1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_idle2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_idle3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}]

@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
+using Metroidvania.Quests;
 
 namespace Metroidvania.Save;
 
@@ -13,10 +14,14 @@ public partial class SaveManager : Node
 	public int CurrentSlot { get; set; }
 	public string CurrentCharacterName { get; set; } = "Héroe";
 	public SaveData PendingLoad { get; private set; }
+	public Vector2? PendingSpawnPosition { get; set; }
 
 	private readonly HashSet<string> _defeatedBosses = new();
 	private readonly HashSet<string> _defeatedCommonEnemies = new();
 	private readonly HashSet<string> _litSavePoints = new();
+	private readonly HashSet<string> _unlockedAbilities = new();
+	private readonly HashSet<string> _collectedItems = new();
+	private readonly List<string> _equippedRings = new();
 
 	public override void _Ready()
 	{
@@ -36,11 +41,38 @@ public partial class SaveManager : Node
 	public void MarkSavePointLit(string id) => _litSavePoints.Add(id);
 	public IReadOnlyCollection<string> GetLitSavePoints() => _litSavePoints;
 
+	public bool HasAbility(string id) => _unlockedAbilities.Contains(id);
+	public void UnlockAbility(string id) => _unlockedAbilities.Add(id);
+	public IReadOnlyCollection<string> GetUnlockedAbilities() => _unlockedAbilities;
+
+	public const int MaxEquippedRings = 2;
+
+	public bool HasItem(string id) => _collectedItems.Contains(id);
+	public void CollectItem(string id) => _collectedItems.Add(id);
+	public IReadOnlyCollection<string> GetCollectedItems() => _collectedItems;
+
+	public IReadOnlyList<string> GetEquippedRings() => _equippedRings;
+
+	public bool EquipRing(string id)
+	{
+		if (_equippedRings.Contains(id) || _equippedRings.Count >= MaxEquippedRings)
+			return false;
+
+		_equippedRings.Add(id);
+		return true;
+	}
+
+	public void UnequipRing(string id) => _equippedRings.Remove(id);
+
 	public void ResetProgressState()
 	{
 		_defeatedBosses.Clear();
 		_defeatedCommonEnemies.Clear();
 		_litSavePoints.Clear();
+		_unlockedAbilities.Clear();
+		_collectedItems.Clear();
+		_equippedRings.Clear();
+		QuestManager.Instance.ResetProgressState();
 	}
 
 	private static string GetPath(int slot) => $"user://savegame_slot_{slot}.json";
@@ -72,6 +104,19 @@ public partial class SaveManager : Node
 		_litSavePoints.Clear();
 		foreach (string savePointId in PendingLoad.LitSavePoints)
 			_litSavePoints.Add(savePointId);
+
+		_unlockedAbilities.Clear();
+		foreach (string abilityId in PendingLoad.UnlockedAbilities)
+			_unlockedAbilities.Add(abilityId);
+
+		QuestManager.Instance.RestoreState(PendingLoad.ActiveQuests, PendingLoad.CompletedQuests, PendingLoad.QuestProgress);
+
+		_collectedItems.Clear();
+		foreach (string itemId in PendingLoad.CollectedItems)
+			_collectedItems.Add(itemId);
+
+		_equippedRings.Clear();
+		_equippedRings.AddRange(PendingLoad.EquippedRings);
 
 		return PendingLoad;
 	}

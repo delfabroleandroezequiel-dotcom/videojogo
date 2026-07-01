@@ -12,12 +12,21 @@ size = Vector2(64, 64)
 size = Vector2(50, 50)
 
 [node name="Boss" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 1
 script = ExtResource("1_script")
 DetectionRange = 450.0
 StopDistance = 50.0
 ExplosionScale = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="ContactArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea"]
 shape = SubResource("RectangleShape2D_collision")
 
 [node name="Visual" type="Node2D" parent="."]
@@ -44,6 +53,8 @@ polygon = PackedVector2Array(2, -8, 10, -8, 10, 0, 2, 0)
 
 [node name="AttackHitbox" type="Area2D" parent="."]
 position = Vector2(30, 0)
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("2_hitbox")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]

@@ -1,0 +1,57 @@
+{
+  "group_id": null,
+  "states": [
+    {
+      "character": {
+        "id": "c0899c8f-5420-438d-85fd-52096845aad8",
+        "name": "An anthropomorphic wolf knight warrior,",
+        "prompt": "An anthropomorphic wolf knight warrior, orange and white fur, blue glowing eyes,\nwearing silver plate armor with a blue cape/cloak and hood,\ncarrying a large sword and a round shield with a wolf-head emblem,\npixel art style, side view, transparent background",
+        "size": {
+          "width": 256,
+          "height": 256
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "side",
+        "created_at": "2026-06-28T17:48:41.795199+00:00"
+      },
+      "folder": "An_anthropomorphic_wolf_knight_warrior",
+      "frames": {
+        "rotations": {
+          "south": "An_anthropomorphic_wolf_knight_warrior/rotations/south.png",
+          "south-east": "An_anthropomorphic_wolf_knight_warrior/rotations/south-east.png",
+          "east": "An_anthropomorphic_wolf_knight_warrior/rotations/east.png",
+          "north-east": "An_anthropomorphic_wolf_knight_warrior/rotations/north-east.png",
+          "north": "An_anthropomorphic_wolf_knight_warrior/rotations/north.png",
+          "north-west": "An_anthropomorphic_wolf_knight_warrior/rotations/north-west.png",
+          "west": "An_anthropomorphic_wolf_knight_warrior/rotations/west.png",
+          "south-west": "An_anthropomorphic_wolf_knight_warrior/rotations/south-west.png"
+        },
+        "animations": {
+          "Jumping": {
+            "east": [
+              "An_anthropomorphic_wolf_knight_warrior/animations/Jumping/east/frame_000.png",
+              "An_anthropomorphic_wolf_knight_warrior/animations/Jumping/east/frame_001.png",
+              "An_anthropomorphic_wolf_knight_warrior/animations/Jumping/east/frame_002.png",
+              "An_anthropomorphic_wolf_knight_warrior/animations/Jumping/east/frame_003.png",
+              "An_anthropomorphic_wolf_knight_warrior/animations/Jumping/east/frame_004.png",
+              "An_anthropomorphic_wolf_knight_warrior/animations/Jumping/east/frame_005.png",
+              "An_anthropomorphic_wolf_knight_warrior/animations/Jumping/east/frame_006.png",
+              "An_anthropomorphic_wolf_knight_warrior/animations/Jumping/east/frame_007.png"
+            ]
+          },
+          "Breathing_Idle": {
+            "east": [
+              "An_anthropomorphic_wolf_knight_warrior/animations/Breathing_Idle/east/frame_000.png",
+              "An_anthropomorphic_wolf_knight_warrior/animations/Breathing_Idle/east/frame_001.png",
+              "An_anthropomorphic_wolf_knight_warrior/animations/Breathing_Idle/east/frame_002.png",
+              "An_anthropomorphic_wolf_knight_warrior/animations/Breathing_Idle/east/frame_003.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.0",
+  "export_date": "2026-06-28T19:36:44.430360"
+}

@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://inventory_ui_main"]
+
+[ext_resource type="Script" path="res://scripts/ui/InventoryUI.cs" id="1_script"]
+[ext_resource type="Theme" path="res://resources/ui/MainTheme.tres" id="2_theme"]
+
+[node name="InventoryUI" type="CanvasLayer"]
+script = ExtResource("1_script")
+
+[node name="Panel" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource("2_theme")
+
+[node name="Background" type="ColorRect" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.6)
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -200.0
+offset_right = 260.0
+offset_bottom = 200.0
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Panel/VBox"]
+horizontal_alignment = 1
+text = "Inventario"
+
+[node name="EquippedLabel" type="Label" parent="Panel/VBox"]
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+text = "Anillos equipados: 0/2"
+
+[node name="ItemList" type="VBoxContainer" parent="Panel/VBox"]
+theme_override_constants/separation = 8
+
+[node name="CloseHint" type="Label" parent="Panel/VBox"]
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "[I] cerrar"

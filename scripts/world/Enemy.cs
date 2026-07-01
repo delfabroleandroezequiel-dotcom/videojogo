@@ -13,20 +13,23 @@ public partial class Enemy : CharacterBody2D
 	[Export] public float StopDistance = 0f;
 	[Export] public float KnockbackDuration = 0.2f;
 	[Export] public float ExplosionScale = 1f;
+	[Export] public string CustomPersistenceId = "";
 
 	protected Stats Stats;
 	protected Node2D Visual;
+	protected AnimatedSprite2D Sprite;
 	protected bool FacingRight = true;
 
 	protected bool IsQueuedForRemoval;
 	protected string PersistenceId;
 
+	protected Area2D ContactArea;
 	private float _knockbackTimer;
 	private Vector2 _knockbackVelocity;
 
 	public override void _Ready()
 	{
-		PersistenceId = GetPath().ToString();
+		PersistenceId = string.IsNullOrEmpty(CustomPersistenceId) ? GetPath().ToString() : CustomPersistenceId;
 		if (IsDefeated())
 		{
 			IsQueuedForRemoval = true;
@@ -36,12 +39,22 @@ public partial class Enemy : CharacterBody2D
 
 		Stats = GetNode<Stats>("Stats");
 		Visual = GetNode<Node2D>("Visual");
+		Sprite = Visual.GetNodeOrNull<AnimatedSprite2D>("CharacterSprite");
+		ContactArea = GetNode<Area2D>("ContactArea");
 		Stats.Died += OnDefeated;
 
 		StatBar healthBar = GetNode<StatBar>("HealthBar");
 		StatBar staminaBar = GetNode<StatBar>("StaminaBar");
 		Stats.HealthChanged += (current, max) => healthBar.SetRatio((float)current / max);
 		Stats.StaminaChanged += (current, max) => staminaBar.SetRatio((float)current / max);
+		Stats.HitTaken += () => FlashHit();
+	}
+
+	private void FlashHit()
+	{
+		var tween = CreateTween();
+		Visual.Modulate = new Color(2f, 0.2f, 0.2f);
+		tween.TweenProperty(Visual, "modulate", Colors.White, 0.25f);
 	}
 
 	protected virtual bool IsDefeated() => SaveManager.Instance.IsCommonEnemyDefeated(PersistenceId);
@@ -108,5 +121,31 @@ public partial class Enemy : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+
+		UpdateAnimation(velocity);
+		ApplyContactDamage();
+	}
+
+	protected virtual void UpdateAnimation(Vector2 velocity)
+	{
+		if (Sprite is null) return;
+		string anim = Mathf.Abs(velocity.X) > 5f ? "run" : "idle";
+		if (Sprite.Animation != anim)
+			Sprite.Play(anim);
+	}
+
+	protected void ApplyContactDamage()
+	{
+		foreach (Node body in ContactArea.GetOverlappingBodies())
+		{
+			if (body is not Node2D player || !player.IsInGroup("player"))
+				continue;
+
+			Stats targetStats = player.GetNodeOrNull<Stats>("Stats");
+			if (targetStats is null)
+				continue;
+
+			targetStats.TakeDamage(Stats.AttackPower);
+		}
 	}
 }

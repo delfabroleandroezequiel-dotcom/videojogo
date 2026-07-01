@@ -4,11 +4,14 @@
 [ext_resource type="Script" path="res://scripts/shared/Stats.cs" id="2_stats"]
 [ext_resource type="PackedScene" path="res://scenes/ui/StatBar.tscn" id="3_statbar"]
 [ext_resource type="PackedScene" path="res://scenes/world/Projectile.tscn" id="4_projectile"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/EnemySpriteFrames.tres" id="5_frames"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
 size = Vector2(32, 32)
 
 [node name="RangedEnemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 1
 script = ExtResource("1_script")
 ProjectileScene = ExtResource("4_projectile")
 ExplosionScale = 0.7
@@ -16,27 +19,19 @@ ExplosionScale = 0.7
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_collision")
 
+[node name="ContactArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea"]
+shape = SubResource("RectangleShape2D_collision")
+
 [node name="Visual" type="Node2D" parent="."]
 
-[node name="Body" type="Polygon2D" parent="Visual"]
-color = Color(0.55, 0.2, 0.75, 1)
-polygon = PackedVector2Array(0, -16, 14, -4, 10, 16, -10, 16, -14, -4)
-
-[node name="EyeLeft" type="Polygon2D" parent="Visual"]
-color = Color(1, 1, 1, 1)
-polygon = PackedVector2Array(-8, -6, -2, -6, -2, 0, -8, 0)
-
-[node name="EyeRight" type="Polygon2D" parent="Visual"]
-color = Color(1, 1, 1, 1)
-polygon = PackedVector2Array(2, -6, 8, -6, 8, 0, 2, 0)
-
-[node name="PupilLeft" type="Polygon2D" parent="Visual"]
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(-6, -5, -3, -5, -3, -1, -6, -1)
-
-[node name="PupilRight" type="Polygon2D" parent="Visual"]
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(4, -5, 7, -5, 7, -1, 4, -1)
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual"]
+sprite_frames = ExtResource("5_frames")
+animation = &"idle"
+autoplay = "idle"
 
 [node name="Stats" type="Node" parent="."]
 script = ExtResource("2_stats")

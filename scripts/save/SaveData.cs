@@ -11,4 +11,9 @@ public class SaveData
 	public List<string> UnlockedAbilities { get; set; } = new();
 	public List<string> DefeatedBosses { get; set; } = new();
 	public List<string> LitSavePoints { get; set; } = new();
+	public List<string> ActiveQuests { get; set; } = new();
+	public List<string> CompletedQuests { get; set; } = new();
+	public Dictionary<string, int> QuestProgress { get; set; } = new();
+	public List<string> CollectedItems { get; set; } = new();
+	public List<string> EquippedRings { get; set; } = new();
 }

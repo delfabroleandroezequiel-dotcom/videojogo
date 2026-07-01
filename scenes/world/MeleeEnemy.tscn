@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://scripts/player/Hitbox.cs" id="2_hitbox"]
 [ext_resource type="Script" path="res://scripts/shared/Stats.cs" id="3_stats"]
 [ext_resource type="PackedScene" path="res://scenes/ui/StatBar.tscn" id="4_statbar"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/EnemySpriteFrames.tres" id="5_frames"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
 size = Vector2(32, 64)
@@ -12,51 +13,31 @@ size = Vector2(32, 64)
 size = Vector2(24, 32)
 
 [node name="MeleeEnemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 1
 script = ExtResource("1_script")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_collision")
 
+[node name="ContactArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea"]
+shape = SubResource("RectangleShape2D_collision")
+
 [node name="Visual" type="Node2D" parent="."]
 
-[node name="Head" type="Polygon2D" parent="Visual"]
-color = Color(0.7, 0.35, 0.3, 1)
-polygon = PackedVector2Array(-8, -32, 8, -32, 8, -16, -8, -16)
-
-[node name="Torso" type="Polygon2D" parent="Visual"]
-color = Color(0.6, 0.15, 0.15, 1)
-polygon = PackedVector2Array(-10, -16, 10, -16, 10, 8, -10, 8)
-
-[node name="ArmLeft" type="Polygon2D" parent="Visual"]
-color = Color(0.45, 0.1, 0.1, 1)
-polygon = PackedVector2Array(-14, -14, -10, -14, -10, 4, -14, 4)
-
-[node name="ArmRight" type="Polygon2D" parent="Visual"]
-color = Color(0.45, 0.1, 0.1, 1)
-polygon = PackedVector2Array(10, -14, 14, -14, 14, 4, 10, 4)
-
-[node name="LegLeft" type="Polygon2D" parent="Visual"]
-color = Color(0.3, 0.05, 0.05, 1)
-polygon = PackedVector2Array(-9, 8, -1, 8, -1, 32, -9, 32)
-
-[node name="LegRight" type="Polygon2D" parent="Visual"]
-color = Color(0.3, 0.05, 0.05, 1)
-polygon = PackedVector2Array(1, 8, 9, 8, 9, 32, 1, 32)
-
-[node name="WeaponPivot" type="Node2D" parent="Visual"]
-position = Vector2(12, 0)
-rotation_degrees = -20.0
-
-[node name="Hilt" type="Polygon2D" parent="Visual/WeaponPivot"]
-color = Color(0.4, 0.25, 0.1, 1)
-polygon = PackedVector2Array(-4, -3, 0, -3, 0, 3, -4, 3)
-
-[node name="Blade" type="Polygon2D" parent="Visual/WeaponPivot"]
-color = Color(0.75, 0.78, 0.8, 1)
-polygon = PackedVector2Array(0, -2, 26, -3, 30, 0, 26, 3, 0, 2)
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual"]
+sprite_frames = ExtResource("5_frames")
+animation = &"idle"
+autoplay = "idle"
 
 [node name="AttackHitbox" type="Area2D" parent="."]
 position = Vector2(24, 0)
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("2_hitbox")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]

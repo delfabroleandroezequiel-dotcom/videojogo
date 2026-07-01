@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Quest" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/Quest.cs" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+Id = "main_defeat_boss"
+Title = "El guardián del paso"
+Description = "Viajá al desfiladero y derrotá al guardián que lo custodia."
+IsMainQuest = true
+ObjectiveTarget = 1
+ObjectiveLabel = "Derrotar al guardián"
+RewardText = "El aldeano te recompensa por liberar el camino."
+ObjectiveKind = 1
+RequiredBossId = "boss_guardian"

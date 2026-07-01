@@ -1,0 +1,45 @@
+{
+  "group_id": null,
+  "states": [
+    {
+      "character": {
+        "id": "a47a34b5-dc14-4452-9797-2db5a15a20d6",
+        "name": "Heroic fantasy warrior for a 2D metroidvania. Full body. Standing idle. Side view facing right. Height 48-56 pixels. Clean silhouette. Large readable shapes. Simple steel armor with leather straps. Short blue cape. One-handed sword. No shield. Limited color palette (16-24 colors). Consistent pixel size. Handcrafted pixel art. SNES-inspired but modern. Game-ready sprite. No concept art. No illustration. No painterly shading. No realistic textures. Transparent background.",
+        "prompt": "Heroic fantasy warrior for a 2D metroidvania. Full body. Standing idle. Side view facing right. Height 48-56 pixels. Clean silhouette. Large readable shapes. Simple steel armor with leather straps. Short blue cape. One-handed sword. No shield. Limited color palette (16-24 colors). Consistent pixel size. Handcrafted pixel art. SNES-inspired but modern. Game-ready sprite. No concept art. No illustration. No painterly shading. No realistic textures. Transparent background.",
+        "size": {
+          "width": 68,
+          "height": 68
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "side",
+        "created_at": "2026-06-28T22:17:17.191239+00:00"
+      },
+      "folder": "Heroic_fantasy_warrior_for_a_2D_metroidvania._Full",
+      "frames": {
+        "rotations": {
+          "south": "Heroic_fantasy_warrior_for_a_2D_metroidvania._Full/rotations/south.png",
+          "south-east": "Heroic_fantasy_warrior_for_a_2D_metroidvania._Full/rotations/south-east.png",
+          "east": "Heroic_fantasy_warrior_for_a_2D_metroidvania._Full/rotations/east.png",
+          "north-east": "Heroic_fantasy_warrior_for_a_2D_metroidvania._Full/rotations/north-east.png",
+          "north": "Heroic_fantasy_warrior_for_a_2D_metroidvania._Full/rotations/north.png",
+          "north-west": "Heroic_fantasy_warrior_for_a_2D_metroidvania._Full/rotations/north-west.png",
+          "west": "Heroic_fantasy_warrior_for_a_2D_metroidvania._Full/rotations/west.png",
+          "south-west": "Heroic_fantasy_warrior_for_a_2D_metroidvania._Full/rotations/south-west.png"
+        },
+        "animations": {
+          "Breathing_Idle": {
+            "east": [
+              "Heroic_fantasy_warrior_for_a_2D_metroidvania._Full/animations/Breathing_Idle/east/frame_000.png",
+              "Heroic_fantasy_warrior_for_a_2D_metroidvania._Full/animations/Breathing_Idle/east/frame_001.png",
+              "Heroic_fantasy_warrior_for_a_2D_metroidvania._Full/animations/Breathing_Idle/east/frame_002.png",
+              "Heroic_fantasy_warrior_for_a_2D_metroidvania._Full/animations/Breathing_Idle/east/frame_003.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.0",
+  "export_date": "2026-06-28T22:21:43.946558"
+}

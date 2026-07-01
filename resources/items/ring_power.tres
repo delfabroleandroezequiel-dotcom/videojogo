@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" format=3]
+
+[ext_resource type="Script" path="res://scripts/items/Item.cs" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+Id = "item_ring_power"
+ItemName = "Anillo de poder"
+Description = "Aumenta tu poder de ataque en 5 puntos."
+Type = 1
+AttackBonus = 5

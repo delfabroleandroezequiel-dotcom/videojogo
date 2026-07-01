@@ -7,6 +7,8 @@ public partial class Hitbox : Area2D
 {
 	[Export] public float KnockbackForce = 250f;
 
+	[Signal] public delegate void HitDealtEventHandler();
+
 	private CollisionShape2D _shape;
 	private Stats _attackerStats;
 
@@ -31,6 +33,7 @@ public partial class Hitbox : Area2D
 			return;
 
 		targetStats.TakeDamage(_attackerStats.AttackPower);
+		EmitSignal(SignalName.HitDealt);
 
 		if (body.HasMethod("ApplyKnockback"))
 		{

@@ -75,6 +75,8 @@ public partial class Boss : Enemy
 
 		Velocity = velocity;
 		MoveAndSlide();
+
+		ApplyContactDamage();
 	}
 
 	private async void Attack()

@@ -1,0 +1,157 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Breathing_Idle/east/frame_000.png" id="1_idle0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Breathing_Idle/east/frame_001.png" id="2_idle1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Breathing_Idle/east/frame_002.png" id="3_idle2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Breathing_Idle/east/frame_003.png" id="4_idle3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Running/east/frame_000.png" id="5_run0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Running/east/frame_001.png" id="6_run1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Running/east/frame_002.png" id="7_run2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Running/east/frame_003.png" id="8_run3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Running/east/frame_004.png" id="9_run4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Running/east/frame_005.png" id="10_run5"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Jumping/east/frame_000.png" id="11_jump0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Jumping/east/frame_001.png" id="12_jump1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Jumping/east/frame_002.png" id="13_jump2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Jumping/east/frame_003.png" id="14_jump3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Jumping/east/frame_004.png" id="15_jump4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Jumping/east/frame_005.png" id="16_jump5"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Jumping/east/frame_006.png" id="17_jump6"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Jumping/east/frame_007.png" id="18_jump7"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Jumping/east/frame_008.png" id="19_jump8"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Cross_Punch/east/frame_000.png" id="20_punch0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Cross_Punch/east/frame_001.png" id="21_punch1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Cross_Punch/east/frame_002.png" id="22_punch2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Cross_Punch/east/frame_003.png" id="23_punch3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Cross_Punch/east/frame_004.png" id="24_punch4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Prota/animations/Cross_Punch/east/frame_005.png" id="25_punch5"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_idle0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_idle1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_idle2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_idle3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_run0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_run1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_run2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_run3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_run4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_run5")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_jump0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_jump1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_jump2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_jump3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_jump4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_jump5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_jump6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_jump7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_jump8")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_jump0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_jump1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_jump2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_jump3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_jump4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_jump5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_jump6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_jump7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_jump8")
+}],
+"loop": false,
+"name": &"double_jump",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20_punch0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_punch1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_punch2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_punch3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_punch4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_punch5")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 14.0
+}]

@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://bfbs4e541ofwy"]
+
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://biilyuwe3nbsn" path="res://scenes/world/Boss.tscn" id="2_boss"]
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="3_bootstrap"]
+[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="4_transition"]
+[ext_resource type="PackedScene" path="res://scenes/world/ItemPickup.tscn" id="5_pickup"]
+[ext_resource type="Resource" path="res://resources/items/ring_power.tres" id="6_item_ring_power"]
+[ext_resource type="Texture2D" uid="uid://dpocvumfr18lc" path="res://assets/external/kenney/pixel-platformer/Tilemap/tilemap_packed.png" id="7_tilesheet"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(900, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dirt_mid"]
+atlas = ExtResource("7_tilesheet")
+region = Rect2(0, 19, 18, 18)
+
+[node name="BossArena" type="Node2D" unique_id=993715158]
+script = ExtResource("3_bootstrap")
+ScenePath = "res://scenes/world/BossArena.tscn"
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=854455488]
+position = Vector2(450, 400)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=2031159825]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Visual" type="Polygon2D" parent="Floor" unique_id=950404411]
+color = Color(0.18, 0.16, 0.22, 1)
+polygon = PackedVector2Array(-450, -16, 450, -16, 450, 16, -450, 16)
+
+[node name="GrassCap" type="TextureRect" parent="Floor" unique_id=1180888950]
+offset_left = -450.0
+offset_top = -34.0
+offset_right = 450.0
+offset_bottom = -16.0
+texture = SubResource("AtlasTexture_dirt_mid")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Player" parent="." unique_id=1988936871 instance=ExtResource("1_player")]
+position = Vector2(100, 300)
+
+[node name="Boss" parent="." unique_id=167136097 instance=ExtResource("2_boss")]
+position = Vector2(450, 320)
+CustomPersistenceId = "boss_guardian"
+
+[node name="ReturnTransition" parent="." unique_id=1508074268 instance=ExtResource("4_transition")]
+position = Vector2(40, 350)
+TargetScenePath = "res://scenes/world/MainLevel.tscn"
+
+[node name="RingPowerPickup" parent="." unique_id=1345107800 instance=ExtResource("5_pickup")]
+position = Vector2(450, 368)
+Item = ExtResource("6_item_ring_power")

@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://elevator_main"]
+
+[ext_resource type="Script" path="res://scripts/world/Elevator.cs" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_car"]
+size = Vector2(90, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
+size = Vector2(36, 32)
+
+[node name="Elevator" type="AnimatableBody2D"]
+collision_layer = 1
+collision_mask = 0
+sync_to_physics = true
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_car")
+
+[node name="Visual" type="Polygon2D" parent="."]
+color = Color(0.35, 0.35, 0.4, 1)
+polygon = PackedVector2Array(-45, -8, 45, -8, 45, 8, -45, 8)
+
+[node name="TriggerZone" type="Area2D" parent="."]
+position = Vector2(0, -24)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerZone"]
+shape = SubResource("RectangleShape2D_trigger")

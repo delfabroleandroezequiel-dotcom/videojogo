@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://lever_main"]
+
+[ext_resource type="Script" path="res://scripts/world/Lever.cs" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lever"]
+size = Vector2(20, 32)
+
+[node name="Lever" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lever")
+
+[node name="Visual" type="Polygon2D" parent="."]
+color = Color(0.5, 0.3, 0.15, 1)
+polygon = PackedVector2Array(-3, -16, 3, -16, 3, 12, -3, 12)
+
+[node name="Handle" type="Polygon2D" parent="."]
+color = Color(0.7, 0.1, 0.1, 1)
+polygon = PackedVector2Array(-10, -18, 10, -18, 10, -10, -10, -10)
+
+[node name="InteractPrompt" type="Label" parent="."]
+offset_left = -8.0
+offset_top = -36.0
+offset_right = 8.0
+offset_bottom = -20.0
+text = "E"
+horizontal_alignment = 1

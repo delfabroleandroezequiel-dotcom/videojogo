@@ -1,5 +1,6 @@
 using Godot;
 using Metroidvania.Player;
+using Metroidvania.Quests;
 
 namespace Metroidvania.Save;
 
@@ -12,6 +13,14 @@ public partial class LevelBootstrap : Node
 	public override void _Ready()
 	{
 		_player = GetNode<Player.Player>("Player");
+
+		if (SaveManager.Instance.PendingSpawnPosition.HasValue)
+		{
+			_player.GlobalPosition = SaveManager.Instance.PendingSpawnPosition.Value;
+			_player.GetNode<Camera2D>("Camera2D").ResetSmoothing();
+			SaveManager.Instance.PendingSpawnPosition = null;
+			return;
+		}
 
 		SaveData pending = SaveManager.Instance.PendingLoad;
 		if (pending is not null)
@@ -34,6 +43,12 @@ public partial class LevelBootstrap : Node
 		data.UnlockedAbilities.AddRange(abilities.GetUnlocked());
 		data.DefeatedBosses.AddRange(SaveManager.Instance.GetDefeatedBosses());
 		data.LitSavePoints.AddRange(SaveManager.Instance.GetLitSavePoints());
+		data.ActiveQuests.AddRange(QuestManager.Instance.GetActiveQuestIds());
+		data.CompletedQuests.AddRange(QuestManager.Instance.GetCompletedQuestIds());
+		foreach (System.Collections.Generic.KeyValuePair<string, int> entry in QuestManager.Instance.SnapshotProgress())
+			data.QuestProgress[entry.Key] = entry.Value;
+		data.CollectedItems.AddRange(SaveManager.Instance.GetCollectedItems());
+		data.EquippedRings.AddRange(SaveManager.Instance.GetEquippedRings());
 
 		SaveManager.Instance.SaveGame(SaveManager.Instance.CurrentSlot, data);
 		SaveManager.Instance.ClearCommonEnemyDefeats();
