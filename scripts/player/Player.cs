@@ -11,14 +11,20 @@ public partial class Player : CharacterBody2D
 	[Export] public float Speed = 200f;
 	[Export] public float JumpVelocity = -400f;
 	[Export] public float Gravity = 900f;
-	[Export] public float AttackDuration = 0.15f;
+	[Export] public float AttackHitboxDelay = 0.12f;
+	[Export] public float AttackDuration = 0.22f;
+	[Export] public float AttackHitboxReach = 60f;
+	[Export] public float AttackAnimDuration = 0.5f;
+	[Export] public float ComboResetWindow = 0.6f;
 	[Export] public int AttackStaminaCost = 10;
+	[Export] public float HealAnimDuration = 0.8f;
 	[Export] public float DashSpeed = 500f;
 	[Export] public float DashDuration = 0.2f;
 	[Export] public float DashCooldown = 0.5f;
 	[Export] public int DashStaminaCost = 20;
 	[Export] public float CrouchSpeedMultiplier = 0.5f;
 	[Export] public float LookUpOffset = -80f;
+	[Export] public float LookDownOffset = 60f;
 	[Export] public float LookSmoothSpeed = 4f;
 	[Export] public float HeadLookUpAngle = -25f;
 	[Export] public float WeaponRestAngle = -20f;
@@ -39,6 +45,8 @@ public partial class Player : CharacterBody2D
 	private Hitbox _hitbox;
 	private Stats _stats;
 	private PlayerAbilities _abilities;
+	private HealFlask _healFlask;
+	private Label _healChargesLabel;
 	private Node2D _visual;
 	private Node2D _head;
 	private Node2D _weaponPivot;
@@ -51,8 +59,14 @@ public partial class Player : CharacterBody2D
 	private CollisionShape2D _crouchCollision;
 	private Camera2D _camera;
 	private AnimatedSprite2D _sprite;
+	private const int ComboHitCount = 3;
+
 	private bool _facingRight = true;
 	private bool _attacking;
+	private bool _healing;
+	private int _comboStep;
+	private float _comboResetTimer;
+	private string _currentAttackAnimation = "attack1";
 	private int _jumpCount;
 	private bool _isDoubleJumping;
 	private bool _isDashing;
@@ -71,6 +85,7 @@ public partial class Player : CharacterBody2D
 		_hitbox = GetNode<Hitbox>("AttackHitbox");
 		_stats = GetNode<Stats>("Stats");
 		_abilities = GetNode<PlayerAbilities>("Abilities");
+		_healFlask = GetNode<HealFlask>("HealFlask");
 		_visual = GetNode<Node2D>("Visual");
 		_head = GetNode<Node2D>("Visual/Head");
 		_weaponPivot = GetNode<Node2D>("Visual/WeaponPivot");
@@ -86,10 +101,13 @@ public partial class Player : CharacterBody2D
 
 		HudBar healthBar = GetNode<HudBar>("HUD/VBox/HealthBar");
 		HudBar staminaBar = GetNode<HudBar>("HUD/VBox/StaminaBar");
+		_healChargesLabel = GetNode<Label>("HUD/VBox/HealChargesLabel");
 		_stats.HealthChanged += (current, max) => healthBar.SetRatio((float)current / max);
 		_stats.StaminaChanged += (current, max) => staminaBar.SetRatio((float)current / max);
 		_stats.HitTaken += () => FlashHit(_visual, new Color(1f, 0.2f, 0.2f));
 		_hitbox.HitDealt += () => FlashHit(_visual, new Color(1f, 1f, 0.2f));
+		_healFlask.ChargesChanged += (current, max) => _healChargesLabel.Text = $"Curas: {current}/{max}";
+		_healChargesLabel.Text = $"Curas: {_healFlask.CurrentCharges}/{_healFlask.MaxCharges}";
 	}
 
 	private void FlashHit(Node2D visual, Color flashColor)
@@ -128,6 +146,13 @@ public partial class Player : CharacterBody2D
 		{
 			_stats.Kill();
 			return;
+		}
+
+		if (_comboResetTimer > 0f)
+		{
+			_comboResetTimer -= (float)delta;
+			if (_comboResetTimer <= 0f)
+				_comboStep = 0;
 		}
 
 		Vector2 velocity = Velocity;
@@ -215,8 +240,8 @@ public partial class Player : CharacterBody2D
 
 		UpdateCrouch();
 
-		float direction = Input.GetAxis("move_left", "move_right");
-		bool sprinting = _abilities.Has(PlayerAbilities.Sprint) && Input.IsActionPressed("sprint")
+		float direction = (_attacking || _healing) ? 0f : Input.GetAxis("move_left", "move_right");
+		bool sprinting = !_attacking && !_healing && _abilities.Has(PlayerAbilities.Sprint) && Input.IsActionPressed("sprint")
 			&& !_crouching && direction != 0;
 		float speed = _crouching ? Speed * CrouchSpeedMultiplier : sprinting ? Speed * SprintSpeedMultiplier : Speed;
 		velocity.X = direction != 0 ? direction * speed : Mathf.MoveToward(velocity.X, 0, speed);
@@ -224,16 +249,18 @@ public partial class Player : CharacterBody2D
 		if (direction != 0)
 			_facingRight = direction > 0;
 
-		_visual.Scale = new Vector2(_facingRight ? 1 : -1, _crouching ? 0.7f : 1f);
-		_visual.Position = new Vector2(0, _crouching ? 13 : 0);
+		_visual.Scale = new Vector2(_facingRight ? 1 : -1, 1f);
 
-		UpdateLookUp(delta);
+		UpdateCameraLook(delta);
 
-		if (Input.IsActionJustPressed("dash") && _abilities.Has(PlayerAbilities.Dash) && _canDash)
+		if (Input.IsActionJustPressed("dash") && _abilities.Has(PlayerAbilities.Dash) && _canDash && !_healing)
 			StartDash();
 
-		if (Input.IsActionJustPressed("attack") && !_attacking)
+		if (Input.IsActionJustPressed("attack") && !_attacking && !_healing)
 			Attack();
+
+		if (Input.IsActionJustPressed("heal") && !_attacking && !_healing && !_isDashing)
+			UseHealFlask();
 
 		Velocity = velocity;
 		MoveAndSlide();
@@ -242,6 +269,18 @@ public partial class Player : CharacterBody2D
 
 	private void UpdateAnimation(double delta, bool sprinting, float velocityX = 0f, bool isClimbing = false)
 	{
+		if (_knockbackTimer > 0f)
+		{
+			_sprite.Play("hurt");
+			return;
+		}
+
+		if (_healing)
+		{
+			_sprite.Play("heal");
+			return;
+		}
+
 		if (isClimbing)
 		{
 			_sprite.Play("idle");
@@ -256,11 +295,11 @@ public partial class Player : CharacterBody2D
 
 		if (_attacking)
 		{
-			_sprite.Play("attack");
+			_sprite.Play(_currentAttackAnimation);
 		}
 		else if (_isDashing)
 		{
-			_sprite.Play("run");
+			_sprite.Play("dash");
 			_legLeft.RotationDegrees = -10f;
 			_legRight.RotationDegrees = -14f;
 			_armLeft.RotationDegrees = -30f;
@@ -317,11 +356,12 @@ public partial class Player : CharacterBody2D
 		_crouchCollision.Disabled = !_crouching;
 	}
 
-	private void UpdateLookUp(double delta)
+	private void UpdateCameraLook(double delta)
 	{
 		bool lookingUp = Input.IsActionPressed("ui_up");
+		float targetY = lookingUp ? LookUpOffset : _crouching ? LookDownOffset : 0f;
 
-		Vector2 targetOffset = lookingUp ? new Vector2(0, LookUpOffset) : Vector2.Zero;
+		Vector2 targetOffset = new Vector2(0, targetY);
 		_camera.Offset = _camera.Offset.Lerp(targetOffset, (float)delta * LookSmoothSpeed);
 
 		float targetHeadAngle = lookingUp ? HeadLookUpAngle : 0f;
@@ -336,9 +376,11 @@ public partial class Player : CharacterBody2D
 		_isDashing = true;
 		_canDash = false;
 		_dashDirection = _facingRight ? 1f : -1f;
+		_stats.ExternalInvulnerable = true;
 
 		await ToSignal(GetTree().CreateTimer(DashDuration), SceneTreeTimer.SignalName.Timeout);
 		_isDashing = false;
+		_stats.ExternalInvulnerable = false;
 
 		await ToSignal(GetTree().CreateTimer(DashCooldown), SceneTreeTimer.SignalName.Timeout);
 		_canDash = true;
@@ -350,25 +392,47 @@ public partial class Player : CharacterBody2D
 			return;
 
 		_attacking = true;
-		_hitbox.Position = new Vector2(_facingRight ? 24 : -24, 0);
-		_hitbox.Activate(_stats);
+		_currentAttackAnimation = $"attack{_comboStep + 1}";
+		_comboStep = (_comboStep + 1) % ComboHitCount;
+		_comboResetTimer = 0f;
 
 		_weaponPivot.RotationDegrees = WeaponSwingStartAngle;
 		Tween swingTween = GetTree().CreateTween();
-		swingTween.TweenProperty(_weaponPivot, "rotation_degrees", WeaponSwingEndAngle, AttackDuration);
+		swingTween.TweenProperty(_weaponPivot, "rotation_degrees", WeaponSwingEndAngle, AttackHitboxDelay + AttackDuration);
+
+		if (AttackHitboxDelay > 0f)
+			await ToSignal(GetTree().CreateTimer(AttackHitboxDelay), SceneTreeTimer.SignalName.Timeout);
+
+		_hitbox.Position = new Vector2(_facingRight ? AttackHitboxReach : -AttackHitboxReach, 0);
+		_hitbox.Activate(_stats);
 
 		await ToSignal(GetTree().CreateTimer(AttackDuration), SceneTreeTimer.SignalName.Timeout);
 		_hitbox.Deactivate();
-		_attacking = false;
 
 		Tween returnTween = GetTree().CreateTween();
 		returnTween.TweenProperty(_weaponPivot, "rotation_degrees", WeaponRestAngle, 0.1f);
+
+		float remainingAnimTime = Mathf.Max(0f, AttackAnimDuration - AttackHitboxDelay - AttackDuration);
+		await ToSignal(GetTree().CreateTimer(remainingAnimTime), SceneTreeTimer.SignalName.Timeout);
+		_attacking = false;
+		_comboResetTimer = ComboResetWindow;
+	}
+
+	private async void UseHealFlask()
+	{
+		if (!_healFlask.TryUse(_stats))
+			return;
+
+		_healing = true;
+		await ToSignal(GetTree().CreateTimer(HealAnimDuration), SceneTreeTimer.SignalName.Timeout);
+		_healing = false;
 	}
 
 	private void OnDied()
 	{
 		_isDead = true;
+		_sprite.Play("death");
 		if (GetTree().CurrentScene is LevelBootstrap level)
-			level.RespawnPlayer();
+			DeathScreen.Instance.Show(level.RespawnPlayer);
 	}
 }

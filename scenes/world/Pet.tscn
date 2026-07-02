@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://pet_dog_main"]
+
+[ext_resource type="Script" path="res://scripts/world/Pet.cs" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/DogSpriteFrames.tres" id="2_frames"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dog"]
+size = Vector2(20, 16)
+
+[node name="Pet" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_dog")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="PetSprite" type="AnimatedSprite2D" parent="Visual"]
+sprite_frames = ExtResource("2_frames")
+animation = &"idle"

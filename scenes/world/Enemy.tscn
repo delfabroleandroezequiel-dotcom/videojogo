@@ -34,7 +34,7 @@ autoplay = "idle"
 [node name="Stats" type="Node" parent="."]
 script = ExtResource("2_stats")
 MaxHealth = 30
-AttackPower = 5
+AttackPower = 40
 Defense = 0
 MaxStamina = 50
 

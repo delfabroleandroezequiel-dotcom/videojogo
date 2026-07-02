@@ -13,7 +13,8 @@ public partial class Stats : Node
 
 	public int CurrentHealth { get; private set; }
 	public int CurrentStamina { get; private set; }
-	public bool IsInvulnerable => _invulnerableTimer > 0f;
+	public bool ExternalInvulnerable { get; set; }
+	public bool IsInvulnerable => _invulnerableTimer > 0f || ExternalInvulnerable;
 
 	private float _staminaAccumulator;
 	private float _invulnerableTimer;
@@ -60,6 +61,15 @@ public partial class Stats : Node
 
 		if (CurrentHealth <= 0)
 			EmitSignal(SignalName.Died);
+	}
+
+	public void Heal(int amount)
+	{
+		if (CurrentHealth <= 0 || CurrentHealth >= MaxHealth)
+			return;
+
+		CurrentHealth = Mathf.Min(MaxHealth, CurrentHealth + amount);
+		EmitSignal(SignalName.HealthChanged, CurrentHealth, MaxHealth);
 	}
 
 	public void Kill()

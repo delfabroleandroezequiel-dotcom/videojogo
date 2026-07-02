@@ -15,6 +15,7 @@
 [ext_resource type="Resource" path="res://resources/items/ability_dash.tres" id="14_item_dash"]
 [ext_resource type="Resource" path="res://resources/items/ring_vitality.tres" id="15_item_ring_vitality"]
 [ext_resource type="Resource" path="res://resources/items/lore_note_guardian.tres" id="17_item_lore"]
+[ext_resource type="Resource" path="res://resources/items/heal_upgrade_1.tres" id="19_item_heal"]
 [ext_resource type="Texture2D" uid="uid://bbytuodk58h1" path="res://assets/sprites/terrain/grass_flowers_blue.png" id="18_grass_tile"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor_a"]
@@ -89,7 +90,7 @@ position = Vector2(820, 368)
 Item = ExtResource("17_item_lore")
 
 [node name="RingVitalityPickup" parent="." unique_id=14296291 instance=ExtResource("3_pickup")]
-position = Vector2(1030, 368)
+position = Vector2(988, 369)
 Item = ExtResource("15_item_ring_vitality")
 
 [node name="DashPickup" parent="." unique_id=1536628136 instance=ExtResource("3_pickup")]
@@ -101,6 +102,10 @@ position = Vector2(1250, 284)
 
 [node name="SavePoint" parent="." unique_id=887454072 instance=ExtResource("8_savepoint")]
 position = Vector2(1313, 386)
+
+[node name="HealUpgradePickup" parent="." unique_id=887454073 instance=ExtResource("3_pickup")]
+position = Vector2(1500, 368)
+Item = ExtResource("19_item_heal")
 
 [node name="VillagerNpc" parent="." unique_id=1520785772 instance=ExtResource("9_npc")]
 position = Vector2(279, 348)

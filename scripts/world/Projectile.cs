@@ -33,7 +33,7 @@ public partial class Projectile : Area2D
 	private void OnBodyEntered(Node2D body)
 	{
 		Stats targetStats = body.GetNodeOrNull<Stats>("Stats");
-		if (targetStats is not null && targetStats != _shooterStats)
+		if (targetStats is not null && targetStats != _shooterStats && !targetStats.IsInvulnerable)
 		{
 			targetStats.TakeDamage(_shooterStats.AttackPower);
 

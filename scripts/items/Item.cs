@@ -7,7 +7,8 @@ public enum ItemType
 	Ability,
 	Ring,
 	Quest,
-	Lore
+	Lore,
+	HealUpgrade
 }
 
 [GlobalClass]

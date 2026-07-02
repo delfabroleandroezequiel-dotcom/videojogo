@@ -14,11 +14,13 @@ public partial class PlayerInventory : Node
 
 	private PlayerAbilities _abilities;
 	private Stats _stats;
+	private HealFlask _healFlask;
 
 	public override void _Ready()
 	{
 		_abilities = GetParent().GetNode<PlayerAbilities>("Abilities");
 		_stats = GetParent().GetNode<Stats>("Stats");
+		_healFlask = GetParent().GetNode<HealFlask>("HealFlask");
 
 		foreach (string itemId in SaveManager.Instance.GetEquippedRings())
 		{
@@ -39,6 +41,9 @@ public partial class PlayerInventory : Node
 
 		if (item.Type == ItemType.Ability && !string.IsNullOrEmpty(item.AbilityId))
 			_abilities.Unlock(item.AbilityId);
+
+		if (item.Type == ItemType.HealUpgrade)
+			_healFlask.UnlockCharge();
 
 		EmitSignal(SignalName.ItemCollected, item.Id);
 	}

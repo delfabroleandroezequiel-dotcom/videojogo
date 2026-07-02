@@ -10,19 +10,36 @@ public partial class SavePoint : Area2D
 
 	private string _persistenceId;
 	private bool _isLit;
+	private bool _playerInRange;
 	private Node2D _unlitVisual;
 	private Node2D _litVisual;
+	private Label _interactPrompt;
 
 	public override void _Ready()
 	{
 		_persistenceId = GetPath().ToString();
 		_unlitVisual = GetNode<Node2D>("UnlitVisual");
 		_litVisual = GetNode<Node2D>("LitVisual");
+		_interactPrompt = GetNode<Label>("InteractPrompt");
+		_interactPrompt.Visible = false;
 
 		_isLit = SaveManager.Instance.IsSavePointLit(_persistenceId);
 		UpdateVisual();
 
 		BodyEntered += OnBodyEntered;
+		BodyExited += OnBodyExited;
+	}
+
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		if (!_playerInRange)
+			return;
+
+		if (@event.IsActionPressed("interact"))
+		{
+			Interact();
+			GetViewport().SetInputAsHandled();
+		}
 	}
 
 	private void UpdateVisual()
@@ -36,6 +53,21 @@ public partial class SavePoint : Area2D
 		if (!body.IsInGroup("player"))
 			return;
 
+		_playerInRange = true;
+		_interactPrompt.Visible = true;
+	}
+
+	private void OnBodyExited(Node2D body)
+	{
+		if (!body.IsInGroup("player"))
+			return;
+
+		_playerInRange = false;
+		_interactPrompt.Visible = false;
+	}
+
+	private void Interact()
+	{
 		if (!_isLit)
 			ConfirmPrompt.Instance.Show("¿Desea encenderla?", OnLightConfirmed);
 		else
@@ -53,6 +85,6 @@ public partial class SavePoint : Area2D
 	private void Rest()
 	{
 		if (GetTree().CurrentScene is LevelBootstrap level)
-			level.SaveAtCheckpoint(GlobalPosition + RespawnOffset);
+			RestScreen.Instance.Show("Descansando", () => level.SaveAtCheckpoint(GlobalPosition + RespawnOffset));
 	}
 }

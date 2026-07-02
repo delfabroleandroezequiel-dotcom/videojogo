@@ -29,7 +29,7 @@ public partial class Hitbox : Area2D
 	private void OnBodyEntered(Node2D body)
 	{
 		Stats targetStats = body.GetNodeOrNull<Stats>("Stats");
-		if (targetStats is null || targetStats == _attackerStats)
+		if (targetStats is null || targetStats == _attackerStats || targetStats.IsInvulnerable)
 			return;
 
 		targetStats.TakeDamage(_attackerStats.AttackPower);

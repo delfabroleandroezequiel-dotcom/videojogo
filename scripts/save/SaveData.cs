@@ -16,4 +16,5 @@ public class SaveData
 	public Dictionary<string, int> QuestProgress { get; set; } = new();
 	public List<string> CollectedItems { get; set; } = new();
 	public List<string> EquippedRings { get; set; } = new();
+	public int MaxHealCharges { get; set; } = 1;
 }

@@ -9,14 +9,14 @@
 [ext_resource type="Texture2D" uid="uid://daadq4j7ndw72" path="res://assets/external/gandalfhardcore/platformer/GandalfHardcore FREE Platformer Assets/GandalfHardcore Background layers/Normal BG/GandalfHardcore Background layers_layer 1.png" id="7_close_trees"]
 [ext_resource type="PackedScene" uid="uid://dgydh5wklq6qh" path="res://scenes/world/RangedEnemy.tscn" id="8_6w1ro"]
 [ext_resource type="Texture2D" uid="uid://b0cf4cpxq8rpr" path="res://assets/external/gandalfhardcore/platformer/GandalfHardcore FREE Platformer Assets/GandalfHardcore Background layers/Normal BG/Background Castle .png" id="8_castle"]
+[ext_resource type="PackedScene" uid="uid://br5nbtx6hhf2v" path="res://scenes/world/SavePoint.tscn" id="8_ckmd6"]
 [ext_resource type="PackedScene" uid="uid://cexihxsolu6jg" path="res://scenes/world/MeleeEnemy.tscn" id="9_dl5b8"]
 [ext_resource type="Texture2D" uid="uid://fy7052palr4g" path="res://assets/external/gandalfhardcore/platformer/GandalfHardcore FREE Platformer Assets/Floor Tiles1.png" id="9_tiles"]
 [ext_resource type="Texture2D" uid="uid://bmtxprncvdvb5" path="res://assets/external/gandalfhardcore/platformer/GandalfHardcore FREE Platformer Assets/Birch1.png" id="10_birch1"]
 [ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="11_6w1ro"]
-[ext_resource type="Texture2D" uid="uid://b2mw3mbq0vgan" path="res://assets/external/gandalfhardcore/platformer/GandalfHardcore FREE Platformer Assets/Birch2.png" id="11_birch2"]
-[ext_resource type="Texture2D" uid="uid://cs1bhn1ngi6jq" path="res://assets/external/gandalfhardcore/platformer/GandalfHardcore FREE Platformer Assets/Birch3.png" id="12_birch3"]
 [ext_resource type="Texture2D" uid="uid://cnhaa0mufvota" path="res://assets/external/gandalfhardcore/platformer/GandalfHardcore FREE Platformer Assets/Angel Statue.png" id="13_statue"]
 [ext_resource type="Texture2D" uid="uid://bylidh3ra3jem" path="res://assets/external/gandalfhardcore/platformer/GandalfHardcore FREE Platformer Assets/cloud1.png" id="14_cloud1"]
+[ext_resource type="Texture2D" uid="uid://bhaflyoqvislr" path="res://assets/external/gandalfhardcore/platformer/GandalfHardcore FREE Platformer Assets/Small Tent.png" id="16_5iajk"]
 [ext_resource type="PackedScene" uid="uid://d8tq20x6upcu" path="res://scenes/world/Npc.tscn" id="17_1tgdx"]
 [ext_resource type="Resource" path="res://resources/quests/main_defeat_boss.tres" id="18_0nts5"]
 [ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="19_ladder"]
@@ -24,6 +24,12 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Lever.tscn" id="21_lever"]
 [ext_resource type="PackedScene" path="res://scenes/world/ItemPickup.tscn" id="23_hxkyx"]
 [ext_resource type="Resource" path="res://resources/items/ability_double_jump.tres" id="24_uj7mp"]
+[ext_resource type="PackedScene" path="res://scenes/world/Pet.tscn" id="25_pet"]
+[ext_resource type="PackedScene" path="res://scenes/world/Hazard.tscn" id="26_hazard"]
+[ext_resource type="PackedScene" path="res://scenes/world/Spikes.tscn" id="27_spikes"]
+[ext_resource type="Texture2D" uid="uid://cum5orasgfpv0" path="res://assets/external/gandalfhardcore/platformer/GandalfHardcore FREE Platformer Assets/Weeping Willow1.png" id="28_5iajk"]
+[ext_resource type="Texture2D" uid="uid://fvgxt6t3dkfh" path="res://assets/external/gandalfhardcore/platformer/GandalfHardcore FREE Platformer Assets/Tree2.png" id="29_44mwg"]
+[ext_resource type="Texture2D" uid="uid://ctvr7p2xw3l7m" path="res://assets/sprites/misprite/ChatGPT_Image_2_jul_2026__15_27_59-removebg-preview-removebg-preview.png" id="30_44mwg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_evy1w"]
 size = Vector2(30, 106)
@@ -46,6 +52,9 @@ size = Vector2(95, 13)
 
 [sub_resource type="RectangleShape2D" id="Shape_plat3"]
 size = Vector2(91, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3sgbd"]
+size = Vector2(122, 75)
 
 [sub_resource type="RectangleShape2D" id="Shape_elevator_ledge"]
 size = Vector2(90, 12)
@@ -620,6 +629,11 @@ texture = ExtResource("9_tiles")
 [sub_resource type="TileSet" id="TileSet_bn06r"]
 sources/0 = SubResource("TileSetAtlasSource_3m6ao")
 
+[sub_resource type="TileSet" id="TileSet_yvfok"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bn06r"]
+size = Vector2(613, 36)
+
 [node name="MainLevel" type="Node2D" unique_id=1398341345]
 script = ExtResource("2_bootstrap")
 ScenePath = "res://scenes/world/MainLevel.tscn"
@@ -631,7 +645,7 @@ motion_scale = Vector2(0, 0)
 motion_mirroring = Vector2(1024, 0)
 
 [node name="Sky" type="Sprite2D" parent="Background/SkyLayer" unique_id=1607545413]
-position = Vector2(512, 324)
+position = Vector2(510, 171)
 scale = Vector2(1, 1.88)
 texture = ExtResource("3_sky")
 
@@ -640,7 +654,7 @@ motion_scale = Vector2(0.03, 0)
 motion_mirroring = Vector2(1024, 0)
 
 [node name="Castle" type="Sprite2D" parent="Background/CastleLayer" unique_id=326607364]
-position = Vector2(512, 390)
+position = Vector2(520, 281)
 texture = ExtResource("8_castle")
 
 [node name="MountainLayer" type="ParallaxLayer" parent="Background" unique_id=1607936749]
@@ -648,7 +662,7 @@ motion_scale = Vector2(0.08, 0)
 motion_mirroring = Vector2(1024, 0)
 
 [node name="Mountains" type="Sprite2D" parent="Background/MountainLayer" unique_id=1720926230]
-position = Vector2(512, 400)
+position = Vector2(504, 292)
 texture = ExtResource("4_mountains")
 
 [node name="FarTreeLayer" type="ParallaxLayer" parent="Background" unique_id=110234932]
@@ -656,8 +670,11 @@ motion_scale = Vector2(0.15, 0)
 motion_mirroring = Vector2(1024, 0)
 
 [node name="FarTrees" type="Sprite2D" parent="Background/FarTreeLayer" unique_id=1795764144]
-position = Vector2(512, 420)
+position = Vector2(514, 337)
 texture = ExtResource("5_far_trees")
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/FarTreeLayer/FarTrees" unique_id=1829926340]
+position = Vector2(-633.47833, 72.20233)
 
 [node name="MidTreeLayer" type="ParallaxLayer" parent="Background" unique_id=2092462512]
 motion_scale = Vector2(0.28, 0)
@@ -672,7 +689,7 @@ motion_scale = Vector2(0.45, 0)
 motion_mirroring = Vector2(1024, 0)
 
 [node name="CloseTrees" type="Sprite2D" parent="Background/CloseTreeLayer" unique_id=435317864]
-position = Vector2(512, 445)
+position = Vector2(512, 377)
 texture = ExtResource("7_close_trees")
 
 [node name="Underground" type="Polygon2D" parent="." unique_id=652562263]
@@ -681,6 +698,10 @@ position = Vector2(5.7074976, 204.61359)
 scale = Vector2(0.72562486, 0.46272036)
 color = Color(0.21960784, 0.2784314, 0.12156863, 0.19607843)
 polygon = PackedVector2Array(-12, 399, 4500, 392, 4509.62, 908.5106, 2261.9229, 897.56525, 2, 889)
+
+[node name="SavePoint" parent="Underground" unique_id=946861116 instance=ExtResource("8_ckmd6")]
+position = Vector2(2469.9988, 683.7529)
+scale = Vector2(1.3781226, 2.1611323)
 
 [node name="Floor2" type="StaticBody2D" parent="." unique_id=1435807926]
 position = Vector2(4000, 816)
@@ -701,7 +722,7 @@ shape = SubResource("RectangleShape2D_yvfok")
 position = Vector2(2000, 408)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1732937679]
-position = Vector2(-842.75, 0)
+position = Vector2(-839, -6)
 shape = SubResource("Shape_floor")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Floor" unique_id=1633439495]
@@ -747,30 +768,6 @@ texture = SubResource("AtlasTexture_grass")
 region_enabled = true
 region_rect = Rect2(-96, -12, 192, 24)
 
-[node name="Birch_200" type="Sprite2D" parent="." unique_id=1166617890]
-position = Vector2(200, 336)
-texture = ExtResource("10_birch1")
-
-[node name="Birch_420" type="Sprite2D" parent="." unique_id=1891600943]
-position = Vector2(420, 336)
-texture = ExtResource("11_birch2")
-
-[node name="Birch_780" type="Sprite2D" parent="." unique_id=1276859288]
-position = Vector2(780, 336)
-texture = ExtResource("12_birch3")
-
-[node name="Birch_1300" type="Sprite2D" parent="." unique_id=1373946362]
-position = Vector2(1300, 336)
-texture = ExtResource("10_birch1")
-
-[node name="Birch_1800" type="Sprite2D" parent="." unique_id=1551419271]
-position = Vector2(1800, 336)
-texture = ExtResource("11_birch2")
-
-[node name="Birch_2200" type="Sprite2D" parent="." unique_id=794341334]
-position = Vector2(1464, 340)
-texture = ExtResource("12_birch3")
-
 [node name="Birch_2600" type="Sprite2D" parent="." unique_id=1194718491]
 position = Vector2(2600, 336)
 texture = ExtResource("10_birch1")
@@ -811,8 +808,18 @@ texture = ExtResource("14_cloud1")
 [node name="MeleeEnemy" parent="." unique_id=2139146262 instance=ExtResource("9_dl5b8")]
 position = Vector2(651, 262)
 
+[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=1705910486]
+position = Vector2(77, 318.99997)
+scale = Vector2(2.053123, 2.1654372)
+texture = ExtResource("16_5iajk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D4" unique_id=138975718]
+position = Vector2(-0.48706436, 12.237717)
+scale = Vector2(0.48706287, 0.4618005)
+shape = SubResource("RectangleShape2D_3sgbd")
+
 [node name="VillagerNpc" parent="." unique_id=378928384 instance=ExtResource("17_1tgdx")]
-position = Vector2(68, 352)
+position = Vector2(331, 346)
 NpcName = "Aldeano"
 DialogueLines = PackedStringArray("Hay un guardián bloqueando el desfiladero al este.", "Si lo derrotás, te voy a recompensar.")
 InProgressDialogueLines = PackedStringArray("¿Ya te encargaste del guardián? Está más allá del desfiladero.")
@@ -829,7 +836,10 @@ TargetSpawnPosition = Vector2(100, 300)
 position = Vector2(1121, 222)
 
 [node name="Player" parent="." unique_id=530693573 instance=ExtResource("1_player")]
-position = Vector2(132, 357)
+position = Vector2(454, 359)
+
+[node name="Pet" parent="." unique_id=1258618288 instance=ExtResource("25_pet")]
+position = Vector2(279, 371)
 
 [node name="Ladder" parent="." unique_id=814512255 instance=ExtResource("19_ladder")]
 position = Vector2(580, 340)
@@ -865,4 +875,44 @@ tile_set = SubResource("TileSet_bn06r")
 position = Vector2(1746, 502)
 Item = ExtResource("24_uj7mp")
 
+[node name="LavaFloorPatch" parent="." unique_id=952310020 instance=ExtResource("26_hazard")]
+position = Vector2(2450, 376)
+
+[node name="Spikes1" parent="." unique_id=1444050368 instance=ExtResource("27_spikes")]
+position = Vector2(2554, 376)
+
+[node name="Spikes2" parent="." unique_id=1920392557 instance=ExtResource("27_spikes")]
+position = Vector2(2586, 376)
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1643929715]
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1778067588]
+z_index = -10
+position = Vector2(451, 303)
+scale = Vector2(0.91071427, 0.8958333)
+texture = ExtResource("28_5iajk")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D2" unique_id=1646652837]
+z_index = -10
+position = Vector2(1599.8431, 5.5814056)
+scale = Vector2(0.91071427, 0.8958333)
+texture = ExtResource("28_5iajk")
+
+[node name="TileMapLayer2" type="TileMapLayer" parent="." unique_id=1336926393]
+tile_set = SubResource("TileSet_yvfok")
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=1154478083]
+z_index = -27
+position = Vector2(892, 287)
+texture = ExtResource("29_44mwg")
+
+[node name="Sprite2D5" type="Sprite2D" parent="." unique_id=319319527]
+position = Vector2(-309, 394)
+texture = ExtResource("30_44mwg")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1303439586]
+position = Vector2(-369, 548)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=572717489]
+position = Vector2(69, -144)
+shape = SubResource("RectangleShape2D_bn06r")

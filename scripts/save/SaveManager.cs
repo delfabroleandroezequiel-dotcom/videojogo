@@ -23,6 +23,9 @@ public partial class SaveManager : Node
 	private readonly HashSet<string> _collectedItems = new();
 	private readonly List<string> _equippedRings = new();
 
+	public const int MaxHealChargeCap = 5;
+	private int _maxHealCharges = 1;
+
 	public override void _Ready()
 	{
 		Instance = this;
@@ -64,6 +67,17 @@ public partial class SaveManager : Node
 
 	public void UnequipRing(string id) => _equippedRings.Remove(id);
 
+	public int GetMaxHealCharges() => _maxHealCharges;
+
+	public bool UnlockHealCharge()
+	{
+		if (_maxHealCharges >= MaxHealChargeCap)
+			return false;
+
+		_maxHealCharges++;
+		return true;
+	}
+
 	public void ResetProgressState()
 	{
 		_defeatedBosses.Clear();
@@ -72,6 +86,7 @@ public partial class SaveManager : Node
 		_unlockedAbilities.Clear();
 		_collectedItems.Clear();
 		_equippedRings.Clear();
+		_maxHealCharges = 1;
 		QuestManager.Instance.ResetProgressState();
 	}
 
@@ -117,6 +132,8 @@ public partial class SaveManager : Node
 
 		_equippedRings.Clear();
 		_equippedRings.AddRange(PendingLoad.EquippedRings);
+
+		_maxHealCharges = Mathf.Clamp(PendingLoad.MaxHealCharges, 1, MaxHealChargeCap);
 
 		return PendingLoad;
 	}

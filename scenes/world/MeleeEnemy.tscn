@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/player/Hitbox.cs" id="2_hitbox"]
 [ext_resource type="Script" path="res://scripts/shared/Stats.cs" id="3_stats"]
 [ext_resource type="PackedScene" path="res://scenes/ui/StatBar.tscn" id="4_statbar"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/EnemySpriteFrames.tres" id="5_frames"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/WarriorSpriteFrames.tres" id="5_frames"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
 size = Vector2(32, 64)
@@ -30,6 +30,7 @@ shape = SubResource("RectangleShape2D_collision")
 [node name="Visual" type="Node2D" parent="."]
 
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual"]
+scale = Vector2(1.5, 1.5)
 sprite_frames = ExtResource("5_frames")
 animation = &"idle"
 autoplay = "idle"
@@ -47,7 +48,7 @@ disabled = true
 [node name="Stats" type="Node" parent="."]
 script = ExtResource("3_stats")
 MaxHealth = 40
-AttackPower = 8
+AttackPower = 50
 Defense = 0
 MaxStamina = 50
 

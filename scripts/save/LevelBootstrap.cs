@@ -49,6 +49,7 @@ public partial class LevelBootstrap : Node
 			data.QuestProgress[entry.Key] = entry.Value;
 		data.CollectedItems.AddRange(SaveManager.Instance.GetCollectedItems());
 		data.EquippedRings.AddRange(SaveManager.Instance.GetEquippedRings());
+		data.MaxHealCharges = SaveManager.Instance.GetMaxHealCharges();
 
 		SaveManager.Instance.SaveGame(SaveManager.Instance.CurrentSlot, data);
 		SaveManager.Instance.ClearCommonEnemyDefeats();
@@ -59,13 +60,25 @@ public partial class LevelBootstrap : Node
 	public void RespawnPlayer()
 	{
 		int slot = SaveManager.Instance.CurrentSlot;
+		string targetScenePath;
+
 		if (SaveManager.Instance.HasSaveFile(slot))
-			SaveManager.Instance.PeekSave(slot);
+		{
+			SaveData data = SaveManager.Instance.PeekSave(slot);
+			targetScenePath = data.ScenePath;
+		}
 		else
+		{
 			SaveManager.Instance.ClearPendingLoad();
+			targetScenePath = "res://scenes/world/TestLevel.tscn";
+		}
 
 		SaveManager.Instance.ClearCommonEnemyDefeats();
-		GetTree().CallDeferred(SceneTree.MethodName.ReloadCurrentScene);
+
+		if (targetScenePath == ScenePath)
+			GetTree().CallDeferred(SceneTree.MethodName.ReloadCurrentScene);
+		else
+			GetTree().CallDeferred(SceneTree.MethodName.ChangeSceneToFile, targetScenePath);
 	}
 
 	private void ApplySave(SaveData data)
