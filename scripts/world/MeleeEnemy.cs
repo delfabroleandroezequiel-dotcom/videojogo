@@ -8,6 +8,7 @@ public partial class MeleeEnemy : Enemy
 	[Export] public float AttackRange = 40f;
 	[Export] public float AttackCooldown = 1f;
 	[Export] public float AttackDuration = 0.3f;
+	[Export] public float AttackAnimDuration = 0.5f;
 
 	private Hitbox _hitbox;
 	private bool _attacking;
@@ -59,6 +60,9 @@ public partial class MeleeEnemy : Enemy
 
 		await ToSignal(GetTree().CreateTimer(AttackDuration), SceneTreeTimer.SignalName.Timeout);
 		_hitbox.Deactivate();
+
+		float remainingAnimTime = Mathf.Max(0f, AttackAnimDuration - AttackDuration);
+		await ToSignal(GetTree().CreateTimer(remainingAnimTime), SceneTreeTimer.SignalName.Timeout);
 		_attacking = false;
 
 		await ToSignal(GetTree().CreateTimer(AttackCooldown), SceneTreeTimer.SignalName.Timeout);

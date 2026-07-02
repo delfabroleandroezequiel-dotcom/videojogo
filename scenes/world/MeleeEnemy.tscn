@@ -30,7 +30,7 @@ shape = SubResource("RectangleShape2D_collision")
 [node name="Visual" type="Node2D" parent="."]
 
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual"]
-scale = Vector2(1.5, 1.5)
+scale = Vector2(-1.5, 1.5)
 sprite_frames = ExtResource("5_frames")
 animation = &"idle"
 autoplay = "idle"
