@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_script")
 Id = "item_ability_sprint"
-ItemName = "Botas veloces"
-Description = "Te permiten correr manteniendo presionado sprint."
+ItemName = "ITEM_ABILITY_SPRINT_NAME"
+Description = "ITEM_ABILITY_SPRINT_DESC"
 Type = 0
 AbilityId = "sprint"

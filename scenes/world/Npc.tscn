@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://d8tq20x6upcu"]
 
-[ext_resource type="Script" path="res://scripts/world/Npc.cs" id="1_script"]
-[ext_resource type="Script" path="res://scripts/shared/Stats.cs" id="2_stats"]
-[ext_resource type="PackedScene" path="res://scenes/ui/StatBar.tscn" id="3_statbar"]
+[ext_resource type="Script" uid="uid://bkw1h46tmf7uo" path="res://scripts/world/Npc.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://b47a4kpptnpqi" path="res://scripts/shared/Stats.cs" id="2_stats"]
+[ext_resource type="PackedScene" uid="uid://ba6e10sx6t2c8" path="res://scenes/ui/StatBar.tscn" id="3_statbar"]
 [ext_resource type="SpriteFrames" path="res://assets/sprites/npc_warrior/NpcSpriteFrames.tres" id="4_spriteframes"]
+[ext_resource type="PackedScene" uid="uid://dq3mb122eef3v" path="res://scenes/world/Explosion.tscn" id="5_explosion"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
 size = Vector2(32, 64)
@@ -11,46 +12,48 @@ size = Vector2(32, 64)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_interact"]
 size = Vector2(64, 80)
 
-[node name="Npc" type="CharacterBody2D" groups=["npc"]]
+[node name="Npc" type="CharacterBody2D" unique_id=2040744673 groups=["npc"]]
+collision_layer = 4
 script = ExtResource("1_script")
+ExplosionScene = ExtResource("5_explosion")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=850340661]
 shape = SubResource("RectangleShape2D_collision")
 
-[node name="Visual" type="Node2D" parent="."]
+[node name="Visual" type="Node2D" parent="." unique_id=543944197]
 
-[node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual"]
-position = Vector2(0, 8)
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual" unique_id=1408086897]
+position = Vector2(1.9999999, -4.999999)
 scale = Vector2(1.4, 1.4)
 sprite_frames = ExtResource("4_spriteframes")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="InteractArea" type="Area2D" parent="."]
+[node name="InteractArea" type="Area2D" parent="." unique_id=1965354743]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=1929119865]
+position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_interact")
 
-[node name="InteractPrompt" type="Label" parent="."]
+[node name="InteractPrompt" type="Label" parent="." unique_id=108265902]
 offset_left = -8.0
 offset_top = -52.0
 offset_right = 8.0
 offset_bottom = -36.0
-text = "E"
+text = "UI_INTERACT_PROMPT"
 horizontal_alignment = 1
 
-[node name="Stats" type="Node" parent="."]
+[node name="Stats" type="Node" parent="." unique_id=1915406529]
 script = ExtResource("2_stats")
 MaxHealth = 30
 AttackPower = 0
-Defense = 0
 MaxStamina = 50
 
-[node name="HealthBar" parent="." instance=ExtResource("3_statbar")]
+[node name="HealthBar" parent="." unique_id=1455153212 instance=ExtResource("3_statbar")]
 position = Vector2(0, 40)
 
-[node name="StaminaBar" parent="." instance=ExtResource("3_statbar")]
+[node name="StaminaBar" parent="." unique_id=1416515506 instance=ExtResource("3_statbar")]
 position = Vector2(0, 46)
 FillColor = Color(0.2, 0.6, 1, 1)

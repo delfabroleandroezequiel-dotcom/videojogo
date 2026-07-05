@@ -25,7 +25,7 @@ offset_right = 200.0
 offset_bottom = 30.0
 theme_override_font_sizes/font_size = 36
 horizontal_alignment = 1
-text = "METROIDVANIA"
+text = "UI_MAINMENU_TITLE"
 
 [node name="TopMenu" type="VBoxContainer" parent="."]
 anchor_left = 0.5
@@ -40,11 +40,11 @@ theme_override_constants/separation = 8
 
 [node name="ContinueButton" type="Button" parent="TopMenu"]
 custom_minimum_size = Vector2(180, 36)
-text = "Continuar"
+text = "UI_MAINMENU_CONTINUE"
 
 [node name="NewGameButton" type="Button" parent="TopMenu"]
 custom_minimum_size = Vector2(180, 36)
-text = "Nueva Partida"
+text = "UI_MAINMENU_NEW_GAME"
 
 [node name="SlotMenu" type="VBoxContainer" parent="."]
 visible = false
@@ -60,14 +60,14 @@ theme_override_constants/separation = 6
 
 [node name="SlotMenuTitle" type="Label" parent="SlotMenu"]
 horizontal_alignment = 1
-text = "Elegí una partida vacía"
+text = "UI_MAINMENU_CHOOSE_SLOT"
 
 [node name="SlotsContainer" type="VBoxContainer" parent="SlotMenu"]
 theme_override_constants/separation = 6
 
 [node name="BackButton" type="Button" parent="SlotMenu"]
 custom_minimum_size = Vector2(120, 32)
-text = "Volver"
+text = "UI_MAINMENU_BACK"
 
 [node name="NamePrompt" type="VBoxContainer" parent="."]
 visible = false
@@ -83,16 +83,16 @@ theme_override_constants/separation = 8
 
 [node name="NameLabel" type="Label" parent="NamePrompt"]
 horizontal_alignment = 1
-text = "Nombre del personaje:"
+text = "UI_MAINMENU_NAME_LABEL"
 
 [node name="NameEdit" type="LineEdit" parent="NamePrompt"]
 custom_minimum_size = Vector2(220, 32)
-placeholder_text = "Ej: Aria"
+placeholder_text = "UI_MAINMENU_NAME_PLACEHOLDER"
 
 [node name="ConfirmButton" type="Button" parent="NamePrompt"]
 custom_minimum_size = Vector2(220, 32)
-text = "Comenzar"
+text = "UI_MAINMENU_START"
 
 [node name="CancelButton" type="Button" parent="NamePrompt"]
 custom_minimum_size = Vector2(220, 32)
-text = "Cancelar"
+text = "UI_MAINMENU_CANCEL"

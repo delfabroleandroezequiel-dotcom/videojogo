@@ -26,5 +26,5 @@ offset_left = -8.0
 offset_top = -36.0
 offset_right = 8.0
 offset_bottom = -20.0
-text = "E"
+text = "UI_INTERACT_PROMPT"
 horizontal_alignment = 1

@@ -58,7 +58,7 @@ public partial class InventoryUI : CanvasLayer
 			return;
 
 		int equippedCount = SaveManager.Instance.GetEquippedRings().Count;
-		_equippedLabel.Text = $"Anillos equipados: {equippedCount}/{SaveManager.MaxEquippedRings}";
+		_equippedLabel.Text = string.Format(TranslationServer.Translate("UI_INVENTORY_EQUIPPED"), equippedCount, SaveManager.MaxEquippedRings);
 
 		foreach (string itemId in SaveManager.Instance.GetCollectedItems())
 		{
@@ -74,17 +74,19 @@ public partial class InventoryUI : CanvasLayer
 	{
 		HBoxContainer row = new();
 
-		string typeTag = item.Type switch
+		string typeTag = TranslationServer.Translate(item.Type switch
 		{
-			ItemType.Ability => "[Habilidad]",
-			ItemType.Ring => "[Anillo]",
-			ItemType.Quest => "[Misión]",
-			_ => "[Lore]",
-		};
+			ItemType.Ability => "UI_INVENTORY_TAG_ABILITY",
+			ItemType.Ring => "UI_INVENTORY_TAG_RING",
+			ItemType.Quest => "UI_INVENTORY_TAG_QUEST",
+			_ => "UI_INVENTORY_TAG_LORE",
+		});
+		string itemName = TranslationServer.Translate(item.ItemName);
+		string description = TranslationServer.Translate(item.Description);
 
 		Label label = new()
 		{
-			Text = $"{typeTag} {item.ItemName}\n  {item.Description}",
+			Text = $"{typeTag} {itemName}\n  {description}",
 			AutowrapMode = TextServer.AutowrapMode.Word,
 			CustomMinimumSize = new Vector2(380, 0),
 			SizeFlagsHorizontal = Control.SizeFlags.ExpandFill,
@@ -94,7 +96,7 @@ public partial class InventoryUI : CanvasLayer
 		if (item.Type == ItemType.Ring)
 		{
 			bool isEquipped = SaveManager.Instance.GetEquippedRings().Contains(item.Id);
-			Button button = new() { Text = isEquipped ? "Quitar" : "Equipar" };
+			Button button = new() { Text = isEquipped ? "UI_INVENTORY_UNEQUIP" : "UI_INVENTORY_EQUIP" };
 			button.Pressed += () =>
 			{
 				if (isEquipped)

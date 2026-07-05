@@ -1,6 +1,30 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://cv235au1vjegf"]
 
-[ext_resource type="Texture2D" path="res://assets/external/gandalfhardcore/warrior/GandalfHardcore Warrior.png" id="1_sheet"]
+[ext_resource type="Texture2D" uid="uid://bm4ro337wxb58" path="res://assets/external/gandalfhardcore/warrior/GandalfHardcore Warrior.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_attack0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 897, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_attack1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(80, 897, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_attack2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(160, 897, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_attack3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(240, 897, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_attack4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(320, 897, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_attack5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(400, 897, 80, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_idle0"]
 atlas = ExtResource("1_sheet")
@@ -54,32 +78,31 @@ region = Rect2(480, 591, 80, 52)
 atlas = ExtResource("1_sheet")
 region = Rect2(560, 591, 80, 52)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_attack0"]
-atlas = ExtResource("1_sheet")
-region = Rect2(0, 897, 80, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_attack1"]
-atlas = ExtResource("1_sheet")
-region = Rect2(80, 897, 80, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_attack2"]
-atlas = ExtResource("1_sheet")
-region = Rect2(160, 897, 80, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_attack3"]
-atlas = ExtResource("1_sheet")
-region = Rect2(240, 897, 80, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_attack4"]
-atlas = ExtResource("1_sheet")
-region = Rect2(320, 897, 80, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_attack5"]
-atlas = ExtResource("1_sheet")
-region = Rect2(400, 897, 80, 64)
-
 [resource]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_attack0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_attack1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_attack2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_attack3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_attack4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_attack5")
+}],
+"loop": 0,
+"name": &"attack",
+"speed": 12.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_idle0")
@@ -96,7 +119,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_idle4")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 6.0
 }, {
@@ -125,30 +148,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_run7")
 }],
-"loop": true,
+"loop": 1,
 "name": &"run",
 "speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_attack0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_attack1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_attack2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_attack3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_attack4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_attack5")
-}],
-"loop": false,
-"name": &"attack",
-"speed": 12.0
 }]

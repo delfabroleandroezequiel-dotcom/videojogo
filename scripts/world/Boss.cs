@@ -128,7 +128,7 @@ public partial class Boss : Enemy
 			Sprite.Play(anim);
 	}
 
-	private void OnHitTaken()
+	private void OnHitTaken(bool isProjectile)
 	{
 		if (_isDodging || !_canDodge || _attacking)
 			return;

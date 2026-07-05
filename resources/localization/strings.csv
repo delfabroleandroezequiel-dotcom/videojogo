@@ -1,0 +1,90 @@
+keys,es,en,pt
+UI_MAINMENU_TITLE,METROIDVANIA,METROIDVANIA,METROIDVANIA
+UI_MAINMENU_CONTINUE,Continuar,Continue,Continuar
+UI_MAINMENU_NEW_GAME,Nueva Partida,New Game,Novo Jogo
+UI_MAINMENU_CHOOSE_SLOT,Elegí una partida vacía,Choose an empty slot,Escolha um slot vazio
+UI_MAINMENU_BACK,Volver,Back,Voltar
+UI_MAINMENU_NAME_LABEL,Nombre del personaje:,Character name:,Nome do personagem:
+UI_MAINMENU_NAME_PLACEHOLDER,Ej: Aria,E.g.: Aria,Ex: Aria
+UI_MAINMENU_START,Comenzar,Start,Começar
+UI_MAINMENU_CANCEL,Cancelar,Cancel,Cancelar
+UI_MAINMENU_SLOT_BUSY,{0} (ocupado),{0} (in use),{0} (ocupado)
+UI_MAINMENU_SLOT_EMPTY,Vacío — crear nueva,Empty — create new,Vazio — criar novo
+UI_MAINMENU_DELETE,Borrar,Delete,Apagar
+UI_DEFAULT_HERO_NAME,Héroe,Hero,Herói
+UI_DEATHSCREEN_TEXT,HAS MUERTO,YOU DIED,VOCÊ MORREU
+UI_CONFIRM_DEFAULT_QUESTION,"¿Desea continuar?","Do you want to continue?","Deseja continuar?"
+UI_CONFIRM_YES,Sí,Yes,Sim
+UI_CONFIRM_NO,No,No,Não
+UI_DIALOGUE_CONTINUE,[E] continuar,[E] continue,[E] continuar
+UI_DIALOGUE_CLOSE,[E] cerrar,[E] close,[E] fechar
+UI_DIALOGUE_DEFAULT_NAME,NPC,NPC,NPC
+UI_DIALOGUE_DEFAULT_TEXT,...,...,...
+UI_QUESTLOG_TITLE,Misiones,Quests,Missões
+UI_QUESTLOG_ACTIVE,En curso,In progress,Em andamento
+UI_QUESTLOG_COMPLETED_TITLE,Completadas,Completed,Concluídas
+UI_QUESTLOG_CLOSE_HINT,[L] cerrar,[L] close,[L] fechar
+UI_QUESTLOG_MAIN_PREFIX,[Principal] ,[Main] ,[Principal]
+UI_QUESTLOG_SIDE_PREFIX,[Secundaria] ,[Side] ,[Secundária]
+UI_QUESTLOG_PROGRESS," ({0}/{1})"," ({0}/{1})"," ({0}/{1})"
+UI_QUESTLOG_COMPLETED_ENTRY,✓ {0},✓ {0},✓ {0}
+UI_INVENTORY_TITLE,Inventario,Inventory,Inventário
+UI_INVENTORY_EQUIPPED,Anillos equipados: {0}/{1},Equipped rings: {0}/{1},Anéis equipados: {0}/{1}
+UI_INVENTORY_CLOSE_HINT,[I] cerrar,[I] close,[I] fechar
+UI_INVENTORY_TAG_ABILITY,[Habilidad],[Ability],[Habilidade]
+UI_INVENTORY_TAG_RING,[Anillo],[Ring],[Anel]
+UI_INVENTORY_TAG_QUEST,[Misión],[Quest],[Missão]
+UI_INVENTORY_TAG_LORE,[Lore],[Lore],[Lore]
+UI_INVENTORY_UNEQUIP,Quitar,Unequip,Remover
+UI_INVENTORY_EQUIP,Equipar,Equip,Equipar
+UI_PAUSE_TITLE,PAUSA,PAUSED,PAUSA
+UI_PAUSE_RESUME,Continuar,Resume,Continuar
+UI_PAUSE_MAIN_MENU,Menú Principal,Main Menu,Menu Principal
+UI_PAUSE_LANGUAGE_LABEL,Idioma,Language,Idioma
+UI_RESTSCREEN_TEXT,Descansando,Resting,Descansando
+UI_INTERACT_PROMPT,E,E,E
+UI_HUD_HEAL_CHARGES,Curas: {0}/{1},Heals: {0}/{1},Curas: {0}/{1}
+SAVEPOINT_LIGHT_CONFIRM,"¿Desea encenderla?","Do you want to light it?","Deseja acendê-la?"
+SAVEPOINT_REST_CONFIRM,"¿Desea descansar?","Do you want to rest?","Deseja descansar?"
+NPC_DEFAULT_NAME,NPC,NPC,NPC
+NPC_DEFAULT_LINE,...,...,...
+NPC_DEFAULT_IN_PROGRESS,Todavía no terminé eso.,I still haven't finished that.,Ainda não terminei isso.
+NPC_DEFAULT_COMPLETED,Gracias por tu ayuda.,Thanks for your help.,Obrigado pela sua ajuda.
+DIALOGUETRIGGER_DEFAULT_SPEAKER,???,???,???
+NPC_DOORVOICE_SPEAKER,Voz desde adentro,Voice from inside,Voz lá de dentro
+NPC_DOORVOICE_L1,"No me molestes, mañana es día de embarque.","Don't bother me, tomorrow is departure day.","Não me incomode, amanhã é dia de embarque."
+NPC_PESCADOR_NAME,Viejo Pescador,Old Fisherman,Velho Pescador
+NPC_PESCADOR_L1,El mar estuvo tranquilo esta semana.,The sea has been calm this week.,O mar esteve calmo essa semana.
+NPC_PESCADOR_L2,"Antes salíamos a pescar más lejos, antes de que cerraran el paso del este.","We used to fish farther out, before they closed the eastern passage.","Antigamente pescávamos mais longe, antes de fecharem a passagem do leste."
+NPC_COMERCIANTE_NAME,Comerciante,Merchant,Comerciante
+NPC_COMERCIANTE_L1,Bienvenido a Nix.,Welcome to Nix.,Bem-vindo a Nix.
+NPC_COMERCIANTE_L2,"Si vas a salir por el este, llevate provisiones.","If you're heading out east, take supplies with you.","Se for sair pelo leste, leve provisões."
+NPC_OSTIGADA_NAME,Ostigada,Ostigada,Ostigada
+NPC_OSTIGADA_L1,"Este mesón lleva mi nombre por una razón, viajero.","This tavern carries my name for a reason, traveler.","Esta taverna leva meu nome por um motivo, viajante."
+NPC_OSTIGADA_L2,"Sentate, comé algo, pero no preguntes qué hay en el sótano.","Sit down, eat something, but don't ask what's in the cellar.","Sente-se, coma algo, mas não pergunte o que tem no porão."
+NPC_ALDEANO_NAME,Aldeano,Villager,Aldeão
+NPC_ALDEANO_L1,Hay un guardián bloqueando el desfiladero al este.,There's a guardian blocking the pass to the east.,Há um guardião bloqueando o desfiladeiro a leste.
+NPC_ALDEANO_L2,"Si lo derrotás, te voy a recompensar.","If you defeat it, I'll reward you.","Se você derrotá-lo, eu vou te recompensar."
+NPC_ALDEANO_PROGRESS_L1,¿Ya te encargaste del guardián? Está más allá del desfiladero.,Have you dealt with the guardian yet? It's beyond the pass.,Você já cuidou do guardião? Ele está além do desfiladeiro.
+NPC_ALDEANO_COMPLETED_L1,"¡Lo lograste! El camino está libre, gracias.","You did it! The path is clear, thank you.","Você conseguiu! O caminho está livre, obrigado."
+QUEST_MAIN_BOSS_TITLE,El guardián del paso,The Guardian of the Pass,O guardião da passagem
+QUEST_MAIN_BOSS_DESC,Viajá al desfiladero y derrotá al guardián que lo custodia.,Travel to the pass and defeat the guardian that watches over it.,Viaje até o desfiladeiro e derrote o guardião que o protege.
+QUEST_MAIN_BOSS_OBJECTIVE,Derrotar al guardián,Defeat the guardian,Derrotar o guardião
+QUEST_MAIN_BOSS_REWARD,El aldeano te recompensa por liberar el camino.,The villager rewards you for freeing the path.,O aldeão te recompensa por libertar o caminho.
+QUEST_SIDE_GREET_TITLE,Un saludo en el camino,A greeting along the way,Uma saudação no caminho
+QUEST_SIDE_GREET_DESC,Hablá con el aldeano cerca del primer claro.,Talk to the villager near the first clearing.,Fale com o aldeão perto da primeira clareira.
+QUEST_SIDE_GREET_OBJECTIVE,Hablar con el aldeano,Talk to the villager,Falar com o aldeão
+ITEM_ABILITY_DASH_NAME,Esencia del dash,Dash Essence,Essência da investida
+ITEM_ABILITY_DASH_DESC,Te permite hacer un dash horizontal rápido.,Lets you perform a quick horizontal dash.,Permite fazer uma investida horizontal rápida.
+ITEM_ABILITY_DOUBLEJUMP_NAME,Pluma del salto doble,Double Jump Feather,Pena do pulo duplo
+ITEM_ABILITY_DOUBLEJUMP_DESC,Te permite saltar una segunda vez en el aire.,Lets you jump a second time in the air.,Permite pular uma segunda vez no ar.
+ITEM_ABILITY_SPRINT_NAME,Botas veloces,Swift Boots,Botas velozes
+ITEM_ABILITY_SPRINT_DESC,Te permiten correr manteniendo presionado sprint.,Let you run by holding down sprint.,Permitem correr mantendo pressionado o botão de corrida.
+ITEM_HEAL_UPGRADE_NAME,Frasco de vida,Life Flask,Frasco de vida
+ITEM_HEAL_UPGRADE_DESC,Aumenta en 1 la cantidad de curas que podés llevar.,Increases the number of heals you can carry by 1.,Aumenta em 1 a quantidade de curas que você pode carregar.
+ITEM_LORE_NOTE_GUARDIAN_NAME,Nota desgastada,Worn Note,Nota desgastada
+ITEM_LORE_NOTE_GUARDIAN_DESC,"""...el guardián del desfiladero no siempre fue un monstruo. Antes custodiaba el paso por voluntad propia...""","""...the guardian of the pass wasn't always a monster. It used to watch over the passage of its own will...""","""...o guardião do desfiladeiro nem sempre foi um monstro. Antes vigiava a passagem por vontade própria..."""
+ITEM_RING_POWER_NAME,Anillo de poder,Ring of Power,Anel de poder
+ITEM_RING_POWER_DESC,Aumenta tu poder de ataque en 5 puntos.,Increases your attack power by 5 points.,Aumenta seu poder de ataque em 5 pontos.
+ITEM_RING_VITALITY_NAME,Anillo de vitalidad,Ring of Vitality,Anel de vitalidade
+ITEM_RING_VITALITY_DESC,Aumenta tu vida máxima en 20 puntos.,Increases your maximum health by 20 points.,Aumenta sua vida máxima em 20 pontos.

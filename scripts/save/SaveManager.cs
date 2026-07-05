@@ -10,11 +10,16 @@ public partial class SaveManager : Node
 {
 	public const int SlotCount = 6;
 
+	// Bump this whenever a saved field's meaning changes, and add the corresponding
+	// upgrade step to MigrateSaveData. Legacy saves written before this existed load as 0.
+	public const int CurrentSaveVersion = 1;
+
 	public static SaveManager Instance { get; private set; }
 	public int CurrentSlot { get; set; }
 	public string CurrentCharacterName { get; set; } = "Héroe";
 	public SaveData PendingLoad { get; private set; }
 	public Vector2? PendingSpawnPosition { get; set; }
+	public Vector2? PendingReturnPosition { get; set; }
 
 	private readonly HashSet<string> _defeatedBosses = new();
 	private readonly HashSet<string> _defeatedCommonEnemies = new();
@@ -25,6 +30,14 @@ public partial class SaveManager : Node
 
 	public const int MaxHealChargeCap = 5;
 	private int _maxHealCharges = 1;
+
+	public int StoryStage { get; private set; }
+
+	public void SetStoryStage(int stage)
+	{
+		if (stage > StoryStage)
+			StoryStage = stage;
+	}
 
 	public override void _Ready()
 	{
@@ -87,7 +100,17 @@ public partial class SaveManager : Node
 		_collectedItems.Clear();
 		_equippedRings.Clear();
 		_maxHealCharges = 1;
+		StoryStage = 0;
 		QuestManager.Instance.ResetProgressState();
+	}
+
+	// Upgrades an older SaveData in place, one version step at a time, before it's used.
+	// No steps exist yet — this is the hook for the day a saved field's meaning changes.
+	// Example once needed:
+	// if (data.SaveVersion < 2) { ... adjust data for the v1 -> v2 change ... }
+	private static void MigrateSaveData(SaveData data)
+	{
+		data.SaveVersion = CurrentSaveVersion;
 	}
 
 	private static string GetPath(int slot) => $"user://savegame_slot_{slot}.json";
@@ -96,6 +119,7 @@ public partial class SaveManager : Node
 
 	public void SaveGame(int slot, SaveData data)
 	{
+		data.SaveVersion = CurrentSaveVersion;
 		string json = JsonSerializer.Serialize(data);
 		using FileAccess file = FileAccess.Open(GetPath(slot), FileAccess.ModeFlags.Write);
 		file.StoreString(json);
@@ -109,6 +133,7 @@ public partial class SaveManager : Node
 		using FileAccess file = FileAccess.Open(GetPath(slot), FileAccess.ModeFlags.Read);
 		string json = file.GetAsText();
 		PendingLoad = JsonSerializer.Deserialize<SaveData>(json);
+		MigrateSaveData(PendingLoad);
 		CurrentCharacterName = PendingLoad.CharacterName;
 
 		_defeatedCommonEnemies.Clear();
@@ -134,6 +159,7 @@ public partial class SaveManager : Node
 		_equippedRings.AddRange(PendingLoad.EquippedRings);
 
 		_maxHealCharges = Mathf.Clamp(PendingLoad.MaxHealCharges, 1, MaxHealChargeCap);
+		StoryStage = PendingLoad.StoryStage;
 
 		return PendingLoad;
 	}

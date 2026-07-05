@@ -13,6 +13,7 @@ public partial class Enemy : CharacterBody2D
 	[Export] public float StopDistance = 0f;
 	[Export] public float KnockbackDuration = 0.2f;
 	[Export] public float ExplosionScale = 1f;
+	[Export] public PackedScene ExplosionScene;
 	[Export] public string CustomPersistenceId = "";
 
 	protected Stats Stats;
@@ -45,9 +46,11 @@ public partial class Enemy : CharacterBody2D
 
 		StatBar healthBar = GetNode<StatBar>("HealthBar");
 		StatBar staminaBar = GetNode<StatBar>("StaminaBar");
+		healthBar.Visible = false;
+		staminaBar.Visible = false;
 		Stats.HealthChanged += (current, max) => healthBar.SetRatio((float)current / max);
 		Stats.StaminaChanged += (current, max) => staminaBar.SetRatio((float)current / max);
-		Stats.HitTaken += () => FlashHit();
+		Stats.HitTaken += (isProjectile) => FlashHit();
 	}
 
 	private void FlashHit()
@@ -68,8 +71,10 @@ public partial class Enemy : CharacterBody2D
 
 	protected void SpawnExplosion()
 	{
-		PackedScene explosionScene = GD.Load<PackedScene>("res://scenes/world/Explosion.tscn");
-		Node explosionNode = explosionScene.Instantiate();
+		if (ExplosionScene is null)
+			return;
+
+		Node explosionNode = ExplosionScene.Instantiate();
 		if (explosionNode is Explosion explosion)
 			explosion.TargetScale = ExplosionScale;
 

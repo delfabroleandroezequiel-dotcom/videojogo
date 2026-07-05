@@ -31,13 +31,13 @@ public partial class DialogueBox : CanvasLayer
 
 	public bool IsOpen => _isOpen;
 
-	public void Show(string speakerName, string[] lines, Action onFinished = null)
+	public void Show(string speakerNameKey, string[] lineKeys, Action onFinished = null)
 	{
-		if (lines is null || lines.Length == 0)
+		if (lineKeys is null || lineKeys.Length == 0)
 			return;
 
-		_nameLabel.Text = speakerName;
-		_lines = lines;
+		_nameLabel.Text = TranslationServer.Translate(speakerNameKey);
+		_lines = lineKeys;
 		_lineIndex = 0;
 		_onFinished = onFinished;
 		_isOpen = true;
@@ -72,8 +72,8 @@ public partial class DialogueBox : CanvasLayer
 
 	private void DisplayCurrentLine()
 	{
-		_textLabel.Text = _lines[_lineIndex];
-		_continueHint.Text = _lineIndex < _lines.Length - 1 ? "[E] continuar" : "[E] cerrar";
+		_textLabel.Text = TranslationServer.Translate(_lines[_lineIndex]);
+		_continueHint.Text = TranslationServer.Translate(_lineIndex < _lines.Length - 1 ? "UI_DIALOGUE_CONTINUE" : "UI_DIALOGUE_CLOSE");
 	}
 
 	private void Close()

@@ -38,11 +38,8 @@ public partial class DeathScreen : CanvasLayer
 		tween.SetParallel();
 		tween.TweenProperty(_background, "modulate:a", 1f, FadeInDuration);
 		tween.TweenProperty(_label, "modulate:a", 1f, FadeInDuration);
+		tween.Chain().TweenCallback(Callable.From(() => onComplete?.Invoke()));
 		tween.Chain().TweenInterval(HoldDuration);
-		tween.Chain().TweenCallback(Callable.From(() =>
-		{
-			_panel.Visible = false;
-			onComplete?.Invoke();
-		}));
+		tween.Chain().TweenCallback(Callable.From(() => _panel.Visible = false));
 	}
 }

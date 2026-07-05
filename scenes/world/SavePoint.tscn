@@ -1,41 +1,42 @@
 [gd_scene format=3 uid="uid://br5nbtx6hhf2v"]
 
-[ext_resource type="Script" path="res://scripts/world/SavePoint.cs" id="1_script"]
-[ext_resource type="Texture2D" path="res://assets/sprites/savepoint/unlit/unlit.png" id="2_unlit_tex"]
+[ext_resource type="Script" uid="uid://da5mleak77cg4" path="res://scripts/world/SavePoint.cs" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://bdmfppu0dy7d6" path="res://assets/sprites/savepoint/unlit/unlit.png" id="2_unlit_tex"]
 [ext_resource type="SpriteFrames" path="res://assets/sprites/savepoint/SavePointSpriteFrames.tres" id="3_lit_frames"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_detect"]
-radius = 24.0
+radius = 9.219544
 
-[node name="SavePoint" type="Area2D"]
+[node name="SavePoint" type="Area2D" unique_id=1101949520]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_script")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=575618806]
+position = Vector2(1, 4)
 shape = SubResource("CircleShape2D_detect")
 
-[node name="UnlitVisual" type="Node2D" parent="."]
+[node name="UnlitVisual" type="Node2D" parent="." unique_id=2005041578]
 
-[node name="Sprite2D" type="Sprite2D" parent="UnlitVisual"]
-position = Vector2(0, -12)
-scale = Vector2(1.2, 1.2)
+[node name="Sprite2D" type="Sprite2D" parent="UnlitVisual" unique_id=1795086640]
+position = Vector2(-2, -1.000001)
+scale = Vector2(0.54642856, 0.6714286)
 texture = ExtResource("2_unlit_tex")
 
-[node name="LitVisual" type="Node2D" parent="."]
+[node name="LitVisual" type="Node2D" parent="." unique_id=482896313]
 visible = false
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="LitVisual"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="LitVisual" unique_id=1744230516]
 position = Vector2(0, -12)
 scale = Vector2(1.2, 1.2)
 sprite_frames = ExtResource("3_lit_frames")
 animation = &"lit"
 autoplay = "lit"
 
-[node name="InteractPrompt" type="Label" parent="."]
+[node name="InteractPrompt" type="Label" parent="." unique_id=2058193667]
 offset_left = -8.0
 offset_top = -44.0
 offset_right = 8.0
 offset_bottom = -28.0
-text = "E"
+text = "UI_INTERACT_PROMPT"
 horizontal_alignment = 1

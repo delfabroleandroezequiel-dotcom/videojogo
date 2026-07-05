@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://ce7eqq4ua0qjn"]
+
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="2_bootstrap"]
+[ext_resource type="Texture2D" uid="uid://boidbgxy8r5dc" path="res://assets/backgrounds/Iglesia1.png" id="3_iglesia"]
+[ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="4_transition"]
+[ext_resource type="Resource" uid="uid://beqplhalhp4r6" path="res://resources/camera/ClosedRoomCamera.tres" id="5_camera_profile"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(928, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sidewall"]
+size = Vector2(40, 600)
+
+[node name="Iglesia1" type="Node2D" unique_id=2000000101]
+script = ExtResource("2_bootstrap")
+ScenePath = "res://scenes/world/Iglesia1.tscn"
+CameraProfile = ExtResource("5_camera_profile")
+CameraLimitLeft = -449
+CameraLimitRight = 449
+CameraLimitTop = -246
+CameraLimitBottom = 350
+
+[node name="Backdrop" type="Polygon2D" parent="." unique_id=2000000102]
+z_index = -10
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-1100, -650, 1100, -650, 1100, 650, -1100, 650)
+
+[node name="ChurchBackground" type="Sprite2D" parent="." unique_id=2000000103]
+z_index = -9
+scale = Vector2(0.585, 0.585)
+texture = ExtResource("3_iglesia")
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=2000000104]
+position = Vector2(0, 167)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=2000000105]
+position = Vector2(0, 72)
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="LeftWall" type="StaticBody2D" parent="." unique_id=2000000106]
+position = Vector2(-484, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=2000000107]
+shape = SubResource("RectangleShape2D_sidewall")
+
+[node name="RightWall" type="StaticBody2D" parent="." unique_id=2000000108]
+position = Vector2(484, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=2000000109]
+shape = SubResource("RectangleShape2D_sidewall")
+
+[node name="Player" parent="." unique_id=2000000110 instance=ExtResource("1_player")]
+position = Vector2(352, 188)
+
+[node name="ReturnTransition" parent="." unique_id=2000000111 instance=ExtResource("4_transition")]
+position = Vector2(405, 215)
+TargetScenePath = "res://scenes/world/Nix.tscn"
+TargetSpawnPosition = Vector2(2788, 463)
+RequireInteract = true
+UseStoredReturnPosition = true

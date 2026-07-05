@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dgydh5wklq6qh" path="res://scenes/world/RangedEnemy.tscn" id="8_6w1ro"]
 [ext_resource type="Texture2D" uid="uid://b0cf4cpxq8rpr" path="res://assets/external/gandalfhardcore/platformer/GandalfHardcore FREE Platformer Assets/GandalfHardcore Background layers/Normal BG/Background Castle .png" id="8_castle"]
 [ext_resource type="PackedScene" uid="uid://br5nbtx6hhf2v" path="res://scenes/world/SavePoint.tscn" id="8_ckmd6"]
+[ext_resource type="Texture2D" uid="uid://b6gppbh7lbgvb" path="res://assets/sprites/misprite/ChatGPT Image 2 jul 2026, 20_24_23.png" id="8_q3ovi"]
 [ext_resource type="PackedScene" uid="uid://cexihxsolu6jg" path="res://scenes/world/MeleeEnemy.tscn" id="9_dl5b8"]
 [ext_resource type="Texture2D" uid="uid://fy7052palr4g" path="res://assets/external/gandalfhardcore/platformer/GandalfHardcore FREE Platformer Assets/Floor Tiles1.png" id="9_tiles"]
 [ext_resource type="Texture2D" uid="uid://bmtxprncvdvb5" path="res://assets/external/gandalfhardcore/platformer/GandalfHardcore FREE Platformer Assets/Birch1.png" id="10_birch1"]
@@ -641,6 +642,7 @@ ScenePath = "res://scenes/world/MainLevel.tscn"
 [node name="Background" type="ParallaxBackground" parent="." unique_id=799347186]
 
 [node name="SkyLayer" type="ParallaxLayer" parent="Background" unique_id=91657414]
+visible = false
 motion_scale = Vector2(0, 0)
 motion_mirroring = Vector2(1024, 0)
 
@@ -650,6 +652,7 @@ scale = Vector2(1, 1.88)
 texture = ExtResource("3_sky")
 
 [node name="CastleLayer" type="ParallaxLayer" parent="Background" unique_id=1916758565]
+visible = false
 motion_scale = Vector2(0.03, 0)
 motion_mirroring = Vector2(1024, 0)
 
@@ -658,6 +661,7 @@ position = Vector2(520, 281)
 texture = ExtResource("8_castle")
 
 [node name="MountainLayer" type="ParallaxLayer" parent="Background" unique_id=1607936749]
+visible = false
 motion_scale = Vector2(0.08, 0)
 motion_mirroring = Vector2(1024, 0)
 
@@ -666,6 +670,7 @@ position = Vector2(504, 292)
 texture = ExtResource("4_mountains")
 
 [node name="FarTreeLayer" type="ParallaxLayer" parent="Background" unique_id=110234932]
+visible = false
 motion_scale = Vector2(0.15, 0)
 motion_mirroring = Vector2(1024, 0)
 
@@ -677,6 +682,7 @@ texture = ExtResource("5_far_trees")
 position = Vector2(-633.47833, 72.20233)
 
 [node name="MidTreeLayer" type="ParallaxLayer" parent="Background" unique_id=2092462512]
+visible = false
 motion_scale = Vector2(0.28, 0)
 motion_mirroring = Vector2(1024, 0)
 
@@ -685,12 +691,21 @@ position = Vector2(512, 430)
 texture = ExtResource("6_mid_trees")
 
 [node name="CloseTreeLayer" type="ParallaxLayer" parent="Background" unique_id=1755566673]
+visible = false
 motion_scale = Vector2(0.45, 0)
 motion_mirroring = Vector2(1024, 0)
 
 [node name="CloseTrees" type="Sprite2D" parent="Background/CloseTreeLayer" unique_id=435317864]
 position = Vector2(512, 377)
 texture = ExtResource("7_close_trees")
+
+[node name="Parallax2D" type="Parallax2D" parent="Background" unique_id=1422725515]
+scroll_scale = Vector2(0.2, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D" unique_id=1473798886]
+position = Vector2(892, 142)
+scale = Vector2(1, 1.0310034)
+texture = ExtResource("8_q3ovi")
 
 [node name="Underground" type="Polygon2D" parent="." unique_id=652562263]
 z_index = -1
@@ -820,10 +835,10 @@ shape = SubResource("RectangleShape2D_3sgbd")
 
 [node name="VillagerNpc" parent="." unique_id=378928384 instance=ExtResource("17_1tgdx")]
 position = Vector2(331, 346)
-NpcName = "Aldeano"
-DialogueLines = PackedStringArray("Hay un guardián bloqueando el desfiladero al este.", "Si lo derrotás, te voy a recompensar.")
-InProgressDialogueLines = PackedStringArray("¿Ya te encargaste del guardián? Está más allá del desfiladero.")
-CompletedDialogueLines = PackedStringArray("¡Lo lograste! El camino está libre, gracias.")
+NpcName = "NPC_ALDEANO_NAME"
+DialogueLines = PackedStringArray("NPC_ALDEANO_L1", "NPC_ALDEANO_L2")
+InProgressDialogueLines = PackedStringArray("NPC_ALDEANO_PROGRESS_L1")
+CompletedDialogueLines = PackedStringArray("NPC_ALDEANO_COMPLETED_L1")
 Quest = ExtResource("18_0nts5")
 GrantsOwnObjective = false
 

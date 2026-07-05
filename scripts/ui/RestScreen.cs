@@ -32,9 +32,9 @@ public partial class RestScreen : CanvasLayer
 		SetTransitionAmount(0f);
 	}
 
-	public void Show(string message, Action onBlackout)
+	public void Show(string messageKey, Action onBlackout)
 	{
-		_label.Text = message;
+		_label.Text = TranslationServer.Translate(messageKey);
 		_panel.Visible = true;
 		GetTree().Paused = true;
 

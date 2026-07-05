@@ -25,9 +25,9 @@ public partial class ConfirmPrompt : CanvasLayer
 		_panel.Visible = false;
 	}
 
-	public void Show(string question, Action onYes, Action onNo = null)
+	public void Show(string questionKey, Action onYes, Action onNo = null)
 	{
-		_questionLabel.Text = question;
+		_questionLabel.Text = TranslationServer.Translate(questionKey);
 		_onYes = onYes;
 		_onNo = onNo;
 		_panel.Visible = true;

@@ -9,6 +9,7 @@ public partial class MeleeEnemy : Enemy
 	[Export] public float AttackCooldown = 1f;
 	[Export] public float AttackDuration = 0.3f;
 	[Export] public float AttackAnimDuration = 0.5f;
+	[Export] public float AttackSpriteYOffset = -9f;
 
 	private Hitbox _hitbox;
 	private bool _attacking;
@@ -55,6 +56,7 @@ public partial class MeleeEnemy : Enemy
 	{
 		_attacking = true;
 		_canAttack = false;
+		Sprite.Position = new Vector2(Sprite.Position.X, AttackSpriteYOffset);
 		_hitbox.Position = new Vector2(FacingRight ? 24 : -24, 0);
 		_hitbox.Activate(Stats);
 
@@ -64,6 +66,7 @@ public partial class MeleeEnemy : Enemy
 		float remainingAnimTime = Mathf.Max(0f, AttackAnimDuration - AttackDuration);
 		await ToSignal(GetTree().CreateTimer(remainingAnimTime), SceneTreeTimer.SignalName.Timeout);
 		_attacking = false;
+		Sprite.Position = new Vector2(Sprite.Position.X, 0f);
 
 		await ToSignal(GetTree().CreateTimer(AttackCooldown), SceneTreeTimer.SignalName.Timeout);
 		_canAttack = true;

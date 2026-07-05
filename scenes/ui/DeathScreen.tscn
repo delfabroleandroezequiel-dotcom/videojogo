@@ -32,5 +32,5 @@ theme_override_font_sizes/font_size = 48
 theme_override_colors/font_color = Color(0.8, 0.05, 0.05, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
-text = "HAS MUERTO"
+text = "UI_DEATHSCREEN_TEXT"
 mouse_filter = 2

@@ -1,18 +1,31 @@
 using Godot;
 using Metroidvania.Player;
 using Metroidvania.Quests;
+using Metroidvania.Shared;
+using Metroidvania.UI;
+using Metroidvania.World;
 
 namespace Metroidvania.Save;
 
 public partial class LevelBootstrap : Node
 {
-	[Export] public string ScenePath = "res://scenes/world/TestLevel.tscn";
+	[Export] public string ScenePath = "res://scenes/world/MainLevel.tscn";
+	[Export] public string ZoneName = "";
+	[Export] public CameraProfile CameraProfile;
+	[Export] public int CameraLimitLeft = -10000000;
+	[Export] public int CameraLimitRight = 10000000;
+	[Export] public int CameraLimitTop = -10000000;
+	[Export] public int CameraLimitBottom = 10000000;
 
 	private Player.Player _player;
 
 	public override void _Ready()
 	{
 		_player = GetNode<Player.Player>("Player");
+		ApplyCameraConfig();
+
+		if (!string.IsNullOrEmpty(ZoneName))
+			ZoneTitle.Instance.Show(ZoneName);
 
 		if (SaveManager.Instance.PendingSpawnPosition.HasValue)
 		{
@@ -39,6 +52,7 @@ public partial class LevelBootstrap : Node
 			ScenePath = ScenePath,
 			PositionX = checkpointPosition.X,
 			PositionY = checkpointPosition.Y,
+			StoryStage = SaveManager.Instance.StoryStage,
 		};
 		data.UnlockedAbilities.AddRange(abilities.GetUnlocked());
 		data.DefeatedBosses.AddRange(SaveManager.Instance.GetDefeatedBosses());
@@ -70,7 +84,7 @@ public partial class LevelBootstrap : Node
 		else
 		{
 			SaveManager.Instance.ClearPendingLoad();
-			targetScenePath = "res://scenes/world/TestLevel.tscn";
+			targetScenePath = GameConfig.Instance.DefaultStartScenePath;
 		}
 
 		SaveManager.Instance.ClearCommonEnemyDefeats();
@@ -89,5 +103,21 @@ public partial class LevelBootstrap : Node
 		PlayerAbilities abilities = _player.GetNode<PlayerAbilities>("Abilities");
 		foreach (string abilityId in data.UnlockedAbilities)
 			abilities.Unlock(abilityId);
+	}
+
+	private void ApplyCameraConfig()
+	{
+		Camera2D camera = _player.GetNode<Camera2D>("Camera2D");
+		camera.LimitLeft = CameraLimitLeft;
+		camera.LimitRight = CameraLimitRight;
+		camera.LimitTop = CameraLimitTop;
+		camera.LimitBottom = CameraLimitBottom;
+
+		if (CameraProfile is null)
+			return;
+
+		camera.Zoom = new Vector2(CameraProfile.Zoom, CameraProfile.Zoom);
+		camera.PositionSmoothingSpeed = CameraProfile.SmoothingSpeed;
+		_player.ProfileCameraOffsetY = CameraProfile.OffsetY;
 	}
 }

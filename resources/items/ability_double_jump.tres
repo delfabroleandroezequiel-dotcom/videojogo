@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_script")
 Id = "item_ability_double_jump"
-ItemName = "Pluma del salto doble"
-Description = "Te permite saltar una segunda vez en el aire."
+ItemName = "ITEM_ABILITY_DOUBLEJUMP_NAME"
+Description = "ITEM_ABILITY_DOUBLEJUMP_DESC"
 Type = 0
 AbilityId = "double_jump"

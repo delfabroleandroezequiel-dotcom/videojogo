@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_script")
 Id = "item_ability_dash"
-ItemName = "Esencia del dash"
-Description = "Te permite hacer un dash horizontal rápido."
+ItemName = "ITEM_ABILITY_DASH_NAME"
+Description = "ITEM_ABILITY_DASH_DESC"
 Type = 0
 AbilityId = "dash"

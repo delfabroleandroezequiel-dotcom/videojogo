@@ -4,8 +4,11 @@ namespace Metroidvania.Save;
 
 public class SaveData
 {
+	// 0 = legacy saves written before versioning existed. Bump SaveManager.CurrentSaveVersion
+	// and add a step to SaveManager.MigrateSaveData whenever a saved field's meaning changes.
+	public int SaveVersion { get; set; }
 	public string CharacterName { get; set; } = "Héroe";
-	public string ScenePath { get; set; } = "res://scenes/world/TestLevel.tscn";
+	public string ScenePath { get; set; } = "res://scenes/world/MainLevel.tscn";
 	public float PositionX { get; set; }
 	public float PositionY { get; set; }
 	public List<string> UnlockedAbilities { get; set; } = new();
@@ -17,4 +20,5 @@ public class SaveData
 	public List<string> CollectedItems { get; set; } = new();
 	public List<string> EquippedRings { get; set; } = new();
 	public int MaxHealCharges { get; set; } = 1;
+	public int StoryStage { get; set; }
 }

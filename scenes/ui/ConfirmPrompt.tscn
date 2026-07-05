@@ -29,12 +29,12 @@ theme_override_constants/separation = 8
 
 [node name="Question" type="Label" parent="Panel/VBox"]
 horizontal_alignment = 1
-text = "¿Desea continuar?"
+text = "UI_CONFIRM_DEFAULT_QUESTION"
 
 [node name="YesButton" type="Button" parent="Panel/VBox"]
 custom_minimum_size = Vector2(220, 32)
-text = "Sí"
+text = "UI_CONFIRM_YES"
 
 [node name="NoButton" type="Button" parent="Panel/VBox"]
 custom_minimum_size = Vector2(220, 32)
-text = "No"
+text = "UI_CONFIRM_NO"

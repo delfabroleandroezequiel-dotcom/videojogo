@@ -26,6 +26,8 @@ public partial class Player : CharacterBody2D
 	[Export] public float LookUpOffset = -80f;
 	[Export] public float LookDownOffset = 60f;
 	[Export] public float LookSmoothSpeed = 4f;
+	[Export] public float BaseCameraOffsetY = -108f;
+	public float ProfileCameraOffsetY { get; set; }
 	[Export] public float HeadLookUpAngle = -25f;
 	[Export] public float WeaponRestAngle = -20f;
 	[Export] public float WeaponSwingStartAngle = -70f;
@@ -55,6 +57,8 @@ public partial class Player : CharacterBody2D
 	private Node2D _armLeft;
 	private Node2D _armRight;
 	private float _walkPhase;
+	private float _lastStepSin;
+	private int _footstepIndex;
 	private CollisionShape2D _standCollision;
 	private CollisionShape2D _crouchCollision;
 	private Camera2D _camera;
@@ -104,10 +108,18 @@ public partial class Player : CharacterBody2D
 		_healChargesLabel = GetNode<Label>("HUD/VBox/HealChargesLabel");
 		_stats.HealthChanged += (current, max) => healthBar.SetRatio((float)current / max);
 		_stats.StaminaChanged += (current, max) => staminaBar.SetRatio((float)current / max);
-		_stats.HitTaken += () => FlashHit(_visual, new Color(1f, 0.2f, 0.2f));
+		_stats.HitTaken += (isProjectile) => FlashHit(_visual, new Color(1f, 0.2f, 0.2f));
+		_stats.HitTaken += (isProjectile) => Sfx.Play(this, isProjectile ? Sfx.HitRecibidoFlecha : Sfx.HitRecibido);
 		_hitbox.HitDealt += () => FlashHit(_visual, new Color(1f, 1f, 0.2f));
-		_healFlask.ChargesChanged += (current, max) => _healChargesLabel.Text = $"Curas: {current}/{max}";
-		_healChargesLabel.Text = $"Curas: {_healFlask.CurrentCharges}/{_healFlask.MaxCharges}";
+		_hitbox.HitDealt += () => Sfx.Play(this, Sfx.HitDado);
+		_healFlask.ChargesChanged += (current, max) => UpdateHealChargesLabel(current, max);
+		UpdateHealChargesLabel(_healFlask.CurrentCharges, _healFlask.MaxCharges);
+		LocaleManager.Instance.LocaleChanged += _ => UpdateHealChargesLabel(_healFlask.CurrentCharges, _healFlask.MaxCharges);
+	}
+
+	private void UpdateHealChargesLabel(int current, int max)
+	{
+		_healChargesLabel.Text = string.Format(TranslationServer.Translate("UI_HUD_HEAL_CHARGES"), current, max);
 	}
 
 	private void FlashHit(Node2D visual, Color flashColor)
@@ -328,6 +340,7 @@ public partial class Player : CharacterBody2D
 			_armLeft.RotationDegrees = Mathf.Lerp(_armLeft.RotationDegrees, 0f, t);
 			_armRight.RotationDegrees = Mathf.Lerp(_armRight.RotationDegrees, 0f, t);
 			_walkPhase = 0f;
+			_lastStepSin = 0f;
 			return;
 		}
 
@@ -343,6 +356,14 @@ public partial class Player : CharacterBody2D
 		_legRight.RotationDegrees = -swing;
 		_armLeft.RotationDegrees = -swing * 0.7f;
 		_armRight.RotationDegrees = swing * 0.7f;
+
+		float stepSin = Mathf.Sin(_walkPhase);
+		if (Mathf.Sign(stepSin) != 0f && Mathf.Sign(stepSin) != Mathf.Sign(_lastStepSin))
+		{
+			Sfx.Play(this, _footstepIndex == 0 ? Sfx.Paso1 : Sfx.Paso2);
+			_footstepIndex = 1 - _footstepIndex;
+		}
+		_lastStepSin = stepSin;
 	}
 
 	private void UpdateCrouch()
@@ -359,7 +380,7 @@ public partial class Player : CharacterBody2D
 	private void UpdateCameraLook(double delta)
 	{
 		bool lookingUp = Input.IsActionPressed("ui_up");
-		float targetY = lookingUp ? LookUpOffset : _crouching ? LookDownOffset : 0f;
+		float targetY = BaseCameraOffsetY + ProfileCameraOffsetY + (lookingUp ? LookUpOffset : _crouching ? LookDownOffset : 0f);
 
 		Vector2 targetOffset = new Vector2(0, targetY);
 		_camera.Offset = _camera.Offset.Lerp(targetOffset, (float)delta * LookSmoothSpeed);
@@ -396,6 +417,10 @@ public partial class Player : CharacterBody2D
 		_comboStep = (_comboStep + 1) % ComboHitCount;
 		_comboResetTimer = 0f;
 
+		bool hitLanded = false;
+		void OnHitLanded() => hitLanded = true;
+		_hitbox.HitDealt += OnHitLanded;
+
 		_weaponPivot.RotationDegrees = WeaponSwingStartAngle;
 		Tween swingTween = GetTree().CreateTween();
 		swingTween.TweenProperty(_weaponPivot, "rotation_degrees", WeaponSwingEndAngle, AttackHitboxDelay + AttackDuration);
@@ -408,6 +433,9 @@ public partial class Player : CharacterBody2D
 
 		await ToSignal(GetTree().CreateTimer(AttackDuration), SceneTreeTimer.SignalName.Timeout);
 		_hitbox.Deactivate();
+		_hitbox.HitDealt -= OnHitLanded;
+		if (!hitLanded)
+			Sfx.Play(this, Sfx.FalloGolpe);
 
 		Tween returnTween = GetTree().CreateTween();
 		returnTween.TweenProperty(_weaponPivot, "rotation_degrees", WeaponRestAngle, 0.1f);
@@ -423,6 +451,7 @@ public partial class Player : CharacterBody2D
 		if (!_healFlask.TryUse(_stats))
 			return;
 
+		Sfx.Play(this, Sfx.EstusFlask);
 		_healing = true;
 		await ToSignal(GetTree().CreateTimer(HealAnimDuration), SceneTreeTimer.SignalName.Timeout);
 		_healing = false;

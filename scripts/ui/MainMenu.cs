@@ -1,5 +1,6 @@
 using Godot;
 using Metroidvania.Save;
+using Metroidvania.Shared;
 
 namespace Metroidvania.UI;
 
@@ -71,7 +72,9 @@ public partial class MainMenu : Control
 
 			Button slotButton = new()
 			{
-				Text = hasSave ? $"{SaveManager.Instance.GetCharacterName(slot)} (ocupado)" : "Vacío — crear nueva",
+				Text = hasSave
+					? string.Format(TranslationServer.Translate("UI_MAINMENU_SLOT_BUSY"), SaveManager.Instance.GetCharacterName(slot))
+					: "UI_MAINMENU_SLOT_EMPTY",
 				Disabled = hasSave,
 				CustomMinimumSize = new Vector2(220, 32),
 			};
@@ -82,7 +85,7 @@ public partial class MainMenu : Control
 			{
 				Button deleteButton = new()
 				{
-					Text = "Borrar",
+					Text = "UI_MAINMENU_DELETE",
 					CustomMinimumSize = new Vector2(70, 32),
 				};
 				deleteButton.Pressed += () => OnDeletePressed(capturedSlot);
@@ -112,12 +115,12 @@ public partial class MainMenu : Control
 	{
 		string name = _nameEdit.Text.Trim();
 		if (string.IsNullOrEmpty(name))
-			name = "Héroe";
+			name = TranslationServer.Translate("UI_DEFAULT_HERO_NAME");
 
 		SaveManager.Instance.CurrentSlot = _pendingNewSlot;
 		SaveManager.Instance.CurrentCharacterName = name;
 		SaveManager.Instance.ClearPendingLoad();
 		SaveManager.Instance.ResetProgressState();
-		GetTree().ChangeSceneToFile("res://scenes/world/TestLevel.tscn");
+		GetTree().ChangeSceneToFile(GameConfig.Instance.DefaultStartScenePath);
 	}
 }

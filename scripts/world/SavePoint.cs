@@ -69,9 +69,9 @@ public partial class SavePoint : Area2D
 	private void Interact()
 	{
 		if (!_isLit)
-			ConfirmPrompt.Instance.Show("¿Desea encenderla?", OnLightConfirmed);
+			ConfirmPrompt.Instance.Show("SAVEPOINT_LIGHT_CONFIRM", OnLightConfirmed);
 		else
-			ConfirmPrompt.Instance.Show("¿Desea descansar?", Rest);
+			ConfirmPrompt.Instance.Show("SAVEPOINT_REST_CONFIRM", Rest);
 	}
 
 	private void OnLightConfirmed()
@@ -85,6 +85,6 @@ public partial class SavePoint : Area2D
 	private void Rest()
 	{
 		if (GetTree().CurrentScene is LevelBootstrap level)
-			RestScreen.Instance.Show("Descansando", () => level.SaveAtCheckpoint(GlobalPosition + RespawnOffset));
+			RestScreen.Instance.Show("UI_RESTSCREEN_TEXT", () => level.SaveAtCheckpoint(GlobalPosition + RespawnOffset));
 	}
 }

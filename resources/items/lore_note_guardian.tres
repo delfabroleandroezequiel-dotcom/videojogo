@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_script")
 Id = "item_lore_note_guardian"
-ItemName = "Nota desgastada"
-Description = "\"...el guardián del desfiladero no siempre fue un monstruo. Antes custodiaba el paso por voluntad propia...\""
+ItemName = "ITEM_LORE_NOTE_GUARDIAN_NAME"
+Description = "ITEM_LORE_NOTE_GUARDIAN_DESC"
 Type = 3

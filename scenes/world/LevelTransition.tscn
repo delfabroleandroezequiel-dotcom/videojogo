@@ -1,18 +1,30 @@
-[gd_scene format=3 uid="uid://level_transition_main"]
+[gd_scene format=3 uid="uid://dwgsommb60mbk"]
 
-[ext_resource type="Script" path="res://scripts/world/LevelTransition.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://bxubpujb8g3f4" path="res://scripts/world/LevelTransition.cs" id="1_script"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
-size = Vector2(32, 200)
+size = Vector2(32, 106)
 
-[node name="LevelTransition" type="Area2D"]
+[node name="LevelTransition" type="Area2D" unique_id=2116574566]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_script")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1045537383]
+position = Vector2(0, -47)
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="Visual" type="Polygon2D" parent="."]
+[node name="Visual" type="Polygon2D" parent="." unique_id=2017318260]
+visible = false
+position = Vector2(0, -49.5)
+scale = Vector2(1, 0.505)
 color = Color(0.2, 0.8, 0.9, 0.35)
 polygon = PackedVector2Array(-16, -100, 16, -100, 16, 100, -16, 100)
+
+[node name="InteractPrompt" type="Label" parent="."]
+offset_left = -8.0
+offset_top = -100.0
+offset_right = 8.0
+offset_bottom = -84.0
+text = "UI_INTERACT_PROMPT"
+horizontal_alignment = 1

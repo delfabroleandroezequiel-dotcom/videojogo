@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_script")
 Id = "item_heal_upgrade_4"
-ItemName = "Frasco de vida"
-Description = "Aumenta en 1 la cantidad de curas que podés llevar."
+ItemName = "ITEM_HEAL_UPGRADE_NAME"
+Description = "ITEM_HEAL_UPGRADE_DESC"
 Type = 4

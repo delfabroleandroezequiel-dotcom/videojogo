@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://game_config_main"]
+
+[ext_resource type="Script" path="res://scripts/shared/GameConfig.cs" id="1_script"]
+
+[node name="GameConfig" type="Node"]
+script = ExtResource("1_script")
+DefaultStartScenePath = "res://scenes/world/MainLevel.tscn"
+MainMenuScenePath = "res://scenes/ui/MainMenu.tscn"

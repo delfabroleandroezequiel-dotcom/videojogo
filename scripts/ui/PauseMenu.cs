@@ -1,5 +1,6 @@
 using Godot;
 using Metroidvania.Save;
+using Metroidvania.Shared;
 
 namespace Metroidvania.UI;
 
@@ -15,6 +16,10 @@ public partial class PauseMenu : CanvasLayer
 
 		GetNode<Button>("Panel/VBox/ResumeButton").Pressed += TogglePause;
 		GetNode<Button>("Panel/VBox/MainMenuButton").Pressed += OnMainMenuPressed;
+
+		GetNode<Button>("Panel/VBox/LanguageRow/EsButton").Pressed += () => LocaleManager.Instance.SetLocale("es");
+		GetNode<Button>("Panel/VBox/LanguageRow/EnButton").Pressed += () => LocaleManager.Instance.SetLocale("en");
+		GetNode<Button>("Panel/VBox/LanguageRow/PtButton").Pressed += () => LocaleManager.Instance.SetLocale("pt");
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -41,6 +46,6 @@ public partial class PauseMenu : CanvasLayer
 	{
 		GetTree().Paused = false;
 		_panel.Visible = false;
-		GetTree().ChangeSceneToFile("res://scenes/ui/MainMenu.tscn");
+		GetTree().ChangeSceneToFile(GameConfig.Instance.MainMenuScenePath);
 	}
 }

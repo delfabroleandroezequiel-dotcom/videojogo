@@ -1,4 +1,5 @@
 using Godot;
+using Metroidvania.Shared;
 
 namespace Metroidvania.World;
 
@@ -22,7 +23,7 @@ public partial class RangedEnemy : Enemy
 			return;
 
 		StopDistance = ShootRange * 0.9f;
-		Stats.HitTaken += () => _hurtTimer = HurtAnimDuration;
+		Stats.HitTaken += (isProjectile) => _hurtTimer = HurtAnimDuration;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -69,6 +70,7 @@ public partial class RangedEnemy : Enemy
 		GetTree().CurrentScene.AddChild(projectile);
 		projectile.GlobalPosition = GlobalPosition;
 		projectile.Launch(targetPosition - GlobalPosition, Stats);
+		Sfx.Play(this, Sfx.FalloGolpe);
 
 		await ToSignal(GetTree().CreateTimer(ShootAnimDuration - ShootReleaseDelay), SceneTreeTimer.SignalName.Timeout);
 		if (IsInstanceValid(this))

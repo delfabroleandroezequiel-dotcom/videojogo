@@ -5,11 +5,11 @@
 [resource]
 script = ExtResource("1_script")
 Id = "main_defeat_boss"
-Title = "El guardián del paso"
-Description = "Viajá al desfiladero y derrotá al guardián que lo custodia."
+Title = "QUEST_MAIN_BOSS_TITLE"
+Description = "QUEST_MAIN_BOSS_DESC"
 IsMainQuest = true
 ObjectiveTarget = 1
-ObjectiveLabel = "Derrotar al guardián"
-RewardText = "El aldeano te recompensa por liberar el camino."
+ObjectiveLabel = "QUEST_MAIN_BOSS_OBJECTIVE"
+RewardText = "QUEST_MAIN_BOSS_REWARD"
 ObjectiveKind = 1
 RequiredBossId = "boss_guardian"

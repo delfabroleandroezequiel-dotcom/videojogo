@@ -16,6 +16,8 @@ config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 
 [autoload]
 
+GameConfig="*res://scenes/GameConfig.tscn"
+LocaleManager="*res://scripts/save/LocaleManager.cs"
 SaveManager="*res://scripts/save/SaveManager.cs"
 QuestManager="*res://scripts/quests/QuestManager.cs"
 ItemDatabase="*res://scripts/items/ItemDatabase.cs"
@@ -26,6 +28,7 @@ QuestLog="*res://scenes/ui/QuestLog.tscn"
 InventoryUI="*res://scenes/ui/InventoryUI.tscn"
 DeathScreen="*res://scenes/ui/DeathScreen.tscn"
 RestScreen="*res://scenes/ui/RestScreen.tscn"
+ZoneTitle="*res://scenes/ui/ZoneTitle.tscn"
 
 [dotnet]
 
@@ -85,6 +88,11 @@ heal={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":82,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://resources/localization/strings.es.translation", "res://resources/localization/strings.en.translation", "res://resources/localization/strings.pt.translation")
+locale/fallback="es"
 
 [layer_names]
 

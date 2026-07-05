@@ -61,11 +61,13 @@ public partial class QuestLog : CanvasLayer
 			if (quest is null)
 				continue;
 
-			string prefix = quest.IsMainQuest ? "[Principal] " : "[Secundaria] ";
+			string prefix = TranslationServer.Translate(quest.IsMainQuest ? "UI_QUESTLOG_MAIN_PREFIX" : "UI_QUESTLOG_SIDE_PREFIX");
 			int current = QuestManager.Instance.GetDisplayProgress(quest);
-			string progress = $" ({current}/{quest.ObjectiveTarget})";
+			string progress = string.Format(TranslationServer.Translate("UI_QUESTLOG_PROGRESS"), current, quest.ObjectiveTarget);
+			string title = TranslationServer.Translate(quest.Title);
+			string description = TranslationServer.Translate(quest.Description);
 
-			Label label = new() { Text = $"{prefix}{quest.Title}{progress}\n  {quest.Description}", AutowrapMode = TextServer.AutowrapMode.Word };
+			Label label = new() { Text = $"{prefix}{title}{progress}\n  {description}", AutowrapMode = TextServer.AutowrapMode.Word };
 			_activeList.AddChild(label);
 		}
 
@@ -75,7 +77,7 @@ public partial class QuestLog : CanvasLayer
 			if (quest is null)
 				continue;
 
-			Label label = new() { Text = $"✓ {quest.Title}" };
+			Label label = new() { Text = string.Format(TranslationServer.Translate("UI_QUESTLOG_COMPLETED_ENTRY"), TranslationServer.Translate(quest.Title)) };
 			_completedList.AddChild(label);
 		}
 	}

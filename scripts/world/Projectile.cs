@@ -35,7 +35,7 @@ public partial class Projectile : Area2D
 		Stats targetStats = body.GetNodeOrNull<Stats>("Stats");
 		if (targetStats is not null && targetStats != _shooterStats && !targetStats.IsInvulnerable)
 		{
-			targetStats.TakeDamage(_shooterStats.AttackPower);
+			targetStats.TakeDamage(_shooterStats.AttackPower, isProjectile: true);
 
 			if (body.HasMethod("ApplyKnockback"))
 				body.Call("ApplyKnockback", _direction, KnockbackForce);

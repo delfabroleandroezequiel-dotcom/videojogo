@@ -22,7 +22,7 @@ public partial class Stats : Node
 	[Signal] public delegate void HealthChangedEventHandler(int current, int max);
 	[Signal] public delegate void StaminaChangedEventHandler(int current, int max);
 	[Signal] public delegate void DiedEventHandler();
-	[Signal] public delegate void HitTakenEventHandler();
+	[Signal] public delegate void HitTakenEventHandler(bool isProjectile);
 
 	public override void _Ready()
 	{
@@ -48,7 +48,7 @@ public partial class Stats : Node
 		}
 	}
 
-	public void TakeDamage(int incomingAttack)
+	public void TakeDamage(int incomingAttack, bool isProjectile = false)
 	{
 		if (IsInvulnerable)
 			return;
@@ -57,7 +57,7 @@ public partial class Stats : Node
 		CurrentHealth = Mathf.Max(0, CurrentHealth - damage);
 		_invulnerableTimer = InvulnerabilityDuration;
 		EmitSignal(SignalName.HealthChanged, CurrentHealth, MaxHealth);
-		EmitSignal(SignalName.HitTaken);
+		EmitSignal(SignalName.HitTaken, isProjectile);
 
 		if (CurrentHealth <= 0)
 			EmitSignal(SignalName.Died);
