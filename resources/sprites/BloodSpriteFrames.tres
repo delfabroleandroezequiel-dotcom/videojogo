@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://blood_sprite_frames_main"]
+
+[ext_resource type="Texture2D" uid="uid://ds5jyqi62qlxt" path="res://assets/external/gandalfhardcore/efectospersonaje/GandalfHardcore character effects/Character effects blood.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_splat0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_splat1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(80, 0, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_splat2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(160, 0, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_splat3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(240, 0, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_splat4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(320, 0, 80, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_splat0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_splat1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_splat2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_splat3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_splat4")
+}],
+"loop": false,
+"name": &"splat",
+"speed": 14.0
+}]

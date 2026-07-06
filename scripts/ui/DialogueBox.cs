@@ -1,4 +1,5 @@
 using Godot;
+using Metroidvania.Shared;
 using System;
 
 namespace Metroidvania.UI;
@@ -74,6 +75,7 @@ public partial class DialogueBox : CanvasLayer
 	{
 		_textLabel.Text = TranslationServer.Translate(_lines[_lineIndex]);
 		_continueHint.Text = TranslationServer.Translate(_lineIndex < _lines.Length - 1 ? "UI_DIALOGUE_CONTINUE" : "UI_DIALOGUE_CLOSE");
+		Sfx.PlayVoice(this, _lines[_lineIndex]);
 	}
 
 	private void Close()

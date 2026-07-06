@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://d8tq20x6upcu" path="res://scenes/world/Npc.tscn" id="6_npc"]
 [ext_resource type="Texture2D" uid="uid://cn2r5e0g836s5" path="res://assets/sprites/misprite/ChatGPT_Image_5_jul_2026__16_41_35-removebg-preview.png" id="7_o41q6"]
 [ext_resource type="Texture2D" uid="uid://cg4i8u5soknn2" path="res://assets/sprites/misprite/ChatGPT_Image_3_jul_2026__16_17_50-removebg-preview.png" id="7_vffn0"]
+[ext_resource type="Texture2D" uid="uid://g0fypoysvun" path="res://assets/sprites/misprite/ChatGPT_Image_6_jul_2026__19_37_56-removebg-preview.png" id="11_dpwbv"]
 [ext_resource type="Texture2D" uid="uid://cmnqcic1ry06o" path="res://assets/external/gandalfhardcore/platformer/GandalfHardcore FREE Platformer Assets/Boat.png" id="12_boat"]
 [ext_resource type="Texture2D" uid="uid://bylidh3ra3jem" path="res://assets/external/gandalfhardcore/platformer/GandalfHardcore FREE Platformer Assets/cloud1.png" id="14_cloud1"]
 [ext_resource type="Texture2D" uid="uid://dyksedgogp7yu" path="res://assets/sprites/misprite/ChatGPT_Image_5_jul_2026__16_29_59-removebg-preview.png" id="14_n4hbi"]
@@ -22,6 +23,7 @@
 [ext_resource type="AudioStream" uid="uid://ifsn6j0bgc3f" path="res://assets/audio/nix_theme.mp3" id="19_music"]
 [ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="20_camera_profile"]
 [ext_resource type="PackedScene" path="res://scenes/world/DialogueTrigger.tscn" id="21_dialogue_trigger"]
+[ext_resource type="PackedScene" path="res://scenes/world/CompanionNpc.tscn" id="22_companion"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn06r"]
 size = Vector2(67, 11.360123)
@@ -6168,6 +6170,11 @@ position = Vector2(-863.5, 272)
 [node name="RangedEnemy" parent="Background/BgSprite4" unique_id=182423734 instance=ExtResource("5_af0ld")]
 position = Vector2(-552.5, 283)
 
+[node name="Sprite2D" type="Sprite2D" parent="Background/BgSprite4" unique_id=1071120918]
+position = Vector2(-126.5, 219)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("11_dpwbv")
+
 [node name="Sea" type="Polygon2D" parent="." unique_id=1240599023]
 visible = false
 z_index = -5
@@ -6253,12 +6260,17 @@ texture = ExtResource("14_n4hbi")
 [node name="Player" parent="." unique_id=1962161526 instance=ExtResource("1_player")]
 position = Vector2(95, 445)
 
+[node name="CompanionNpc" parent="." unique_id=1962161527 instance=ExtResource("22_companion")]
+position = Vector2(150, 445)
+
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=185783812]
 position = Vector2(5224, 295)
 texture = ExtResource("18_24ren")
 
 [node name="FutureZoneEntrance" parent="." unique_id=1816556202 instance=ExtResource("17_transition")]
 position = Vector2(5043, 467)
+TargetScenePath = "res://scenes/world/BosqueLobos1.tscn"
+TargetSpawnPosition = Vector2(150, 258)
 
 [node name="TavernEntranceTrigger" parent="." unique_id=705477486 instance=ExtResource("17_transition")]
 position = Vector2(1717, 463)

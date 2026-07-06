@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Metroidvania"
-run/main_scene="res://scenes/world/MainLevel.tscn"
+run/main_scene="res://scenes/world/Casa1.tscn"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 
 [autoload]
@@ -29,6 +29,10 @@ InventoryUI="*res://scenes/ui/InventoryUI.tscn"
 DeathScreen="*res://scenes/ui/DeathScreen.tscn"
 RestScreen="*res://scenes/ui/RestScreen.tscn"
 ZoneTitle="*res://scenes/ui/ZoneTitle.tscn"
+
+[display]
+
+window/stretch/mode="canvas_items"
 
 [dotnet]
 
@@ -88,6 +92,11 @@ heal={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":82,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+companion_stance={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":80,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
 
 [internationalization]
 
@@ -99,6 +108,7 @@ locale/fallback="es"
 2d_physics/layer_1="World"
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Enemies"
+2d_physics/layer_4="Companions"
 
 [rendering]
 

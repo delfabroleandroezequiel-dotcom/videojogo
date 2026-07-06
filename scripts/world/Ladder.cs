@@ -6,8 +6,12 @@ public partial class Ladder : Area2D
 {
 	[Export] public float Length = 128f;
 	[Export] public float Width = 20f;
-	[Export] public Color RailColor = new Color(0.42f, 0.27f, 0.12f);
-	[Export] public Color RungColor = new Color(0.55f, 0.36f, 0.16f);
+	[Export] public Texture2D LadderTexture;
+	[Export] public float VisualWidth = 48f;
+
+	// The source sheet has a lot of transparent padding around the actual rungs;
+	// this is the column that contains the art, tall enough to tile seamlessly.
+	private static readonly Rect2 TileSourceRect = new(438, 0, 164, 340);
 
 	public override void _Ready()
 	{
@@ -19,9 +23,40 @@ public partial class Ladder : Area2D
 			collision.Shape = sizedShape;
 		}
 
+		BuildVisual();
+
 		BodyEntered += OnBodyEntered;
 		BodyExited += OnBodyExited;
-		QueueRedraw();
+	}
+
+	private void BuildVisual()
+	{
+		if (LadderTexture is null)
+			return;
+
+		float scale = VisualWidth / TileSourceRect.Size.X;
+		float tileHeight = TileSourceRect.Size.Y * scale;
+		int tileCount = Mathf.Max(1, Mathf.CeilToInt(Length / tileHeight));
+		float startY = -Length * 0.5f;
+
+		for (int i = 0; i < tileCount; i++)
+		{
+			float remaining = Length - i * tileHeight;
+			float sourceHeight = Mathf.Clamp(remaining / scale, 0f, TileSourceRect.Size.Y);
+			if (sourceHeight <= 0f)
+				break;
+
+			var sprite = new Sprite2D
+			{
+				Texture = LadderTexture,
+				RegionEnabled = true,
+				RegionRect = new Rect2(TileSourceRect.Position, new Vector2(TileSourceRect.Size.X, sourceHeight)),
+				Centered = false,
+				Scale = new Vector2(scale, scale),
+				Position = new Vector2(-VisualWidth * 0.5f, startY + i * tileHeight),
+			};
+			AddChild(sprite);
+		}
 	}
 
 	private void OnBodyEntered(Node2D body)
@@ -34,23 +69,5 @@ public partial class Ladder : Area2D
 	{
 		if (body is Metroidvania.Player.Player player)
 			player.ExitLadder(this);
-	}
-
-	public override void _Draw()
-	{
-		float halfWidth = Width * 0.5f;
-		float halfLength = Length * 0.5f;
-		float railThickness = 3f;
-
-		DrawRect(new Rect2(-halfWidth, -halfLength, railThickness, Length), RailColor);
-		DrawRect(new Rect2(halfWidth - railThickness, -halfLength, railThickness, Length), RailColor);
-
-		const float rungSpacing = 18f;
-		int rungCount = Mathf.Max(1, Mathf.FloorToInt(Length / rungSpacing));
-		for (int i = 0; i <= rungCount; i++)
-		{
-			float y = -halfLength + i * (Length / rungCount);
-			DrawRect(new Rect2(-halfWidth, y - 2f, Width, 4f), RungColor);
-		}
 	}
 }

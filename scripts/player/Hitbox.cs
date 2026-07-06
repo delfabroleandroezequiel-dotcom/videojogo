@@ -1,5 +1,6 @@
 using Godot;
 using Metroidvania.Shared;
+using Metroidvania.World;
 
 namespace Metroidvania.Player;
 
@@ -33,6 +34,7 @@ public partial class Hitbox : Area2D
 			return;
 
 		targetStats.TakeDamage(_attackerStats.AttackPower);
+		BloodEffect.SpawnAt(this, body.GlobalPosition);
 		EmitSignal(SignalName.HitDealt);
 
 		if (body.HasMethod("ApplyKnockback"))

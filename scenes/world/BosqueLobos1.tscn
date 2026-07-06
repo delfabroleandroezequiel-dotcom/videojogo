@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://b4trns0ewpunr"]
+
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="2_bootstrap"]
+[ext_resource type="Texture2D" uid="uid://dtixu7ma353nj" path="res://assets/sprites/misprite/bosquelobos1.png" id="3_bosque"]
+[ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="4_transition"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="5_camera_profile"]
+[ext_resource type="Texture2D" uid="uid://ddorccofiac2x" path="res://assets/sprites/misprite/CuevaBosqueLobos1.png" id="6_cave"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(1774, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(40, 600)
+
+[node name="BosqueLobos1" type="Node2D" unique_id=-1194967295]
+script = ExtResource("2_bootstrap")
+ScenePath = "res://scenes/world/BosqueLobos1.tscn"
+ZoneName = "BOSQUE DE LOS LOBOS"
+CameraProfile = ExtResource("5_camera_profile")
+CameraLimitLeft = 0
+CameraLimitRight = 1760
+CameraLimitBottom = 550
+
+[node name="Background" type="Node2D" parent="." unique_id=-1194967294]
+z_index = -10
+
+[node name="BgTile1" type="Sprite2D" parent="Background" unique_id=-1194967293]
+position = Vector2(887, 0)
+texture = ExtResource("3_bosque")
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=-1194967290]
+position = Vector2(2661, 320)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=-1194967289]
+position = Vector2(-1773, 11)
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="RightWall" type="StaticBody2D" parent="." unique_id=-1194967288]
+position = Vector2(5300, 297)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=-1194967287]
+position = Vector2(-3537, -197)
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="CaveSprite" type="Sprite2D" parent="." unique_id=-1194967284]
+position = Vector2(1496, 223)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("6_cave")
+
+[node name="Player" parent="." unique_id=-1194967286 instance=ExtResource("1_player")]
+position = Vector2(150, 258)
+
+[node name="ReturnToNixTransition" parent="." unique_id=-1194967285 instance=ExtResource("4_transition")]
+position = Vector2(80, 290)
+TargetScenePath = "res://scenes/world/Nix.tscn"
+TargetSpawnPosition = Vector2(4950, 440)
+
+[node name="CaveEntranceTrigger" parent="." unique_id=-1194967283 instance=ExtResource("4_transition")]
+position = Vector2(1500, 290)
+TargetScenePath = "res://scenes/world/InteriorCuevaBosqueLobos1.tscn"
+TargetSpawnPosition = Vector2(100, 543)
+RequireInteract = true
+RememberOriginForReturn = true

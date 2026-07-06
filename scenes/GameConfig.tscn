@@ -4,5 +4,5 @@
 
 [node name="GameConfig" type="Node"]
 script = ExtResource("1_script")
-DefaultStartScenePath = "res://scenes/world/MainLevel.tscn"
+DefaultStartScenePath = "res://scenes/world/Casa1.tscn"
 MainMenuScenePath = "res://scenes/ui/MainMenu.tscn"

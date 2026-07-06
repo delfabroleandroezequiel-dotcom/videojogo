@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://companion_npc_main"]
+
+[ext_resource type="Script" path="res://scripts/world/CompanionNpc.cs" id="1_script"]
+[ext_resource type="Script" path="res://scripts/player/Hitbox.cs" id="2_hitbox"]
+[ext_resource type="Script" path="res://scripts/shared/Stats.cs" id="3_stats"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/WarriorSpriteFrames.tres" id="4_frames"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
+size = Vector2(32, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(24, 32)
+
+[node name="CompanionNpc" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 1
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual"]
+scale = Vector2(-1.5, 1.5)
+sprite_frames = ExtResource("4_frames")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="AttackHitbox" type="Area2D" parent="."]
+position = Vector2(24, 0)
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("2_hitbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+shape = SubResource("RectangleShape2D_hitbox")
+disabled = true
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("3_stats")
+MaxHealth = 80
+AttackPower = 20
+Defense = 2
+MaxStamina = 50

@@ -77,6 +77,6 @@ public partial class LevelTransition : Area2D
 				? SaveManager.Instance.PendingReturnPosition
 				: TargetSpawnPosition;
 
-		GetTree().CallDeferred(SceneTree.MethodName.ChangeSceneToFile, TargetScenePath);
+		SceneFader.ChangeSceneWithFade(GetTree(), TargetScenePath);
 	}
 }

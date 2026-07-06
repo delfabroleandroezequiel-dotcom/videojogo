@@ -1,0 +1,214 @@
+[gd_scene format=3 uid="uid://c1loxcw3kqihx"]
+
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="2_bootstrap"]
+[ext_resource type="Texture2D" uid="uid://7f63oskoin8n" path="res://assets/sprites/misprite/InteriorCuevaBosquLobos1.png" id="3_interior"]
+[ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="4_transition"]
+[ext_resource type="Resource" uid="uid://beqplhalhp4r6" path="res://resources/camera/ClosedRoomCamera.tres" id="5_camera_profile"]
+[ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="6_ladder"]
+[ext_resource type="PackedScene" path="res://scenes/world/SlimeEnemyGreen.tscn" id="7_slime_green"]
+[ext_resource type="PackedScene" path="res://scenes/world/SlimeEnemyBlue.tscn" id="8_slime_blue"]
+[ext_resource type="PackedScene" path="res://scenes/world/SlimeEnemyRed.tscn" id="9_slime_red"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_corridor_floor"]
+size = Vector2(850, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_corridor_floor_r"]
+size = Vector2(716, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_corridor_ceiling"]
+size = Vector2(700, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_corridor_ceiling_r"]
+size = Vector2(716, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_shaft_wall_upper"]
+size = Vector2(20, 170)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_shaft_wall_lower"]
+size = Vector2(20, 185)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_room_side_top"]
+size = Vector2(20, 170)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_top_ceiling"]
+size = Vector2(270, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_top_floor_nub_l"]
+size = Vector2(65, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_top_floor_nub_r"]
+size = Vector2(85, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_room_side_bottom"]
+size = Vector2(20, 125)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bottom_floor"]
+size = Vector2(270, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bottom_ceiling_nub_l"]
+size = Vector2(65, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bottom_ceiling_nub_r"]
+size = Vector2(85, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_end_wall"]
+size = Vector2(20, 350)
+
+[node name="InteriorCuevaBosqueLobos1" type="Node2D" unique_id=-1094967295]
+script = ExtResource("2_bootstrap")
+ScenePath = "res://scenes/world/InteriorCuevaBosqueLobos1.tscn"
+CameraProfile = ExtResource("5_camera_profile")
+CameraLimitLeft = 0
+CameraLimitRight = 1536
+CameraLimitTop = 0
+CameraLimitBottom = 1050
+
+[node name="Background" type="Sprite2D" parent="." unique_id=-1094967294]
+z_index = -10
+position = Vector2(768, 512)
+texture = ExtResource("3_interior")
+
+[node name="CorridorFloorLeft" type="StaticBody2D" parent="." unique_id=-1094967293]
+position = Vector2(275, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CorridorFloorLeft" unique_id=-1094967292]
+shape = SubResource("RectangleShape2D_corridor_floor")
+
+[node name="CorridorFloorRight" type="StaticBody2D" parent="." unique_id=-1094967291]
+position = Vector2(1178, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CorridorFloorRight" unique_id=-1094967290]
+shape = SubResource("RectangleShape2D_corridor_floor_r")
+
+[node name="CorridorCeilingLeft" type="StaticBody2D" parent="." unique_id=-1094967289]
+position = Vector2(350, 395)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CorridorCeilingLeft" unique_id=-1094967288]
+shape = SubResource("RectangleShape2D_corridor_ceiling")
+
+[node name="CorridorCeilingRight" type="StaticBody2D" parent="." unique_id=-1094967287]
+position = Vector2(1178, 395)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CorridorCeilingRight" unique_id=-1094967286]
+shape = SubResource("RectangleShape2D_corridor_ceiling_r")
+
+[node name="ShaftWallUpperLeft" type="StaticBody2D" parent="." unique_id=-1094967285]
+position = Vector2(700, 335)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShaftWallUpperLeft" unique_id=-1094967284]
+shape = SubResource("RectangleShape2D_shaft_wall_upper")
+
+[node name="ShaftWallUpperRight" type="StaticBody2D" parent="." unique_id=-1094967283]
+position = Vector2(820, 335)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShaftWallUpperRight" unique_id=-1094967282]
+shape = SubResource("RectangleShape2D_shaft_wall_upper")
+
+[node name="ShaftWallLowerLeft" type="StaticBody2D" parent="." unique_id=-1094967281]
+position = Vector2(700, 667.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShaftWallLowerLeft" unique_id=-1094967280]
+shape = SubResource("RectangleShape2D_shaft_wall_lower")
+
+[node name="ShaftWallLowerRight" type="StaticBody2D" parent="." unique_id=-1094967279]
+position = Vector2(820, 667.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShaftWallLowerRight" unique_id=-1094967278]
+shape = SubResource("RectangleShape2D_shaft_wall_lower")
+
+[node name="TopRoomLeftWall" type="StaticBody2D" parent="." unique_id=-1094967277]
+position = Vector2(635, 165)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopRoomLeftWall" unique_id=-1094967276]
+shape = SubResource("RectangleShape2D_room_side_top")
+
+[node name="TopRoomRightWall" type="StaticBody2D" parent="." unique_id=-1094967275]
+position = Vector2(905, 165)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopRoomRightWall" unique_id=-1094967274]
+shape = SubResource("RectangleShape2D_room_side_top")
+
+[node name="TopRoomCeiling" type="StaticBody2D" parent="." unique_id=-1094967273]
+position = Vector2(770, 55)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopRoomCeiling" unique_id=-1094967272]
+shape = SubResource("RectangleShape2D_top_ceiling")
+
+[node name="TopRoomFloorLeft" type="StaticBody2D" parent="." unique_id=-1094967271]
+position = Vector2(667.5, 275)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopRoomFloorLeft" unique_id=-1094967270]
+shape = SubResource("RectangleShape2D_top_floor_nub_l")
+
+[node name="TopRoomFloorRight" type="StaticBody2D" parent="." unique_id=-1094967269]
+position = Vector2(862.5, 275)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopRoomFloorRight" unique_id=-1094967268]
+shape = SubResource("RectangleShape2D_top_floor_nub_r")
+
+[node name="BottomRoomLeftWall" type="StaticBody2D" parent="." unique_id=-1094967267]
+position = Vector2(635, 822.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomRoomLeftWall" unique_id=-1094967266]
+shape = SubResource("RectangleShape2D_room_side_bottom")
+
+[node name="BottomRoomRightWall" type="StaticBody2D" parent="." unique_id=-1094967265]
+position = Vector2(905, 822.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomRoomRightWall" unique_id=-1094967264]
+shape = SubResource("RectangleShape2D_room_side_bottom")
+
+[node name="BottomRoomFloor" type="StaticBody2D" parent="." unique_id=-1094967263]
+position = Vector2(770, 910)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomRoomFloor" unique_id=-1094967262]
+shape = SubResource("RectangleShape2D_bottom_floor")
+
+[node name="BottomRoomCeilingLeft" type="StaticBody2D" parent="." unique_id=-1094967261]
+position = Vector2(667.5, 735)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomRoomCeilingLeft" unique_id=-1094967260]
+shape = SubResource("RectangleShape2D_bottom_ceiling_nub_l")
+
+[node name="BottomRoomCeilingRight" type="StaticBody2D" parent="." unique_id=-1094967259]
+position = Vector2(862.5, 735)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomRoomCeilingRight" unique_id=-1094967258]
+shape = SubResource("RectangleShape2D_bottom_ceiling_nub_r")
+
+[node name="EndWall" type="StaticBody2D" parent="." unique_id=-1094967257]
+position = Vector2(1520, 475)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EndWall" unique_id=-1094967256]
+shape = SubResource("RectangleShape2D_end_wall")
+
+[node name="LeftEndWall" type="StaticBody2D" parent="." unique_id=-1094967252]
+position = Vector2(-160, 475)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftEndWall" unique_id=-1094967251]
+position = Vector2(153, 14)
+shape = SubResource("RectangleShape2D_end_wall")
+
+[node name="Ladder" parent="." unique_id=-1094967255 instance=ExtResource("6_ladder")]
+position = Vector2(789, 564)
+Length = 655.0
+
+[node name="Player" parent="." unique_id=-1094967254 instance=ExtResource("1_player")]
+position = Vector2(100, 543)
+FallDeathY = 1000.0
+
+[node name="ReturnTransition" parent="." unique_id=-1094967253 instance=ExtResource("4_transition")]
+position = Vector2(60, 575)
+TargetScenePath = "res://scenes/world/BosqueLobos1.tscn"
+TargetSpawnPosition = Vector2(2600, 258)
+UseStoredReturnPosition = true
+
+[node name="SlimeGreen" parent="." unique_id=1210556200 instance=ExtResource("7_slime_green")]
+position = Vector2(400, 559)
+
+[node name="SlimeRed" parent="." unique_id=586868509 instance=ExtResource("9_slime_red")]
+position = Vector2(1276, 541)
+
+[node name="SlimeBlue" parent="." unique_id=238766419 instance=ExtResource("8_slime_blue")]
+position = Vector2(770, 869)

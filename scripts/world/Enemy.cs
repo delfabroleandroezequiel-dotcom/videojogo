@@ -30,6 +30,8 @@ public partial class Enemy : CharacterBody2D
 
 	public override void _Ready()
 	{
+		AddToGroup("enemy");
+
 		PersistenceId = string.IsNullOrEmpty(CustomPersistenceId) ? GetPath().ToString() : CustomPersistenceId;
 		if (IsDefeated())
 		{

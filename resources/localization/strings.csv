@@ -41,6 +41,28 @@ UI_PAUSE_TITLE,PAUSA,PAUSED,PAUSA
 UI_PAUSE_RESUME,Continuar,Resume,Continuar
 UI_PAUSE_MAIN_MENU,Menú Principal,Main Menu,Menu Principal
 UI_PAUSE_LANGUAGE_LABEL,Idioma,Language,Idioma
+UI_PAUSE_CONTROLS,Controles,Controls,Controles
+UI_CONTROLS_TITLE,Controles,Controls,Controles
+UI_CONTROLS_RESET,Restablecer,Reset,Restaurar
+UI_CONTROLS_BACK,Volver,Back,Voltar
+UI_CONTROLS_PRESS_KEY,Presioná una tecla...,Press a key...,Pressione uma tecla...
+UI_ACTION_MOVE_LEFT,Mover Izquierda,Move Left,Mover Esquerda
+UI_ACTION_MOVE_RIGHT,Mover Derecha,Move Right,Mover Direita
+UI_ACTION_JUMP,Saltar,Jump,Pular
+UI_ACTION_ATTACK,Atacar,Attack,Atacar
+UI_ACTION_DASH,Dash,Dash,Dash
+UI_ACTION_SPRINT,Correr,Sprint,Correr
+UI_ACTION_INTERACT,Interactuar,Interact,Interagir
+UI_ACTION_QUEST_LOG,Diario de Misiones,Quest Log,Diário de Missões
+UI_ACTION_INVENTORY,Inventario,Inventory,Inventário
+UI_ACTION_HEAL,Curarse,Heal,Curar-se
+UI_ACTION_COMPANION_STANCE,Modo Compañero,Companion Stance,Modo Companheiro
+UI_COMPANION_AGGRESSIVE,Compañero: Agresivo,Companion: Aggressive,Companheiro: Agressivo
+UI_COMPANION_PASSIVE,Compañero: Pasivo,Companion: Passive,Companheiro: Passivo
+UI_PAUSE_DISPLAY,Pantalla,Display,Tela
+UI_DISPLAY_TITLE,Pantalla,Display,Tela
+UI_DISPLAY_FULLSCREEN_ON,Pantalla Completa: Sí,Fullscreen: On,Tela Cheia: Sim
+UI_DISPLAY_FULLSCREEN_OFF,Pantalla Completa: No,Fullscreen: Off,Tela Cheia: Não
 UI_RESTSCREEN_TEXT,Descansando,Resting,Descansando
 UI_INTERACT_PROMPT,E,E,E
 UI_HUD_HEAL_CHARGES,Curas: {0}/{1},Heals: {0}/{1},Curas: {0}/{1}

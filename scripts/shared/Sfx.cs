@@ -22,9 +22,8 @@ public static class Sfx
 		PlayStream(context, GD.Load<AudioStream>(BasePath + fileName));
 	}
 
-	// Voice-over lines aren't recorded yet, but callers can already use this: drop files under
-	// res://assets/audio/Voces/<locale>/<key>.wav (locale = "es"/"en"/"pt") and it'll pick the
-	// current language, falling back to Spanish if that locale's line is missing.
+	// Drop files under res://assets/audio/Voces/<locale>/<key>.(wav|mp3|ogg) (locale = "es"/"en"/"pt")
+	// and this picks the current language, falling back to Spanish if that locale's line is missing.
 	public static void PlayVoice(Node context, string key)
 	{
 		string locale = LocaleManager.Instance?.CurrentLocale ?? VoiceFallbackLocale;
@@ -35,10 +34,19 @@ public static class Sfx
 		PlayStream(context, stream);
 	}
 
+	private static readonly string[] VoiceExtensions = { ".wav", ".mp3", ".ogg" };
+
 	private static AudioStream LoadVoiceStream(string locale, string key)
 	{
-		string path = $"{VoiceBasePath}{locale}/{key}.wav";
-		return ResourceLoader.Exists(path) ? GD.Load<AudioStream>(path) : null;
+		string basePath = $"{VoiceBasePath}{locale}/{key}";
+		foreach (string extension in VoiceExtensions)
+		{
+			string path = basePath + extension;
+			if (ResourceLoader.Exists(path))
+				return GD.Load<AudioStream>(path);
+		}
+
+		return null;
 	}
 
 	private static void PlayStream(Node context, AudioStream stream)
