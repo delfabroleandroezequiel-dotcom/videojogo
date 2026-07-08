@@ -18,8 +18,9 @@ public partial class Player : CharacterBody2D
 	[Export] public float ComboResetWindow = 0.6f;
 	[Export] public int AttackStaminaCost = 10;
 	[Export] public float HealAnimDuration = 0.8f;
-	[Export] public float DashSpeed = 500f;
+	[Export] public float DashSpeed = 560f;
 	[Export] public float DashDuration = 0.2f;
+	[Export] public float DashIframeDuration = 0.28f;
 	[Export] public float DashCooldown = 0.5f;
 	[Export] public int DashStaminaCost = 20;
 	[Export] public float CrouchSpeedMultiplier = 0.5f;
@@ -28,6 +29,10 @@ public partial class Player : CharacterBody2D
 	[Export] public float LookSmoothSpeed = 4f;
 	[Export] public float BaseCameraOffsetY = -108f;
 	public float ProfileCameraOffsetY { get; set; }
+	public float ProfileZoom { get; set; } = 1.5f;
+	[Export] public float BossZoomDistance = 500f;
+	[Export] public float BossZoomInMultiplier = 0.75f;
+	[Export] public float ZoomSmoothSpeed = 3f;
 	[Export] public float HeadLookUpAngle = -25f;
 	[Export] public float WeaponRestAngle = -20f;
 	[Export] public float WeaponSwingStartAngle = -70f;
@@ -43,6 +48,7 @@ public partial class Player : CharacterBody2D
 	[Export] public float ClimbSpeed = 130f;
 	[Export] public float ClimbHorizontalSpeedMultiplier = 0.6f;
 	[Export] public float LadderJumpLockoutDuration = 0.25f;
+	[Export] public float InputBufferWindow = 0.15f;
 
 	private Hitbox _hitbox;
 	private Stats _stats;
@@ -83,6 +89,8 @@ public partial class Player : CharacterBody2D
 	private Ladder _ladder;
 	private bool _isClimbing;
 	private float _ladderGrabLockout;
+	private float _attackBufferTimer;
+	private float _dashBufferTimer;
 
 	public override void _Ready()
 	{
@@ -102,6 +110,14 @@ public partial class Player : CharacterBody2D
 		_camera = GetNode<Camera2D>("Camera2D");
 		_sprite = GetNode<AnimatedSprite2D>("Visual/CharacterSprite");
 		_stats.Died += OnDied;
+
+		if (SaveManager.Instance.SessionCurrentHealth.HasValue)
+			_stats.SetCurrentHealth(SaveManager.Instance.SessionCurrentHealth.Value);
+		if (SaveManager.Instance.SessionHealCharges.HasValue)
+			_healFlask.SetCurrentCharges(SaveManager.Instance.SessionHealCharges.Value);
+
+		_stats.HealthChanged += (current, max) => SaveManager.Instance.SessionCurrentHealth = current;
+		_healFlask.ChargesChanged += (current, max) => SaveManager.Instance.SessionHealCharges = current;
 
 		HudBar healthBar = GetNode<HudBar>("HUD/VBox/HealthBar");
 		HudBar staminaBar = GetNode<HudBar>("HUD/VBox/StaminaBar");
@@ -166,6 +182,13 @@ public partial class Player : CharacterBody2D
 			if (_comboResetTimer <= 0f)
 				_comboStep = 0;
 		}
+
+		_attackBufferTimer = Mathf.Max(0f, _attackBufferTimer - (float)delta);
+		_dashBufferTimer = Mathf.Max(0f, _dashBufferTimer - (float)delta);
+		if (Input.IsActionJustPressed("attack"))
+			_attackBufferTimer = InputBufferWindow;
+		if (Input.IsActionJustPressed("dash"))
+			_dashBufferTimer = InputBufferWindow;
 
 		Vector2 velocity = Velocity;
 
@@ -252,24 +275,31 @@ public partial class Player : CharacterBody2D
 
 		UpdateCrouch();
 
-		float direction = (_attacking || _healing) ? 0f : Input.GetAxis("move_left", "move_right");
+		float rawDirection = Input.GetAxis("move_left", "move_right");
+		if (rawDirection != 0)
+			_facingRight = rawDirection > 0;
+
+		float direction = (_attacking || _healing) ? 0f : rawDirection;
 		bool sprinting = !_attacking && !_healing && _abilities.Has(PlayerAbilities.Sprint) && Input.IsActionPressed("sprint")
 			&& !_crouching && direction != 0;
 		float speed = _crouching ? Speed * CrouchSpeedMultiplier : sprinting ? Speed * SprintSpeedMultiplier : Speed;
 		velocity.X = direction != 0 ? direction * speed : Mathf.MoveToward(velocity.X, 0, speed);
 
-		if (direction != 0)
-			_facingRight = direction > 0;
-
 		_visual.Scale = new Vector2(_facingRight ? 1 : -1, 1f);
 
 		UpdateCameraLook(delta);
 
-		if (Input.IsActionJustPressed("dash") && _abilities.Has(PlayerAbilities.Dash) && _canDash && !_healing)
+		if (_dashBufferTimer > 0f && _abilities.Has(PlayerAbilities.Dash) && _canDash && !_healing)
+		{
+			_dashBufferTimer = 0f;
 			StartDash();
+		}
 
-		if (Input.IsActionJustPressed("attack") && !_attacking && !_healing)
+		if (_attackBufferTimer > 0f && !_attacking && !_healing)
+		{
+			_attackBufferTimer = 0f;
 			Attack();
+		}
 
 		if (Input.IsActionJustPressed("heal") && !_attacking && !_healing && !_isDashing)
 			UseHealFlask();
@@ -387,6 +417,24 @@ public partial class Player : CharacterBody2D
 
 		float targetHeadAngle = lookingUp ? HeadLookUpAngle : 0f;
 		_head.RotationDegrees = Mathf.Lerp(_head.RotationDegrees, targetHeadAngle, (float)delta * LookSmoothSpeed);
+
+		UpdateBossZoom(delta);
+	}
+
+	private void UpdateBossZoom(double delta)
+	{
+		float targetZoom = ProfileZoom;
+
+		Godot.Collections.Array<Node> bosses = GetTree().GetNodesInGroup("boss");
+		if (bosses.Count == 1 && bosses[0] is Node2D boss)
+		{
+			float distance = GlobalPosition.DistanceTo(boss.GlobalPosition);
+			float t = Mathf.Clamp(distance / BossZoomDistance, 0f, 1f);
+			targetZoom = ProfileZoom * Mathf.Lerp(BossZoomInMultiplier, 1f, t);
+		}
+
+		float newZoom = Mathf.Lerp(_camera.Zoom.X, targetZoom, (float)delta * ZoomSmoothSpeed);
+		_camera.Zoom = new Vector2(newZoom, newZoom);
 	}
 
 	private async void StartDash()
@@ -401,6 +449,10 @@ public partial class Player : CharacterBody2D
 
 		await ToSignal(GetTree().CreateTimer(DashDuration), SceneTreeTimer.SignalName.Timeout);
 		_isDashing = false;
+
+		float remainingIframeTime = Mathf.Max(0f, DashIframeDuration - DashDuration);
+		if (remainingIframeTime > 0f)
+			await ToSignal(GetTree().CreateTimer(remainingIframeTime), SceneTreeTimer.SignalName.Timeout);
 		_stats.ExternalInvulnerable = false;
 
 		await ToSignal(GetTree().CreateTimer(DashCooldown), SceneTreeTimer.SignalName.Timeout);

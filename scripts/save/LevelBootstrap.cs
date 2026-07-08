@@ -68,6 +68,8 @@ public partial class LevelBootstrap : Node
 		SaveManager.Instance.SaveGame(SaveManager.Instance.CurrentSlot, data);
 		SaveManager.Instance.ClearCommonEnemyDefeats();
 		SaveManager.Instance.LoadGame(SaveManager.Instance.CurrentSlot);
+		SaveManager.Instance.SessionCurrentHealth = null;
+		SaveManager.Instance.SessionHealCharges = null;
 		GetTree().CallDeferred(SceneTree.MethodName.ReloadCurrentScene);
 	}
 
@@ -88,6 +90,8 @@ public partial class LevelBootstrap : Node
 		}
 
 		SaveManager.Instance.ClearCommonEnemyDefeats();
+		SaveManager.Instance.SessionCurrentHealth = null;
+		SaveManager.Instance.SessionHealCharges = null;
 
 		if (targetScenePath == ScenePath)
 			GetTree().CallDeferred(SceneTree.MethodName.ReloadCurrentScene);
@@ -119,5 +123,6 @@ public partial class LevelBootstrap : Node
 		camera.Zoom = new Vector2(CameraProfile.Zoom, CameraProfile.Zoom);
 		camera.PositionSmoothingSpeed = CameraProfile.SmoothingSpeed;
 		_player.ProfileCameraOffsetY = CameraProfile.OffsetY;
+		_player.ProfileZoom = CameraProfile.Zoom;
 	}
 }

@@ -24,6 +24,7 @@
 [ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="20_camera_profile"]
 [ext_resource type="PackedScene" path="res://scenes/world/DialogueTrigger.tscn" id="21_dialogue_trigger"]
 [ext_resource type="PackedScene" path="res://scenes/world/CompanionNpc.tscn" id="22_companion"]
+[ext_resource type="Texture2D" path="res://resources/lighting/GroundShadowGradient.tres" id="23_groundshadow"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn06r"]
 size = Vector2(67, 11.360123)
@@ -6149,10 +6150,22 @@ position = Vector2(-3309.5002, 187)
 scale = Vector2(0.837, 0.9)
 texture = ExtResource("5_7p3gt")
 
+[node name="GroundShadow" type="Sprite2D" parent="Background/BgSprite4/Sprite2D2"]
+z_index = -1
+position = Vector2(0, 165)
+scale = Vector2(1.64, 0.39)
+texture = ExtResource("23_groundshadow")
+
 [node name="Sprite2D4" type="Sprite2D" parent="Background/BgSprite4" unique_id=1936710571]
 position = Vector2(-986.5, 208)
 scale = Vector2(0.837, 0.9)
 texture = ExtResource("6_24ren")
+
+[node name="GroundShadow" type="Sprite2D" parent="Background/BgSprite4/Sprite2D4"]
+z_index = -1
+position = Vector2(0, 185)
+scale = Vector2(1.48, 0.37)
+texture = ExtResource("23_groundshadow")
 
 [node name="DoorVoiceTrigger" parent="Background/BgSprite4" unique_id=1936710572 instance=ExtResource("21_dialogue_trigger")]
 position = Vector2(-942.5, 269)
@@ -6164,6 +6177,12 @@ position = Vector2(-1657.5001, 46.999992)
 scale = Vector2(1.4542446, 1.5366086)
 texture = ExtResource("7_o41q6")
 
+[node name="GroundShadow" type="Sprite2D" parent="Background/BgSprite4/Sprite2D5"]
+z_index = -1
+position = Vector2(0, 190)
+scale = Vector2(1.45, 0.35)
+texture = ExtResource("23_groundshadow")
+
 [node name="MeleeEnemy" parent="Background/BgSprite4" unique_id=840570990 instance=ExtResource("4_35v3a")]
 position = Vector2(-863.5, 272)
 
@@ -6174,6 +6193,12 @@ position = Vector2(-552.5, 283)
 position = Vector2(-126.5, 219)
 scale = Vector2(0.85, 0.85)
 texture = ExtResource("11_dpwbv")
+
+[node name="GroundShadow" type="Sprite2D" parent="Background/BgSprite4/Sprite2D"]
+z_index = -1
+position = Vector2(0, 165)
+scale = Vector2(1.64, 0.39)
+texture = ExtResource("23_groundshadow")
 
 [node name="Sea" type="Polygon2D" parent="." unique_id=1240599023]
 visible = false
@@ -6262,6 +6287,7 @@ position = Vector2(95, 445)
 
 [node name="CompanionNpc" parent="." unique_id=1962161527 instance=ExtResource("22_companion")]
 position = Vector2(150, 445)
+Lines = PackedStringArray("COMPANION_AMBIENT_TEST_1", "COMPANION_AMBIENT_TEST_2", "COMPANION_AMBIENT_TEST_3")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=185783812]
 position = Vector2(5224, 295)

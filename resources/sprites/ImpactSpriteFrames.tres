@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://impact_sprite_frames_main"]
+
+[ext_resource type="Texture2D" uid="uid://cmndnr1st72cp" path="res://assets/external/gandalfhardcore/efectospersonaje/GandalfHardcore character effects/Character effects stars v2.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_impact0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_impact1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(80, 0, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_impact2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(160, 0, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_impact3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(240, 0, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_impact4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(320, 0, 80, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_impact0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_impact1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_impact2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_impact3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_impact4")
+}],
+"loop": false,
+"name": &"burst",
+"speed": 14.0
+}]

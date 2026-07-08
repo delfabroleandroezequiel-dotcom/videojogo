@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="4_transition"]
 [ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="5_camera_profile"]
 [ext_resource type="Texture2D" uid="uid://ddorccofiac2x" path="res://assets/sprites/misprite/CuevaBosqueLobos1.png" id="6_cave"]
+[ext_resource type="PackedScene" path="res://scenes/world/BossLobo.tscn" id="8_bosslobo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1774, 60)
@@ -62,3 +63,6 @@ TargetScenePath = "res://scenes/world/InteriorCuevaBosqueLobos1.tscn"
 TargetSpawnPosition = Vector2(100, 543)
 RequireInteract = true
 RememberOriginForReturn = true
+
+[node name="BossLobo" parent="." instance=ExtResource("8_bosslobo")]
+position = Vector2(1300, 263)

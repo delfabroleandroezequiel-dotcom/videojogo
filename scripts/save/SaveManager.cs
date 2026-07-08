@@ -21,6 +21,12 @@ public partial class SaveManager : Node
 	public Vector2? PendingSpawnPosition { get; set; }
 	public Vector2? PendingReturnPosition { get; set; }
 
+	// Current HP/heal-charge count carried between scenes within the same play session.
+	// Null means "no cached value" — Stats/HealFlask keep their fresh full-refill default.
+	// Cleared on rest and on respawn, since those are the only moments meant to fully refill.
+	public int? SessionCurrentHealth { get; set; }
+	public int? SessionHealCharges { get; set; }
+
 	private readonly HashSet<string> _defeatedBosses = new();
 	private readonly HashSet<string> _defeatedCommonEnemies = new();
 	private readonly HashSet<string> _litSavePoints = new();
@@ -101,6 +107,8 @@ public partial class SaveManager : Node
 		_equippedRings.Clear();
 		_maxHealCharges = 1;
 		StoryStage = 0;
+		SessionCurrentHealth = null;
+		SessionHealCharges = null;
 		QuestManager.Instance.ResetProgressState();
 	}
 

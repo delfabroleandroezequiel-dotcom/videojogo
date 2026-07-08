@@ -63,6 +63,9 @@ UI_PAUSE_DISPLAY,Pantalla,Display,Tela
 UI_DISPLAY_TITLE,Pantalla,Display,Tela
 UI_DISPLAY_FULLSCREEN_ON,Pantalla Completa: Sí,Fullscreen: On,Tela Cheia: Sim
 UI_DISPLAY_FULLSCREEN_OFF,Pantalla Completa: No,Fullscreen: Off,Tela Cheia: Não
+COMPANION_AMBIENT_TEST_1,"¿Falta mucho para llegar?","Are we there yet?","Falta muito para chegar?"
+COMPANION_AMBIENT_TEST_2,"Este lugar me da mala espina...","This place gives me the creeps...","Esse lugar me dá arrepios..."
+COMPANION_AMBIENT_TEST_3,"¡A tu lado, siempre!","By your side, always!","Ao seu lado, sempre!"
 UI_RESTSCREEN_TEXT,Descansando,Resting,Descansando
 UI_INTERACT_PROMPT,E,E,E
 UI_HUD_HEAL_CHARGES,Curas: {0}/{1},Heals: {0}/{1},Curas: {0}/{1}

@@ -1,0 +1,81 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/Boss.cs" id="1_script"]
+[ext_resource type="Script" path="res://scripts/player/Hitbox.cs" id="2_hitbox"]
+[ext_resource type="Script" path="res://scripts/shared/Stats.cs" id="3_stats"]
+[ext_resource type="PackedScene" path="res://scenes/ui/StatBar.tscn" id="4_statbar"]
+[ext_resource type="SpriteFrames" path="res://assets/sprites/misprite/BossLoboSpriteFrames.tres" id="5_spriteframes"]
+[ext_resource type="PackedScene" uid="uid://dq3mb122eef3v" path="res://scenes/world/Explosion.tscn" id="6_explosion"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
+size = Vector2(70, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(80, 40)
+
+[node name="BossLobo" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_script")
+DetectionRange = 450.0
+AlwaysMoving = true
+FleeAndRecharge = true
+OverheadHeightThreshold = 50.0
+MoveSpeed = 160.0
+AttackCooldown = 0.9
+ComboChance = 0.5
+WanderInterval = 1.2
+WanderRadius = 90.0
+WanderSettleDistance = 12.0
+LungeRange = 220.0
+LungeChance = 0.75
+LungeSpeed = 320.0
+LungeDuration = 0.45
+EnrageSpeedMultiplier = 1.5
+ExplosionScale = 2.0
+ExplosionScene = ExtResource("6_explosion")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="ContactArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea"]
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual"]
+scale = Vector2(1.7, 1.7)
+offset = Vector2(0, -28)
+sprite_frames = ExtResource("5_spriteframes")
+animation = &"run"
+autoplay = "run"
+
+[node name="AttackHitbox" type="Area2D" parent="."]
+position = Vector2(60, 0)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_hitbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+shape = SubResource("RectangleShape2D_hitbox")
+disabled = true
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("3_stats")
+MaxHealth = 130
+AttackPower = 70
+Defense = 5
+MaxStamina = 100
+
+[node name="HealthBar" parent="." instance=ExtResource("4_statbar")]
+position = Vector2(0, 46)
+Width = 48.0
+
+[node name="StaminaBar" parent="." instance=ExtResource("4_statbar")]
+position = Vector2(0, 52)
+Width = 48.0
+FillColor = Color(0.2, 0.6, 1, 1)

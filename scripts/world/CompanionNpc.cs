@@ -1,5 +1,6 @@
 using Godot;
 using Metroidvania.Player;
+using Metroidvania.Save;
 using Metroidvania.Shared;
 using Metroidvania.UI;
 
@@ -24,16 +25,29 @@ public partial class CompanionNpc : CharacterBody2D
 	[Export] public float AttackSpriteYOffset = -9f;
 	[Export] public bool Aggressive = false;
 
+	// Ambient chatter: picked at random every so often, purely flavor — doesn't pause
+	// the game or need player input. StageLines overrides Lines once StoryStage is reached,
+	// same convention as Npc.cs, so a companion's chatter can evolve with the story.
+	[Export] public string[] Lines = { };
+	[Export] public NpcDialogueStage[] StageLines = { };
+	[Export] public float LineIntervalMin = 18f;
+	[Export] public float LineIntervalMax = 40f;
+	[Export] public float LineHoldDuration = 3.5f;
+
 	private Node2D _visual;
 	private AnimatedSprite2D _sprite;
 	private Hitbox _hitbox;
 	private Stats _stats;
+	private Node2D _speechBubble;
+	private Label _speechLabel;
+	private readonly RandomNumberGenerator _rng = new();
 
 	private bool _facingRight = true;
 	private bool _isFollowing;
 	private float _stuckTimer;
 	private bool _attacking;
 	private bool _canAttack = true;
+	private float _lineTimer;
 
 	public override void _Ready()
 	{
@@ -41,6 +55,51 @@ public partial class CompanionNpc : CharacterBody2D
 		_sprite = GetNodeOrNull<AnimatedSprite2D>("Visual/CharacterSprite");
 		_hitbox = GetNode<Hitbox>("AttackHitbox");
 		_stats = GetNode<Stats>("Stats");
+		_speechBubble = GetNode<Node2D>("SpeechBubble");
+		_speechLabel = GetNode<Label>("SpeechBubble/Label");
+
+		_rng.Randomize();
+		ResetLineTimer();
+	}
+
+	private void ResetLineTimer()
+	{
+		_lineTimer = _rng.RandfRange(LineIntervalMin, LineIntervalMax);
+	}
+
+	private string[] GetCurrentLines()
+	{
+		if (StageLines is null || StageLines.Length == 0)
+			return Lines;
+
+		int currentStage = SaveManager.Instance.StoryStage;
+		NpcDialogueStage best = null;
+
+		foreach (NpcDialogueStage stage in StageLines)
+		{
+			if (stage.MinStage <= currentStage && (best is null || stage.MinStage > best.MinStage))
+				best = stage;
+		}
+
+		return best?.Lines ?? Lines;
+	}
+
+	private void SayAmbientLine()
+	{
+		string[] pool = GetCurrentLines();
+		if (pool is null || pool.Length == 0)
+			return;
+
+		string key = pool[_rng.RandiRange(0, pool.Length - 1)];
+		_speechLabel.Text = TranslationServer.Translate(key);
+		_speechBubble.Visible = true;
+		_speechBubble.Modulate = new Color(1, 1, 1, 0);
+
+		Tween tween = CreateTween();
+		tween.TweenProperty(_speechBubble, "modulate:a", 1f, 0.25f);
+		tween.TweenInterval(LineHoldDuration);
+		tween.TweenProperty(_speechBubble, "modulate:a", 0f, 0.4f);
+		tween.TweenCallback(Callable.From(() => _speechBubble.Visible = false));
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -54,6 +113,13 @@ public partial class CompanionNpc : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		_lineTimer -= (float)delta;
+		if (_lineTimer <= 0f)
+		{
+			SayAmbientLine();
+			ResetLineTimer();
+		}
+
 		Vector2 velocity = Velocity;
 		if (!IsOnFloor())
 			velocity.Y += Gravity * (float)delta;

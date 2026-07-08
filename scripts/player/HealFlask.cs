@@ -30,6 +30,12 @@ public partial class HealFlask : Node
 		return true;
 	}
 
+	public void SetCurrentCharges(int value)
+	{
+		CurrentCharges = Mathf.Clamp(value, 0, MaxCharges);
+		EmitSignal(SignalName.ChargesChanged, CurrentCharges, MaxCharges);
+	}
+
 	public void UnlockCharge()
 	{
 		if (!SaveManager.Instance.UnlockHealCharge())

@@ -72,6 +72,12 @@ public partial class Stats : Node
 		EmitSignal(SignalName.HealthChanged, CurrentHealth, MaxHealth);
 	}
 
+	public void SetCurrentHealth(int value)
+	{
+		CurrentHealth = Mathf.Clamp(value, 0, MaxHealth);
+		EmitSignal(SignalName.HealthChanged, CurrentHealth, MaxHealth);
+	}
+
 	public void Kill()
 	{
 		if (CurrentHealth <= 0)
