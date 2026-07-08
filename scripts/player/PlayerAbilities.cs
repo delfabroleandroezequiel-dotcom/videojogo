@@ -9,10 +9,12 @@ public partial class PlayerAbilities : Node
 	public const string DoubleJump = "double_jump";
 	public const string Dash = "dash";
 	public const string Sprint = "sprint";
+	public const string WallClimb = "wall_climb";
 
 	[Export] public bool StartWithDoubleJump;
 	[Export] public bool StartWithDash;
 	[Export] public bool StartWithSprint;
+	[Export] public bool StartWithWallClimb;
 
 	private readonly HashSet<string> _unlocked = new();
 
@@ -26,6 +28,8 @@ public partial class PlayerAbilities : Node
 			Unlock(Dash);
 		if (StartWithSprint)
 			Unlock(Sprint);
+		if (StartWithWallClimb)
+			Unlock(WallClimb);
 
 		foreach (string abilityId in SaveManager.Instance.GetUnlockedAbilities())
 			Unlock(abilityId);

@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://cuhg0wrlo6of"]
 
 [ext_resource type="Script" path="res://scripts/world/Projectile.cs" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/external/gandalfhardcore/archer/arrow.png" id="2_arrow_tex"]
+[ext_resource type="Texture2D" path="res://resources/particles/SoftDotGradient.tres" id="3_trail_tex"]
+[ext_resource type="ParticleProcessMaterial" path="res://resources/particles/ArrowTrailProcess.tres" id="4_trail_process"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_projectile"]
 radius = 5.0
@@ -13,6 +16,13 @@ script = ExtResource("1_script")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_projectile")
 
-[node name="Visual" type="Polygon2D" parent="."]
-color = Color(1, 0.5, 0.1, 1)
-polygon = PackedVector2Array(-6, -3, 6, 0, -6, 3)
+[node name="Visual" type="Sprite2D" parent="."]
+texture = ExtResource("2_arrow_tex")
+
+[node name="Trail" type="GPUParticles2D" parent="."]
+position = Vector2(-10, 0)
+amount = 8
+lifetime = 0.3
+local_coords = false
+process_material = ExtResource("4_trail_process")
+texture = ExtResource("3_trail_tex")

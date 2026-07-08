@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Texture2D" path="res://resources/lighting/PointLightGradient.tres" id="1_light_tex"]
+[ext_resource type="Texture2D" path="res://resources/particles/SoftDotGradient.tres" id="2_particle_tex"]
+[ext_resource type="ParticleProcessMaterial" path="res://resources/particles/WillOWispProcess.tres" id="3_process"]
+
+[node name="WillOWisp" type="Node2D"]
+
+[node name="Glow" type="PointLight2D" parent="."]
+texture = ExtResource("1_light_tex")
+texture_scale = 0.5
+color = Color(0.6, 1, 0.75, 1)
+energy = 0.7
+
+[node name="Sparkles" type="GPUParticles2D" parent="."]
+amount = 6
+lifetime = 3.5
+randomness = 0.5
+process_material = ExtResource("3_process")
+texture = ExtResource("2_particle_tex")

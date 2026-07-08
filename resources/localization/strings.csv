@@ -48,6 +48,8 @@ UI_CONTROLS_BACK,Volver,Back,Voltar
 UI_CONTROLS_PRESS_KEY,Presioná una tecla...,Press a key...,Pressione uma tecla...
 UI_ACTION_MOVE_LEFT,Mover Izquierda,Move Left,Mover Esquerda
 UI_ACTION_MOVE_RIGHT,Mover Derecha,Move Right,Mover Direita
+UI_ACTION_MOVE_UP,Mover Arriba,Move Up,Mover Para Cima
+UI_ACTION_MOVE_DOWN,Mover Abajo,Move Down,Mover Para Baixo
 UI_ACTION_JUMP,Saltar,Jump,Pular
 UI_ACTION_ATTACK,Atacar,Attack,Atacar
 UI_ACTION_DASH,Dash,Dash,Dash
@@ -69,6 +71,7 @@ COMPANION_AMBIENT_TEST_3,"¡A tu lado, siempre!","By your side, always!","Ao seu
 UI_RESTSCREEN_TEXT,Descansando,Resting,Descansando
 UI_INTERACT_PROMPT,E,E,E
 UI_HUD_HEAL_CHARGES,Curas: {0}/{1},Heals: {0}/{1},Curas: {0}/{1}
+UI_HUD_GOLD,Oro: {0},Gold: {0},Ouro: {0}
 SAVEPOINT_LIGHT_CONFIRM,"¿Desea encenderla?","Do you want to light it?","Deseja acendê-la?"
 SAVEPOINT_REST_CONFIRM,"¿Desea descansar?","Do you want to rest?","Deseja descansar?"
 NPC_DEFAULT_NAME,NPC,NPC,NPC
@@ -105,6 +108,8 @@ ITEM_ABILITY_DOUBLEJUMP_NAME,Pluma del salto doble,Double Jump Feather,Pena do p
 ITEM_ABILITY_DOUBLEJUMP_DESC,Te permite saltar una segunda vez en el aire.,Lets you jump a second time in the air.,Permite pular uma segunda vez no ar.
 ITEM_ABILITY_SPRINT_NAME,Botas veloces,Swift Boots,Botas velozes
 ITEM_ABILITY_SPRINT_DESC,Te permiten correr manteniendo presionado sprint.,Let you run by holding down sprint.,Permitem correr mantendo pressionado o botão de corrida.
+ITEM_ABILITY_WALL_CLIMB_NAME,Guantes de escalada,Climbing Gloves,Luvas de escalada
+ITEM_ABILITY_WALL_CLIMB_DESC,Te permiten trepar paredes manteniéndote pegado a ellas.,Let you climb walls by clinging to them.,Permitem escalar paredes agarrando-se a elas.
 ITEM_HEAL_UPGRADE_NAME,Frasco de vida,Life Flask,Frasco de vida
 ITEM_HEAL_UPGRADE_DESC,Aumenta en 1 la cantidad de curas que podés llevar.,Increases the number of heals you can carry by 1.,Aumenta em 1 a quantidade de curas que você pode carregar.
 ITEM_LORE_NOTE_GUARDIAN_NAME,Nota desgastada,Worn Note,Nota desgastada

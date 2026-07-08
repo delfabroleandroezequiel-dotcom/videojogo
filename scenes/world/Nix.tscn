@@ -25,6 +25,11 @@
 [ext_resource type="PackedScene" path="res://scenes/world/DialogueTrigger.tscn" id="21_dialogue_trigger"]
 [ext_resource type="PackedScene" path="res://scenes/world/CompanionNpc.tscn" id="22_companion"]
 [ext_resource type="Texture2D" path="res://resources/lighting/GroundShadowGradient.tres" id="23_groundshadow"]
+[ext_resource type="Environment" path="res://resources/rendering/NixPostProcess.tres" id="24_postprocess_env"]
+[ext_resource type="ShaderMaterial" path="res://resources/shaders/VignetteMaterial.tres" id="25_vignette_mat"]
+[ext_resource type="ParticleProcessMaterial" path="res://resources/particles/DustMoteProcess.tres" id="26_dust_process"]
+[ext_resource type="Texture2D" path="res://resources/particles/SoftDotGradient.tres" id="27_softdot"]
+[ext_resource type="PackedScene" path="res://scenes/world/Coin.tscn" id="28_coin"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn06r"]
 size = Vector2(67, 11.360123)
@@ -6109,6 +6114,18 @@ CameraLimitLeft = -1638
 CameraLimitRight = 5322
 CameraLimitBottom = 650
 
+[node name="PostProcessEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("24_postprocess_env")
+
+[node name="VignetteLayer" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="Vignette" type="ColorRect" parent="VignetteLayer"]
+material = ExtResource("25_vignette_mat")
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
 [node name="Background" type="Node2D" parent="." unique_id=1423305755]
 z_index = -10
 
@@ -6188,6 +6205,15 @@ position = Vector2(-863.5, 272)
 
 [node name="RangedEnemy" parent="Background/BgSprite4" unique_id=182423734 instance=ExtResource("5_af0ld")]
 position = Vector2(-552.5, 283)
+ProjectileSpeed = 250.0
+
+[node name="RangedEnemy2" parent="Background/BgSprite4" instance=ExtResource("5_af0ld")]
+position = Vector2(-1450, 283)
+ProjectileSpeed = 160.0
+
+[node name="RangedEnemy3" parent="Background/BgSprite4" instance=ExtResource("5_af0ld")]
+position = Vector2(-700, 283)
+ProjectileSpeed = 380.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/BgSprite4" unique_id=1071120918]
 position = Vector2(-126.5, 219)
@@ -6284,6 +6310,26 @@ texture = ExtResource("14_n4hbi")
 
 [node name="Player" parent="." unique_id=1962161526 instance=ExtResource("1_player")]
 position = Vector2(95, 445)
+
+[node name="DustMotes" type="GPUParticles2D" parent="Player"]
+amount = 18
+lifetime = 7.0
+randomness = 0.5
+local_coords = false
+process_material = ExtResource("26_dust_process")
+texture = ExtResource("27_softdot")
+
+[node name="Coin1" parent="." instance=ExtResource("28_coin")]
+position = Vector2(250, 420)
+
+[node name="Coin2" parent="." instance=ExtResource("28_coin")]
+position = Vector2(450, 420)
+
+[node name="Coin3" parent="." instance=ExtResource("28_coin")]
+position = Vector2(1750, 420)
+
+[node name="Coin4" parent="." instance=ExtResource("28_coin")]
+position = Vector2(2850, 420)
 
 [node name="CompanionNpc" parent="." unique_id=1962161527 instance=ExtResource("22_companion")]
 position = Vector2(150, 445)

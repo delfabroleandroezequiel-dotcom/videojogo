@@ -12,14 +12,16 @@ public partial class GameConfig : Node
 
 	public static readonly string[] RemappableActions =
 	{
-		"move_left", "move_right", "jump", "attack", "dash", "sprint", "interact", "quest_log", "inventory", "heal",
-		"companion_stance",
+		"move_left", "move_right", "move_up", "move_down", "jump", "attack", "dash", "sprint", "interact", "quest_log",
+		"inventory", "heal", "companion_stance",
 	};
 
 	private static readonly Dictionary<string, Key> DefaultBindings = new()
 	{
 		{ "move_left", Key.A },
 		{ "move_right", Key.D },
+		{ "move_up", Key.W },
+		{ "move_down", Key.S },
 		{ "jump", Key.Space },
 		{ "attack", Key.J },
 		{ "dash", Key.Shift },

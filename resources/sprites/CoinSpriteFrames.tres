@@ -1,0 +1,95 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://ci232bn6y00b0"]
+
+[ext_resource type="Texture2D" uid="uid://h2c4n060oa5f" path="res://assets/external/gandalfhardcore/emojisicons/GandalfHardcore Emojis and Icons/Coin.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coin0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coin1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coin2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coin3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coin4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coin5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coin6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coin7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coin8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coin9"]
+atlas = ExtResource("1_sheet")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coin10"]
+atlas = ExtResource("1_sheet")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coin11"]
+atlas = ExtResource("1_sheet")
+region = Rect2(176, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_coin0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_coin1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_coin2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_coin3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_coin4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_coin5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_coin6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_coin7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_coin8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_coin9")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_coin10")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_coin11")
+}],
+"loop": 1,
+"name": &"spin",
+"speed": 10.0
+}]

@@ -32,7 +32,35 @@ public partial class SaveManager : Node
 	private readonly HashSet<string> _litSavePoints = new();
 	private readonly HashSet<string> _unlockedAbilities = new();
 	private readonly HashSet<string> _collectedItems = new();
+	private readonly HashSet<string> _collectedPickups = new();
 	private readonly List<string> _equippedRings = new();
+
+	[Signal] public delegate void GoldChangedEventHandler(int gold);
+
+	public int Gold { get; private set; }
+
+	public void AddGold(int amount)
+	{
+		if (amount <= 0)
+			return;
+
+		Gold += amount;
+		EmitSignal(SignalName.GoldChanged, Gold);
+	}
+
+	public bool SpendGold(int amount)
+	{
+		if (amount <= 0 || Gold < amount)
+			return false;
+
+		Gold -= amount;
+		EmitSignal(SignalName.GoldChanged, Gold);
+		return true;
+	}
+
+	public bool IsPickupCollected(string id) => _collectedPickups.Contains(id);
+	public void MarkPickupCollected(string id) => _collectedPickups.Add(id);
+	public IReadOnlyCollection<string> GetCollectedPickups() => _collectedPickups;
 
 	public const int MaxHealChargeCap = 5;
 	private int _maxHealCharges = 1;
@@ -105,8 +133,10 @@ public partial class SaveManager : Node
 		_unlockedAbilities.Clear();
 		_collectedItems.Clear();
 		_equippedRings.Clear();
+		_collectedPickups.Clear();
 		_maxHealCharges = 1;
 		StoryStage = 0;
+		Gold = 0;
 		SessionCurrentHealth = null;
 		SessionHealCharges = null;
 		QuestManager.Instance.ResetProgressState();
@@ -166,8 +196,14 @@ public partial class SaveManager : Node
 		_equippedRings.Clear();
 		_equippedRings.AddRange(PendingLoad.EquippedRings);
 
+		_collectedPickups.Clear();
+		foreach (string pickupId in PendingLoad.CollectedPickups)
+			_collectedPickups.Add(pickupId);
+
 		_maxHealCharges = Mathf.Clamp(PendingLoad.MaxHealCharges, 1, MaxHealChargeCap);
 		StoryStage = PendingLoad.StoryStage;
+		Gold = PendingLoad.Gold;
+		EmitSignal(SignalName.GoldChanged, Gold);
 
 		return PendingLoad;
 	}

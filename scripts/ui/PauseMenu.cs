@@ -11,6 +11,8 @@ public partial class PauseMenu : CanvasLayer
 	{
 		{ "move_left", "UI_ACTION_MOVE_LEFT" },
 		{ "move_right", "UI_ACTION_MOVE_RIGHT" },
+		{ "move_up", "UI_ACTION_MOVE_UP" },
+		{ "move_down", "UI_ACTION_MOVE_DOWN" },
 		{ "jump", "UI_ACTION_JUMP" },
 		{ "attack", "UI_ACTION_ATTACK" },
 		{ "dash", "UI_ACTION_DASH" },

@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/SlimeEnemyRed.tscn" id="9_slime_red"]
 [ext_resource type="Script" uid="uid://bl72wneghhtq5" path="res://scripts/world/TorchLight.cs" id="10_torch_script"]
 [ext_resource type="Texture2D" path="res://resources/lighting/PointLightGradient.tres" id="11_torch_tex"]
+[ext_resource type="PackedScene" path="res://scenes/world/WillOWisp.tscn" id="12_willowisp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wdguv"]
 texture = ExtResource("3_interior")
@@ -6363,7 +6364,7 @@ FallDeathY = 1000.0
 [node name="ReturnTransition" parent="." unique_id=-1094967253 instance=ExtResource("4_transition")]
 position = Vector2(60, 575)
 TargetScenePath = "res://scenes/world/BosqueLobos1.tscn"
-TargetSpawnPosition = Vector2(2600, 258)
+TargetSpawnPosition = Vector2(1500, 258)
 UseStoredReturnPosition = true
 
 [node name="SlimeGreen" parent="." unique_id=1210556200 instance=ExtResource("7_slime_green")]
@@ -6386,3 +6387,9 @@ energy = 1.3
 texture = ExtResource("11_torch_tex")
 texture_scale = 1.4
 script = ExtResource("10_torch_script")
+
+[node name="WillOWisp1" parent="." instance=ExtResource("12_willowisp")]
+position = Vector2(550, 480)
+
+[node name="WillOWisp2" parent="." instance=ExtResource("12_willowisp")]
+position = Vector2(1400, 700)

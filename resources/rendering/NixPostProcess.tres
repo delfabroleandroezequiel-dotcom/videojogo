@@ -1,0 +1,12 @@
+[gd_resource type="Environment" format=3]
+
+[resource]
+glow_enabled = true
+glow_intensity = 0.5
+glow_strength = 0.9
+glow_bloom = 0.05
+glow_hdr_threshold = 0.85
+glow_hdr_scale = 2.0
+adjustment_enabled = true
+adjustment_contrast = 1.15
+adjustment_saturation = 0.85

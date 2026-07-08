@@ -15,6 +15,7 @@ public partial class Enemy : CharacterBody2D
 	[Export] public float ExplosionScale = 1f;
 	[Export] public PackedScene ExplosionScene;
 	[Export] public string CustomPersistenceId = "";
+	[Export] public LootEntry[] LootTable = System.Array.Empty<LootEntry>();
 
 	protected Stats Stats;
 	protected Node2D Visual;
@@ -27,6 +28,16 @@ public partial class Enemy : CharacterBody2D
 	protected Area2D ContactArea;
 	private float _knockbackTimer;
 	private Vector2 _knockbackVelocity;
+
+	// Shared across all enemies and re-seeded once, rather than a fresh RandomNumberGenerator
+	// per death: several enemies dying the same frame (e.g. an AoE) would otherwise all
+	// Randomize() off the same coarse time source and roll near-identical loot results.
+	private static readonly RandomNumberGenerator LootRng = new();
+
+	static Enemy()
+	{
+		LootRng.Randomize();
+	}
 
 	public override void _Ready()
 	{
@@ -68,6 +79,7 @@ public partial class Enemy : CharacterBody2D
 	{
 		SaveManager.Instance.MarkCommonEnemyDefeated(PersistenceId);
 		SpawnExplosion();
+		SpawnLoot();
 		QueueFree();
 	}
 
@@ -82,6 +94,29 @@ public partial class Enemy : CharacterBody2D
 
 		GetTree().CurrentScene.AddChild(explosionNode);
 		((Node2D)explosionNode).GlobalPosition = GlobalPosition;
+	}
+
+	protected void SpawnLoot()
+	{
+		if (LootTable is null || LootTable.Length == 0)
+			return;
+
+		foreach (LootEntry entry in LootTable)
+		{
+			if (entry?.DropScene is null || LootRng.Randf() > entry.DropChance)
+				continue;
+
+			Node dropNode = entry.DropScene.Instantiate();
+			GetTree().CurrentScene.AddChild(dropNode);
+
+			if (dropNode is Node2D dropNode2D)
+				dropNode2D.GlobalPosition = GlobalPosition;
+
+			if (dropNode is Coin coin)
+				coin.Value = LootRng.RandiRange(entry.MinAmount, entry.MaxAmount);
+			else if (dropNode is ItemPickup pickup && entry.RewardItem is not null)
+				pickup.Item = entry.RewardItem;
+		}
 	}
 
 	public void ApplyKnockback(Vector2 direction, float force)

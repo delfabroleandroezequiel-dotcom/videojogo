@@ -49,12 +49,18 @@ public partial class Player : CharacterBody2D
 	[Export] public float ClimbHorizontalSpeedMultiplier = 0.6f;
 	[Export] public float LadderJumpLockoutDuration = 0.25f;
 	[Export] public float InputBufferWindow = 0.15f;
+	[Export] public float WallClimbSpeed = 110f;
+	[Export] public float WallSlideSpeed = 60f;
+	[Export] public float WallJumpVelocityX = 260f;
+	[Export] public float WallJumpVelocityY = -380f;
+	[Export] public float WallJumpLockoutDuration = 0.2f;
 
 	private Hitbox _hitbox;
 	private Stats _stats;
 	private PlayerAbilities _abilities;
 	private HealFlask _healFlask;
 	private Label _healChargesLabel;
+	private Label _goldLabel;
 	private Node2D _visual;
 	private Node2D _head;
 	private Node2D _weaponPivot;
@@ -89,6 +95,8 @@ public partial class Player : CharacterBody2D
 	private Ladder _ladder;
 	private bool _isClimbing;
 	private float _ladderGrabLockout;
+	private bool _isWallClimbing;
+	private float _wallJumpLockout;
 	private float _attackBufferTimer;
 	private float _dashBufferTimer;
 
@@ -122,6 +130,7 @@ public partial class Player : CharacterBody2D
 		HudBar healthBar = GetNode<HudBar>("HUD/VBox/HealthBar");
 		HudBar staminaBar = GetNode<HudBar>("HUD/VBox/StaminaBar");
 		_healChargesLabel = GetNode<Label>("HUD/VBox/HealChargesLabel");
+		_goldLabel = GetNode<Label>("HUD/VBox/GoldLabel");
 		_stats.HealthChanged += (current, max) => healthBar.SetRatio((float)current / max);
 		_stats.StaminaChanged += (current, max) => staminaBar.SetRatio((float)current / max);
 		_stats.HitTaken += (isProjectile) => FlashHit(_visual, new Color(1f, 0.2f, 0.2f));
@@ -131,6 +140,15 @@ public partial class Player : CharacterBody2D
 		_healFlask.ChargesChanged += (current, max) => UpdateHealChargesLabel(current, max);
 		UpdateHealChargesLabel(_healFlask.CurrentCharges, _healFlask.MaxCharges);
 		LocaleManager.Instance.LocaleChanged += _ => UpdateHealChargesLabel(_healFlask.CurrentCharges, _healFlask.MaxCharges);
+
+		SaveManager.Instance.GoldChanged += UpdateGoldLabel;
+		UpdateGoldLabel(SaveManager.Instance.Gold);
+		LocaleManager.Instance.LocaleChanged += _ => UpdateGoldLabel(SaveManager.Instance.Gold);
+	}
+
+	private void UpdateGoldLabel(int gold)
+	{
+		_goldLabel.Text = string.Format(TranslationServer.Translate("UI_HUD_GOLD"), gold);
 	}
 
 	private void UpdateHealChargesLabel(int current, int max)
@@ -219,7 +237,7 @@ public partial class Player : CharacterBody2D
 		if (_ladder != null)
 		{
 			if (!_isClimbing && _ladderGrabLockout <= 0f
-				&& (Input.IsActionPressed("ui_up") || Input.IsActionPressed("ui_down")))
+				&& (Input.IsActionPressed("move_up") || Input.IsActionPressed("move_down")))
 			{
 				_isClimbing = true;
 				GlobalPosition = new Vector2(_ladder.GlobalPosition.X, GlobalPosition.Y);
@@ -232,7 +250,7 @@ public partial class Player : CharacterBody2D
 
 		if (_isClimbing)
 		{
-			float climbInput = (Input.IsActionPressed("ui_down") ? 1f : 0f) - (Input.IsActionPressed("ui_up") ? 1f : 0f);
+			float climbInput = (Input.IsActionPressed("move_down") ? 1f : 0f) - (Input.IsActionPressed("move_up") ? 1f : 0f);
 			velocity.Y = climbInput * ClimbSpeed;
 
 			float climbDirection = Input.GetAxis("move_left", "move_right");
@@ -254,6 +272,48 @@ public partial class Player : CharacterBody2D
 			Velocity = velocity;
 			MoveAndSlide();
 			UpdateAnimation(delta, false, velocity.X, _isClimbing);
+			return;
+		}
+
+		if (_wallJumpLockout > 0f)
+			_wallJumpLockout -= (float)delta;
+
+		if (_abilities.Has(PlayerAbilities.WallClimb) && _wallJumpLockout <= 0f && IsOnWall() && !IsOnFloor())
+		{
+			float wallNormalX = GetWallNormal().X;
+			float wallInputDir = Input.GetAxis("move_left", "move_right");
+			bool pressingIntoWall = wallInputDir != 0f && Mathf.Sign(wallInputDir) == -Mathf.Sign(wallNormalX);
+
+			if (pressingIntoWall)
+				_isWallClimbing = true;
+		}
+		else
+		{
+			_isWallClimbing = false;
+		}
+
+		if (_isWallClimbing)
+		{
+			float wallNormalX = GetWallNormal().X;
+			float climbInput = (Input.IsActionPressed("move_down") ? 1f : 0f) - (Input.IsActionPressed("move_up") ? 1f : 0f);
+			velocity.Y = climbInput != 0f ? climbInput * WallClimbSpeed : Mathf.MoveToward(velocity.Y, WallSlideSpeed, WallClimbSpeed * (float)delta);
+			velocity.X = 0f;
+
+			_facingRight = wallNormalX < 0f;
+			_visual.Scale = new Vector2(_facingRight ? 1 : -1, 1f);
+
+			if (Input.IsActionJustPressed("jump"))
+			{
+				_isWallClimbing = false;
+				_wallJumpLockout = WallJumpLockoutDuration;
+				velocity.X = wallNormalX * WallJumpVelocityX;
+				velocity.Y = WallJumpVelocityY;
+				_jumpCount = 1;
+			}
+
+			Velocity = velocity;
+			MoveAndSlide();
+			UpdateAnimation(delta, false, velocity.X, _isWallClimbing);
 			return;
 		}
 
@@ -398,7 +458,7 @@ public partial class Player : CharacterBody2D
 
 	private void UpdateCrouch()
 	{
-		bool wantsCrouch = Input.IsActionPressed("ui_down") && IsOnFloor();
+		bool wantsCrouch = Input.IsActionPressed("move_down") && IsOnFloor();
 		if (wantsCrouch == _crouching)
 			return;
 
@@ -409,7 +469,7 @@ public partial class Player : CharacterBody2D
 
 	private void UpdateCameraLook(double delta)
 	{
-		bool lookingUp = Input.IsActionPressed("ui_up");
+		bool lookingUp = Input.IsActionPressed("move_up");
 		float targetY = BaseCameraOffsetY + ProfileCameraOffsetY + (lookingUp ? LookUpOffset : _crouching ? LookDownOffset : 0f);
 
 		Vector2 targetOffset = new Vector2(0, targetY);

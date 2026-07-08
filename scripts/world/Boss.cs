@@ -79,6 +79,7 @@ public partial class Boss : Enemy
 	{
 		SaveManager.Instance.MarkBossDefeated(PersistenceId);
 		SpawnExplosion();
+		SpawnLoot();
 		QueueFree();
 	}
 

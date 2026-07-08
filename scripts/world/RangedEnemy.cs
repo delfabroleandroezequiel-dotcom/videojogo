@@ -10,6 +10,7 @@ public partial class RangedEnemy : Enemy
 	[Export] public float ShootAnimDuration = 0.92f;
 	[Export] public float ShootReleaseDelay = 0.67f;
 	[Export] public float HurtAnimDuration = 0.4f;
+	[Export] public float ProjectileSpeed = 250f;
 	[Export] public PackedScene ProjectileScene;
 
 	private double _cooldown;
@@ -69,6 +70,7 @@ public partial class RangedEnemy : Enemy
 		Projectile projectile = ProjectileScene.Instantiate<Projectile>();
 		GetTree().CurrentScene.AddChild(projectile);
 		projectile.GlobalPosition = GlobalPosition;
+		projectile.Speed = ProjectileSpeed;
 		projectile.Launch(targetPosition - GlobalPosition, Stats);
 		Sfx.Play(this, Sfx.FalloGolpe);
 

@@ -63,7 +63,9 @@ public partial class LevelBootstrap : Node
 			data.QuestProgress[entry.Key] = entry.Value;
 		data.CollectedItems.AddRange(SaveManager.Instance.GetCollectedItems());
 		data.EquippedRings.AddRange(SaveManager.Instance.GetEquippedRings());
+		data.CollectedPickups.AddRange(SaveManager.Instance.GetCollectedPickups());
 		data.MaxHealCharges = SaveManager.Instance.GetMaxHealCharges();
+		data.Gold = SaveManager.Instance.Gold;
 
 		SaveManager.Instance.SaveGame(SaveManager.Instance.CurrentSlot, data);
 		SaveManager.Instance.ClearCommonEnemyDefeats();

@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bhxl8xgatkskf" path="res://assets/sprites/misprite/97a27c0b-9cb4-4c20-a8f8-a9104c7423a8.png" id="7_l0dgc"]
 [ext_resource type="Script" path="res://scripts/world/TorchLight.cs" id="8_torch_script"]
 [ext_resource type="Texture2D" path="res://resources/lighting/PointLightGradient.tres" id="9_torch_tex"]
+[ext_resource type="PackedScene" path="res://scenes/world/WillOWisp.tscn" id="10_willowisp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c6u6r"]
 texture = ExtResource("3_f0k24")
@@ -12439,3 +12440,9 @@ texture_scale = 1.4
 color = Color(1, 0.78, 0.5, 1)
 energy = 1.3
 script = ExtResource("8_torch_script")
+
+[node name="WillOWisp1" parent="." instance=ExtResource("10_willowisp")]
+position = Vector2(900, 450)
+
+[node name="WillOWisp2" parent="." instance=ExtResource("10_willowisp")]
+position = Vector2(4200, 450)

@@ -1,0 +1,20 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://bwc02v3bi0jiu"]
+
+[sub_resource type="Gradient" id="Gradient_wispramp"]
+offsets = PackedFloat32Array(0, 0.2, 0.8, 1)
+colors = PackedColorArray(0.6, 1, 0.75, 0, 0.6, 1, 0.75, 0.75, 0.6, 1, 0.75, 0.75, 0.6, 1, 0.75, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wispramp"]
+gradient = SubResource("Gradient_wispramp")
+
+[resource]
+emission_shape = 1
+emission_sphere_radius = 12.0
+direction = Vector3(0, -1, 0)
+spread = 60.0
+initial_velocity_min = 3.0
+initial_velocity_max = 8.0
+gravity = Vector3(0, -3, 0)
+scale_min = 0.25
+scale_max = 0.5
+color_ramp = SubResource("GradientTexture1D_wispramp")

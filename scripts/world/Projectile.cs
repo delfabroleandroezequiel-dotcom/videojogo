@@ -40,10 +40,12 @@ public partial class Projectile : Area2D
 			if (body.HasMethod("ApplyKnockback"))
 				body.Call("ApplyKnockback", _direction, KnockbackForce);
 
+			ImpactEffect.SpawnAt(this, GlobalPosition);
 			QueueFree();
 		}
 		else if (body is StaticBody2D)
 		{
+			ImpactEffect.SpawnAt(this, GlobalPosition);
 			QueueFree();
 		}
 	}
