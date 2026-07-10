@@ -24,11 +24,11 @@
 [ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="20_camera_profile"]
 [ext_resource type="PackedScene" path="res://scenes/world/DialogueTrigger.tscn" id="21_dialogue_trigger"]
 [ext_resource type="PackedScene" path="res://scenes/world/CompanionNpc.tscn" id="22_companion"]
-[ext_resource type="Texture2D" path="res://resources/lighting/GroundShadowGradient.tres" id="23_groundshadow"]
+[ext_resource type="Texture2D" uid="uid://cs5col88ywcfd" path="res://resources/lighting/GroundShadowGradient.tres" id="23_groundshadow"]
 [ext_resource type="Environment" path="res://resources/rendering/NixPostProcess.tres" id="24_postprocess_env"]
-[ext_resource type="ShaderMaterial" path="res://resources/shaders/VignetteMaterial.tres" id="25_vignette_mat"]
-[ext_resource type="ParticleProcessMaterial" path="res://resources/particles/DustMoteProcess.tres" id="26_dust_process"]
-[ext_resource type="Texture2D" path="res://resources/particles/SoftDotGradient.tres" id="27_softdot"]
+[ext_resource type="Material" path="res://resources/shaders/VignetteMaterial.tres" id="25_vignette_mat"]
+[ext_resource type="Material" uid="uid://jm40glxfalh" path="res://resources/particles/DustMoteProcess.tres" id="26_dust_process"]
+[ext_resource type="Texture2D" uid="uid://cb8gyivleynt" path="res://resources/particles/SoftDotGradient.tres" id="27_softdot"]
 [ext_resource type="PackedScene" path="res://scenes/world/Coin.tscn" id="28_coin"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn06r"]
@@ -6114,14 +6114,15 @@ CameraLimitLeft = -1638
 CameraLimitRight = 5322
 CameraLimitBottom = 650
 
-[node name="PostProcessEnvironment" type="WorldEnvironment" parent="."]
+[node name="PostProcessEnvironment" type="WorldEnvironment" parent="." unique_id=1308995923]
 environment = ExtResource("24_postprocess_env")
 
-[node name="VignetteLayer" type="CanvasLayer" parent="."]
+[node name="VignetteLayer" type="CanvasLayer" parent="." unique_id=734261453]
 layer = 5
 
-[node name="Vignette" type="ColorRect" parent="VignetteLayer"]
+[node name="Vignette" type="ColorRect" parent="VignetteLayer" unique_id=568449031]
 material = ExtResource("25_vignette_mat")
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -6167,7 +6168,7 @@ position = Vector2(-3309.5002, 187)
 scale = Vector2(0.837, 0.9)
 texture = ExtResource("5_7p3gt")
 
-[node name="GroundShadow" type="Sprite2D" parent="Background/BgSprite4/Sprite2D2"]
+[node name="GroundShadow" type="Sprite2D" parent="Background/BgSprite4/Sprite2D2" unique_id=1268200920]
 z_index = -1
 position = Vector2(0, 165)
 scale = Vector2(1.64, 0.39)
@@ -6178,7 +6179,7 @@ position = Vector2(-986.5, 208)
 scale = Vector2(0.837, 0.9)
 texture = ExtResource("6_24ren")
 
-[node name="GroundShadow" type="Sprite2D" parent="Background/BgSprite4/Sprite2D4"]
+[node name="GroundShadow" type="Sprite2D" parent="Background/BgSprite4/Sprite2D4" unique_id=104537043]
 z_index = -1
 position = Vector2(0, 185)
 scale = Vector2(1.48, 0.37)
@@ -6194,7 +6195,7 @@ position = Vector2(-1657.5001, 46.999992)
 scale = Vector2(1.4542446, 1.5366086)
 texture = ExtResource("7_o41q6")
 
-[node name="GroundShadow" type="Sprite2D" parent="Background/BgSprite4/Sprite2D5"]
+[node name="GroundShadow" type="Sprite2D" parent="Background/BgSprite4/Sprite2D5" unique_id=1967361809]
 z_index = -1
 position = Vector2(0, 190)
 scale = Vector2(1.45, 0.35)
@@ -6205,13 +6206,12 @@ position = Vector2(-863.5, 272)
 
 [node name="RangedEnemy" parent="Background/BgSprite4" unique_id=182423734 instance=ExtResource("5_af0ld")]
 position = Vector2(-552.5, 283)
-ProjectileSpeed = 250.0
 
-[node name="RangedEnemy2" parent="Background/BgSprite4" instance=ExtResource("5_af0ld")]
+[node name="RangedEnemy2" parent="Background/BgSprite4" unique_id=1570947486 instance=ExtResource("5_af0ld")]
 position = Vector2(-1450, 283)
 ProjectileSpeed = 160.0
 
-[node name="RangedEnemy3" parent="Background/BgSprite4" instance=ExtResource("5_af0ld")]
+[node name="RangedEnemy3" parent="Background/BgSprite4" unique_id=296015233 instance=ExtResource("5_af0ld")]
 position = Vector2(-700, 283)
 ProjectileSpeed = 380.0
 
@@ -6220,7 +6220,7 @@ position = Vector2(-126.5, 219)
 scale = Vector2(0.85, 0.85)
 texture = ExtResource("11_dpwbv")
 
-[node name="GroundShadow" type="Sprite2D" parent="Background/BgSprite4/Sprite2D"]
+[node name="GroundShadow" type="Sprite2D" parent="Background/BgSprite4/Sprite2D" unique_id=2078979460]
 z_index = -1
 position = Vector2(0, 165)
 scale = Vector2(1.64, 0.39)
@@ -6279,6 +6279,21 @@ position = Vector2(-1771, -89)
 scale = Vector2(0.9930917, 1.068478)
 texture = ExtResource("7_vffn0")
 
+[node name="CompanionNpc" parent="." unique_id=1962161527 instance=ExtResource("22_companion")]
+visible = false
+position = Vector2(150, 445)
+Lines = PackedStringArray("COMPANION_AMBIENT_TEST_1", "COMPANION_AMBIENT_TEST_2", "COMPANION_AMBIENT_TEST_3")
+
+[node name="Player" parent="." unique_id=1962161526 instance=ExtResource("1_player")]
+position = Vector2(95, 445)
+
+[node name="DustMotes" type="GPUParticles2D" parent="Player" unique_id=366406101]
+amount = 18
+texture = ExtResource("27_softdot")
+lifetime = 7.0
+randomness = 0.5
+process_material = ExtResource("26_dust_process")
+
 [node name="VillagerNpc1" parent="." unique_id=1189617440 instance=ExtResource("6_npc")]
 position = Vector2(560, 430)
 NpcName = "NPC_PESCADOR_NAME"
@@ -6308,32 +6323,17 @@ texture = ExtResource("14_cloud1")
 position = Vector2(5030, 295)
 texture = ExtResource("14_n4hbi")
 
-[node name="Player" parent="." unique_id=1962161526 instance=ExtResource("1_player")]
-position = Vector2(95, 445)
-
-[node name="DustMotes" type="GPUParticles2D" parent="Player"]
-amount = 18
-lifetime = 7.0
-randomness = 0.5
-local_coords = false
-process_material = ExtResource("26_dust_process")
-texture = ExtResource("27_softdot")
-
-[node name="Coin1" parent="." instance=ExtResource("28_coin")]
+[node name="Coin1" parent="." unique_id=1045589927 instance=ExtResource("28_coin")]
 position = Vector2(250, 420)
 
-[node name="Coin2" parent="." instance=ExtResource("28_coin")]
+[node name="Coin2" parent="." unique_id=1180521729 instance=ExtResource("28_coin")]
 position = Vector2(450, 420)
 
-[node name="Coin3" parent="." instance=ExtResource("28_coin")]
+[node name="Coin3" parent="." unique_id=1225158426 instance=ExtResource("28_coin")]
 position = Vector2(1750, 420)
 
-[node name="Coin4" parent="." instance=ExtResource("28_coin")]
+[node name="Coin4" parent="." unique_id=1989302359 instance=ExtResource("28_coin")]
 position = Vector2(2850, 420)
-
-[node name="CompanionNpc" parent="." unique_id=1962161527 instance=ExtResource("22_companion")]
-position = Vector2(150, 445)
-Lines = PackedStringArray("COMPANION_AMBIENT_TEST_1", "COMPANION_AMBIENT_TEST_2", "COMPANION_AMBIENT_TEST_3")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=185783812]
 position = Vector2(5224, 295)
@@ -6370,6 +6370,7 @@ tile_set = SubResource("TileSet_bn06r")
 
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=419885938]
 stream = ExtResource("19_music")
+volume_db = -80.0
 autoplay = true
 script = ExtResource("18_music_script")
 

@@ -13,7 +13,7 @@ public partial class GameConfig : Node
 	public static readonly string[] RemappableActions =
 	{
 		"move_left", "move_right", "move_up", "move_down", "jump", "attack", "dash", "sprint", "interact", "quest_log",
-		"inventory", "heal", "companion_stance",
+		"inventory", "heal", "companion_stance", "block", "charged_attack",
 	};
 
 	private static readonly Dictionary<string, Key> DefaultBindings = new()
@@ -31,6 +31,8 @@ public partial class GameConfig : Node
 		{ "inventory", Key.I },
 		{ "heal", Key.R },
 		{ "companion_stance", Key.P },
+		{ "block", Key.K },
+		{ "charged_attack", Key.H },
 	};
 
 	public static readonly Vector2I[] ResolutionPresets =

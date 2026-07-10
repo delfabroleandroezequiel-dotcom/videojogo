@@ -22,6 +22,8 @@ public partial class PauseMenu : CanvasLayer
 		{ "inventory", "UI_ACTION_INVENTORY" },
 		{ "heal", "UI_ACTION_HEAL" },
 		{ "companion_stance", "UI_ACTION_COMPANION_STANCE" },
+		{ "block", "UI_ACTION_BLOCK" },
+		{ "charged_attack", "UI_ACTION_CHARGED_ATTACK" },
 	};
 
 	private Control _panel;

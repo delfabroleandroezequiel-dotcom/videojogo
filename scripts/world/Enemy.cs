@@ -16,6 +16,7 @@ public partial class Enemy : CharacterBody2D
 	[Export] public PackedScene ExplosionScene;
 	[Export] public string CustomPersistenceId = "";
 	[Export] public LootEntry[] LootTable = System.Array.Empty<LootEntry>();
+	[Export] public float ContactDamageMultiplier = 0.3f;
 
 	protected Stats Stats;
 	protected Node2D Visual;
@@ -79,7 +80,7 @@ public partial class Enemy : CharacterBody2D
 	{
 		SaveManager.Instance.MarkCommonEnemyDefeated(PersistenceId);
 		SpawnExplosion();
-		SpawnLoot();
+		CallDeferred(MethodName.SpawnLoot);
 		QueueFree();
 	}
 
@@ -187,7 +188,7 @@ public partial class Enemy : CharacterBody2D
 			if (targetStats is null)
 				continue;
 
-			targetStats.TakeDamage(Stats.AttackPower);
+			targetStats.TakeDamage(Mathf.RoundToInt(Stats.AttackPower * ContactDamageMultiplier));
 		}
 	}
 }

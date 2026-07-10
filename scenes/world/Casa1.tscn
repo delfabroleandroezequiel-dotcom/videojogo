@@ -7,19 +7,19 @@
 [ext_resource type="Resource" uid="uid://beqplhalhp4r6" path="res://resources/camera/ClosedRoomCamera.tres" id="5_camera_profile"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
-size = Vector2(1067.25, 32)
+size = Vector2(960.525, 28.8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sidewall"]
-size = Vector2(40, 600)
+size = Vector2(36, 540)
 
 [node name="Casa1" type="Node2D" unique_id=2000000001]
 script = ExtResource("2_bootstrap")
 ScenePath = "res://scenes/world/Casa1.tscn"
 CameraProfile = ExtResource("5_camera_profile")
-CameraLimitLeft = -519
-CameraLimitRight = 519
-CameraLimitTop = -259
-CameraLimitBottom = 300
+CameraLimitLeft = -467.1
+CameraLimitRight = 467.1
+CameraLimitTop = -233.1
+CameraLimitBottom = 270
 
 [node name="Backdrop" type="Polygon2D" parent="." unique_id=2000000002]
 z_index = -10
@@ -28,33 +28,33 @@ polygon = PackedVector2Array(-1100, -650, 1100, -650, 1100, 650, -1100, 650)
 
 [node name="HouseBackground" type="Sprite2D" parent="." unique_id=2000000003]
 z_index = -9
-scale = Vector2(0.585, 0.585)
+scale = Vector2(0.5265, 0.5265)
 texture = ExtResource("3_casa")
 
 [node name="Floor" type="StaticBody2D" parent="." unique_id=2000000004]
-position = Vector2(0, 167)
+position = Vector2(0, 150.3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=2000000005]
-position = Vector2(0, 17)
+position = Vector2(0, 15.3)
 shape = SubResource("RectangleShape2D_floor")
 
 [node name="LeftWall" type="StaticBody2D" parent="." unique_id=2000000006]
-position = Vector2(-554, 0)
+position = Vector2(-498.6, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=2000000007]
 shape = SubResource("RectangleShape2D_sidewall")
 
 [node name="RightWall" type="StaticBody2D" parent="." unique_id=2000000008]
-position = Vector2(554, 0)
+position = Vector2(498.6, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=2000000009]
 shape = SubResource("RectangleShape2D_sidewall")
 
 [node name="Player" parent="." unique_id=2000000010 instance=ExtResource("1_player")]
-position = Vector2(363, 133)
+position = Vector2(326.7, 119.7)
 
 [node name="ReturnTransition" parent="." unique_id=2000000011 instance=ExtResource("4_transition")]
-position = Vector2(400, 129)
+position = Vector2(360, 116.1)
 TargetScenePath = "res://scenes/world/Nix.tscn"
 TargetSpawnPosition = Vector2(1143, 463)
 RequireInteract = true

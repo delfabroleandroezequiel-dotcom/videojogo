@@ -113,7 +113,7 @@ func _initialize():
 	# fragment, not another full pose — so two adjacent complete poses never get fused
 	# just because an elongated streak's bbox overlaps its neighbor's.
 	var merge_gap := 6
-	var small_blob_area := 3000
+	var small_blob_area := 1200
 	var merged := true
 	while merged:
 		merged = false

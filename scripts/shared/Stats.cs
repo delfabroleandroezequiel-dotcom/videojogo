@@ -16,6 +16,10 @@ public partial class Stats : Node
 	public bool ExternalInvulnerable { get; set; }
 	public bool IsInvulnerable => _invulnerableTimer > 0f || ExternalInvulnerable;
 
+	// Lets a controller (e.g. the player's block/parry state) veto an incoming hit before
+	// health/stamina are touched. Returning true fully negates the hit for this call.
+	public System.Func<bool> IncomingHitInterceptor { get; set; }
+
 	private float _staminaAccumulator;
 	private float _invulnerableTimer;
 
@@ -51,6 +55,9 @@ public partial class Stats : Node
 	public void TakeDamage(int incomingAttack, bool isProjectile = false)
 	{
 		if (IsInvulnerable)
+			return;
+
+		if (IncomingHitInterceptor != null && IncomingHitInterceptor())
 			return;
 
 		int damage = Mathf.Max(1, incomingAttack - Defense);
@@ -96,6 +103,16 @@ public partial class Stats : Node
 		CurrentStamina -= amount;
 		EmitSignal(SignalName.StaminaChanged, CurrentStamina, MaxStamina);
 		return true;
+	}
+
+	public void SpendStaminaClamped(int amount)
+	{
+		int actual = Mathf.Min(amount, CurrentStamina);
+		if (actual <= 0)
+			return;
+
+		CurrentStamina -= actual;
+		EmitSignal(SignalName.StaminaChanged, CurrentStamina, MaxStamina);
 	}
 
 	public void ApplyBonus(int health, int stamina, int attack, int defense)

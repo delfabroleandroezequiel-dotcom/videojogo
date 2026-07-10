@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="4_transition"]
 [ext_resource type="PackedScene" uid="uid://biilyuwe3nbsn" path="res://scenes/world/Boss.tscn" id="5_xhljq"]
 [ext_resource type="Texture2D" uid="uid://bhxl8xgatkskf" path="res://assets/sprites/misprite/97a27c0b-9cb4-4c20-a8f8-a9104c7423a8.png" id="7_l0dgc"]
-[ext_resource type="Script" path="res://scripts/world/TorchLight.cs" id="8_torch_script"]
-[ext_resource type="Texture2D" path="res://resources/lighting/PointLightGradient.tres" id="9_torch_tex"]
+[ext_resource type="Script" uid="uid://bl72wneghhtq5" path="res://scripts/world/TorchLight.cs" id="8_torch_script"]
+[ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="9_torch_tex"]
 [ext_resource type="PackedScene" path="res://scenes/world/WillOWisp.tscn" id="10_willowisp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c6u6r"]
@@ -12273,7 +12273,7 @@ CameraProfile = ExtResource("3_camera_profile")
 CameraLimitLeft = 0
 CameraLimitRight = 5792
 CameraLimitTop = 0
-CameraLimitBottom = 1344
+CameraLimitBottom = 1400
 
 [node name="Background" type="ColorRect" parent="." unique_id=284349156]
 z_index = -10
@@ -12284,7 +12284,7 @@ offset_bottom = 2146.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=972573872]
 color = Color(0.05, 0.05, 0.08, 1)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=2037363883]
@@ -12434,15 +12434,15 @@ FallDeathY = 1450.0
 [node name="TileMapLayer2" type="TileMapLayer" parent="." unique_id=1574726741]
 tile_set = SubResource("TileSet_bn06r")
 
-[node name="TorchLight" type="PointLight2D" parent="."]
-texture = ExtResource("9_torch_tex")
-texture_scale = 1.4
+[node name="TorchLight" type="PointLight2D" parent="." unique_id=1634318396]
 color = Color(1, 0.78, 0.5, 1)
 energy = 1.3
+texture = ExtResource("9_torch_tex")
+texture_scale = 1.4
 script = ExtResource("8_torch_script")
 
-[node name="WillOWisp1" parent="." instance=ExtResource("10_willowisp")]
+[node name="WillOWisp1" parent="." unique_id=32526574 instance=ExtResource("10_willowisp")]
 position = Vector2(900, 450)
 
-[node name="WillOWisp2" parent="." instance=ExtResource("10_willowisp")]
+[node name="WillOWisp2" parent="." unique_id=1338920761 instance=ExtResource("10_willowisp")]
 position = Vector2(4200, 450)

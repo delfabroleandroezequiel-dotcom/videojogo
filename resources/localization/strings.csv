@@ -59,6 +59,8 @@ UI_ACTION_QUEST_LOG,Diario de Misiones,Quest Log,Diário de Missões
 UI_ACTION_INVENTORY,Inventario,Inventory,Inventário
 UI_ACTION_HEAL,Curarse,Heal,Curar-se
 UI_ACTION_COMPANION_STANCE,Modo Compañero,Companion Stance,Modo Companheiro
+UI_ACTION_BLOCK,Bloquear,Block,Bloquear
+UI_ACTION_CHARGED_ATTACK,Ataque Cargado,Charged Attack,Ataque Carregado
 UI_COMPANION_AGGRESSIVE,Compañero: Agresivo,Companion: Aggressive,Companheiro: Agressivo
 UI_COMPANION_PASSIVE,Compañero: Pasivo,Companion: Passive,Companheiro: Passivo
 UI_PAUSE_DISPLAY,Pantalla,Display,Tela
