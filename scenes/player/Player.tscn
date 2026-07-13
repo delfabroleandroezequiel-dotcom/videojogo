@@ -7,6 +7,8 @@
 [ext_resource type="SpriteFrames" path="res://resources/sprites/FireWarriorSpriteFrames.tres" id="6_spriteframes"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/WeaponTrailSpriteFrames.tres" id="9_trailframes"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/ParryFlashSpriteFrames.tres" id="10_parryframes"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/ChargeBlueSpriteFrames.tres" id="12_chargeframes"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/ChargeReadyThunderSpriteFrames.tres" id="13_thunderframes"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/FireWarriorFireSwordSpriteFrames.tres" id="11_fireframes"]
 [ext_resource type="Script" uid="uid://23i50oqrkp5o" path="res://scripts/items/PlayerInventory.cs" id="7_inventory"]
 [ext_resource type="Script" uid="uid://c6jivd8ex7umw" path="res://scripts/player/HealFlask.cs" id="8_healflask"]
@@ -21,6 +23,9 @@ size = Vector2(32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
 size = Vector2(63.8, 46.2)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ledgecheck"]
+size = Vector2(4, 32)
+
 [node name="Player" type="CharacterBody2D" unique_id=1867495339 groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_script")
@@ -33,6 +38,12 @@ shape = SubResource("RectangleShape2D_collision")
 position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_crouch")
 disabled = true
+
+[node name="LedgeWallCheck" type="ShapeCast2D" parent="." unique_id=1300787194]
+position = Vector2(0, -18)
+shape = SubResource("RectangleShape2D_ledgecheck")
+target_position = Vector2(18, 0)
+collision_mask = 16
 
 [node name="Visual" type="Node2D" parent="." unique_id=2040902481]
 
@@ -100,9 +111,23 @@ visible = false
 
 [node name="ParryFlash" type="AnimatedSprite2D" parent="Visual" unique_id=1200787191]
 position = Vector2(20, -20)
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.844, 0.844)
 sprite_frames = ExtResource("10_parryframes")
 animation = &"parry_flash"
+visible = false
+
+[node name="ChargeEffect" type="AnimatedSprite2D" parent="Visual" unique_id=1200787192]
+position = Vector2(0, -10)
+scale = Vector2(0.6, 0.6)
+sprite_frames = ExtResource("12_chargeframes")
+animation = &"charge"
+visible = false
+
+[node name="ChargeReadyEffect" type="AnimatedSprite2D" parent="Visual" unique_id=1200787193]
+position = Vector2(0, -15)
+scale = Vector2(1.1, 1.1)
+sprite_frames = ExtResource("13_thunderframes")
+animation = &"ready"
 visible = false
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1899723348]
@@ -136,6 +161,7 @@ StartWithBlock = true
 StartWithChargedAttack = true
 StartWithPoundAttack = true
 StartWithUpAttack = true
+StartWithLedgeGrab = true
 
 [node name="Inventory" type="Node" parent="." unique_id=1900453380]
 script = ExtResource("7_inventory")

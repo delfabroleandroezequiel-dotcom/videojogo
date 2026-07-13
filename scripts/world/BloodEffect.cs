@@ -12,6 +12,7 @@ public static class BloodEffect
 		{
 			SpriteFrames = GD.Load<SpriteFrames>(FramesPath),
 			Animation = "splat",
+			Scale = Vector2.One * 0.8f,
 		};
 
 		context.GetTree().CurrentScene.AddChild(sprite);

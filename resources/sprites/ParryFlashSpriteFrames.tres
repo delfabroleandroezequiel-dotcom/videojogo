@@ -1,46 +1,22 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://circlkt6xeniq"]
 
-[ext_resource type="Texture2D" uid="uid://ckpshtatg0j6d" path="res://assets/external/gandalfhardcore/efectospersonaje/GandalfHardcore character effects/Character effects stars.png" id="1_sheet"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_stars_0"]
-atlas = ExtResource("1_sheet")
-region = Rect2(0, 0, 80, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_stars_1"]
-atlas = ExtResource("1_sheet")
-region = Rect2(80, 0, 80, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_stars_2"]
-atlas = ExtResource("1_sheet")
-region = Rect2(160, 0, 80, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_stars_3"]
-atlas = ExtResource("1_sheet")
-region = Rect2(240, 0, 80, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_stars_4"]
-atlas = ExtResource("1_sheet")
-region = Rect2(320, 0, 80, 64)
+[ext_resource type="Texture2D" path="res://assets/external/VixMix/FreeMix/fx/impact_01.png" id="1_impact1"]
+[ext_resource type="Texture2D" path="res://assets/external/VixMix/FreeMix/fx/impact_02.png" id="2_impact2"]
+[ext_resource type="Texture2D" path="res://assets/external/VixMix/FreeMix/fx/impact_03.png" id="3_impact3"]
 
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_stars_0")
+"texture": ExtResource("1_impact1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_stars_1")
+"texture": ExtResource("2_impact2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_stars_2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_stars_3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_stars_4")
+"texture": ExtResource("3_impact3")
 }],
-"loop": 0,
+"loop": false,
 "name": &"parry_flash",
-"speed": 14.0
+"speed": 18.0
 }]

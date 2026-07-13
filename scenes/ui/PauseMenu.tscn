@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/ui/PauseMenu.cs" id="1_script"]
 [ext_resource type="Theme" path="res://resources/ui/MainTheme.tres" id="2_theme"]
+[ext_resource type="PackedScene" path="res://scenes/ui/SettingsPanel.tscn" id="3_settings"]
 
 [node name="PauseMenu" type="CanvasLayer"]
 script = ExtResource("1_script")
@@ -22,9 +23,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -110.0
-offset_top = -120.0
+offset_top = -100.0
 offset_right = 110.0
-offset_bottom = 120.0
+offset_bottom = 100.0
 theme_override_constants/separation = 8
 
 [node name="Label" type="Label" parent="Panel/VBox"]
@@ -36,98 +37,12 @@ text = "UI_PAUSE_TITLE"
 custom_minimum_size = Vector2(160, 36)
 text = "UI_PAUSE_RESUME"
 
+[node name="SettingsButton" type="Button" parent="Panel/VBox"]
+custom_minimum_size = Vector2(160, 36)
+text = "UI_PAUSE_SETTINGS"
+
 [node name="MainMenuButton" type="Button" parent="Panel/VBox"]
 custom_minimum_size = Vector2(160, 36)
 text = "UI_PAUSE_MAIN_MENU"
 
-[node name="ControlsButton" type="Button" parent="Panel/VBox"]
-custom_minimum_size = Vector2(160, 36)
-text = "UI_PAUSE_CONTROLS"
-
-[node name="DisplayButton" type="Button" parent="Panel/VBox"]
-custom_minimum_size = Vector2(160, 36)
-text = "UI_PAUSE_DISPLAY"
-
-[node name="LanguageLabel" type="Label" parent="Panel/VBox"]
-horizontal_alignment = 1
-text = "UI_PAUSE_LANGUAGE_LABEL"
-
-[node name="LanguageRow" type="HBoxContainer" parent="Panel/VBox"]
-alignment = 1
-theme_override_constants/separation = 6
-
-[node name="EsButton" type="Button" parent="Panel/VBox/LanguageRow"]
-custom_minimum_size = Vector2(50, 32)
-text = "Español"
-
-[node name="EnButton" type="Button" parent="Panel/VBox/LanguageRow"]
-custom_minimum_size = Vector2(50, 32)
-text = "English"
-
-[node name="PtButton" type="Button" parent="Panel/VBox/LanguageRow"]
-custom_minimum_size = Vector2(50, 32)
-text = "Português"
-
-[node name="ControlsPanel" type="Control" parent="Panel"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="CVBox" type="VBoxContainer" parent="Panel/ControlsPanel"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -140.0
-offset_top = -220.0
-offset_right = 140.0
-offset_bottom = 220.0
-theme_override_constants/separation = 6
-
-[node name="Title" type="Label" parent="Panel/ControlsPanel/CVBox"]
-theme_override_font_sizes/font_size = 24
-horizontal_alignment = 1
-text = "UI_CONTROLS_TITLE"
-
-[node name="List" type="VBoxContainer" parent="Panel/ControlsPanel/CVBox"]
-theme_override_constants/separation = 4
-
-[node name="ResetButton" type="Button" parent="Panel/ControlsPanel/CVBox"]
-custom_minimum_size = Vector2(160, 32)
-text = "UI_CONTROLS_RESET"
-
-[node name="BackButton" type="Button" parent="Panel/ControlsPanel/CVBox"]
-custom_minimum_size = Vector2(160, 32)
-text = "UI_CONTROLS_BACK"
-
-[node name="DisplayPanel" type="Control" parent="Panel"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="DVBox" type="VBoxContainer" parent="Panel/DisplayPanel"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -130.0
-offset_top = -110.0
-offset_right = 130.0
-offset_bottom = 110.0
-theme_override_constants/separation = 6
-
-[node name="Title" type="Label" parent="Panel/DisplayPanel/DVBox"]
-theme_override_font_sizes/font_size = 24
-horizontal_alignment = 1
-text = "UI_DISPLAY_TITLE"
-
-[node name="ResolutionList" type="VBoxContainer" parent="Panel/DisplayPanel/DVBox"]
-theme_override_constants/separation = 4
-
-[node name="FullscreenButton" type="Button" parent="Panel/DisplayPanel/DVBox"]
-custom_minimum_size = Vector2(160, 32)
-text = "UI_DISPLAY_FULLSCREEN_OFF"
-
-[node name="BackButton" type="Button" parent="Panel/DisplayPanel/DVBox"]
-custom_minimum_size = Vector2(160, 32)
-text = "UI_CONTROLS_BACK"
+[node name="Settings" parent="Panel" instance=ExtResource("3_settings")]

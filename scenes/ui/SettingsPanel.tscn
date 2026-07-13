@@ -1,0 +1,128 @@
+[gd_scene format=3 uid="uid://settings_panel_main"]
+
+[ext_resource type="Script" path="res://scripts/ui/SettingsPanel.cs" id="1_script"]
+[ext_resource type="Theme" path="res://resources/ui/MainTheme.tres" id="2_theme"]
+
+[node name="SettingsPanel" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="MainView" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = -110.0
+offset_right = 110.0
+offset_bottom = 110.0
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="MainView"]
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+text = "UI_SETTINGS_TITLE"
+
+[node name="ControlsButton" type="Button" parent="MainView"]
+custom_minimum_size = Vector2(160, 36)
+text = "UI_PAUSE_CONTROLS"
+
+[node name="DisplayButton" type="Button" parent="MainView"]
+custom_minimum_size = Vector2(160, 36)
+text = "UI_PAUSE_DISPLAY"
+
+[node name="LanguageLabel" type="Label" parent="MainView"]
+horizontal_alignment = 1
+text = "UI_PAUSE_LANGUAGE_LABEL"
+
+[node name="LanguageRow" type="HBoxContainer" parent="MainView"]
+alignment = 1
+theme_override_constants/separation = 6
+
+[node name="EsButton" type="Button" parent="MainView/LanguageRow"]
+custom_minimum_size = Vector2(50, 32)
+text = "Español"
+
+[node name="EnButton" type="Button" parent="MainView/LanguageRow"]
+custom_minimum_size = Vector2(50, 32)
+text = "English"
+
+[node name="PtButton" type="Button" parent="MainView/LanguageRow"]
+custom_minimum_size = Vector2(50, 32)
+text = "Português"
+
+[node name="CloseButton" type="Button" parent="MainView"]
+custom_minimum_size = Vector2(160, 32)
+text = "UI_CONTROLS_BACK"
+
+[node name="ControlsPanel" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CVBox" type="VBoxContainer" parent="ControlsPanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -220.0
+offset_right = 160.0
+offset_bottom = 220.0
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="ControlsPanel/CVBox"]
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+text = "UI_CONTROLS_TITLE"
+
+[node name="ListScroll" type="ScrollContainer" parent="ControlsPanel/CVBox"]
+custom_minimum_size = Vector2(0, 260)
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="List" type="VBoxContainer" parent="ControlsPanel/CVBox/ListScroll"]
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="ResetButton" type="Button" parent="ControlsPanel/CVBox"]
+custom_minimum_size = Vector2(160, 32)
+text = "UI_CONTROLS_RESET"
+
+[node name="BackButton" type="Button" parent="ControlsPanel/CVBox"]
+custom_minimum_size = Vector2(160, 32)
+text = "UI_CONTROLS_BACK"
+
+[node name="DisplayPanel" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="DVBox" type="VBoxContainer" parent="DisplayPanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -110.0
+offset_right = 130.0
+offset_bottom = 110.0
+theme_override_constants/separation = 6
+
+[node name="Title" type="Label" parent="DisplayPanel/DVBox"]
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+text = "UI_DISPLAY_TITLE"
+
+[node name="ResolutionList" type="VBoxContainer" parent="DisplayPanel/DVBox"]
+theme_override_constants/separation = 4
+
+[node name="FullscreenButton" type="Button" parent="DisplayPanel/DVBox"]
+custom_minimum_size = Vector2(160, 32)
+text = "UI_DISPLAY_FULLSCREEN_OFF"
+
+[node name="BackButton" type="Button" parent="DisplayPanel/DVBox"]
+custom_minimum_size = Vector2(160, 32)
+text = "UI_CONTROLS_BACK"

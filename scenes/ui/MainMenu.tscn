@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/ui/MainMenu.cs" id="1_script"]
 [ext_resource type="Theme" path="res://resources/ui/MainTheme.tres" id="2_theme"]
+[ext_resource type="PackedScene" path="res://scenes/ui/SettingsPanel.tscn" id="3_settings"]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -46,6 +47,10 @@ text = "UI_MAINMENU_CONTINUE"
 custom_minimum_size = Vector2(180, 36)
 text = "UI_MAINMENU_NEW_GAME"
 
+[node name="SettingsButton" type="Button" parent="TopMenu"]
+custom_minimum_size = Vector2(180, 36)
+text = "UI_PAUSE_SETTINGS"
+
 [node name="SlotMenu" type="VBoxContainer" parent="."]
 visible = false
 anchor_left = 0.5
@@ -76,9 +81,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -110.0
-offset_top = -70.0
+offset_top = -95.0
 offset_right = 110.0
-offset_bottom = 70.0
+offset_bottom = 95.0
 theme_override_constants/separation = 8
 
 [node name="NameLabel" type="Label" parent="NamePrompt"]
@@ -89,6 +94,9 @@ text = "UI_MAINMENU_NAME_LABEL"
 custom_minimum_size = Vector2(220, 32)
 placeholder_text = "UI_MAINMENU_NAME_PLACEHOLDER"
 
+[node name="RandomizerCheck" type="CheckBox" parent="NamePrompt"]
+text = "UI_MAINMENU_ENEMY_RANDOMIZER"
+
 [node name="ConfirmButton" type="Button" parent="NamePrompt"]
 custom_minimum_size = Vector2(220, 32)
 text = "UI_MAINMENU_START"
@@ -96,3 +104,5 @@ text = "UI_MAINMENU_START"
 [node name="CancelButton" type="Button" parent="NamePrompt"]
 custom_minimum_size = Vector2(220, 32)
 text = "UI_MAINMENU_CANCEL"
+
+[node name="Settings" parent="." instance=ExtResource("3_settings")]

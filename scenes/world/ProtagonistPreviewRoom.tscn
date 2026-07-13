@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://f4instntxkdv"]
+
+[ext_resource type="PackedScene" uid="uid://dgydh5wklq6qh" path="res://scenes/world/RangedEnemy.tscn" id="2_scnkv"]
+[ext_resource type="PackedScene" uid="uid://cexihxsolu6jg" path="res://scenes/world/MeleeEnemy.tscn" id="3_jbdur"]
+[ext_resource type="PackedScene" path="res://scenes/player/ProtagonistPreviewPx.tscn" id="4_protagonist_px"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(2000, 60)
+
+[node name="ProtagonistPreviewRoom" type="Node2D" unique_id=1568606169]
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=2132893228]
+position = Vector2(300, 432)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=810471496]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="RangedEnemy2" parent="." unique_id=1569472797 instance=ExtResource("2_scnkv")]
+position = Vector2(561, 386)
+ProjectileSpeed = 160.0
+
+[node name="MeleeEnemy" parent="RangedEnemy2" unique_id=383993748 instance=ExtResource("3_jbdur")]
+position = Vector2(111, -15)
+
+[node name="PlayerPx" parent="." unique_id=1137243194 instance=ExtResource("4_protagonist_px")]
+position = Vector2(-183, 353)
+FireSpriteFrames = null
+FallDeathY = 2000.0

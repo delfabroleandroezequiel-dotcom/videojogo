@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Achievement" format=3]
+
+[ext_resource type="Script" path="res://scripts/achievements/Achievement.cs" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+Id = "first_steps"
+Title = "ACH_FIRST_STEPS_TITLE"
+Description = "ACH_FIRST_STEPS_DESC"
+SteamApiName = "ACH_FIRST_STEPS"
+Trigger = 3
+RequiredStoryStage = 1

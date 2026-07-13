@@ -11,6 +11,11 @@ public partial class Stats : Node
 	[Export] public int StaminaRegenPerSecond = 20;
 	[Export] public float InvulnerabilityDuration = 0.15f;
 
+	// DamageElement.Normal means "no weakness" — every attacker's hits are typed (Normal by
+	// default), so a Normal weakness would otherwise match every single hit.
+	[Export] public DamageElement Weakness = DamageElement.Normal;
+	[Export] public float WeaknessDamageMultiplier = 1.5f;
+
 	public int CurrentHealth { get; private set; }
 	public int CurrentStamina { get; private set; }
 	public bool ExternalInvulnerable { get; set; }
@@ -52,7 +57,7 @@ public partial class Stats : Node
 		}
 	}
 
-	public void TakeDamage(int incomingAttack, bool isProjectile = false)
+	public void TakeDamage(int incomingAttack, bool isProjectile = false, DamageElement element = DamageElement.Normal)
 	{
 		if (IsInvulnerable)
 			return;
@@ -60,7 +65,8 @@ public partial class Stats : Node
 		if (IncomingHitInterceptor != null && IncomingHitInterceptor())
 			return;
 
-		int damage = Mathf.Max(1, incomingAttack - Defense);
+		float multiplier = element != DamageElement.Normal && element == Weakness ? WeaknessDamageMultiplier : 1f;
+		int damage = Mathf.Max(1, Mathf.RoundToInt(incomingAttack * multiplier) - Defense);
 		CurrentHealth = Mathf.Max(0, CurrentHealth - damage);
 		_invulnerableTimer = InvulnerabilityDuration;
 		EmitSignal(SignalName.HealthChanged, CurrentHealth, MaxHealth);
@@ -83,6 +89,16 @@ public partial class Stats : Node
 	{
 		CurrentHealth = Mathf.Clamp(value, 0, MaxHealth);
 		EmitSignal(SignalName.HealthChanged, CurrentHealth, MaxHealth);
+	}
+
+	// Call after changing MaxHealth/MaxStamina at runtime (e.g. applying an EnemyProfile)
+	// so Current* doesn't keep pointing at whatever the old max used to be.
+	public void ResetToFull()
+	{
+		CurrentHealth = MaxHealth;
+		CurrentStamina = MaxStamina;
+		EmitSignal(SignalName.HealthChanged, CurrentHealth, MaxHealth);
+		EmitSignal(SignalName.StaminaChanged, CurrentStamina, MaxStamina);
 	}
 
 	public void Kill()

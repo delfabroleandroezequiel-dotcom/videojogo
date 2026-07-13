@@ -42,6 +42,9 @@ UI_PAUSE_RESUME,Continuar,Resume,Continuar
 UI_PAUSE_MAIN_MENU,Menú Principal,Main Menu,Menu Principal
 UI_PAUSE_LANGUAGE_LABEL,Idioma,Language,Idioma
 UI_PAUSE_CONTROLS,Controles,Controls,Controles
+UI_PAUSE_SETTINGS,Configuración,Settings,Configurações
+UI_SETTINGS_TITLE,Configuración,Settings,Configurações
+UI_MAINMENU_ENEMY_RANDOMIZER,Randomizar enemigos,Randomize enemies,Randomizar inimigos
 UI_CONTROLS_TITLE,Controles,Controls,Controles
 UI_CONTROLS_RESET,Restablecer,Reset,Restaurar
 UI_CONTROLS_BACK,Volver,Back,Voltar
@@ -120,3 +123,7 @@ ITEM_RING_POWER_NAME,Anillo de poder,Ring of Power,Anel de poder
 ITEM_RING_POWER_DESC,Aumenta tu poder de ataque en 5 puntos.,Increases your attack power by 5 points.,Aumenta seu poder de ataque em 5 pontos.
 ITEM_RING_VITALITY_NAME,Anillo de vitalidad,Ring of Vitality,Anel de vitalidade
 ITEM_RING_VITALITY_DESC,Aumenta tu vida máxima en 20 puntos.,Increases your maximum health by 20 points.,Aumenta sua vida máxima em 20 pontos.
+ACH_FIRST_STEPS_TITLE,Primeros pasos,First steps,Primeiros passos
+ACH_FIRST_STEPS_DESC,Comenzá tu aventura.,Begin your adventure.,Comece sua aventura.
+ACH_DASH_UNLOCKED_TITLE,A toda velocidad,Up to speed,A toda velocidade
+ACH_DASH_UNLOCKED_DESC,Conseguí la habilidad de dash.,Obtain the dash ability.,Consiga a habilidade de dash.

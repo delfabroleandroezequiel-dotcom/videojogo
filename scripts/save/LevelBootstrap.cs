@@ -66,6 +66,8 @@ public partial class LevelBootstrap : Node
 		data.CollectedPickups.AddRange(SaveManager.Instance.GetCollectedPickups());
 		data.MaxHealCharges = SaveManager.Instance.GetMaxHealCharges();
 		data.Gold = SaveManager.Instance.Gold;
+		data.EnemyRandomizerEnabled = SaveManager.Instance.EnemyRandomizerEnabled;
+		data.RandomizerSeed = SaveManager.Instance.RandomizerSeed;
 
 		SaveManager.Instance.SaveGame(SaveManager.Instance.CurrentSlot, data);
 		SaveManager.Instance.ClearCommonEnemyDefeats();

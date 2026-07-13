@@ -12,6 +12,8 @@ public partial class Hitbox : Area2D
 
 	private CollisionShape2D _shape;
 	private Stats _attackerStats;
+	private string _impactFramesPath;
+	private DamageElement _element;
 
 	public override void _Ready()
 	{
@@ -19,9 +21,11 @@ public partial class Hitbox : Area2D
 		BodyEntered += OnBodyEntered;
 	}
 
-	public void Activate(Stats attackerStats)
+	public void Activate(Stats attackerStats, string impactFramesPath = null, DamageElement element = DamageElement.Normal)
 	{
 		_attackerStats = attackerStats;
+		_impactFramesPath = impactFramesPath;
+		_element = element;
 		_shape.Disabled = false;
 	}
 
@@ -33,8 +37,12 @@ public partial class Hitbox : Area2D
 		if (targetStats is null || targetStats == _attackerStats || targetStats.IsInvulnerable)
 			return;
 
-		targetStats.TakeDamage(_attackerStats.AttackPower);
+		targetStats.TakeDamage(_attackerStats.AttackPower, element: _element);
+		Vector2 impactPoint = (GlobalPosition + body.GlobalPosition) / 2f;
 		BloodEffect.SpawnAt(this, body.GlobalPosition);
+		string framesPath = _impactFramesPath ?? "res://resources/sprites/HitSparkSpriteFrames.tres";
+		string animation = _impactFramesPath is null ? "spark" : "impact";
+		VfxSpawner.SpawnAt(this, impactPoint, framesPath, animation, new Vector2(0f, 10f));
 		EmitSignal(SignalName.HitDealt);
 
 		if (body.HasMethod("ApplyKnockback"))

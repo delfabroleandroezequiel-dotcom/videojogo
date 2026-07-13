@@ -7,6 +7,11 @@ namespace Metroidvania.World;
 
 public partial class Enemy : CharacterBody2D
 {
+	// Shared balance data for this enemy TYPE. When set, its values override the fields below
+	// at _Ready() — see EnemyProfile.cs. Leave unassigned to keep using this scene's own inline
+	// defaults (handy for one-off/unique enemies that don't need a shared profile).
+	[Export] public EnemyProfile Profile;
+
 	[Export] public float DetectionRange = 400f;
 	[Export] public float MoveSpeed = 80f;
 	[Export] public float Gravity = 900f;
@@ -18,13 +23,13 @@ public partial class Enemy : CharacterBody2D
 	[Export] public LootEntry[] LootTable = System.Array.Empty<LootEntry>();
 	[Export] public float ContactDamageMultiplier = 0.3f;
 
-	protected Stats Stats;
+	public Stats Stats { get; private set; }
 	protected Node2D Visual;
 	protected AnimatedSprite2D Sprite;
 	protected bool FacingRight = true;
 
 	protected bool IsQueuedForRemoval;
-	protected string PersistenceId;
+	public string PersistenceId { get; private set; }
 
 	protected Area2D ContactArea;
 	private float _knockbackTimer;
@@ -53,6 +58,7 @@ public partial class Enemy : CharacterBody2D
 		}
 
 		Stats = GetNode<Stats>("Stats");
+		ApplyProfile();
 		Visual = GetNode<Node2D>("Visual");
 		Sprite = Visual.GetNodeOrNull<AnimatedSprite2D>("CharacterSprite");
 		ContactArea = GetNode<Area2D>("ContactArea");
@@ -65,6 +71,29 @@ public partial class Enemy : CharacterBody2D
 		Stats.HealthChanged += (current, max) => healthBar.SetRatio((float)current / max);
 		Stats.StaminaChanged += (current, max) => staminaBar.SetRatio((float)current / max);
 		Stats.HitTaken += (isProjectile) => FlashHit();
+	}
+
+	private void ApplyProfile()
+	{
+		if (Profile is null)
+			return;
+
+		Stats.MaxHealth = Profile.MaxHealth;
+		Stats.AttackPower = Profile.AttackPower;
+		Stats.Defense = Profile.Defense;
+		Stats.MaxStamina = Profile.MaxStamina;
+		Stats.StaminaRegenPerSecond = Profile.StaminaRegenPerSecond;
+		Stats.Weakness = Profile.Weakness;
+		Stats.WeaknessDamageMultiplier = Profile.WeaknessDamageMultiplier;
+		Stats.ResetToFull();
+
+		MoveSpeed = Profile.MoveSpeed;
+		DetectionRange = Profile.DetectionRange;
+		StopDistance = Profile.StopDistance;
+		Gravity = Profile.Gravity;
+		KnockbackDuration = Profile.KnockbackDuration;
+		ContactDamageMultiplier = Profile.ContactDamageMultiplier;
+		LootTable = Profile.LootTable;
 	}
 
 	private void FlashHit()

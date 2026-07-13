@@ -5,27 +5,18 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/StatBar.tscn" id="3_statbar"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/SlimeRedSpriteFrames.tres" id="4_frames"]
 [ext_resource type="PackedScene" uid="uid://dq3mb122eef3v" path="res://scenes/world/Explosion.tscn" id="5_explosion"]
-[ext_resource type="PackedScene" path="res://scenes/world/Coin.tscn" id="6_coin"]
-[ext_resource type="Script" path="res://scripts/world/LootEntry.cs" id="7_lootentry_script"]
+[ext_resource type="Resource" path="res://resources/balance/enemies/slime_red.tres" id="8_profile"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
 size = Vector2(32, 28)
-
-[sub_resource type="Resource" id="LootEntry_coin"]
-script = ExtResource("7_lootentry_script")
-DropScene = ExtResource("6_coin")
-DropChance = 0.5
-MinAmount = 2
-MaxAmount = 3
 
 [node name="SlimeEnemyRed" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 1
 script = ExtResource("1_script")
-MoveSpeed = 150.0
+Profile = ExtResource("8_profile")
 ExplosionScene = ExtResource("5_explosion")
 ExplosionScale = 0.6
-LootTable = [SubResource("LootEntry_coin")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
@@ -49,10 +40,6 @@ autoplay = "idle"
 
 [node name="Stats" type="Node" parent="."]
 script = ExtResource("2_stats")
-MaxHealth = 25
-AttackPower = 15
-Defense = 0
-MaxStamina = 30
 
 [node name="HealthBar" parent="." instance=ExtResource("3_statbar")]
 position = Vector2(0, 24)

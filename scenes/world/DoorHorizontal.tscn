@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://door_horizontal_main"]
+
+[ext_resource type="Script" path="res://scripts/world/Door.cs" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(200, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_detector"]
+size = Vector2(200, 64)
+
+[node name="DoorHorizontal" type="Node2D"]
+script = ExtResource("1_script")
+Horizontal = true
+
+[node name="Body" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Visual" type="Polygon2D" parent="Body"]
+color = Color(0.45, 0.35, 0.25, 1)
+polygon = PackedVector2Array(-100, -16, 100, -16, 100, 16, -100, 16)
+
+[node name="Detector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
+shape = SubResource("RectangleShape2D_detector")

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Metroidvania.Quests;
+using Metroidvania.Shared;
 
 namespace Metroidvania.Save;
 
@@ -39,6 +40,17 @@ public partial class SaveManager : Node
 
 	public int Gold { get; private set; }
 
+	// Decided once when the player creates a New Game (see MainMenu.OnNameConfirmed) and fixed
+	// for that save's whole lifetime — reloading the same save always reproduces the same
+	// enemy shuffle, but every new save gets its own fresh seed.
+	public bool EnemyRandomizerEnabled { get; set; }
+	public int RandomizerSeed { get; private set; }
+
+	public void RollNewRandomizerSeed()
+	{
+		RandomizerSeed = (int)GD.Randi();
+	}
+
 	public void AddGold(int amount)
 	{
 		if (amount <= 0)
@@ -69,8 +81,11 @@ public partial class SaveManager : Node
 
 	public void SetStoryStage(int stage)
 	{
-		if (stage > StoryStage)
-			StoryStage = stage;
+		if (stage <= StoryStage)
+			return;
+
+		StoryStage = stage;
+		GameConfig.Instance.Achievements.CheckTriggers();
 	}
 
 	public override void _Ready()
@@ -84,8 +99,13 @@ public partial class SaveManager : Node
 	public int GetDefeatedCommonEnemyCount() => _defeatedCommonEnemies.Count;
 
 	public bool IsBossDefeated(string id) => _defeatedBosses.Contains(id);
-	public void MarkBossDefeated(string id) => _defeatedBosses.Add(id);
 	public IReadOnlyCollection<string> GetDefeatedBosses() => _defeatedBosses;
+
+	public void MarkBossDefeated(string id)
+	{
+		_defeatedBosses.Add(id);
+		GameConfig.Instance.Achievements.CheckTriggers();
+	}
 
 	public bool IsSavePointLit(string id) => _litSavePoints.Contains(id);
 	public void MarkSavePointLit(string id) => _litSavePoints.Add(id);
@@ -98,8 +118,13 @@ public partial class SaveManager : Node
 	public const int MaxEquippedRings = 2;
 
 	public bool HasItem(string id) => _collectedItems.Contains(id);
-	public void CollectItem(string id) => _collectedItems.Add(id);
 	public IReadOnlyCollection<string> GetCollectedItems() => _collectedItems;
+
+	public void CollectItem(string id)
+	{
+		_collectedItems.Add(id);
+		GameConfig.Instance.Achievements.CheckTriggers();
+	}
 
 	public IReadOnlyList<string> GetEquippedRings() => _equippedRings;
 
@@ -139,6 +164,8 @@ public partial class SaveManager : Node
 		Gold = 0;
 		SessionCurrentHealth = null;
 		SessionHealCharges = null;
+		EnemyRandomizerEnabled = false;
+		RollNewRandomizerSeed();
 		QuestManager.Instance.ResetProgressState();
 	}
 
@@ -204,6 +231,8 @@ public partial class SaveManager : Node
 		StoryStage = PendingLoad.StoryStage;
 		Gold = PendingLoad.Gold;
 		EmitSignal(SignalName.GoldChanged, Gold);
+		EnemyRandomizerEnabled = PendingLoad.EnemyRandomizerEnabled;
+		RandomizerSeed = PendingLoad.RandomizerSeed;
 
 		return PendingLoad;
 	}

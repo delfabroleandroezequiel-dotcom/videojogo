@@ -4,22 +4,17 @@ namespace Metroidvania.World;
 
 public partial class Explosion : Node2D
 {
-	[Export] public float Duration = 0.35f;
-	[Export] public Color ExplosionColor = new(1f, 0.6f, 0.1f, 1f);
+	[Export] public float BaseVisualScale = 1.53f;
+	[Export] public float VerticalOffset = -14f;
 
 	public float TargetScale = 1f;
 
 	public override void _Ready()
 	{
-		Polygon2D shape = GetNode<Polygon2D>("Shape");
-		shape.Color = ExplosionColor;
-		Scale = Vector2.Zero;
-
-		Tween tween = CreateTween();
-		tween.TweenProperty(this, "scale", Vector2.One * TargetScale, Duration)
-			.SetTrans(Tween.TransitionType.Cubic)
-			.SetEase(Tween.EaseType.Out);
-		tween.Parallel().TweenProperty(shape, "color:a", 0f, Duration);
-		tween.TweenCallback(Callable.From(QueueFree));
+		var sprite = GetNode<AnimatedSprite2D>("Sprite");
+		Scale = Vector2.One * TargetScale * BaseVisualScale;
+		sprite.Position = new Vector2(0f, VerticalOffset);
+		sprite.AnimationFinished += QueueFree;
+		sprite.Play("explode");
 	}
 }

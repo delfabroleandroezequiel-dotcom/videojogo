@@ -51,6 +51,7 @@ CustomSpriteFrames = ExtResource("6_goddess_frames")
 position = Vector2(-349.2, 108)
 
 [node name="Floor2" type="StaticBody2D" parent="." unique_id=2122917517]
+collision_layer = 33
 position = Vector2(0, 300.6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor2" unique_id=460222962]

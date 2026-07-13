@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://slime_explosion_blue_scene"]
+
+[ext_resource type="Script" path="res://scripts/world/Explosion.cs" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/SlimeExplosionBlueSpriteFrames.tres" id="2_frames"]
+
+[node name="SlimeExplosionBlue" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_frames")
+animation = &"explode"

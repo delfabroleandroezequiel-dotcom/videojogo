@@ -11,7 +11,9 @@ public partial class MainMenu : Control
 	private VBoxContainer _namePrompt;
 	private VBoxContainer _slotsContainer;
 	private LineEdit _nameEdit;
+	private CheckBox _randomizerCheck;
 	private Button _continueButton;
+	private SettingsPanel _settings;
 	private int _pendingNewSlot = -1;
 
 	public override void _Ready()
@@ -21,6 +23,7 @@ public partial class MainMenu : Control
 		_namePrompt = GetNode<VBoxContainer>("NamePrompt");
 		_slotsContainer = GetNode<VBoxContainer>("SlotMenu/SlotsContainer");
 		_nameEdit = GetNode<LineEdit>("NamePrompt/NameEdit");
+		_randomizerCheck = GetNode<CheckBox>("NamePrompt/RandomizerCheck");
 		_continueButton = GetNode<Button>("TopMenu/ContinueButton");
 
 		_continueButton.Pressed += OnContinuePressed;
@@ -28,6 +31,10 @@ public partial class MainMenu : Control
 		GetNode<Button>("SlotMenu/BackButton").Pressed += ShowTopMenu;
 		GetNode<Button>("NamePrompt/ConfirmButton").Pressed += OnNameConfirmed;
 		GetNode<Button>("NamePrompt/CancelButton").Pressed += ShowTopMenu;
+
+		_settings = GetNode<SettingsPanel>("Settings");
+		GetNode<Button>("TopMenu/SettingsButton").Pressed += OnSettingsPressed;
+		_settings.Closed += () => _topMenu.Visible = true;
 
 		ShowTopMenu();
 	}
@@ -52,9 +59,16 @@ public partial class MainMenu : Control
 	{
 		_pendingNewSlot = slot;
 		_nameEdit.Text = "";
+		_randomizerCheck.ButtonPressed = false;
 		_topMenu.Visible = false;
 		_slotMenu.Visible = false;
 		_namePrompt.Visible = true;
+	}
+
+	private void OnSettingsPressed()
+	{
+		_topMenu.Visible = false;
+		_settings.Open();
 	}
 
 	private void BuildSlotList()
@@ -121,6 +135,7 @@ public partial class MainMenu : Control
 		SaveManager.Instance.CurrentCharacterName = name;
 		SaveManager.Instance.ClearPendingLoad();
 		SaveManager.Instance.ResetProgressState();
+		SaveManager.Instance.EnemyRandomizerEnabled = _randomizerCheck.ButtonPressed;
 		GetTree().ChangeSceneToFile(GameConfig.Instance.DefaultStartScenePath);
 	}
 }

@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using Metroidvania.Achievements;
 
 namespace Metroidvania.Shared;
 
@@ -9,6 +10,11 @@ public partial class GameConfig : Node
 
 	[Export] public string DefaultStartScenePath = "res://scenes/world/Casa1.tscn";
 	[Export] public string MainMenuScenePath = "res://scenes/ui/MainMenu.tscn";
+
+	[Export] public PackedScene[] GroundEnemyPool = System.Array.Empty<PackedScene>();
+	[Export] public PackedScene[] FlyingEnemyPool = System.Array.Empty<PackedScene>();
+
+	public AchievementTracker Achievements { get; private set; }
 
 	public static readonly string[] RemappableActions =
 	{
@@ -50,6 +56,7 @@ public partial class GameConfig : Node
 	public override void _Ready()
 	{
 		Instance = this;
+		Achievements = GetNode<AchievementTracker>("Achievements");
 		LoadBindings();
 		LoadDisplaySettings();
 	}

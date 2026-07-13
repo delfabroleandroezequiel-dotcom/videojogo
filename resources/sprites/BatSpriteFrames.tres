@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://dp1qftguxa0kl"]
+
+[ext_resource type="Texture2D" uid="uid://dsu0r25ttkkcj" path="res://assets/external/gandalfhardcore/Bat/Bat.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(192, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly3")
+}],
+"loop": 1,
+"name": &"fly",
+"speed": 8.0
+}]

@@ -80,6 +80,13 @@ public partial class Player : CharacterBody2D
 	[Export] public float WallJumpVelocityX = 260f;
 	[Export] public float WallJumpVelocityY = -380f;
 	[Export] public float WallJumpLockoutDuration = 0.2f;
+	[Export] public float LedgeGrabOffsetX = 16f;
+	[Export] public float LedgeSurfaceProbeHeight = 70f;
+	[Export] public float LedgeHangDropY = 26f;
+	[Export] public float LedgeClimbForwardX = 26f;
+	[Export] public float LedgeClimbDuration = 0.35f;
+	[Export] public float LedgeGrabLockoutDuration = 0.3f;
+	[Export] public float LedgeAutoClimbDelay = 0.15f;
 
 	private Hitbox _hitbox;
 	private Stats _stats;
@@ -132,7 +139,14 @@ public partial class Player : CharacterBody2D
 	private bool _isFireImbued;
 	private bool _isTransforming;
 	private bool _fireImbueKeyReleased = true;
+	// The attack element cycles Normal -> Fire -> Ice -> Poison -> Lightning -> Normal. Fire is
+	// the only one with a full alternate spriteframes transformation right now (see
+	// ToggleFireImbue/_isFireImbued); the other elements just tag outgoing hits for the
+	// Stats weakness multiplier until they get their own art.
+	private DamageElement _currentElement = DamageElement.Normal;
 	private bool _isCharging;
+	private AnimatedSprite2D _chargeEffect;
+	private AnimatedSprite2D _chargeReadyEffect;
 	private bool _isPounding;
 	private bool _poundHitLanded;
 	private float _knockbackTimer;
@@ -143,6 +157,16 @@ public partial class Player : CharacterBody2D
 	private float _ladderGrabLockout;
 	private bool _isWallClimbing;
 	private float _wallJumpLockout;
+	private ShapeCast2D _ledgeWallCheck;
+	private bool _isLedgeHanging;
+	private bool _isLedgeClimbing;
+	private float _ledgeClimbTimer;
+	private float _ledgeGrabLockout;
+	private float _ledgeHangTimer;
+	private Vector2 _ledgeClimbStartPosition;
+	private Vector2 _ledgeClimbEndPosition;
+	private float _ledgeSurfaceY;
+	private float _standHalfHeight;
 	private float _attackBufferTimer;
 	private float _dashBufferTimer;
 
@@ -163,12 +187,16 @@ public partial class Player : CharacterBody2D
 		_weaponTrailBaseY = _weaponTrail.Position.Y;
 		_parryFlash = GetNode<AnimatedSprite2D>("Visual/ParryFlash");
 		_parryFlash.AnimationFinished += () => _parryFlash.Visible = false;
+		_chargeEffect = GetNode<AnimatedSprite2D>("Visual/ChargeEffect");
+		_chargeReadyEffect = GetNode<AnimatedSprite2D>("Visual/ChargeReadyEffect");
 		_legLeft = GetNode<Node2D>("Visual/LegLeft");
 		_legRight = GetNode<Node2D>("Visual/LegRight");
 		_armLeft = GetNode<Node2D>("Visual/ArmLeft");
 		_armRight = GetNode<Node2D>("Visual/ArmRight");
 		_standCollision = GetNode<CollisionShape2D>("CollisionShape2D");
 		_crouchCollision = GetNode<CollisionShape2D>("CrouchCollisionShape2D");
+		_ledgeWallCheck = GetNode<ShapeCast2D>("LedgeWallCheck");
+		_standHalfHeight = ((RectangleShape2D)_standCollision.Shape).Size.Y / 2f;
 		_camera = GetNode<Camera2D>("Camera2D");
 		_sprite = GetNode<AnimatedSprite2D>("Visual/CharacterSprite");
 		_normalSpriteFrames = _sprite.SpriteFrames;
@@ -225,6 +253,70 @@ public partial class Player : CharacterBody2D
 	{
 		_knockbackVelocity = direction * force;
 		_knockbackTimer = KnockbackDuration;
+
+		if (_isLedgeHanging || _isLedgeClimbing)
+		{
+			_isLedgeHanging = false;
+			_isLedgeClimbing = false;
+			_ledgeGrabLockout = LedgeGrabLockoutDuration;
+		}
+	}
+
+	// Layer 5 / "ClimbableWalls" in Project Settings > Layer Names > 2D Physics — wall-climb
+	// should only trigger on surfaces explicitly tagged as climbable, not on every solid the
+	// player's regular collision_mask happens to touch (doors, props, generic level geometry).
+	private const uint ClimbableWallLayer = 1u << 4;
+
+	private bool IsTouchingClimbableWall(out float wallNormalX)
+	{
+		for (int i = 0; i < GetSlideCollisionCount(); i++)
+		{
+			KinematicCollision2D collision = GetSlideCollision(i);
+			if (collision.GetCollider() is not CollisionObject2D body)
+				continue;
+			if ((body.CollisionLayer & ClimbableWallLayer) == 0)
+				continue;
+
+			Vector2 normal = collision.GetNormal();
+			if (Mathf.Abs(normal.Y) > Mathf.Abs(normal.X))
+				continue; // floor/ceiling-like normal, not a wall
+
+			wallNormalX = normal.X;
+			return true;
+		}
+
+		wallNormalX = 0f;
+		return false;
+	}
+
+	// Ledge detection is two steps rather than a fixed two-raycast band: first find ANY wall in
+	// front near chest height (forgiving — a short, tall shapecast, not a single pixel-precise
+	// ray), then probe straight down from well above the player to find the ledge's actual top
+	// surface. Using the real surface height (instead of just keeping the player's current Y) is
+	// what makes the grab position — and therefore the climb-up target — land correctly on top.
+	private bool TryDetectLedge(out Vector2 grabPosition)
+	{
+		float dir = _facingRight ? 1f : -1f;
+		grabPosition = Vector2.Zero;
+
+		_ledgeWallCheck.TargetPosition = new Vector2(Mathf.Abs(_ledgeWallCheck.TargetPosition.X) * dir, _ledgeWallCheck.TargetPosition.Y);
+		_ledgeWallCheck.ForceShapecastUpdate();
+		if (!_ledgeWallCheck.IsColliding())
+			return false;
+
+		Vector2 wallPoint = _ledgeWallCheck.GetCollisionPoint(0);
+		Vector2 probeFrom = new(wallPoint.X + dir * 4f, GlobalPosition.Y - LedgeSurfaceProbeHeight);
+		Vector2 probeTo = new(probeFrom.X, GlobalPosition.Y + 8f);
+
+		var query = PhysicsRayQueryParameters2D.Create(probeFrom, probeTo, ClimbableWallLayer);
+		Godot.Collections.Dictionary result = GetWorld2D().DirectSpaceState.IntersectRay(query);
+		if (result.Count == 0)
+			return false;
+
+		float surfaceY = ((Vector2)result["position"]).Y;
+		_ledgeSurfaceY = surfaceY;
+		grabPosition = new Vector2(wallPoint.X - dir * LedgeGrabOffsetX, surfaceY + LedgeHangDropY);
+		return true;
 	}
 
 	public void EnterLadder(Ladder ladder)
@@ -320,6 +412,17 @@ public partial class Player : CharacterBody2D
 			Velocity = velocity;
 			MoveAndSlide();
 			UpdateAnimation(delta, false);
+
+			// The trail clip is a short one-shot (it auto-hides on AnimationFinished), but a
+			// dive with no enemy to bounce off can fall for way longer than that clip's length.
+			// Keep re-triggering it every time it finishes so the effect covers the whole drop
+			// instead of vanishing partway down.
+			if (!_weaponTrail.IsPlaying())
+			{
+				_weaponTrail.Visible = true;
+				_weaponTrail.Play(WeaponTrailAnimation(_currentAttackAnimation));
+			}
+
 			if (IsOnFloor())
 				EndPound();
 			return;
@@ -369,15 +472,70 @@ public partial class Player : CharacterBody2D
 			return;
 		}
 
+		if (_ledgeGrabLockout > 0f)
+			_ledgeGrabLockout -= (float)delta;
+
+		if (_isLedgeClimbing)
+		{
+			_ledgeClimbTimer += (float)delta;
+			float climbT = Mathf.Clamp(_ledgeClimbTimer / LedgeClimbDuration, 0f, 1f);
+			GlobalPosition = _ledgeClimbStartPosition.Lerp(_ledgeClimbEndPosition, climbT);
+			if (_sprite.Animation != "wall_climb")
+				_sprite.Play("wall_climb");
+
+			if (climbT >= 1f)
+			{
+				_isLedgeClimbing = false;
+				_jumpCount = 0;
+				_isDoubleJumping = false;
+			}
+			return;
+		}
+
+		if (_isLedgeHanging)
+		{
+			Velocity = Vector2.Zero;
+			if (_sprite.Animation != "wall_hang")
+				_sprite.Play("wall_hang");
+
+			// Brief beat on the grab pose so the catch actually reads, then climb up on its own —
+			// no input wait, the ability is meant to always carry you over the ledge.
+			_ledgeHangTimer += (float)delta;
+			if (_ledgeHangTimer >= LedgeAutoClimbDelay)
+			{
+				_isLedgeHanging = false;
+				_isLedgeClimbing = true;
+				_ledgeClimbTimer = 0f;
+				_ledgeClimbStartPosition = GlobalPosition;
+				float climbDir = _facingRight ? 1f : -1f;
+				_ledgeClimbEndPosition = new Vector2(
+					GlobalPosition.X + climbDir * LedgeClimbForwardX,
+					_ledgeSurfaceY - _standHalfHeight - 2f);
+			}
+			return;
+		}
+
 		if (_wallJumpLockout > 0f)
 			_wallJumpLockout -= (float)delta;
 
-		bool wasWallClimbing = _isWallClimbing;
-		if (_abilities.Has(PlayerAbilities.WallClimb) && _wallJumpLockout <= 0f && IsOnWall() && !IsOnFloor())
+		if (_abilities.Has(PlayerAbilities.LedgeGrab) && _ledgeGrabLockout <= 0f && !IsOnFloor()
+			&& TryDetectLedge(out Vector2 ledgeGrabPosition))
 		{
-			float wallNormalX = GetWallNormal().X;
+			_isLedgeHanging = true;
+			_ledgeHangTimer = 0f;
+			GlobalPosition = ledgeGrabPosition;
+			Velocity = Vector2.Zero;
+			_isWallClimbing = false;
+			_sprite.Play("wall_hang");
+			return;
+		}
+
+		bool wasWallClimbing = _isWallClimbing;
+		bool touchingClimbableWall = IsTouchingClimbableWall(out float climbableWallNormalX);
+		if (_abilities.Has(PlayerAbilities.WallClimb) && _wallJumpLockout <= 0f && touchingClimbableWall && !IsOnFloor())
+		{
 			float wallInputDir = Input.GetAxis("move_left", "move_right");
-			bool pressingIntoWall = wallInputDir != 0f && Mathf.Sign(wallInputDir) == -Mathf.Sign(wallNormalX);
+			bool pressingIntoWall = wallInputDir != 0f && Mathf.Sign(wallInputDir) == -Mathf.Sign(climbableWallNormalX);
 
 			if (pressingIntoWall)
 				_isWallClimbing = true;
@@ -394,7 +552,7 @@ public partial class Player : CharacterBody2D
 
 		if (_isWallClimbing)
 		{
-			float wallNormalX = GetWallNormal().X;
+			float wallNormalX = climbableWallNormalX;
 			// No climbing art exists for this pack — only the wall-hang (grab) pose reads
 			// correctly, so this is a wall-cling + controlled slide, not free vertical movement.
 			velocity.Y = Mathf.MoveToward(velocity.Y, WallSlideSpeed, WallClimbSpeed * (float)delta);
@@ -497,7 +655,7 @@ public partial class Player : CharacterBody2D
 			&& !_isRunThrusting && !_isTransforming)
 		{
 			_fireImbueKeyReleased = false;
-			ToggleFireImbue();
+			CycleElement();
 		}
 
 		Velocity = velocity;
@@ -726,6 +884,9 @@ public partial class Player : CharacterBody2D
 		_attacking = true;
 		_currentAttackAnimation = "idle_block";
 
+		_chargeEffect.Visible = true;
+		_chargeEffect.Play("charge");
+
 		Tween flickerTween = CreateTween().SetLoops();
 		flickerTween.TweenProperty(_visual, "modulate:a", 0.35f, 0.15f);
 		flickerTween.TweenProperty(_visual, "modulate:a", 1f, 0.15f);
@@ -735,11 +896,21 @@ public partial class Player : CharacterBody2D
 		{
 			await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
 			heldTime += (float)GetPhysicsProcessDeltaTime();
+
+			if (heldTime >= ChargedAttackDuration && !_chargeReadyEffect.Visible)
+			{
+				_chargeReadyEffect.Visible = true;
+				_chargeReadyEffect.Play("ready");
+			}
 		}
 
 		flickerTween.Kill();
 		Color modulate = _visual.Modulate;
 		_visual.Modulate = new Color(modulate.R, modulate.G, modulate.B, 1f);
+		_chargeEffect.Stop();
+		_chargeEffect.Visible = false;
+		_chargeReadyEffect.Stop();
+		_chargeReadyEffect.Visible = false;
 
 		if (heldTime < ChargedAttackDuration)
 		{
@@ -757,7 +928,7 @@ public partial class Player : CharacterBody2D
 
 		_hitboxShape.Size = ChargedAttackHitboxSize;
 		_hitbox.Position = new Vector2(_facingRight ? ChargedAttackReach : -ChargedAttackReach, 0);
-		_hitbox.Activate(_stats);
+		_hitbox.Activate(_stats, element: _currentElement);
 
 		_weaponTrail.Position = new Vector2(_weaponTrailBaseX, _weaponTrailBaseY);
 		_weaponTrail.Visible = true;
@@ -786,7 +957,7 @@ public partial class Player : CharacterBody2D
 
 		_hitboxShape.Size = PoundHitboxSize;
 		_hitbox.Position = new Vector2(0, PoundHitboxReach);
-		_hitbox.Activate(_stats);
+		_hitbox.Activate(_stats, element: _currentElement);
 
 		_sprite.Rotation = Mathf.Pi / 2f;
 
@@ -844,7 +1015,7 @@ public partial class Player : CharacterBody2D
 
 		_hitboxShape.Size = UpAttackHitboxSize;
 		_hitbox.Position = new Vector2(0, -UpAttackHitboxReach);
-		_hitbox.Activate(_stats);
+		_hitbox.Activate(_stats, element: _currentElement);
 
 		_weaponTrail.Position = new Vector2(0, -UpAttackHitboxReach);
 		_weaponTrail.Visible = true;
@@ -886,7 +1057,7 @@ public partial class Player : CharacterBody2D
 
 		_hitboxShape.Size = RunThrustHitboxSize;
 		_hitbox.Position = new Vector2(_runThrustDirection * (RunThrustHitboxSize.X / 2f), 0);
-		_hitbox.Activate(_stats);
+		_hitbox.Activate(_stats, element: _currentElement);
 		_weaponTrail.Position = new Vector2(_weaponTrailBaseX, _weaponTrailBaseY);
 		_weaponTrail.Visible = true;
 		_weaponTrail.Play(_isFireImbued ? "thrust_05_fire" : "thrust_05");
@@ -904,7 +1075,7 @@ public partial class Player : CharacterBody2D
 		if (RunThrustSecondHitGap > 0f)
 			await ToSignal(GetTree().CreateTimer(RunThrustSecondHitGap), SceneTreeTimer.SignalName.Timeout);
 
-		_hitbox.Activate(_stats);
+		_hitbox.Activate(_stats, element: _currentElement);
 		await ToSignal(GetTree().CreateTimer(secondPulseTime), SceneTreeTimer.SignalName.Timeout);
 		_hitbox.Deactivate();
 		_hitbox.HitDealt -= OnHitLanded;
@@ -942,7 +1113,7 @@ public partial class Player : CharacterBody2D
 
 		_hitboxShape.Size = _hitboxBaseSize;
 		_hitbox.Position = new Vector2(_facingRight ? AttackHitboxReach : -AttackHitboxReach, 0);
-		_hitbox.Activate(_stats);
+		_hitbox.Activate(_stats, ComboImpactFramesPath(_currentAttackAnimation), _currentElement);
 
 		_weaponTrail.Position = new Vector2(_weaponTrailBaseX, _weaponTrailBaseY);
 		_weaponTrail.Visible = true;
@@ -991,7 +1162,7 @@ public partial class Player : CharacterBody2D
 
 		_hitboxShape.Size = _hitboxBaseSize;
 		_hitbox.Position = new Vector2(_facingRight ? AttackHitboxReach : -AttackHitboxReach, 0);
-		_hitbox.Activate(_stats);
+		_hitbox.Activate(_stats, element: _currentElement);
 
 		_weaponTrail.Position = new Vector2(_weaponTrailBaseX, _weaponTrailBaseY + trailYOffset);
 		_weaponTrail.Visible = true;
@@ -1015,6 +1186,14 @@ public partial class Player : CharacterBody2D
 		_ => _isFireImbued ? "slash_horizontal_fire" : "slash_horizontal",
 	};
 
+	private static string ComboImpactFramesPath(string attackAnimation) => attackAnimation switch
+	{
+		"attack1" => "res://resources/sprites/HitImpactMediumSpriteFrames.tres",
+		"attack2" => "res://resources/sprites/HitImpactMediumSpriteFrames.tres",
+		"attack3" => "res://resources/sprites/HitImpactBigSpriteFrames.tres",
+		_ => null,
+	};
+
 	private async void UseHealFlask()
 	{
 		if (!_healFlask.TryUse(_stats))
@@ -1026,15 +1205,27 @@ public partial class Player : CharacterBody2D
 		_healing = false;
 	}
 
-	private async void ToggleFireImbue()
+	private async void CycleElement()
 	{
 		if (_isTransforming)
 			return;
 
-		_isTransforming = true;
-
-		if (!_isFireImbued)
+		DamageElement previous = _currentElement;
+		_currentElement = previous switch
 		{
+			DamageElement.Normal => DamageElement.Fire,
+			DamageElement.Fire => DamageElement.Ice,
+			DamageElement.Ice => DamageElement.Poison,
+			DamageElement.Poison => DamageElement.Lightning,
+			_ => DamageElement.Normal,
+		};
+
+		// Fire is the only element with a full alternate spriteframes transformation today —
+		// entering/leaving it plays that transformation. The other elements just update the
+		// tag used by outgoing hits (see Stats.Weakness) until they get their own art.
+		if (_currentElement == DamageElement.Fire)
+		{
+			_isTransforming = true;
 			await ToSignal(GetTree().CreateTimer(TransformationInDuration), SceneTreeTimer.SignalName.Timeout);
 			_sprite.SpriteFrames = FireSpriteFrames;
 			// The node was still holding "transformation" (only valid in the normal set) the
@@ -1042,16 +1233,18 @@ public partial class Player : CharacterBody2D
 			// both sets immediately, instead of leaving it dangling until the next animation update.
 			_sprite.Play("idle");
 			_isFireImbued = true;
+			VfxSpawner.SpawnAt(this, _visual.GlobalPosition, "res://resources/sprites/BuffGlowSpriteFrames.tres", "glow");
+			_isTransforming = false;
 		}
-		else
+		else if (previous == DamageElement.Fire)
 		{
+			_isTransforming = true;
 			await ToSignal(GetTree().CreateTimer(TransformationOutDuration), SceneTreeTimer.SignalName.Timeout);
 			_sprite.SpriteFrames = _normalSpriteFrames;
 			_sprite.Play("idle");
 			_isFireImbued = false;
+			_isTransforming = false;
 		}
-
-		_isTransforming = false;
 	}
 
 	private void OnDied()
