@@ -1,0 +1,11 @@
+CHANGELOG
+
+v1.0
+- First complete sellable release.
+- Combined General Weather VFX Pack with Bonus Weather SFX.
+- Added rain, snow, fog, ash, wind, clouds and lightning VFX.
+- Added PNG frame sequences and spritesheets.
+- Added GIF previews.
+- Added bonus WAV weather loops.
+- Added natural thunder one-shots.
+- Added cover, screenshots and itch.io page copy.

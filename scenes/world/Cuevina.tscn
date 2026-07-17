@@ -544,9 +544,6 @@ position = Vector2(887, 842)
 position = Vector2(-155, -137)
 shape = SubResource("RectangleShape2D_floor")
 
-[node name="Floor2" type="StaticBody2D" parent="." unique_id=482704226]
-position = Vector2(887, 842)
-
 [node name="Floor5" type="StaticBody2D" parent="." unique_id=303675599]
 position = Vector2(546, 476)
 

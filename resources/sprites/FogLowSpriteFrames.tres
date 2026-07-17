@@ -1,0 +1,95 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bvf7liek3l6dc"]
+
+[ext_resource type="Texture2D" uid="uid://bvqovk74maxfp" path="res://assets/external/Clima/General_Weather_Complete_Pack_v1_0/PNG/Spritesheets/Fog/fog_low_spritesheet_640x360_4x3.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fog0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fog1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(640, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fog2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1280, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fog3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1920, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fog4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 360, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fog5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(640, 360, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fog6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1280, 360, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fog7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1920, 360, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fog8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 720, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fog9"]
+atlas = ExtResource("1_sheet")
+region = Rect2(640, 720, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fog10"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1280, 720, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fog11"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1920, 720, 640, 360)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fog0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fog1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fog2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fog3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fog4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fog5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fog6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fog7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fog8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fog9")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fog10")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fog11")
+}],
+"loop": 1,
+"name": &"loop",
+"speed": 8.0
+}]

@@ -23,7 +23,7 @@ shape = SubResource("RectangleShape2D_collision")
 [node name="Visual" type="Node2D" parent="." unique_id=543944197]
 
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual" unique_id=1408086897]
-position = Vector2(1.9999999, -4.999999)
+position = Vector2(0, -6.000001)
 scale = Vector2(1.4, 1.4)
 sprite_frames = ExtResource("4_spriteframes")
 animation = &"idle"
@@ -34,7 +34,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=1929119865]
-position = Vector2(0, -6)
+position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_interact")
 
 [node name="InteractPrompt" type="Label" parent="." unique_id=108265902]

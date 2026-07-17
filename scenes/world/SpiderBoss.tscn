@@ -1,0 +1,102 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/SpiderBoss.cs" id="1_script"]
+[ext_resource type="Script" path="res://scripts/player/Hitbox.cs" id="2_hitbox"]
+[ext_resource type="Script" path="res://scripts/shared/Stats.cs" id="3_stats"]
+[ext_resource type="PackedScene" path="res://scenes/ui/StatBar.tscn" id="4_statbar"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/SpiderSpriteFrames.tres" id="5_spriteframes"]
+[ext_resource type="PackedScene" uid="uid://dq3mb122eef3v" path="res://scenes/world/Explosion.tscn" id="6_explosion"]
+[ext_resource type="PackedScene" path="res://scenes/world/Coin.tscn" id="7_coin"]
+[ext_resource type="Script" path="res://scripts/world/LootEntry.cs" id="8_lootentry_script"]
+[ext_resource type="PackedScene" path="res://scenes/world/SpiderWebProjectile.tscn" id="9_web"]
+[ext_resource type="PackedScene" path="res://scenes/world/SpiderEnemy.tscn" id="10_spiderling"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
+size = Vector2(190, 85)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(140, 70)
+
+[sub_resource type="Resource" id="LootEntry_coin"]
+script = ExtResource("8_lootentry_script")
+DropScene = ExtResource("7_coin")
+DropChance = 1.0
+MinAmount = 10
+MaxAmount = 18
+
+[node name="SpiderBoss" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_script")
+DetectionRange = 500.0
+AlwaysMoving = true
+FleeAndRecharge = true
+MoveSpeed = 140.0
+AttackRange = 130.0
+AttackCooldown = 1.1
+AttackHitboxReach = 130.0
+ComboChance = 0.4
+WanderInterval = 1.0
+WanderRadius = 110.0
+WanderSettleDistance = 10.0
+LungeRange = 260.0
+LungeChance = 0.6
+LungeSpeed = 340.0
+LungeDuration = 0.4
+EnrageHealthPercent = 0.35
+EnrageSpeedMultiplier = 1.5
+WebProjectileScene = ExtResource("9_web")
+WebSpitRange = 320.0
+WebSpitCooldown = 4.0
+SpiderlingScene = ExtResource("10_spiderling")
+SpiderlingsPerSummon = 2
+SummonHealthThresholds = PackedFloat32Array(0.66, 0.33)
+ExplosionScene = ExtResource("6_explosion")
+ExplosionScale = 2.2
+LootTable = [SubResource("LootEntry_coin")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="ContactArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea"]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual"]
+scale = Vector2(3.3, 3.3)
+offset = Vector2(0, -36.64)
+sprite_frames = ExtResource("5_spriteframes")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="AttackHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_hitbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+shape = SubResource("RectangleShape2D_hitbox")
+disabled = true
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("3_stats")
+MaxHealth = 220
+AttackPower = 45
+Defense = 8
+MaxStamina = 120
+
+[node name="HealthBar" parent="." instance=ExtResource("4_statbar")]
+position = Vector2(0, 70)
+Width = 64.0
+
+[node name="StaminaBar" parent="." instance=ExtResource("4_statbar")]
+position = Vector2(0, 78)
+Width = 64.0
+FillColor = Color(0.2, 0.6, 1, 1)

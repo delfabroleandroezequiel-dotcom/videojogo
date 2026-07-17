@@ -1,0 +1,67 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://cojucj1qn8fgt"]
+
+[ext_resource type="Texture2D" uid="uid://c016ksaomvikw" path="res://assets/sprites/deco/rocaindiana.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_roll0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 163, 77, 82)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_roll1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(77, 163, 76, 82)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_roll2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(153, 163, 77, 82)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_roll3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(230, 163, 76, 82)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_roll4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(306, 163, 77, 82)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_roll5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(383, 163, 76, 82)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_roll6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(459, 163, 77, 82)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_roll7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(536, 163, 76, 82)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_roll0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_roll1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_roll2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_roll3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_roll4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_roll5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_roll6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_roll7")
+}],
+"loop": 1,
+"name": &"roll",
+"speed": 14.0
+}]

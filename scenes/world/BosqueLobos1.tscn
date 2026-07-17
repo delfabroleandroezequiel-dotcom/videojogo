@@ -8,6 +8,11 @@
 [ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="5_camera_profile"]
 [ext_resource type="Texture2D" uid="uid://ddorccofiac2x" path="res://assets/sprites/misprite/CuevaBosqueLobos1.png" id="6_cave"]
 [ext_resource type="Texture2D" uid="uid://ig5xp8t2xnwh" path="res://assets/external/gandalfhardcore/platformer/GandalfHardcore FREE Platformer Assets/Floor Tiles2.png" id="8_jtin3"]
+[ext_resource type="Environment" path="res://resources/rendering/NixPostProcess.tres" id="9_postprocess_env"]
+[ext_resource type="Material" uid="uid://jm40glxfalh" path="res://resources/particles/DustMoteProcess.tres" id="10_dust_process"]
+[ext_resource type="Texture2D" uid="uid://cb8gyivleynt" path="res://resources/particles/SoftDotGradient.tres" id="11_softdot"]
+[ext_resource type="PackedScene" path="res://scenes/world/WeatherOverlay.tscn" id="12_weather"]
+[ext_resource type="PackedScene" path="res://scenes/world/MosquitoEnemy.tscn" id="13_mosquito"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h48re"]
 load_path = "res://.godot/imported/ChatGPT_Image_12_jul_2026__17_14_53-removebg-preview.png-d59d64ce255041962d0d7588581fe35a.ctex"
@@ -606,6 +611,22 @@ CameraLimitLeft = 0
 CameraLimitRight = 1760
 CameraLimitBottom = 550
 
+[node name="PostProcessEnvironment" type="WorldEnvironment" parent="." unique_id=-1194967300]
+environment = ExtResource("9_postprocess_env")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=-1194967299]
+color = Color(0.85, 0.9, 1, 1)
+
+[node name="DustMotes" type="GPUParticles2D" parent="." unique_id=-1194967298]
+position = Vector2(150, 258)
+amount = 18
+texture = ExtResource("11_softdot")
+lifetime = 7.0
+randomness = 0.5
+process_material = ExtResource("10_dust_process")
+
+[node name="WeatherOverlay" parent="." unique_id=-1194967297 instance=ExtResource("12_weather")]
+
 [node name="Background" type="Node2D" parent="." unique_id=-1194967294]
 z_index = -10
 
@@ -616,6 +637,9 @@ texture = ExtResource("3_bosque")
 [node name="RangedEnemy3" parent="." unique_id=2067347911 instance=ExtResource("4_jtin3")]
 position = Vector2(318, 92)
 ProjectileSpeed = 380.0
+
+[node name="Mosquito1" parent="." unique_id=2067347912 instance=ExtResource("13_mosquito")]
+position = Vector2(700, 150)
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=655760535]
 position = Vector2(311, 129)
@@ -666,10 +690,13 @@ tile_set = SubResource("TileSet_bn06r")
 position = Vector2(305.5, 103)
 shape = SubResource("RectangleShape2D_yvfok")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=476024359]
+[node name="AtalayaClimbable" type="StaticBody2D" parent="." unique_id=1625450008]
+collision_layer = 17
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="AtalayaClimbable" unique_id=476024359]
 position = Vector2(379, 84)
 shape = SubResource("RectangleShape2D_cmj0u")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=1625450007]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="AtalayaClimbable" unique_id=1625450007]
 position = Vector2(235, 85)
 shape = SubResource("RectangleShape2D_5qgpb")

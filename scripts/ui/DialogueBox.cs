@@ -12,6 +12,7 @@ public partial class DialogueBox : CanvasLayer
 	private Label _nameLabel;
 	private Label _textLabel;
 	private Label _continueHint;
+	private string[] _speakerKeys;
 	private string[] _lines;
 	private int _lineIndex;
 	private Action _onFinished;
@@ -34,10 +35,18 @@ public partial class DialogueBox : CanvasLayer
 
 	public void Show(string speakerNameKey, string[] lineKeys, Action onFinished = null)
 	{
-		if (lineKeys is null || lineKeys.Length == 0)
+		Show(new[] { speakerNameKey }, lineKeys, onFinished);
+	}
+
+	// Cutscene-style overload: SpeakerKeys can list a different speaker per line (a back-and-forth
+	// between characters), or just one entry to keep speaking as the same character for every
+	// line — same as the single-speaker overload above, which just forwards here.
+	public void Show(string[] speakerNameKeys, string[] lineKeys, Action onFinished = null)
+	{
+		if (lineKeys is null || lineKeys.Length == 0 || speakerNameKeys is null || speakerNameKeys.Length == 0)
 			return;
 
-		_nameLabel.Text = TranslationServer.Translate(speakerNameKey);
+		_speakerKeys = speakerNameKeys;
 		_lines = lineKeys;
 		_lineIndex = 0;
 		_onFinished = onFinished;
@@ -73,6 +82,8 @@ public partial class DialogueBox : CanvasLayer
 
 	private void DisplayCurrentLine()
 	{
+		string speakerKey = _speakerKeys[Mathf.Min(_lineIndex, _speakerKeys.Length - 1)];
+		_nameLabel.Text = TranslationServer.Translate(speakerKey);
 		_textLabel.Text = TranslationServer.Translate(_lines[_lineIndex]);
 		_continueHint.Text = TranslationServer.Translate(_lineIndex < _lines.Length - 1 ? "UI_DIALOGUE_CONTINUE" : "UI_DIALOGUE_CLOSE");
 		Sfx.PlayVoice(this, _lines[_lineIndex]);

@@ -9,11 +9,6 @@ public partial class Projectile : Area2D
 	[Export] public float Lifetime = 3f;
 	[Export] public float KnockbackForce = 200f;
 
-	// Layer 6 / "OneWayPlatforms" in Project Settings > Layer Names > 2D Physics — those bodies
-	// also carry the World bit (so the player still stands on them), so we can't tell them apart
-	// from a regular wall by mask alone; check the tag bit directly instead.
-	private const uint OneWayPlatformLayer = 1u << 5;
-
 	private Vector2 _direction = Vector2.Right;
 	private Stats _shooterStats;
 
@@ -50,7 +45,7 @@ public partial class Projectile : Area2D
 		}
 		else if (body is StaticBody2D staticBody)
 		{
-			if ((staticBody.CollisionLayer & OneWayPlatformLayer) != 0)
+			if ((staticBody.CollisionLayer & PhysicsLayers.OneWayPlatforms) != 0)
 				return;
 
 			ImpactEffect.SpawnAt(this, GlobalPosition);

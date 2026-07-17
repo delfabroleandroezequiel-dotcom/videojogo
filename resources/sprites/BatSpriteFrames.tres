@@ -1,6 +1,30 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://dp1qftguxa0kl"]
 
-[ext_resource type="Texture2D" uid="uid://dsu0r25ttkkcj" path="res://assets/external/gandalfhardcore/Bat/Bat.png" id="1_sheet"]
+[ext_resource type="Texture2D" uid="uid://87uj4onee6yx" path="res://assets/external/gandalfhardcore/GandalfHardcore Pixel Art Enemies/Bat sheet.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_attack0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_attack1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_attack2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_attack3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_attack4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(256, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_attack5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(320, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fly0"]
 atlas = ExtResource("1_sheet")
@@ -20,6 +44,29 @@ region = Rect2(192, 0, 64, 64)
 
 [resource]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_attack0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_attack1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_attack2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_attack3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_attack4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_attack5")
+}],
+"loop": 0,
+"name": &"attack",
+"speed": 14.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fly0")

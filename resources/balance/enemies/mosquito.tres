@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="EnemyProfile" format=3 uid="uid://d1e6jmyb6vguk"]
+
+[ext_resource type="Script" uid="uid://cut1jnir3fng6" path="res://scripts/world/EnemyProfile.cs" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/world/Coin.tscn" id="2_coin"]
+[ext_resource type="Script" uid="uid://ca3by7a2nprbd" path="res://scripts/world/LootEntry.cs" id="3_lootentry_script"]
+
+[sub_resource type="Resource" id="LootEntry_coin"]
+script = ExtResource("3_lootentry_script")
+DropScene = ExtResource("2_coin")
+DropChance = 0.3
+
+[resource]
+script = ExtResource("1_script")
+MaxHealth = 6
+AttackPower = 4
+MaxStamina = 15
+StaminaRegenPerSecond = 25
+Weakness = 2
+MoveSpeed = 0.0
+DetectionRange = 260.0
+Gravity = 0.0
+KnockbackDuration = 0.15
+ContactDamageMultiplier = 0.5
+LootTable = [SubResource("LootEntry_coin")]

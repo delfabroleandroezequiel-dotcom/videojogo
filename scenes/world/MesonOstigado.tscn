@@ -9,21 +9,21 @@
 [ext_resource type="Resource" uid="uid://beqplhalhp4r6" path="res://resources/camera/ClosedRoomCamera.tres" id="7_camera_profile"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
-size = Vector2(960.525, 28.8)
+size = Vector2(816.4462, 24.48)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn06r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sidewall"]
-size = Vector2(36, 540)
+size = Vector2(30.6, 459)
 
 [node name="MesonOstigado" type="Node2D" unique_id=1379463457]
 script = ExtResource("2_bootstrap")
 ScenePath = "res://scenes/world/MesonOstigado.tscn"
 CameraProfile = ExtResource("7_camera_profile")
-CameraLimitLeft = -467.1
-CameraLimitRight = 467.1
-CameraLimitTop = -233.1
-CameraLimitBottom = 233.1
+CameraLimitLeft = -397.035
+CameraLimitRight = 397.035
+CameraLimitTop = -198.135
+CameraLimitBottom = 198.135
 
 [node name="Backdrop" type="Polygon2D" parent="." unique_id=1414872837]
 z_index = -10
@@ -32,48 +32,51 @@ polygon = PackedVector2Array(-1100, -650, 1100, -650, 1100, 650, -1100, 650)
 
 [node name="TavernBackground" type="Sprite2D" parent="." unique_id=1610103464]
 z_index = -9
-scale = Vector2(0.5265, 0.5265)
+scale = Vector2(0.447525, 0.447525)
 texture = ExtResource("3_tavern")
 
 [node name="Floor" type="StaticBody2D" parent="." unique_id=113476934]
-position = Vector2(0, 150.3)
+position = Vector2(0, 127.755)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1074538544]
 shape = SubResource("RectangleShape2D_floor")
 
 [node name="TavernKeeper" parent="." unique_id=1394990544 instance=ExtResource("5_npc")]
-position = Vector2(320, 51)
+position = Vector2(272, 43.35)
 NpcName = "NPC_OSTIGADA_NAME"
 DialogueLines = PackedStringArray("NPC_OSTIGADA_L1", "NPC_OSTIGADA_L2")
 CustomSpriteFrames = ExtResource("6_goddess_frames")
+CustomSpriteYOffset = -5.4
 
 [node name="Player" parent="." unique_id=695195560 instance=ExtResource("1_player")]
-position = Vector2(-349.2, 108)
+position = Vector2(-261, 58)
 
 [node name="Floor2" type="StaticBody2D" parent="." unique_id=2122917517]
+position = Vector2(0, 255.51)
 collision_layer = 33
-position = Vector2(0, 300.6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor2" unique_id=460222962]
-position = Vector2(320, -204.6)
+position = Vector2(272, -173.91)
 shape = SubResource("RectangleShape2D_bn06r")
 one_way_collision = true
 
 [node name="ReturnTransition" parent="." unique_id=893934910 instance=ExtResource("4_transition")]
-position = Vector2(-421.2, 126)
+position = Vector2(-357.02, 107.1)
 TargetScenePath = "res://scenes/world/Nix.tscn"
-TargetSpawnPosition = Vector2(2010, 435)
+TargetSpawnPosition = Vector2(1717, 463)
 RequireInteract = true
 UseStoredReturnPosition = true
 
 [node name="LeftWall" type="StaticBody2D" parent="." unique_id=1000000001]
-position = Vector2(-498.6, 0)
+position = Vector2(-423.81, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=1000000002]
+position = Vector2(23.809998, -9)
 shape = SubResource("RectangleShape2D_sidewall")
 
 [node name="RightWall" type="StaticBody2D" parent="." unique_id=1000000003]
-position = Vector2(498.6, 0)
+position = Vector2(423.81, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=1000000004]
+position = Vector2(-16.809998, -2)
 shape = SubResource("RectangleShape2D_sidewall")

@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://b1yb525djbdeb"]
+
+[ext_resource type="Texture2D" uid="uid://cecvdhu65nncm" path="res://assets/sprites/deco/pinchos2.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spike0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 153, 408)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spike1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(153, 0, 153, 408)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spike2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(306, 0, 153, 408)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spike3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(459, 0, 153, 408)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spike0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spike1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spike2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spike3")
+}],
+"loop": 0,
+"name": &"extend",
+"speed": 4.0
+}]

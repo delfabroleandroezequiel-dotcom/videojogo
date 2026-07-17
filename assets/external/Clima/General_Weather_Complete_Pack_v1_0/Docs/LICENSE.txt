@@ -1,0 +1,21 @@
+LICENSE - General Weather Complete Pack v1.0
+
+You may:
+- Use these assets in personal and commercial video game projects.
+- Modify the assets for your own project.
+- Use the modified assets inside your own game or interactive project.
+- Publish and sell games that include these assets.
+
+You may not:
+- Resell, redistribute, repackage, sublicense, or give away these assets as a standalone asset pack.
+- Upload the original or modified assets to asset marketplaces as competing asset packs.
+- Claim authorship of the original asset pack.
+- Use these assets in NFT collections or blockchain-based asset resale.
+
+Credit:
+- Credit is appreciated but not required.
+- Suggested credit: General Weather Complete Pack / Darkvania Modular Assets.
+
+Audio note:
+The included sounds are part of this pack and may be used in your games under this license.
+They may not be redistributed as standalone sound effects.

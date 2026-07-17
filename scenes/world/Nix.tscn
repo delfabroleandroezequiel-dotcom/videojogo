@@ -27,10 +27,20 @@
 [ext_resource type="Texture2D" uid="uid://cs5col88ywcfd" path="res://resources/lighting/GroundShadowGradient.tres" id="23_groundshadow"]
 [ext_resource type="Environment" path="res://resources/rendering/NixPostProcess.tres" id="24_postprocess_env"]
 [ext_resource type="Material" path="res://resources/shaders/VignetteMaterial.tres" id="25_vignette_mat"]
+[ext_resource type="PackedScene" path="res://scenes/world/Crow.tscn" id="26b_crow"]
 [ext_resource type="Material" uid="uid://jm40glxfalh" path="res://resources/particles/DustMoteProcess.tres" id="26_dust_process"]
 [ext_resource type="Texture2D" uid="uid://cb8gyivleynt" path="res://resources/particles/SoftDotGradient.tres" id="27_softdot"]
 [ext_resource type="PackedScene" path="res://scenes/world/Coin.tscn" id="28_coin"]
 [ext_resource type="Texture2D" uid="uid://ig5xp8t2xnwh" path="res://assets/external/gandalfhardcore/platformer/GandalfHardcore FREE Platformer Assets/Floor Tiles2.png" id="31_qcrme"]
+[ext_resource type="SpriteFrames" uid="uid://ymyhgx4jxg7p" path="res://assets/external/gandalfhardcore/Male Pixel Art characters/MercenaryNpcSpriteFrames.tres" id="32_mercenary_frames"]
+[ext_resource type="SpriteFrames" uid="uid://du2r6xrh1o1l4" path="res://assets/external/gandalfhardcore/Male Pixel Art characters/BlacksmithNpcSpriteFrames.tres" id="33_blacksmith_frames"]
+[ext_resource type="SpriteFrames" uid="uid://c24ispco4qmpk" path="res://assets/external/gandalfhardcore/Male Pixel Art characters/CultistNpcSpriteFrames.tres" id="34_cultist_frames"]
+[ext_resource type="SpriteFrames" uid="uid://c112ksgpf2rul" path="res://assets/external/gandalfhardcore/Male Pixel Art characters/PeasantNpcSpriteFrames.tres" id="35_peasant_frames"]
+[ext_resource type="SpriteFrames" uid="uid://c8e6uq50cgn7" path="res://assets/external/gandalfhardcore/Male Pixel Art characters/BishopNpcSpriteFrames.tres" id="36_bishop_frames"]
+[ext_resource type="SpriteFrames" uid="uid://c0onq5iih4ha5" path="res://assets/external/gandalfhardcore/Male Pixel Art characters/GuardNpcSpriteFrames.tres" id="37_guard_frames"]
+[ext_resource type="SpriteFrames" uid="uid://b6a07viklhgm3" path="res://assets/external/gandalfhardcore/Male Pixel Art characters/DwarfNpcSpriteFrames.tres" id="38_dwarf_frames"]
+[ext_resource type="SpriteFrames" uid="uid://c5371nve212vg" path="res://assets/external/gandalfhardcore/Male Pixel Art characters/HunterNpcSpriteFrames.tres" id="40_hunter_frames"]
+[ext_resource type="SpriteFrames" uid="uid://cnmk0yd48e2x1" path="res://assets/external/gandalfhardcore/Male Pixel Art characters/KnightNpcSpriteFrames.tres" id="41_knight_frames"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn06r"]
 size = Vector2(67, 11.360123)
@@ -46,7 +56,10 @@ atlas = ExtResource("12_boat")
 region = Rect2(0, 0, 80, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_townfloor"]
-size = Vector2(6075, 32)
+size = Vector2(6075, 38)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yvfok"]
+size = Vector2(109, 4)
 
 [sub_resource type="TileSet" id="TileSet_bn06r"]
 
@@ -6688,6 +6701,9 @@ CameraLimitBottom = 650
 [node name="PostProcessEnvironment" type="WorldEnvironment" parent="." unique_id=1308995923]
 environment = ExtResource("24_postprocess_env")
 
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=-403227075]
+color = Color(0.85, 0.9, 1, 1)
+
 [node name="VignetteLayer" type="CanvasLayer" parent="." unique_id=734261453]
 layer = 5
 
@@ -6714,6 +6730,15 @@ collision_layer = 33
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Background/StaticBody2D2" unique_id=1870239158]
 position = Vector2(-20.675552, 425.68005)
+shape = SubResource("RectangleShape2D_bn06r")
+one_way_collision = true
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Background" unique_id=585122954]
+position = Vector2(1049.2339, 246.88539)
+collision_layer = 33
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/StaticBody2D3" unique_id=1672627489]
+position = Vector2(-17.485107, -4.9177094)
 shape = SubResource("RectangleShape2D_bn06r")
 one_way_collision = true
 
@@ -6800,7 +6825,6 @@ scale = Vector2(1.64, 0.39)
 texture = ExtResource("23_groundshadow")
 
 [node name="Sea" type="Polygon2D" parent="." unique_id=1240599023]
-visible = false
 z_index = -5
 position = Vector2(-1386, 529)
 color = Color(0.15, 0.35, 0.55, 0.85)
@@ -6839,7 +6863,7 @@ shape = SubResource("RectangleShape2D_wall")
 position = Vector2(1950, 400)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TownFloor" unique_id=115266768]
-position = Vector2(298.5, 88)
+position = Vector2(298.5, 85)
 shape = SubResource("RectangleShape2D_townfloor")
 
 [node name="Sprite2D" type="Sprite2D" parent="TownFloor" unique_id=388239274]
@@ -6853,14 +6877,19 @@ scale = Vector2(0.9930917, 1.068478)
 texture = ExtResource("7_vffn0")
 
 [node name="CompanionNpc" parent="." unique_id=1962161527 instance=ExtResource("22_companion")]
-visible = false
 position = Vector2(150, 445)
 Lines = PackedStringArray("COMPANION_AMBIENT_TEST_1", "COMPANION_AMBIENT_TEST_2", "COMPANION_AMBIENT_TEST_3")
 
-[node name="Player" parent="." unique_id=1962161526 instance=ExtResource("1_player")]
-position = Vector2(95, 445)
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=169936970]
+position = Vector2(5059.42, 244.78963)
 
-[node name="DustMotes" type="GPUParticles2D" parent="Player" unique_id=366406101]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1992312715]
+position = Vector2(-24.419922, 10.210373)
+shape = SubResource("RectangleShape2D_yvfok")
+one_way_collision = true
+
+[node name="DustMotes" type="GPUParticles2D" parent="." unique_id=366406101]
+position = Vector2(95, 445)
 amount = 18
 texture = ExtResource("27_softdot")
 lifetime = 7.0
@@ -6876,6 +6905,54 @@ DialogueLines = PackedStringArray("NPC_PESCADOR_L1", "NPC_PESCADOR_L2")
 position = Vector2(3124, 425)
 NpcName = "NPC_COMERCIANTE_NAME"
 DialogueLines = PackedStringArray("NPC_COMERCIANTE_L1", "NPC_COMERCIANTE_L2")
+
+[node name="Crow1" parent="." unique_id=-294966997 instance=ExtResource("26b_crow")]
+position = Vector2(1059, 222.00002)
+
+[node name="NpcMercenary" parent="." unique_id=-294966995 instance=ExtResource("6_npc")]
+position = Vector2(300, 430)
+CustomSpriteFrames = ExtResource("32_mercenary_frames")
+CustomSpriteYOffset = -5.4
+
+[node name="NpcBlacksmith" parent="." unique_id=-294966994 instance=ExtResource("6_npc")]
+position = Vector2(800, 430)
+CustomSpriteFrames = ExtResource("33_blacksmith_frames")
+CustomSpriteYOffset = -5.4
+
+[node name="NpcPeasant" parent="." unique_id=-294966993 instance=ExtResource("6_npc")]
+position = Vector2(1350, 430)
+CustomSpriteFrames = ExtResource("35_peasant_frames")
+CustomSpriteYOffset = -5.4
+
+[node name="NpcCultist" parent="." unique_id=-294966992 instance=ExtResource("6_npc")]
+position = Vector2(1950, 430)
+CustomSpriteFrames = ExtResource("34_cultist_frames")
+CustomSpriteYOffset = -5.4
+
+[node name="NpcBishop" parent="." unique_id=-294966991 instance=ExtResource("6_npc")]
+position = Vector2(2300, 430)
+CustomSpriteFrames = ExtResource("36_bishop_frames")
+CustomSpriteYOffset = -5.4
+
+[node name="NpcDwarf" parent="." unique_id=-294966990 instance=ExtResource("6_npc")]
+position = Vector2(3400, 430)
+CustomSpriteFrames = ExtResource("38_dwarf_frames")
+CustomSpriteYOffset = -5.4
+
+[node name="NpcHunter" parent="." unique_id=-294966989 instance=ExtResource("6_npc")]
+position = Vector2(3750, 430)
+CustomSpriteFrames = ExtResource("40_hunter_frames")
+CustomSpriteYOffset = -5.4
+
+[node name="NpcKnight" parent="." unique_id=-294966986 instance=ExtResource("6_npc")]
+position = Vector2(5037, 217)
+CustomSpriteFrames = ExtResource("41_knight_frames")
+CustomSpriteYOffset = -5.4
+
+[node name="NpcKnight2" parent="." unique_id=2040744673 instance=ExtResource("6_npc")]
+position = Vector2(4995.0864, 216.39127)
+CustomSpriteFrames = ExtResource("41_knight_frames")
+CustomSpriteYOffset = -5.4
 
 [node name="Cloud1" type="Sprite2D" parent="." unique_id=100839159]
 position = Vector2(0, 100)
@@ -6896,6 +6973,23 @@ texture = ExtResource("14_cloud1")
 position = Vector2(5030, 295)
 texture = ExtResource("14_n4hbi")
 
+[node name="Player" parent="." unique_id=1962161526 instance=ExtResource("1_player")]
+position = Vector2(95, 445)
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=185783812]
+position = Vector2(5224, 295)
+texture = ExtResource("18_24ren")
+
+[node name="NpcGuard2" parent="." unique_id=690187967 instance=ExtResource("6_npc")]
+position = Vector2(4849.35, 382.86188)
+CustomSpriteFrames = ExtResource("37_guard_frames")
+CustomSpriteYOffset = -5.4
+
+[node name="NpcGuard" parent="." unique_id=-294966988 instance=ExtResource("6_npc")]
+position = Vector2(5212.349, 386.73386)
+CustomSpriteFrames = ExtResource("37_guard_frames")
+CustomSpriteYOffset = -5.4
+
 [node name="Coin1" parent="." unique_id=1045589927 instance=ExtResource("28_coin")]
 position = Vector2(250, 420)
 
@@ -6908,10 +7002,6 @@ position = Vector2(1750, 420)
 [node name="Coin4" parent="." unique_id=1989302359 instance=ExtResource("28_coin")]
 position = Vector2(2850, 420)
 
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=185783812]
-position = Vector2(5224, 295)
-texture = ExtResource("18_24ren")
-
 [node name="FutureZoneEntrance" parent="." unique_id=1816556202 instance=ExtResource("17_transition")]
 position = Vector2(5043, 467)
 TargetScenePath = "res://scenes/world/BosqueLobos1.tscn"
@@ -6920,14 +7010,14 @@ TargetSpawnPosition = Vector2(150, 258)
 [node name="TavernEntranceTrigger" parent="." unique_id=705477486 instance=ExtResource("17_transition")]
 position = Vector2(1717, 463)
 TargetScenePath = "res://scenes/world/MesonOstigado.tscn"
-TargetSpawnPosition = Vector2(-410, 140)
+TargetSpawnPosition = Vector2(-357, 58)
 RequireInteract = true
 RememberOriginForReturn = true
 
 [node name="CasaEntranceTrigger" parent="." unique_id=2000000201 instance=ExtResource("17_transition")]
 position = Vector2(1143, 463)
 TargetScenePath = "res://scenes/world/Casa1.tscn"
-TargetSpawnPosition = Vector2(400, 129)
+TargetSpawnPosition = Vector2(306, 102)
 RequireInteract = true
 RememberOriginForReturn = true
 

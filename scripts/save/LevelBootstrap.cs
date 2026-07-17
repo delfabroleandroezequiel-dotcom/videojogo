@@ -21,6 +21,8 @@ public partial class LevelBootstrap : Node
 
 	public override void _Ready()
 	{
+		EnemyCombatCoordinator.Reset();
+
 		_player = GetNode<Player.Player>("Player");
 		ApplyCameraConfig();
 
@@ -57,6 +59,7 @@ public partial class LevelBootstrap : Node
 		data.UnlockedAbilities.AddRange(abilities.GetUnlocked());
 		data.DefeatedBosses.AddRange(SaveManager.Instance.GetDefeatedBosses());
 		data.LitSavePoints.AddRange(SaveManager.Instance.GetLitSavePoints());
+		data.PlayedCutscenes.AddRange(SaveManager.Instance.GetPlayedCutscenes());
 		data.ActiveQuests.AddRange(QuestManager.Instance.GetActiveQuestIds());
 		data.CompletedQuests.AddRange(QuestManager.Instance.GetCompletedQuestIds());
 		foreach (System.Collections.Generic.KeyValuePair<string, int> entry in QuestManager.Instance.SnapshotProgress())

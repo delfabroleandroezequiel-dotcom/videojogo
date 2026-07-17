@@ -15,6 +15,7 @@ public partial class Player : CharacterBody2D
 	[Export] public float AttackHitboxDelay = 0.12f;
 	[Export] public float AttackDuration = 0.22f;
 	[Export] public float AttackHitboxReach = 50.6f;
+	[Export] public float AttackHitboxYOffset = -12f;
 	[Export] public float AttackAnimDuration = 0.5f;
 	[Export] public float ComboResetWindow = 0.6f;
 	[Export] public int AttackStaminaCost = 10;
@@ -56,6 +57,13 @@ public partial class Player : CharacterBody2D
 	[Export] public float BaseCameraOffsetY = -108f;
 	public float ProfileCameraOffsetY { get; set; }
 	public float ProfileZoom { get; set; } = 1.5f;
+
+	// Read-only combat state for enemy AI to react to (see EnemyCombatCoordinator) — an enemy
+	// that can tell whether the player is blocking, mid-swing, or dashing can make an actual
+	// tactical choice instead of just swinging whenever it's in range.
+	public bool IsBlocking => _isBlocking;
+	public bool IsAttacking => _attacking;
+	public bool IsDashing => _isDashing;
 	[Export] public float BossZoomDistance = 500f;
 	[Export] public float BossZoomInMultiplier = 0.75f;
 	[Export] public float ZoomSmoothSpeed = 3f;
@@ -65,6 +73,7 @@ public partial class Player : CharacterBody2D
 	[Export] public float WeaponSwingEndAngle = 60f;
 	[Export] public float KnockbackDuration = 0.2f;
 	[Export] public float FallDeathY = 700f;
+	[Export] public float MaxAirborneTime = 15f;
 	[Export] public float SprintSpeedMultiplier = 1.6f;
 	[Export] public float WalkSwingAmplitudeDeg = 18f;
 	[Export] public float RunSwingAmplitudeDeg = 30f;
@@ -87,6 +96,8 @@ public partial class Player : CharacterBody2D
 	[Export] public float LedgeClimbDuration = 0.35f;
 	[Export] public float LedgeGrabLockoutDuration = 0.3f;
 	[Export] public float LedgeAutoClimbDelay = 0.15f;
+	[Export] public float DropThroughDuration = 0.3f;
+	[Export] public float DropThroughLedgeLockoutDuration = 0.5f;
 
 	private Hitbox _hitbox;
 	private Stats _stats;
@@ -113,6 +124,7 @@ public partial class Player : CharacterBody2D
 	private CollisionShape2D _crouchCollision;
 	private Camera2D _camera;
 	private AnimatedSprite2D _sprite;
+	private PointLight2D _debugFlashlight;
 	private const int ComboHitCount = 3;
 
 	private bool _facingRight = true;
@@ -152,6 +164,7 @@ public partial class Player : CharacterBody2D
 	private float _knockbackTimer;
 	private Vector2 _knockbackVelocity;
 	private bool _isDead;
+	private float _airborneTimer;
 	private Ladder _ladder;
 	private bool _isClimbing;
 	private float _ladderGrabLockout;
@@ -199,6 +212,12 @@ public partial class Player : CharacterBody2D
 		_standHalfHeight = ((RectangleShape2D)_standCollision.Shape).Size.Y / 2f;
 		_camera = GetNode<Camera2D>("Camera2D");
 		_sprite = GetNode<AnimatedSprite2D>("Visual/CharacterSprite");
+		_debugFlashlight = GetNode<PointLight2D>("DebugFlashlight");
+		if (!OS.HasFeature("debug"))
+		{
+			_debugFlashlight.QueueFree();
+			_debugFlashlight = null;
+		}
 		_normalSpriteFrames = _sprite.SpriteFrames;
 		_stats.Died += OnDied;
 		_stats.IncomingHitInterceptor = TryBlockIncomingHit;
@@ -262,11 +281,6 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
-	// Layer 5 / "ClimbableWalls" in Project Settings > Layer Names > 2D Physics — wall-climb
-	// should only trigger on surfaces explicitly tagged as climbable, not on every solid the
-	// player's regular collision_mask happens to touch (doors, props, generic level geometry).
-	private const uint ClimbableWallLayer = 1u << 4;
-
 	private bool IsTouchingClimbableWall(out float wallNormalX)
 	{
 		for (int i = 0; i < GetSlideCollisionCount(); i++)
@@ -274,7 +288,7 @@ public partial class Player : CharacterBody2D
 			KinematicCollision2D collision = GetSlideCollision(i);
 			if (collision.GetCollider() is not CollisionObject2D body)
 				continue;
-			if ((body.CollisionLayer & ClimbableWallLayer) == 0)
+			if ((body.CollisionLayer & PhysicsLayers.ClimbableWalls) == 0)
 				continue;
 
 			Vector2 normal = collision.GetNormal();
@@ -287,6 +301,49 @@ public partial class Player : CharacterBody2D
 
 		wallNormalX = 0f;
 		return false;
+	}
+
+	private bool TryDropThroughOneWayPlatform()
+	{
+		for (int i = 0; i < GetSlideCollisionCount(); i++)
+		{
+			KinematicCollision2D collision = GetSlideCollision(i);
+			if (collision.GetCollider() is not CollisionObject2D body)
+				continue;
+			if ((body.CollisionLayer & PhysicsLayers.OneWayPlatforms) == 0)
+				continue;
+
+			Vector2 normal = collision.GetNormal();
+			if (normal.Y > -0.5f)
+				continue; // not standing on top of it
+
+			if (body is not Node bodyNode)
+				continue;
+
+			foreach (Node child in bodyNode.GetChildren())
+			{
+				if (child is CollisionShape2D shape)
+					DisableShapeTemporarily(shape);
+			}
+
+			// The same platform is often tagged both OneWayPlatforms and ClimbableWalls (cave
+			// floors double as ledges), so without this the auto ledge-grab/wall-climb would just
+			// catch the player again the instant the shape re-enables, undoing the drop.
+			_ledgeGrabLockout = DropThroughLedgeLockoutDuration;
+			_wallJumpLockout = DropThroughLedgeLockoutDuration;
+
+			return true;
+		}
+
+		return false;
+	}
+
+	private async void DisableShapeTemporarily(CollisionShape2D shape)
+	{
+		shape.Disabled = true;
+		await ToSignal(GetTree().CreateTimer(DropThroughDuration), SceneTreeTimer.SignalName.Timeout);
+		if (IsInstanceValid(shape))
+			shape.Disabled = false;
 	}
 
 	// Ledge detection is two steps rather than a fixed two-raycast band: first find ANY wall in
@@ -308,7 +365,7 @@ public partial class Player : CharacterBody2D
 		Vector2 probeFrom = new(wallPoint.X + dir * 4f, GlobalPosition.Y - LedgeSurfaceProbeHeight);
 		Vector2 probeTo = new(probeFrom.X, GlobalPosition.Y + 8f);
 
-		var query = PhysicsRayQueryParameters2D.Create(probeFrom, probeTo, ClimbableWallLayer);
+		var query = PhysicsRayQueryParameters2D.Create(probeFrom, probeTo, PhysicsLayers.ClimbableWalls);
 		Godot.Collections.Dictionary result = GetWorld2D().DirectSpaceState.IntersectRay(query);
 		if (result.Count == 0)
 			return false;
@@ -338,8 +395,21 @@ public partial class Player : CharacterBody2D
 		if (_isDead)
 			return;
 
+		if (_debugFlashlight != null && Input.IsActionJustPressed("debug_flashlight"))
+			_debugFlashlight.Enabled = !_debugFlashlight.Enabled;
+
 		if (GlobalPosition.Y > FallDeathY)
 		{
+			_stats.Kill();
+			return;
+		}
+
+		bool isGroundedOrClimbing = IsOnFloor() || _isClimbing || _isWallClimbing || _isLedgeHanging || _isLedgeClimbing;
+		_airborneTimer = isGroundedOrClimbing ? 0f : _airborneTimer + (float)delta;
+		if (_airborneTimer > MaxAirborneTime)
+		{
+			// Safety net against out-of-bounds/collision bugs that let the player fall forever
+			// without ever crossing FallDeathY (e.g. a hole in the level's collision).
 			_stats.Kill();
 			return;
 		}
@@ -585,7 +655,10 @@ public partial class Player : CharacterBody2D
 		}
 
 		int maxJumps = _abilities.Has(PlayerAbilities.DoubleJump) ? 2 : 1;
-		if (Input.IsActionJustPressed("jump") && (IsOnFloor() || _jumpCount < maxJumps))
+		bool droppedThrough = Input.IsActionPressed("move_down") && Input.IsActionJustPressed("jump")
+			&& IsOnFloor() && TryDropThroughOneWayPlatform();
+
+		if (!droppedThrough && Input.IsActionJustPressed("jump") && (IsOnFloor() || _jumpCount < maxJumps))
 		{
 			velocity.Y = JumpVelocity;
 			_jumpCount++;
@@ -1112,7 +1185,7 @@ public partial class Player : CharacterBody2D
 			await ToSignal(GetTree().CreateTimer(AttackHitboxDelay), SceneTreeTimer.SignalName.Timeout);
 
 		_hitboxShape.Size = _hitboxBaseSize;
-		_hitbox.Position = new Vector2(_facingRight ? AttackHitboxReach : -AttackHitboxReach, 0);
+		_hitbox.Position = new Vector2(_facingRight ? AttackHitboxReach : -AttackHitboxReach, AttackHitboxYOffset);
 		_hitbox.Activate(_stats, ComboImpactFramesPath(_currentAttackAnimation), _currentElement);
 
 		_weaponTrail.Position = new Vector2(_weaponTrailBaseX, _weaponTrailBaseY);

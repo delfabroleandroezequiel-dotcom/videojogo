@@ -23,6 +23,14 @@ public partial class Enemy : CharacterBody2D
 	[Export] public LootEntry[] LootTable = System.Array.Empty<LootEntry>();
 	[Export] public float ContactDamageMultiplier = 0.3f;
 
+	// Any ground enemy with a LedgeCheck RayCast2D in its scene refuses to step off a platform
+	// edge while chasing instead of walking straight into a pit. Scenes without that node (or
+	// flying enemies) just skip the check — CanMoveInDirection defaults to "yes".
+	[Export] public float LedgeCheckAheadX = 14f;
+	[Export] public float LedgeCheckDownY = 28f;
+
+	private RayCast2D _ledgeCheck;
+
 	public Stats Stats { get; private set; }
 	protected Node2D Visual;
 	protected AnimatedSprite2D Sprite;
@@ -62,6 +70,7 @@ public partial class Enemy : CharacterBody2D
 		Visual = GetNode<Node2D>("Visual");
 		Sprite = Visual.GetNodeOrNull<AnimatedSprite2D>("CharacterSprite");
 		ContactArea = GetNode<Area2D>("ContactArea");
+		_ledgeCheck = GetNodeOrNull<RayCast2D>("LedgeCheck");
 		Stats.Died += OnDefeated;
 
 		StatBar healthBar = GetNode<StatBar>("HealthBar");
@@ -149,7 +158,7 @@ public partial class Enemy : CharacterBody2D
 		}
 	}
 
-	public void ApplyKnockback(Vector2 direction, float force)
+	public virtual void ApplyKnockback(Vector2 direction, float force)
 	{
 		_knockbackVelocity = direction * force;
 		_knockbackTimer = KnockbackDuration;
@@ -181,8 +190,9 @@ public partial class Enemy : CharacterBody2D
 				FacingRight = distanceX >= 0;
 				Visual.Scale = new Vector2(FacingRight ? 1 : -1, 1);
 
-				velocity.X = Mathf.Abs(distanceX) > StopDistance
-					? Mathf.Sign(distanceX) * MoveSpeed
+				float moveSign = Mathf.Sign(distanceX);
+				velocity.X = Mathf.Abs(distanceX) > StopDistance && CanMoveInDirection(moveSign)
+					? moveSign * MoveSpeed
 					: Mathf.MoveToward(velocity.X, 0, MoveSpeed);
 			}
 			else
@@ -196,6 +206,17 @@ public partial class Enemy : CharacterBody2D
 
 		UpdateAnimation(velocity);
 		ApplyContactDamage();
+	}
+
+	protected virtual bool CanMoveInDirection(float sign)
+	{
+		if (_ledgeCheck is null)
+			return true;
+
+		_ledgeCheck.Position = new Vector2(sign * LedgeCheckAheadX, 0f);
+		_ledgeCheck.TargetPosition = new Vector2(0f, LedgeCheckDownY);
+		_ledgeCheck.ForceRaycastUpdate();
+		return _ledgeCheck.IsColliding();
 	}
 
 	protected virtual void UpdateAnimation(Vector2 velocity)

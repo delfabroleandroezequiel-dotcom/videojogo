@@ -1,0 +1,48 @@
+ITCH.IO PAGE COPY
+
+Title:
+General Weather Complete Pack - 2D Weather VFX + Bonus SFX
+
+Short description:
+A complete 2D weather pack with animated rain, snow, fog, ash, wind, clouds, lightning and bonus weather sound effects.
+
+Price:
+$5.00
+
+Classification:
+Graphical Assets
+
+Description:
+General Weather Complete Pack is a ready-to-use 2D weather asset pack for game developers.
+
+It includes animated weather VFX as transparent PNG frame sequences and spritesheets, plus a bonus SFX pack with WAV weather loops and natural thunder one-shots.
+
+Designed for 2D platformers, metroidvania games, RPGs, side-scrollers and atmospheric indie games.
+
+Features:
+- Rain: light, medium and heavy
+- Snow: light, medium and heavy
+- Fog: low fog and deep fog
+- Ash drifting effect
+- Wind gust overlay
+- White cloud layers
+- Sharp white and cyan lightning bolts
+- Lightning flash overlays
+- Transparent PNG frames
+- Spritesheets included
+- GIF previews included
+- Bonus weather SFX included
+- WAV rain, snow, fog, wind, ash and cloud loops
+- Natural thunder one-shots
+- Commercial use license
+
+Beginner note:
+These are animated weather overlays.
+They are not tilemaps, characters or backgrounds by themselves.
+Place them as transparent animated layers over your game scene.
+
+Tags:
+2D, Pixel Art, Weather, VFX, SFX, Rain, Snow, Fog, Clouds, Lightning, Thunder, Storm, Game Assets, Sprites, Animation, Platformer, Metroidvania, Unity, Godot, GameMaker, LDtk
+
+AI Disclosure:
+Some visual and audio assets were created with procedural and AI-assisted workflows, then edited, validated and packaged manually.

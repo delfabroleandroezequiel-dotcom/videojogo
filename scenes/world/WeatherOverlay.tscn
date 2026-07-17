@@ -1,0 +1,29 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/WeatherOverlay.cs" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/RainMediumSpriteFrames.tres" id="2_rain"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/SnowMediumSpriteFrames.tres" id="3_snow"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/FogLowSpriteFrames.tres" id="4_fog"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/AshDriftingSpriteFrames.tres" id="5_ash"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/WindGustSpriteFrames.tres" id="6_wind"]
+[ext_resource type="Script" path="res://scripts/shared/LoopingAudioPlayer.cs" id="7_loop_script"]
+[ext_resource type="AudioStream" path="res://assets/external/Clima/General_Weather_Complete_Pack_v1_0/Audio/WAV/Loops/rain_medium_loop_10s.wav" id="8_rain_sfx"]
+[ext_resource type="AudioStream" path="res://assets/external/Clima/General_Weather_Complete_Pack_v1_0/Audio/WAV/Loops/snow_medium_loop_10s.wav" id="9_snow_sfx"]
+[ext_resource type="AudioStream" path="res://assets/external/Clima/General_Weather_Complete_Pack_v1_0/Audio/WAV/Loops/fog_low_loop_10s.wav" id="10_fog_sfx"]
+[ext_resource type="AudioStream" path="res://assets/external/Clima/General_Weather_Complete_Pack_v1_0/Audio/WAV/Loops/ash_drifting_loop_10s.wav" id="11_ash_sfx"]
+[ext_resource type="AudioStream" path="res://assets/external/Clima/General_Weather_Complete_Pack_v1_0/Audio/WAV/Loops/wind_gust_loop_10s.wav" id="12_wind_sfx"]
+
+[node name="WeatherOverlay" type="CanvasLayer"]
+layer = 4
+script = ExtResource("1_script")
+WeatherFrames = [ExtResource("2_rain"), ExtResource("3_snow"), ExtResource("4_fog"), ExtResource("5_ash"), ExtResource("6_wind")]
+WeatherSounds = [ExtResource("8_rain_sfx"), ExtResource("9_snow_sfx"), ExtResource("10_fog_sfx"), ExtResource("11_ash_sfx"), ExtResource("12_wind_sfx")]
+
+[node name="Weather" type="AnimatedSprite2D" parent="."]
+position = Vector2(576, 324)
+scale = Vector2(1.8, 1.8)
+visible = false
+
+[node name="WeatherAudio" type="AudioStreamPlayer" parent="."]
+volume_db = -8.0
+script = ExtResource("7_loop_script")

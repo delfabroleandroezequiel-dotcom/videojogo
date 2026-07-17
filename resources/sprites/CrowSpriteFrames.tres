@@ -1,0 +1,126 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://ci2m5861o4mly"]
+
+[ext_resource type="Texture2D" uid="uid://imimi85u6poy" path="res://assets/sprites/deco/Crow.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(48, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(96, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(144, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 144, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(48, 144, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(96, 144, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_peck0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_peck1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(48, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_peck2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(96, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_peck3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(144, 48, 48, 48)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly6")
+}],
+"loop": 1,
+"name": &"fly",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle3")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_peck0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_peck1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_peck2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_peck3")
+}],
+"loop": 1,
+"name": &"peck",
+"speed": 5.0
+}]

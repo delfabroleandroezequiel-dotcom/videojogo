@@ -1,4 +1,5 @@
 using Godot;
+using Metroidvania.Player;
 using Metroidvania.Shared;
 
 namespace Metroidvania.World;
@@ -39,14 +40,17 @@ public partial class RangedEnemy : Enemy
 
 		_cooldown -= delta;
 
-		Node2D player = GetTree().GetFirstNodeInGroup("player") as Node2D;
-		if (player is null)
+		Node2D playerNode = GetTree().GetFirstNodeInGroup("player") as Node2D;
+		if (playerNode is null)
 			return;
 
-		float distanceX = Mathf.Abs(player.GlobalPosition.X - GlobalPosition.X);
-		if (distanceX <= ShootRange && _cooldown <= 0 && !_isShooting)
+		if (playerNode is Metroidvania.Player.Player player && player.IsDashing)
+			return;
+
+		float distanceX = Mathf.Abs(playerNode.GlobalPosition.X - GlobalPosition.X);
+		if (distanceX <= ShootRange && _cooldown <= 0 && !_isShooting && EnemyCombatCoordinator.TryAcquireAttackSlot())
 		{
-			Shoot(player.GlobalPosition);
+			Shoot(playerNode.GlobalPosition);
 			_cooldown = ShootInterval;
 		}
 	}
@@ -63,19 +67,26 @@ public partial class RangedEnemy : Enemy
 	{
 		_isShooting = true;
 
-		await ToSignal(GetTree().CreateTimer(ShootReleaseDelay), SceneTreeTimer.SignalName.Timeout);
-		if (!IsInstanceValid(this) || IsQueuedForRemoval)
-			return;
+		try
+		{
+			await ToSignal(GetTree().CreateTimer(ShootReleaseDelay), SceneTreeTimer.SignalName.Timeout);
+			if (!IsInstanceValid(this) || IsQueuedForRemoval)
+				return;
 
-		Projectile projectile = ProjectileScene.Instantiate<Projectile>();
-		GetTree().CurrentScene.AddChild(projectile);
-		projectile.GlobalPosition = GlobalPosition;
-		projectile.Speed = ProjectileSpeed;
-		projectile.Launch(targetPosition - GlobalPosition, Stats);
-		Sfx.Play(this, Sfx.FalloGolpe);
+			Projectile projectile = ProjectileScene.Instantiate<Projectile>();
+			GetTree().CurrentScene.AddChild(projectile);
+			projectile.GlobalPosition = GlobalPosition;
+			projectile.Speed = ProjectileSpeed;
+			projectile.Launch(targetPosition - GlobalPosition, Stats);
+			Sfx.Play(this, Sfx.FalloGolpe);
 
-		await ToSignal(GetTree().CreateTimer(ShootAnimDuration - ShootReleaseDelay), SceneTreeTimer.SignalName.Timeout);
-		if (IsInstanceValid(this))
-			_isShooting = false;
+			await ToSignal(GetTree().CreateTimer(ShootAnimDuration - ShootReleaseDelay), SceneTreeTimer.SignalName.Timeout);
+			if (IsInstanceValid(this))
+				_isShooting = false;
+		}
+		finally
+		{
+			EnemyCombatCoordinator.ReleaseAttackSlot();
+		}
 	}
 }

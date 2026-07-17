@@ -20,6 +20,7 @@ public partial class Npc : CharacterBody2D
 	[Export] public PackedScene ExplosionScene;
 	[Export] public float KnockbackDuration = 0.2f;
 	[Export] public SpriteFrames CustomSpriteFrames;
+	[Export] public float CustomSpriteYOffset = 0f;
 
 	private Node2D _visual;
 	private AnimatedSprite2D _characterSprite;
@@ -55,6 +56,7 @@ public partial class Npc : CharacterBody2D
 		{
 			_characterSprite.SpriteFrames = CustomSpriteFrames;
 			_characterSprite.Play("idle");
+			_characterSprite.Position += new Vector2(0, CustomSpriteYOffset);
 		}
 
 		_interactPrompt = GetNode<Label>("InteractPrompt");

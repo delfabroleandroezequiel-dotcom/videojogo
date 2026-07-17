@@ -34,6 +34,7 @@ public partial class SaveManager : Node
 	private readonly HashSet<string> _unlockedAbilities = new();
 	private readonly HashSet<string> _collectedItems = new();
 	private readonly HashSet<string> _collectedPickups = new();
+	private readonly HashSet<string> _playedCutscenes = new();
 	private readonly List<string> _equippedRings = new();
 
 	[Signal] public delegate void GoldChangedEventHandler(int gold);
@@ -111,6 +112,12 @@ public partial class SaveManager : Node
 	public void MarkSavePointLit(string id) => _litSavePoints.Add(id);
 	public IReadOnlyCollection<string> GetLitSavePoints() => _litSavePoints;
 
+	// Permanent, unlike common-enemy defeats — once a cutscene plays it never plays again for
+	// this save, even after resting/reloading (same lifetime as LitSavePoints/DefeatedBosses).
+	public bool IsCutscenePlayed(string id) => _playedCutscenes.Contains(id);
+	public void MarkCutscenePlayed(string id) => _playedCutscenes.Add(id);
+	public IReadOnlyCollection<string> GetPlayedCutscenes() => _playedCutscenes;
+
 	public bool HasAbility(string id) => _unlockedAbilities.Contains(id);
 	public void UnlockAbility(string id) => _unlockedAbilities.Add(id);
 	public IReadOnlyCollection<string> GetUnlockedAbilities() => _unlockedAbilities;
@@ -159,6 +166,7 @@ public partial class SaveManager : Node
 		_collectedItems.Clear();
 		_equippedRings.Clear();
 		_collectedPickups.Clear();
+		_playedCutscenes.Clear();
 		_maxHealCharges = 1;
 		StoryStage = 0;
 		Gold = 0;
@@ -209,6 +217,10 @@ public partial class SaveManager : Node
 		_litSavePoints.Clear();
 		foreach (string savePointId in PendingLoad.LitSavePoints)
 			_litSavePoints.Add(savePointId);
+
+		_playedCutscenes.Clear();
+		foreach (string cutsceneId in PendingLoad.PlayedCutscenes)
+			_playedCutscenes.Add(cutsceneId);
 
 		_unlockedAbilities.Clear();
 		foreach (string abilityId in PendingLoad.UnlockedAbilities)

@@ -1,0 +1,63 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/MushroomEnemy.cs" id="1_script"]
+[ext_resource type="Script" path="res://scripts/shared/Stats.cs" id="2_stats"]
+[ext_resource type="PackedScene" path="res://scenes/ui/StatBar.tscn" id="3_statbar"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MushroomSpriteFrames.tres" id="4_frames"]
+[ext_resource type="PackedScene" uid="uid://dq3mb122eef3v" path="res://scenes/world/Explosion.tscn" id="5_explosion"]
+[ext_resource type="Resource" path="res://resources/balance/enemies/mushroom.tres" id="6_profile"]
+[ext_resource type="Script" path="res://scripts/player/Hitbox.cs" id="7_hitbox"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
+size = Vector2(30, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_burst"]
+radius = 52.0
+
+[node name="MushroomEnemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_script")
+Profile = ExtResource("6_profile")
+ExplosionScene = ExtResource("5_explosion")
+ExplosionScale = 0.6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="ContactArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="BurstHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("7_hitbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BurstHitbox"]
+shape = SubResource("CircleShape2D_burst")
+disabled = true
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual"]
+scale = Vector2(1.3, 1.3)
+offset = Vector2(0, -20.46)
+sprite_frames = ExtResource("4_frames")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("2_stats")
+
+[node name="HealthBar" parent="." instance=ExtResource("3_statbar")]
+position = Vector2(0, 26)
+
+[node name="StaminaBar" parent="." instance=ExtResource("3_statbar")]
+position = Vector2(0, 32)
+FillColor = Color(0.2, 0.6, 1, 1)

@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/SpikeTrap.tscn" id="1_spiketrap"]
+
+[node name="SpikeZigzag" type="Node2D"]
+
+[node name="FloorSpike1" parent="." instance=ExtResource("1_spiketrap")]
+position = Vector2(0, 0)
+StartOffset = 0.0
+
+[node name="CeilingSpike1" parent="." instance=ExtResource("1_spiketrap")]
+position = Vector2(80, -160)
+rotation = 3.14159265
+StartOffset = 0.4
+
+[node name="FloorSpike2" parent="." instance=ExtResource("1_spiketrap")]
+position = Vector2(160, 0)
+StartOffset = 0.8
+
+[node name="CeilingSpike2" parent="." instance=ExtResource("1_spiketrap")]
+position = Vector2(240, -160)
+rotation = 3.14159265
+StartOffset = 1.2

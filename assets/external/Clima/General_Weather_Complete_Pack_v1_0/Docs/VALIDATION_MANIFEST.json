@@ -1,0 +1,153 @@
+{
+  "product_name": "General Weather Complete Pack",
+  "version": "1.0",
+  "release_type": "sellable",
+  "price_target_usd": 5.0,
+  "classification": "Graphical Assets",
+  "bundle_contents": [
+    "2D Weather VFX",
+    "Bonus Weather SFX"
+  ],
+  "vfx": {
+    "transparent_png_frames": 276,
+    "spritesheets": 21,
+    "bolt_sprite_files": 17,
+    "gif_previews": 24,
+    "frame_size_px": [
+      640,
+      360
+    ],
+    "included_effects": [
+      "rain light/medium/heavy",
+      "snow light/medium/heavy",
+      "fog low/deep",
+      "ash drifting",
+      "wind gust",
+      "white cloud layers",
+      "sharp white/cyan lightning",
+      "sheet flash",
+      "isolated bolt sprites"
+    ]
+  },
+  "bonus_sfx": {
+    "loops": 10,
+    "one_shots": 5,
+    "preview_wavs": 2,
+    "format": "WAV PCM",
+    "sample_rate": 44100,
+    "channels": "mono",
+    "bit_depth": 16,
+    "included_audio": [
+      "rain loops",
+      "snow loops",
+      "fog loop",
+      "wind loop",
+      "ash loop",
+      "cloud ambience loop",
+      "natural thunder one-shots"
+    ]
+  },
+  "technical": {
+    "png_frames_rgba": true,
+    "real_alpha": true,
+    "wav_pcm_16bit": true,
+    "no_review_suffix_in_product_name": true,
+    "old_rejected_assets_excluded": true,
+    "ai_disclosure_recommended": true
+  },
+  "sample_png_validation": [
+    {
+      "file": "PNG/Frames/Rain/Medium/rain_medium_00.png",
+      "format": "PNG",
+      "signature_hex": "89504e470d0a1a0a",
+      "mode": "RGBA",
+      "size_px": [
+        640,
+        360
+      ],
+      "alpha_real": true
+    },
+    {
+      "file": "PNG/Frames/Snow/Medium/snow_medium_00.png",
+      "format": "PNG",
+      "signature_hex": "89504e470d0a1a0a",
+      "mode": "RGBA",
+      "size_px": [
+        640,
+        360
+      ],
+      "alpha_real": true
+    },
+    {
+      "file": "PNG/Frames/Clouds/White_Clouds_Front/white_clouds_front_00.png",
+      "format": "PNG",
+      "signature_hex": "89504e470d0a1a0a",
+      "mode": "RGBA",
+      "size_px": [
+        640,
+        360
+      ],
+      "alpha_real": true
+    },
+    {
+      "file": "PNG/Frames/Lightning/Lightning_Sharp_Cyan_A/lightning_sharp_cyan_a_00.png",
+      "format": "PNG",
+      "signature_hex": "89504e470d0a1a0a",
+      "mode": "RGBA",
+      "size_px": [
+        640,
+        360
+      ],
+      "alpha_real": true
+    },
+    {
+      "file": "PNG/Bolt_Sprites/sharp_lightning_bolt_sprites_256x256_4x4.png",
+      "format": "PNG",
+      "signature_hex": "89504e470d0a1a0a",
+      "mode": "RGBA",
+      "size_px": [
+        1024,
+        1024
+      ],
+      "alpha_real": true
+    }
+  ],
+  "sample_wav_validation": [
+    {
+      "file": "Audio/WAV/Loops/rain_medium_loop_10s.wav",
+      "channels": 1,
+      "sample_width_bytes": 2,
+      "sample_rate": 44100,
+      "frames": 441000,
+      "duration_seconds": 10.0,
+      "format": "WAV PCM"
+    },
+    {
+      "file": "Audio/WAV/Loops/wind_gust_loop_10s.wav",
+      "channels": 1,
+      "sample_width_bytes": 2,
+      "sample_rate": 44100,
+      "frames": 441000,
+      "duration_seconds": 10.0,
+      "format": "WAV PCM"
+    },
+    {
+      "file": "Audio/WAV/OneShots/thunder_nature_close_roll_a_7s.wav",
+      "channels": 1,
+      "sample_width_bytes": 2,
+      "sample_rate": 44100,
+      "frames": 317520,
+      "duration_seconds": 7.2,
+      "format": "WAV PCM"
+    },
+    {
+      "file": "Audio/WAV/OneShots/thunder_nature_distant_roll_c_10s.wav",
+      "channels": 1,
+      "sample_width_bytes": 2,
+      "sample_rate": 44100,
+      "frames": 463050,
+      "duration_seconds": 10.5,
+      "format": "WAV PCM"
+    }
+  ]
+}

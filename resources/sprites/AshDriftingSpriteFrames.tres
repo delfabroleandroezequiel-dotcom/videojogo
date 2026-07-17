@@ -1,0 +1,95 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://deo0t5tfqhvr5"]
+
+[ext_resource type="Texture2D" uid="uid://pfofybs5d8b" path="res://assets/external/Clima/General_Weather_Complete_Pack_v1_0/PNG/Spritesheets/Ash/ash_drifting_spritesheet_640x360_4x3.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ash0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ash1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(640, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ash2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1280, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ash3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1920, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ash4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 360, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ash5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(640, 360, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ash6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1280, 360, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ash7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1920, 360, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ash8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 720, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ash9"]
+atlas = ExtResource("1_sheet")
+region = Rect2(640, 720, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ash10"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1280, 720, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ash11"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1920, 720, 640, 360)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ash0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ash1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ash2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ash3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ash4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ash5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ash6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ash7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ash8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ash9")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ash10")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ash11")
+}],
+"loop": 1,
+"name": &"loop",
+"speed": 10.0
+}]

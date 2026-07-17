@@ -1,0 +1,37 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/SpikeTrap.cs" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/SpikeTrapSpriteFrames.tres" id="2_frames"]
+[ext_resource type="Script" path="res://scripts/world/Hazard.cs" id="3_hazard"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(98, 11.2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_spikes"]
+size = Vector2(77, 63)
+
+[node name="SpikeTrap" type="StaticBody2D"]
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5.6)
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Visual" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -6.3)
+scale = Vector2(0.7, 0.7)
+sprite_frames = ExtResource("2_frames")
+animation = &"extend"
+
+[node name="HazardArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("3_hazard")
+InstantKill = false
+Damage = 25
+KnockbackForce = 260.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardArea"]
+position = Vector2(0, -28)
+shape = SubResource("RectangleShape2D_spikes")
+disabled = true

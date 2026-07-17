@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pedritas.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fall0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(22, 0, 153, 408)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fall1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(161, 0, 153, 408)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fall2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(282, 0, 153, 408)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fall3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(417, 0, 153, 408)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fall0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fall1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fall2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fall3")
+}],
+"loop": false,
+"name": &"fall",
+"speed": 10.0
+}]

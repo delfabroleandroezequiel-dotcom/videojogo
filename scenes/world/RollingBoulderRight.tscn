@@ -1,0 +1,39 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/RollingBoulder.cs" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://assets/sprites/deco/RocaIndianaSpriteFrames.tres" id="2_frames"]
+[ext_resource type="Script" path="res://scripts/world/Hazard.cs" id="3_hazard"]
+[ext_resource type="PackedScene" path="res://scenes/world/Explosion.tscn" id="4_explosion"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_boulder"]
+radius = 54.0
+
+[node name="RollingBoulderRight" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("1_script")
+Direction = 1
+ExplosionScene = ExtResource("4_explosion")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 14)
+shape = SubResource("CircleShape2D_boulder")
+
+[node name="Visual" type="Node2D" parent="."]
+scale = Vector2(1.6, 1.6)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Visual"]
+position = Vector2(-1.8750005, -9.812499)
+scale = Vector2(1.2987012, 1.2393293)
+sprite_frames = ExtResource("2_frames")
+animation = &"roll"
+autoplay = "roll"
+
+[node name="HazardArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("3_hazard")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardArea"]
+position = Vector2(8, 14)
+shape = SubResource("CircleShape2D_boulder")

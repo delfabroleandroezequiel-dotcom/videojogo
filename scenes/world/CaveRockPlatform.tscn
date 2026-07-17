@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://w6dyfgw8nlkf"]
+
+[ext_resource type="Texture2D" uid="uid://da5skschf4p03" path="res://assets/sprites/deco/plataformaCueva1.png" id="1_platform_tex"]
+[ext_resource type="Script" uid="uid://dd0px4eo4udb5" path="res://scripts/world/PlatformLandingEffect.cs" id="2_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_top"]
+size = Vector2(74, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_detector"]
+size = Vector2(74, 6)
+
+[node name="CaveRockPlatform" type="Node2D" unique_id=1991384559]
+
+[node name="Body" type="StaticBody2D" parent="." unique_id=2063749041]
+collision_layer = 49
+
+[node name="Sprite2D" type="Sprite2D" parent="Body" unique_id=237131055]
+scale = Vector2(0.06048, 0.06048)
+modulate = Color(0.45, 0.45, 0.55, 1)
+texture = ExtResource("1_platform_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body" unique_id=1746984400]
+shape = SubResource("RectangleShape2D_top")
+one_way_collision = true
+
+[node name="LandingDetector" type="Area2D" parent="." unique_id=2142904418]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_script")
+VfxOffset = Vector2(0, 50)
+VfxScale = 0.48
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LandingDetector" unique_id=749590751]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_detector")

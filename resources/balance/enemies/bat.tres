@@ -1,20 +1,15 @@
-[gd_resource type="Resource" script_class="EnemyProfile" format=3]
+[gd_resource type="Resource" script_class="EnemyProfile" format=3 uid="uid://dkdt3s5f6vrta"]
 
-[ext_resource type="Script" path="res://scripts/world/EnemyProfile.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://cut1jnir3fng6" path="res://scripts/world/EnemyProfile.cs" id="1_script"]
 
 [resource]
 script = ExtResource("1_script")
 MaxHealth = 10
 AttackPower = 5
-Defense = 0
 MaxStamina = 20
-StaminaRegenPerSecond = 20
 Weakness = 3
-WeaknessDamageMultiplier = 1.5
 MoveSpeed = 0.0
-DetectionRange = 0.0
-StopDistance = 0.0
+DetectionRange = 260.0
 Gravity = 0.0
 KnockbackDuration = 0.2
-ContactDamageMultiplier = 0.15
-LootTable = []
+ContactDamageMultiplier = 1.0

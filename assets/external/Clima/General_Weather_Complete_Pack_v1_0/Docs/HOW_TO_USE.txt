@@ -1,0 +1,52 @@
+HOW TO USE
+
+VFX QUICK START
+1. Use PNG/Frames/ for frame-by-frame animation.
+2. Use PNG/Spritesheets/ if your engine prefers sprite sheets.
+3. Place weather as transparent overlay layers.
+4. Scale the effect to cover the camera.
+5. Loop rain, snow, fog, clouds, wind and ash.
+6. Trigger lightning as a one-shot event.
+
+RECOMMENDED FPS
+- Rain: 10 to 14 FPS
+- Snow: 8 to 12 FPS
+- Fog: 6 to 10 FPS
+- Clouds: 6 to 10 FPS
+- Ash: 8 to 12 FPS
+- Wind: 8 to 12 FPS
+- Lightning: one-shot trigger
+
+SUGGESTED LAYER ORDER
+Background
+Clouds
+Deep Fog
+Level / Tiles
+Player
+Rain / Snow / Ash / Wind
+Low Fog
+Lightning
+UI
+
+AUDIO QUICK START
+1. Use Audio/WAV/Loops for ambient weather loops.
+2. Use Audio/WAV/OneShots for thunder/ray events.
+3. Do not loop thunder one-shots constantly.
+4. Lower loop volume when multiple weather sounds are active.
+5. Pair lightning VFX with thunder one-shots for stronger impact.
+
+ENGINE NOTES
+Unity:
+- Import PNG frames.
+- Create animation clips.
+- Use sorting layers for foreground/background weather.
+- Import WAV files as audio clips.
+
+Godot:
+- Use AnimatedSprite2D or AnimationPlayer for VFX frames.
+- Use AudioStreamPlayer for WAV loops and one-shots.
+
+GameMaker:
+- Import frame sequences or spritesheets as sprites.
+- Use an object to draw weather over the camera view.
+- Play WAV loops as ambient sounds.
