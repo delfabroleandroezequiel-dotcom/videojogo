@@ -22,7 +22,7 @@ size = Vector2(32, 64)
 size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
-size = Vector2(63.8, 46.2)
+size = Vector2(66.99, 48.51)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ledgecheck"]
 size = Vector2(4, 32)

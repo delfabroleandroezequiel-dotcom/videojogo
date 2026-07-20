@@ -23,6 +23,10 @@ public partial class LevelBootstrap : Node
 	{
 		EnemyCombatCoordinator.Reset();
 
+		// Guards against a level reload/death happening mid-hit-stop, which would otherwise
+		// orphan that coroutine and leave the whole game permanently in slow motion.
+		Engine.TimeScale = 1.0;
+
 		_player = GetNode<Player.Player>("Player");
 		ApplyCameraConfig();
 

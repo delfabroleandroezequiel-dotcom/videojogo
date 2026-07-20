@@ -23,7 +23,6 @@
 [ext_resource type="AudioStream" uid="uid://ifsn6j0bgc3f" path="res://assets/audio/nix_theme.mp3" id="19_music"]
 [ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="20_camera_profile"]
 [ext_resource type="PackedScene" path="res://scenes/world/DialogueTrigger.tscn" id="21_dialogue_trigger"]
-[ext_resource type="PackedScene" path="res://scenes/world/CompanionNpc.tscn" id="22_companion"]
 [ext_resource type="Texture2D" uid="uid://cs5col88ywcfd" path="res://resources/lighting/GroundShadowGradient.tres" id="23_groundshadow"]
 [ext_resource type="Environment" path="res://resources/rendering/NixPostProcess.tres" id="24_postprocess_env"]
 [ext_resource type="Material" path="res://resources/shaders/VignetteMaterial.tres" id="25_vignette_mat"]
@@ -6875,10 +6874,6 @@ texture = ExtResource("6_4lgvp")
 position = Vector2(-1771, -89)
 scale = Vector2(0.9930917, 1.068478)
 texture = ExtResource("7_vffn0")
-
-[node name="CompanionNpc" parent="." unique_id=1962161527 instance=ExtResource("22_companion")]
-position = Vector2(150, 445)
-Lines = PackedStringArray("COMPANION_AMBIENT_TEST_1", "COMPANION_AMBIENT_TEST_2", "COMPANION_AMBIENT_TEST_3")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=169936970]
 position = Vector2(5059.42, 244.78963)

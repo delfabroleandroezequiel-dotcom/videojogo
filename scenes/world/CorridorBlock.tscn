@@ -1,0 +1,63 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/CorridorBlock.cs" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+resource_local_to_scene = true
+size = Vector2(768, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ceiling"]
+resource_local_to_scene = true
+size = Vector2(768, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_leftwall"]
+resource_local_to_scene = true
+size = Vector2(32, 768)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rightwall"]
+resource_local_to_scene = true
+size = Vector2(32, 768)
+
+[node name="CorridorBlock" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Fill" type="Polygon2D" parent="Floor"]
+color = Color(0.5, 0.5, 0.55, 0.6)
+polygon = PackedVector2Array(-384, -16, 384, -16, 384, 16, -384, 16)
+
+[node name="Ceiling" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ceiling"]
+shape = SubResource("RectangleShape2D_ceiling")
+
+[node name="Fill" type="Polygon2D" parent="Ceiling"]
+color = Color(0.5, 0.5, 0.55, 0.6)
+polygon = PackedVector2Array(-384, -16, 384, -16, 384, 16, -384, 16)
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("RectangleShape2D_leftwall")
+
+[node name="Fill" type="Polygon2D" parent="LeftWall"]
+color = Color(0.5, 0.5, 0.55, 0.6)
+polygon = PackedVector2Array(-16, -384, 16, -384, 16, 384, -16, 384)
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+shape = SubResource("RectangleShape2D_rightwall")
+
+[node name="Fill" type="Polygon2D" parent="RightWall"]
+color = Color(0.5, 0.5, 0.55, 0.6)
+polygon = PackedVector2Array(-16, -384, 16, -384, 16, 384, -16, 384)
+
+[node name="Entry" type="Marker2D" parent="."]
+
+[node name="Exit" type="Marker2D" parent="."]
+position = Vector2(768, 0)

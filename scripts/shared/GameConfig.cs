@@ -49,6 +49,17 @@ public partial class GameConfig : Node
 		new(1920, 1080),
 	};
 
+	// Default cross-axis size for CorridorBlock (corridor height when Lateral, width when
+	// Vertical) — a sane starting point, not a lock; CrossSize/CrossPreset override it per
+	// instance for narrow squeezes, wide boss arenas, etc.
+	public const float CorridorStandardCrossSize = 288f;
+
+	// Small/Medium/Large presets for CorridorBlock.Length, and Narrow/Standard/Wide presets for
+	// CorridorBlock.CrossSize — picked from a dropdown instead of guessing a pixel count each
+	// time; Custom still allows a free value on both.
+	public static readonly float[] CorridorLengthPresets = { 384f, 768f, 1152f };
+	public static readonly float[] CorridorCrossSizePresets = { 96f, 288f, 576f };
+
 	private const string ConfigPath = "user://settings.cfg";
 	private const string ConfigSection = "input";
 	private const string DisplaySection = "display";
@@ -148,10 +159,20 @@ public partial class GameConfig : Node
 		config.Save(ConfigPath);
 	}
 
+	// Only the keyboard binding is user-remappable here — erasing every event for the action
+	// would also wipe the gamepad button/axis bindings set up in project.godot's input map, so
+	// those get collected first and re-added after the reset.
 	private static void ApplyBinding(string action, Key keycode)
 	{
+		List<InputEvent> nonKeyEvents = new();
+		foreach (InputEvent inputEvent in InputMap.ActionGetEvents(action))
+			if (inputEvent is not InputEventKey)
+				nonKeyEvents.Add(inputEvent);
+
 		InputMap.ActionEraseEvents(action);
 		InputMap.ActionAddEvent(action, new InputEventKey { PhysicalKeycode = keycode });
+		foreach (InputEvent preserved in nonKeyEvents)
+			InputMap.ActionAddEvent(action, preserved);
 	}
 
 	private void LoadBindings()

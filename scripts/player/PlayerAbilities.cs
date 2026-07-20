@@ -16,6 +16,7 @@ public partial class PlayerAbilities : Node
 	public const string PoundAttack = "pound_attack";
 	public const string UpAttack = "up_attack";
 	public const string LedgeGrab = "ledge_grab";
+	public const string ComboFinisher = "combo_finisher";
 
 	[Export] public bool StartWithDoubleJump;
 	[Export] public bool StartWithDash;
@@ -27,6 +28,7 @@ public partial class PlayerAbilities : Node
 	[Export] public bool StartWithPoundAttack;
 	[Export] public bool StartWithUpAttack;
 	[Export] public bool StartWithLedgeGrab;
+	[Export] public bool StartWithComboFinisher;
 
 	private readonly HashSet<string> _unlocked = new();
 
@@ -54,6 +56,8 @@ public partial class PlayerAbilities : Node
 			Unlock(UpAttack);
 		if (StartWithLedgeGrab)
 			Unlock(LedgeGrab);
+		if (StartWithComboFinisher)
+			Unlock(ComboFinisher);
 
 		foreach (string abilityId in SaveManager.Instance.GetUnlockedAbilities())
 			Unlock(abilityId);

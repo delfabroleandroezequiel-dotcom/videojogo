@@ -675,8 +675,8 @@ TargetSpawnPosition = Vector2(4950, 440)
 
 [node name="CaveEntranceTrigger" parent="." unique_id=-1194967283 instance=ExtResource("4_transition")]
 position = Vector2(1500, 290)
-TargetScenePath = "res://scenes/world/CuevaBosqueLobo1.tscn"
-TargetSpawnPosition = Vector2(193, 52)
+TargetScenePath = "res://scenes/world/InteriorCuevaBosqueLobos1.tscn"
+TargetSpawnPosition = Vector2(908, -50.000004)
 RequireInteract = true
 RememberOriginForReturn = true
 

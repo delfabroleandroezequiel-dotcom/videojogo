@@ -57,9 +57,12 @@ public partial class Stats : Node
 		}
 	}
 
-	public void TakeDamage(int incomingAttack, bool isProjectile = false, DamageElement element = DamageElement.Normal)
+	// ignoreInvulnerability lets a deliberate multi-hit move (see Player.ThrustTripleHit) land
+	// its own consecutive pulses on the same target — normal invulnerability still gets
+	// (re-)armed by this call same as any hit, it's just not used to block THIS hit.
+	public void TakeDamage(int incomingAttack, bool isProjectile = false, DamageElement element = DamageElement.Normal, bool ignoreInvulnerability = false)
 	{
-		if (IsInvulnerable)
+		if (IsInvulnerable && !ignoreInvulnerability)
 			return;
 
 		if (IncomingHitInterceptor != null && IncomingHitInterceptor())

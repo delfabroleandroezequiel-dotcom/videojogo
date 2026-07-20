@@ -16,6 +16,19 @@ public partial class Player : CharacterBody2D
 	[Export] public float AttackDuration = 0.22f;
 	[Export] public float AttackHitboxReach = 50.6f;
 	[Export] public float AttackHitboxYOffset = -12f;
+
+	// The combo's third hit (the thrust) actually lands 3 separate hits, not one — the hitbox
+	// re-activates 3 times, each landing its own hit-stop freeze pulse, so it reads as a
+	// "thunk-thunk-thunk" flurry rather than a single stab. Each pulse briefly runs at normal
+	// speed BEFORE freezing: Area2D overlap detection happens during _physics_process, and
+	// dropping TimeScale immediately would starve that step of simulated delta, so the hit could
+	// silently fail to register before the freeze even ends. The freeze timers explicitly ignore
+	// Engine.TimeScale — otherwise a timer measuring the freeze's own duration would itself get
+	// slowed down by the freeze it's producing.
+	[Export] public float HitStopDetectWindow = 0.02f;
+	[Export] public float HitStopFreezeScale = 0.02f;
+	[Export] public float HitStopFreezeDuration = 0.07f;
+	[Export] public float HitStopGapDuration = 0.03f;
 	[Export] public float AttackAnimDuration = 0.5f;
 	[Export] public float ComboResetWindow = 0.6f;
 	[Export] public int AttackStaminaCost = 10;
@@ -32,7 +45,7 @@ public partial class Player : CharacterBody2D
 	[Export] public float RunThrustHitboxDelay = 0.05f;
 	[Export] public float RunThrustCooldown = 0.6f;
 	[Export] public int RunThrustStaminaCost = 15;
-	[Export] public Vector2 RunThrustHitboxSize = new(100f, 42f);
+	[Export] public Vector2 RunThrustHitboxSize = new(105f, 44.1f);
 	[Export] public float RunThrustSecondHitGap = 0.06f;
 	[Export] public float CrouchSpeedMultiplier = 0.5f;
 	[Export] public float ParryWindowDuration = 0.2f;
@@ -126,6 +139,10 @@ public partial class Player : CharacterBody2D
 	private AnimatedSprite2D _sprite;
 	private PointLight2D _debugFlashlight;
 	private const int ComboHitCount = 3;
+
+	// The third combo hit (the multi-pulse thrust finisher) is gated behind an ability — until
+	// unlocked, the combo just cycles attack1/attack2 and never reaches "attack3" at all.
+	private int EffectiveComboHitCount => _abilities.Has(PlayerAbilities.ComboFinisher) ? ComboHitCount : ComboHitCount - 1;
 
 	private bool _facingRight = true;
 	private bool _attacking;
@@ -489,8 +506,10 @@ public partial class Player : CharacterBody2D
 			// instead of vanishing partway down.
 			if (!_weaponTrail.IsPlaying())
 			{
+				string poundFallTrail = WeaponTrailAnimation(_currentAttackAnimation);
+				_weaponTrail.Scale = WeaponTrailScale(poundFallTrail);
 				_weaponTrail.Visible = true;
-				_weaponTrail.Play(WeaponTrailAnimation(_currentAttackAnimation));
+				_weaponTrail.Play(poundFallTrail);
 			}
 
 			if (IsOnFloor())
@@ -1003,9 +1022,11 @@ public partial class Player : CharacterBody2D
 		_hitbox.Position = new Vector2(_facingRight ? ChargedAttackReach : -ChargedAttackReach, 0);
 		_hitbox.Activate(_stats, element: _currentElement);
 
+		string chargedTrail = _isFireImbued ? "thrust_02_fire" : "thrust_02";
+		_weaponTrail.Scale = WeaponTrailScale(chargedTrail);
 		_weaponTrail.Position = new Vector2(_weaponTrailBaseX, _weaponTrailBaseY);
 		_weaponTrail.Visible = true;
-		_weaponTrail.Play(_isFireImbued ? "thrust_02_fire" : "thrust_02");
+		_weaponTrail.Play(chargedTrail);
 
 		await ToSignal(GetTree().CreateTimer(AttackDuration), SceneTreeTimer.SignalName.Timeout);
 		_hitbox.Deactivate();
@@ -1036,8 +1057,10 @@ public partial class Player : CharacterBody2D
 
 		_weaponTrail.Rotation = Mathf.Pi / 2f;
 		_weaponTrail.Position = new Vector2(0, PoundWeaponTrailYOffset);
+		string poundTrail = WeaponTrailAnimation(_currentAttackAnimation);
+		_weaponTrail.Scale = WeaponTrailScale(poundTrail);
 		_weaponTrail.Visible = true;
-		_weaponTrail.Play(WeaponTrailAnimation(_currentAttackAnimation));
+		_weaponTrail.Play(poundTrail);
 
 		_hitbox.HitDealt += OnPoundHit;
 	}
@@ -1091,8 +1114,10 @@ public partial class Player : CharacterBody2D
 		_hitbox.Activate(_stats, element: _currentElement);
 
 		_weaponTrail.Position = new Vector2(0, -UpAttackHitboxReach);
+		string upAttackTrail = WeaponTrailAnimation(_currentAttackAnimation);
+		_weaponTrail.Scale = WeaponTrailScale(upAttackTrail);
 		_weaponTrail.Visible = true;
-		_weaponTrail.Play(WeaponTrailAnimation(_currentAttackAnimation));
+		_weaponTrail.Play(upAttackTrail);
 
 		await ToSignal(GetTree().CreateTimer(AttackDuration), SceneTreeTimer.SignalName.Timeout);
 		_hitbox.Deactivate();
@@ -1131,9 +1156,11 @@ public partial class Player : CharacterBody2D
 		_hitboxShape.Size = RunThrustHitboxSize;
 		_hitbox.Position = new Vector2(_runThrustDirection * (RunThrustHitboxSize.X / 2f), 0);
 		_hitbox.Activate(_stats, element: _currentElement);
+		string runThrustTrail = _isFireImbued ? "thrust_05_fire" : "thrust_05";
+		_weaponTrail.Scale = WeaponTrailScale(runThrustTrail);
 		_weaponTrail.Position = new Vector2(_weaponTrailBaseX, _weaponTrailBaseY);
 		_weaponTrail.Visible = true;
-		_weaponTrail.Play(_isFireImbued ? "thrust_05_fire" : "thrust_05");
+		_weaponTrail.Play(runThrustTrail);
 
 		// Two separate hitbox pulses (with a brief gap in between) so an enemy still standing
 		// in the lunge's path when it re-activates takes a second tick of damage, instead of
@@ -1170,7 +1197,7 @@ public partial class Player : CharacterBody2D
 
 		_attacking = true;
 		_currentAttackAnimation = $"attack{_comboStep + 1}";
-		_comboStep = (_comboStep + 1) % ComboHitCount;
+		_comboStep = (_comboStep + 1) % EffectiveComboHitCount;
 		_comboResetTimer = 0f;
 
 		bool hitLanded = false;
@@ -1186,14 +1213,31 @@ public partial class Player : CharacterBody2D
 
 		_hitboxShape.Size = _hitboxBaseSize;
 		_hitbox.Position = new Vector2(_facingRight ? AttackHitboxReach : -AttackHitboxReach, AttackHitboxYOffset);
-		_hitbox.Activate(_stats, ComboImpactFramesPath(_currentAttackAnimation), _currentElement);
 
+		string comboTrail = WeaponTrailAnimation(_currentAttackAnimation);
+		_weaponTrail.Scale = WeaponTrailScale(comboTrail);
 		_weaponTrail.Position = new Vector2(_weaponTrailBaseX, _weaponTrailBaseY);
 		_weaponTrail.Visible = true;
-		_weaponTrail.Play(WeaponTrailAnimation(_currentAttackAnimation));
+		_weaponTrail.Play(comboTrail);
 
-		await ToSignal(GetTree().CreateTimer(AttackDuration), SceneTreeTimer.SignalName.Timeout);
-		_hitbox.Deactivate();
+		int comboPulseCount = _currentAttackAnimation switch
+		{
+			"attack2" => 2,
+			"attack3" => 3,
+			_ => 1,
+		};
+
+		if (comboPulseCount > 1)
+		{
+			await ComboMultiHit(comboPulseCount);
+		}
+		else
+		{
+			_hitbox.Activate(_stats, ComboImpactFramesPath(_currentAttackAnimation), _currentElement);
+			await ToSignal(GetTree().CreateTimer(AttackDuration), SceneTreeTimer.SignalName.Timeout);
+			_hitbox.Deactivate();
+		}
+
 		_hitbox.HitDealt -= OnHitLanded;
 		if (!hitLanded)
 			Sfx.Play(this, Sfx.FalloGolpe);
@@ -1237,6 +1281,7 @@ public partial class Player : CharacterBody2D
 		_hitbox.Position = new Vector2(_facingRight ? AttackHitboxReach : -AttackHitboxReach, 0);
 		_hitbox.Activate(_stats, element: _currentElement);
 
+		_weaponTrail.Scale = new Vector2(2.904f, 2.904f);
 		_weaponTrail.Position = new Vector2(_weaponTrailBaseX, _weaponTrailBaseY + trailYOffset);
 		_weaponTrail.Visible = true;
 		_weaponTrail.Play(trailAnimation);
@@ -1258,6 +1303,73 @@ public partial class Player : CharacterBody2D
 		"attack3" => _isFireImbued ? "thrust_01_fire" : "thrust_01",
 		_ => _isFireImbued ? "slash_horizontal_fire" : "slash_horizontal",
 	};
+
+	// The combo's three hits now use much bigger source canvases (Effect Pack #7) than every
+	// other move sharing this same AnimatedSprite2D node (crouch/dash-thrust/run-thrust still
+	// use the original tiny 48x48 smear frames), so the node's scale has to switch per-animation
+	// instead of staying at one fixed value.
+	private static Vector2 WeaponTrailScale(string trailAnimation) => trailAnimation switch
+	{
+		"slash_horizontal" or "slash_horizontal_fire" => new Vector2(0.84f, 0.84f),
+		"slash_horizontal_09" or "slash_horizontal_09_fire" => new Vector2(0.756f, 0.756f),
+		"thrust_01" or "thrust_01_fire" => new Vector2(1.1025f, 1.1025f),
+		"thrust_05" or "thrust_05_fire" => new Vector2(1.155f, 1.155f),
+		"thrust_02" or "thrust_02_fire" => new Vector2(0.82f, 0.82f),
+		_ => new Vector2(2.904f, 2.904f),
+	};
+
+	// Shared by attack2 (2 pulses) and attack3 (3 pulses, the finisher): the hitbox re-activates
+	// once per pulse, each landing its own hit-stop freeze, reading as a "thunk-thunk[-thunk]"
+	// flurry instead of a single hit.
+	private async Task ComboMultiHit(int pulseCount)
+	{
+		string impactFramesPath = ComboImpactFramesPath(_currentAttackAnimation);
+		try
+		{
+			for (int i = 0; i < pulseCount; i++)
+			{
+				bool pulseHitLanded = false;
+				void OnPulseHit() => pulseHitLanded = true;
+				_hitbox.HitDealt += OnPulseHit;
+
+				_hitbox.Activate(_stats, impactFramesPath, _currentElement, ignoreTargetInvulnerability: true);
+
+				// Give the physics step a moment at normal speed to actually detect the overlap
+				// and fire HitDealt before we freeze time out from under it.
+				await ToSignal(GetTree().CreateTimer(HitStopDetectWindow), SceneTreeTimer.SignalName.Timeout);
+				_hitbox.HitDealt -= OnPulseHit;
+				if (!IsInstanceValid(this))
+					return;
+
+				// Whiffing shouldn't slow anything down — only a pulse that actually connected
+				// earns its freeze.
+				if (pulseHitLanded)
+				{
+					Engine.TimeScale = HitStopFreezeScale;
+					await ToSignal(GetTree().CreateTimer(HitStopFreezeDuration, true, false, true), SceneTreeTimer.SignalName.Timeout);
+					Engine.TimeScale = 1.0;
+					if (!IsInstanceValid(this))
+						return;
+				}
+
+				_hitbox.Deactivate();
+
+				bool isLastPulse = i == pulseCount - 1;
+				if (!isLastPulse)
+				{
+					await ToSignal(GetTree().CreateTimer(HitStopGapDuration), SceneTreeTimer.SignalName.Timeout);
+					if (!IsInstanceValid(this))
+						return;
+				}
+			}
+		}
+		finally
+		{
+			Engine.TimeScale = 1.0;
+			if (IsInstanceValid(this))
+				_hitbox.Deactivate();
+		}
+	}
 
 	private static string ComboImpactFramesPath(string attackAnimation) => attackAnimation switch
 	{

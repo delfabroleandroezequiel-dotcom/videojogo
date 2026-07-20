@@ -14,6 +14,7 @@ public partial class Hitbox : Area2D
 	private Stats _attackerStats;
 	private string _impactFramesPath;
 	private DamageElement _element;
+	private bool _ignoreTargetInvulnerability;
 
 	public override void _Ready()
 	{
@@ -21,11 +22,16 @@ public partial class Hitbox : Area2D
 		BodyEntered += OnBodyEntered;
 	}
 
-	public void Activate(Stats attackerStats, string impactFramesPath = null, DamageElement element = DamageElement.Normal)
+	// ignoreTargetInvulnerability is for deliberate multi-hit moves (e.g. Player's triple-hit
+	// thrust) whose own consecutive pulses would otherwise be swallowed by the i-frames their
+	// first pulse just armed on the same target. Every other caller leaves this false and gets
+	// today's normal single-hit-per-i-frame-window behavior.
+	public void Activate(Stats attackerStats, string impactFramesPath = null, DamageElement element = DamageElement.Normal, bool ignoreTargetInvulnerability = false)
 	{
 		_attackerStats = attackerStats;
 		_impactFramesPath = impactFramesPath;
 		_element = element;
+		_ignoreTargetInvulnerability = ignoreTargetInvulnerability;
 		_shape.Disabled = false;
 	}
 
@@ -34,10 +40,12 @@ public partial class Hitbox : Area2D
 	private void OnBodyEntered(Node2D body)
 	{
 		Stats targetStats = body.GetNodeOrNull<Stats>("Stats");
-		if (targetStats is null || targetStats == _attackerStats || targetStats.IsInvulnerable)
+		if (targetStats is null || targetStats == _attackerStats)
+			return;
+		if (targetStats.IsInvulnerable && !_ignoreTargetInvulnerability)
 			return;
 
-		targetStats.TakeDamage(_attackerStats.AttackPower, element: _element);
+		targetStats.TakeDamage(_attackerStats.AttackPower, element: _element, ignoreInvulnerability: _ignoreTargetInvulnerability);
 		Vector2 impactPoint = (GlobalPosition + body.GlobalPosition) / 2f;
 		BloodEffect.SpawnAt(this, body.GlobalPosition);
 		string framesPath = _impactFramesPath ?? "res://resources/sprites/HitSparkSpriteFrames.tres";
