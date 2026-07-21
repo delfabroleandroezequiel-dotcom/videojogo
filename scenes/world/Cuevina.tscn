@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://g60ggmqe4ahj"]
+[gd_scene format=4 uid="uid://wu8pb4whmuvu"]
 
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="2_bootstrap"]

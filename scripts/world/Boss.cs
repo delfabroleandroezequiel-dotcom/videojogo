@@ -128,6 +128,7 @@ public partial class Boss : Enemy
 		Node2D player = GetTree().GetFirstNodeInGroup("player") as Node2D;
 		float distanceAbs = player is null ? float.MaxValue : Mathf.Abs(player.GlobalPosition.X - GlobalPosition.X);
 		bool playerInRange = player is not null && distanceAbs <= DetectionRange;
+		PlayerDetected = playerInRange;
 
 		if (AlwaysMoving)
 		{

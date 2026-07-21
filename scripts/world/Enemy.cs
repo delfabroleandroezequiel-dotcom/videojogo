@@ -39,6 +39,11 @@ public partial class Enemy : CharacterBody2D
 	protected bool IsQueuedForRemoval;
 	public string PersistenceId { get; private set; }
 
+	// True while the player is within DetectionRange — updated every physics frame alongside the
+	// existing chase check below, so it's free (no extra distance query) for anything that wants
+	// to react to "this enemy has spotted the player" (e.g. CaveCollapseOverlay).
+	public bool PlayerDetected { get; protected set; }
+
 	protected Area2D ContactArea;
 	private float _knockbackTimer;
 	private Vector2 _knockbackVelocity;
@@ -185,7 +190,8 @@ public partial class Enemy : CharacterBody2D
 		if (player is not null)
 		{
 			float distanceX = player.GlobalPosition.X - GlobalPosition.X;
-			if (Mathf.Abs(distanceX) <= DetectionRange)
+			PlayerDetected = Mathf.Abs(distanceX) <= DetectionRange;
+			if (PlayerDetected)
 			{
 				FacingRight = distanceX >= 0;
 				Visual.Scale = new Vector2(FacingRight ? 1 : -1, 1);

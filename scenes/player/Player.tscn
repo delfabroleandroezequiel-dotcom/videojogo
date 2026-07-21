@@ -171,6 +171,7 @@ StartWithChargedAttack = true
 StartWithPoundAttack = true
 StartWithUpAttack = true
 StartWithLedgeGrab = true
+StartWithRopeSwing = true
 
 [node name="Inventory" type="Node" parent="." unique_id=1900453380]
 script = ExtResource("7_inventory")

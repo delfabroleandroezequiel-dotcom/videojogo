@@ -136,6 +136,10 @@ public partial class Player : CharacterBody2D
 	private CollisionShape2D _standCollision;
 	private CollisionShape2D _crouchCollision;
 	private Camera2D _camera;
+	private Vector2 _lookOffset;
+	private float _shakeTimer;
+	private float _shakeDuration;
+	private float _shakeStrength;
 	private AnimatedSprite2D _sprite;
 	private PointLight2D _debugFlashlight;
 	private const int ComboHitCount = 3;
@@ -185,6 +189,14 @@ public partial class Player : CharacterBody2D
 	private Ladder _ladder;
 	private bool _isClimbing;
 	private float _ladderGrabLockout;
+	private Rope _ropeInZone;
+	private Rope _rope;
+	private bool _isSwinging;
+	// The rope just jumped off of — refusing to re-grab specifically this one (rather than just
+	// waiting out a timer) means it doesn't matter how slow the release velocity happens to be at
+	// that point in the swing; you're only blocked from THIS rope, and only until you've actually
+	// left its grab zone once, so aiming for a neighboring rope is never held up by it.
+	private Rope _lastReleasedRope;
 	private bool _isWallClimbing;
 	private float _wallJumpLockout;
 	private ShapeCast2D _ledgeWallCheck;
@@ -407,6 +419,19 @@ public partial class Player : CharacterBody2D
 		_isClimbing = false;
 	}
 
+	public void EnterRope(Rope rope)
+	{
+		_ropeInZone = rope;
+	}
+
+	public void ExitRope(Rope rope)
+	{
+		if (_ropeInZone == rope)
+			_ropeInZone = null;
+		if (_lastReleasedRope == rope)
+			_lastReleasedRope = null;
+	}
+
 	public override void _PhysicsProcess(double delta)
 	{
 		if (_isDead)
@@ -421,7 +446,7 @@ public partial class Player : CharacterBody2D
 			return;
 		}
 
-		bool isGroundedOrClimbing = IsOnFloor() || _isClimbing || _isWallClimbing || _isLedgeHanging || _isLedgeClimbing;
+		bool isGroundedOrClimbing = IsOnFloor() || _isClimbing || _isWallClimbing || _isLedgeHanging || _isLedgeClimbing || _isSwinging;
 		_airborneTimer = isGroundedOrClimbing ? 0f : _airborneTimer + (float)delta;
 		if (_airborneTimer > MaxAirborneTime)
 		{
@@ -558,6 +583,46 @@ public partial class Player : CharacterBody2D
 			Velocity = velocity;
 			MoveAndSlide();
 			UpdateAnimation(delta, false, velocity.X, _isClimbing);
+			return;
+		}
+
+		if (!_isSwinging && _ropeInZone != null && _ropeInZone != _lastReleasedRope
+			&& _abilities.Has(PlayerAbilities.RopeSwing) && !IsOnFloor())
+		{
+			_rope = _ropeInZone;
+			_isSwinging = true;
+		}
+
+		if (_isSwinging)
+		{
+			// The rope swings on its own fixed schedule whether or not anyone's attached —
+			// grabbing on doesn't influence its motion at all, Player just rides wherever the
+			// rope's tip currently is each frame.
+			GlobalPosition = _rope.EndPosition;
+			Velocity = Vector2.Zero;
+
+			_visual.Scale = new Vector2(_facingRight ? 1 : -1, 1f);
+			_visual.Position = Vector2.Zero;
+
+			// No dedicated swing art yet — the wall-hang pose reads fine for "hanging from
+			// something", same stopgap Wall Climb uses until its own animation exists.
+			if (_sprite.Animation != "wall_hang")
+				_sprite.Play("wall_hang");
+
+			if (Input.IsActionJustPressed("jump"))
+			{
+				// Keeps the swing's horizontal fling but replaces the vertical component with a
+				// normal jump impulse instead of whatever the tangential velocity happened to be —
+				// otherwise letting go right near the bottom/top of the swing (where vertical
+				// speed is near zero) barely launches at all and just reads as "dropped", not
+				// "jumped".
+				Velocity = new Vector2(_rope.EndVelocity.X, JumpVelocity);
+				_isSwinging = false;
+				_lastReleasedRope = _rope;
+				_rope = null;
+				_jumpCount = 1;
+			}
+
 			return;
 		}
 
@@ -924,12 +989,37 @@ public partial class Player : CharacterBody2D
 		float targetY = BaseCameraOffsetY + ProfileCameraOffsetY + (lookingUp ? LookUpOffset : _crouching ? LookDownOffset : 0f);
 
 		Vector2 targetOffset = new Vector2(0, targetY);
-		_camera.Offset = _camera.Offset.Lerp(targetOffset, (float)delta * LookSmoothSpeed);
+		// Tracked separately from _camera.Offset so Shake() can add a jitter on top of it each
+		// frame without that jitter itself getting lerped-toward next frame (which would just
+		// smooth the shake away to nothing).
+		_lookOffset = _lookOffset.Lerp(targetOffset, (float)delta * LookSmoothSpeed);
+		_camera.Offset = _lookOffset + GetShakeOffset(delta);
 
 		float targetHeadAngle = lookingUp ? HeadLookUpAngle : 0f;
 		_head.RotationDegrees = Mathf.Lerp(_head.RotationDegrees, targetHeadAngle, (float)delta * LookSmoothSpeed);
 
 		UpdateBossZoom(delta);
+	}
+
+	// strength is in pixels; the shake decays linearly to 0 over duration.
+	public void ShakeCamera(float strength, float duration)
+	{
+		_shakeStrength = strength;
+		_shakeDuration = Mathf.Max(0.0001f, duration);
+		_shakeTimer = duration;
+	}
+
+	private Vector2 GetShakeOffset(double delta)
+	{
+		if (_shakeTimer <= 0f)
+			return Vector2.Zero;
+
+		_shakeTimer -= (float)delta;
+		float t = Mathf.Clamp(_shakeTimer / _shakeDuration, 0f, 1f);
+		float strength = _shakeStrength * t;
+		return new Vector2(
+			(float)GD.RandRange(-1.0, 1.0) * strength,
+			(float)GD.RandRange(-1.0, 1.0) * strength);
 	}
 
 	private void UpdateBossZoom(double delta)

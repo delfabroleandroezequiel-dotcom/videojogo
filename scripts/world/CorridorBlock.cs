@@ -37,16 +37,13 @@ public partial class CorridorBlock : Node2D
 	public CorridorOrientation Orientation
 	{
 		get => _orientation;
-		set
-		{
-			_orientation = value;
-			bool lateral = _orientation == CorridorOrientation.Lateral;
-			_hasFloor = lateral;
-			_hasCeiling = lateral;
-			_hasLeftWall = !lateral;
-			_hasRightWall = !lateral;
-			Rebuild();
-		}
+		// Deliberately does NOT default the 4 Has* flags for the new orientation (it used to) —
+		// that side effect fought Godot's scene-diff serialization: a Vertical piece with
+		// HasLeftWall explicitly set to false (off) has the same value as Lateral's own default,
+		// so the override looked like "no change" and silently failed to save, and the forced
+		// default from this setter won back on every reload. Has* are independent per instance;
+		// set all 4 explicitly when picking a new Orientation.
+		set { _orientation = value; Rebuild(); }
 	}
 
 	private CorridorPreset _preset = CorridorPreset.Medium;
@@ -158,6 +155,94 @@ public partial class CorridorBlock : Node2D
 
 	[Export] public Color FillColor = new(0.5f, 0.5f, 0.55f, 0.6f);
 
+	// Ceiling gets its own color instead of sharing FillColor with Floor/LeftWall/RightWall —
+	// the "sandwich"/map-edge backing behind a ceiling is painted a specific near-black
+	// (not the same flat black as everything else) and the other 3 sides had no need to diverge
+	// from FillColor yet. Defaults to the same value as FillColor so existing pieces don't change
+	// until this is explicitly set.
+	[Export] public Color CeilingFillColor = new(0.5f, 0.5f, 0.55f, 0.6f);
+
+	// Extra depth added to one side's Fill polygon only, growing outward past WallThickness —
+	// the collision box for that side is untouched. For solid-black backing behind a "sandwich"
+	// gap between two stacked CorridorBlock pieces, or past the outer edge of the whole map,
+	// where WallThickness itself would need to stay small everywhere else on the same piece.
+	private float _floorFillExtend;
+
+	[Export]
+	public float FloorFillExtend
+	{
+		get => _floorFillExtend;
+		set { _floorFillExtend = value; Rebuild(); }
+	}
+
+	private float _ceilingFillExtend;
+
+	[Export]
+	public float CeilingFillExtend
+	{
+		get => _ceilingFillExtend;
+		set { _ceilingFillExtend = value; Rebuild(); }
+	}
+
+	private float _leftWallFillExtend;
+
+	[Export]
+	public float LeftWallFillExtend
+	{
+		get => _leftWallFillExtend;
+		set { _leftWallFillExtend = value; Rebuild(); }
+	}
+
+	private float _rightWallFillExtend;
+
+	[Export]
+	public float RightWallFillExtend
+	{
+		get => _rightWallFillExtend;
+		set { _rightWallFillExtend = value; Rebuild(); }
+	}
+
+	// Turn off once a side's tiles are already painted — the Fill polygon is only a greybox
+	// stand-in, and left on it shows through as a translucent wash over the real art. One toggle
+	// per side (not a single shared one) because a piece is often only tuned/tiled on one face —
+	// e.g. a ceiling backing a "sandwich" gap — while the other 3 sides have nothing to show and
+	// need to stay hidden independently. Collision is never affected by any of these.
+	private bool _floorShowFill = true;
+
+	[Export]
+	public bool FloorShowFill
+	{
+		get => _floorShowFill;
+		set { _floorShowFill = value; Rebuild(); }
+	}
+
+	private bool _ceilingShowFill = true;
+
+	[Export]
+	public bool CeilingShowFill
+	{
+		get => _ceilingShowFill;
+		set { _ceilingShowFill = value; Rebuild(); }
+	}
+
+	private bool _leftWallShowFill = true;
+
+	[Export]
+	public bool LeftWallShowFill
+	{
+		get => _leftWallShowFill;
+		set { _leftWallShowFill = value; Rebuild(); }
+	}
+
+	private bool _rightWallShowFill = true;
+
+	[Export]
+	public bool RightWallShowFill
+	{
+		get => _rightWallShowFill;
+		set { _rightWallShowFill = value; Rebuild(); }
+	}
+
 	public override void _Ready() => Rebuild();
 
 	private void Rebuild()
@@ -171,37 +256,45 @@ public partial class CorridorBlock : Node2D
 		{
 			ApplyPart(GetNodeOrNull<StaticBody2D>("Floor"), _hasFloor,
 				new Vector2(_length, _wallThickness),
-				new Vector2(_length / 2f, _wallThickness / 2f));
+				new Vector2(_length / 2f, _wallThickness / 2f),
+				Vector2.Down, _floorFillExtend, FillColor, _floorShowFill);
 
 			ApplyPart(GetNodeOrNull<StaticBody2D>("Ceiling"), _hasCeiling,
 				new Vector2(_length, _wallThickness),
-				new Vector2(_length / 2f, -_crossSize - _wallThickness / 2f));
+				new Vector2(_length / 2f, -_crossSize - _wallThickness / 2f),
+				Vector2.Up, _ceilingFillExtend, CeilingFillColor, _ceilingShowFill);
 
 			ApplyPart(GetNodeOrNull<StaticBody2D>("LeftWall"), _hasLeftWall,
 				new Vector2(_wallThickness, _crossSize),
-				new Vector2(-_wallThickness / 2f, -_crossSize / 2f));
+				new Vector2(-_wallThickness / 2f, -_crossSize / 2f),
+				Vector2.Left, _leftWallFillExtend, FillColor, _leftWallShowFill);
 
 			ApplyPart(GetNodeOrNull<StaticBody2D>("RightWall"), _hasRightWall,
 				new Vector2(_wallThickness, _crossSize),
-				new Vector2(_length + _wallThickness / 2f, -_crossSize / 2f));
+				new Vector2(_length + _wallThickness / 2f, -_crossSize / 2f),
+				Vector2.Right, _rightWallFillExtend, FillColor, _rightWallShowFill);
 		}
 		else
 		{
 			ApplyPart(GetNodeOrNull<StaticBody2D>("LeftWall"), _hasLeftWall,
 				new Vector2(_wallThickness, _length),
-				new Vector2(-_wallThickness / 2f, _length / 2f));
+				new Vector2(-_wallThickness / 2f, _length / 2f),
+				Vector2.Left, _leftWallFillExtend, FillColor, _leftWallShowFill);
 
 			ApplyPart(GetNodeOrNull<StaticBody2D>("RightWall"), _hasRightWall,
 				new Vector2(_wallThickness, _length),
-				new Vector2(_crossSize + _wallThickness / 2f, _length / 2f));
+				new Vector2(_crossSize + _wallThickness / 2f, _length / 2f),
+				Vector2.Right, _rightWallFillExtend, FillColor, _rightWallShowFill);
 
 			ApplyPart(GetNodeOrNull<StaticBody2D>("Floor"), _hasFloor,
 				new Vector2(_crossSize, _wallThickness),
-				new Vector2(_crossSize / 2f, _length + _wallThickness / 2f));
+				new Vector2(_crossSize / 2f, _length + _wallThickness / 2f),
+				Vector2.Down, _floorFillExtend, FillColor, _floorShowFill);
 
 			ApplyPart(GetNodeOrNull<StaticBody2D>("Ceiling"), _hasCeiling,
 				new Vector2(_crossSize, _wallThickness),
-				new Vector2(_crossSize / 2f, -_wallThickness / 2f));
+				new Vector2(_crossSize / 2f, -_wallThickness / 2f),
+				Vector2.Up, _ceilingFillExtend, CeilingFillColor, _ceilingShowFill);
 		}
 
 		// Exit sits at the far end (floor level for Lateral, bottom opening for Vertical) so the
@@ -210,7 +303,7 @@ public partial class CorridorBlock : Node2D
 			exit.Position = lateral ? new Vector2(_length, 0f) : new Vector2(0f, _length);
 	}
 
-	private void ApplyPart(StaticBody2D body, bool active, Vector2 size, Vector2 center)
+	private void ApplyPart(StaticBody2D body, bool active, Vector2 size, Vector2 center, Vector2 outwardDir, float fillExtend, Color color, bool showFill)
 	{
 		if (body is null)
 			return;
@@ -230,14 +323,19 @@ public partial class CorridorBlock : Node2D
 
 		if (body.GetNodeOrNull<Polygon2D>("Fill") is Polygon2D fill)
 		{
-			fill.Color = FillColor;
-			Vector2 half = size / 2f;
+			fill.Visible = showFill;
+			fill.Color = color;
+			// fillExtend grows the polygon past WallThickness in outwardDir only, relative to
+			// body.Position (= center) — the collision shape above never sees this.
+			Vector2 fillSize = size + outwardDir.Abs() * fillExtend;
+			Vector2 fillCenterOffset = outwardDir * (fillExtend / 2f);
+			Vector2 half = fillSize / 2f;
 			fill.Polygon = new[]
 			{
-				new Vector2(-half.X, -half.Y),
-				new Vector2(half.X, -half.Y),
-				new Vector2(half.X, half.Y),
-				new Vector2(-half.X, half.Y),
+				fillCenterOffset + new Vector2(-half.X, -half.Y),
+				fillCenterOffset + new Vector2(half.X, -half.Y),
+				fillCenterOffset + new Vector2(half.X, half.Y),
+				fillCenterOffset + new Vector2(-half.X, half.Y),
 			};
 		}
 	}
