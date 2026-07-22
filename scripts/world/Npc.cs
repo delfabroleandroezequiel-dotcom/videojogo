@@ -13,6 +13,13 @@ public partial class Npc : CharacterBody2D
 	[Export] public string[] InProgressDialogueLines = { "NPC_DEFAULT_IN_PROGRESS" };
 	[Export] public string[] CompletedDialogueLines = { "NPC_DEFAULT_COMPLETED" };
 	[Export] public NpcDialogueStage[] StageDialogues = { };
+
+	// Only meaningful on an ambient NPC (Quest left empty) — takes priority over StageDialogues
+	// when the world reputation tier matches and the array isn't empty. Leave either empty to
+	// just fall back to the normal story-stage/default line at that tier.
+	[Export] public string[] LoveDialogueLines = { };
+	[Export] public string[] HateDialogueLines = { };
+
 	[Export] public Quest Quest;
 	[Export] public bool GrantsOwnObjective = true;
 	[Export] public float Gravity = 900f;
@@ -181,6 +188,12 @@ public partial class Npc : CharacterBody2D
 
 	private string[] GetCurrentDialogueLines()
 	{
+		ReputationTier tier = SaveManager.Instance.GetReputationTier();
+		if (tier == ReputationTier.Love && LoveDialogueLines.Length > 0)
+			return LoveDialogueLines;
+		if (tier == ReputationTier.Hate && HateDialogueLines.Length > 0)
+			return HateDialogueLines;
+
 		if (StageDialogues is null || StageDialogues.Length == 0)
 			return DialogueLines;
 
@@ -207,6 +220,11 @@ public partial class Npc : CharacterBody2D
 		_isDead = true;
 		_interactPrompt.Visible = false;
 		SaveManager.Instance.MarkCommonEnemyDefeated(_persistenceId);
+
+		// Reputation only reacts to ambient NPCs — killing a quest giver has its own
+		// consequences (the quest itself breaks) without also souring the whole world.
+		if (Quest is null)
+			SaveManager.Instance.AddReputation(-GameConfig.ReputationPerNpcKilled);
 
 		if (ExplosionScene is not null)
 		{

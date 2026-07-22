@@ -1347,15 +1347,24 @@ public partial class Player : CharacterBody2D
 			return;
 
 		_canCrouchAttack = false;
-		await RunSingleAttack("crouch_attack", "slash_vertical", CrouchWeaponTrailYOffset);
+		bool attacked = await RunSingleAttack("crouch_attack", "slash_vertical", CrouchWeaponTrailYOffset);
+		if (!attacked)
+		{
+			_canCrouchAttack = true;
+			return;
+		}
+
 		await ToSignal(GetTree().CreateTimer(CrouchAttackCooldown), SceneTreeTimer.SignalName.Timeout);
 		_canCrouchAttack = true;
 	}
 
-	private async Task RunSingleAttack(string animationName, string trailAnimation, float trailYOffset = 0f)
+	// Returns whether the attack actually landed/spent stamina — callers use this to skip their
+	// own cooldown when it didn't (matches how every other stamina-gated move, e.g. UpAttack,
+	// only locks out after actually committing to the attack).
+	private async Task<bool> RunSingleAttack(string animationName, string trailAnimation, float trailYOffset = 0f)
 	{
 		if (!_stats.TrySpendStamina(AttackStaminaCost))
-			return;
+			return false;
 
 		_attacking = true;
 		_currentAttackAnimation = animationName;
@@ -1385,6 +1394,7 @@ public partial class Player : CharacterBody2D
 		float remainingAnimTime = Mathf.Max(0f, AttackAnimDuration - AttackHitboxDelay - AttackDuration);
 		await ToSignal(GetTree().CreateTimer(remainingAnimTime), SceneTreeTimer.SignalName.Timeout);
 		_attacking = false;
+		return true;
 	}
 
 	private string WeaponTrailAnimation(string attackAnimation) => attackAnimation switch
@@ -1524,6 +1534,11 @@ public partial class Player : CharacterBody2D
 
 	private void OnDied()
 	{
+		// Dying mid-Pound skips the rest of _PhysicsProcess (see the _isDead guard at its top),
+		// which otherwise reaches EndPound() itself — without this, the 90° sprite/trail
+		// rotation and the active hitbox would stay stuck through the death animation.
+		EndPound();
+
 		_isDead = true;
 		_sprite.Play("death");
 		if (GetTree().CurrentScene is LevelBootstrap level)

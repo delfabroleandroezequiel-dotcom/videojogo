@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://water_fall_main"]
+
+[ext_resource type="Script" path="res://scripts/world/WaterFall.cs" id="1_script"]
+
+[node name="WaterFall" type="Node2D"]
+script = ExtResource("1_script")

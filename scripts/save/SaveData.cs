@@ -24,6 +24,7 @@ public class SaveData
 	public int MaxHealCharges { get; set; } = 1;
 	public int StoryStage { get; set; }
 	public int Gold { get; set; }
+	public int Reputation { get; set; }
 
 	// Decided once at New Game creation and never changed mid-save — see SaveManager.
 	public bool EnemyRandomizerEnabled { get; set; }

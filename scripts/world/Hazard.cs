@@ -9,6 +9,25 @@ public partial class Hazard : Area2D
 	[Export] public int Damage = 20;
 	[Export] public float KnockbackForce = 300f;
 
+	// Runtime-built pieces (LavaFall/LavaFloor/WaterFall, etc.) all want this same
+	// InstantKill/Damage/KnockbackForce Area2D — build it here once instead of each kit
+	// hand-rolling its own copy.
+	public static Hazard CreateArea(Node2D parent, bool instantKill, int damage, float knockbackForce)
+	{
+		var hazard = new Hazard
+		{
+			Name = "HazardArea",
+			CollisionLayer = 0,
+			CollisionMask = 2,
+			InstantKill = instantKill,
+			Damage = damage,
+			KnockbackForce = knockbackForce,
+		};
+		parent.AddChild(hazard);
+		hazard.Owner = parent;
+		return hazard;
+	}
+
 	public override void _Ready()
 	{
 		BodyEntered += OnBodyEntered;

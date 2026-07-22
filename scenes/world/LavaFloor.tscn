@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://lava_floor_main"]
+
+[ext_resource type="Script" path="res://scripts/world/LavaFloor.cs" id="1_script"]
+
+[node name="LavaFloor" type="Node2D"]
+script = ExtResource("1_script")

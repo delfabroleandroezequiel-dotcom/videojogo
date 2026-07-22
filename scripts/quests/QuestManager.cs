@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 using Metroidvania.Save;
+using Metroidvania.Shared;
 
 namespace Metroidvania.Quests;
 
@@ -102,6 +103,7 @@ public partial class QuestManager : Node
 
 		_activeQuests.Remove(questId);
 		_completedQuests.Add(questId);
+		SaveManager.Instance.AddReputation(GameConfig.ReputationPerQuestCompleted);
 		EmitSignal(SignalName.QuestCompleted, questId);
 	}
 

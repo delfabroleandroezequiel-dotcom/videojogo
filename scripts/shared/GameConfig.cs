@@ -60,6 +60,18 @@ public partial class GameConfig : Node
 	public static readonly float[] CorridorLengthPresets = { 384f, 768f, 1152f };
 	public static readonly float[] CorridorCrossSizePresets = { 96f, 288f, 576f };
 
+	// World reputation ("Amor/Normal/Odio"): completing a quest nudges it up, killing an
+	// ambient (non-quest) NPC nudges it down — see QuestManager.CompleteQuest and Npc.OnDied.
+	// Clamped in SaveManager.AddReputation so it can't run away in either direction over a long
+	// playthrough; the thresholds below decide which of an ambient NPC's Love/Hate dialogue
+	// lines (if any) it uses instead of its normal one.
+	public const int ReputationPerQuestCompleted = 1;
+	public const int ReputationPerNpcKilled = 1;
+	public const int ReputationMin = -10;
+	public const int ReputationMax = 10;
+	public const int ReputationLoveThreshold = 3;
+	public const int ReputationHateThreshold = -3;
+
 	private const string ConfigPath = "user://settings.cfg";
 	private const string ConfigSection = "input";
 	private const string DisplaySection = "display";

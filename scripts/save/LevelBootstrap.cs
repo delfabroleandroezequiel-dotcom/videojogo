@@ -59,6 +59,7 @@ public partial class LevelBootstrap : Node
 			PositionX = checkpointPosition.X,
 			PositionY = checkpointPosition.Y,
 			StoryStage = SaveManager.Instance.StoryStage,
+			Reputation = SaveManager.Instance.Reputation,
 		};
 		data.UnlockedAbilities.AddRange(abilities.GetUnlocked());
 		data.DefeatedBosses.AddRange(SaveManager.Instance.GetDefeatedBosses());

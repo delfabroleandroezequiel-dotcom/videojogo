@@ -89,6 +89,21 @@ public partial class SaveManager : Node
 		GameConfig.Instance.Achievements.CheckTriggers();
 	}
 
+	public int Reputation { get; private set; }
+
+	public void AddReputation(int amount)
+	{
+		Reputation = Mathf.Clamp(Reputation + amount, GameConfig.ReputationMin, GameConfig.ReputationMax);
+	}
+
+	public ReputationTier GetReputationTier()
+	{
+		if (Reputation >= GameConfig.ReputationLoveThreshold)
+			return ReputationTier.Love;
+
+		return Reputation <= GameConfig.ReputationHateThreshold ? ReputationTier.Hate : ReputationTier.Normal;
+	}
+
 	public override void _Ready()
 	{
 		Instance = this;
@@ -170,6 +185,7 @@ public partial class SaveManager : Node
 		_maxHealCharges = 1;
 		StoryStage = 0;
 		Gold = 0;
+		Reputation = 0;
 		SessionCurrentHealth = null;
 		SessionHealCharges = null;
 		EnemyRandomizerEnabled = false;
@@ -190,6 +206,23 @@ public partial class SaveManager : Node
 
 	public bool HasSaveFile(int slot) => FileAccess.FileExists(GetPath(slot));
 
+	// A corrupted or partially-written save file (crash mid-write, disk issue, hand-edited
+	// JSON) should never crash the game on load — treated the same as "no save file" by every
+	// caller instead of letting the exception propagate.
+	private static SaveData TryReadSaveFile(int slot)
+	{
+		try
+		{
+			using FileAccess file = FileAccess.Open(GetPath(slot), FileAccess.ModeFlags.Read);
+			return JsonSerializer.Deserialize<SaveData>(file.GetAsText());
+		}
+		catch (JsonException)
+		{
+			GD.PushError($"Save slot {slot} is corrupted — ignoring it.");
+			return null;
+		}
+	}
+
 	public void SaveGame(int slot, SaveData data)
 	{
 		data.SaveVersion = CurrentSaveVersion;
@@ -203,9 +236,11 @@ public partial class SaveManager : Node
 		if (!HasSaveFile(slot))
 			return null;
 
-		using FileAccess file = FileAccess.Open(GetPath(slot), FileAccess.ModeFlags.Read);
-		string json = file.GetAsText();
-		PendingLoad = JsonSerializer.Deserialize<SaveData>(json);
+		SaveData data = TryReadSaveFile(slot);
+		if (data is null)
+			return null;
+
+		PendingLoad = data;
 		MigrateSaveData(PendingLoad);
 		CurrentCharacterName = PendingLoad.CharacterName;
 
@@ -242,6 +277,7 @@ public partial class SaveManager : Node
 		_maxHealCharges = Mathf.Clamp(PendingLoad.MaxHealCharges, 1, MaxHealChargeCap);
 		StoryStage = PendingLoad.StoryStage;
 		Gold = PendingLoad.Gold;
+		Reputation = PendingLoad.Reputation;
 		EmitSignal(SignalName.GoldChanged, Gold);
 		EnemyRandomizerEnabled = PendingLoad.EnemyRandomizerEnabled;
 		RandomizerSeed = PendingLoad.RandomizerSeed;
@@ -254,8 +290,7 @@ public partial class SaveManager : Node
 		if (!HasSaveFile(slot))
 			return null;
 
-		using FileAccess file = FileAccess.Open(GetPath(slot), FileAccess.ModeFlags.Read);
-		PendingLoad = JsonSerializer.Deserialize<SaveData>(file.GetAsText());
+		PendingLoad = TryReadSaveFile(slot);
 		return PendingLoad;
 	}
 
@@ -264,9 +299,7 @@ public partial class SaveManager : Node
 		if (!HasSaveFile(slot))
 			return null;
 
-		using FileAccess file = FileAccess.Open(GetPath(slot), FileAccess.ModeFlags.Read);
-		SaveData data = JsonSerializer.Deserialize<SaveData>(file.GetAsText());
-		return data?.CharacterName;
+		return TryReadSaveFile(slot)?.CharacterName;
 	}
 
 	public void DeleteSave(int slot)

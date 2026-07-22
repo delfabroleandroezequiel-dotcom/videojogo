@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://moving_platform_main"]
+
+[ext_resource type="Script" path="res://scripts/world/MovingPlatform.cs" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_platform"]
+size = Vector2(96, 16)
+
+[node name="MovingPlatform" type="AnimatableBody2D"]
+collision_layer = 1
+collision_mask = 0
+sync_to_physics = true
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_platform")
+
+[node name="Visual" type="Polygon2D" parent="."]
+color = Color(0.35, 0.35, 0.4, 1)
+polygon = PackedVector2Array(-48, -8, 48, -8, 48, 8, -48, 8)
