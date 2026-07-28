@@ -1,0 +1,67 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://cs1qqec6p4eda"]
+
+[ext_resource type="Texture2D" uid="uid://b0lq8p1tfjcue" path="res://assets/sprites/deco/rosa2.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sway0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 90, 375)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sway1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(72, 0, 90, 375)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sway2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(151, 0, 90, 375)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sway3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(236, 0, 90, 375)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sway4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(316, 0, 90, 375)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sway5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(399, 0, 90, 375)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sway6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(479, 0, 90, 375)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sway7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(572, 0, 90, 375)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sway0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sway1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sway2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sway3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sway4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sway5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sway6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sway7")
+}],
+"loop": 1,
+"name": &"sway",
+"speed": 5.0
+}]

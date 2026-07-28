@@ -18,6 +18,9 @@ public partial class PlayerAbilities : Node
 	public const string LedgeGrab = "ledge_grab";
 	public const string ComboFinisher = "combo_finisher";
 	public const string RopeSwing = "rope_swing";
+	public const string Swim = "swim";
+	public const string Bow = "bow";
+	public const string Torch = "torch";
 
 	[Export] public bool StartWithDoubleJump;
 	[Export] public bool StartWithDash;
@@ -31,6 +34,9 @@ public partial class PlayerAbilities : Node
 	[Export] public bool StartWithLedgeGrab;
 	[Export] public bool StartWithComboFinisher;
 	[Export] public bool StartWithRopeSwing;
+	[Export] public bool StartWithSwim;
+	[Export] public bool StartWithBow;
+	[Export] public bool StartWithTorch;
 
 	private readonly HashSet<string> _unlocked = new();
 
@@ -62,6 +68,12 @@ public partial class PlayerAbilities : Node
 			Unlock(ComboFinisher);
 		if (StartWithRopeSwing)
 			Unlock(RopeSwing);
+		if (StartWithSwim)
+			Unlock(Swim);
+		if (StartWithBow)
+			Unlock(Bow);
+		if (StartWithTorch)
+			Unlock(Torch);
 
 		foreach (string abilityId in SaveManager.Instance.GetUnlockedAbilities())
 			Unlock(abilityId);

@@ -216,6 +216,6 @@ public partial class LavaFall : Node2D
 		}
 
 		float totalWidth = _width * fallPitch;
-		LavaTileSheet.AddGlow(this, new Vector2(totalWidth / 2f, stackHeight / 2f), _element);
+		ElementGlow.AddTo(this, new Vector2(totalWidth / 2f, stackHeight / 2f), _element);
 	}
 }

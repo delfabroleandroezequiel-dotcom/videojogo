@@ -3,11 +3,14 @@
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="2_bootstrap"]
 [ext_resource type="Texture2D" uid="uid://6xql8mxiby46" path="res://assets/backgrounds/Casa1.png" id="3_casa"]
+[ext_resource type="PackedScene" path="res://scenes/world/Vela1.tscn" id="4_dy1tp"]
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="4_transition"]
 [ext_resource type="Resource" uid="uid://beqplhalhp4r6" path="res://resources/camera/ClosedRoomCamera.tres" id="5_camera_profile"]
+[ext_resource type="PackedScene" path="res://scenes/world/Vela4.tscn" id="5_s3nk1"]
+[ext_resource type="PackedScene" path="res://scenes/world/Vela9.tscn" id="8_tl7yq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
-size = Vector2(816.44625, 29.750007)
+size = Vector2(816.4462, 29.750008)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sidewall"]
 size = Vector2(30.6, 459)
@@ -15,10 +18,9 @@ size = Vector2(30.6, 459)
 [node name="Casa1" type="Node2D" unique_id=2000000001]
 script = ExtResource("2_bootstrap")
 CameraProfile = ExtResource("5_camera_profile")
-CameraLimitLeft = -397.035
-CameraLimitRight = 397.035
-CameraLimitTop = -198.135
-CameraLimitBottom = 229.5
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=2000000012]
+color = Color(0.55, 0.5, 0.5, 1)
 
 [node name="Backdrop" type="Polygon2D" parent="." unique_id=2000000002]
 z_index = -10
@@ -49,8 +51,24 @@ position = Vector2(423.81, 0)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=2000000009]
 shape = SubResource("RectangleShape2D_sidewall")
 
+[node name="Vela5" parent="." unique_id=521681199 instance=ExtResource("5_s3nk1")]
+position = Vector2(-15, 73)
+scale = Vector2(0.15, 0.15)
+
+[node name="Vela4" parent="." unique_id=813243883 instance=ExtResource("5_s3nk1")]
+position = Vector2(-46, 73)
+scale = Vector2(0.15, 0.15)
+
+[node name="Vela1" parent="." unique_id=1079879334 instance=ExtResource("4_dy1tp")]
+position = Vector2(-182, 91)
+scale = Vector2(0.15, 0.15)
+
+[node name="Vela2" parent="." unique_id=1304795852 instance=ExtResource("4_dy1tp")]
+position = Vector2(175, 25.999998)
+scale = Vector2(0.18, 0.18)
+
 [node name="Player" parent="." unique_id=2000000010 instance=ExtResource("1_player")]
-position = Vector2(277.695, 101.745)
+position = Vector2(-312, 62)
 
 [node name="ReturnTransition" parent="." unique_id=2000000011 instance=ExtResource("4_transition")]
 position = Vector2(306, 98.685)
@@ -58,3 +76,11 @@ TargetScenePath = "res://scenes/world/Nix.tscn"
 TargetSpawnPosition = Vector2(1143, 463)
 RequireInteract = true
 UseStoredReturnPosition = true
+
+[node name="Vela9" parent="." unique_id=1393633414 instance=ExtResource("8_tl7yq")]
+position = Vector2(-41, 19)
+scale = Vector2(0.15, 0.15)
+
+[node name="Vela10" parent="." unique_id=378880110 instance=ExtResource("8_tl7yq")]
+position = Vector2(5, 19)
+scale = Vector2(0.15, 0.15)

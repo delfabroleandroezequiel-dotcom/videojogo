@@ -1,0 +1,53 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://dv6q85jtbn0xb"]
+
+[ext_resource type="Texture2D" uid="uid://bih3y8m1sih00" path="res://assets/sprites/deco/ropa_colgada_sway.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sway0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(36, 266, 290, 231)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sway1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(370, 266, 290, 231)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sway2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(703, 266, 290, 231)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sway3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1037, 266, 290, 231)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sway4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1371, 266, 290, 231)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sway5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1707, 266, 290, 231)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sway0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sway1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sway2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sway3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sway4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sway5")
+}],
+"loop": 1,
+"name": &"sway",
+"speed": 3.5
+}]

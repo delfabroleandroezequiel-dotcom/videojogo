@@ -6223,6 +6223,7 @@ position = Vector2(768, 512)
 texture = ExtResource("3_interior")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=565945699]
+visible = false
 color = Color(0.05, 0.05, 0.08, 1)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=615618147]

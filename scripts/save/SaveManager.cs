@@ -28,6 +28,12 @@ public partial class SaveManager : Node
 	public int? SessionCurrentHealth { get; set; }
 	public int? SessionHealCharges { get; set; }
 
+	// Same idea, for the fire transformation and the torch — both are pure Player-instance
+	// state today (no signal to piggyback on like Health/HealCharges), so Player writes
+	// these directly wherever CycleElement/the torch toggle mutate them.
+	public DamageElement? SessionElement { get; set; }
+	public bool? SessionTorchEquipped { get; set; }
+
 	private readonly HashSet<string> _defeatedBosses = new();
 	private readonly HashSet<string> _defeatedCommonEnemies = new();
 	private readonly HashSet<string> _litSavePoints = new();

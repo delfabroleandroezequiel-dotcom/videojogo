@@ -82,6 +82,8 @@ public partial class LevelBootstrap : Node
 		SaveManager.Instance.LoadGame(SaveManager.Instance.CurrentSlot);
 		SaveManager.Instance.SessionCurrentHealth = null;
 		SaveManager.Instance.SessionHealCharges = null;
+		SaveManager.Instance.SessionElement = null;
+		SaveManager.Instance.SessionTorchEquipped = null;
 		GetTree().CallDeferred(SceneTree.MethodName.ReloadCurrentScene);
 	}
 
@@ -104,6 +106,8 @@ public partial class LevelBootstrap : Node
 		SaveManager.Instance.ClearCommonEnemyDefeats();
 		SaveManager.Instance.SessionCurrentHealth = null;
 		SaveManager.Instance.SessionHealCharges = null;
+		SaveManager.Instance.SessionElement = null;
+		SaveManager.Instance.SessionTorchEquipped = null;
 
 		if (targetScenePath == ScenePath)
 			GetTree().CallDeferred(SceneTree.MethodName.ReloadCurrentScene);

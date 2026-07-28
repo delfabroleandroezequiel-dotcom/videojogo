@@ -64,6 +64,11 @@ public partial class Player : CharacterBody2D
 	[Export] public Vector2 UpAttackHitboxSize = new(46f, 90f);
 	[Export] public float UpAttackHitboxReach = 40f;
 	[Export] public float UpAttackCooldown = 0.4f;
+	[Export] public float BowAnimDuration = 0.5f;
+	[Export] public float BowReleaseDelay = 0.35f;
+	[Export] public float ArrowSpeed = 420f;
+	[Export] public float ArrowSpawnYOffset = -20f;
+	[Export] public PackedScene ArrowProjectileScene;
 	[Export] public float LookUpOffset = -80f;
 	[Export] public float LookDownOffset = 60f;
 	[Export] public float LookSmoothSpeed = 4f;
@@ -94,6 +99,12 @@ public partial class Player : CharacterBody2D
 	[Export] public float JumpLegAngleDeg = -15f;
 	[Export] public float JumpArmAngleDeg = 20f;
 	[Export] public float ClimbSpeed = 130f;
+	[Export] public float SwimSpeed = 100f;
+	// How far the player's origin rests above the water surface once floating — negative dips
+	// the origin below the surface line instead, submerging more of the body. -22 leaves roughly
+	// the top ~10px of the 64px-tall collision box (head/neck area) above water.
+	[Export] public float SwimFloatOffset = -22f;
+	[Export] public float SwimFloatCorrectionSpeed = 250f;
 	[Export] public float ClimbHorizontalSpeedMultiplier = 0.6f;
 	[Export] public float LadderJumpLockoutDuration = 0.25f;
 	[Export] public float InputBufferWindow = 0.15f;
@@ -142,6 +153,10 @@ public partial class Player : CharacterBody2D
 	private float _shakeStrength;
 	private AnimatedSprite2D _sprite;
 	private PointLight2D _debugFlashlight;
+	private PointLight2D _torchLight;
+	private PointLight2D _swordFireLight;
+	private bool _torchEquipped;
+	private bool _equipTorchKeyReleased = true;
 	private const int ComboHitCount = 3;
 
 	// The third combo hit (the multi-pulse thrust finisher) is gated behind an ability — until
@@ -165,6 +180,7 @@ public partial class Player : CharacterBody2D
 	private float _runThrustDirection;
 	private bool _canCrouchAttack = true;
 	private bool _canUpAttack = true;
+	private bool _isShooting;
 	private bool _isBlocking;
 	private float _parryWindowTimer;
 	private AnimatedSprite2D _parryFlash;
@@ -178,8 +194,8 @@ public partial class Player : CharacterBody2D
 	// Stats weakness multiplier until they get their own art.
 	private DamageElement _currentElement = DamageElement.Normal;
 	private bool _isCharging;
-	private AnimatedSprite2D _chargeEffect;
-	private AnimatedSprite2D _chargeReadyEffect;
+	private GpuParticles2D _chargeAura;
+	private GpuParticles2D _chargeDust;
 	private bool _isPounding;
 	private bool _poundHitLanded;
 	private float _knockbackTimer;
@@ -189,6 +205,8 @@ public partial class Player : CharacterBody2D
 	private Ladder _ladder;
 	private bool _isClimbing;
 	private float _ladderGrabLockout;
+	private Water _water;
+	private bool _isSwimming;
 	private Rope _ropeInZone;
 	private Rope _rope;
 	private bool _isSwinging;
@@ -229,8 +247,8 @@ public partial class Player : CharacterBody2D
 		_weaponTrailBaseY = _weaponTrail.Position.Y;
 		_parryFlash = GetNode<AnimatedSprite2D>("Visual/ParryFlash");
 		_parryFlash.AnimationFinished += () => _parryFlash.Visible = false;
-		_chargeEffect = GetNode<AnimatedSprite2D>("Visual/ChargeEffect");
-		_chargeReadyEffect = GetNode<AnimatedSprite2D>("Visual/ChargeReadyEffect");
+		_chargeAura = GetNode<GpuParticles2D>("Visual/ChargeAura");
+		_chargeDust = GetNode<GpuParticles2D>("Visual/ChargeDust");
 		_legLeft = GetNode<Node2D>("Visual/LegLeft");
 		_legRight = GetNode<Node2D>("Visual/LegRight");
 		_armLeft = GetNode<Node2D>("Visual/ArmLeft");
@@ -247,6 +265,8 @@ public partial class Player : CharacterBody2D
 			_debugFlashlight.QueueFree();
 			_debugFlashlight = null;
 		}
+		_torchLight = GetNode<PointLight2D>("Visual/TorchLight");
+		_swordFireLight = GetNode<PointLight2D>("Visual/SwordFireLight");
 		_normalSpriteFrames = _sprite.SpriteFrames;
 		_stats.Died += OnDied;
 		_stats.IncomingHitInterceptor = TryBlockIncomingHit;
@@ -258,6 +278,21 @@ public partial class Player : CharacterBody2D
 
 		_stats.HealthChanged += (current, max) => SaveManager.Instance.SessionCurrentHealth = current;
 		_healFlask.ChargesChanged += (current, max) => SaveManager.Instance.SessionHealCharges = current;
+
+		if (SaveManager.Instance.SessionElement.HasValue)
+		{
+			_currentElement = SaveManager.Instance.SessionElement.Value;
+			if (_currentElement == DamageElement.Fire)
+			{
+				// Restoring straight into the post-transform state, not replaying CycleElement's
+				// transform-in animation — that's only meant to play once, at the moment the
+				// player actually presses the button, not every time a scene loads.
+				_sprite.SpriteFrames = FireSpriteFrames;
+				_isFireImbued = true;
+			}
+		}
+		if (SaveManager.Instance.SessionTorchEquipped.HasValue)
+			_torchEquipped = SaveManager.Instance.SessionTorchEquipped.Value;
 
 		HudBar healthBar = GetNode<HudBar>("HUD/VBox/HealthBar");
 		HudBar staminaBar = GetNode<HudBar>("HUD/VBox/StaminaBar");
@@ -419,6 +454,20 @@ public partial class Player : CharacterBody2D
 		_isClimbing = false;
 	}
 
+	public void EnterWater(Water water)
+	{
+		_water = water;
+	}
+
+	public void ExitWater(Water water)
+	{
+		if (_water != water)
+			return;
+
+		_water = null;
+		_isSwimming = false;
+	}
+
 	public void EnterRope(Rope rope)
 	{
 		_ropeInZone = rope;
@@ -446,7 +495,7 @@ public partial class Player : CharacterBody2D
 			return;
 		}
 
-		bool isGroundedOrClimbing = IsOnFloor() || _isClimbing || _isWallClimbing || _isLedgeHanging || _isLedgeClimbing || _isSwinging;
+		bool isGroundedOrClimbing = IsOnFloor() || _isClimbing || _isWallClimbing || _isLedgeHanging || _isLedgeClimbing || _isSwinging || _isSwimming;
 		_airborneTimer = isGroundedOrClimbing ? 0f : _airborneTimer + (float)delta;
 		if (_airborneTimer > MaxAirborneTime)
 		{
@@ -502,6 +551,13 @@ public partial class Player : CharacterBody2D
 			UpdateAnimation(delta, false);
 			return;
 		}
+
+		// Water has no solid collision, so a pound dive that reaches it would otherwise never
+		// hit IsOnFloor() and just plunge at PoundSpeed straight through to FallDeathY — cancel
+		// the pound the instant it touches water so this frame falls through to the swim/float
+		// block below instead of continuing the dive.
+		if (_isPounding && _water != null)
+			EndPound();
 
 		if (_isPounding)
 		{
@@ -583,6 +639,53 @@ public partial class Player : CharacterBody2D
 			Velocity = velocity;
 			MoveAndSlide();
 			UpdateAnimation(delta, false, velocity.X, _isClimbing);
+			return;
+		}
+
+		// Same zone-based pattern as the ladder above — Y-locked instead of X-locked, since this
+		// is a surface float (bobs up to sit on top of the water, no dive control) rather than a
+		// free swim, gated by the Swim ability (same idea as RopeSwing/WallClimb/LedgeGrab) rather
+		// than always available like Ladder, since it's meant to be a found-later traversal
+		// upgrade, not a default one.
+		if (_water != null && _abilities.Has(PlayerAbilities.Swim))
+			_isSwimming = true;
+
+		if (_isSwimming)
+		{
+			// Floating counts as grounded for jump purposes — without this, a jump input that
+			// lands on a frame where the player isn't yet re-latched into swimming (or any other
+			// brief gap while bobbing at the surface) could burn a double-jump charge that then
+			// never resets, since IsOnFloor() never becomes true in water.
+			_jumpCount = 0;
+			_isDoubleJumping = false;
+
+			if (Input.IsActionJustPressed("jump"))
+			{
+				_isSwimming = false;
+				_water = null;
+				velocity.Y = JumpVelocity;
+				_jumpCount = 1;
+				Velocity = velocity;
+				MoveAndSlide();
+				UpdateAnimation(delta, false, velocity.X);
+				return;
+			}
+
+			float horizontal = Input.GetAxis("move_left", "move_right");
+			velocity = new Vector2(horizontal * SwimSpeed, 0f);
+			if (horizontal != 0)
+				_facingRight = horizontal > 0;
+
+			_visual.Scale = new Vector2(_facingRight ? 1 : -1, 1f);
+			_visual.Position = Vector2.Zero;
+
+			Velocity = velocity;
+			MoveAndSlide();
+
+			float targetY = _water.GlobalPosition.Y - SwimFloatOffset;
+			GlobalPosition = new Vector2(GlobalPosition.X, Mathf.MoveToward(GlobalPosition.Y, targetY, SwimFloatCorrectionSpeed * (float)delta));
+
+			UpdateAnimation(delta, false, velocity.X);
 			return;
 		}
 
@@ -756,7 +859,7 @@ public partial class Player : CharacterBody2D
 		if (rawDirection != 0)
 			_facingRight = rawDirection > 0;
 
-		float direction = (_attacking || _healing || _crouching || _isBlocking || _isTransforming) ? 0f : rawDirection;
+		float direction = (_attacking || _healing || _crouching || _isBlocking || _isTransforming || _isShooting) ? 0f : rawDirection;
 		bool sprinting = !_attacking && !_healing && _abilities.Has(PlayerAbilities.Sprint) && Input.IsActionPressed("sprint")
 			&& !_crouching && direction != 0;
 		float speed = _crouching ? Speed * CrouchSpeedMultiplier : sprinting ? Speed * SprintSpeedMultiplier : Speed;
@@ -798,6 +901,13 @@ public partial class Player : CharacterBody2D
 			StartCharging();
 		}
 
+		if (Input.IsActionJustPressed("shoot_bow") && _abilities.Has(PlayerAbilities.Bow) && !_isShooting
+			&& !_attacking && !_healing && !_isBlocking && !_isTransforming && !_crouching
+			&& !_isDashing && !_isRunThrusting && !_isCharging)
+		{
+			ShootBow();
+		}
+
 		if (Input.IsActionJustPressed("heal") && !_attacking && !_healing && !_isDashing)
 			UseHealFlask();
 
@@ -815,10 +925,29 @@ public partial class Player : CharacterBody2D
 			CycleElement();
 		}
 
+		bool equipTorchPressed = Input.IsActionPressed("equip_torch");
+		if (!equipTorchPressed)
+			_equipTorchKeyReleased = true;
+
+		if (equipTorchPressed && _equipTorchKeyReleased && _abilities.Has(PlayerAbilities.Torch)
+			&& !_attacking && !_isDashing && !_isTransforming && !_isFireImbued)
+		{
+			_equipTorchKeyReleased = false;
+			_torchEquipped = !_torchEquipped;
+			SaveManager.Instance.SessionTorchEquipped = _torchEquipped;
+		}
+
+		_torchLight.Enabled = _torchEquipped && !_isFireImbued;
+		_swordFireLight.Enabled = _isFireImbued;
+
 		Velocity = velocity;
 		MoveAndSlide();
 		UpdateAnimation(delta, sprinting, velocity.X);
 	}
+
+	// Only idle/run/jump have a "_torch" sprite variant today (the rest of the moveset needs
+	// both hands, so the torch is treated as dropped rather than drawn for those animations).
+	private string TorchAnim(string baseAnim) => _torchEquipped && !_isFireImbued ? $"{baseAnim}_torch" : baseAnim;
 
 	private void UpdateAnimation(double delta, bool sprinting, float velocityX = 0f, bool isLadderClimbing = false, bool isWallClimbing = false)
 	{
@@ -840,6 +969,13 @@ public partial class Player : CharacterBody2D
 			string transformAnim = _isFireImbued ? "transformation_out" : "transformation";
 			if (_sprite.Animation != transformAnim)
 				_sprite.Play(transformAnim);
+			return;
+		}
+
+		if (_isShooting)
+		{
+			if (_sprite.Animation != "shoot_bow")
+				_sprite.Play("shoot_bow");
 			return;
 		}
 
@@ -878,7 +1014,7 @@ public partial class Player : CharacterBody2D
 		}
 		else if (!IsOnFloor())
 		{
-			_sprite.Play(_isDoubleJumping ? "double_jump" : "jump");
+			_sprite.Play(_isDoubleJumping ? TorchAnim("double_jump") : TorchAnim("jump"));
 			_legLeft.RotationDegrees = JumpLegAngleDeg;
 			_legRight.RotationDegrees = JumpLegAngleDeg * 0.6f;
 			_armLeft.RotationDegrees = -JumpArmAngleDeg;
@@ -902,7 +1038,7 @@ public partial class Player : CharacterBody2D
 		if (speedRatio < 0.05f)
 		{
 			if (!_attacking)
-				_sprite.Play("idle");
+				_sprite.Play(TorchAnim("idle"));
 
 			float t = (float)delta * 10f;
 			_legLeft.RotationDegrees = Mathf.Lerp(_legLeft.RotationDegrees, 0f, t);
@@ -915,7 +1051,7 @@ public partial class Player : CharacterBody2D
 		}
 
 		if (!_attacking)
-			_sprite.Play("run");
+			_sprite.Play(TorchAnim("run"));
 
 		float amplitude = sprinting ? RunSwingAmplitudeDeg : WalkSwingAmplitudeDeg;
 		float cycleSpeed = WalkCycleSpeed * (sprinting ? 1.6f : 1f) * Mathf.Max(speedRatio, 0.3f);
@@ -1066,8 +1202,8 @@ public partial class Player : CharacterBody2D
 		_attacking = true;
 		_currentAttackAnimation = "idle_block";
 
-		_chargeEffect.Visible = true;
-		_chargeEffect.Play("charge");
+		_chargeAura.Emitting = true;
+		_chargeDust.Emitting = true;
 
 		Tween flickerTween = CreateTween().SetLoops();
 		flickerTween.TweenProperty(_visual, "modulate:a", 0.35f, 0.15f);
@@ -1078,21 +1214,13 @@ public partial class Player : CharacterBody2D
 		{
 			await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
 			heldTime += (float)GetPhysicsProcessDeltaTime();
-
-			if (heldTime >= ChargedAttackDuration && !_chargeReadyEffect.Visible)
-			{
-				_chargeReadyEffect.Visible = true;
-				_chargeReadyEffect.Play("ready");
-			}
 		}
 
 		flickerTween.Kill();
 		Color modulate = _visual.Modulate;
 		_visual.Modulate = new Color(modulate.R, modulate.G, modulate.B, 1f);
-		_chargeEffect.Stop();
-		_chargeEffect.Visible = false;
-		_chargeReadyEffect.Stop();
-		_chargeReadyEffect.Visible = false;
+		_chargeAura.Emitting = false;
+		_chargeDust.Emitting = false;
 
 		if (heldTime < ChargedAttackDuration)
 		{
@@ -1223,6 +1351,28 @@ public partial class Player : CharacterBody2D
 
 		await ToSignal(GetTree().CreateTimer(UpAttackCooldown), SceneTreeTimer.SignalName.Timeout);
 		_canUpAttack = true;
+	}
+
+	private async void ShootBow()
+	{
+		_isShooting = true;
+
+		await ToSignal(GetTree().CreateTimer(BowReleaseDelay), SceneTreeTimer.SignalName.Timeout);
+		if (!IsInstanceValid(this) || _isDead)
+			return;
+
+		Vector2 direction = new(_facingRight ? 1f : -1f, 0f);
+		Projectile arrow = ArrowProjectileScene.Instantiate<Projectile>();
+		GetTree().CurrentScene.AddChild(arrow);
+		arrow.GlobalPosition = GlobalPosition + new Vector2(0, ArrowSpawnYOffset);
+		arrow.Speed = ArrowSpeed;
+		arrow.Launch(direction, _stats);
+		Sfx.Play(this, Sfx.FalloGolpe);
+
+		float remainingAnimTime = Mathf.Max(0f, BowAnimDuration - BowReleaseDelay);
+		await ToSignal(GetTree().CreateTimer(remainingAnimTime), SceneTreeTimer.SignalName.Timeout);
+		if (IsInstanceValid(this))
+			_isShooting = false;
 	}
 
 	private async void RunThrust()
@@ -1504,12 +1654,15 @@ public partial class Player : CharacterBody2D
 			DamageElement.Poison => DamageElement.Lightning,
 			_ => DamageElement.Normal,
 		};
+		SaveManager.Instance.SessionElement = _currentElement;
 
 		// Fire is the only element with a full alternate spriteframes transformation today —
 		// entering/leaving it plays that transformation. The other elements just update the
 		// tag used by outgoing hits (see Stats.Weakness) until they get their own art.
 		if (_currentElement == DamageElement.Fire)
 		{
+			_torchEquipped = false;
+			SaveManager.Instance.SessionTorchEquipped = false;
 			_isTransforming = true;
 			await ToSignal(GetTree().CreateTimer(TransformationInDuration), SceneTreeTimer.SignalName.Timeout);
 			_sprite.SpriteFrames = FireSpriteFrames;

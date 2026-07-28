@@ -35,9 +35,11 @@ public partial class Boss : Enemy
 	[Export] public float EnrageAttackCooldownMultiplier = 0.6f;
 	[Export] public float EnrageRetreatChanceBonus = 0.25f;
 
-	private Hitbox _hitbox;
-	private bool _attacking;
-	private bool _canAttack = true;
+	protected Hitbox _hitbox;
+	private GpuParticles2D _enrageAura;
+	protected bool _attacking;
+	protected string _attackAnimation = "attack1";
+	protected bool _canAttack = true;
 	private bool _isRetreating;
 	private bool _canRetreat = true;
 	private bool _isLunging;
@@ -50,7 +52,7 @@ public partial class Boss : Enemy
 	private bool _enraged;
 	private readonly RandomNumberGenerator _rng = new();
 
-	private bool IsEnraged => Stats.CurrentHealth <= Stats.MaxHealth * EnrageHealthPercent;
+	protected bool IsEnraged => Stats.CurrentHealth <= Stats.MaxHealth * EnrageHealthPercent;
 
 	public override void _Ready()
 	{
@@ -60,6 +62,7 @@ public partial class Boss : Enemy
 
 		AddToGroup("boss");
 		_hitbox = GetNode<Hitbox>("AttackHitbox");
+		_enrageAura = Visual.GetNodeOrNull<GpuParticles2D>("EnrageAura");
 		Stats.HitTaken += OnHitTaken;
 
 		_homePositionX = GlobalPosition.X;
@@ -92,6 +95,8 @@ public partial class Boss : Enemy
 		{
 			_enraged = true;
 			Visual.Modulate = new Color(1.4f, 0.65f, 0.65f);
+			if (_enrageAura is not null)
+				_enrageAura.Emitting = true;
 		}
 
 		Vector2 velocity = Velocity;
@@ -186,7 +191,7 @@ public partial class Boss : Enemy
 	protected override void UpdateAnimation(Vector2 velocity)
 	{
 		if (Sprite is null) return;
-		string anim = _attacking ? "attack1"
+		string anim = _attacking ? _attackAnimation
 			: _isLunging && Sprite.SpriteFrames.HasAnimation("lunge") ? "lunge"
 			: Mathf.Abs(velocity.X) > 5f ? "run" : "idle";
 		if (Sprite.Animation != anim)
@@ -296,10 +301,11 @@ public partial class Boss : Enemy
 			_canAttack = true;
 	}
 
-	private async void Attack(bool isCombo = false)
+	protected virtual async void Attack(bool isCombo = false)
 	{
 		_attacking = true;
 		_canAttack = false;
+		_attackAnimation = "attack1";
 		Sprite?.Play("attack1");
 
 		if (AttackHitboxDelay > 0f)

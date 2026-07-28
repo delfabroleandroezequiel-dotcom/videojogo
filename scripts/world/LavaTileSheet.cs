@@ -41,30 +41,9 @@ public static class LavaTileSheet
 	public const int BottomSurfaceTopInset = 4;
 
 	private const string AnimName = "default";
-	private const string GlowTexturePath = "res://resources/lighting/PointLightGradient.tres";
 
 	public static string GetTilesetPath(LavaElement element) =>
 		element == LavaElement.Water ? WaterTilesetPath : LavaTilesetPath;
-
-	public static Color GetGlowColor(LavaElement element) =>
-		element == LavaElement.Water ? new Color(0.4f, 0.75f, 1f) : new Color(1f, 0.55f, 0.15f);
-
-	// Same style as Torch.tscn's Glow (same texture, similar scale) — an ambient accent near the
-	// hazard, not an attempt to cover its whole shape.
-	public static void AddGlow(Node2D parent, Vector2 position, LavaElement element)
-	{
-		var glow = new PointLight2D
-		{
-			Name = "Glow",
-			Position = position,
-			Color = GetGlowColor(element),
-			Energy = 1.3f,
-			Texture = GD.Load<Texture2D>(GlowTexturePath),
-			TextureScale = 2.5f,
-		};
-		parent.AddChild(glow);
-		glow.Owner = parent;
-	}
 
 	public static SpriteFrames BuildFrames(Texture2D sheet, int row, int regionWidth, float fps)
 	{

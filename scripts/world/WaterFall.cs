@@ -22,7 +22,8 @@ namespace Metroidvania.World;
 // adds a second pass using the pack's water_front.png (same art, baked even more transparent)
 // drawn above EVERYTHING in the scene (see the Z_INDEX comment below) — per the pack's own
 // layer_guide.png, that's what the reference screenshots' translucent depth actually comes from.
-// A single Hazard (InstantKill by default) covers the built stack.
+// A single Hazard (InstantKill by default) covers the built stack, plus an ambient ElementGlow
+// (same helper LavaFall/LavaFloor use) so the water reads brighter/richer instead of flat.
 // [Tool] so the stack shows in the editor before ever pressing Play (the editor previews
 // AnimatedSprite2D live, same as LavaFall).
 [Tool]
@@ -75,11 +76,12 @@ public partial class WaterFall : Node2D
 		set { _width = Mathf.Max(1, value); Rebuild(); }
 	}
 
-	private float _opacity = 1f;
+	private float _opacity = 0.2f;
 
 	// water.png's own pixels are already semi-transparent (~64% alpha, measured directly on the
-	// sheet) — this multiplies on top of that. 1 = use the sheet as authored; lower it for an
-	// even mistier look.
+	// sheet) — this multiplies on top of that. 0.2 (playtested against a dark cave background,
+	// with ElementGlow) is what actually reads as misty/see-through instead of a flat teal wall;
+	// 1 = use the sheet's own alpha as-is, noticeably more opaque than the reference look.
 	[Export(PropertyHint.Range, "0,1,0.01")]
 	public float Opacity
 	{
@@ -206,6 +208,8 @@ public partial class WaterFall : Node2D
 		};
 		hazard.AddChild(hazardShape);
 		hazardShape.Owner = this;
+
+		ElementGlow.AddTo(this, new Vector2(totalWidth / 2f, totalHeight / 2f), _element);
 	}
 
 	private SpriteFrames BuildFrames(Texture2D texture)

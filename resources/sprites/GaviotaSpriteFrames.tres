@@ -1,0 +1,86 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bns66i2kgt2ym"]
+
+[ext_resource type="Texture2D" uid="uid://cka3jq2cdg4me" path="res://assets/sprites/deco/gaviota_sheet.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(48, 518, 216, 258)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(297, 518, 216, 258)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(545, 518, 216, 258)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(779, 518, 216, 258)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1030, 518, 216, 258)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1276, 518, 216, 258)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(83, 237, 223, 184)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(388, 237, 223, 184)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(690, 237, 223, 184)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(992, 237, 223, 184)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly5")
+}],
+"loop": 1,
+"name": &"fly",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle3")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 4.0
+}]

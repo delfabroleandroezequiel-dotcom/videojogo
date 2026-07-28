@@ -1,0 +1,43 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/vela_10_base.png" id="1_base"]
+[ext_resource type="PackedScene" path="res://scenes/world/VelaFlama.tscn" id="2_flama"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/vela_10_flame_1.png" id="3_f"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/vela_10_flame_2.png" id="4_f"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/vela_10_flame_3.png" id="5_f"]
+
+[node name="Vela10" type="Node2D"]
+
+[node name="Base" type="Sprite2D" parent="."]
+position = Vector2(0, -87.5)
+texture = ExtResource("1_base")
+
+[node name="Flama1" parent="." instance=ExtResource("2_flama")]
+position = Vector2(-52, -63)
+
+[node name="Sprite" parent="Flama1" index="0"]
+position = Vector2(0, -21)
+texture = ExtResource("3_f")
+
+[node name="AnimationPlayer" parent="Flama1" index="1"]
+speed_scale = 1
+
+[node name="Flama2" parent="." instance=ExtResource("2_flama")]
+position = Vector2(-14, -119)
+
+[node name="Sprite" parent="Flama2" index="0"]
+position = Vector2(0, -28)
+texture = ExtResource("4_f")
+
+[node name="AnimationPlayer" parent="Flama2" index="1"]
+speed_scale = 0.9
+
+[node name="Flama3" parent="." instance=ExtResource("2_flama")]
+position = Vector2(47, -71)
+
+[node name="Sprite" parent="Flama3" index="0"]
+position = Vector2(0, -26)
+texture = ExtResource("5_f")
+
+[node name="AnimationPlayer" parent="Flama3" index="1"]
+speed_scale = 0.85

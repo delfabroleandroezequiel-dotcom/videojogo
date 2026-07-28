@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://cb8ojkx0o47a5" path="res://scenes/world/CaveRockPlatformCueva1.tscn" id="12_3fk4u"]
 [ext_resource type="PackedScene" path="res://scenes/world/RopeAccordion.tscn" id="12_ropeaccordion"]
 [ext_resource type="PackedScene" path="res://scenes/world/CaveCollapseOverlay.tscn" id="13_cavecollapse"]
-[ext_resource type="PackedScene" path="res://scenes/world/WaterFall.tscn" id="16_60chm"]
 [ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="17_bootstrap"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wdguv"]
@@ -527,7 +526,7 @@ Length = 1450.0
 Width = 10.0
 
 [node name="Player" parent="." unique_id=2070432193 instance=ExtResource("2_player")]
-position = Vector2(1832, 1437)
+position = Vector2(1914, 1436)
 FallDeathY = 1000000.0
 
 [node name="CaveCollapseOverlay" parent="." unique_id=1040270938 instance=ExtResource("13_cavecollapse")]
@@ -947,19 +946,4 @@ position = Vector2(4000, 1390)
 position = Vector2(4335, 1255)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1369605341]
-visible = false
 color = Color(0.05, 0.05, 0.08, 1)
-
-[node name="WaterFall2" parent="." unique_id=1024117022 instance=ExtResource("16_60chm")]
-position = Vector2(3766, 2046)
-Height = 12
-Opacity = 0.77
-InstantKill = false
-
-[node name="WaterFall" parent="." unique_id=606408605 instance=ExtResource("16_60chm")]
-position = Vector2(1957, 1055)
-Height = 17
-Width = 2
-Opacity = 0.77
-Element = 0
-InstantKill = false

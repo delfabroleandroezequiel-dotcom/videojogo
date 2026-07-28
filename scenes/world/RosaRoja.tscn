@@ -1,0 +1,47 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/rosa_roja_1.png" id="1_tex"]
+[ext_resource type="Shader" path="res://resources/shaders/HueShift.gdshader" id="2_shader"]
+[ext_resource type="Script" path="res://scripts/world/RoseTint.cs" id="3_script"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hue"]
+resource_local_to_scene = true
+shader = ExtResource("2_shader")
+shader_parameter/hue_shift = 0.0
+shader_parameter/saturation = 1.0
+
+[sub_resource type="Animation" id="Animation_sway"]
+resource_name = "sway"
+length = 4.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.3, 4.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.06, 0.06, -0.06]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_default"]
+_data = {
+"sway": SubResource("Animation_sway")
+}
+
+[node name="RosaRoja" type="Node2D"]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_hue")
+position = Vector2(0, -124)
+texture = ExtResource("1_tex")
+script = ExtResource("3_script")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_default")
+}
+autoplay = "sway"

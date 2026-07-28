@@ -152,6 +152,6 @@ public partial class LavaFloor : Node2D
 		hazard.AddChild(hazardShape);
 		hazardShape.Owner = this;
 
-		LavaTileSheet.AddGlow(this, new Vector2(totalWidth / 2f, totalHeight / 2f), _element);
+		ElementGlow.AddTo(this, new Vector2(totalWidth / 2f, totalHeight / 2f), _element);
 	}
 }

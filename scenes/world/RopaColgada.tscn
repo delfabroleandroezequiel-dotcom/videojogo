@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="SpriteFrames" path="res://resources/sprites/RopaColgadaSpriteFrames.tres" id="1_frames"]
+
+[node name="RopaColgada" type="Node2D"]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -106.5)
+sprite_frames = ExtResource("1_frames")
+animation = &"sway"
+autoplay = "sway"

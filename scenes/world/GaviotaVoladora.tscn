@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/FlyingBirdDecoration.cs" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/GaviotaSpriteFrames.tres" id="2_frames"]
+
+[node name="GaviotaVoladora" type="AnimatedSprite2D"]
+scale = Vector2(1.2, 1.2)
+sprite_frames = ExtResource("2_frames")
+animation = &"fly"
+script = ExtResource("1_script")

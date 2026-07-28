@@ -7,13 +7,17 @@
 [ext_resource type="SpriteFrames" path="res://resources/sprites/FireWarriorSpriteFrames.tres" id="6_spriteframes"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/WeaponTrailSpriteFrames.tres" id="9_trailframes"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/ParryFlashSpriteFrames.tres" id="10_parryframes"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/ChargeBlueSpriteFrames.tres" id="12_chargeframes"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/ChargeReadyThunderSpriteFrames.tres" id="13_thunderframes"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/FireWarriorFireSwordSpriteFrames.tres" id="11_fireframes"]
 [ext_resource type="Script" uid="uid://23i50oqrkp5o" path="res://scripts/items/PlayerInventory.cs" id="7_inventory"]
 [ext_resource type="Script" uid="uid://c6jivd8ex7umw" path="res://scripts/player/HealFlask.cs" id="8_healflask"]
 [ext_resource type="PackedScene" path="res://scenes/ui/HudBar.tscn" id="16_hudbar"]
 [ext_resource type="Texture2D" path="res://resources/lighting/PointLightGradient.tres" id="17_lightgrad"]
+[ext_resource type="PackedScene" path="res://scenes/world/Projectile.tscn" id="18_projectile"]
+[ext_resource type="Texture2D" path="res://resources/particles/SoftDotGradient.tres" id="19_dot_tex"]
+[ext_resource type="ParticleProcessMaterial" path="res://resources/particles/ChargeAuraPlayerProcess.tres" id="20_aura_process"]
+[ext_resource type="Texture2D" path="res://resources/particles/SpikeGradient.tres" id="21_spike_tex"]
+[ext_resource type="Shader" path="res://resources/shaders/EnergySpike.gdshader" id="22_spike_shader"]
+[ext_resource type="ParticleProcessMaterial" path="res://resources/particles/ChargeDustProcess.tres" id="23_dust_process"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
 size = Vector2(32, 64)
@@ -27,10 +31,20 @@ size = Vector2(66.99, 48.51)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ledgecheck"]
 size = Vector2(4, 32)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_swimsensor"]
+size = Vector2(28, 6)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_auraadd"]
+blend_mode = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_spike"]
+shader = ExtResource("22_spike_shader")
+
 [node name="Player" type="CharacterBody2D" unique_id=1867495339 groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_script")
 FireSpriteFrames = ExtResource("11_fireframes")
+ArrowProjectileScene = ExtResource("18_projectile")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=724603580]
 shape = SubResource("RectangleShape2D_collision")
@@ -39,6 +53,15 @@ shape = SubResource("RectangleShape2D_collision")
 position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_crouch")
 disabled = true
+
+[node name="SwimSensor" type="Area2D" parent="." unique_id=803912744]
+position = Vector2(0, 36)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwimSensor" unique_id=1928374651]
+shape = SubResource("RectangleShape2D_swimsensor")
 
 [node name="LedgeWallCheck" type="ShapeCast2D" parent="." unique_id=1300787194]
 position = Vector2(0, -18)
@@ -117,19 +140,27 @@ sprite_frames = ExtResource("10_parryframes")
 animation = &"parry_flash"
 visible = false
 
-[node name="ChargeEffect" type="AnimatedSprite2D" parent="Visual" unique_id=1200787192]
-position = Vector2(0, -10)
-scale = Vector2(0.6, 0.6)
-sprite_frames = ExtResource("12_chargeframes")
-animation = &"charge"
-visible = false
-
-[node name="ChargeReadyEffect" type="AnimatedSprite2D" parent="Visual" unique_id=1200787193]
+[node name="ChargeAura" type="GPUParticles2D" parent="Visual" unique_id=1200787194]
+material = SubResource("ShaderMaterial_spike")
 position = Vector2(0, -15)
-scale = Vector2(1.1, 1.1)
-sprite_frames = ExtResource("13_thunderframes")
-animation = &"ready"
-visible = false
+emitting = false
+amount = 22
+lifetime = 0.6
+randomness = 0.65
+explosiveness = 0.1
+process_material = ExtResource("20_aura_process")
+texture = ExtResource("21_spike_tex")
+
+[node name="ChargeDust" type="GPUParticles2D" parent="Visual" unique_id=1200787195]
+material = SubResource("CanvasItemMaterial_auraadd")
+position = Vector2(0, 26)
+emitting = false
+amount = 14
+lifetime = 1.2
+randomness = 0.7
+explosiveness = 0.1
+process_material = ExtResource("23_dust_process")
+texture = ExtResource("19_dot_tex")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1899723348]
 zoom = Vector2(1.5, 1.5)
@@ -142,6 +173,22 @@ color = Color(1, 0.78, 0.5, 1)
 energy = 1.7
 texture = ExtResource("17_lightgrad")
 texture_scale = 1.3
+
+[node name="TorchLight" type="PointLight2D" parent="Visual"]
+position = Vector2(16, -34)
+enabled = false
+color = Color(1, 0.82, 0.55, 1)
+energy = 2.5
+texture = ExtResource("17_lightgrad")
+texture_scale = 4.5
+
+[node name="SwordFireLight" type="PointLight2D" parent="Visual"]
+position = Vector2(34, -10)
+enabled = false
+color = Color(1, 0.4, 0.15, 1)
+energy = 2.0
+texture = ExtResource("17_lightgrad")
+texture_scale = 2.2
 
 [node name="AttackHitbox" type="Area2D" parent="." unique_id=1263946272]
 position = Vector2(60, 0)
@@ -172,6 +219,9 @@ StartWithPoundAttack = true
 StartWithUpAttack = true
 StartWithLedgeGrab = true
 StartWithRopeSwing = true
+StartWithSwim = true
+StartWithBow = true
+StartWithTorch = true
 
 [node name="Inventory" type="Node" parent="." unique_id=1900453380]
 script = ExtResource("7_inventory")

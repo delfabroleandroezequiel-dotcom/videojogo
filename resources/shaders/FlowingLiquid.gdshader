@@ -7,9 +7,9 @@ shader_type canvas_item;
 // contrast-stretched luminance is what actually reads as molten rock. See WaterFall.cs for how
 // the actual flow animation works (discrete hand-painted frame variants, not this shader).
 uniform bool is_lava = false;
-uniform vec4 lava_shadow : source_color = vec4(0.04, 0.016, 0.016, 1.0);
-uniform vec4 lava_mid : source_color = vec4(0.78, 0.16, 0.04, 1.0);
-uniform vec4 lava_highlight : source_color = vec4(1.0, 0.86, 0.31, 1.0);
+uniform vec4 lava_shadow : source_color = vec4(0.12, 0.02, 0.0, 1.0);
+uniform vec4 lava_mid : source_color = vec4(0.98, 0.32, 0.02, 1.0);
+uniform vec4 lava_highlight : source_color = vec4(1.0, 0.92, 0.55, 1.0);
 
 // Explicit instead of relying on the CanvasItem's automatic modulate — a custom fragment shader
 // takes over COLOR entirely, so nothing multiplies it by the node's Modulate for free.

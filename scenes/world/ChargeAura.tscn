@@ -1,0 +1,17 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://resources/particles/SoftDotGradient.tres" id="1_dot_tex"]
+[ext_resource type="ParticleProcessMaterial" path="res://resources/particles/ChargeAuraProcess.tres" id="2_aura_process"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_add"]
+blend_mode = 1
+
+[node name="ChargeAura" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_add")
+emitting = false
+amount = 40
+lifetime = 0.7
+randomness = 0.65
+explosiveness = 0.1
+process_material = ExtResource("2_aura_process")
+texture = ExtResource("1_dot_tex")
