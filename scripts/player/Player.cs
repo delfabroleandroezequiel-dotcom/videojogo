@@ -171,6 +171,7 @@ public partial class Player : CharacterBody2D
 	private string _currentAttackAnimation = "attack1";
 	private int _jumpCount;
 	private bool _isDoubleJumping;
+	private bool _infiniteJumpDebug;
 	private bool _isDashing;
 	private bool _canDash = true;
 	private bool _crouching;
@@ -488,6 +489,9 @@ public partial class Player : CharacterBody2D
 
 		if (_debugFlashlight != null && Input.IsActionJustPressed("debug_flashlight"))
 			_debugFlashlight.Enabled = !_debugFlashlight.Enabled;
+
+		if (OS.HasFeature("debug") && Input.IsActionJustPressed("debug_infinite_jump"))
+			_infiniteJumpDebug = !_infiniteJumpDebug;
 
 		if (GlobalPosition.Y > FallDeathY)
 		{
@@ -845,11 +849,14 @@ public partial class Player : CharacterBody2D
 		bool droppedThrough = Input.IsActionPressed("move_down") && Input.IsActionJustPressed("jump")
 			&& IsOnFloor() && TryDropThroughOneWayPlatform();
 
-		if (!droppedThrough && Input.IsActionJustPressed("jump") && (IsOnFloor() || _jumpCount < maxJumps))
+		if (!droppedThrough && Input.IsActionJustPressed("jump") && (IsOnFloor() || _infiniteJumpDebug || _jumpCount < maxJumps))
 		{
 			velocity.Y = JumpVelocity;
-			_jumpCount++;
-			_isDoubleJumping = _jumpCount >= 2;
+			if (!_infiniteJumpDebug)
+			{
+				_jumpCount++;
+				_isDoubleJumping = _jumpCount >= 2;
+			}
 		}
 
 		UpdateCrouch();

@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/FlickerLight.cs" id="1_script"]
+[ext_resource type="Texture2D" path="res://resources/lighting/PointLightGradient.tres" id="2_glow_tex"]
+
+[node name="FlickerLight" type="PointLight2D"]
+color = Color(1, 0.78, 0.5, 1)
+energy = 1.5
+texture = ExtResource("2_glow_tex")
+texture_scale = 1.3
+script = ExtResource("1_script")

@@ -1,9 +1,10 @@
 shader_type canvas_item;
 
-// Alternative to WaterFall's hand-painted sprite frames: everything here is generated from noise
-// + TIME, no texture sampled at all — so there's no sheet to crop/seam-match, at the cost of a
-// smoother/less "painted" look than the HEROES_FANTASY art. Meant to be compared side by side
-// with WaterFall, not a guaranteed replacement.
+// Shared by ProceduralWater.cs (flat pool/lava rectangle) and Cascada.cs (organic-edged
+// waterfall): everything here is generated from noise + TIME, no texture sampled at all — so
+// there's no sheet to crop/seam-match, at the cost of a smoother/less "painted" look than
+// hand-drawn sprite frames. has_organic_edges/has_rock_flecks below are what Cascada turns on
+// that ProceduralWater leaves off.
 uniform float wave_speed = 1.0;
 uniform float wave_frequency = 8.0;
 uniform vec4 shallow_color : source_color = vec4(0.55, 0.88, 0.95, 1.0);
@@ -40,6 +41,22 @@ uniform bool has_base_foam = false;
 uniform float base_foam_thickness = 5.0;
 uniform float base_foam_turbulence = 10.0;
 uniform vec4 base_foam_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+
+// Organic side edges — for a waterfall squeezed through a rock channel instead of a flat pool/
+// lava rectangle. Insets the left/right borders by a noise value that varies down the height (and
+// slowly over TIME if edge_jitter_speed isn't 0), quantized to the same pixel-block grid as
+// everything else, so the silhouette bulges/narrows unevenly instead of two dead-straight sides.
+uniform bool has_organic_edges = false;
+uniform float edge_jitter_amplitude = 6.0;
+uniform float edge_jitter_frequency = 3.0;
+uniform float edge_jitter_speed = 0.15;
+
+// Occasional darker patches within the flow — reads as exposed rock showing through the falling
+// water rather than a uniform sheet. Independent noise channel (coarser, its own seed) so it
+// doesn't line up with the flow ripples or the edge jitter above.
+uniform bool has_rock_flecks = false;
+uniform float rock_fleck_density : hint_range(0.0, 1.0) = 0.12;
+uniform vec4 rock_fleck_color : source_color = vec4(0.15, 0.17, 0.2, 1.0);
 
 // Same value-noise trick as everywhere else this project uses procedural noise (see
 // FlowingLiquid.gdshader's hash) — bilinear-interpolated hash noise, cheap and good enough for a
@@ -80,6 +97,20 @@ void fragment()
 			discard;
 	}
 
+	if (has_organic_edges)
+	{
+		// Independent seeds (offset constants) for left vs right so the two sides bulge/narrow
+		// out of sync instead of mirroring each other.
+		float rowPhase = blockCoord.y / pixel_block_size * (edge_jitter_frequency / 10.0);
+		float leftNoise = noise(vec2(rowPhase, TIME * edge_jitter_speed));
+		float rightNoise = noise(vec2(rowPhase + 100.0, TIME * edge_jitter_speed + 50.0));
+		float leftInset = floor(leftNoise * edge_jitter_amplitude / pixel_block_size) * pixel_block_size;
+		float rightInset = floor(rightNoise * edge_jitter_amplitude / pixel_block_size) * pixel_block_size;
+
+		if (pixelCoord.x < leftInset || pixelCoord.x > shape_size.x - rightInset)
+			discard;
+	}
+
 	// Two noise layers scrolling at different speeds/directions/scales so the flow doesn't look
 	// like one repeating ripple — same idea as combining scroll+shimmer earlier, just both
 	// layers are the same kind of thing here.
@@ -93,6 +124,15 @@ void fragment()
 
 	vec3 color = mix(deep_color.rgb, shallow_color.rgb, n);
 	float alpha = mix(deep_color.a, shallow_color.a, n);
+
+	if (has_rock_flecks)
+	{
+		// Coarser and differently-seeded than the flow noise above, so patches don't line up with
+		// the ripples — reads as scattered rock outcrops instead of a texture-aligned pattern.
+		float rockNoise = noise(uv * (wave_frequency * 0.35) + vec2(37.0, 91.0));
+		if (rockNoise > 1.0 - rock_fleck_density)
+			color = rock_fleck_color.rgb;
+	}
 
 	if (n > foam_threshold)
 	{

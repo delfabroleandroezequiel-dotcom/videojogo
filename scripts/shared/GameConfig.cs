@@ -8,7 +8,7 @@ public partial class GameConfig : Node
 {
 	public static GameConfig Instance { get; private set; }
 
-	[Export] public string DefaultStartScenePath = "res://scenes/world/Casa1.tscn";
+	[Export] public string DefaultStartScenePath = "res://scenes/world/Mapas/Casa1.tscn";
 	[Export] public string MainMenuScenePath = "res://scenes/ui/MainMenu.tscn";
 
 	[Export] public PackedScene[] GroundEnemyPool = System.Array.Empty<PackedScene>();
@@ -59,6 +59,27 @@ public partial class GameConfig : Node
 	// time; Custom still allows a free value on both.
 	public static readonly float[] CorridorLengthPresets = { 384f, 768f, 1152f };
 	public static readonly float[] CorridorCrossSizePresets = { 96f, 288f, 576f };
+
+	// Physics-derived gap distances for MiniCorridorAccordion's jump-gap spacing — mirror Player's
+	// defaults (Speed=200, JumpVelocity=-400, Gravity=900). Horizontal = distance covered in the
+	// air time of a full jump arc while holding a direction; Vertical = max jump height. "Double"
+	// approximates retriggering the second jump immediately (grants another full single-jump arc
+	// on top) — a greybox starting point to calibrate against in playtest, not a guarantee the gap
+	// is clearable with sloppy timing. Update these if Player's defaults change.
+	private const float PlayerJumpAirTime = 2f * 400f / 900f;
+	public const float JumpGapHorizontalSingle = 200f * PlayerJumpAirTime;
+	public const float JumpGapHorizontalDouble = JumpGapHorizontalSingle * 2f;
+	public const float JumpGapVerticalSingle = 400f * 400f / (2f * 900f);
+	public const float JumpGapVerticalDouble = JumpGapVerticalSingle * 2f;
+
+	// Same idea as JumpGap* above but for MiniParedAccordion's wall-jump ladder spacing — mirrors
+	// Player's wall-jump defaults (WallJumpVelocityX=260, WallJumpVelocityY=-380, Gravity=900).
+	// Horizontal = shaft width crossable in the kick's full air time (return to the same height);
+	// Vertical = max height gained by the kick. No "double" variant — a wall-jump kick only fires
+	// once per wall grab, there's no retrigger. Update these if Player's wall-jump defaults change.
+	private const float PlayerWallJumpAirTime = 2f * 380f / 900f;
+	public const float WallJumpGapHorizontal = 260f * PlayerWallJumpAirTime;
+	public const float WallJumpGapVertical = 380f * 380f / (2f * 900f);
 
 	// World reputation ("Amor/Normal/Odio"): completing a quest nudges it up, killing an
 	// ambient (non-quest) NPC nudges it down — see QuestManager.CompleteQuest and Npc.OnDied.

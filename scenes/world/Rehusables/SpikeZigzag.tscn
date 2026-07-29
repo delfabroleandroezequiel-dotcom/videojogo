@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://coyqm73y1nmmh"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SpikeTrap.tscn" id="1_spiketrap"]
+
+[node name="SpikeZigzag" type="Node2D" unique_id=227815269]
+
+[node name="FloorSpike1" parent="." unique_id=1865833215 instance=ExtResource("1_spiketrap")]
+
+[node name="CeilingSpike1" parent="." unique_id=1007003177 instance=ExtResource("1_spiketrap")]
+position = Vector2(80, -160)
+rotation = 3.1415927
+StartOffset = 0.4
+
+[node name="FloorSpike2" parent="." unique_id=1572575791 instance=ExtResource("1_spiketrap")]
+position = Vector2(160, 0)
+StartOffset = 0.8
+
+[node name="CeilingSpike2" parent="." unique_id=52713196 instance=ExtResource("1_spiketrap")]
+position = Vector2(240, -160)
+rotation = 3.1415927
+StartOffset = 1.2

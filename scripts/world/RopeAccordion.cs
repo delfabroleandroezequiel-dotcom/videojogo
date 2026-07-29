@@ -11,7 +11,7 @@ namespace Metroidvania.World;
 [Tool]
 public partial class RopeAccordion : Node2D
 {
-	private const string RopeScenePath = "res://scenes/world/Rope.tscn";
+	private const string RopeScenePath = "res://scenes/world/Rehusables/Rope.tscn";
 
 	private int _count = 3;
 

@@ -2,11 +2,10 @@ using Godot;
 
 namespace Metroidvania.World;
 
-// Runtime helper shared by LavaFall/LavaFloor/WaterFall — all three spawn an ambient
-// PointLight2D tinted by their Element, same style as Torch.tscn's Glow (same texture, similar
-// scale): an accent near the hazard, not an attempt to cover its whole shape. Pulled out of
-// LavaTileSheet (which is GandalfHardcore-specific) once WaterFall — built on an unrelated pack —
-// needed it too.
+// Runtime helper shared by LavaFall/LavaFloor/ProceduralWater — all spawn an ambient PointLight2D
+// tinted by their Element, same style as Torch.tscn's Glow (same texture, similar scale): an
+// accent near the hazard, not an attempt to cover its whole shape. Pulled out of LavaTileSheet
+// (which is GandalfHardcore-specific) once a non-GandalfHardcore hazard needed it too.
 public static class ElementGlow
 {
 	private const string GlowTexturePath = "res://resources/lighting/PointLightGradient.tres";

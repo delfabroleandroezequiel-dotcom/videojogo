@@ -6210,7 +6210,7 @@ size = Vector2(20, 350)
 
 [node name="InteriorCuevaBosqueLobos1" type="Node2D" unique_id=-1094967295]
 script = ExtResource("2_bootstrap")
-ScenePath = "res://scenes/world/InteriorCuevaBosqueLobos1.tscn"
+ScenePath = "res://scenes/world/Mapas/InteriorCuevaBosqueLobos1.tscn"
 CameraProfile = ExtResource("5_camera_profile")
 CameraLimitLeft = 0
 CameraLimitRight = 1536
@@ -6364,7 +6364,7 @@ FallDeathY = 1000.0
 
 [node name="ReturnTransition" parent="." unique_id=-1094967253 instance=ExtResource("4_transition")]
 position = Vector2(60, 575)
-TargetScenePath = "res://scenes/world/BosqueLobos1.tscn"
+TargetScenePath = "res://scenes/world/Mapas/BosqueLobos1.tscn"
 TargetSpawnPosition = Vector2(1500, 258)
 UseStoredReturnPosition = true
 
@@ -6379,7 +6379,7 @@ position = Vector2(770, 869)
 
 [node name="CaveExitTrigger" parent="." unique_id=694342543 instance=ExtResource("4_transition")]
 position = Vector2(1601, 508)
-TargetScenePath = "res://scenes/world/InteriorCuevaBosqueLobos2.tscn"
+TargetScenePath = "res://scenes/world/Mapas/InteriorCuevaBosqueLobos2.tscn"
 TargetSpawnPosition = Vector2(150, 550)
 
 [node name="TorchLight" type="PointLight2D" parent="." unique_id=1419400577]

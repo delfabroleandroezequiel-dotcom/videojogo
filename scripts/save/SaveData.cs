@@ -8,7 +8,7 @@ public class SaveData
 	// and add a step to SaveManager.MigrateSaveData whenever a saved field's meaning changes.
 	public int SaveVersion { get; set; }
 	public string CharacterName { get; set; } = "Héroe";
-	public string ScenePath { get; set; } = "res://scenes/world/Casa1.tscn";
+	public string ScenePath { get; set; } = "res://scenes/world/Mapas/Casa1.tscn";
 	public float PositionX { get; set; }
 	public float PositionY { get; set; }
 	public List<string> UnlockedAbilities { get; set; } = new();

@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://sd60dy357p3n"]
+
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_pke66"]
+[ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="2_acnj0"]
+[ext_resource type="Texture2D" uid="uid://cku6awb3vjdax" path="res://assets/backgrounds/ChatGPT Image 12 jul 2026, 18_51_06.png" id="3_kuwn1"]
+[ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="4_mltkw"]
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="5_tt2wf"]
+[ext_resource type="PackedScene" path="res://scenes/world/MazeCorridorBuilder.tscn" id="7_cpgmx"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniCorridorAccordion.tscn" id="9_rvirw"]
+
+[node name="InteriorCuevaBosqueLobos2" type="Node2D" unique_id=1941802600]
+script = ExtResource("1_pke66")
+ScenePath = "res://scenes/world/Mapas/InteriorCuevaBosqueLobos2.tscn"
+
+[node name="Background" type="Node2D" parent="." unique_id=1941802601]
+visible = false
+z_index = -10
+script = ExtResource("2_acnj0")
+
+[node name="BgTile1" type="Sprite2D" parent="Background" unique_id=1941802602]
+texture = ExtResource("3_kuwn1")
+
+[node name="ForestExitTrigger" parent="." unique_id=1941802603 instance=ExtResource("4_mltkw")]
+TargetScenePath = "res://scenes/world/Mapas/BosqueLobos1.tscn"
+TargetSpawnPosition = Vector2(1500, 279)
+UseStoredReturnPosition = true
+
+[node name="Player" parent="." unique_id=1941802604 instance=ExtResource("5_tt2wf")]
+position = Vector2(763, -203)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1941802606]
+visible = false
+color = Color(0.05, 0.05, 0.05, 1)
+
+[node name="MiniCorridorAccordion" parent="." unique_id=1995765242 instance=ExtResource("9_rvirw")]
+visible = false
+position = Vector2(945, -192)
+Climbable = true
+
+[node name="MazeCorridorBuilder" parent="." unique_id=1030360030 instance=ExtResource("7_cpgmx")]
+position = Vector2(-2183, -2175)
+MainPathLength = 10
+MaxBranchLength = 3
+NearStartWindow = 0

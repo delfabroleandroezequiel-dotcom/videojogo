@@ -1,0 +1,24 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/MiniCorridor.cs" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+resource_local_to_scene = true
+size = Vector2(96, 32)
+
+[node name="MiniCorridor" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Body" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Fill" type="Polygon2D" parent="Body"]
+color = Color(0.5, 0.5, 0.55, 0.6)
+polygon = PackedVector2Array(-48, -16, 48, -16, 48, 16, -48, 16)
+
+[node name="Entry" type="Marker2D" parent="."]
+
+[node name="Exit" type="Marker2D" parent="."]
+position = Vector2(96, 0)

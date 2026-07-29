@@ -62,7 +62,7 @@ one_way_collision = true
 
 [node name="ReturnTransition" parent="." unique_id=893934910 instance=ExtResource("4_transition")]
 position = Vector2(-357.02, 107.1)
-TargetScenePath = "res://scenes/world/Nix.tscn"
+TargetScenePath = "res://scenes/world/Mapas/Nix.tscn"
 TargetSpawnPosition = Vector2(1717, 463)
 RequireInteract = true
 UseStoredReturnPosition = true

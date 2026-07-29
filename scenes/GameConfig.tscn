@@ -11,7 +11,7 @@
 
 [node name="GameConfig" type="Node"]
 script = ExtResource("1_script")
-DefaultStartScenePath = "res://scenes/world/Casa1.tscn"
+DefaultStartScenePath = "res://scenes/world/Mapas/Casa1.tscn"
 MainMenuScenePath = "res://scenes/ui/MainMenu.tscn"
 GroundEnemyPool = [ExtResource("3_slime_red"), ExtResource("4_slime_blue"), ExtResource("5_slime_green"), ExtResource("6_melee"), ExtResource("7_ranged")]
 FlyingEnemyPool = [ExtResource("8_bat")]

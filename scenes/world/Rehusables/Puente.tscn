@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/Puente.cs" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/tabla.png" id="2_tabla"]
+
+[node name="Puente" type="AnimatableBody2D"]
+script = ExtResource("1_script")
+PlankTexture = ExtResource("2_tabla")

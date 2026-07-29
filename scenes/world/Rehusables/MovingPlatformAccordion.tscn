@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/MovingPlatformAccordion.cs" id="1_script"]
+
+[node name="MovingPlatformAccordion" type="Node2D"]
+script = ExtResource("1_script")
+Count = 4
+Spacing = Vector2(260, 0)
+PointBOffset = Vector2(200, 0)
+Speed = 80.0

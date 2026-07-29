@@ -48,6 +48,12 @@ public partial class MovingPlatform : AnimatableBody2D
 	// the platform's rest position instead of on top of it.
 	[Export] public Vector2 SwitchOffset = new(0f, -32f);
 
+	// Fast-forwards the patrol by this many seconds right at _Ready, same idea as SpikeTrap's
+	// StartOffset — only matters with AutoPatrol on. Staggering a row of platforms by half their
+	// leg's travel time (_legDistance / Speed) puts neighbors in anti-phase, so one is approaching
+	// while the next is pulling away, instead of every platform moving in lockstep.
+	[Export] public float StartOffset;
+
 	private Vector2 _pointA;
 	private Vector2 _pointB;
 	private float _legDistance;
@@ -68,8 +74,51 @@ public partial class MovingPlatform : AnimatableBody2D
 		_movingToB = true;
 		_moving = AutoPatrol;
 
+		if (AutoPatrol && StartOffset > 0f)
+			SimulateForward(StartOffset);
+
 		if (Switches != PlatformSwitches.None)
 			SpawnSwitches();
+	}
+
+	// Closed-form replay of _PhysicsProcess's leg/wait stepping, so StartOffset lands exactly
+	// where the real loop would be after that many seconds — including crossing multiple legs and
+	// waits if StartOffset is large enough, not just a single partial leg.
+	private void SimulateForward(float seconds)
+	{
+		if (Speed <= 0f || _legDistance <= 0f)
+			return;
+
+		float travelTime = _legDistance / Speed;
+		float remaining = seconds;
+
+		while (remaining > 0f)
+		{
+			float timeLeftOnLeg = (1f - _progress) * travelTime;
+			if (remaining < timeLeftOnLeg)
+			{
+				_progress += remaining / travelTime;
+				return;
+			}
+
+			remaining -= timeLeftOnLeg;
+			_progress = 1f;
+
+			if (WaitTimeAtPoints > 0f)
+			{
+				if (remaining < WaitTimeAtPoints)
+				{
+					_waiting = true;
+					_waitTimer = remaining;
+					return;
+				}
+
+				remaining -= WaitTimeAtPoints;
+			}
+
+			_movingToB = !_movingToB;
+			_progress = 0f;
+		}
 	}
 
 	private void SpawnSwitches()

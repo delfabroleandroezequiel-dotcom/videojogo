@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/MiniCorridorAccordion.cs" id="1_script"]
+
+[node name="MiniCorridorAccordion" type="Node2D"]
+script = ExtResource("1_script")
+Count = 4
+SegmentLength = 96.0
+Thickness = 32.0

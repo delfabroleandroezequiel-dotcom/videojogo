@@ -9,7 +9,7 @@ namespace Metroidvania.Save;
 
 public partial class LevelBootstrap : Node
 {
-	[Export] public string ScenePath = "res://scenes/world/Casa1.tscn";
+	[Export] public string ScenePath = "res://scenes/world/Mapas/Casa1.tscn";
 	[Export] public string ZoneName = "";
 	[Export] public CameraProfile CameraProfile;
 	[Export] public int CameraLimitLeft = -10000000;

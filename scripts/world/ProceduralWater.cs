@@ -2,21 +2,20 @@ using Godot;
 
 namespace Metroidvania.World;
 
-// Alternative to WaterFall: a fully procedural water hazard (layered scrolling noise + foam
-// threshold via ProceduralWater.gdshader) instead of hand-painted sprite frames from the
-// HEROES_FANTASY sheet — no crop/seam-matching at all since nothing is sampled from a texture,
-// at the cost of a smoother/less "painted" look unless deliberately quantized later. Built to
-// compare side by side with WaterFall, not to replace it — easy to delete if it doesn't hold up.
+// Fully procedural water hazard (layered scrolling noise + foam threshold via
+// ProceduralWater.gdshader) instead of hand-painted sprite frames from a texture sheet — no
+// crop/seam-matching at all since nothing is sampled from a texture, at the cost of a
+// smoother/less "painted" look unless deliberately quantized later.
 // Sized freely (Width/Height in pixels) instead of stacking fixed-size tiles, since there's no
 // source art size to respect — a wide/short rectangle plus HasWavyTop (see below) doubles as a
 // sea/pool surface, same technique either way.
 // A single Hazard (InstantKill by default) covers the whole rectangle, unless IsSwimmable is on
 // (see below), in which case it's a Water zone the player can actually swim through instead.
-// Plus the same ambient ElementGlow LavaFall/LavaFloor/WaterFall use, tinted via Element same as
-// those — flip it to Lava for the glow and a baked fire palette/flow speed (see the Lava* consts
-// near Rebuild), same "one flag, no manual retuning" deal WaterFall gets from
-// FlowingLiquid.gdshader's is_lava. ShallowColor/DeepColor/etc. stay in the Inspector but are
-// ignored while Element is Lava, same as WaveSpeed/WaveFrequency.
+// Plus the same ambient ElementGlow LavaFall/LavaFloor use, tinted via Element same as those —
+// flip it to Lava for the glow and a baked fire palette/flow speed (see the Lava* consts near
+// Rebuild), same "one flag, no manual retuning" deal LavaFall gets from FlowingLiquid.gdshader's
+// is_lava. ShallowColor/DeepColor/etc. stay in the Inspector but are ignored while Element is
+// Lava, same as WaveSpeed/WaveFrequency.
 // [Tool] so it previews live in the editor (the shader's TIME-driven flow animates there too).
 [Tool]
 public partial class ProceduralWater : Node2D
@@ -111,9 +110,9 @@ public partial class ProceduralWater : Node2D
 	private LavaElement _element = LavaElement.Water;
 
 	// Swaps the ambient ElementGlow tint (blue vs orange) and, in Rebuild(), the shader's
-	// wave/color parameters to a baked fire preset — same Element idea WaterFall/LavaFall use,
-	// just implemented here in C# instead of shader-side since this shader has no built-in
-	// water/lava gradient of its own.
+	// wave/color parameters to a baked fire preset — same Element idea LavaFall uses, just
+	// implemented here in C# instead of shader-side since this shader has no built-in water/lava
+	// gradient of its own.
 	[Export]
 	public LavaElement Element
 	{
@@ -262,7 +261,7 @@ public partial class ProceduralWater : Node2D
 	}
 
 	// Baked fire preset, applied instead of the exported wave/color fields whenever Element is
-	// Lava — same "Element alone gives you the right look" deal WaterFall gets from
+	// Lava — same "Element alone gives you the right look" deal LavaFall gets from
 	// FlowingLiquid.gdshader's is_lava gradient, since this shader has no such built-in switch of
 	// its own. Slower/lower-frequency than any sensible water setting so it reads as thick molten
 	// flow instead of choppy water, on a shadow-to-white-hot gradient with a bright hot foam/crest

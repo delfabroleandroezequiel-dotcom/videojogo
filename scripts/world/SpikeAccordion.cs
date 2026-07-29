@@ -12,7 +12,7 @@ namespace Metroidvania.World;
 [Tool]
 public partial class SpikeAccordion : Node2D
 {
-	private const string SpikeTrapScenePath = "res://scenes/world/SpikeTrap.tscn";
+	private const string SpikeTrapScenePath = "res://scenes/world/Rehusables/SpikeTrap.tscn";
 
 	private int _count = 5;
 
