@@ -1,0 +1,232 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0000.png" id="1_f0"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0001.png" id="2_f1"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0002.png" id="3_f2"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0003.png" id="4_f3"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0004.png" id="5_f4"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0005.png" id="6_f5"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0006.png" id="7_f6"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0007.png" id="8_f7"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0008.png" id="9_f8"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0009.png" id="10_f9"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0010.png" id="11_f10"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0011.png" id="12_f11"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0012.png" id="13_f12"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0013.png" id="14_f13"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0014.png" id="15_f14"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0015.png" id="16_f15"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0016.png" id="17_f16"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0017.png" id="18_f17"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0018.png" id="19_f18"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0019.png" id="20_f19"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0020.png" id="21_f20"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0021.png" id="22_f21"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0022.png" id="23_f22"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0023.png" id="24_f23"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0024.png" id="25_f24"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0025.png" id="26_f25"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0026.png" id="27_f26"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0027.png" id="28_f27"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0028.png" id="29_f28"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0029.png" id="30_f29"]
+[ext_resource type="Texture2D" path="res://assets/external/Super Pixel Fantasy FX Pack 2/PNG/fanfx2_wind_spell_large_green/frame0030.png" id="31_f30"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_f0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_f1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_f2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_f3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_f4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_f5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_f6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_f7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_f8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_f9")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_f10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_f11")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_f12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_f13")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_f14")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_f15")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_f16")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_f17")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_f18")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_f19")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_f20")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_f21")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_f22")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_f23")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_f24")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_f25")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_f26")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_f27")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_f28")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_f29")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_f30")
+}],
+"loop": true,
+"name": &"marker",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_f0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_f1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_f2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_f3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_f4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_f5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_f6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_f7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_f8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_f9")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_f10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_f11")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_f12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_f13")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_f14")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_f15")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_f16")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_f17")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_f18")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_f19")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_f20")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_f21")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_f22")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_f23")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_f24")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_f25")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_f26")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_f27")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_f28")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_f29")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_f30")
+}],
+"loop": false,
+"name": &"pulse",
+"speed": 14.0
+}]

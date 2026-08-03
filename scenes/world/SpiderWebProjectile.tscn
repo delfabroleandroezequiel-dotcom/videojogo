@@ -1,9 +1,10 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/world/Projectile.cs" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/Pj3AcidLargeGreenSpriteFrames.tres" id="2_spriteframes"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_projectile"]
-radius = 7.0
+radius = 15.0
 
 [node name="SpiderWebProjectile" type="Area2D"]
 collision_layer = 0
@@ -15,10 +16,8 @@ shape = SubResource("CircleShape2D_projectile")
 
 [node name="Visual" type="Node2D" parent="."]
 
-[node name="Glob" type="Polygon2D" parent="Visual"]
-color = Color(0.28, 0.32, 0.16, 1)
-polygon = PackedVector2Array(7, 0, 4.95, 4.95, 0, 7, -4.95, 4.95, -7, 0, -4.95, -4.95, 0, -7, 4.95, -4.95)
-
-[node name="GlobCore" type="Polygon2D" parent="Visual"]
-color = Color(0.55, 0.62, 0.32, 1)
-polygon = PackedVector2Array(3, 0, 2.1, 2.1, 0, 3, -2.1, 2.1, -3, 0, -2.1, -2.1, 0, -3, 2.1, -2.1)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visual"]
+scale = Vector2(1.3, 1.3)
+sprite_frames = ExtResource("2_spriteframes")
+animation = &"fly"
+autoplay = "fly"

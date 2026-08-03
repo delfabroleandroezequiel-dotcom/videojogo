@@ -24,6 +24,10 @@ public partial class SpiderBoss : Boss
 	private bool _isWebSpitting;
 	private int _nextSummonIndex;
 
+	// SpiderSpriteFrames.tres only has "attack" (no "attack1") — Boss.cs's default is tuned for
+	// BossLobo/BanditBoss's naming instead.
+	protected override string DefaultAttackAnimation => "attack";
+
 	public override void _Ready()
 	{
 		base._Ready();
