@@ -39,6 +39,14 @@ public partial class Boss : Enemy
 	private GpuParticles2D _enrageAura;
 	protected bool _attacking;
 	protected string _attackAnimation = "attack1";
+
+	// What Attack() resets _attackAnimation to before every normal swing — "attack1" matches
+	// BossLobo/BanditBoss's SpriteFrames. A subclass whose SpriteFrames names its swing animation
+	// differently (SpiderBoss only has "attack", not "attack1") overrides this instead of touching
+	// the shared Attack() flow, same reasoning as the boss-uniqueness rule: don't bend Boss.cs's
+	// defaults to fit one boss.
+	protected virtual string DefaultAttackAnimation => "attack1";
+
 	protected bool _canAttack = true;
 	private bool _isRetreating;
 	private bool _canRetreat = true;
@@ -305,8 +313,8 @@ public partial class Boss : Enemy
 	{
 		_attacking = true;
 		_canAttack = false;
-		_attackAnimation = "attack1";
-		Sprite?.Play("attack1");
+		_attackAnimation = DefaultAttackAnimation;
+		Sprite?.Play(_attackAnimation);
 
 		if (AttackHitboxDelay > 0f)
 			await ToSignal(GetTree().CreateTimer(AttackHitboxDelay), SceneTreeTimer.SignalName.Timeout);

@@ -8,6 +8,10 @@ public partial class HealFlask : Node
 {
 	[Export] public int HealAmount = 40;
 
+	// Test-scene-only escape hatch (e.g. SpiderBossArena_TestRoom) — 0 keeps the normal
+	// progression-driven charge count from SaveManager untouched everywhere else in the game.
+	[Export] public int DebugForceMaxCharges = 0;
+
 	public int MaxCharges { get; private set; }
 	public int CurrentCharges { get; private set; }
 
@@ -15,7 +19,7 @@ public partial class HealFlask : Node
 
 	public override void _Ready()
 	{
-		MaxCharges = SaveManager.Instance.GetMaxHealCharges();
+		MaxCharges = DebugForceMaxCharges > 0 ? DebugForceMaxCharges : SaveManager.Instance.GetMaxHealCharges();
 		CurrentCharges = MaxCharges;
 	}
 
