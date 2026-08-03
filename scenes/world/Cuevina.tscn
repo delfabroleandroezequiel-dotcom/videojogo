@@ -5,9 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://c70xb71wjjh8d" path="res://assets/sprites/misprite/cueviña.png" id="3_cueva"]
 [ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="4_camera_profile"]
 [ext_resource type="Texture2D" uid="uid://bkusoy3iblue8" path="res://assets/external/gandalfhardcore/GandalfHardcore Hell Asset Pack 32x32/GandalfHardcore Hell Tiles 32x32 dark.png" id="5_lf8sw"]
-[ext_resource type="PackedScene" path="res://scenes/world/SlimeEnemyRed.tscn" id="6_slime_red"]
-[ext_resource type="PackedScene" path="res://scenes/world/SlimeEnemyBlue.tscn" id="7_slime_blue"]
-[ext_resource type="PackedScene" path="res://scenes/world/SlimeEnemyGreen.tscn" id="8_slime_green"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SlimeEnemyRed.tscn" id="6_slime_red"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SlimeEnemyBlue.tscn" id="7_slime_blue"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SlimeEnemyGreen.tscn" id="8_slime_green"]
 [ext_resource type="Script" uid="uid://bl72wneghhtq5" path="res://scripts/world/TorchLight.cs" id="9_torch_script"]
 [ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="10_torch_tex"]
 
