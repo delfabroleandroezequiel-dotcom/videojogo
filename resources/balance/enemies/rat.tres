@@ -18,6 +18,7 @@ StaminaRegenPerSecond = 25
 Weakness = 1
 MoveSpeed = 130.0
 DetectionRange = 300.0
+StopDistance = 20.0
 KnockbackDuration = 0.15
 ContactDamageMultiplier = 1.0
 LootTable = [SubResource("LootEntry_coin")]
