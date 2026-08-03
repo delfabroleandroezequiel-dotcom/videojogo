@@ -220,7 +220,24 @@ public partial class SaveManager : Node
 		try
 		{
 			using FileAccess file = FileAccess.Open(GetPath(slot), FileAccess.ModeFlags.Read);
-			return JsonSerializer.Deserialize<SaveData>(file.GetAsText());
+			SaveData data = JsonSerializer.Deserialize<SaveData>(file.GetAsText());
+
+			// A save's ScenePath can go stale if the referenced scene was since moved/renamed/
+			// removed on disk (e.g. a scenes/world/ reorg) — falling back to the default start
+			// scene keeps that the same "never crash on load" contract as the JsonException case
+			// below, instead of every caller's ChangeSceneToFile blowing up on a dead path.
+			if (data is not null && !ResourceLoader.Exists(data.ScenePath))
+			{
+				GD.PushError($"Save slot {slot}'s ScenePath '{data.ScenePath}' no longer exists — falling back to the default start scene.");
+				data.ScenePath = GameConfig.Instance.DefaultStartScenePath;
+				// The saved PositionX/Y belonged to the scene that just vanished — carrying it
+				// over would drop the player at those leftover coordinates inside the fallback
+				// scene instead, which can land them out of bounds or inside geometry.
+				data.PositionX = GameConfig.Instance.DefaultStartPosition.X;
+				data.PositionY = GameConfig.Instance.DefaultStartPosition.Y;
+			}
+
+			return data;
 		}
 		catch (JsonException)
 		{

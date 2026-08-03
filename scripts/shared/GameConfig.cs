@@ -9,6 +9,10 @@ public partial class GameConfig : Node
 	public static GameConfig Instance { get; private set; }
 
 	[Export] public string DefaultStartScenePath = "res://scenes/world/Mapas/Casa1.tscn";
+	// Matches the Player node's authored position in DefaultStartScenePath's own scene file —
+	// used to reposition a save whose PositionX/Y belonged to a since-removed scene, so a stale
+	// ScenePath fallback doesn't also drop the player at another scene's leftover coordinates.
+	[Export] public Vector2 DefaultStartPosition = new(-312, 62);
 	[Export] public string MainMenuScenePath = "res://scenes/ui/MainMenu.tscn";
 
 	[Export] public PackedScene[] GroundEnemyPool = System.Array.Empty<PackedScene>();
