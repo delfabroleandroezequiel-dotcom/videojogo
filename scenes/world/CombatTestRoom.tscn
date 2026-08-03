@@ -1,10 +1,10 @@
-[gd_scene format=3 uid="uid://combat_test_room_main"]
+[gd_scene format=3 uid="uid://brf8pcssvhum7"]
 
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
 [ext_resource type="PackedScene" uid="uid://cexihxsolu6jg" path="res://scenes/world/MeleeEnemy.tscn" id="2_melee"]
 [ext_resource type="PackedScene" uid="uid://dgydh5wklq6qh" path="res://scenes/world/RangedEnemy.tscn" id="3_ranged"]
-[ext_resource type="PackedScene" uid="uid://slime_enemy_red_main" path="res://scenes/world/SlimeEnemyRed.tscn" id="4_slime_red"]
-[ext_resource type="PackedScene" uid="uid://slime_enemy_blue_main" path="res://scenes/world/SlimeEnemyBlue.tscn" id="5_slime_blue"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SlimeEnemyRed.tscn" id="4_slime_red"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SlimeEnemyBlue.tscn" id="5_slime_blue"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(3000, 60)
