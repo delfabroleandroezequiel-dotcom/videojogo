@@ -86,6 +86,9 @@ public partial class FlyingEnemy : Enemy
 	// instead and let the normal steering resume next frame.
 	public override void ApplyKnockback(Vector2 direction, float force)
 	{
+		if (!KnockbackEnabled)
+			return;
+
 		Anchor += direction * force * 0.05f;
 	}
 

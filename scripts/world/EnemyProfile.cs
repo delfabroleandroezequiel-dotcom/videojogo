@@ -22,6 +22,11 @@ public partial class EnemyProfile : Resource
 	[Export] public float DetectionRange = 400f;
 	[Export] public float StopDistance = 0f;
 	[Export] public float Gravity = 900f;
+
+	// Off by default for every enemy — getting shoved back mid-fight read as unsatisfying rather
+	// than impactful. KnockbackDuration below stays pre-tuned per enemy type so flipping this on
+	// for one of them just works, instead of needing the duration re-authored from scratch later.
+	[Export] public bool KnockbackEnabled = false;
 	[Export] public float KnockbackDuration = 0.2f;
 	[Export] public float ContactDamageMultiplier = 0.3f;
 

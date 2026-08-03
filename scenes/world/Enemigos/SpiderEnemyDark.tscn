@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemy.tscn" id="1_base"]
+
+[node name="SpiderEnemyDark" instance=ExtResource("1_base")]
+
+[node name="Visual" parent="." index="4"]
+modulate = Color(0.32, 0.32, 0.4, 1)

@@ -16,6 +16,23 @@ public partial class Enemy : CharacterBody2D
 	[Export] public float MoveSpeed = 80f;
 	[Export] public float Gravity = 900f;
 	[Export] public float StopDistance = 0f;
+
+	// Once the enemy stops at StopDistance, the player has to retreat this much further before it
+	// resumes closing in — without this, a single-threshold check re-triggers a chase step from the
+	// smallest jitter around StopDistance (e.g. the two CharacterBody2Ds nudging each other apart
+	// on overlap), which reads as the enemy endlessly walking into and bouncing off the player.
+	[Export] public float ChaseHysteresis = 12f;
+
+	// How long the player has to stay on the opposite side before this enemy actually commits to
+	// facing them — instant re-facing let a last-instant dash behind an enemy mid-windup do nothing,
+	// since FacingRight (and the attack hitbox direction derived from it) just snapped to the
+	// player's new side on the very frame the swing fired. A brief window means a well-timed dash
+	// can still catch it mid-swing facing the wrong way.
+	[Export] public float TurnDelay = 0.15f;
+
+	// Off by default — see EnemyProfile.KnockbackEnabled, which overrides this the same way it
+	// overrides every other inline default below whenever a Profile is assigned.
+	[Export] public bool KnockbackEnabled = false;
 	[Export] public float KnockbackDuration = 0.2f;
 	[Export] public float ExplosionScale = 1f;
 	[Export] public PackedScene ExplosionScene;
@@ -45,8 +62,11 @@ public partial class Enemy : CharacterBody2D
 	public bool PlayerDetected { get; protected set; }
 
 	protected Area2D ContactArea;
+	private bool _isHoldingDistance;
+	private float _turnAwayTimer;
 	private float _knockbackTimer;
 	private Vector2 _knockbackVelocity;
+	private Color _baseModulate;
 
 	// Shared across all enemies and re-seeded once, rather than a fresh RandomNumberGenerator
 	// per death: several enemies dying the same frame (e.g. an AoE) would otherwise all
@@ -73,6 +93,7 @@ public partial class Enemy : CharacterBody2D
 		Stats = GetNode<Stats>("Stats");
 		ApplyProfile();
 		Visual = GetNode<Node2D>("Visual");
+		_baseModulate = Visual.Modulate;
 		Sprite = Visual.GetNodeOrNull<AnimatedSprite2D>("CharacterSprite");
 		ContactArea = GetNode<Area2D>("ContactArea");
 		_ledgeCheck = GetNodeOrNull<RayCast2D>("LedgeCheck");
@@ -105,6 +126,7 @@ public partial class Enemy : CharacterBody2D
 		DetectionRange = Profile.DetectionRange;
 		StopDistance = Profile.StopDistance;
 		Gravity = Profile.Gravity;
+		KnockbackEnabled = Profile.KnockbackEnabled;
 		KnockbackDuration = Profile.KnockbackDuration;
 		ContactDamageMultiplier = Profile.ContactDamageMultiplier;
 		LootTable = Profile.LootTable;
@@ -114,13 +136,30 @@ public partial class Enemy : CharacterBody2D
 	{
 		var tween = CreateTween();
 		Visual.Modulate = new Color(2f, 0.2f, 0.2f);
-		tween.TweenProperty(Visual, "modulate", Colors.White, 0.25f);
+		// Tweens back to this enemy's own authored tint, not a hardcoded white — a boss/enemy with a
+		// non-default Visual.Modulate (e.g. SpiderBossArena's darker recolor) would otherwise lose
+		// that tint permanently the first time it took a hit.
+		tween.TweenProperty(Visual, "modulate", _baseModulate, 0.25f);
 	}
+
+	// Set by a subclass right after EnemyCombatCoordinator.TryAcquireAttackSlot() succeeds, cleared
+	// once its attack coroutine releases the slot normally. OnDefeated() below uses this as a
+	// safety net: an enemy killed mid-attack/mid-windup has no guarantee its own coroutine ever
+	// resumes to hit that release (see EnemyCombatCoordinator's comment on the slot otherwise
+	// staying stuck until the next level load) — dying always frees a held slot immediately
+	// instead of leaving every other enemy waiting on one that's never coming back.
+	protected bool HoldingAttackSlot;
 
 	protected virtual bool IsDefeated() => SaveManager.Instance.IsCommonEnemyDefeated(PersistenceId);
 
 	protected virtual void OnDefeated()
 	{
+		if (HoldingAttackSlot)
+		{
+			EnemyCombatCoordinator.ReleaseAttackSlot();
+			HoldingAttackSlot = false;
+		}
+
 		SaveManager.Instance.MarkCommonEnemyDefeated(PersistenceId);
 		SpawnExplosion();
 		CallDeferred(MethodName.SpawnLoot);
@@ -165,6 +204,9 @@ public partial class Enemy : CharacterBody2D
 
 	public virtual void ApplyKnockback(Vector2 direction, float force)
 	{
+		if (!KnockbackEnabled)
+			return;
+
 		_knockbackVelocity = direction * force;
 		_knockbackTimer = KnockbackDuration;
 	}
@@ -190,19 +232,46 @@ public partial class Enemy : CharacterBody2D
 		if (player is not null)
 		{
 			float distanceX = player.GlobalPosition.X - GlobalPosition.X;
-			PlayerDetected = Mathf.Abs(distanceX) <= DetectionRange;
+			float absDistance = Mathf.Abs(distanceX);
+			PlayerDetected = absDistance <= DetectionRange;
 			if (PlayerDetected)
 			{
-				FacingRight = distanceX >= 0;
+				bool desiredFacingRight = distanceX >= 0;
+				if (CanTurnToFacePlayer && desiredFacingRight != FacingRight)
+				{
+					_turnAwayTimer += (float)delta;
+					if (_turnAwayTimer >= TurnDelay)
+					{
+						FacingRight = desiredFacingRight;
+						_turnAwayTimer = 0f;
+					}
+				}
+				else
+				{
+					_turnAwayTimer = 0f;
+				}
 				Visual.Scale = new Vector2(FacingRight ? 1 : -1, 1);
 
 				float moveSign = Mathf.Sign(distanceX);
-				velocity.X = Mathf.Abs(distanceX) > StopDistance && CanMoveInDirection(moveSign)
+
+				if (_isHoldingDistance)
+				{
+					if (absDistance > StopDistance + ChaseHysteresis)
+						_isHoldingDistance = false;
+				}
+				else if (absDistance <= StopDistance)
+				{
+					_isHoldingDistance = true;
+				}
+
+				velocity.X = !_isHoldingDistance && CanChase && CanMoveInDirection(moveSign)
 					? moveSign * MoveSpeed
 					: Mathf.MoveToward(velocity.X, 0, MoveSpeed);
 			}
 			else
 			{
+				_isHoldingDistance = false;
+				_turnAwayTimer = 0f;
 				velocity.X = Mathf.MoveToward(velocity.X, 0, MoveSpeed);
 			}
 		}
@@ -213,6 +282,17 @@ public partial class Enemy : CharacterBody2D
 		UpdateAnimation(velocity);
 		ApplyContactDamage();
 	}
+
+	// Override to lock facing while committed to an action (e.g. mid-attack/windup) — default
+	// always allows turning, since a plain contact-damage enemy (RatEnemy) has no such commitment
+	// state to lock against.
+	protected virtual bool CanTurnToFacePlayer => true;
+
+	// Same idea, for chasing: without this, a mid-attack/windup enemy keeps sliding toward wherever
+	// the player repositioned to (the AI never stopped commanding chase velocity, it just couldn't
+	// switch out of the "attack" animation to show a run), reading as the player getting magnet-
+	// pulled back into a dodged hit instead of the attack whiffing like it should.
+	protected virtual bool CanChase => true;
 
 	protected virtual bool CanMoveInDirection(float sign)
 	{

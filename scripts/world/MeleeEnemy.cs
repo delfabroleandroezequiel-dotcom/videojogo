@@ -1,4 +1,5 @@
 using Godot;
+using System.Threading.Tasks;
 using Metroidvania.Player;
 
 namespace Metroidvania.World;
@@ -28,9 +29,12 @@ public partial class MeleeEnemy : Enemy
 	[Export] public float DenialStandoffMultiplier = 1.6f;
 	[Export] public float DenialRetryDelay = 0.45f;
 
-	private Hitbox _hitbox;
-	private bool _attacking;
-	private bool _canAttack = true;
+	// Exposed protected (not private) so a per-enemy-type subclass (e.g. OrcEnemy) can layer its
+	// own commit conditions/telegraph on top of Attack() without duplicating the hitbox/cooldown
+	// plumbing every melee enemy shares — see ReadyToCommitAttack and Attack below.
+	protected Hitbox AttackHitbox;
+	protected bool Attacking;
+	protected bool CanAttack = true;
 	private float _yieldTimer;
 	private static readonly RandomNumberGenerator JitterRng = new();
 
@@ -46,7 +50,7 @@ public partial class MeleeEnemy : Enemy
 			return;
 
 		StopDistance = AttackRange * 0.8f;
-		_hitbox = GetNode<Hitbox>("AttackHitbox");
+		AttackHitbox = GetNode<Hitbox>("AttackHitbox");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -66,7 +70,7 @@ public partial class MeleeEnemy : Enemy
 
 		base._PhysicsProcess(delta);
 
-		if (_attacking || !_canAttack || _yieldTimer > 0f)
+		if (Attacking || !CanAttack || _yieldTimer > 0f)
 			return;
 
 		Node2D playerNode = GetTree().GetFirstNodeInGroup("player") as Node2D;
@@ -89,53 +93,87 @@ public partial class MeleeEnemy : Enemy
 			}
 		}
 
+		// Checked before reserving the shared attack slot — a subclass still settling into its
+		// own commit condition (e.g. OrcEnemy's SettleDelay) shouldn't hold the slot hostage from
+		// whichever other enemy is actually ready to swing right now.
+		if (!ReadyToCommitAttack())
+			return;
+
 		if (!EnemyCombatCoordinator.TryAcquireAttackSlot())
 		{
 			_yieldTimer = DenialRetryDelay;
 			return;
 		}
 
-		Attack();
+		HoldingAttackSlot = true;
+		_ = Attack();
 	}
+
+	// Default: always ready the instant range/dash/block checks pass (this is SpiderEnemy's
+	// current behavior, unchanged). Override to add a per-enemy-type extra commit condition —
+	// e.g. requiring the enemy to have actually stopped moving for a beat first.
+	protected virtual bool ReadyToCommitAttack() => true;
+
+	// Locked for the whole Attacking window — covers the swing itself and, for enemies that wrap
+	// Attack() with their own windup (e.g. OrcEnemy), the telegraph too, since both set Attacking
+	// true immediately. Spinning to face a player who circled around mid-swing would otherwise
+	// visually detach the hit from whatever the animation is actually telegraphing.
+	protected override bool CanTurnToFacePlayer => !Attacking;
+	protected override bool CanChase => !Attacking;
 
 	protected override void UpdateAnimation(Vector2 velocity)
 	{
 		if (Sprite is null) return;
-		string anim = _attacking ? "attack" : (Mathf.Abs(velocity.X) > 5f ? "run" : "idle");
+		string anim = Attacking ? "attack" : (Mathf.Abs(velocity.X) > 5f ? "run" : "idle");
 		if (Sprite.Animation != anim)
 			Sprite.Play(anim);
 	}
 
-	private async void Attack()
+	// Freezes an animation on its first frame with AttackSpriteYOffset already applied — shared by
+	// every subclass that holds a windup telegraph before its swing (OrcEnemy, WarriorEnemy), so
+	// that offset fix lives in one place instead of being hand-copied per enemy. Without it, the
+	// held pose sits at the idle/run Y offset while showing the attack frame, which reads as the
+	// sprite sinking into the ground until the real swing (which does apply it) finally plays.
+	protected void HoldTelegraphFrame(string animationName)
 	{
-		_attacking = true;
-		_canAttack = false;
 		Sprite.Position = new Vector2(Sprite.Position.X, AttackSpriteYOffset);
-		_hitbox.Position = new Vector2(FacingRight ? AttackHitboxReach : -AttackHitboxReach, 0);
-		_hitbox.Activate(Stats);
+		Sprite.Play(animationName);
+		Sprite.Stop();
+	}
+
+	// virtual + Task (not async void) so a subclass can wrap this in its own telegraph/windup and
+	// still await the real swing instead of firing both concurrently — see OrcEnemy.Attack.
+	protected virtual async Task Attack()
+	{
+		Attacking = true;
+		CanAttack = false;
+		Sprite.Position = new Vector2(Sprite.Position.X, AttackSpriteYOffset);
+		AttackHitbox.Position = new Vector2(FacingRight ? AttackHitboxReach : -AttackHitboxReach, 0);
+		AttackHitbox.Activate(Stats);
 
 		try
 		{
 			await ToSignal(GetTree().CreateTimer(AttackDuration), SceneTreeTimer.SignalName.Timeout);
 			if (!IsInstanceValid(this) || IsQueuedForRemoval)
 				return;
-			_hitbox.Deactivate();
+			AttackHitbox.Deactivate();
 
 			float remainingAnimTime = Mathf.Max(0f, AttackAnimDuration - AttackDuration);
 			await ToSignal(GetTree().CreateTimer(remainingAnimTime), SceneTreeTimer.SignalName.Timeout);
 			if (!IsInstanceValid(this) || IsQueuedForRemoval)
 				return;
-			_attacking = false;
+			Attacking = false;
 			Sprite.Position = new Vector2(Sprite.Position.X, 0f);
 		}
 		finally
 		{
 			EnemyCombatCoordinator.ReleaseAttackSlot();
+			HoldingAttackSlot = false;
 		}
 
 		float jitter = 1f + JitterRng.RandfRange(-AttackCooldownJitter, AttackCooldownJitter);
 		await ToSignal(GetTree().CreateTimer(AttackCooldown * jitter), SceneTreeTimer.SignalName.Timeout);
 		if (IsInstanceValid(this))
-			_canAttack = true;
+			CanAttack = true;
 	}
 }

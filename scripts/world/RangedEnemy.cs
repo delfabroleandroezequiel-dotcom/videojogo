@@ -15,7 +15,11 @@ public partial class RangedEnemy : Enemy
 	[Export] public PackedScene ProjectileScene;
 
 	private double _cooldown;
-	private bool _isShooting;
+
+	// Protected (not private) so CanTurnToFacePlayer below can lock facing for the whole cast —
+	// re-aiming after the shot's direction is already committed at Shoot() would visually detach
+	// the projectile from whichever way the sprite ends up facing.
+	protected bool IsShooting;
 	private float _hurtTimer;
 
 	public override void _Ready()
@@ -48,8 +52,9 @@ public partial class RangedEnemy : Enemy
 			return;
 
 		float distanceX = Mathf.Abs(playerNode.GlobalPosition.X - GlobalPosition.X);
-		if (distanceX <= ShootRange && _cooldown <= 0 && !_isShooting && EnemyCombatCoordinator.TryAcquireAttackSlot())
+		if (distanceX <= ShootRange && _cooldown <= 0 && !IsShooting && EnemyCombatCoordinator.TryAcquireAttackSlot())
 		{
+			HoldingAttackSlot = true;
 			Shoot(playerNode.GlobalPosition);
 			_cooldown = ShootInterval;
 		}
@@ -58,14 +63,17 @@ public partial class RangedEnemy : Enemy
 	protected override void UpdateAnimation(Vector2 velocity)
 	{
 		if (Sprite is null) return;
-		string anim = _hurtTimer > 0f ? "hurt" : _isShooting ? "shoot" : (Mathf.Abs(velocity.X) > 5f ? "run" : "idle");
+		string anim = _hurtTimer > 0f ? "hurt" : IsShooting ? "shoot" : (Mathf.Abs(velocity.X) > 5f ? "run" : "idle");
 		if (Sprite.Animation != anim)
 			Sprite.Play(anim);
 	}
 
+	protected override bool CanTurnToFacePlayer => !IsShooting;
+	protected override bool CanChase => !IsShooting;
+
 	private async void Shoot(Vector2 targetPosition)
 	{
-		_isShooting = true;
+		IsShooting = true;
 
 		try
 		{
@@ -82,11 +90,12 @@ public partial class RangedEnemy : Enemy
 
 			await ToSignal(GetTree().CreateTimer(ShootAnimDuration - ShootReleaseDelay), SceneTreeTimer.SignalName.Timeout);
 			if (IsInstanceValid(this))
-				_isShooting = false;
+				IsShooting = false;
 		}
 		finally
 		{
 			EnemyCombatCoordinator.ReleaseAttackSlot();
+			HoldingAttackSlot = false;
 		}
 	}
 }

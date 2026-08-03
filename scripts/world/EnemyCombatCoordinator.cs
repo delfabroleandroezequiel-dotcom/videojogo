@@ -27,9 +27,9 @@ public static class EnemyCombatCoordinator
 	}
 
 	// The counter is static, so it survives a scene reload/change even though every enemy that
-	// was holding a slot just got destroyed with the old scene — an enemy killed (or a level
-	// reloaded from a player death) mid-attack has no chance to run its release logic, so the
-	// count can get stuck above zero forever otherwise. LevelBootstrap calls this once per level
-	// load to guarantee a clean slate regardless of how the previous scene ended.
+	// was holding a slot just got destroyed with the old scene. LevelBootstrap calls this once per
+	// level load to guarantee a clean slate regardless of how the previous scene ended — a belt-
+	// and-suspenders backstop alongside Enemy.OnDefeated()'s own immediate release, which is what
+	// actually covers an enemy killed mid-attack while the rest of that same scene is still live.
 	public static void Reset() => _activeAttackers = 0;
 }
