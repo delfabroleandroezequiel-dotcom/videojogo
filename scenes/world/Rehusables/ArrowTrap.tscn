@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/ArrowTrap.cs" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ArrowProjectile.tscn" id="2_projectile"]
+
+[node name="ArrowTrap" type="Node2D"]
+script = ExtResource("1_script")
+ProjectileScene = ExtResource("2_projectile")
+
+[node name="Muzzle" type="Marker2D" parent="."]

@@ -1,0 +1,95 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://da542mka5hh14"]
+
+[ext_resource type="Texture2D" uid="uid://5axj28damatv" path="res://assets/external/Super Pixel Projectiles Pack 3/spritesheet/pj3_arrow_loop_large_black/spritesheet.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_loop0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 64, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_loop1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(64, 0, 64, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_loop2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 0, 64, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_loop3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(192, 0, 64, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_loop4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(256, 0, 64, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_loop5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(320, 0, 64, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_loop6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(384, 0, 64, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_loop7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(448, 0, 64, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_loop8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(512, 0, 64, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_loop9"]
+atlas = ExtResource("1_sheet")
+region = Rect2(576, 0, 64, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_loop10"]
+atlas = ExtResource("1_sheet")
+region = Rect2(640, 0, 64, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_loop11"]
+atlas = ExtResource("1_sheet")
+region = Rect2(704, 0, 64, 24)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_loop0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_loop1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_loop2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_loop3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_loop4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_loop5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_loop6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_loop7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_loop8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_loop9")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_loop10")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_loop11")
+}],
+"loop": 1,
+"name": &"loop",
+"speed": 15.0
+}]
