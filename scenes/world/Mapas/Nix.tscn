@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://gqln31e2faun" path="res://assets/backgrounds/837a1892-cbe9-40e2-85dc-1c8c49523ae4.png" id="2_35fdj"]
 [ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="2_bootstrap"]
 [ext_resource type="Texture2D" uid="uid://co3ak8ymwbvhj" path="res://assets/backgrounds/ChatGPT Image 3 jul 2026, 16_56_53.png" id="2_mcnla"]
-[ext_resource type="PackedScene" uid="uid://cexihxsolu6jg" path="res://scenes/world/MeleeEnemy.tscn" id="4_35v3a"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/WarriorEnemy.tscn" id="4_35v3a"]
 [ext_resource type="Texture2D" uid="uid://cpd4dihktxvdv" path="res://assets/sprites/misprite/ChatGPT_Image_5_jul_2026__16_37_49-removebg-preview.png" id="5_7p3gt"]
 [ext_resource type="PackedScene" uid="uid://dgydh5wklq6qh" path="res://scenes/world/RangedEnemy.tscn" id="5_af0ld"]
 [ext_resource type="Texture2D" uid="uid://3jdj5trpq0qa" path="res://assets/sprites/misprite/ChatGPT_Image_3_jul_2026__16_08_43-removebg-preview.png" id="6_4lgvp"]
@@ -7553,7 +7553,7 @@ position = Vector2(0, 190)
 scale = Vector2(1.45, 0.35)
 texture = ExtResource("23_groundshadow")
 
-[node name="MeleeEnemy" parent="Background/BgSprite4" unique_id=840570990 instance=ExtResource("4_35v3a")]
+[node name="WarriorEnemy" parent="Background/BgSprite4" unique_id=840570990 instance=ExtResource("4_35v3a")]
 position = Vector2(-863.5, 272)
 
 [node name="RangedEnemy" parent="Background/BgSprite4" unique_id=182423734 instance=ExtResource("5_af0ld")]
@@ -7684,7 +7684,7 @@ CustomSpriteFrames = ExtResource("38_dwarf_frames")
 CustomSpriteYOffset = -5.4
 
 [node name="NpcHunter" parent="." unique_id=-294966989 instance=ExtResource("6_npc")]
-position = Vector2(3750, 430)
+position = Vector2(3798, 427)
 CustomSpriteFrames = ExtResource("40_hunter_frames")
 CustomSpriteYOffset = -5.4
 
