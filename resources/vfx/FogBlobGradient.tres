@@ -1,0 +1,13 @@
+[gd_resource type="GradientTexture2D" format=3 uid="uid://c8u136yyw3rtd"]
+
+[sub_resource type="Gradient" id="Gradient_fog"]
+offsets = PackedFloat32Array(0, 0.6, 1)
+colors = PackedColorArray(0.25, 0.6, 0.32, 0.55, 0.25, 0.6, 0.32, 0.22, 0.25, 0.6, 0.32, 0)
+
+[resource]
+gradient = SubResource("Gradient_fog")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
