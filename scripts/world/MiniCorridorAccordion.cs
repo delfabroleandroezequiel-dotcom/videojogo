@@ -23,7 +23,12 @@ public enum JumpGapMode
 [Tool]
 public partial class MiniCorridorAccordion : Node2D
 {
-	private const string MiniCorridorScenePath = "res://scenes/world/Rehusables/MiniCorridor.tscn";
+	private const string DefaultMiniCorridorScenePath = "res://scenes/world/Rehusables/MiniCorridor.tscn";
+
+	// Which MiniCorridor-scripted piece to chain — defaults to the plain greybox one so existing
+	// instances don't change, but any scene whose root runs MiniCorridor.cs works (e.g. a dressed
+	// variant like MiniCorridorCueva.tscn), since only the shared script's Exports get driven here.
+	[Export] public PackedScene PieceScene;
 
 	private CorridorOrientation _orientation = CorridorOrientation.Lateral;
 
@@ -102,7 +107,13 @@ public partial class MiniCorridorAccordion : Node2D
 
 	[Export] public Color FillColor = new(0.5f, 0.5f, 0.55f, 0.6f);
 
-	public override void _Ready() => Rebuild();
+	private bool _initialized;
+
+	public override void _Ready()
+	{
+		_initialized = true;
+		Rebuild();
+	}
 
 	private float ResolveGap()
 	{
@@ -117,7 +128,10 @@ public partial class MiniCorridorAccordion : Node2D
 
 	private void Rebuild()
 	{
-		if (!IsInsideTree())
+		// See RopeAccordion.Rebuild for why _initialized gates this — property setters restoring
+		// this node's saved state before _Ready runs can otherwise reenter Instantiate<MiniCorridor>()
+		// mid scene-instantiation and throw a spurious InvalidCastException.
+		if (!_initialized || !IsInsideTree())
 			return;
 
 		foreach (Node child in GetChildren())
@@ -125,7 +139,7 @@ public partial class MiniCorridorAccordion : Node2D
 
 		bool lateral = _orientation == CorridorOrientation.Lateral;
 		float gap = ResolveGap();
-		PackedScene miniCorridorScene = GD.Load<PackedScene>(MiniCorridorScenePath);
+		PackedScene miniCorridorScene = PieceScene ?? GD.Load<PackedScene>(DefaultMiniCorridorScenePath);
 
 		Vector2 cursor = Vector2.Zero;
 		for (int i = 0; i < _count; i++)

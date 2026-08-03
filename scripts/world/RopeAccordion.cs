@@ -74,11 +74,22 @@ public partial class RopeAccordion : Node2D
 		set { _phaseStaggerStep = value; Rebuild(); }
 	}
 
-	public override void _Ready() => Rebuild();
+	private bool _initialized;
+
+	public override void _Ready()
+	{
+		_initialized = true;
+		Rebuild();
+	}
 
 	private void Rebuild()
 	{
-		if (!IsInsideTree())
+		// Property setters (Count etc.) call Rebuild() directly, and Godot also invokes those same
+		// setters to restore this node's saved state while it's still being instantiated as part of
+		// a parent scene (before _Ready runs) — Instantiate<Rope>() below can throw a spurious
+		// InvalidCastException if it reenters scene instancing at that point. _initialized gates
+        // Rebuild() to only actually run once, from _Ready(), after all restored values have landed.
+		if (!_initialized || !IsInsideTree())
 			return;
 
 		foreach (Node child in GetChildren())

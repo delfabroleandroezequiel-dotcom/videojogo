@@ -1,43 +1,43 @@
-[gd_scene format=3 uid="uid://hazard_spikes_main"]
+[gd_scene format=3 uid="uid://brkn5gb0jrlf0"]
 
-[ext_resource type="Script" path="res://scripts/world/Hazard.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://yl6pm7eu6fa1" path="res://scripts/world/Hazard.cs" id="1_script"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spikes"]
 size = Vector2(30, 26)
 
-[node name="Spikes" type="Area2D"]
+[node name="Spikes" type="Area2D" unique_id=1021660959]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_script")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1872482467]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_spikes")
 
-[node name="Base" type="Polygon2D" parent="."]
+[node name="Base" type="Polygon2D" parent="." unique_id=2012296717]
 color = Color(0.25, 0.24, 0.28, 1)
 polygon = PackedVector2Array(-16, 12, 16, 12, 16, 16, -16, 16)
 
-[node name="SpikeLeft" type="Polygon2D" parent="."]
+[node name="SpikeLeft" type="Polygon2D" parent="." unique_id=1382757366]
 color = Color(0.55, 0.55, 0.6, 1)
 polygon = PackedVector2Array(-16, 12, -11, -14, -6, 12)
 
-[node name="SpikeMid" type="Polygon2D" parent="."]
+[node name="SpikeMid" type="Polygon2D" parent="." unique_id=2082667759]
 color = Color(0.55, 0.55, 0.6, 1)
 polygon = PackedVector2Array(-5, 12, 0, -14, 5, 12)
 
-[node name="SpikeRight" type="Polygon2D" parent="."]
+[node name="SpikeRight" type="Polygon2D" parent="." unique_id=524526019]
 color = Color(0.55, 0.55, 0.6, 1)
 polygon = PackedVector2Array(6, 12, 11, -14, 16, 12)
 
-[node name="TipLeft" type="Polygon2D" parent="."]
+[node name="TipLeft" type="Polygon2D" parent="." unique_id=839842753]
 color = Color(0.65, 0.05, 0.05, 1)
 polygon = PackedVector2Array(-11, -14, -8.5, -4, -13.5, -4)
 
-[node name="TipMid" type="Polygon2D" parent="."]
+[node name="TipMid" type="Polygon2D" parent="." unique_id=1346163586]
 color = Color(0.65, 0.05, 0.05, 1)
 polygon = PackedVector2Array(0, -14, 2.5, -4, -2.5, -4)
 
-[node name="TipRight" type="Polygon2D" parent="."]
+[node name="TipRight" type="Polygon2D" parent="." unique_id=281126662]
 color = Color(0.65, 0.05, 0.05, 1)
 polygon = PackedVector2Array(11, -14, 13.5, -4, 8.5, -4)

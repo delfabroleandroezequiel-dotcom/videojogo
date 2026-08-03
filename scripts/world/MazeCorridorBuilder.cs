@@ -119,8 +119,13 @@ public partial class MazeCorridorBuilder : Node2D
 	}
 
 	private int _lastSeedUsed;
+	private bool _initialized;
 
-	public override void _Ready() => DoReroll();
+	public override void _Ready()
+	{
+		_initialized = true;
+		DoReroll();
+	}
 
 	private void DoReroll()
 	{
@@ -130,7 +135,10 @@ public partial class MazeCorridorBuilder : Node2D
 
 	private void Regenerate()
 	{
-		if (!IsInsideTree())
+		// See RopeAccordion.Rebuild for why _initialized gates this — property setters restoring
+		// this node's saved state before _Ready runs can otherwise reenter Instantiate<CorridorBlock>()
+		// mid scene-instantiation and throw a spurious InvalidCastException.
+		if (!_initialized || !IsInsideTree())
 			return;
 
 		foreach (Node child in GetChildren())

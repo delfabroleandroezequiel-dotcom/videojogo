@@ -18,7 +18,7 @@ namespace Metroidvania.World;
 [Tool]
 public partial class MovingPlatformAccordion : Node2D
 {
-	private const string MovingPlatformScenePath = "res://scenes/world/MovingPlatform.tscn";
+	private const string MovingPlatformScenePath = "res://scenes/world/Rehusables/MovingPlatform.tscn";
 
 	private int _count = 4;
 
@@ -110,11 +110,20 @@ public partial class MovingPlatformAccordion : Node2D
 		set { _staggerStep = value; Rebuild(); }
 	}
 
-	public override void _Ready() => Rebuild();
+	private bool _initialized;
+
+	public override void _Ready()
+	{
+		_initialized = true;
+		Rebuild();
+	}
 
 	private void Rebuild()
 	{
-		if (!IsInsideTree())
+		// See RopeAccordion.Rebuild for why _initialized gates this — property setters restoring
+		// this node's saved state before _Ready runs can otherwise reenter Instantiate<MovingPlatform>()
+		// mid scene-instantiation and throw a spurious InvalidCastException.
+		if (!_initialized || !IsInsideTree())
 			return;
 
 		foreach (Node child in GetChildren())

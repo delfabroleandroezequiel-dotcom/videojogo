@@ -12,6 +12,12 @@ public partial class SpikeTrap : StaticBody2D
 	[Export] public float RetractDuration = 0.35f;
 	[Export] public float StartOffset = 0f;
 
+	// The base-plate CollisionShape2D (root, not HazardArea's) is what the player actually stands
+	// on — separate from the spike damage hazard. On by default. Turn off when the surrounding
+	// floor already provides real ground and this plate would just be a slightly-misaligned lip
+	// that catches the player when walking sideways into it.
+	[Export] public bool HasFloorCollision = true;
+
 	private AnimatedSprite2D _sprite;
 	private CollisionShape2D _hazardShape;
 	private SpikeState _state = SpikeState.Retracted;
@@ -22,6 +28,7 @@ public partial class SpikeTrap : StaticBody2D
 		_sprite = GetNode<AnimatedSprite2D>("Visual");
 		_hazardShape = GetNode<CollisionShape2D>("HazardArea/CollisionShape2D");
 		_hazardShape.Disabled = true;
+		GetNode<CollisionShape2D>("CollisionShape2D").Disabled = !HasFloorCollision;
 		_stateTime = -StartOffset;
 		_sprite.Frame = 0;
 	}

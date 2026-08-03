@@ -55,11 +55,34 @@ public partial class SpikeAccordion : Node2D
 		}
 	}
 
-	public override void _Ready() => Rebuild();
+	private bool _hasFloorCollision = true;
+
+	// Passed through to every SpikeTrap piece — see SpikeTrap.HasFloorCollision.
+	[Export]
+	public bool HasFloorCollision
+	{
+		get => _hasFloorCollision;
+		set
+		{
+			_hasFloorCollision = value;
+			Rebuild();
+		}
+	}
+
+	private bool _initialized;
+
+	public override void _Ready()
+	{
+		_initialized = true;
+		Rebuild();
+	}
 
 	private void Rebuild()
 	{
-		if (!IsInsideTree())
+		// See RopeAccordion.Rebuild for why _initialized gates this — property setters restoring
+		// this node's saved state before _Ready runs can otherwise reenter Instantiate<SpikeTrap>()
+		// mid scene-instantiation and throw a spurious InvalidCastException.
+		if (!_initialized || !IsInsideTree())
 			return;
 
 		foreach (Node child in GetChildren())
@@ -72,6 +95,7 @@ public partial class SpikeAccordion : Node2D
 			spike.Name = $"SpikeTrap{i + 1}";
 			spike.Position = new Vector2(i * _spacing, 0f);
 			spike.StartOffset = i * _staggerStep;
+			spike.HasFloorCollision = _hasFloorCollision;
 			AddChild(spike);
 			spike.Owner = this;
 		}

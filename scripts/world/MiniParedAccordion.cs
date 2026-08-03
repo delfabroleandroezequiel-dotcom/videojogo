@@ -88,7 +88,13 @@ public partial class MiniParedAccordion : Node2D
 
 	[Export] public Color FillColor = new(0.5f, 0.5f, 0.55f, 0.6f);
 
-	public override void _Ready() => Rebuild();
+	private bool _initialized;
+
+	public override void _Ready()
+	{
+		_initialized = true;
+		Rebuild();
+	}
 
 	private float ResolveShaftWidth()
 	{
@@ -107,7 +113,10 @@ public partial class MiniParedAccordion : Node2D
 
 	private void Rebuild()
 	{
-		if (!IsInsideTree())
+		// See RopeAccordion.Rebuild for why _initialized gates this — property setters restoring
+		// this node's saved state before _Ready runs can otherwise reenter Instantiate<MiniPared>()
+		// mid scene-instantiation and throw a spurious InvalidCastException.
+		if (!_initialized || !IsInsideTree())
 			return;
 
 		foreach (Node child in GetChildren())

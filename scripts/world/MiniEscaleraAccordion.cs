@@ -65,11 +65,20 @@ public partial class MiniEscaleraAccordion : Node2D
 
 	[Export] public Color FillColor = new(0.5f, 0.5f, 0.55f, 0.6f);
 
-	public override void _Ready() => Rebuild();
+	private bool _initialized;
+
+	public override void _Ready()
+	{
+		_initialized = true;
+		Rebuild();
+	}
 
 	private void Rebuild()
 	{
-		if (!IsInsideTree())
+		// See RopeAccordion.Rebuild for why _initialized gates this — property setters restoring
+		// this node's saved state before _Ready runs can otherwise reenter Instantiate<MiniCorridor>()
+		// mid scene-instantiation and throw a spurious InvalidCastException.
+		if (!_initialized || !IsInsideTree())
 			return;
 
 		foreach (Node child in GetChildren())

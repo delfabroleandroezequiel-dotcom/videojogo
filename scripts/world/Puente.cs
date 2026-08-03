@@ -144,6 +144,19 @@ public partial class Puente : AnimatableBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		float dt = (float)delta;
+
+		// Editor preview only needs the per-plank visual curve (see class doc) — moving the body
+		// itself here fought every manual drag (this ran every physics tick, snapping Position
+		// back to _basePosition + dip before the drag could stick) and, since the body kept
+		// re-overlapping nearby Area2D hazards, spuriously toggled their monitoring mid-signal
+		// ("Function blocked during in/out signal" errors). No player exists in-editor anyway, so
+		// there's nothing for the body's own collision to matter for.
+		if (Engine.IsEditorHint())
+		{
+			UpdatePlankSag(dt);
+			return;
+		}
+
 		_player ??= GetTree().GetFirstNodeInGroup("player") as Node2D;
 
 		float deepestPlankSag = UpdatePlankSag(dt);
@@ -173,12 +186,25 @@ public partial class Puente : AnimatableBody2D
 
 	private float UpdatePlankSag(float dt)
 	{
-		if (_plankSprites is null)
+		// Snapshot into locals and size the loop off the arrays themselves rather than the Count
+		// property: an [Export] setter (Inspector edits, or property reassignment during a tool
+		// script reload) can call Rebuild() — which reassigns these fields and briefly frees the
+		// old plank sprites — while this is running, and Count can already reflect a value the
+		// arrays don't match yet. Reading the field once up front avoids a null field slipping in
+        // between the "is null" check and the indexing below.
+		Sprite2D[] sprites = _plankSprites;
+		float[] sag = _plankSag;
+		float[] sagVelocity = _plankSagVelocity;
+		if (sprites is null || sag is null || sagVelocity is null)
 			return 0f;
 
+		int count = Mathf.Min(sprites.Length, Mathf.Min(sag.Length, sagVelocity.Length));
 		float deepest = 0f;
-		for (int i = 0; i < Count; i++)
+		for (int i = 0; i < count; i++)
 		{
+			if (!IsInstanceValid(sprites[i]))
+				continue;
+
 			float plankLocalX = (i + 0.5f) * PlankSpacing;
 			float worldX = _basePosition.X + plankLocalX; // base X never moves, only the whole body's Y dips
 
@@ -187,25 +213,25 @@ public partial class Puente : AnimatableBody2D
 			// between distributes across the remaining span (t=0 at the plank right after the
 			// left anchor, t=1 at the plank right before the right one), so the curve always
 			// bottoms out somewhere in the unanchored middle, never at the anchors themselves.
-			bool isAnchor = i == 0 || i == Count - 1;
+			bool isAnchor = i == 0 || i == count - 1;
 			float target;
-			if (isAnchor || Count <= 2)
+			if (isAnchor || count <= 2)
 			{
 				target = 0f;
 			}
 			else
 			{
-				float t = (float)i / (Count - 1);
+				float t = (float)i / (count - 1);
 				float idleTarget = PlankIdleSagDepth * 4f * t * (1f - t); // parabola, 0 at both ends, peak at the middle
 				target = Mathf.Min(MaxPlankSag, idleTarget + PlankPlayerSagAt(worldX));
 			}
 
-			float accel = PlankSpringStiffness * (target - _plankSag[i]) - PlankSpringDamping * _plankSagVelocity[i];
-			_plankSagVelocity[i] += accel * dt;
-			_plankSag[i] = Mathf.Clamp(_plankSag[i] + _plankSagVelocity[i] * dt, 0f, MaxPlankSag);
+			float accel = PlankSpringStiffness * (target - sag[i]) - PlankSpringDamping * sagVelocity[i];
+			sagVelocity[i] += accel * dt;
+			sag[i] = Mathf.Clamp(sag[i] + sagVelocity[i] * dt, 0f, MaxPlankSag);
 
-			_plankSprites[i].Position = new Vector2(plankLocalX, _plankSag[i]) + VisualOffset;
-			deepest = Mathf.Max(deepest, _plankSag[i]);
+			sprites[i].Position = new Vector2(plankLocalX, sag[i]) + VisualOffset;
+			deepest = Mathf.Max(deepest, sag[i]);
 		}
 
 		return deepest;
