@@ -89,7 +89,11 @@ public partial class Player : CharacterBody2D
 	[Export] public float WeaponRestAngle = -20f;
 	[Export] public float WeaponSwingStartAngle = -70f;
 	[Export] public float WeaponSwingEndAngle = 60f;
-	[Export] public float KnockbackDuration = 0.2f;
+	[Export] public float KnockbackDuration = 0.35f;
+	// Pop straight up on every hit taken (regardless of the attack's own direction) so it reads as
+	// a Hollow Knight-style launch-and-arc instead of a flat horizontal shove — gravity takes over
+	// from here once applied, same as any other airborne velocity.
+	[Export] public float KnockbackUpwardVelocity = 260f;
 	[Export] public float FallDeathY = 700f;
 	[Export] public float MaxAirborneTime = 15f;
 	[Export] public float SprintSpeedMultiplier = 1.6f;
@@ -152,6 +156,8 @@ public partial class Player : CharacterBody2D
 	private float _shakeDuration;
 	private float _shakeStrength;
 	private AnimatedSprite2D _sprite;
+	private HudBar _bossHealthBar;
+	private Node2D _trackedBoss;
 	private PointLight2D _debugFlashlight;
 	private PointLight2D _torchLight;
 	private PointLight2D _swordFireLight;
@@ -297,6 +303,7 @@ public partial class Player : CharacterBody2D
 
 		HudBar healthBar = GetNode<HudBar>("HUD/VBox/HealthBar");
 		HudBar staminaBar = GetNode<HudBar>("HUD/VBox/StaminaBar");
+		_bossHealthBar = GetNode<HudBar>("HUD/BossHealthBar");
 		_healChargesLabel = GetNode<Label>("HUD/VBox/HealChargesLabel");
 		_goldLabel = GetNode<Label>("HUD/VBox/GoldLabel");
 		_stats.HealthChanged += (current, max) => healthBar.SetRatio((float)current / max);
@@ -335,7 +342,7 @@ public partial class Player : CharacterBody2D
 
 	public void ApplyKnockback(Vector2 direction, float force)
 	{
-		_knockbackVelocity = direction * force;
+		_knockbackVelocity = new Vector2(direction.X * force, -KnockbackUpwardVelocity);
 		_knockbackTimer = KnockbackDuration;
 
 		if (_isLedgeHanging || _isLedgeClimbing)
@@ -343,6 +350,28 @@ public partial class Player : CharacterBody2D
 			_isLedgeHanging = false;
 			_isLedgeClimbing = false;
 			_ledgeGrabLockout = LedgeGrabLockoutDuration;
+		}
+	}
+
+	// Called by hazards (e.g. PoisonPool) via HasMethod/Call duck-typing, same convention as
+	// ApplyKnockback above. Re-touching the source while already poisoned restarts the clock
+	// instead of stacking a second parallel tick loop — the sequence guard makes the old loop's
+	// next iteration see a stale _poisonSequence and quietly stop.
+	private int _poisonSequence;
+
+	public async void ApplyPoison(int tickDamage, float tickInterval, float duration)
+	{
+		int mySequence = ++_poisonSequence;
+		float elapsed = 0f;
+
+		while (elapsed < duration)
+		{
+			await ToSignal(GetTree().CreateTimer(tickInterval), SceneTreeTimer.SignalName.Timeout);
+			if (!IsInstanceValid(this) || mySequence != _poisonSequence)
+				return;
+
+			_stats.TakeDamage(tickDamage, ignoreInvulnerability: true);
+			elapsed += tickInterval;
 		}
 	}
 
@@ -493,6 +522,9 @@ public partial class Player : CharacterBody2D
 		if (OS.HasFeature("debug") && Input.IsActionJustPressed("debug_infinite_jump"))
 			_infiniteJumpDebug = !_infiniteJumpDebug;
 
+		if (OS.HasFeature("debug") && Input.IsActionJustPressed("debug_invincible"))
+			_stats.ExternalInvulnerable = !_stats.ExternalInvulnerable;
+
 		if (GlobalPosition.Y > FallDeathY)
 		{
 			_stats.Kill();
@@ -528,8 +560,11 @@ public partial class Player : CharacterBody2D
 		if (_knockbackTimer > 0)
 		{
 			_knockbackTimer -= (float)delta;
-			velocity.X = _knockbackVelocity.X;
-			velocity.Y = IsOnFloor() ? 0 : velocity.Y + Gravity * (float)delta;
+			// Locked to the stored launch vector rather than IsOnFloor()-clamped like the old
+			// horizontal-only shove — that clamp would zero the upward pop the instant it's applied
+			// whenever the hit lands while grounded, which is the common case for most hits.
+			velocity = _knockbackVelocity;
+			_knockbackVelocity.Y += Gravity * (float)delta;
 			Velocity = velocity;
 			MoveAndSlide();
 			UpdateAnimation(delta, false);
@@ -958,6 +993,10 @@ public partial class Player : CharacterBody2D
 
 	private void UpdateAnimation(double delta, bool sprinting, float velocityX = 0f, bool isLadderClimbing = false, bool isWallClimbing = false)
 	{
+		// Only the ladder-idle case below ever changes this away from 1 — reset it up front so
+		// that pause doesn't leak into whatever animation plays next after leaving the ladder.
+		_sprite.SpeedScale = 1f;
+
 		if (_knockbackTimer > 0f)
 		{
 			_sprite.Play("hurt");
@@ -988,7 +1027,13 @@ public partial class Player : CharacterBody2D
 
 		if (isLadderClimbing)
 		{
-			_sprite.Play("ladder_climb");
+			if (_sprite.Animation != "ladder_climb")
+				_sprite.Play("ladder_climb");
+			// Play() alone would keep the climb cycle advancing on its own even when the player
+			// is holding still on the ladder — gate actual frame playback on real climb movement
+			// so the character freezes on its current grip pose instead of climbing in place.
+			_sprite.SpeedScale = Mathf.Abs(Velocity.Y) > 0.01f || Mathf.Abs(velocityX) > 0.01f ? 1f : 0f;
+
 			_walkPhase += Mathf.Abs(Velocity.Y) * (float)delta * 0.3f;
 			float climbSwing = Mathf.Sin(_walkPhase) * 15f;
 			_legLeft.RotationDegrees = climbSwing;
@@ -1170,7 +1215,12 @@ public partial class Player : CharacterBody2D
 		float targetZoom = ProfileZoom;
 
 		Godot.Collections.Array<Node> bosses = GetTree().GetNodesInGroup("boss");
-		if (bosses.Count == 1 && bosses[0] is Node2D boss)
+		Node2D boss = bosses.Count == 1 ? bosses[0] as Node2D : null;
+
+		if (boss != _trackedBoss)
+			TrackBoss(boss);
+
+		if (boss is not null)
 		{
 			float distance = GlobalPosition.DistanceTo(boss.GlobalPosition);
 			float t = Mathf.Clamp(distance / BossZoomDistance, 0f, 1f);
@@ -1179,6 +1229,28 @@ public partial class Player : CharacterBody2D
 
 		float newZoom = Mathf.Lerp(_camera.Zoom.X, targetZoom, (float)delta * ZoomSmoothSpeed);
 		_camera.Zoom = new Vector2(newZoom, newZoom);
+	}
+
+	// Only (re)subscribes when the tracked boss actually changes (not every frame) — the closure
+	// below double-checks _trackedBoss == boss before touching the bar, so a stale subscription
+	// from a since-defeated boss just quietly no-ops instead of needing an explicit unsubscribe.
+	private void TrackBoss(Node2D boss)
+	{
+		_trackedBoss = boss;
+		_bossHealthBar.Visible = boss is not null;
+		if (boss is null)
+			return;
+
+		Stats bossStats = boss.GetNodeOrNull<Stats>("Stats");
+		if (bossStats is null)
+			return;
+
+		_bossHealthBar.SetRatio((float)bossStats.CurrentHealth / bossStats.MaxHealth);
+		bossStats.HealthChanged += (current, max) =>
+		{
+			if (_trackedBoss == boss)
+				_bossHealthBar.SetRatio((float)current / max);
+		};
 	}
 
 	private async void StartDash()
