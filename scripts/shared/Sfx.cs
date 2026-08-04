@@ -22,6 +22,15 @@ public static class Sfx
 		PlayStream(context, GD.Load<AudioStream>(BasePath + fileName));
 	}
 
+	// Positional variant for world-space sound sources (traps, enemies) that can be far from the
+	// camera — Play() above is non-positional and was fine as long as every caller was the player
+	// (always on/near camera), but that made hazards like ArrowTrap audible at full volume from
+	// anywhere on the map.
+	public static void PlayAt(Node2D context, string fileName, float maxDistance = 900f)
+	{
+		PlayStreamAt(context, GD.Load<AudioStream>(BasePath + fileName), maxDistance);
+	}
+
 	// Drop files under res://assets/audio/Voces/<locale>/<key>.(wav|mp3|ogg) (locale = "es"/"en"/"pt")
 	// and this picks the current language, falling back to Spanish if that locale's line is missing.
 	public static void PlayVoice(Node context, string key)
@@ -58,6 +67,23 @@ public static class Sfx
 		{
 			Stream = stream,
 			ProcessMode = Node.ProcessModeEnum.Always,
+		};
+		context.GetTree().CurrentScene.AddChild(player);
+		player.Finished += player.QueueFree;
+		player.Play();
+	}
+
+	private static void PlayStreamAt(Node2D context, AudioStream stream, float maxDistance)
+	{
+		if (stream is null)
+			return;
+
+		var player = new AudioStreamPlayer2D
+		{
+			Stream = stream,
+			ProcessMode = Node.ProcessModeEnum.Always,
+			GlobalPosition = context.GlobalPosition,
+			MaxDistance = maxDistance,
 		};
 		context.GetTree().CurrentScene.AddChild(player);
 		player.Finished += player.QueueFree;

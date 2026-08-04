@@ -86,7 +86,7 @@ public partial class RangedEnemy : Enemy
 			projectile.GlobalPosition = GlobalPosition;
 			projectile.Speed = ProjectileSpeed;
 			projectile.Launch(targetPosition - GlobalPosition, Stats);
-			Sfx.Play(this, Sfx.FalloGolpe);
+			Sfx.PlayAt(this, Sfx.FalloGolpe);
 
 			await ToSignal(GetTree().CreateTimer(ShootAnimDuration - ShootReleaseDelay), SceneTreeTimer.SignalName.Timeout);
 			if (IsInstanceValid(this))
