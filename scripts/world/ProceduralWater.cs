@@ -221,6 +221,47 @@ public partial class ProceduralWater : Node2D
 		set { _baseFoamColor = value; Rebuild(); }
 	}
 
+	private bool _hasOrganicEdges;
+
+	// Off by default (a flat pool/lava rectangle is the point of this class) — turn on per
+	// instance for a body of water that shouldn't read as a hard-edged tank, same wobble Cascada
+	// uses by default for its waterfalls.
+	[Export]
+	public bool HasOrganicEdges
+	{
+		get => _hasOrganicEdges;
+		set { _hasOrganicEdges = value; Rebuild(); }
+	}
+
+	private float _edgeJitterAmplitude = 6f;
+
+	// How many pixels the left/right edges can inset from Width at their most narrow.
+	[Export]
+	public float EdgeJitterAmplitude
+	{
+		get => _edgeJitterAmplitude;
+		set { _edgeJitterAmplitude = Mathf.Max(0f, value); Rebuild(); }
+	}
+
+	private float _edgeJitterFrequency = 3f;
+
+	// How many bulge/narrow bumps fit down Height.
+	[Export]
+	public float EdgeJitterFrequency
+	{
+		get => _edgeJitterFrequency;
+		set { _edgeJitterFrequency = value; Rebuild(); }
+	}
+
+	private float _edgeJitterSpeed = 0.15f;
+
+	[Export]
+	public float EdgeJitterSpeed
+	{
+		get => _edgeJitterSpeed;
+		set { _edgeJitterSpeed = value; Rebuild(); }
+	}
+
 	private bool _isSwimmable;
 
 	// On: the player can swim through this instead of it hurting them — spawns a Water zone
@@ -317,6 +358,10 @@ public partial class ProceduralWater : Node2D
 		material.SetShaderParameter("pixel_block_size", _pixelBlockSize);
 		material.SetShaderParameter("color_steps", isLava ? LavaColorSteps : (float)_colorSteps);
 		material.SetShaderParameter("has_wavy_top", _hasWavyTop);
+		material.SetShaderParameter("has_organic_edges", _hasOrganicEdges);
+		material.SetShaderParameter("edge_jitter_amplitude", _edgeJitterAmplitude);
+		material.SetShaderParameter("edge_jitter_frequency", _edgeJitterFrequency);
+		material.SetShaderParameter("edge_jitter_speed", _edgeJitterSpeed);
 		material.SetShaderParameter("wave_edge_amplitude", _waveEdgeAmplitude);
 		material.SetShaderParameter("wave_edge_frequency", _waveEdgeFrequency);
 		material.SetShaderParameter("wave_edge_speed", _waveEdgeSpeed);
