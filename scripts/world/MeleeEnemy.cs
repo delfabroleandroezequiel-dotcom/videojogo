@@ -13,6 +13,12 @@ public partial class MeleeEnemy : Enemy
 	[Export] public float AttackSpriteYOffset = -9f;
 	[Export] public float AttackHitboxReach = 24f;
 
+	// Which frame of the "attack" animation actually shows the weapon raised — varies per sprite
+	// sheet (WarriorEnemy's is frame 1, OrcEnemy's is frame 4; frame 0 turned out to be the
+	// weapon-down/mid-swing pose on both, not the wind-up, despite that being the original
+	// assumption). Set per subclass instance to whichever frame index is the raised pose.
+	[Export] public int TelegraphFrame;
+
 	// Randomizes each cooldown by +/-15% so a room full of the same enemy doesn't swing in
 	// mechanical lockstep, and so the player can't metronome-time a dodge against it.
 	[Export] public float AttackCooldownJitter = 0.15f;
@@ -120,6 +126,7 @@ public partial class MeleeEnemy : Enemy
 	// visually detach the hit from whatever the animation is actually telegraphing.
 	protected override bool CanTurnToFacePlayer => !Attacking;
 	protected override bool CanChase => !Attacking;
+	protected override bool ContactDamageEnabled => false;
 
 	protected override void UpdateAnimation(Vector2 velocity)
 	{
@@ -129,16 +136,23 @@ public partial class MeleeEnemy : Enemy
 			Sprite.Play(anim);
 	}
 
-	// Freezes an animation on its first frame with AttackSpriteYOffset already applied — shared by
-	// every subclass that holds a windup telegraph before its swing (OrcEnemy, WarriorEnemy), so
-	// that offset fix lives in one place instead of being hand-copied per enemy. Without it, the
-	// held pose sits at the idle/run Y offset while showing the attack frame, which reads as the
-	// sprite sinking into the ground until the real swing (which does apply it) finally plays.
+	// Freezes an animation on TelegraphFrame (the raised-weapon pose) with AttackSpriteYOffset
+	// already applied — shared by every subclass that holds a windup telegraph before its swing
+	// (OrcEnemy, WarriorEnemy), so both fixes live in one place instead of being hand-copied per
+	// enemy. Without AttackSpriteYOffset, the held pose sits at the idle/run Y offset while showing
+	// the (usually taller) attack frame, which reads as the sprite sinking into the ground until the
+	// real swing (which does apply it) finally plays. Without explicitly setting Frame after Play(),
+	// it defaults to frame 0 — which on every sheet checked so far is the weapon-down/mid-swing
+	// pose, not the wind-up, so the telegraph read as "not raised" until this was pinned down.
+	// Stop() must come BEFORE the Frame assignment, not after — Stop() resets the animation
+	// position to 0, so setting Frame first and stopping second silently threw the chosen
+	// TelegraphFrame away and always froze on 0 instead.
 	protected void HoldTelegraphFrame(string animationName)
 	{
 		Sprite.Position = new Vector2(Sprite.Position.X, AttackSpriteYOffset);
 		Sprite.Play(animationName);
 		Sprite.Stop();
+		Sprite.Frame = TelegraphFrame;
 	}
 
 	// virtual + Task (not async void) so a subclass can wrap this in its own telegraph/windup and

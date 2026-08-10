@@ -279,9 +279,19 @@ public partial class Enemy : CharacterBody2D
 		Velocity = velocity;
 		MoveAndSlide();
 
-		UpdateAnimation(velocity);
-		ApplyContactDamage();
+		// The actual post-slide Velocity, not the pre-MoveAndSlide local above — walking straight
+		// into a wall zeroes this out via collision response while the AI's commanded velocity
+		// above stays at full MoveSpeed, so animating off the commanded value kept playing "run"
+		// against a wall the enemy wasn't actually moving through.
+		UpdateAnimation(Velocity);
+		if (ContactDamageEnabled)
+			ApplyContactDamage();
 	}
+
+	// False for enemies with a real attack hitbox (see MeleeEnemy) — otherwise just walking into
+	// their body chips contact damage on top of whatever their actual attack swing already does.
+	// Stays true for enemies whose only offense IS contact (RatEnemy has no hitbox of its own).
+	protected virtual bool ContactDamageEnabled => true;
 
 	// Override to lock facing while committed to an action (e.g. mid-attack/windup) — default
 	// always allows turning, since a plain contact-damage enemy (RatEnemy) has no such commitment
