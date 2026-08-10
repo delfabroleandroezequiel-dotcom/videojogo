@@ -16,9 +16,9 @@ public partial class OrcEnemy : MeleeEnemy
 	[Export] public float SettleDelay = 0.3f;
 	[Export] public float SettleSpeedThreshold = 10f;
 
-	// Sword-raise telegraph: holds on the attack animation's first frame (the raised pose), hitbox
-	// off, for this long before the actual swing plays — gives the player a real read-and-dodge
-	// window instead of the hit landing the instant the animation starts.
+	// Sword-raise telegraph: holds on TelegraphFrame (see MeleeEnemy), hitbox off, for this long
+	// before the actual swing plays — gives the player a real read-and-dodge window instead of the
+	// hit landing the instant the animation starts.
 	[Export] public float WindupDuration = 0.5f;
 
 	private float _settleTimer;

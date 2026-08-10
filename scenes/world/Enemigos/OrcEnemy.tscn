@@ -23,6 +23,7 @@ AttackCooldown = 1.3
 AttackDuration = 0.25
 AttackAnimDuration = 0.5
 AttackSpriteYOffset = 0.0
+TelegraphFrame = 4
 LedgeCheckDownY = 40.0
 Profile = ExtResource("6_profile")
 ExplosionScene = ExtResource("5_explosion")
