@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cbfu7v46x3i3l"]
+
+[ext_resource type="PackedScene" path="res://scenes/player/ProtagonistNuevoPreview.tscn" id="1_protagonist"]
+[ext_resource type="PackedScene" uid="uid://cs3s2x82wkiac" path="res://scenes/world/Enemigos/WarriorEnemy.tscn" id="2_5c22l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(2000, 60)
+
+[node name="ProtagonistNuevoTestRoom" type="Node2D" unique_id=285279778]
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=1436439582]
+position = Vector2(300, 432)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=622374424]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="ProtagonistNuevo" parent="." unique_id=1707301339 instance=ExtResource("1_protagonist")]
+position = Vector2(300, 370)
+
+[node name="WarriorEnemy" parent="." unique_id=618121373 instance=ExtResource("2_5c22l")]
+position = Vector2(396, 370)
+TelegraphFrame = 0
