@@ -72,9 +72,9 @@ public partial class Player : CharacterBody2D
 	[Export] public float LookUpOffset = -80f;
 	[Export] public float LookDownOffset = 60f;
 	[Export] public float LookSmoothSpeed = 4f;
-	[Export] public float BaseCameraOffsetY = -108f;
+	[Export] public float BaseCameraOffsetY = -60f;
 	public float ProfileCameraOffsetY { get; set; }
-	public float ProfileZoom { get; set; } = 1.5f;
+	public float ProfileZoom { get; set; } = 1.78f;
 
 	// Read-only combat state for enemy AI to react to (see EnemyCombatCoordinator) — an enemy
 	// that can tell whether the player is blocking, mid-swing, or dashing can make an actual
@@ -158,6 +158,8 @@ public partial class Player : CharacterBody2D
 	private AnimatedSprite2D _sprite;
 	private HudBar _bossHealthBar;
 	private Node2D _trackedBoss;
+	private Enemy _trackedBossEnemy;
+	private bool _bossEncounterActive;
 	private PointLight2D _debugFlashlight;
 	private PointLight2D _torchLight;
 	private PointLight2D _swordFireLight;
@@ -1215,7 +1217,22 @@ public partial class Player : CharacterBody2D
 		float targetZoom = ProfileZoom;
 
 		Godot.Collections.Array<Node> bosses = GetTree().GetNodesInGroup("boss");
-		Node2D boss = bosses.Count == 1 ? bosses[0] as Node2D : null;
+		Enemy bossEnemy = bosses.Count == 1 ? bosses[0] as Enemy : null;
+
+		// A boss sitting in the group from scene load isn't an active encounter yet — wait for the
+		// same PlayerDetected flip CaveCollapseOverlay reacts to, then latch it (instead of
+		// re-checking PlayerDetected live) so the bar doesn't blink off if the fight carries the
+		// player back out of DetectionRange for a moment.
+		if (bossEnemy != _trackedBossEnemy)
+		{
+			_trackedBossEnemy = bossEnemy;
+			_bossEncounterActive = false;
+		}
+
+		if (bossEnemy is not null && bossEnemy.PlayerDetected)
+			_bossEncounterActive = true;
+
+		Node2D boss = _bossEncounterActive ? bossEnemy : null;
 
 		if (boss != _trackedBoss)
 			TrackBoss(boss);
