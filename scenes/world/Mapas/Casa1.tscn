@@ -21,7 +21,6 @@ script = ExtResource("2_bootstrap")
 CameraProfile = ExtResource("5_camera_profile")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=2000000012]
-visible = false
 color = Color(0.55, 0.5, 0.5, 1)
 
 [node name="Backdrop" type="Polygon2D" parent="." unique_id=2000000002]
