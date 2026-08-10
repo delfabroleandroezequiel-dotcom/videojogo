@@ -90,6 +90,83 @@ public partial class ProceduralWater : Node2D
 		set { _colorSteps = Mathf.Max(2, value); Rebuild(); }
 	}
 
+	private bool _pixelated = true;
+
+	// Off for a soft painted look (continuous gradient, smooth foam edge) instead of the blocky/
+	// posterized default — meant for background/atmosphere pools where there's no character
+	// pixel grid to stay consistent with, unlike Cascada's waterfall.
+	[Export]
+	public bool Pixelated
+	{
+		get => _pixelated;
+		set { _pixelated = value; Rebuild(); }
+	}
+
+	private float _foamSoftness = 0.08f;
+
+	// Only visible while Pixelated is off — how wide the foam's smoothstep blend band is.
+	[Export(PropertyHint.Range, "0.001,0.3,0.001")]
+	public float FoamSoftness
+	{
+		get => _foamSoftness;
+		set { _foamSoftness = Mathf.Max(0.001f, value); Rebuild(); }
+	}
+
+	private bool _hasCaustics;
+
+	// Soft mottled light patches drifting across the water — an Ender Lilies-style caustics look.
+	[Export]
+	public bool HasCaustics
+	{
+		get => _hasCaustics;
+		set { _hasCaustics = value; Rebuild(); }
+	}
+
+	private float _causticFrequency = 5f;
+
+	[Export]
+	public float CausticFrequency
+	{
+		get => _causticFrequency;
+		set { _causticFrequency = value; Rebuild(); }
+	}
+
+	private float _causticSpeed = 0.35f;
+
+	[Export]
+	public float CausticSpeed
+	{
+		get => _causticSpeed;
+		set { _causticSpeed = value; Rebuild(); }
+	}
+
+	private float _causticThreshold = 0.65f;
+
+	[Export(PropertyHint.Range, "0,1,0.01")]
+	public float CausticThreshold
+	{
+		get => _causticThreshold;
+		set { _causticThreshold = Mathf.Clamp(value, 0f, 1f); Rebuild(); }
+	}
+
+	private float _causticStrength = 0.5f;
+
+	[Export(PropertyHint.Range, "0,2,0.01")]
+	public float CausticStrength
+	{
+		get => _causticStrength;
+		set { _causticStrength = Mathf.Max(0f, value); Rebuild(); }
+	}
+
+	private Color _causticColor = new(0.8f, 0.95f, 1f);
+
+	[Export]
+	public Color CausticColor
+	{
+		get => _causticColor;
+		set { _causticColor = value; Rebuild(); }
+	}
+
 	private Color _shallowColor = new(0.55f, 0.88f, 0.95f);
 	private Color _deepColor = new(0.05f, 0.28f, 0.48f);
 
@@ -274,6 +351,20 @@ public partial class ProceduralWater : Node2D
 		set { _isSwimmable = value; Rebuild(); }
 	}
 
+	private bool _harmless;
+
+	// For a waterfall/sea that's purely backdrop — not meant to be swum in (IsSwimmable off) but
+	// shouldn't damage or knock back the player either. Skips creating a Hazard area entirely
+	// (see Rebuild) rather than relying on InstantKill=false + Damage=0, since Hazard still calls
+	// ApplyKnockback on every touch regardless of Damage — zero damage alone doesn't stop it from
+	// visibly shoving the player. Ignored while IsSwimmable is on.
+	[Export]
+	public bool Harmless
+	{
+		get => _harmless;
+		set { _harmless = value; Rebuild(); }
+	}
+
 	private bool _instantKill = true;
 
 	[Export]
@@ -356,6 +447,14 @@ public partial class ProceduralWater : Node2D
 		material.SetShaderParameter("opacity_multiplier", _opacity);
 		material.SetShaderParameter("shape_size", new Vector2(_width, _height));
 		material.SetShaderParameter("pixel_block_size", _pixelBlockSize);
+		material.SetShaderParameter("pixelated", _pixelated);
+		material.SetShaderParameter("foam_softness", _foamSoftness);
+		material.SetShaderParameter("has_caustics", _hasCaustics);
+		material.SetShaderParameter("caustic_frequency", _causticFrequency);
+		material.SetShaderParameter("caustic_speed", _causticSpeed);
+		material.SetShaderParameter("caustic_threshold", _causticThreshold);
+		material.SetShaderParameter("caustic_strength", _causticStrength);
+		material.SetShaderParameter("caustic_color", _causticColor);
 		material.SetShaderParameter("color_steps", isLava ? LavaColorSteps : (float)_colorSteps);
 		material.SetShaderParameter("has_wavy_top", _hasWavyTop);
 		material.SetShaderParameter("has_organic_edges", _hasOrganicEdges);
@@ -387,7 +486,7 @@ public partial class ProceduralWater : Node2D
 		{
 			Water.CreateArea(this, new Vector2(_width, _height));
 		}
-		else
+		else if (!_harmless)
 		{
 			Hazard hazard = Hazard.CreateArea(this, _instantKill, _damage, _knockbackForce);
 			var hazardShape = new CollisionShape2D

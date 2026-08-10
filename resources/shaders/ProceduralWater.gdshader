@@ -13,6 +13,23 @@ uniform float foam_threshold : hint_range(0.0, 1.0) = 0.82;
 uniform vec4 foam_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
 uniform float opacity_multiplier : hint_range(0.0, 1.0) = 0.85;
 
+// World/atmosphere water (background pools, underwater zones) doesn't have to match the
+// character pixel-art grid the way Cascada's waterfall does — flip this off for a soft, painted
+// look (continuous gradients, smooth foam edge) instead of the blocky/posterized default. Every
+// existing instance (ProceduralWater.tscn, Cascada) leaves this at true, so nothing already
+// placed changes look.
+uniform bool pixelated = true;
+uniform float foam_softness : hint_range(0.001, 0.3) = 0.08;
+
+// Soft mottled light patches drifting across the water — an Ender Lilies-style caustics look,
+// independent noise channel (own frequency/seed) so it doesn't line up with the flow ripples.
+uniform bool has_caustics = false;
+uniform float caustic_frequency = 5.0;
+uniform float caustic_speed = 0.35;
+uniform float caustic_threshold : hint_range(0.0, 1.0) = 0.65;
+uniform float caustic_strength : hint_range(0.0, 2.0) = 0.5;
+uniform vec4 caustic_color : source_color = vec4(0.8, 0.95, 1.0, 1.0);
+
 // Pixelation: without these, the noise reads as a smooth photoreal-ish gradient, which clashes
 // with the rest of the game's hand-painted pixel art. shape_size (the sprite's actual on-screen
 // pixel dimensions — UV alone can't tell block size from shape size) lets pixel_block_size mean
@@ -81,16 +98,18 @@ float noise(vec2 p)
 void fragment()
 {
 	// Snap to a coarse block grid (in real pixels, not UV fractions) before sampling noise, so
-	// the flow reads as chunky pixel blocks instead of a smooth blur.
+	// the flow reads as chunky pixel blocks instead of a smooth blur. Skipped entirely in
+	// !pixelated mode — uv just follows UV directly, giving a continuous painted gradient.
 	vec2 pixelCoord = UV * shape_size;
-	vec2 blockCoord = floor(pixelCoord / pixel_block_size) * pixel_block_size;
+	vec2 blockCoord = pixelated ? floor(pixelCoord / pixel_block_size) * pixel_block_size : pixelCoord;
 	vec2 uv = blockCoord / shape_size;
 
 	float surfaceY = 0.0;
 	if (has_wavy_top)
 	{
 		float phase = blockCoord.x / shape_size.x * wave_edge_frequency * TAU + TIME * wave_edge_speed;
-		float offset = floor(sin(phase) * wave_edge_amplitude / pixel_block_size) * pixel_block_size;
+		float rawOffset = sin(phase) * wave_edge_amplitude;
+		float offset = pixelated ? floor(rawOffset / pixel_block_size) * pixel_block_size : rawOffset;
 		surfaceY = wave_edge_amplitude + offset;
 
 		if (pixelCoord.y < surfaceY)
@@ -104,8 +123,8 @@ void fragment()
 		float rowPhase = blockCoord.y / pixel_block_size * (edge_jitter_frequency / 10.0);
 		float leftNoise = noise(vec2(rowPhase, TIME * edge_jitter_speed));
 		float rightNoise = noise(vec2(rowPhase + 100.0, TIME * edge_jitter_speed + 50.0));
-		float leftInset = floor(leftNoise * edge_jitter_amplitude / pixel_block_size) * pixel_block_size;
-		float rightInset = floor(rightNoise * edge_jitter_amplitude / pixel_block_size) * pixel_block_size;
+		float leftInset = pixelated ? floor(leftNoise * edge_jitter_amplitude / pixel_block_size) * pixel_block_size : leftNoise * edge_jitter_amplitude;
+		float rightInset = pixelated ? floor(rightNoise * edge_jitter_amplitude / pixel_block_size) * pixel_block_size : rightNoise * edge_jitter_amplitude;
 
 		if (pixelCoord.x < leftInset || pixelCoord.x > shape_size.x - rightInset)
 			discard;
@@ -119,8 +138,10 @@ void fragment()
 	float n = n1 * 0.6 + n2 * 0.4;
 
 	// Posterize into discrete bands instead of a continuous mix — the other half of reading as
-	// pixel art instead of a shader gradient.
-	n = floor(n * color_steps) / color_steps;
+	// pixel art instead of a shader gradient. Left as a smooth 0-1 value in !pixelated mode, for
+	// the soft painted gradient look.
+	if (pixelated)
+		n = floor(n * color_steps) / color_steps;
 
 	vec3 color = mix(deep_color.rgb, shallow_color.rgb, n);
 	float alpha = mix(deep_color.a, shallow_color.a, n);
@@ -134,9 +155,26 @@ void fragment()
 			color = rock_fleck_color.rgb;
 	}
 
-	if (n > foam_threshold)
+	if (has_caustics)
 	{
-		color = foam_color.rgb;
+		// A second, faster/finer noise pass blended additively only where it's bright — reads as
+		// mottled light patches drifting over the water rather than affecting the base flow color.
+		float causticNoise = noise(uv * caustic_frequency + vec2(TIME * caustic_speed, TIME * caustic_speed * 0.7));
+		float causticMask = smoothstep(caustic_threshold, 1.0, causticNoise);
+		color += caustic_color.rgb * causticMask * caustic_strength;
+	}
+
+	if (pixelated)
+	{
+		if (n > foam_threshold)
+			color = foam_color.rgb;
+	}
+	else
+	{
+		// Soft-edged foam blend instead of a hard cutoff — matches the continuous gradient used
+		// for the rest of the surface in painted mode.
+		float foamMix = smoothstep(foam_threshold - foam_softness, foam_threshold + foam_softness, n);
+		color = mix(color, foam_color.rgb, foamMix);
 	}
 
 	if (has_wavy_top && pixelCoord.y - surfaceY < crest_thickness)
