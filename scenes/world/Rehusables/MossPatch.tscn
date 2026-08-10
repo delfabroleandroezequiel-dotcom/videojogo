@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/MossPatch.cs" id="1_script"]
+
+[node name="MossPatch" type="Node2D"]
+script = ExtResource("1_script")
+Radius = 24.0
+ClumpCount = 14
+Seed = 1

@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/DrippingWater.cs" id="1_script"]
+
+[node name="DrippingWater" type="Node2D"]
+script = ExtResource("1_script")
+FallDistance = 40.0
+DropInterval = 1.5

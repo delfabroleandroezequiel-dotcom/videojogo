@@ -23,13 +23,27 @@ public partial class FlickerLight : PointLight2D
 	[Export] public float FlickerSpeed = 1f;
 	[Export] public float StartOffset;
 
+	// Null until either explicitly set (e.g. by LitDecoration.LightRange) or _Ready adopts
+	// whatever TextureScale this node already had — a fixed literal default would silently
+	// override already-placed instances that set texture_scale directly in their own scene file
+	// (e.g. CuevaLantern.tscn's 1.56) the moment this script runs. _Process reads this every
+	// frame (not a one-time snapshot) specifically so an external caller setting it later, after
+	// _Ready already ran, still takes effect instead of being overwritten by the next flicker tick.
+	private float? _baseTextureScale;
+
+	[Export]
+	public float BaseTextureScale
+	{
+		get => _baseTextureScale ?? 1.3f;
+		set => _baseTextureScale = value;
+	}
+
 	private float _time;
-	private float _baseTextureScale;
 
 	public override void _Ready()
 	{
 		_time = StartOffset;
-		_baseTextureScale = TextureScale;
+		_baseTextureScale ??= TextureScale;
 	}
 
 	public override void _Process(double delta)
@@ -41,6 +55,6 @@ public partial class FlickerLight : PointLight2D
 			+ Mathf.Sin(_time * 5.1f + 2.7f) * 0.1f;
 
 		Energy = BaseEnergy + n * EnergyFlickerAmount;
-		TextureScale = _baseTextureScale + n * ScaleFlickerAmount;
+		TextureScale = BaseTextureScale + n * ScaleFlickerAmount;
 	}
 }

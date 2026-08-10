@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/DampStain.cs" id="1_script"]
+
+[node name="DampStain" type="Node2D"]
+script = ExtResource("1_script")
+Radius = 40.0
+LayerCount = 3
+Seed = 1

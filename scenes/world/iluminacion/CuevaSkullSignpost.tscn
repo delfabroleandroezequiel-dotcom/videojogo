@@ -1,0 +1,16 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://scenes/world/iluminacion/cueva_deco_08.png" id="1_tex"]
+[ext_resource type="PackedScene" path="res://scenes/world/iluminacion/FlickerLight.tscn" id="2_light"]
+[ext_resource type="Script" path="res://scripts/world/LitDecoration.cs" id="3_script"]
+
+[node name="CuevaSkullSignpost" type="Node2D"]
+script = ExtResource("3_script")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("1_tex")
+
+[node name="Light" parent="." instance=ExtResource("2_light")]
+position = Vector2(0.19, 3.13)
+texture_scale = 1.56
