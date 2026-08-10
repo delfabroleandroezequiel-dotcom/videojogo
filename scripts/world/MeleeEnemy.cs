@@ -14,9 +14,10 @@ public partial class MeleeEnemy : Enemy
 	[Export] public float AttackHitboxReach = 24f;
 
 	// Which frame of the "attack" animation actually shows the weapon raised — varies per sprite
-	// sheet (WarriorEnemy's is frame 1, OrcEnemy's is frame 4; frame 0 turned out to be the
-	// weapon-down/mid-swing pose on both, not the wind-up, despite that being the original
-	// assumption). Set per subclass instance to whichever frame index is the raised pose.
+	// sheet (WarriorEnemy's is frame 1, OrcEnemy's is also frame 1 — its frame 4 looks like a
+	// raised pose in isolation but is actually the recovery pose *after* the swing arc, not the
+	// wind-up before it). Set per subclass instance to whichever frame index is the raised pose,
+	// and check the actual sheet order, not just how a frame looks on its own.
 	[Export] public int TelegraphFrame;
 
 	// Randomizes each cooldown by +/-15% so a room full of the same enemy doesn't swing in
