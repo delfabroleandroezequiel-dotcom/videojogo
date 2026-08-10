@@ -127,3 +127,8 @@ ACH_FIRST_STEPS_TITLE,Primeros pasos,First steps,Primeiros passos
 ACH_FIRST_STEPS_DESC,Comenzá tu aventura.,Begin your adventure.,Comece sua aventura.
 ACH_DASH_UNLOCKED_TITLE,A toda velocidad,Up to speed,A toda velocidade
 ACH_DASH_UNLOCKED_DESC,Conseguí la habilidad de dash.,Obtain the dash ability.,Consiga a habilidade de dash.
+UI_CHEST_LOCKED_PROMPT,🔒 Necesitás una llave,🔒 You need a key,🔒 Você precisa de uma chave
+UI_ITEM_OBTAINED_TITLE,Has obtenido,You have obtained,Você obteve
+UI_ITEM_OBTAINED_GOLD_LINE,+{0} de oro,+{0} gold,+{0} de ouro
+ITEM_ABILITY_TORCH_NAME,Antorcha,Torch,Tocha
+ITEM_ABILITY_TORCH_DESC,Te permite equipar una antorcha para iluminar zonas oscuras.,Lets you equip a torch to light up dark areas.,Permite equipar uma tocha para iluminar áreas escuras.

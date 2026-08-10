@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://ofaucufe28b7"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CorridorBlock.tscn" id="1_llrow"]
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="2_ittuh"]
+[ext_resource type="Script" uid="uid://4ch6askhtulp" path="res://scripts/world/ProceduralWater.cs" id="3_water"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Chest.tscn" id="4_chest"]
+[ext_resource type="Resource" path="res://resources/items/ability_torch.tres" id="5_torch"]
+
+[node name="Node2D" type="Node2D" unique_id=1091420098]
+
+[node name="CorridorBlock" parent="." unique_id=1086856864 instance=ExtResource("1_llrow")]
+position = Vector2(1, 321)
+
+[node name="Player" parent="." unique_id=1867495339 instance=ExtResource("2_ittuh")]
+position = Vector2(396.16318, 81.44768)
+
+[node name="EnderLiliesWaterTest" type="Node2D" parent="." unique_id=2129184220]
+position = Vector2(185, 185)
+script = ExtResource("3_water")
+Width = 250
+Height = 142
+WaveFrequency = 26.0
+Opacity = 0.2
+Pixelated = false
+HasCaustics = true
+CausticFrequency = 22.0
+CausticSpeed = 0.3
+CausticThreshold = 0.72
+CausticStrength = 0.4
+CausticColor = Color(0.6, 0.85, 0.75, 1)
+ShallowColor = Color(0.25, 0.55, 0.6, 1)
+DeepColor = Color(0.02, 0.1, 0.18, 1)
+HasWavyTop = true
+IsSwimmable = true
+
+[node name="EnderLiliesWaterSurface" type="Node2D" parent="." unique_id=2129184221]
+position = Vector2(238, 78)
+script = ExtResource("3_water")
+Width = 250
+Height = 16
+WaveFrequency = 26.0
+Opacity = 0.9
+Pixelated = false
+ShallowColor = Color(0.25, 0.55, 0.6, 1)
+DeepColor = Color(0.02, 0.1, 0.18, 1)
+HasWavyTop = true
+WaveEdgeAmplitude = 3.0
+WaveEdgeFrequency = 5.0
+WaveEdgeSpeed = 1.2
+CrestThickness = 2.0
+CrestColor = Color(0.85, 0.97, 0.95, 1)
+IsSwimmable = true
+
+[node name="ChestTest" parent="." instance=ExtResource("4_chest")]
+position = Vector2(-150, 305)
+SkinIndex = 1
+Rarity = 5
+GoldReward = 10
+ItemReward = ExtResource("5_torch")
+
+[node name="ChestTestLocked" parent="." instance=ExtResource("4_chest")]
+position = Vector2(-90, 305)
+SkinIndex = 5
+RequiredKeyItemId = "test_key"
+Rarity = 3
+GoldReward = 5

@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://chest_main"]
+
+[ext_resource type="Script" path="res://scripts/world/Chest.cs" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(26, 22)
+
+[node name="Chest" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Base" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+
+[node name="Lock" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+
+[node name="Effect" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+visible = false
+
+[node name="InteractPrompt" type="Label" parent="."]
+offset_left = -8.0
+offset_top = -40.0
+offset_right = 8.0
+offset_bottom = -24.0
+horizontal_alignment = 1
