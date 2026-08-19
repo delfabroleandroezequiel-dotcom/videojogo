@@ -10,10 +10,35 @@ public enum ElevatorSwitches
 	Both,
 }
 
+// [Tool] so RopeExtend's length previews live in the editor at rest — placed at _bottomPosition
+// (its resting spot), the car is at its furthest from the shaft's anchor, so the rope should
+// already read as fully extended while designing the level, not only after pressing Play.
+[Tool]
 public partial class Elevator : AnimatableBody2D
 {
-	[Export] public float TravelDistance = 230f;
+	private float _travelDistance = 230f;
+
+	// Setter recomputes _topPosition and redraws the editor gizmo (see _Draw) live, so dragging
+	// this value in the Inspector immediately shows where the car will land instead of only after
+	// pressing Play — same "tune live" idea as MeasuringRuler's own Length.
+	[Export]
+	public float TravelDistance
+	{
+		get => _travelDistance;
+		set
+		{
+			_travelDistance = value;
+			RefreshTravelPoints();
+			QueueRedraw();
+		}
+	}
+
 	[Export] public float Speed = 80f;
+
+	// The node is still always placed at _bottomPosition in the editor (keeps TravelDistance/the
+	// rope gizmo meaningful — see class doc). This only moves the car to _topPosition at runtime,
+	// after _bottomPosition/_topPosition are derived, so the placed anchor is never overwritten.
+	[Export] public bool StartAtTop = false;
 
 	// Opt-in (defaults to None): spawns Lever.tscn instances at runtime, already wired to
 	// CallToBottom()/CallToTop() — no manual signal-connecting in the editor needed. A switch at
@@ -32,17 +57,71 @@ public partial class Elevator : AnimatableBody2D
 	private Vector2 _topPosition;
 	private Vector2 _target;
 
+	// RopeExtend (ascensorsogaextiende.png) is the same rope/chain texture as the top of Platform
+	// (ascensor.png) itself — Platform's own art already reaches the shaft's fixed anchor point
+	// when the car sits at _topPosition, so no extension is needed there. As the car descends,
+	// the gap between the anchor and the car grows; RopeExtend is grown to fill exactly that gap
+	// every frame by reading Platform's own live Position/Scale (not a duplicated tunable), so
+	// nudging Platform by hand in the editor keeps the rope seamed to it automatically.
+	private Sprite2D _platformSprite;
+	private Sprite2D _ropeExtend;
+
+	// Platform's baked rope art always points toward the physically-higher endpoint (that's the
+	// fixed shaft anchor, regardless of which of _bottomPosition/_topPosition it corresponds to —
+	// a negative TravelDistance flips which one that is, e.g. an elevator placed at the top of its
+	// shaft that travels down). Caching the smaller of the two Y values keeps UpdateRopeExtend's
+	// gap math correct in both orientations instead of assuming _topPosition is always that endpoint.
+	private float _anchorY;
+
+	// Guards RefreshTravelPoints against the TravelDistance setter firing while Godot is still
+	// restoring this node's saved values (before _Ready runs), when _bottomPosition isn't set yet —
+	// same reentrancy gotcha the other [Tool] pieces (RopeAccordion, MovingPlatformAccordion) guard
+	// against before touching state that only _Ready initializes.
+	private bool _initialized;
+
 	public override void _Ready()
 	{
 		_bottomPosition = Position;
 		_topPosition = Position - new Vector2(0, TravelDistance);
+		_anchorY = Mathf.Min(_bottomPosition.Y, _topPosition.Y);
 		_target = _bottomPosition;
+		_initialized = true;
+
+		_platformSprite = GetNode<Sprite2D>("Platform");
+		_ropeExtend = GetNode<Sprite2D>("RopeExtend");
+		UpdateRopeExtend();
+		QueueRedraw();
+
+		if (Engine.IsEditorHint())
+			return;
+
+		if (StartAtTop)
+		{
+			Position = _topPosition;
+			_target = _topPosition;
+			UpdateRopeExtend();
+		}
 
 		Area2D triggerZone = GetNode<Area2D>("TriggerZone");
 		triggerZone.BodyEntered += OnTriggerEntered;
 
 		if (Switches != ElevatorSwitches.None)
 			SpawnSwitches();
+	}
+
+	// Re-derives _topPosition from the fixed _bottomPosition (the car's placed/resting spot, never
+	// itself changed by TravelDistance) so editing TravelDistance in the Inspector always measures
+	// from where the elevator is actually anchored, not from wherever Position happens to be mid-ride.
+	private void RefreshTravelPoints()
+	{
+		if (!_initialized)
+			return;
+
+		_topPosition = _bottomPosition - new Vector2(0, _travelDistance);
+		_anchorY = Mathf.Min(_bottomPosition.Y, _topPosition.Y);
+
+		if (_platformSprite is not null && _ropeExtend is not null)
+			UpdateRopeExtend();
 	}
 
 	private void SpawnSwitches()
@@ -69,6 +148,58 @@ public partial class Elevator : AnimatableBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		// Editor preview only needs the rope-length visual (see class doc) — moving the body here
+		// would fight a manual drag in the 2D viewport, same reasoning as Puente's own editor branch.
+		if (Engine.IsEditorHint())
+		{
+			UpdateRopeExtend();
+			return;
+		}
+
 		Position = Position.MoveToward(_target, Speed * (float)delta);
+		UpdateRopeExtend();
+	}
+
+	// RopeExtend's region_rect is sampled with wraparound (texture_repeat = Enabled, set on the
+	// node in the .tscn) starting from row 0 at its BOTTOM edge — row 0 of ascensorsogaextiende.png
+	// is pixel-identical to row 0 of ascensor.png (it's literally the same cropped rope art), so the
+	// seam against Platform's own rope never shows a jump no matter how tall the region grows.
+	private void UpdateRopeExtend()
+	{
+		float scale = _platformSprite.Scale.Y;
+		float gameHeight = Position.Y - _anchorY;
+
+		if (gameHeight <= 0.5f)
+		{
+			_ropeExtend.Visible = false;
+			return;
+		}
+
+		_ropeExtend.Visible = true;
+		_ropeExtend.Scale = new Vector2(scale, scale);
+
+		float pxHeight = gameHeight / scale;
+		float texWidth = _ropeExtend.Texture.GetWidth();
+		_ropeExtend.RegionRect = new Rect2(0f, -pxHeight, texWidth, pxHeight);
+		_ropeExtend.Position = new Vector2(_platformSprite.Position.X, _platformSprite.Position.Y - gameHeight);
+	}
+
+	// Editor-only gizmo (same idea as MeasuringRuler): a line from the car's resting spot up to
+	// where TravelDistance actually lands it, with a tick + px label at the top — lets TravelDistance
+	// be tuned against the level geometry (e.g. lining the top tick up with a landing ledge) without
+	// pressing Play.
+	public override void _Draw()
+	{
+		if (!Engine.IsEditorHint())
+			return;
+
+		var color = new Color(0.3f, 0.9f, 1f, 0.85f);
+		Vector2 top = new(0f, -TravelDistance);
+		const float tickHalfWidth = 45f; // matches the car's own collision half-width
+
+		DrawLine(Vector2.Zero, top, color, 2f);
+		DrawLine(top - new Vector2(tickHalfWidth, 0f), top + new Vector2(tickHalfWidth, 0f), color, 2f);
+		DrawString(ThemeDB.FallbackFont, top + new Vector2(tickHalfWidth + 4f, 4f), $"{TravelDistance:0}px",
+			HorizontalAlignment.Left, -1f, 14, color);
 	}
 }

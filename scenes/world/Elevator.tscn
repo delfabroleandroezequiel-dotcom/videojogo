@@ -1,6 +1,8 @@
-[gd_scene format=3 uid="uid://elevator_main"]
+[gd_scene format=3 uid="uid://b8bq1p6t7tyck"]
 
-[ext_resource type="Script" path="res://scripts/world/Elevator.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://hg62hbqglpfx" path="res://scripts/world/Elevator.cs" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dmjiqldn5fagq" path="res://assets/sprites/deco/ascensor.png" id="2_platform_tex"]
+[ext_resource type="Texture2D" uid="uid://d1hxjy0fjo7cp" path="res://assets/sprites/deco/ascensorsogaextiende.png" id="3_rope_tex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_car"]
 size = Vector2(90, 16)
@@ -8,23 +10,35 @@ size = Vector2(90, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
 size = Vector2(36, 32)
 
-[node name="Elevator" type="AnimatableBody2D"]
-collision_layer = 1
+[node name="Elevator" type="AnimatableBody2D" unique_id=828852518]
 collision_mask = 0
-sync_to_physics = true
 script = ExtResource("1_script")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=394508807]
+position = Vector2(-8, 47)
 shape = SubResource("RectangleShape2D_car")
 
-[node name="Visual" type="Polygon2D" parent="."]
-color = Color(0.35, 0.35, 0.4, 1)
-polygon = PackedVector2Array(-45, -8, 45, -8, 45, 8, -45, 8)
+[node name="RopeExtend" type="Sprite2D" parent="." unique_id=2088351322]
+visible = false
+texture_repeat = 2
+position = Vector2(-132, -145)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_rope_tex")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 1024, 402)
 
-[node name="TriggerZone" type="Area2D" parent="."]
+[node name="Platform" type="Sprite2D" parent="." unique_id=165770150]
+position = Vector2(-132, -145)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_platform_tex")
+centered = false
+
+[node name="TriggerZone" type="Area2D" parent="." unique_id=864774022]
 position = Vector2(0, -24)
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerZone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerZone" unique_id=2059935764]
+position = Vector2(-8, 45)
 shape = SubResource("RectangleShape2D_trigger")
