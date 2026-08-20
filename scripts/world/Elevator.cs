@@ -33,12 +33,35 @@ public partial class Elevator : AnimatableBody2D
 		}
 	}
 
+	private float _drawnDistance;
+
+	// Independent of TravelDistance: how far above _bottomPosition the rope should visually reach
+	// when fully retracted (i.e. where RopeExtend stops growing) — Platform's own baked rope art
+	// still needs an anchor point to read as "connected to", but that point doesn't have to be
+	// where the car actually stops (a shaft can look taller than the car's real travel range).
+	// 0 (default) means "not customized" and falls back to TravelDistance, so existing elevators
+	// look exactly as before unless this is set explicitly.
+	[Export]
+	public float DrawnDistance
+	{
+		get => _drawnDistance;
+		set
+		{
+			_drawnDistance = value;
+			RefreshTravelPoints();
+			QueueRedraw();
+		}
+	}
+
 	[Export] public float Speed = 80f;
 
-	// The node is still always placed at _bottomPosition in the editor (keeps TravelDistance/the
-	// rope gizmo meaningful — see class doc). This only moves the car to _topPosition at runtime,
-	// after _bottomPosition/_topPosition are derived, so the placed anchor is never overwritten.
-	[Export] public bool StartAtTop = false;
+	// Where the car actually starts along its travel, 0 = _bottomPosition, 1 = _topPosition —
+	// defaults to the middle so an elevator dropped into a level doesn't silently default to
+	// "resting at the bottom" the way a bool StartAtTop would. The node is still always placed at
+	// _bottomPosition in the editor (keeps TravelDistance/the rope gizmo meaningful — see class
+	// doc); this only moves the car at runtime, after _bottomPosition/_topPosition are derived, so
+	// the placed anchor is never overwritten.
+	[Export(PropertyHint.Range, "0,1,0.01")] public float PointStart = 0.5f;
 
 	// Opt-in (defaults to None): spawns Lever.tscn instances at runtime, already wired to
 	// CallToBottom()/CallToTop() — no manual signal-connecting in the editor needed. A switch at
@@ -52,6 +75,17 @@ public partial class Elevator : AnimatableBody2D
 	// Local offset (relative to the bottom/top landing) so the lever sits beside the shaft
 	// instead of inside it.
 	[Export] public Vector2 SwitchOffset = new(40f, 0f);
+
+	// On: the car shuttles between _bottomPosition/_topPosition on its own, no lever or player
+	// contact needed — reverses direction every time it fully reaches an end. Doesn't disable the
+	// TriggerZone/CallToTop/CallToBottom paths, so a lever can still cut in early if both are set up.
+	[Export] public bool AutoTravel = false;
+
+	// How long the car waits at each end before reversing, so it doesn't instantly snap back and
+	// forth like a bouncing ball — 0 disables the pause entirely.
+	[Export] public float AutoTravelPause = 1f;
+
+	private float _autoTravelTimer;
 
 	private Vector2 _bottomPosition;
 	private Vector2 _topPosition;
@@ -67,10 +101,10 @@ public partial class Elevator : AnimatableBody2D
 	private Sprite2D _ropeExtend;
 
 	// Platform's baked rope art always points toward the physically-higher endpoint (that's the
-	// fixed shaft anchor, regardless of which of _bottomPosition/_topPosition it corresponds to —
-	// a negative TravelDistance flips which one that is, e.g. an elevator placed at the top of its
-	// shaft that travels down). Caching the smaller of the two Y values keeps UpdateRopeExtend's
-	// gap math correct in both orientations instead of assuming _topPosition is always that endpoint.
+	// fixed shaft anchor, regardless of which side of _bottomPosition it falls on — a negative
+	// TravelDistance/DrawnDistance flips which one that is, e.g. an elevator placed at the top of
+	// its shaft that travels down). Derived from DrawnDistance (see its doc), not TravelDistance —
+	// picking the smaller of the two candidate Y values keeps the math correct in both orientations.
 	private float _anchorY;
 
 	// Guards RefreshTravelPoints against the TravelDistance setter firing while Godot is still
@@ -83,7 +117,7 @@ public partial class Elevator : AnimatableBody2D
 	{
 		_bottomPosition = Position;
 		_topPosition = Position - new Vector2(0, TravelDistance);
-		_anchorY = Mathf.Min(_bottomPosition.Y, _topPosition.Y);
+		RecomputeAnchorY();
 		_target = _bottomPosition;
 		_initialized = true;
 
@@ -95,10 +129,11 @@ public partial class Elevator : AnimatableBody2D
 		if (Engine.IsEditorHint())
 			return;
 
-		if (StartAtTop)
+		if (PointStart != 0f)
 		{
-			Position = _topPosition;
-			_target = _topPosition;
+			Vector2 startPosition = _bottomPosition.Lerp(_topPosition, Mathf.Clamp(PointStart, 0f, 1f));
+			Position = startPosition;
+			_target = startPosition;
 			UpdateRopeExtend();
 		}
 
@@ -118,10 +153,17 @@ public partial class Elevator : AnimatableBody2D
 			return;
 
 		_topPosition = _bottomPosition - new Vector2(0, _travelDistance);
-		_anchorY = Mathf.Min(_bottomPosition.Y, _topPosition.Y);
+		RecomputeAnchorY();
 
 		if (_platformSprite is not null && _ropeExtend is not null)
 			UpdateRopeExtend();
+	}
+
+	private void RecomputeAnchorY()
+	{
+		float effectiveDrawnDistance = _drawnDistance != 0f ? _drawnDistance : _travelDistance;
+		Vector2 visualTopPosition = _bottomPosition - new Vector2(0, effectiveDrawnDistance);
+		_anchorY = Mathf.Min(_bottomPosition.Y, visualTopPosition.Y);
 	}
 
 	private void SpawnSwitches()
@@ -158,6 +200,22 @@ public partial class Elevator : AnimatableBody2D
 
 		Position = Position.MoveToward(_target, Speed * (float)delta);
 		UpdateRopeExtend();
+
+		if (!AutoTravel)
+			return;
+
+		if (Position != _target)
+		{
+			_autoTravelTimer = 0f;
+			return;
+		}
+
+		_autoTravelTimer += (float)delta;
+		if (_autoTravelTimer >= AutoTravelPause)
+		{
+			_autoTravelTimer = 0f;
+			_target = _target == _topPosition ? _bottomPosition : _topPosition;
+		}
 	}
 
 	// RopeExtend's region_rect is sampled with wraparound (texture_repeat = Enabled, set on the
@@ -187,7 +245,9 @@ public partial class Elevator : AnimatableBody2D
 	// Editor-only gizmo (same idea as MeasuringRuler): a line from the car's resting spot up to
 	// where TravelDistance actually lands it, with a tick + px label at the top — lets TravelDistance
 	// be tuned against the level geometry (e.g. lining the top tick up with a landing ledge) without
-	// pressing Play.
+	// pressing Play. A second, dashed-looking line marks DrawnDistance whenever it's been customized
+	// (non-zero and different from TravelDistance) — otherwise the rope silently reaches exactly as
+	// far as the travel tick already shown, so drawing a duplicate line on top would just be clutter.
 	public override void _Draw()
 	{
 		if (!Engine.IsEditorHint())
@@ -201,5 +261,17 @@ public partial class Elevator : AnimatableBody2D
 		DrawLine(top - new Vector2(tickHalfWidth, 0f), top + new Vector2(tickHalfWidth, 0f), color, 2f);
 		DrawString(ThemeDB.FallbackFont, top + new Vector2(tickHalfWidth + 4f, 4f), $"{TravelDistance:0}px",
 			HorizontalAlignment.Left, -1f, 14, color);
+
+		if (_drawnDistance != 0f && !Mathf.IsEqualApprox(_drawnDistance, _travelDistance))
+		{
+			var ropeColor = new Color(1f, 0.7f, 0.2f, 0.85f);
+			Vector2 ropeTop = new(0f, -_drawnDistance);
+			const float ropeTickHalfWidth = 30f;
+
+			DrawLine(Vector2.Zero, ropeTop, ropeColor, 1.5f);
+			DrawLine(ropeTop - new Vector2(ropeTickHalfWidth, 0f), ropeTop + new Vector2(ropeTickHalfWidth, 0f), ropeColor, 1.5f);
+			DrawString(ThemeDB.FallbackFont, ropeTop - new Vector2(ropeTickHalfWidth + 70f, -4f), $"soga {_drawnDistance:0}px",
+				HorizontalAlignment.Left, -1f, 14, ropeColor);
+		}
 	}
 }
