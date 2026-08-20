@@ -15,6 +15,10 @@ public partial class ArrowProjectile : Area2D
 	[Export] public bool InstantKill;
 	[Export] public int Damage = 15;
 	[Export] public float KnockbackForce = 260f;
+	// Same VixMix explosion Enemy.cs plays on death (see Explosion.cs's TargetScale), just small —
+	// this is a wall-mounted trap's arrow hitting a wall, not a boss going up in flames.
+	[Export] public PackedScene ExplosionScene;
+	[Export] public float ExplosionScale = 0.3f;
 
 	private Vector2 _direction = Vector2.Right;
 	private bool _hit;
@@ -81,7 +85,20 @@ public partial class ArrowProjectile : Area2D
 		// setting Monitoring synchronously while a body_entered signal is still being
 		// dispatched, hence set_deferred instead of a direct assignment here.
 		SetDeferred(PropertyName.Monitoring, false);
-		ArrowImpactEffect.SpawnAt(this, GlobalPosition, Rotation);
+		SpawnExplosion();
 		QueueFree();
+	}
+
+	private void SpawnExplosion()
+	{
+		if (ExplosionScene is null)
+			return;
+
+		Node explosionNode = ExplosionScene.Instantiate();
+		if (explosionNode is Explosion explosion)
+			explosion.TargetScale = ExplosionScale;
+
+		GetTree().CurrentScene.AddChild(explosionNode);
+		((Node2D)explosionNode).GlobalPosition = GlobalPosition;
 	}
 }
