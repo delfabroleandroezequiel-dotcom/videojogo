@@ -65,6 +65,7 @@ public partial class LevelBootstrap : Node
 		data.DefeatedBosses.AddRange(SaveManager.Instance.GetDefeatedBosses());
 		data.LitSavePoints.AddRange(SaveManager.Instance.GetLitSavePoints());
 		data.PlayedCutscenes.AddRange(SaveManager.Instance.GetPlayedCutscenes());
+		data.OpenedGates.AddRange(SaveManager.Instance.GetOpenedGates());
 		data.ActiveQuests.AddRange(QuestManager.Instance.GetActiveQuestIds());
 		data.CompletedQuests.AddRange(QuestManager.Instance.GetCompletedQuestIds());
 		foreach (System.Collections.Generic.KeyValuePair<string, int> entry in QuestManager.Instance.SnapshotProgress())

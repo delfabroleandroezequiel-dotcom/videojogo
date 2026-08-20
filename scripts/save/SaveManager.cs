@@ -41,6 +41,7 @@ public partial class SaveManager : Node
 	private readonly HashSet<string> _collectedItems = new();
 	private readonly HashSet<string> _collectedPickups = new();
 	private readonly HashSet<string> _playedCutscenes = new();
+	private readonly HashSet<string> _openedGates = new();
 	private readonly List<string> _equippedRings = new();
 
 	[Signal] public delegate void GoldChangedEventHandler(int gold);
@@ -139,6 +140,12 @@ public partial class SaveManager : Node
 	public void MarkCutscenePlayed(string id) => _playedCutscenes.Add(id);
 	public IReadOnlyCollection<string> GetPlayedCutscenes() => _playedCutscenes;
 
+	// Permanent, same lifetime as LitSavePoints/DefeatedBosses — once a shortcut gate opens it
+	// stays open forever for this save, from both sides (see Gate.cs).
+	public bool IsGateOpened(string id) => _openedGates.Contains(id);
+	public void MarkGateOpened(string id) => _openedGates.Add(id);
+	public IReadOnlyCollection<string> GetOpenedGates() => _openedGates;
+
 	public bool HasAbility(string id) => _unlockedAbilities.Contains(id);
 	public void UnlockAbility(string id) => _unlockedAbilities.Add(id);
 	public IReadOnlyCollection<string> GetUnlockedAbilities() => _unlockedAbilities;
@@ -188,6 +195,7 @@ public partial class SaveManager : Node
 		_equippedRings.Clear();
 		_collectedPickups.Clear();
 		_playedCutscenes.Clear();
+		_openedGates.Clear();
 		_maxHealCharges = 1;
 		StoryStage = 0;
 		Gold = 0;
@@ -279,6 +287,10 @@ public partial class SaveManager : Node
 		_playedCutscenes.Clear();
 		foreach (string cutsceneId in PendingLoad.PlayedCutscenes)
 			_playedCutscenes.Add(cutsceneId);
+
+		_openedGates.Clear();
+		foreach (string gateId in PendingLoad.OpenedGates)
+			_openedGates.Add(gateId);
 
 		_unlockedAbilities.Clear();
 		foreach (string abilityId in PendingLoad.UnlockedAbilities)

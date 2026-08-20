@@ -84,6 +84,8 @@ NPC_DEFAULT_LINE,...,...,...
 NPC_DEFAULT_IN_PROGRESS,Todavía no terminé eso.,I still haven't finished that.,Ainda não terminei isso.
 NPC_DEFAULT_COMPLETED,Gracias por tu ayuda.,Thanks for your help.,Obrigado pela sua ajuda.
 DIALOGUETRIGGER_DEFAULT_SPEAKER,???,???,???
+GATE_LOCKED_SPEAKER,Reja,Gate,Portão
+GATE_LOCKED_LINE,"No se abre por este lado.","It won't open from this side.","Não abre deste lado."
 NPC_DOORVOICE_SPEAKER,Voz desde adentro,Voice from inside,Voz lá de dentro
 NPC_DOORVOICE_L1,"No me molestes, mañana es día de embarque.","Don't bother me, tomorrow is departure day.","Não me incomode, amanhã é dia de embarque."
 NPC_PESCADOR_NAME,Viejo Pescador,Old Fisherman,Velho Pescador

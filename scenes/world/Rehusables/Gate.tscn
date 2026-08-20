@@ -1,0 +1,27 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/Gate.cs" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://beuo7i0yq23yt" path="res://assets/sprites/deco/reja.png" id="2_reja_tex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gate"]
+size = Vector2(70, 90)
+
+[node name="Gate" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_script")
+
+[node name="Visual" type="Sprite2D" parent="."]
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("2_reja_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_gate")
+
+[node name="InteractPrompt" type="Label" parent="."]
+offset_left = -8.0
+offset_top = -100.0
+offset_right = 8.0
+offset_bottom = -84.0
+text = "UI_INTERACT_PROMPT"
+horizontal_alignment = 1
