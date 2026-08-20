@@ -40,6 +40,14 @@ public partial class Player : CharacterBody2D
 	[Export] public float DashIframeDuration = 0.28f;
 	[Export] public float DashCooldown = 0.5f;
 	[Export] public int DashStaminaCost = 20;
+	// Slower than Dash but travels almost as far (~105px vs Dash's ~112px) and ground-only — a
+	// slower, no-iframe alternative to Dash rather than a quicker one. RollDuration also has to
+	// leave the "roll" clip (7 frames at speed 12) enough time to actually read as a roll instead
+	// of getting cut after a frame or two.
+	[Export] public float RollSpeed = 300f;
+	[Export] public float RollDuration = 0.35f;
+	[Export] public float RollCooldown = 0.35f;
+	[Export] public int RollStaminaCost = 10;
 	[Export] public float RunThrustSpeed = 420f;
 	[Export] public float RunThrustDuration = 0.3f;
 	[Export] public float RunThrustHitboxDelay = 0.05f;
@@ -64,6 +72,11 @@ public partial class Player : CharacterBody2D
 	[Export] public Vector2 UpAttackHitboxSize = new(46f, 90f);
 	[Export] public float UpAttackHitboxReach = 40f;
 	[Export] public float UpAttackCooldown = 0.4f;
+	// Animation-only for now — no effect/projectile is spawned yet, this just gets the two existing
+	// "spell"/"spell2" clips playable; actual spell effects get attached to these slots later.
+	// Duration matches each clip's frame_count / speed (see FireWarriorSpriteFrames.tres).
+	[Export] public float SpellAnimDuration = 0.9f;
+	[Export] public float Spell2AnimDuration = 1.7f;
 	[Export] public float BowAnimDuration = 0.5f;
 	[Export] public float BowReleaseDelay = 0.35f;
 	[Export] public float ArrowSpeed = 420f;
@@ -184,12 +197,17 @@ public partial class Player : CharacterBody2D
 	private bool _canDash = true;
 	private bool _crouching;
 	private float _dashDirection;
+	private bool _isRolling;
+	private bool _canRoll = true;
+	private float _rollDirection;
 	private bool _isRunThrusting;
 	private bool _canRunThrust = true;
 	private float _runThrustDirection;
 	private bool _canCrouchAttack = true;
 	private bool _canUpAttack = true;
 	private bool _isShooting;
+	private bool _isCastingSpell;
+	private bool _isCastingSpell2;
 	private bool _isBlocking;
 	private float _parryWindowTimer;
 	private AnimatedSprite2D _parryFlash;
@@ -238,6 +256,7 @@ public partial class Player : CharacterBody2D
 	private float _standHalfHeight;
 	private float _attackBufferTimer;
 	private float _dashBufferTimer;
+	private float _rollBufferTimer;
 
 	public override void _Ready()
 	{
@@ -552,10 +571,13 @@ public partial class Player : CharacterBody2D
 
 		_attackBufferTimer = Mathf.Max(0f, _attackBufferTimer - (float)delta);
 		_dashBufferTimer = Mathf.Max(0f, _dashBufferTimer - (float)delta);
+		_rollBufferTimer = Mathf.Max(0f, _rollBufferTimer - (float)delta);
 		if (Input.IsActionJustPressed("attack"))
 			_attackBufferTimer = InputBufferWindow;
 		if (Input.IsActionJustPressed("dash"))
 			_dashBufferTimer = InputBufferWindow;
+		if (Input.IsActionJustPressed("roll"))
+			_rollBufferTimer = InputBufferWindow;
 
 		Vector2 velocity = Velocity;
 
@@ -576,6 +598,16 @@ public partial class Player : CharacterBody2D
 		if (_isDashing)
 		{
 			velocity.X = _dashDirection * DashSpeed;
+			velocity.Y = 0;
+			Velocity = velocity;
+			MoveAndSlide();
+			UpdateAnimation(delta, false);
+			return;
+		}
+
+		if (_isRolling)
+		{
+			velocity.X = _rollDirection * RollSpeed;
 			velocity.Y = 0;
 			Velocity = velocity;
 			MoveAndSlide();
@@ -903,7 +935,8 @@ public partial class Player : CharacterBody2D
 		if (rawDirection != 0)
 			_facingRight = rawDirection > 0;
 
-		float direction = (_attacking || _healing || _crouching || _isBlocking || _isTransforming || _isShooting) ? 0f : rawDirection;
+		float direction = (_attacking || _healing || _crouching || _isBlocking || _isTransforming || _isShooting
+			|| _isCastingSpell || _isCastingSpell2) ? 0f : rawDirection;
 		bool sprinting = !_attacking && !_healing && _abilities.Has(PlayerAbilities.Sprint) && Input.IsActionPressed("sprint")
 			&& !_crouching && direction != 0;
 		float speed = _crouching ? Speed * CrouchSpeedMultiplier : sprinting ? Speed * SprintSpeedMultiplier : Speed;
@@ -913,10 +946,17 @@ public partial class Player : CharacterBody2D
 
 		UpdateCameraLook(delta);
 
-		if (_dashBufferTimer > 0f && _abilities.Has(PlayerAbilities.Dash) && _canDash && !_healing)
+		if (_dashBufferTimer > 0f && _abilities.Has(PlayerAbilities.Dash) && _canDash && !_healing && !_isRolling)
 		{
 			_dashBufferTimer = 0f;
 			StartDash();
+		}
+
+		if (_rollBufferTimer > 0f && _abilities.Has(PlayerAbilities.Roll) && _canRoll && !_healing && !_isDashing
+			&& IsOnFloor())
+		{
+			_rollBufferTimer = 0f;
+			StartRoll();
 		}
 
 		if (_attackBufferTimer > 0f && !_attacking && !_healing && !_isBlocking && !_isTransforming)
@@ -940,19 +980,34 @@ public partial class Player : CharacterBody2D
 
 		if (Input.IsActionJustPressed("charged_attack") && _abilities.Has(PlayerAbilities.ChargedAttack) && !_isCharging
 			&& !_attacking && !_healing && !_isBlocking && !_isTransforming && !_crouching
-			&& !_isDashing && !_isRunThrusting)
+			&& !_isDashing && !_isRolling && !_isRunThrusting)
 		{
 			StartCharging();
 		}
 
 		if (Input.IsActionJustPressed("shoot_bow") && _abilities.Has(PlayerAbilities.Bow) && !_isShooting
 			&& !_attacking && !_healing && !_isBlocking && !_isTransforming && !_crouching
-			&& !_isDashing && !_isRunThrusting && !_isCharging)
+			&& !_isDashing && !_isRolling && !_isRunThrusting && !_isCharging
+			&& !_isCastingSpell && !_isCastingSpell2)
 		{
 			ShootBow();
 		}
 
-		if (Input.IsActionJustPressed("heal") && !_attacking && !_healing && !_isDashing)
+		if (Input.IsActionJustPressed("spell") && _abilities.Has(PlayerAbilities.Spell) && !_isCastingSpell
+			&& !_isCastingSpell2 && !_attacking && !_healing && !_isBlocking && !_isTransforming && !_crouching
+			&& !_isDashing && !_isRolling && !_isRunThrusting && !_isCharging && !_isShooting)
+		{
+			CastSpell();
+		}
+
+		if (Input.IsActionJustPressed("spell2") && _abilities.Has(PlayerAbilities.Spell2) && !_isCastingSpell2
+			&& !_isCastingSpell && !_attacking && !_healing && !_isBlocking && !_isTransforming && !_crouching
+			&& !_isDashing && !_isRolling && !_isRunThrusting && !_isCharging && !_isShooting)
+		{
+			CastSpell2();
+		}
+
+		if (Input.IsActionJustPressed("heal") && !_attacking && !_healing && !_isDashing && !_isRolling)
 			UseHealFlask();
 
 		// Debounced on release rather than IsActionJustPressed: OS key-repeat while the
@@ -962,7 +1017,7 @@ public partial class Player : CharacterBody2D
 		if (!fireImbuePressed)
 			_fireImbueKeyReleased = true;
 
-		if (fireImbuePressed && _fireImbueKeyReleased && !_attacking && !_healing && !_isDashing
+		if (fireImbuePressed && _fireImbueKeyReleased && !_attacking && !_healing && !_isDashing && !_isRolling
 			&& !_isRunThrusting && !_isTransforming)
 		{
 			_fireImbueKeyReleased = false;
@@ -974,7 +1029,7 @@ public partial class Player : CharacterBody2D
 			_equipTorchKeyReleased = true;
 
 		if (equipTorchPressed && _equipTorchKeyReleased && _abilities.Has(PlayerAbilities.Torch)
-			&& !_attacking && !_isDashing && !_isTransforming && !_isFireImbued)
+			&& !_attacking && !_isDashing && !_isRolling && !_isTransforming && !_isFireImbued)
 		{
 			_equipTorchKeyReleased = false;
 			_torchEquipped = !_torchEquipped;
@@ -1027,6 +1082,20 @@ public partial class Player : CharacterBody2D
 			return;
 		}
 
+		if (_isCastingSpell)
+		{
+			if (_sprite.Animation != "spell")
+				_sprite.Play("spell");
+			return;
+		}
+
+		if (_isCastingSpell2)
+		{
+			if (_sprite.Animation != "spell2")
+				_sprite.Play("spell2");
+			return;
+		}
+
 		if (isLadderClimbing)
 		{
 			if (_sprite.Animation != "ladder_climb")
@@ -1060,6 +1129,15 @@ public partial class Player : CharacterBody2D
 		else if (_isDashing)
 		{
 			_sprite.Play("dash");
+			_legLeft.RotationDegrees = -10f;
+			_legRight.RotationDegrees = -14f;
+			_armLeft.RotationDegrees = -30f;
+			_armRight.RotationDegrees = -30f;
+			return;
+		}
+		else if (_isRolling)
+		{
+			_sprite.Play("roll");
 			_legLeft.RotationDegrees = -10f;
 			_legRight.RotationDegrees = -14f;
 			_armLeft.RotationDegrees = -30f;
@@ -1144,7 +1222,7 @@ public partial class Player : CharacterBody2D
 	private void UpdateBlock(double delta)
 	{
 		bool holdingBlock = _abilities.Has(PlayerAbilities.Block) && Input.IsActionPressed("block")
-			&& !_attacking && !_healing && !_isDashing && !_isRunThrusting;
+			&& !_attacking && !_healing && !_isDashing && !_isRolling && !_isRunThrusting;
 
 		if (holdingBlock && !_isBlocking)
 			_parryWindowTimer = ParryWindowDuration;
@@ -1290,6 +1368,22 @@ public partial class Player : CharacterBody2D
 
 		await ToSignal(GetTree().CreateTimer(DashCooldown), SceneTreeTimer.SignalName.Timeout);
 		_canDash = true;
+	}
+
+	private async void StartRoll()
+	{
+		if (!_stats.TrySpendStamina(RollStaminaCost))
+			return;
+
+		_isRolling = true;
+		_canRoll = false;
+		_rollDirection = _facingRight ? 1f : -1f;
+
+		await ToSignal(GetTree().CreateTimer(RollDuration), SceneTreeTimer.SignalName.Timeout);
+		_isRolling = false;
+
+		await ToSignal(GetTree().CreateTimer(RollCooldown), SceneTreeTimer.SignalName.Timeout);
+		_canRoll = true;
 	}
 
 	private async void StartCharging()
@@ -1469,6 +1563,25 @@ public partial class Player : CharacterBody2D
 		await ToSignal(GetTree().CreateTimer(remainingAnimTime), SceneTreeTimer.SignalName.Timeout);
 		if (IsInstanceValid(this))
 			_isShooting = false;
+	}
+
+	// Plays the "spell"/"spell2" clip only — no effect/projectile yet, see the SpellAnimDuration
+	// export doc. Split into two methods (rather than one CastSpell(int slot)) to match how every
+	// other single-purpose action here (ShootBow, StartDash, StartRoll...) is its own method.
+	private async void CastSpell()
+	{
+		_isCastingSpell = true;
+		await ToSignal(GetTree().CreateTimer(SpellAnimDuration), SceneTreeTimer.SignalName.Timeout);
+		if (IsInstanceValid(this))
+			_isCastingSpell = false;
+	}
+
+	private async void CastSpell2()
+	{
+		_isCastingSpell2 = true;
+		await ToSignal(GetTree().CreateTimer(Spell2AnimDuration), SceneTreeTimer.SignalName.Timeout);
+		if (IsInstanceValid(this))
+			_isCastingSpell2 = false;
 	}
 
 	private async void RunThrust()
@@ -1767,7 +1880,6 @@ public partial class Player : CharacterBody2D
 			// both sets immediately, instead of leaving it dangling until the next animation update.
 			_sprite.Play("idle");
 			_isFireImbued = true;
-			VfxSpawner.SpawnAt(this, _visual.GlobalPosition, "res://resources/sprites/BuffGlowSpriteFrames.tres", "glow");
 			_isTransforming = false;
 		}
 		else if (previous == DamageElement.Fire)

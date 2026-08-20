@@ -8,6 +8,9 @@ public partial class PlayerAbilities : Node
 {
 	public const string DoubleJump = "double_jump";
 	public const string Dash = "dash";
+	public const string Roll = "roll";
+	public const string Spell = "spell";
+	public const string Spell2 = "spell2";
 	public const string Sprint = "sprint";
 	public const string WallClimb = "wall_climb";
 	public const string RunThrust = "run_thrust";
@@ -24,6 +27,9 @@ public partial class PlayerAbilities : Node
 
 	[Export] public bool StartWithDoubleJump;
 	[Export] public bool StartWithDash;
+	[Export] public bool StartWithRoll;
+	[Export] public bool StartWithSpell;
+	[Export] public bool StartWithSpell2;
 	[Export] public bool StartWithSprint;
 	[Export] public bool StartWithWallClimb;
 	[Export] public bool StartWithRunThrust;
@@ -48,6 +54,12 @@ public partial class PlayerAbilities : Node
 			Unlock(DoubleJump);
 		if (StartWithDash)
 			Unlock(Dash);
+		if (StartWithRoll)
+			Unlock(Roll);
+		if (StartWithSpell)
+			Unlock(Spell);
+		if (StartWithSpell2)
+			Unlock(Spell2);
 		if (StartWithSprint)
 			Unlock(Sprint);
 		if (StartWithWallClimb)
