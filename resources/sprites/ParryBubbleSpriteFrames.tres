@@ -1,0 +1,26 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/VixMix/VfxMix/shape/impact_circle_01.png" id="1_circle1"]
+[ext_resource type="Texture2D" path="res://assets/external/VixMix/VfxMix/shape/impact_circle_02.png" id="2_circle2"]
+[ext_resource type="Texture2D" path="res://assets/external/VixMix/VfxMix/shape/impact_circle_03.png" id="3_circle3"]
+[ext_resource type="Texture2D" path="res://assets/external/VixMix/VfxMix/shape/impact_circle_04.png" id="4_circle4"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_circle1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_circle2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_circle3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_circle4")
+}],
+"loop": false,
+"name": &"parry_bubble",
+"speed": 16.0
+}]

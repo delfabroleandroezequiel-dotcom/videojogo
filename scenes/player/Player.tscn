@@ -7,6 +7,8 @@
 [ext_resource type="SpriteFrames" path="res://resources/sprites/FireWarriorSpriteFrames.tres" id="6_spriteframes"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/WeaponTrailSpriteFrames.tres" id="9_trailframes"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/ParryFlashSpriteFrames.tres" id="10_parryframes"]
+[ext_resource type="Shader" path="res://resources/shaders/ForceFieldBubble.gdshader" id="10_bubbleshader"]
+[ext_resource type="Texture2D" path="res://assets/sprites/effects/white_square.png" id="10_bubbletex"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/FireWarriorFireSwordSpriteFrames.tres" id="11_fireframes"]
 [ext_resource type="Script" uid="uid://23i50oqrkp5o" path="res://scripts/items/PlayerInventory.cs" id="7_inventory"]
 [ext_resource type="Script" uid="uid://c6jivd8ex7umw" path="res://scripts/player/HealFlask.cs" id="8_healflask"]
@@ -18,6 +20,11 @@
 [ext_resource type="Texture2D" path="res://resources/particles/SpikeGradient.tres" id="21_spike_tex"]
 [ext_resource type="Shader" path="res://resources/shaders/EnergySpike.gdshader" id="22_spike_shader"]
 [ext_resource type="ParticleProcessMaterial" path="res://resources/particles/ChargeDustProcess.tres" id="23_dust_process"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_parrybubble"]
+shader = ExtResource("10_bubbleshader")
+shader_parameter/rim_width = 0.12
+shader_parameter/fill_strength = 0.35
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
 size = Vector2(32, 64)
@@ -42,6 +49,7 @@ shader = ExtResource("22_spike_shader")
 
 [node name="Player" type="CharacterBody2D" unique_id=1867495339 groups=["player"]]
 collision_layer = 2
+floor_snap_length = 12.0
 script = ExtResource("1_script")
 FireSpriteFrames = ExtResource("11_fireframes")
 ArrowProjectileScene = ExtResource("18_projectile")
@@ -138,6 +146,14 @@ position = Vector2(20, -20)
 scale = Vector2(0.844, 0.844)
 sprite_frames = ExtResource("10_parryframes")
 animation = &"parry_flash"
+visible = false
+
+[node name="ParryBubble" type="Sprite2D" parent="Visual"]
+position = Vector2(20, -20)
+scale = Vector2(2.2, 2.2)
+material = SubResource("ShaderMaterial_parrybubble")
+self_modulate = Color(0.5, 0.85, 1, 1)
+texture = ExtResource("10_bubbletex")
 visible = false
 
 [node name="ChargeAura" type="GPUParticles2D" parent="Visual" unique_id=1200787194]

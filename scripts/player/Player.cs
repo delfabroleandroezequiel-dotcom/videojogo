@@ -57,6 +57,9 @@ public partial class Player : CharacterBody2D
 	[Export] public float RunThrustSecondHitGap = 0.06f;
 	[Export] public float CrouchSpeedMultiplier = 0.5f;
 	[Export] public float ParryWindowDuration = 0.2f;
+	[Export] public float ParryBubbleFadeIn = 0.08f;
+	[Export] public float ParryBubbleHold = 0.15f;
+	[Export] public float ParryBubbleFadeOut = 0.3f;
 	[Export] public float BlockStaminaCostFraction = 0.7f;
 	[Export] public SpriteFrames FireSpriteFrames;
 	[Export] public float TransformationInDuration = 1.5f;
@@ -95,6 +98,7 @@ public partial class Player : CharacterBody2D
 	public bool IsBlocking => _isBlocking;
 	public bool IsAttacking => _attacking;
 	public bool IsDashing => _isDashing;
+	public bool IsFacingRight => _facingRight;
 	[Export] public float BossZoomDistance = 500f;
 	[Export] public float BossZoomInMultiplier = 0.75f;
 	[Export] public float ZoomSmoothSpeed = 3f;
@@ -211,6 +215,8 @@ public partial class Player : CharacterBody2D
 	private bool _isBlocking;
 	private float _parryWindowTimer;
 	private AnimatedSprite2D _parryFlash;
+	private Sprite2D _parryBubble;
+	private Tween _parryBubbleTween;
 	private SpriteFrames _normalSpriteFrames;
 	private bool _isFireImbued;
 	private bool _isTransforming;
@@ -275,6 +281,7 @@ public partial class Player : CharacterBody2D
 		_weaponTrailBaseY = _weaponTrail.Position.Y;
 		_parryFlash = GetNode<AnimatedSprite2D>("Visual/ParryFlash");
 		_parryFlash.AnimationFinished += () => _parryFlash.Visible = false;
+		_parryBubble = GetNode<Sprite2D>("Visual/ParryBubble");
 		_chargeAura = GetNode<GpuParticles2D>("Visual/ChargeAura");
 		_chargeDust = GetNode<GpuParticles2D>("Visual/ChargeDust");
 		_legLeft = GetNode<Node2D>("Visual/LegLeft");
@@ -439,6 +446,8 @@ public partial class Player : CharacterBody2D
 			{
 				if (child is CollisionShape2D shape)
 					DisableShapeTemporarily(shape);
+				else if (child is CollisionPolygon2D polygon)
+					DisablePolygonTemporarily(polygon);
 			}
 
 			// The same platform is often tagged both OneWayPlatforms and ClimbableWalls (cave
@@ -459,6 +468,18 @@ public partial class Player : CharacterBody2D
 		await ToSignal(GetTree().CreateTimer(DropThroughDuration), SceneTreeTimer.SignalName.Timeout);
 		if (IsInstanceValid(shape))
 			shape.Disabled = false;
+	}
+
+	// MiniRampa (and anything else built on CollisionPolygon2D instead of CollisionShape2D, e.g.
+	// so the polygon can be rewritten live — see MiniRampa.cs) needs its own disable path: the two
+	// node types don't share a common base with a Disabled property, so TryDropThroughOneWayPlatform
+	// can't just handle CollisionShape2D and expect polygon-based platforms to drop-through too.
+	private async void DisablePolygonTemporarily(CollisionPolygon2D polygon)
+	{
+		polygon.Disabled = true;
+		await ToSignal(GetTree().CreateTimer(DropThroughDuration), SceneTreeTimer.SignalName.Timeout);
+		if (IsInstanceValid(polygon))
+			polygon.Disabled = false;
 	}
 
 	// Ledge detection is two steps rather than a fixed two-raycast band: first find ANY wall in
@@ -1242,6 +1263,7 @@ public partial class Player : CharacterBody2D
 		{
 			_parryFlash.Visible = true;
 			_parryFlash.Play("parry_flash");
+			ShowParryBubble();
 		}
 		else
 		{
@@ -1249,6 +1271,23 @@ public partial class Player : CharacterBody2D
 		}
 
 		return true;
+	}
+
+	// Blooms in, holds, then fades out — a lingering energy shield rather than a single-frame
+	// flash (see ParryFlash for that instead). Killing any tween already running on _parryBubble
+	// first means mashing parries in quick succession restarts the bloom cleanly instead of two
+	// tweens fighting over the same modulate alpha.
+	private void ShowParryBubble()
+	{
+		_parryBubbleTween?.Kill();
+		_parryBubble.Visible = true;
+		_parryBubble.Modulate = new Color(1f, 1f, 1f, 0f);
+
+		_parryBubbleTween = GetTree().CreateTween();
+		_parryBubbleTween.TweenProperty(_parryBubble, "modulate:a", 1f, ParryBubbleFadeIn);
+		_parryBubbleTween.TweenInterval(ParryBubbleHold);
+		_parryBubbleTween.TweenProperty(_parryBubble, "modulate:a", 0f, ParryBubbleFadeOut);
+		_parryBubbleTween.TweenCallback(Callable.From(() => _parryBubble.Visible = false));
 	}
 
 	private void UpdateCameraLook(double delta)
