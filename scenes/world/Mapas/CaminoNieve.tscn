@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://qifqyklrxne6"]
+
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_camera"]
+[ext_resource type="Environment" path="res://resources/rendering/NixPostProcess.tres" id="3_postprocess"]
+[ext_resource type="Texture2D" uid="uid://cb8gyivleynt" path="res://resources/particles/SoftDotGradient.tres" id="4_dusttex"]
+[ext_resource type="Material" uid="uid://jm40glxfalh" path="res://resources/particles/DustMoteProcess.tres" id="5_dustprocess"]
+[ext_resource type="PackedScene" path="res://scenes/world/WeatherOverlay.tscn" id="6_weather"]
+[ext_resource type="Texture2D" uid="uid://biwytwithhu3y" path="res://assets/backgrounds/caminonieve.png" id="7_bg"]
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="8_player"]
+[ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="9_transition"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(1774, 56)
+
+[node name="CaminoNieve" type="Node2D" unique_id=533673814]
+script = ExtResource("1_bootstrap")
+ScenePath = "res://scenes/world/Mapas/CaminoNieve.tscn"
+ZoneName = "CAMINO DE NIEVE"
+CameraProfile = ExtResource("2_camera")
+CameraLimitLeft = 0
+CameraLimitRight = 1774
+CameraLimitBottom = 550
+
+[node name="PostProcessEnvironment" type="WorldEnvironment" parent="." unique_id=975014077]
+environment = ExtResource("3_postprocess")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1579585821]
+color = Color(0.88, 0.93, 1, 1)
+
+[node name="DustMotes" type="GPUParticles2D" parent="." unique_id=668124022]
+position = Vector2(150, 258)
+amount = 18
+texture = ExtResource("4_dusttex")
+lifetime = 7.0
+randomness = 0.5
+process_material = ExtResource("5_dustprocess")
+
+[node name="WeatherOverlay" parent="." unique_id=285466252 instance=ExtResource("6_weather")]
+
+[node name="Background" type="Node2D" parent="." unique_id=180783817]
+z_index = -10
+
+[node name="BgTile1" type="Sprite2D" parent="Background" unique_id=1841353906]
+position = Vector2(887, 0)
+texture = ExtResource("7_bg")
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=1129333281]
+position = Vector2(887, 333)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=195672898]
+position = Vector2(1, -20)
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Player" parent="." unique_id=1776632651 instance=ExtResource("8_player")]
+position = Vector2(98, 178)
+
+[node name="ReturnToCaminoDesiertoTransition" parent="." unique_id=394925529 instance=ExtResource("9_transition")]
+position = Vector2(40, 290)
+TargetScenePath = "res://scenes/world/Mapas/CaminoDesierto.tscn"
+TargetSpawnPosition = Vector2(1734, 270)
+RequireInteract = true
+RememberOriginForReturn = true
+
+[node name="ToMuelleNieveTransition" parent="." unique_id=2025827924 instance=ExtResource("9_transition")]
+position = Vector2(1734, 290)
+TargetScenePath = "res://scenes/world/Mapas/MuelleNieve.tscn"
+TargetSpawnPosition = Vector2(100, 240)
+RequireInteract = true
+RememberOriginForReturn = true
