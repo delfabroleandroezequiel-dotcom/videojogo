@@ -98,6 +98,14 @@ public partial class SaveManager : Node
 
 	public int Reputation { get; private set; }
 
+	// Whether the dog companion has been recruited — a plain persisted flag rather than an
+	// autoload of its own (see the project's autoload policy): LevelBootstrap reads this on every
+	// map's _Ready() and spawns CompanionDog.tscn near the player if true, instead of the actual
+	// node surviving a scene change on its own.
+	// TEMP: defaults to true for dev testing via F5/F6 (which never call LoadGame, so the JSON
+	// save's flag never gets read) — flip back to false before shipping.
+	public bool CompanionRecruited { get; set; } = true;
+
 	public void AddReputation(int amount)
 	{
 		Reputation = Mathf.Clamp(Reputation + amount, GameConfig.ReputationMin, GameConfig.ReputationMax);
@@ -200,6 +208,7 @@ public partial class SaveManager : Node
 		StoryStage = 0;
 		Gold = 0;
 		Reputation = 0;
+		CompanionRecruited = false;
 		SessionCurrentHealth = null;
 		SessionHealCharges = null;
 		EnemyRandomizerEnabled = false;
@@ -313,6 +322,7 @@ public partial class SaveManager : Node
 		StoryStage = PendingLoad.StoryStage;
 		Gold = PendingLoad.Gold;
 		Reputation = PendingLoad.Reputation;
+		CompanionRecruited = PendingLoad.CompanionRecruited;
 		EmitSignal(SignalName.GoldChanged, Gold);
 		EnemyRandomizerEnabled = PendingLoad.EnemyRandomizerEnabled;
 		RandomizerSeed = PendingLoad.RandomizerSeed;

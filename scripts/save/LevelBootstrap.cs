@@ -38,14 +38,38 @@ public partial class LevelBootstrap : Node
 			_player.GlobalPosition = SaveManager.Instance.PendingSpawnPosition.Value;
 			_player.GetNode<Camera2D>("Camera2D").ResetSmoothing();
 			SaveManager.Instance.PendingSpawnPosition = null;
-			return;
+		}
+		else
+		{
+			SaveData pending = SaveManager.Instance.PendingLoad;
+			if (pending is not null)
+				ApplySave(pending);
+
+			SaveManager.Instance.ClearPendingLoad();
 		}
 
-		SaveData pending = SaveManager.Instance.PendingLoad;
-		if (pending is not null)
-			ApplySave(pending);
+		SpawnCompanionIfRecruited();
+	}
 
-		SaveManager.Instance.ClearPendingLoad();
+	private const string CompanionDogScenePath = "res://scenes/world/CompanionDog.tscn";
+
+	// Re-spawns the dog companion fresh in every map instead of it surviving as an autoload —
+	// matches how every other per-map persistent bit of state here (opened gates, lit save
+	// points...) is just a SaveManager flag re-applied on load, not a node that lives forever.
+	private void SpawnCompanionIfRecruited()
+	{
+		if (!SaveManager.Instance.CompanionRecruited)
+			return;
+
+		PackedScene companionScene = GD.Load<PackedScene>(CompanionDogScenePath);
+		Node companion = companionScene.Instantiate();
+		// CurrentScene, not GetParent() — LevelBootstrap sits on the map's root, so GetParent()
+		// is the engine's real /root, which ChangeSceneToFile/ToPacked never touches. A child
+		// added there survives every future scene change as a leftover, and each new map's
+		// LevelBootstrap would then spawn another one alongside it.
+		GetTree().CurrentScene.AddChild(companion);
+		float behindSide = _player.IsFacingRight ? -1f : 1f;
+		((Node2D)companion).GlobalPosition = _player.GlobalPosition + new Vector2(behindSide * 40f, 0f);
 	}
 
 	public void SaveAtCheckpoint(Vector2 checkpointPosition)
@@ -66,6 +90,7 @@ public partial class LevelBootstrap : Node
 		data.LitSavePoints.AddRange(SaveManager.Instance.GetLitSavePoints());
 		data.PlayedCutscenes.AddRange(SaveManager.Instance.GetPlayedCutscenes());
 		data.OpenedGates.AddRange(SaveManager.Instance.GetOpenedGates());
+		data.CompanionRecruited = SaveManager.Instance.CompanionRecruited;
 		data.ActiveQuests.AddRange(QuestManager.Instance.GetActiveQuestIds());
 		data.CompletedQuests.AddRange(QuestManager.Instance.GetCompletedQuestIds());
 		foreach (System.Collections.Generic.KeyValuePair<string, int> entry in QuestManager.Instance.SnapshotProgress())

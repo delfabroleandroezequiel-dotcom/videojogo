@@ -66,6 +66,7 @@ UI_ACTION_BLOCK,Bloquear,Block,Bloquear
 UI_ACTION_CHARGED_ATTACK,Ataque Cargado,Charged Attack,Ataque Carregado
 UI_COMPANION_AGGRESSIVE,Compañero: Agresivo,Companion: Aggressive,Companheiro: Agressivo
 UI_COMPANION_PASSIVE,Compañero: Pasivo,Companion: Passive,Companheiro: Passivo
+UI_COMPANION_RECRUITED,¡El perro se une a vos!,The dog joins you!,O cachorro se junta a você!
 UI_PAUSE_DISPLAY,Pantalla,Display,Tela
 UI_DISPLAY_TITLE,Pantalla,Display,Tela
 UI_DISPLAY_FULLSCREEN_ON,Pantalla Completa: Sí,Fullscreen: On,Tela Cheia: Sim

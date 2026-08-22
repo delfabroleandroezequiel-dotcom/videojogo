@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://dnm2vysbvg5cw" path="res://assets/external/gandalfhardcore/platformer/GandalfHardcore FREE Platformer Assets/Other Tiles1.png" id="14_ql48t"]
 [ext_resource type="Texture2D" uid="uid://b3ji0nq2tih67" path="res://assets/sprites/deco/f58b28ce-606b-4db5-82a9-bf3c22e56407 (1).png" id="15_cbgf8"]
 [ext_resource type="Shader" uid="uid://dcrmin0yjikgj" path="res://resources/shaders/TileBaseFade.gdshader" id="16_tilebasefade"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CompanionRecruitTrigger.tscn" id="17_dogrecruit"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h48re"]
 load_path = "res://.godot/imported/ChatGPT_Image_12_jul_2026__17_14_53-removebg-preview.png-d59d64ce255041962d0d7588581fe35a.ctex"
@@ -2977,6 +2978,9 @@ texture = ExtResource("10_6s2r5")
 
 [node name="Player" parent="." unique_id=-1194967286 instance=ExtResource("11_xpmh8")]
 position = Vector2(150, 258)
+
+[node name="CompanionRecruitTrigger" parent="." instance=ExtResource("17_dogrecruit")]
+position = Vector2(230, 258)
 
 [node name="ReturnToNixTransition" parent="." unique_id=-1194967285 instance=ExtResource("12_itfpo")]
 position = Vector2(80, 290)

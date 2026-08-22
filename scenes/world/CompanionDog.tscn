@@ -1,0 +1,67 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/CompanionNpc.cs" id="1_script"]
+[ext_resource type="Script" path="res://scripts/player/Hitbox.cs" id="2_hitbox"]
+[ext_resource type="Script" path="res://scripts/shared/Stats.cs" id="3_stats"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/DalmatianSpriteFrames.tres" id="4_frames"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
+size = Vector2(56, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(24, 24)
+
+[node name="CompanionDog" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 1
+z_index = -1
+script = ExtResource("1_script")
+FollowDistance = 50.0
+StopDistance = 24.0
+MoveSpeed = 160.0
+Aggressive = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual"]
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("4_frames")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="AttackHitbox" type="Area2D" parent="."]
+position = Vector2(24, 0)
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("2_hitbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+shape = SubResource("RectangleShape2D_hitbox")
+disabled = true
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("3_stats")
+MaxHealth = 60
+AttackPower = 12
+Defense = 1
+MaxStamina = 50
+
+[node name="SpeechBubble" type="Node2D" parent="."]
+visible = false
+position = Vector2(0, -70)
+
+[node name="Background" type="ColorRect" parent="SpeechBubble"]
+position = Vector2(-60, -14)
+size = Vector2(120, 28)
+color = Color(0, 0, 0, 0.65)
+
+[node name="Label" type="Label" parent="SpeechBubble"]
+position = Vector2(-56, -12)
+size = Vector2(112, 24)
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+theme_override_font_sizes/font_size = 12

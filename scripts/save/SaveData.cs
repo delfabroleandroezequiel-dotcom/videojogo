@@ -22,6 +22,7 @@ public class SaveData
 	public List<string> CollectedPickups { get; set; } = new();
 	public List<string> PlayedCutscenes { get; set; } = new();
 	public List<string> OpenedGates { get; set; } = new();
+	public bool CompanionRecruited { get; set; }
 	public int MaxHealCharges { get; set; } = 1;
 	public int StoryStage { get; set; }
 	public int Gold { get; set; }
