@@ -8572,7 +8572,7 @@ Length = 800.0
 OneWay = true
 
 [node name="WarriorEnemyBlond" parent="." unique_id=1760905196 instance=ExtResource("29_naue6")]
-position = Vector2(259, -49)
+position = Vector2(714, 1303)
 
 [node name="SpiderEnemy" parent="." unique_id=1921458574 instance=ExtResource("27_a00a3")]
 position = Vector2(4481, 993)
