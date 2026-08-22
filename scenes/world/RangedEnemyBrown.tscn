@@ -1,0 +1,66 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/RangedEnemy.cs" id="1_script"]
+[ext_resource type="Script" path="res://scripts/shared/Stats.cs" id="2_stats"]
+[ext_resource type="PackedScene" path="res://scenes/ui/StatBar.tscn" id="3_statbar"]
+[ext_resource type="PackedScene" path="res://scenes/world/Projectile.tscn" id="4_projectile"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/ArcherBrownSpriteFrames.tres" id="5_frames"]
+[ext_resource type="PackedScene" uid="uid://dq3mb122eef3v" path="res://scenes/world/Explosion.tscn" id="6_explosion"]
+[ext_resource type="PackedScene" path="res://scenes/world/Coin.tscn" id="7_coin"]
+[ext_resource type="Script" path="res://scripts/world/LootEntry.cs" id="8_lootentry_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
+size = Vector2(32, 32)
+
+[sub_resource type="Resource" id="LootEntry_coin"]
+script = ExtResource("8_lootentry_script")
+DropScene = ExtResource("7_coin")
+DropChance = 0.5
+MinAmount = 1
+MaxAmount = 1
+
+[sub_resource type="Resource" id="LootEntry_extra"]
+script = ExtResource("8_lootentry_script")
+DropChance = 0.25
+
+[node name="RangedEnemyBrown" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_script")
+ProjectileScene = ExtResource("4_projectile")
+ExplosionScale = 0.7
+ExplosionScene = ExtResource("6_explosion")
+LootTable = [SubResource("LootEntry_coin"), SubResource("LootEntry_extra")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="ContactArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea"]
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual"]
+scale = Vector2(1.5, 1.5)
+offset = Vector2(0, -20)
+sprite_frames = ExtResource("5_frames")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("2_stats")
+MaxHealth = 25
+AttackPower = 50
+Defense = 0
+MaxStamina = 50
+
+[node name="HealthBar" parent="." instance=ExtResource("3_statbar")]
+position = Vector2(0, 20)
+
+[node name="StaminaBar" parent="." instance=ExtResource("3_statbar")]
+position = Vector2(0, 26)
+FillColor = Color(0.2, 0.6, 1, 1)

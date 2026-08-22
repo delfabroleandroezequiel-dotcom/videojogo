@@ -1,0 +1,141 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/hurt/hurt_00.png" id="1_h0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/hurt/hurt_01.png" id="2_h1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/hurt/hurt_02.png" id="3_h2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/hurt/hurt_03.png" id="4_h3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/hurt/hurt_04.png" id="5_h4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/idle/idle_00.png" id="6_i0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/idle/idle_01.png" id="7_i1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/idle/idle_02.png" id="8_i2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/idle/idle_03.png" id="9_i3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/idle/idle_04.png" id="10_i4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/run/run_00.png" id="11_r0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/run/run_01.png" id="12_r1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/run/run_02.png" id="13_r2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/run/run_03.png" id="14_r3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/run/run_04.png" id="15_r4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/run/run_05.png" id="16_r5"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/run/run_06.png" id="17_r6"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/run/run_07.png" id="18_r7"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/shoot/shoot_00.png" id="19_s0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/shoot/shoot_01.png" id="20_s1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/shoot/shoot_02.png" id="21_s2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/shoot/shoot_03.png" id="22_s3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/shoot/shoot_04.png" id="23_s4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/shoot/shoot_05.png" id="24_s5"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/shoot/shoot_06.png" id="25_s6"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/shoot/shoot_07.png" id="26_s7"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/shoot/shoot_08.png" id="27_s8"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/shoot/shoot_09.png" id="28_s9"]
+[ext_resource type="Texture2D" path="res://assets/sprites/archer_brown/shoot/shoot_10.png" id="29_s10"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_h0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_h1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_h2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_h3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_h4")
+}],
+"loop": 0,
+"name": &"hurt",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_i0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_i1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_i2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_i3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_i4")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_r0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_r1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_r2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_r3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_r4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_r5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_r6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_r7")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_s0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_s1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_s2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_s3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_s4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_s5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_s6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_s7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_s8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_s9")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_s10")
+}],
+"loop": 0,
+"name": &"shoot",
+"speed": 12.0
+}]
