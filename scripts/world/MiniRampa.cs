@@ -66,6 +66,40 @@ public partial class MiniRampa : Node2D
 		set { _oneWay = value; Rebuild(); }
 	}
 
+	private bool _facingLeft;
+
+	// cos(AngleDegrees) is always positive for the ±45° range Godot's floor_max_angle allows, so
+	// the ramp only ever extended to the right (+X) before this — flips the whole wedge (and the
+	// Exit marker) onto -X instead, rather than relying on a negative-Scale hack that would also
+	// mirror WallThickness/collision winding in less predictable ways.
+	[Export]
+	public bool FacingLeft
+	{
+		get => _facingLeft;
+		set { _facingLeft = value; Rebuild(); }
+	}
+
+	private bool _hasCeiling;
+
+	// A second wedge parallel to the ramp, CrossSize above its walkable surface — same idea as
+	// CorridorBlock's Ceiling, just following the slope instead of sitting flat. Off by default
+	// since a ramp usually only needs a floor (its most common backing is CorridorBlock itself).
+	[Export]
+	public bool HasCeiling
+	{
+		get => _hasCeiling;
+		set { _hasCeiling = value; Rebuild(); }
+	}
+
+	private float _crossSize = 80f;
+
+	[Export]
+	public float CrossSize
+	{
+		get => _crossSize;
+		set { _crossSize = value; Rebuild(); }
+	}
+
 	public override void _Ready() => Rebuild();
 
 	private void Rebuild()
@@ -74,8 +108,9 @@ public partial class MiniRampa : Node2D
 			return;
 
 		float rad = Mathf.DegToRad(_angleDegrees);
+		float xSign = _facingLeft ? -1f : 1f;
 		Vector2 low = Vector2.Zero;
-		Vector2 high = new(_length * Mathf.Cos(rad), _length * Mathf.Sin(rad));
+		Vector2 high = new(xSign * _length * Mathf.Cos(rad), _length * Mathf.Sin(rad));
 		Vector2 lowBack = low + new Vector2(0f, _thickness);
 		Vector2 highBack = high + new Vector2(0f, _thickness);
 		Vector2[] points = { low, high, highBack, lowBack };
@@ -98,6 +133,31 @@ public partial class MiniRampa : Node2D
 				fill.Visible = _showFill;
 				fill.Color = FillColor;
 				fill.Polygon = points;
+			}
+		}
+
+		if (GetNodeOrNull<StaticBody2D>("Ceiling") is StaticBody2D ceiling)
+		{
+			ceiling.Visible = _hasCeiling;
+
+			Vector2 gap = new(0f, -_crossSize);
+			Vector2 cNear = low + gap;
+			Vector2 cHighNear = high + gap;
+			Vector2 cFar = cNear - new Vector2(0f, _thickness);
+			Vector2 cHighFar = cHighNear - new Vector2(0f, _thickness);
+			Vector2[] ceilingPoints = { cNear, cHighNear, cHighFar, cFar };
+
+			if (ceiling.GetNodeOrNull<CollisionPolygon2D>("CollisionPolygon2D") is CollisionPolygon2D ceilingCollision)
+			{
+				ceilingCollision.Disabled = !_hasCeiling;
+				ceilingCollision.Polygon = ceilingPoints;
+			}
+
+			if (ceiling.GetNodeOrNull<Polygon2D>("Fill") is Polygon2D ceilingFill)
+			{
+				ceilingFill.Visible = _hasCeiling && _showFill;
+				ceilingFill.Color = FillColor;
+				ceilingFill.Polygon = ceilingPoints;
 			}
 		}
 
