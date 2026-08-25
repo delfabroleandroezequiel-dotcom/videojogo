@@ -8020,6 +8020,7 @@ texture = ExtResource("22_x0wdf")
 
 [node name="Player" parent="." unique_id=2070432193 instance=ExtResource("7_nga76")]
 position = Vector2(1490.8933, -46.217804)
+AirControl = false
 FallDeathY = 1000000.0
 
 [node name="Elevator2" parent="." unique_id=828852518 instance=ExtResource("21_savdg")]

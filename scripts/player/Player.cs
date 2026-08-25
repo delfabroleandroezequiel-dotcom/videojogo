@@ -10,6 +10,10 @@ namespace Metroidvania.Player;
 public partial class Player : CharacterBody2D
 {
 	[Export] public float Speed = 200f;
+	// Off: horizontal velocity only updates from input while grounded — a jump commits to whatever
+	// velocity.X was the instant you left the floor, no steering mid-air. On (default) keeps the
+	// current behavior (direction always drives velocity.X, grounded or not).
+	[Export] public bool AirControl = true;
 	[Export] public float JumpVelocity = -400f;
 	[Export] public float Gravity = 900f;
 	[Export] public float AttackHitboxDelay = 0.12f;
@@ -961,7 +965,8 @@ public partial class Player : CharacterBody2D
 		bool sprinting = !_attacking && !_healing && _abilities.Has(PlayerAbilities.Sprint) && Input.IsActionPressed("sprint")
 			&& !_crouching && direction != 0;
 		float speed = _crouching ? Speed * CrouchSpeedMultiplier : sprinting ? Speed * SprintSpeedMultiplier : Speed;
-		velocity.X = direction != 0 ? direction * speed : Mathf.MoveToward(velocity.X, 0, speed);
+		if (AirControl || IsOnFloor())
+			velocity.X = direction != 0 ? direction * speed : Mathf.MoveToward(velocity.X, 0, speed);
 
 		_visual.Scale = new Vector2(_facingRight ? 1 : -1, 1f);
 
