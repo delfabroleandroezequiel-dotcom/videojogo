@@ -135,3 +135,29 @@ UI_ITEM_OBTAINED_TITLE,Has obtenido,You have obtained,Você obteve
 UI_ITEM_OBTAINED_GOLD_LINE,+{0} de oro,+{0} gold,+{0} de ouro
 ITEM_ABILITY_TORCH_NAME,Antorcha,Torch,Tocha
 ITEM_ABILITY_TORCH_DESC,Te permite equipar una antorcha para iluminar zonas oscuras.,Lets you equip a torch to light up dark areas.,Permite equipar uma tocha para iluminar áreas escuras.
+NPC_HECHICERO_NAME,Hechicero Errante,Wandering Sorcerer,Feiticeiro Errante
+NPC_HECHICERO_L1,"Busco antiguos secretos... este pueblo guarda más de los que parece.","I seek old secrets... this village hides more than it seems.","Busco segredos antigos... esta vila esconde mais do que parece."
+NPC_MAGOCAMINO_NAME,Mago del Camino,Roadside Mage,Mago da Estrada
+NPC_MAGOCAMINO_L1,Descanso aquí antes de seguir viaje hacia el norte.,I'm resting here before continuing north.,Descanso aqui antes de seguir viagem para o norte.
+NPC_MERCENARIO2_NAME,Mercenario,Mercenary,Mercenário
+NPC_MERCENARIO2_L1,Pagan bien por cabezas de bandidos en estos días.,They pay well for bandit heads these days.,Pagam bem por cabeças de bandidos hoje em dia.
+NPC_GUARDIANIX_NAME,Guardia de Nix,Nix Guard,Guarda de Nix
+NPC_GUARDIANIX_L1,"Mantengo la paz en el pueblo. Nada que reportar, por ahora.","I keep the peace around here. Nothing to report, for now.","Mantenho a paz por aqui. Nada a relatar, por enquanto."
+NPC_CAMPESINOARMADO_NAME,Campesino Armado,Armed Villager,Camponês Armado
+NPC_CAMPESINOARMADO_L1,"Desde que aparecieron esas bestias en el bosque, no salgo sin mi arma.","Ever since those beasts showed up in the forest, I don't go out unarmed.","Desde que aquelas bestas apareceram na floresta, não saio sem minha arma."
+NPC_BRUJOSOLITARIO_NAME,Brujo Solitario,Lone Warlock,Bruxo Solitário
+NPC_BRUJOSOLITARIO_L1,No confío en los que preguntan demasiado.,I don't trust those who ask too many questions.,Não confio em quem pergunta demais.
+NPC_ARQUERA_NAME,Arquera,Archer,Arqueira
+NPC_ARQUERA_L1,El bosque está más peligroso que de costumbre últimamente.,The forest's been more dangerous than usual lately.,A floresta anda mais perigosa que o normal ultimamente.
+NPC_CAZADORA_NAME,Cazadora,Huntress,Caçadora
+NPC_CAZADORA_L1,Vine siguiendo el rastro de una manada de lobos.,I came following the trail of a wolf pack.,Vim seguindo o rastro de uma matilha de lobos.
+NPC_MONJEGUERRERO_NAME,Monje Guerrero,Warrior Monk,Monge Guerreiro
+NPC_MONJEGUERRERO_L1,La disciplina del cuerpo es tan importante como la del alma.,Discipline of the body matters as much as discipline of the soul.,A disciplina do corpo importa tanto quanto a da alma.
+NPC_CABALLEROERRANTE_NAME,Caballero Errante,Wandering Knight,Cavaleiro Errante
+NPC_CABALLEROERRANTE_L1,Voy de pueblo en pueblo buscando un propósito digno de mi espada.,I travel from village to village seeking a purpose worthy of my sword.,Viajo de vila em vila buscando um propósito digno da minha espada.
+NPC_CABALLEROGUARDIA_NAME,Caballero de la Guardia,Knight of the Guard,Cavaleiro da Guarda
+NPC_CABALLEROGUARDIA_L1,Serví al rey en la Gran Guerra. Ahora solo quiero paz.,I served the king in the Great War. Now I just want peace.,Servi ao rei na Grande Guerra. Agora só quero paz.
+NPC_SOLDADOVETERANO_NAME,Soldado Veterano,Veteran Soldier,Soldado Veterano
+NPC_SOLDADOVETERANO_L1,He visto caer reinos enteros. Nix todavía se mantiene en pie.,I've seen entire kingdoms fall. Nix still stands.,Já vi reinos inteiros caírem. Nix ainda está de pé.
+NPC_NOBLEVIAJERO_NAME,Noble Viajero,Traveling Noble,Nobre Viajante
+NPC_NOBLEVIAJERO_L1,"Un lugar humilde, Nix. Pero hay algo honesto en su gente.","A humble place, Nix. But there's something honest about its people.","Um lugar humilde, Nix. Mas há algo honesto no seu povo."

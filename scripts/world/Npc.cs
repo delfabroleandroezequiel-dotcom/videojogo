@@ -28,6 +28,8 @@ public partial class Npc : CharacterBody2D
 	[Export] public float KnockbackDuration = 0.2f;
 	[Export] public SpriteFrames CustomSpriteFrames;
 	[Export] public float CustomSpriteYOffset = 0f;
+	[Export] public Vector2 CustomSpriteScale = new(1.4f, 1.4f);
+	[Export] public Vector2 CollisionSize = new(32f, 64f);
 
 	private Node2D _visual;
 	private AnimatedSprite2D _characterSprite;
@@ -63,8 +65,14 @@ public partial class Npc : CharacterBody2D
 		{
 			_characterSprite.SpriteFrames = CustomSpriteFrames;
 			_characterSprite.Play("idle");
+			_characterSprite.Scale = CustomSpriteScale;
 			_characterSprite.Position += new Vector2(0, CustomSpriteYOffset);
 		}
+
+		// Every Npc instance shares this scene's CollisionShape2D resource by default — assigning a
+		// fresh RectangleShape2D per instance (instead of editing the shared one in place) keeps
+		// differently-sized character packs from resizing each other's hitboxes.
+		GetNode<CollisionShape2D>("CollisionShape2D").Shape = new RectangleShape2D { Size = CollisionSize };
 
 		_interactPrompt = GetNode<Label>("InteractPrompt");
 		_interactPrompt.Visible = false;
