@@ -158,6 +158,7 @@ public partial class Player : CharacterBody2D
 	private Node2D _head;
 	private Node2D _weaponPivot;
 	private AnimatedSprite2D _weaponTrail;
+	private AnimatedSprite2D _crystalEffect;
 	private float _weaponTrailBaseX;
 	private float _weaponTrailBaseY;
 	private RectangleShape2D _hitboxShape;
@@ -283,6 +284,14 @@ public partial class Player : CharacterBody2D
 		_weaponTrail.AnimationFinished += () => _weaponTrail.Visible = false;
 		_weaponTrailBaseX = _weaponTrail.Position.X;
 		_weaponTrailBaseY = _weaponTrail.Position.Y;
+		_crystalEffect = GetNode<AnimatedSprite2D>("Visual/CrystalEffect");
+		// "fall" loops for the whole descent, so AnimationFinished fires once per loop — only
+		// the one-shot "break" should actually hide the node when it finishes.
+		_crystalEffect.AnimationFinished += () =>
+		{
+			if (_crystalEffect.Animation == "break")
+				_crystalEffect.Visible = false;
+		};
 		_parryFlash = GetNode<AnimatedSprite2D>("Visual/ParryFlash");
 		_parryFlash.AnimationFinished += () => _parryFlash.Visible = false;
 		_parryBubble = GetNode<Sprite2D>("Visual/ParryBubble");
@@ -577,6 +586,19 @@ public partial class Player : CharacterBody2D
 			return;
 		}
 
+		// Water has no solid collision — anything that moves the player fast enough (dash, pound,
+		// roll, run-thrust) can carry them below the float line before the state machine ever
+		// reaches the swim block further down to catch it. Rather than chase every individual
+		// movement mode with its own water check, just clamp back up here every frame, unconditionally,
+		// whenever inside a water zone and sunk past where floating should hold — never pushes
+		// down, only up, so a jump arcing over/through water isn't yanked back to the surface.
+		if (_water != null && _abilities.Has(PlayerAbilities.Swim))
+		{
+			float floatY = _water.GlobalPosition.Y - SwimFloatOffset;
+			if (GlobalPosition.Y > floatY)
+				GlobalPosition = new Vector2(GlobalPosition.X, floatY);
+		}
+
 		bool isGroundedOrClimbing = IsOnFloor() || _isClimbing || _isWallClimbing || _isLedgeHanging || _isLedgeClimbing || _isSwinging || _isSwimming;
 		_airborneTimer = isGroundedOrClimbing ? 0f : _airborneTimer + (float)delta;
 		if (_airborneTimer > MaxAirborneTime)
@@ -620,6 +642,15 @@ public partial class Player : CharacterBody2D
 			return;
 		}
 
+		// Water has no solid collision, so a dash that reaches it would otherwise force
+		// velocity.Y = 0 for the whole dash duration without ever reaching the swim check
+		// further down — letting the player glide clean over/through the water and only find
+		// out there was nothing solid there once the dash ends past it. Cancelling the instant
+		// it touches water falls through to the ladder/swim block below on this same frame,
+		// same idea as the pound-vs-water cancel a few lines down.
+		if (_isDashing && _water != null)
+			_isDashing = false;
+
 		if (_isDashing)
 		{
 			velocity.X = _dashDirection * DashSpeed;
@@ -655,7 +686,10 @@ public partial class Player : CharacterBody2D
 		// the pound the instant it touches water so this frame falls through to the swim/float
 		// block below instead of continuing the dive.
 		if (_isPounding && _water != null)
+		{
+			_crystalEffect.Visible = false;
 			EndPound();
+		}
 
 		if (_isPounding)
 		{
@@ -668,6 +702,7 @@ public partial class Player : CharacterBody2D
 				Velocity = new Vector2(Velocity.X, PoundBounceVelocity);
 				_jumpCount = 0;
 				_isDoubleJumping = false;
+				_crystalEffect.Play("break");
 				EndPound();
 				UpdateAnimation(delta, false);
 				return;
@@ -692,7 +727,10 @@ public partial class Player : CharacterBody2D
 			}
 
 			if (IsOnFloor())
+			{
+				_crystalEffect.Play("break");
 				EndPound();
+			}
 			return;
 		}
 
@@ -1514,6 +1552,10 @@ public partial class Player : CharacterBody2D
 		_weaponTrail.Visible = true;
 		_weaponTrail.Play(poundTrail);
 
+		_crystalEffect.Rotation = 0f;
+		_crystalEffect.Visible = true;
+		_crystalEffect.Play("fall");
+
 		_hitbox.HitDealt += OnPoundHit;
 	}
 
@@ -1640,7 +1682,14 @@ public partial class Player : CharacterBody2D
 		_runThrustDirection = _facingRight ? 1f : -1f;
 
 		bool hitLanded = false;
-		void OnHitLanded() => hitLanded = true;
+		void OnHitLanded()
+		{
+			if (hitLanded)
+				return;
+
+			hitLanded = true;
+			_crystalEffect.Play("break");
+		}
 		_hitbox.HitDealt += OnHitLanded;
 
 		if (RunThrustHitboxDelay > 0f)
@@ -1654,6 +1703,16 @@ public partial class Player : CharacterBody2D
 		_weaponTrail.Position = new Vector2(_weaponTrailBaseX, _weaponTrailBaseY);
 		_weaponTrail.Visible = true;
 		_weaponTrail.Play(runThrustTrail);
+
+		// The crystal art isn't left/right symmetric (the shard scatter leans one way), so
+		// flipping the rotation's sign per direction rotated the asymmetric detail the wrong
+		// way for one side instead of mirroring it — same rotation every time, mirrored via
+		// FlipV (pre-rotation flip on the axis that becomes screen-left/right after a ±90°
+		// turn) for the other direction instead.
+		_crystalEffect.Rotation = -Mathf.Pi / 2f;
+		_crystalEffect.FlipH = _runThrustDirection < 0f;
+		_crystalEffect.Visible = true;
+		_crystalEffect.Play("fall");
 
 		// Two separate hitbox pulses (with a brief gap in between) so an enemy still standing
 		// in the lunge's path when it re-activates takes a second tick of damage, instead of
@@ -1673,7 +1732,10 @@ public partial class Player : CharacterBody2D
 		_hitbox.Deactivate();
 		_hitbox.HitDealt -= OnHitLanded;
 		if (!hitLanded)
+		{
 			Sfx.Play(this, Sfx.FalloGolpe);
+			_crystalEffect.Visible = false;
+		}
 
 		_isRunThrusting = false;
 		_attacking = false;
@@ -1942,6 +2004,7 @@ public partial class Player : CharacterBody2D
 		// Dying mid-Pound skips the rest of _PhysicsProcess (see the _isDead guard at its top),
 		// which otherwise reaches EndPound() itself — without this, the 90° sprite/trail
 		// rotation and the active hitbox would stay stuck through the death animation.
+		_crystalEffect.Visible = false;
 		EndPound();
 
 		_isDead = true;

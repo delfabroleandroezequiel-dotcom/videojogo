@@ -1,0 +1,471 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://w2vrtn1ekg4"]
+
+[ext_resource type="Texture2D" uid="uid://dsa1vgshlw25l" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_62.png" id="break_62"]
+[ext_resource type="Texture2D" uid="uid://c1pbn8hebx08m" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_63.png" id="break_63"]
+[ext_resource type="Texture2D" uid="uid://bfmf51youclkp" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_64.png" id="break_64"]
+[ext_resource type="Texture2D" uid="uid://deybuqbdwmjcc" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_65.png" id="break_65"]
+[ext_resource type="Texture2D" uid="uid://chm6jt05eljft" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_66.png" id="break_66"]
+[ext_resource type="Texture2D" uid="uid://b3qai0jn0p4ha" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_67.png" id="break_67"]
+[ext_resource type="Texture2D" uid="uid://dtvk71wm7mdqk" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_68.png" id="break_68"]
+[ext_resource type="Texture2D" uid="uid://buvsh33ihokps" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_69.png" id="break_69"]
+[ext_resource type="Texture2D" uid="uid://dli1nwgn8emok" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_70.png" id="break_70"]
+[ext_resource type="Texture2D" uid="uid://ch83ebhvugaom" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_71.png" id="break_71"]
+[ext_resource type="Texture2D" uid="uid://sxb5fvkece0y" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_72.png" id="break_72"]
+[ext_resource type="Texture2D" uid="uid://dy0agrpqhcb0j" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_73.png" id="break_73"]
+[ext_resource type="Texture2D" uid="uid://chhn2r43a68w2" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_74.png" id="break_74"]
+[ext_resource type="Texture2D" uid="uid://djfgtjwrfclxd" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_75.png" id="break_75"]
+[ext_resource type="Texture2D" uid="uid://db7e7brya76o5" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_76.png" id="break_76"]
+[ext_resource type="Texture2D" uid="uid://bmngipmsx52ob" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_77.png" id="break_77"]
+[ext_resource type="Texture2D" uid="uid://wjmbrrhjlhc5" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_78.png" id="break_78"]
+[ext_resource type="Texture2D" uid="uid://c88vc8kdwsnyt" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_79.png" id="break_79"]
+[ext_resource type="Texture2D" uid="uid://dc2qbx2drlilo" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_80.png" id="break_80"]
+[ext_resource type="Texture2D" uid="uid://caniro382u8l4" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_81.png" id="break_81"]
+[ext_resource type="Texture2D" uid="uid://ddhfmtnif1x7a" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_82.png" id="break_82"]
+[ext_resource type="Texture2D" uid="uid://fqjtxuuv5naj" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_83.png" id="break_83"]
+[ext_resource type="Texture2D" uid="uid://jibi66r78jrb" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_84.png" id="break_84"]
+[ext_resource type="Texture2D" uid="uid://b60jaar8ad3bv" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_85.png" id="break_85"]
+[ext_resource type="Texture2D" uid="uid://du0oedme4yla4" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_86.png" id="break_86"]
+[ext_resource type="Texture2D" uid="uid://d3n2uh5rbrioa" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_87.png" id="break_87"]
+[ext_resource type="Texture2D" uid="uid://bbojtxc0tgxqa" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_88.png" id="break_88"]
+[ext_resource type="Texture2D" uid="uid://dxbf6ajtkqxo" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_89.png" id="break_89"]
+[ext_resource type="Texture2D" uid="uid://b6jvsqlqoga5w" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_90.png" id="break_90"]
+[ext_resource type="Texture2D" uid="uid://hjj52dux3kfw" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_91.png" id="break_91"]
+[ext_resource type="Texture2D" uid="uid://bulddn50eiqhc" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_92.png" id="break_92"]
+[ext_resource type="Texture2D" uid="uid://cs3ovmhdpylyr" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_93.png" id="break_93"]
+[ext_resource type="Texture2D" uid="uid://d0qg7h3jtcr05" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_94.png" id="break_94"]
+[ext_resource type="Texture2D" uid="uid://c25g47c4klfpx" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_95.png" id="break_95"]
+[ext_resource type="Texture2D" uid="uid://brt825esgrr2y" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_96.png" id="break_96"]
+[ext_resource type="Texture2D" uid="uid://je5wbyi2dnn7" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_97.png" id="break_97"]
+[ext_resource type="Texture2D" uid="uid://lkusg3lfkwdl" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_98.png" id="break_98"]
+[ext_resource type="Texture2D" uid="uid://ctgj2ks6fuev1" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_99.png" id="break_99"]
+[ext_resource type="Texture2D" uid="uid://2c0egpvmhu6l" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_100.png" id="break_100"]
+[ext_resource type="Texture2D" uid="uid://dalrrrsy4pyi5" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_101.png" id="break_101"]
+[ext_resource type="Texture2D" uid="uid://cwv055e6rgfiv" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_102.png" id="break_102"]
+[ext_resource type="Texture2D" uid="uid://bkbj6fp6ewlbc" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_103.png" id="break_103"]
+[ext_resource type="Texture2D" uid="uid://ebojhvlgy1q7" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_104.png" id="break_104"]
+[ext_resource type="Texture2D" uid="uid://j5wmi13uy57b" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall_break/img_105.png" id="break_105"]
+[ext_resource type="Texture2D" uid="uid://bisllxh8yh8y" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_0.png" id="fall_0"]
+[ext_resource type="Texture2D" uid="uid://bgoljp7uhuhex" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_1.png" id="fall_1"]
+[ext_resource type="Texture2D" uid="uid://c8uvgmwbki27e" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_2.png" id="fall_2"]
+[ext_resource type="Texture2D" uid="uid://dvt7g7w878ht6" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_3.png" id="fall_3"]
+[ext_resource type="Texture2D" uid="uid://cavgjdai0qi33" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_4.png" id="fall_4"]
+[ext_resource type="Texture2D" uid="uid://wpy1rbpnj3pt" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_5.png" id="fall_5"]
+[ext_resource type="Texture2D" uid="uid://bi7afrhxf1yic" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_6.png" id="fall_6"]
+[ext_resource type="Texture2D" uid="uid://c7oegh5dfq3w2" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_7.png" id="fall_7"]
+[ext_resource type="Texture2D" uid="uid://dbyq4cd6hoopt" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_8.png" id="fall_8"]
+[ext_resource type="Texture2D" uid="uid://cu7g0qjxl56s7" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_9.png" id="fall_9"]
+[ext_resource type="Texture2D" uid="uid://batguml1b8s8o" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_10.png" id="fall_10"]
+[ext_resource type="Texture2D" uid="uid://dn2c228pii25j" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_11.png" id="fall_11"]
+[ext_resource type="Texture2D" uid="uid://5ba38iu3r4mc" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_12.png" id="fall_12"]
+[ext_resource type="Texture2D" uid="uid://dy6ljun8ac0em" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_13.png" id="fall_13"]
+[ext_resource type="Texture2D" uid="uid://du7j7voqarojy" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_14.png" id="fall_14"]
+[ext_resource type="Texture2D" uid="uid://c841fc50iv5qk" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_15.png" id="fall_15"]
+[ext_resource type="Texture2D" uid="uid://dnw4cltwy3i17" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_16.png" id="fall_16"]
+[ext_resource type="Texture2D" uid="uid://cmbu8ixrwwkk0" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_17.png" id="fall_17"]
+[ext_resource type="Texture2D" uid="uid://cvdengkbtfnvf" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_18.png" id="fall_18"]
+[ext_resource type="Texture2D" uid="uid://dn2e8a8q6ennd" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_19.png" id="fall_19"]
+[ext_resource type="Texture2D" uid="uid://ctyll5hvdidia" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_20.png" id="fall_20"]
+[ext_resource type="Texture2D" uid="uid://cin48imting36" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_21.png" id="fall_21"]
+[ext_resource type="Texture2D" uid="uid://da8m6dhroflf2" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_22.png" id="fall_22"]
+[ext_resource type="Texture2D" uid="uid://cr8fk573aktvm" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_23.png" id="fall_23"]
+[ext_resource type="Texture2D" uid="uid://8v8syfhew4gq" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_24.png" id="fall_24"]
+[ext_resource type="Texture2D" uid="uid://vt24ixar3kmy" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_25.png" id="fall_25"]
+[ext_resource type="Texture2D" uid="uid://boab21am8nwhb" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_26.png" id="fall_26"]
+[ext_resource type="Texture2D" uid="uid://ddbkmncxke8i0" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_27.png" id="fall_27"]
+[ext_resource type="Texture2D" uid="uid://cy3abfi2hkic" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_28.png" id="fall_28"]
+[ext_resource type="Texture2D" uid="uid://d0oy83ngk8oc2" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_29.png" id="fall_29"]
+[ext_resource type="Texture2D" uid="uid://hue2rwrigd1r" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_30.png" id="fall_30"]
+[ext_resource type="Texture2D" uid="uid://o4d3o2eq3uwi" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_31.png" id="fall_31"]
+[ext_resource type="Texture2D" uid="uid://crvf4ptxjohv4" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_32.png" id="fall_32"]
+[ext_resource type="Texture2D" uid="uid://ch0x711ywxy7i" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_33.png" id="fall_33"]
+[ext_resource type="Texture2D" uid="uid://dg45p5u1gpsox" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_34.png" id="fall_34"]
+[ext_resource type="Texture2D" uid="uid://03sualgflb30" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_35.png" id="fall_35"]
+[ext_resource type="Texture2D" uid="uid://xhu43jrk43ub" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_36.png" id="fall_36"]
+[ext_resource type="Texture2D" uid="uid://w55lfo165fxh" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_37.png" id="fall_37"]
+[ext_resource type="Texture2D" uid="uid://drylt428w683g" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_38.png" id="fall_38"]
+[ext_resource type="Texture2D" uid="uid://b5ex4bgewacih" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_39.png" id="fall_39"]
+[ext_resource type="Texture2D" uid="uid://bnnqu1vtpf07e" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_40.png" id="fall_40"]
+[ext_resource type="Texture2D" uid="uid://d0onx7q2u5ac3" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_41.png" id="fall_41"]
+[ext_resource type="Texture2D" uid="uid://dns7lc5u8fq5l" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_42.png" id="fall_42"]
+[ext_resource type="Texture2D" uid="uid://cgw4hv42o8fbb" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_43.png" id="fall_43"]
+[ext_resource type="Texture2D" uid="uid://jsc22syjg3k4" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_44.png" id="fall_44"]
+[ext_resource type="Texture2D" uid="uid://dr3263u4l4ffy" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_45.png" id="fall_45"]
+[ext_resource type="Texture2D" uid="uid://s056aneyq38a" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_46.png" id="fall_46"]
+[ext_resource type="Texture2D" uid="uid://bgh0f50ve23n8" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_47.png" id="fall_47"]
+[ext_resource type="Texture2D" uid="uid://bkkib7rlk5kyt" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_48.png" id="fall_48"]
+[ext_resource type="Texture2D" uid="uid://bwfla1mu5iy3x" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_49.png" id="fall_49"]
+[ext_resource type="Texture2D" uid="uid://biyy06fqvnpy" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_50.png" id="fall_50"]
+[ext_resource type="Texture2D" uid="uid://cmoo338kltso3" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_51.png" id="fall_51"]
+[ext_resource type="Texture2D" uid="uid://dwu2jxc0tcs42" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_52.png" id="fall_52"]
+[ext_resource type="Texture2D" uid="uid://bn4u21sx3gxcc" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_53.png" id="fall_53"]
+[ext_resource type="Texture2D" uid="uid://0mesf6ipc1ej" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_54.png" id="fall_54"]
+[ext_resource type="Texture2D" uid="uid://6fs3bkyplcnb" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_55.png" id="fall_55"]
+[ext_resource type="Texture2D" uid="uid://3lop4qpok6iv" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_56.png" id="fall_56"]
+[ext_resource type="Texture2D" uid="uid://381sbp6eagwv" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_57.png" id="fall_57"]
+[ext_resource type="Texture2D" uid="uid://dtdh3ehu32301" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_58.png" id="fall_58"]
+[ext_resource type="Texture2D" uid="uid://2ry2qnospwj4" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_59.png" id="fall_59"]
+[ext_resource type="Texture2D" uid="uid://bq4ie1wif8ug0" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_60.png" id="fall_60"]
+[ext_resource type="Texture2D" uid="uid://brxfkod78dc1d" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_61.png" id="fall_61"]
+[ext_resource type="Texture2D" uid="uid://cyw6p677lucab" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_62.png" id="fall_62"]
+[ext_resource type="Texture2D" uid="uid://bwp4674tum54o" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_63.png" id="fall_63"]
+[ext_resource type="Texture2D" uid="uid://d4jlbd5u04qiw" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_64.png" id="fall_64"]
+[ext_resource type="Texture2D" uid="uid://1sog4fgos830" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_65.png" id="fall_65"]
+[ext_resource type="Texture2D" uid="uid://bqa2fvhe44iyn" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_66.png" id="fall_66"]
+[ext_resource type="Texture2D" uid="uid://dtwd740hi3mqo" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_67.png" id="fall_67"]
+[ext_resource type="Texture2D" uid="uid://d2jkjt4ywogj8" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_68.png" id="fall_68"]
+[ext_resource type="Texture2D" uid="uid://bsqfyp5hn6rv7" path="res://assets/external/weisinx7/earth_element_magics/crystal_fall1/imgs_fall/img_69.png" id="fall_69"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("break_62")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_63")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_64")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_65")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_66")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_67")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_68")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_69")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_70")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_71")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_72")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_73")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_74")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_75")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_76")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_77")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_78")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_79")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_80")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_81")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_82")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_83")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_84")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_85")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_86")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_87")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_88")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_89")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_90")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_91")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_92")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_93")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_94")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_95")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_96")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_97")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_98")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_99")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_100")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_101")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_102")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_103")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_104")
+}, {
+"duration": 1.0,
+"texture": ExtResource("break_105")
+}],
+"loop": 0,
+"name": &"break",
+"speed": 50.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("fall_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_9")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_11")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_13")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_14")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_15")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_16")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_17")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_18")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_19")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_20")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_21")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_22")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_23")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_24")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_25")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_26")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_27")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_28")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_29")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_30")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_31")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_32")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_33")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_34")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_35")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_36")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_37")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_38")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_39")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_40")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_41")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_42")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_43")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_44")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_45")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_46")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_47")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_48")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_49")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_50")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_51")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_52")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_53")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_54")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_55")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_56")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_57")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_58")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_59")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_60")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_61")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_62")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_63")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_64")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_65")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_66")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_67")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_68")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_69")
+}],
+"loop": 1,
+"name": &"fall",
+"speed": 30.0
+}]
