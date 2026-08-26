@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CameraProfile" format=3 uid="uid://cfi8ft4p3u36c"]
+
+[ext_resource type="Script" uid="uid://bvn4skwottmbg" path="res://scripts/world/CameraProfile.cs" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+Zoom = 2.24
+SmoothingSpeed = 8.0
+OffsetY = 30.0

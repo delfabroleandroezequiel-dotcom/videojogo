@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://bdcvsoxow1auj"]
+
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="2_bootstrap"]
+[ext_resource type="Texture2D" uid="uid://c6l7fq4dpdwct" path="res://assets/sprites/misprite/InteriorMuelle.png" id="3_muelle"]
+[ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="4_transition"]
+[ext_resource type="Resource" path="res://resources/camera/MuelleInteriorCamera.tres" id="5_camera_profile"]
+[ext_resource type="PackedScene" path="res://scenes/world/iluminacion/FlickerLight.tscn" id="6_flicker"]
+[ext_resource type="PackedScene" uid="uid://d8tq20x6upcu" path="res://scenes/world/Npc.tscn" id="7_qxuak"]
+[ext_resource type="SpriteFrames" uid="uid://ddiajoa578s83" path="res://resources/sprites/VikingSpriteFrames.tres" id="8_rquj8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(393.6, 14.4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sidewall"]
+size = Vector2(24.709473, 867.5598)
+
+[node name="InteriorMuelle" type="Node2D" unique_id=2100000001]
+script = ExtResource("2_bootstrap")
+CameraProfile = ExtResource("5_camera_profile")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=2100000012]
+color = Color(0.55, 0.5, 0.5, 1)
+
+[node name="Backdrop" type="Polygon2D" parent="." unique_id=2100000002]
+z_index = -10
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-1100, -650, 1100, -650, 1100, 650, -1100, 650)
+
+[node name="MuelleBackground" type="Sprite2D" parent="." unique_id=2100000003]
+z_index = -9
+scale = Vector2(0.2496, 0.2496)
+texture = ExtResource("3_muelle")
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=2100000004]
+position = Vector2(0.7205078, 85.3934)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=2100000005]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="LeftWall" type="StaticBody2D" parent="." unique_id=2100000006]
+position = Vector2(-58.49053, -0.8401428)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=2100000007]
+position = Vector2(-5.1547356, -323.3799)
+shape = SubResource("RectangleShape2D_sidewall")
+
+[node name="RightWall" type="StaticBody2D" parent="." unique_id=2100000008]
+position = Vector2(192, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=2100000009]
+position = Vector2(-58, -324)
+shape = SubResource("RectangleShape2D_sidewall")
+
+[node name="Player" parent="." unique_id=2100000010 instance=ExtResource("1_player")]
+position = Vector2(-4.842944, 39.6936)
+
+[node name="ReturnTransition" parent="." unique_id=2100000011 instance=ExtResource("4_transition")]
+position = Vector2(-35.2, 68.8)
+TargetScenePath = "res://scenes/world/Mapas/MarNix.tscn"
+TargetSpawnPosition = Vector2(-1288, 26)
+RequireInteract = true
+UseStoredReturnPosition = true
+
+[node name="FlickerLight" parent="." unique_id=2100000013 instance=ExtResource("6_flicker")]
+position = Vector2(-20, 27.2)
+
+[node name="FlickerLight2" parent="." unique_id=2100000014 instance=ExtResource("6_flicker")]
+position = Vector2(90.24, -0.48)
+
+[node name="NpcVikingo" parent="FlickerLight2" unique_id=2040744673 instance=ExtResource("7_qxuak")]
+position = Vector2(-4.239998, 44.48)
+NpcName = "NPC_VIKINGO_NAME"
+DialogueLines = PackedStringArray("NPC_VIKINGO_L1")
+CustomSpriteFrames = ExtResource("8_rquj8")
+CustomSpriteYOffset = -10.58
+CustomSpriteScale = Vector2(1.6279, 1.6279)
+CollisionSize = Vector2(49, 64)
