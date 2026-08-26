@@ -35,8 +35,6 @@
 [ext_resource type="Texture2D" uid="uid://0dy0vg06ac8s" path="res://assets/sprites/deco/e2590659-de0d-4146-bc3f-233cca6cbdc1-removebg-preview.png" id="27_naue6"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniCorridorAccordionCueva.tscn" id="28_oqhyp"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/WarriorEnemyBlond.tscn" id="29_naue6"]
-[ext_resource type="Script" uid="uid://dgfme40ce5n06" path="res://scripts/world/GroundFog.cs" id="30_groundfog"]
-[ext_resource type="Texture2D" uid="uid://6xqsumt5ida1" path="res://resources/vfx/DustFogGradient.tres" id="31_dustfogblob"]
 [ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="33_lightgrad"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CobwebDecoration.tscn" id="35_f18cp"]
 [ext_resource type="PackedScene" path="res://scenes/world/iluminacion/CuevaLantern.tscn" id="36_80ojl"]
@@ -8020,7 +8018,6 @@ texture = ExtResource("22_x0wdf")
 
 [node name="Player" parent="." unique_id=2070432193 instance=ExtResource("7_nga76")]
 position = Vector2(1490.8933, -46.217804)
-AirControl = false
 FallDeathY = 1000000.0
 
 [node name="Elevator2" parent="." unique_id=828852518 instance=ExtResource("21_savdg")]
@@ -8038,97 +8035,6 @@ TargetScenePath = "res://scenes/world/Mapas/InteriorCuevaBosqueLobos2.tscn"
 TargetSpawnPosition = Vector2(991.635, -449.307)
 RememberOriginForReturn = true
 Width = 150.0
-
-[node name="GroundFog" type="Node2D" parent="." unique_id=707584912]
-z_index = -1
-position = Vector2(5061.612, 1450)
-script = ExtResource("30_groundfog")
-BlobTexture = ExtResource("31_dustfogblob")
-TintColor = Color(0.55, 0.52, 0.45, 0.16)
-
-[node name="ForegroundFog" type="Node2D" parent="." unique_id=1649573625]
-z_index = 5
-position = Vector2(5061.612, 1350)
-script = ExtResource("30_groundfog")
-BlobTexture = ExtResource("31_dustfogblob")
-BlobCount = 4
-AreaHeight = 260.0
-MinScale = 2.5
-MaxScale = 4.5
-MinSpeed = 4.0
-MaxSpeed = 10.0
-TintColor = Color(0.55, 0.52, 0.45, 0.12)
-
-[node name="GroundFog2" type="Node2D" parent="." unique_id=553086834]
-visible = false
-z_index = -1
-position = Vector2(650, 30)
-script = ExtResource("30_groundfog")
-BlobTexture = ExtResource("31_dustfogblob")
-AreaWidth = 1300.0
-AreaHeight = 220.0
-TintColor = Color(0.55, 0.52, 0.45, 0.16)
-
-[node name="ForegroundFog2" type="Node2D" parent="." unique_id=1950004433]
-visible = false
-z_index = 5
-position = Vector2(650, 60)
-script = ExtResource("30_groundfog")
-BlobTexture = ExtResource("31_dustfogblob")
-BlobCount = 4
-AreaWidth = 1300.0
-AreaHeight = 220.0
-MinScale = 2.5
-MaxScale = 4.5
-MinSpeed = 4.0
-MaxSpeed = 10.0
-TintColor = Color(0.55, 0.52, 0.45, 0.12)
-
-[node name="GroundFog3" type="Node2D" parent="." unique_id=833207540]
-z_index = -1
-position = Vector2(500, 1300)
-script = ExtResource("30_groundfog")
-BlobTexture = ExtResource("31_dustfogblob")
-AreaWidth = 1300.0
-AreaHeight = 350.0
-TintColor = Color(0.55, 0.52, 0.45, 0.16)
-
-[node name="ForegroundFog3" type="Node2D" parent="." unique_id=847264752]
-z_index = 5
-position = Vector2(500, 1350)
-script = ExtResource("30_groundfog")
-BlobTexture = ExtResource("31_dustfogblob")
-BlobCount = 4
-AreaWidth = 1300.0
-AreaHeight = 350.0
-MinScale = 2.5
-MaxScale = 4.5
-MinSpeed = 4.0
-MaxSpeed = 10.0
-TintColor = Color(0.55, 0.52, 0.45, 0.12)
-
-[node name="GroundFog4" type="Node2D" parent="." unique_id=704711531]
-z_index = -1
-position = Vector2(2450, 1350)
-script = ExtResource("30_groundfog")
-BlobTexture = ExtResource("31_dustfogblob")
-AreaWidth = 1500.0
-AreaHeight = 350.0
-TintColor = Color(0.55, 0.52, 0.45, 0.16)
-
-[node name="ForegroundFog4" type="Node2D" parent="." unique_id=534302688]
-z_index = 5
-position = Vector2(2450, 1400)
-script = ExtResource("30_groundfog")
-BlobTexture = ExtResource("31_dustfogblob")
-BlobCount = 4
-AreaWidth = 1500.0
-AreaHeight = 350.0
-MinScale = 2.5
-MaxScale = 4.5
-MinSpeed = 4.0
-MaxSpeed = 10.0
-TintColor = Color(0.55, 0.52, 0.45, 0.12)
 
 [node name="CaveCollapseOverlay" parent="." unique_id=1040270938 instance=ExtResource("8_lkeu0")]
 TriggerEnemyPath = NodePath("../SpiderBoss")
