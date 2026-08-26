@@ -1,0 +1,95 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://d0n4l88chs28w"]
+
+[ext_resource type="Texture2D" uid="uid://bjh7t7dmxvkmj" path="res://assets/external/CharacterPacks/SSW2_SET2_v1.0/_PNG/_anim/rag_pole_col1.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 128, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 0, 128, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(256, 0, 128, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(384, 0, 128, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(512, 0, 128, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(640, 0, 128, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 256, 128, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 256, 128, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(256, 256, 128, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f9"]
+atlas = ExtResource("1_sheet")
+region = Rect2(384, 256, 128, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f10"]
+atlas = ExtResource("1_sheet")
+region = Rect2(512, 256, 128, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f11"]
+atlas = ExtResource("1_sheet")
+region = Rect2(640, 256, 128, 256)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f9")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f10")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f11")
+}],
+"loop": 1,
+"name": &"flap",
+"speed": 10.0
+}]

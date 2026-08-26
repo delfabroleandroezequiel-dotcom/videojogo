@@ -1,0 +1,67 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://b2k5bdl6ja3yk"]
+
+[ext_resource type="Texture2D" uid="uid://b8ky6s8d205nc" path="res://assets/external/CharacterPacks/SSW2_SET2_v1.0/_PNG/_anim/big_ship_col2.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 544, 544)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(544, 0, 544, 544)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1088, 0, 544, 544)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1632, 0, 544, 544)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 544, 544, 544)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(544, 544, 544, 544)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1088, 544, 544, 544)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1632, 544, 544, 544)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7")
+}],
+"loop": 1,
+"name": &"bob",
+"speed": 8.0
+}]

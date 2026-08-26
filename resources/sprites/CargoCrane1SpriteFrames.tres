@@ -1,0 +1,67 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://crxmos0uk6an5"]
+
+[ext_resource type="Texture2D" uid="uid://c742o01ykxd6m" path="res://assets/external/CharacterPacks/SSW2_SET2_v1.0/_PNG/_anim/cargo crane1.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 128, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 0, 128, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(256, 0, 128, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(384, 0, 128, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 160, 128, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 160, 128, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(256, 160, 128, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(384, 160, 128, 160)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7")
+}],
+"loop": 1,
+"name": &"swing",
+"speed": 6.0
+}]

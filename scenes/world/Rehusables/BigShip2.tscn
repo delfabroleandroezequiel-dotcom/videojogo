@@ -1,0 +1,12 @@
+[gd_scene format=3]
+
+[ext_resource type="SpriteFrames" path="res://resources/sprites/BigShip2SpriteFrames.tres" id="1_frames"]
+[ext_resource type="Script" path="res://scripts/world/RotationSway.cs" id="2_sway"]
+
+[node name="BigShip2" type="AnimatedSprite2D"]
+sprite_frames = ExtResource("1_frames")
+animation = &"bob"
+autoplay = "bob"
+script = ExtResource("2_sway")
+AmplitudeDegrees = 2.5
+Speed = 0.5
