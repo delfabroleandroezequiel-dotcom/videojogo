@@ -1,0 +1,64 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Idle/HeavyBandit_Idle_0.png" id="idle_0"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Idle/HeavyBandit_Idle_1.png" id="idle_1"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Idle/HeavyBandit_Idle_2.png" id="idle_2"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Idle/HeavyBandit_Idle_3.png" id="idle_3"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Run/HeavyBandit_Run_0.png" id="run_0"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Run/HeavyBandit_Run_1.png" id="run_1"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Run/HeavyBandit_Run_2.png" id="run_2"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Run/HeavyBandit_Run_3.png" id="run_3"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Run/HeavyBandit_Run_4.png" id="run_4"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Run/HeavyBandit_Run_5.png" id="run_5"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Run/HeavyBandit_Run_6.png" id="run_6"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Run/HeavyBandit_Run_7.png" id="run_7"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Attack/HeavyBandit_Attack_0.png" id="attack_0"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Attack/HeavyBandit_Attack_1.png" id="attack_1"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Attack/HeavyBandit_Attack_2.png" id="attack_2"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Attack/HeavyBandit_Attack_3.png" id="attack_3"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Attack/HeavyBandit_Attack_4.png" id="attack_4"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Attack/HeavyBandit_Attack_5.png" id="attack_5"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Attack/HeavyBandit_Attack_6.png" id="attack_6"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Attack/HeavyBandit_Attack_7.png" id="attack_7"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Combat Idle/HeavyBandit_CombatIdle_0.png" id="combatidle_0"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Combat Idle/HeavyBandit_CombatIdle_1.png" id="combatidle_1"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Combat Idle/HeavyBandit_CombatIdle_2.png" id="combatidle_2"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Combat Idle/HeavyBandit_CombatIdle_3.png" id="combatidle_3"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Hurt/HeavyBandit_Hurt_0.png" id="hurt_0"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Hurt/HeavyBandit_Hurt_1.png" id="hurt_1"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Jump/HeavyBandit_Jump_0.png" id="jump_0"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Recover/HeavyBandit_Recover_0.png" id="recover_0"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Recover/HeavyBandit_Recover_1.png" id="recover_1"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Recover/HeavyBandit_Recover_2.png" id="recover_2"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Recover/HeavyBandit_Recover_3.png" id="recover_3"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Recover/HeavyBandit_Recover_4.png" id="recover_4"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Recover/HeavyBandit_Recover_5.png" id="recover_5"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Recover/HeavyBandit_Recover_6.png" id="recover_6"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Recover/HeavyBandit_Recover_7.png" id="recover_7"]
+[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Heavy Bandit/Death/HeavyBandit_Death_0.png" id="death_0"]
+
+[resource]
+animations = [{"frames": [
+{"duration": 1.0, "texture": ExtResource("idle_0")}, {"duration": 1.0, "texture": ExtResource("idle_1")}, {"duration": 1.0, "texture": ExtResource("idle_2")}, {"duration": 1.0, "texture": ExtResource("idle_3")}], "loop": 1, "name": &"idle", "speed": 8.0
+}, {
+"frames": [
+{"duration": 1.0, "texture": ExtResource("run_0")}, {"duration": 1.0, "texture": ExtResource("run_1")}, {"duration": 1.0, "texture": ExtResource("run_2")}, {"duration": 1.0, "texture": ExtResource("run_3")}, {"duration": 1.0, "texture": ExtResource("run_4")}, {"duration": 1.0, "texture": ExtResource("run_5")}, {"duration": 1.0, "texture": ExtResource("run_6")}, {"duration": 1.0, "texture": ExtResource("run_7")}], "loop": 1, "name": &"run", "speed": 12.0
+}, {
+"frames": [
+{"duration": 1.0, "texture": ExtResource("attack_0")}, {"duration": 1.0, "texture": ExtResource("attack_1")}, {"duration": 1.0, "texture": ExtResource("attack_2")}, {"duration": 1.0, "texture": ExtResource("attack_3")}, {"duration": 1.0, "texture": ExtResource("attack_4")}, {"duration": 1.0, "texture": ExtResource("attack_5")}, {"duration": 1.0, "texture": ExtResource("attack_6")}, {"duration": 1.0, "texture": ExtResource("attack_7")}], "loop": 0, "name": &"attack", "speed": 14.0
+}, {
+"frames": [
+{"duration": 1.0, "texture": ExtResource("combatidle_0")}, {"duration": 1.0, "texture": ExtResource("combatidle_1")}, {"duration": 1.0, "texture": ExtResource("combatidle_2")}, {"duration": 1.0, "texture": ExtResource("combatidle_3")}], "loop": 1, "name": &"combat_idle", "speed": 8.0
+}, {
+"frames": [
+{"duration": 1.0, "texture": ExtResource("hurt_0")}, {"duration": 1.0, "texture": ExtResource("hurt_1")}], "loop": 0, "name": &"hurt", "speed": 10.0
+}, {
+"frames": [
+{"duration": 1.0, "texture": ExtResource("jump_0")}], "loop": 0, "name": &"jump", "speed": 10.0
+}, {
+"frames": [
+{"duration": 1.0, "texture": ExtResource("recover_0")}, {"duration": 1.0, "texture": ExtResource("recover_1")}, {"duration": 1.0, "texture": ExtResource("recover_2")}, {"duration": 1.0, "texture": ExtResource("recover_3")}, {"duration": 1.0, "texture": ExtResource("recover_4")}, {"duration": 1.0, "texture": ExtResource("recover_5")}, {"duration": 1.0, "texture": ExtResource("recover_6")}, {"duration": 1.0, "texture": ExtResource("recover_7")}], "loop": 0, "name": &"recover", "speed": 10.0
+}, {
+"frames": [
+{"duration": 1.0, "texture": ExtResource("death_0")}], "loop": 0, "name": &"death", "speed": 8.0
+}]

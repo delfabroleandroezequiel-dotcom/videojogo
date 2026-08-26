@@ -161,3 +161,19 @@ NPC_SOLDADOVETERANO_NAME,Soldado Veterano,Veteran Soldier,Soldado Veterano
 NPC_SOLDADOVETERANO_L1,He visto caer reinos enteros. Nix todavía se mantiene en pie.,I've seen entire kingdoms fall. Nix still stands.,Já vi reinos inteiros caírem. Nix ainda está de pé.
 NPC_NOBLEVIAJERO_NAME,Noble Viajero,Traveling Noble,Nobre Viajante
 NPC_NOBLEVIAJERO_L1,"Un lugar humilde, Nix. Pero hay algo honesto en su gente.","A humble place, Nix. But there's something honest about its people.","Um lugar humilde, Nix. Mas há algo honesto no seu povo."
+NPC_MUJERGUERRERA_NAME,Guerrera Errante,Wandering Warrior,Guerreira Errante
+NPC_MUJERGUERRERA_L1,He recorrido medio reino con esta espada. Todavía no me falla.,I've traveled half the kingdom with this sword. It hasn't failed me yet.,Já percorri metade do reino com esta espada. Ainda não me falhou.
+NPC_LANCERA_NAME,Lancera,Spearwoman,Lanceira
+NPC_LANCERA_L1,Mi lanza no falla a distancia. Nunca dejes que se acerquen demasiado.,My spear doesn't miss at range. Never let them get too close.,Minha lança não erra à distância. Nunca deixe que se aproximem demais.
+NPC_VIKINGO_NAME,Vikingo,Viking,Viking
+NPC_VIKINGO_L1,Vine del norte cruzando los mares helados. Aquí el clima es tibio, casi molesto.,I came from the north across the frozen seas. The weather here is warm, almost annoying.,Vim do norte cruzando os mares gelados. Aqui o clima é ameno, quase incômodo.
+NPC_NINJA_NAME,Ninja Errante,Wandering Ninja,Ninja Errante
+NPC_NINJA_L1,No pregunto quién me contrata. Solo cumplo el trabajo y desaparezco.,I don't ask who hires me. I just get the job done and disappear.,Não pergunto quem me contrata. Só cumpro o trabalho e desapareço.
+NPC_HECHICERO2_NAME,Hechicero de la Llama Oscura,Dark Flame Sorcerer,Feiticeiro da Chama Sombria
+NPC_HECHICERO2_L1,Esta llama no quema... consume. Aléjate si valoras tu alma.,This flame doesn't burn... it consumes. Stay back if you value your soul.,Esta chama não queima... consome. Afaste-se se valoriza sua alma.
+NPC_BANDITPESADO_NAME,Bandido Pesado,Heavy Bandit,Bandido Pesado
+NPC_BANDITPESADO_L1,Antes andaba con una banda más grande. Ahora somos dos, pero rendimos por diez.,I used to run with a bigger crew. Now it's just the two of us, but we're worth ten.,Antes eu andava com uma gangue maior. Agora somos só nós dois, mas valemos por dez.
+NPC_BANDITLIGERO_NAME,Bandido Ligero,Light Bandit,Bandido Ligeiro
+NPC_BANDITLIGERO_L1,Yo distraigo, él golpea. Así nos ganamos la vida.,I distract, he hits. That's how we make a living.,Eu distraio, ele bate. É assim que ganhamos a vida.
+NPC_CABALLEROSVEN_NAME,Caballero de Capa Azul,Blue-Caped Knight,Cavaleiro de Capa Azul
+NPC_CABALLEROSVEN_L1,Serví en la guardia real hasta que colgué la capa. Ahora solo viajo.,I served in the royal guard until I hung up the cape. Now I just travel.,Servi na guarda real até pendurar a capa. Agora só viajo.
