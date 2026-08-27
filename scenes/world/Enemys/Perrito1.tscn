@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://drser5bfbd5kp"]
+
+[ext_resource type="Script" uid="uid://cgjp3rpe61rex" path="res://scripts/world/Perrito1.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://c6cqqo7m28qp1" path="res://scripts/player/Hitbox.cs" id="2_hitbox"]
+[ext_resource type="Script" uid="uid://b47a4kpptnpqi" path="res://scripts/shared/Stats.cs" id="3_stats"]
+[ext_resource type="PackedScene" uid="uid://ba6e10sx6t2c8" path="res://scenes/ui/StatBar.tscn" id="4_statbar"]
+[ext_resource type="SpriteFrames" uid="uid://bx8s65nrjqmcu" path="res://resources/sprites/HoundSpriteFrames.tres" id="5_spriteframes"]
+[ext_resource type="PackedScene" uid="uid://dq3mb122eef3v" path="res://scenes/world/Explosion.tscn" id="6_explosion"]
+[ext_resource type="Resource" path="res://resources/balance/enemies/perrito1.tres" id="7_profile"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
+size = Vector2(56, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(24, 24)
+
+[node name="Perrito1" type="CharacterBody2D" unique_id=1079485317]
+collision_layer = 4
+script = ExtResource("1_script")
+AttackSpriteYOffset = -2.0
+AttackHitboxReach = 22.0
+Profile = ExtResource("7_profile")
+ExplosionScene = ExtResource("6_explosion")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2125373318]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="ContactArea" type="Area2D" parent="." unique_id=169805474]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea" unique_id=1571629959]
+position = Vector2(-4, 9)
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="Visual" type="Node2D" parent="." unique_id=1554825137]
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual" unique_id=637739343]
+scale = Vector2(1.5556, 1.5556)
+sprite_frames = ExtResource("5_spriteframes")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="AttackHitbox" type="Area2D" parent="." unique_id=476728916]
+position = Vector2(22, 8)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_hitbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=1947821098]
+shape = SubResource("RectangleShape2D_hitbox")
+disabled = true
+
+[node name="Stats" type="Node" parent="." unique_id=1483002804]
+script = ExtResource("3_stats")
+
+[node name="HealthBar" parent="." unique_id=1713604072 instance=ExtResource("4_statbar")]
+position = Vector2(0, 40)
+
+[node name="StaminaBar" parent="." unique_id=1303116433 instance=ExtResource("4_statbar")]
+position = Vector2(0, 46)
+FillColor = Color(0.2, 0.6, 1, 1)

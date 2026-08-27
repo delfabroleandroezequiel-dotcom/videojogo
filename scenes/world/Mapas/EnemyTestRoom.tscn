@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://cwtx7xpwhge0j"]
+
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://b56iyefxyhuy5" path="res://scripts/world/EnemyTestRoomHealthBuff.cs" id="3_healthbuff"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemys/LargeSkullBoss.tscn" id="7_largeskullboss"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(1400, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(60, 700)
+
+[node name="EnemyTestRoom" type="Node2D" unique_id=1438862842]
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=1800681102]
+position = Vector2(650, 460)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1234138968]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="WallLeft" type="StaticBody2D" parent="." unique_id=82917253]
+position = Vector2(-30, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft" unique_id=2127837488]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="WallRight" type="StaticBody2D" parent="." unique_id=1737267524]
+position = Vector2(1330, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight" unique_id=578282517]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="Player" parent="." unique_id=1670666018 instance=ExtResource("1_player")]
+position = Vector2(220, 396)
+
+[node name="EnemyTestRoomHealthBuff" type="Node2D" parent="." unique_id=1600481695]
+script = ExtResource("3_healthbuff")
+
+[node name="LargeSkullBoss" parent="." unique_id=582917463 instance=ExtResource("7_largeskullboss")]
+position = Vector2(1100, 300)

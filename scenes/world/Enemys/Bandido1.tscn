@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://duh0skspcxwjr"]
+
+[ext_resource type="Script" uid="uid://buue608k6joh8" path="res://scripts/world/Bandido1.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://c6cqqo7m28qp1" path="res://scripts/player/Hitbox.cs" id="2_hitbox"]
+[ext_resource type="Script" uid="uid://b47a4kpptnpqi" path="res://scripts/shared/Stats.cs" id="3_stats"]
+[ext_resource type="PackedScene" uid="uid://ba6e10sx6t2c8" path="res://scenes/ui/StatBar.tscn" id="4_statbar"]
+[ext_resource type="SpriteFrames" uid="uid://bi6065140glyf" path="res://resources/sprites/AssassinSpriteFrames.tres" id="5_spriteframes"]
+[ext_resource type="PackedScene" uid="uid://dq3mb122eef3v" path="res://scenes/world/Explosion.tscn" id="6_explosion"]
+[ext_resource type="Resource" uid="uid://xh8mkc1dy8md" path="res://resources/balance/enemies/bandido1.tres" id="7_profile"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
+size = Vector2(36, 66)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(26, 32)
+
+[node name="Bandido1" type="CharacterBody2D" unique_id=1252243445]
+collision_layer = 4
+script = ExtResource("1_script")
+AttackSpriteYOffset = -4.0
+AttackHitboxReach = 26.0
+Profile = ExtResource("7_profile")
+ExplosionScene = ExtResource("6_explosion")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=80667349]
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="ContactArea" type="Area2D" parent="." unique_id=1073511720]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea" unique_id=83464690]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="Visual" type="Node2D" parent="." unique_id=870859646]
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual" unique_id=2006119818]
+position = Vector2(0, -3.78)
+scale = Vector2(1.5556, 1.5556)
+sprite_frames = ExtResource("5_spriteframes")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="AttackHitbox" type="Area2D" parent="." unique_id=7282007]
+position = Vector2(26, 0)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_hitbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=119762654]
+shape = SubResource("RectangleShape2D_hitbox")
+disabled = true
+
+[node name="Stats" type="Node" parent="." unique_id=843500844]
+script = ExtResource("3_stats")
+
+[node name="HealthBar" parent="." unique_id=1027716928 instance=ExtResource("4_statbar")]
+position = Vector2(0, 40)
+
+[node name="StaminaBar" parent="." unique_id=1165133879 instance=ExtResource("4_statbar")]
+position = Vector2(0, 46)
+FillColor = Color(0.2, 0.6, 1, 1)

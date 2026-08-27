@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EnemyProfile" format=3]
+
+[ext_resource type="Script" uid="uid://cut1jnir3fng6" path="res://scripts/world/EnemyProfile.cs" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+MaxHealth = 200
+AttackPower = 0
+MaxStamina = 50
+MoveSpeed = 90.0
+DetectionRange = 2000.0
+KnockbackDuration = 0.15

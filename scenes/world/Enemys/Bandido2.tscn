@@ -1,0 +1,63 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/Bandido2.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://c6cqqo7m28qp1" path="res://scripts/player/Hitbox.cs" id="2_hitbox"]
+[ext_resource type="Script" uid="uid://b47a4kpptnpqi" path="res://scripts/shared/Stats.cs" id="3_stats"]
+[ext_resource type="PackedScene" uid="uid://ba6e10sx6t2c8" path="res://scenes/ui/StatBar.tscn" id="4_statbar"]
+[ext_resource type="SpriteFrames" uid="uid://moxcuv0ckiq2" path="res://resources/sprites/RaiderSpriteFrames.tres" id="5_spriteframes"]
+[ext_resource type="PackedScene" uid="uid://dq3mb122eef3v" path="res://scenes/world/Explosion.tscn" id="6_explosion"]
+[ext_resource type="Resource" path="res://resources/balance/enemies/bandido2.tres" id="7_profile"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
+size = Vector2(36, 66)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(26, 32)
+
+[node name="Bandido2" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_script")
+AttackSpriteYOffset = -4.0
+AttackHitboxReach = 26.0
+Profile = ExtResource("7_profile")
+ExplosionScene = ExtResource("6_explosion")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="ContactArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual"]
+position = Vector2(0, -3.78)
+scale = Vector2(1.5556, 1.5556)
+sprite_frames = ExtResource("5_spriteframes")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="AttackHitbox" type="Area2D" parent="."]
+position = Vector2(26, 0)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_hitbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+shape = SubResource("RectangleShape2D_hitbox")
+disabled = true
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("3_stats")
+
+[node name="HealthBar" parent="." instance=ExtResource("4_statbar")]
+position = Vector2(0, 40)
+
+[node name="StaminaBar" parent="." instance=ExtResource("4_statbar")]
+position = Vector2(0, 46)
+FillColor = Color(0.2, 0.6, 1, 1)

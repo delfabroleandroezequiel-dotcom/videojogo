@@ -1,0 +1,76 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/LargeSkullBoss.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://b47a4kpptnpqi" path="res://scripts/shared/Stats.cs" id="2_stats"]
+[ext_resource type="PackedScene" uid="uid://ba6e10sx6t2c8" path="res://scenes/ui/StatBar.tscn" id="3_statbar"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/LargeSkullSpriteFrames.tres" id="4_frames"]
+[ext_resource type="Resource" path="res://resources/balance/enemies/largeskullboss.tres" id="5_profile"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/OrbitingSkull.tscn" id="6_orbitskull"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
+size = Vector2(56, 90)
+
+[node name="LargeSkullBoss" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_script")
+ChaseSpeed = 70.0
+ChaseAcceleration = 140.0
+HoverAmplitude = 6.0
+Profile = ExtResource("5_profile")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="ContactArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea"]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual"]
+scale = Vector2(-1, 1)
+sprite_frames = ExtResource("4_frames")
+animation = &"fly"
+autoplay = "fly"
+
+[node name="SkullBarrier" type="Node2D" parent="."]
+
+[node name="OrbitingSkull1" parent="SkullBarrier" instance=ExtResource("6_orbitskull")]
+StartAngle = 0.0
+
+[node name="OrbitingSkull2" parent="SkullBarrier" instance=ExtResource("6_orbitskull")]
+StartAngle = 0.785
+
+[node name="OrbitingSkull3" parent="SkullBarrier" instance=ExtResource("6_orbitskull")]
+StartAngle = 1.571
+
+[node name="OrbitingSkull4" parent="SkullBarrier" instance=ExtResource("6_orbitskull")]
+StartAngle = 2.356
+
+[node name="OrbitingSkull5" parent="SkullBarrier" instance=ExtResource("6_orbitskull")]
+StartAngle = 3.142
+
+[node name="OrbitingSkull6" parent="SkullBarrier" instance=ExtResource("6_orbitskull")]
+StartAngle = 3.927
+
+[node name="OrbitingSkull7" parent="SkullBarrier" instance=ExtResource("6_orbitskull")]
+StartAngle = 4.712
+
+[node name="OrbitingSkull8" parent="SkullBarrier" instance=ExtResource("6_orbitskull")]
+StartAngle = 5.498
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("2_stats")
+
+[node name="HealthBar" parent="." instance=ExtResource("3_statbar")]
+position = Vector2(0, -70)
+
+[node name="StaminaBar" parent="." instance=ExtResource("3_statbar")]
+position = Vector2(0, -64)
+FillColor = Color(0.2, 0.6, 1, 1)

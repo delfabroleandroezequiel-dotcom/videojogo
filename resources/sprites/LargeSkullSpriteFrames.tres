@@ -1,0 +1,81 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bs5gtfl6yvhfu"]
+
+[ext_resource type="Texture2D" uid="uid://bebarwa02kvep" path="res://assets/external/gandalfhardcore/GandalfHardcore Hell Asset Pack 32x32/GandalfHardcore The Damned Enemies and NPCs/Large Skull.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AT_idle_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AT_idle_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AT_idle_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AT_idle_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AT_idle_4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AT_idle_5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AT_idle_6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AT_idle_7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AT_idle_8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1024, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AT_idle_9"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1152, 0, 128, 128)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AT_idle_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_idle_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_idle_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_idle_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_idle_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_idle_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_idle_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_idle_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_idle_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_idle_9")
+}],
+"loop": 1,
+"name": &"fly",
+"speed": 6.0
+}]
