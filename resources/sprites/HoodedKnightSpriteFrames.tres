@@ -1,0 +1,351 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bsn1smcu554j0"]
+
+[ext_resource type="Texture2D" uid="uid://ctda18viedrw4" path="res://assets/external/Chars/HoodedKnight/Spritesheets/hooded knight idle.png" id="1_idle"]
+[ext_resource type="Texture2D" uid="uid://da3i250g5v3cf" path="res://assets/external/Chars/HoodedKnight/Spritesheets/hooded knight attack.png" id="2_atk"]
+[ext_resource type="Texture2D" uid="uid://b7xp6jhwwwghj" path="res://assets/external/Chars/HoodedKnight/Spritesheets/hooded knight powerup.png" id="3_pwr"]
+[ext_resource type="Texture2D" uid="uid://dfdig8v7t8t4x" path="res://assets/external/Chars/HoodedKnight/Spritesheets/run-idle transition.png" id="4_run"]
+
+[sub_resource type="AtlasTexture" id="AT_attack_0"]
+atlas = ExtResource("2_atk")
+region = Rect2(0, 0, 180, 100)
+
+[sub_resource type="AtlasTexture" id="AT_attack_1"]
+atlas = ExtResource("2_atk")
+region = Rect2(180, 0, 180, 100)
+
+[sub_resource type="AtlasTexture" id="AT_attack_2"]
+atlas = ExtResource("2_atk")
+region = Rect2(360, 0, 180, 100)
+
+[sub_resource type="AtlasTexture" id="AT_attack_3"]
+atlas = ExtResource("2_atk")
+region = Rect2(540, 0, 180, 100)
+
+[sub_resource type="AtlasTexture" id="AT_attack_4"]
+atlas = ExtResource("2_atk")
+region = Rect2(720, 0, 180, 100)
+
+[sub_resource type="AtlasTexture" id="AT_attack_5"]
+atlas = ExtResource("2_atk")
+region = Rect2(900, 0, 180, 100)
+
+[sub_resource type="AtlasTexture" id="AT_attack_6"]
+atlas = ExtResource("2_atk")
+region = Rect2(1080, 0, 180, 100)
+
+[sub_resource type="AtlasTexture" id="AT_attack_7"]
+atlas = ExtResource("2_atk")
+region = Rect2(1260, 0, 180, 100)
+
+[sub_resource type="AtlasTexture" id="AT_attack_8"]
+atlas = ExtResource("2_atk")
+region = Rect2(1440, 0, 180, 100)
+
+[sub_resource type="AtlasTexture" id="AT_attack_9"]
+atlas = ExtResource("2_atk")
+region = Rect2(1620, 0, 180, 100)
+
+[sub_resource type="AtlasTexture" id="AT_attack_10"]
+atlas = ExtResource("2_atk")
+region = Rect2(1800, 0, 180, 100)
+
+[sub_resource type="AtlasTexture" id="AT_attack_11"]
+atlas = ExtResource("2_atk")
+region = Rect2(1980, 0, 180, 100)
+
+[sub_resource type="AtlasTexture" id="AT_attack_12"]
+atlas = ExtResource("2_atk")
+region = Rect2(2160, 0, 180, 100)
+
+[sub_resource type="AtlasTexture" id="AT_attack_13"]
+atlas = ExtResource("2_atk")
+region = Rect2(2340, 0, 180, 100)
+
+[sub_resource type="AtlasTexture" id="AT_attack_14"]
+atlas = ExtResource("2_atk")
+region = Rect2(2520, 0, 180, 100)
+
+[sub_resource type="AtlasTexture" id="AT_attack_15"]
+atlas = ExtResource("2_atk")
+region = Rect2(2700, 0, 180, 100)
+
+[sub_resource type="AtlasTexture" id="AT_attack_16"]
+atlas = ExtResource("2_atk")
+region = Rect2(2880, 0, 180, 100)
+
+[sub_resource type="AtlasTexture" id="AT_idle_0"]
+atlas = ExtResource("1_idle")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_idle_1"]
+atlas = ExtResource("1_idle")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_idle_2"]
+atlas = ExtResource("1_idle")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_idle_3"]
+atlas = ExtResource("1_idle")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_idle_4"]
+atlas = ExtResource("1_idle")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_idle_5"]
+atlas = ExtResource("1_idle")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_idle_6"]
+atlas = ExtResource("1_idle")
+region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_idle_7"]
+atlas = ExtResource("1_idle")
+region = Rect2(700, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_powerup_0"]
+atlas = ExtResource("3_pwr")
+region = Rect2(0, 0, 100, 180)
+
+[sub_resource type="AtlasTexture" id="AT_powerup_1"]
+atlas = ExtResource("3_pwr")
+region = Rect2(100, 0, 100, 180)
+
+[sub_resource type="AtlasTexture" id="AT_powerup_2"]
+atlas = ExtResource("3_pwr")
+region = Rect2(200, 0, 100, 180)
+
+[sub_resource type="AtlasTexture" id="AT_powerup_3"]
+atlas = ExtResource("3_pwr")
+region = Rect2(300, 0, 100, 180)
+
+[sub_resource type="AtlasTexture" id="AT_powerup_4"]
+atlas = ExtResource("3_pwr")
+region = Rect2(400, 0, 100, 180)
+
+[sub_resource type="AtlasTexture" id="AT_powerup_5"]
+atlas = ExtResource("3_pwr")
+region = Rect2(500, 0, 100, 180)
+
+[sub_resource type="AtlasTexture" id="AT_powerup_6"]
+atlas = ExtResource("3_pwr")
+region = Rect2(600, 0, 100, 180)
+
+[sub_resource type="AtlasTexture" id="AT_powerup_7"]
+atlas = ExtResource("3_pwr")
+region = Rect2(700, 0, 100, 180)
+
+[sub_resource type="AtlasTexture" id="AT_powerup_8"]
+atlas = ExtResource("3_pwr")
+region = Rect2(800, 0, 100, 180)
+
+[sub_resource type="AtlasTexture" id="AT_powerup_9"]
+atlas = ExtResource("3_pwr")
+region = Rect2(900, 0, 100, 180)
+
+[sub_resource type="AtlasTexture" id="AT_powerup_10"]
+atlas = ExtResource("3_pwr")
+region = Rect2(1000, 0, 100, 180)
+
+[sub_resource type="AtlasTexture" id="AT_powerup_11"]
+atlas = ExtResource("3_pwr")
+region = Rect2(1100, 0, 100, 180)
+
+[sub_resource type="AtlasTexture" id="AT_powerup_12"]
+atlas = ExtResource("3_pwr")
+region = Rect2(1200, 0, 100, 180)
+
+[sub_resource type="AtlasTexture" id="AT_powerup_13"]
+atlas = ExtResource("3_pwr")
+region = Rect2(1300, 0, 100, 180)
+
+[sub_resource type="AtlasTexture" id="AT_powerup_14"]
+atlas = ExtResource("3_pwr")
+region = Rect2(1400, 0, 100, 180)
+
+[sub_resource type="AtlasTexture" id="AT_powerup_15"]
+atlas = ExtResource("3_pwr")
+region = Rect2(1500, 0, 100, 180)
+
+[sub_resource type="AtlasTexture" id="AT_powerup_16"]
+atlas = ExtResource("3_pwr")
+region = Rect2(1600, 0, 100, 180)
+
+[sub_resource type="AtlasTexture" id="AT_powerup_17"]
+atlas = ExtResource("3_pwr")
+region = Rect2(1700, 0, 100, 180)
+
+[sub_resource type="AtlasTexture" id="AT_powerup_18"]
+atlas = ExtResource("3_pwr")
+region = Rect2(1800, 0, 100, 180)
+
+[sub_resource type="AtlasTexture" id="AT_run_0"]
+atlas = ExtResource("4_run")
+region = Rect2(0, 0, 100, 125)
+
+[sub_resource type="AtlasTexture" id="AT_run_1"]
+atlas = ExtResource("4_run")
+region = Rect2(100, 0, 100, 125)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AT_attack_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack_9")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack_11")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack_12")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack_13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack_14")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack_15")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack_16")
+}],
+"loop": 0,
+"name": &"attack",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AT_idle_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_idle_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_idle_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_idle_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_idle_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_idle_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_idle_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_idle_7")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AT_powerup_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_powerup_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_powerup_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_powerup_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_powerup_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_powerup_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_powerup_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_powerup_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_powerup_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_powerup_9")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_powerup_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_powerup_11")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_powerup_12")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_powerup_13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_powerup_14")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_powerup_15")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_powerup_16")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_powerup_17")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_powerup_18")
+}],
+"loop": 0,
+"name": &"powerup",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AT_run_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_run_1")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 6.0
+}]

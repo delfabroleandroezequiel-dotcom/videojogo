@@ -1,0 +1,184 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://c7edvrd176qwl"]
+
+[ext_resource type="Texture2D" uid="uid://b7k6ani40vhbr" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/attack-A1.png" id="attack_a_1"]
+[ext_resource type="Texture2D" uid="uid://cuikpyi1jw1gw" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/attack-A2.png" id="attack_a_2"]
+[ext_resource type="Texture2D" uid="uid://cyofyqvgpq6jw" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/attack-A3.png" id="attack_a_3"]
+[ext_resource type="Texture2D" uid="uid://igl68mgnmvdg" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/attack-A4.png" id="attack_a_4"]
+[ext_resource type="Texture2D" uid="uid://r1koutct1aq5" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/attack-A5.png" id="attack_a_5"]
+[ext_resource type="Texture2D" uid="uid://dg1i54cf0lhve" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/attack-A6.png" id="attack_a_6"]
+[ext_resource type="Texture2D" uid="uid://dmn5hpulltvt2" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/attack-B1.png" id="attack_b_1"]
+[ext_resource type="Texture2D" uid="uid://df1xawml3js5l" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/attack-B2.png" id="attack_b_2"]
+[ext_resource type="Texture2D" uid="uid://cvpkk4h3xpjfd" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/attack-B3.png" id="attack_b_3"]
+[ext_resource type="Texture2D" uid="uid://dww7agvxtpsc5" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/attack-B4.png" id="attack_b_4"]
+[ext_resource type="Texture2D" uid="uid://cld4ytr2yg2vx" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/attack-B5.png" id="attack_b_5"]
+[ext_resource type="Texture2D" uid="uid://csvtcnlcerhsy" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/attack-B6.png" id="attack_b_6"]
+[ext_resource type="Texture2D" uid="uid://dcdip683rqo5k" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/attack-B7.png" id="attack_b_7"]
+[ext_resource type="Texture2D" uid="uid://854k4n31vm44" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/attack-B8.png" id="attack_b_8"]
+[ext_resource type="Texture2D" uid="uid://qyj8x1viwpih" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/attack-B9.png" id="attack_b_9"]
+[ext_resource type="Texture2D" uid="uid://bdtntkgmspbi1" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/attack-B10.png" id="attack_b_10"]
+[ext_resource type="Texture2D" uid="uid://mq8g7ihcx11a" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/dead-1.png" id="dead_1"]
+[ext_resource type="Texture2D" uid="uid://1l4cqyb86kik" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/dead-2.png" id="dead_2"]
+[ext_resource type="Texture2D" uid="uid://d0v0r6qkqvev5" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/dead-3.png" id="dead_3"]
+[ext_resource type="Texture2D" uid="uid://s8afcuij2my1" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/dead-4.png" id="dead_4"]
+[ext_resource type="Texture2D" uid="uid://bavwx5bd6b48o" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/hit-1.png" id="hit_1"]
+[ext_resource type="Texture2D" uid="uid://d1d6lc5358bfd" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/hit-2.png" id="hit_2"]
+[ext_resource type="Texture2D" uid="uid://wlm6c5cl4gwc" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/hit-3.png" id="hit_3"]
+[ext_resource type="Texture2D" uid="uid://c64pyht3g1ird" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/idle-1.png" id="idle_1"]
+[ext_resource type="Texture2D" uid="uid://dqphhcuvt61re" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/idle-2.png" id="idle_2"]
+[ext_resource type="Texture2D" uid="uid://code0lr2xdnjr" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/jump-1.png" id="jump_1"]
+[ext_resource type="Texture2D" uid="uid://pli2t43ajsff" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/jump-2.png" id="jump_2"]
+[ext_resource type="Texture2D" uid="uid://dti3c2ek5nscr" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/jump-3.png" id="jump_3"]
+[ext_resource type="Texture2D" uid="uid://bjysuqhhgeck" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/jump-4.png" id="jump_4"]
+[ext_resource type="Texture2D" uid="uid://dtilw24iv5vuy" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/jump-5.png" id="jump_5"]
+[ext_resource type="Texture2D" uid="uid://dw0l8w50i8slf" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/walk-1.png" id="walk_1"]
+[ext_resource type="Texture2D" uid="uid://bchswgd2c075c" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/walk-2.png" id="walk_2"]
+[ext_resource type="Texture2D" uid="uid://d2hekwuln66tq" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/walk-3.png" id="walk_3"]
+[ext_resource type="Texture2D" uid="uid://dnuuvtnq3i0x8" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/walk-4.png" id="walk_4"]
+[ext_resource type="Texture2D" uid="uid://b88d71dmprbgo" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/walk-5.png" id="walk_5"]
+[ext_resource type="Texture2D" uid="uid://du201g2vvr4tj" path="res://assets/external/Chars/HeroAndOponents/4 Enemy/PNG/walk-6.png" id="walk_6"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("attack_a_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_a_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_a_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_a_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_a_5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_a_6")
+}],
+"loop": 0,
+"name": &"attack_a",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("attack_b_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_b_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_b_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_b_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_b_5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_b_6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_b_7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_b_8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_b_9")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack_b_10")
+}],
+"loop": 0,
+"name": &"attack_b",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("dead_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("dead_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("dead_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("dead_4")
+}],
+"loop": 0,
+"name": &"dead",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("hit_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("hit_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("hit_3")
+}],
+"loop": 0,
+"name": &"hit",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("idle_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("idle_2")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("jump_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("jump_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("jump_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("jump_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("jump_5")
+}],
+"loop": 0,
+"name": &"jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("walk_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("walk_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("walk_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("walk_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("walk_5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("walk_6")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 10.0
+}]

@@ -65,6 +65,23 @@
 [ext_resource type="SpriteFrames" path="res://resources/sprites/HeavyBanditSpriteFrames.tres" id="70_heavybandit"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/LightBanditSpriteFrames.tres" id="71_lightbandit"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/HeroKnightSvenSpriteFrames.tres" id="72_heroknightsven"]
+[ext_resource type="SpriteFrames" uid="uid://bi6065140glyf" path="res://resources/sprites/AssassinSpriteFrames.tres" id="73_assassin"]
+[ext_resource type="SpriteFrames" uid="uid://bx8s65nrjqmcu" path="res://resources/sprites/HoundSpriteFrames.tres" id="74_hound"]
+[ext_resource type="SpriteFrames" uid="uid://moxcuv0ckiq2" path="res://resources/sprites/RaiderSpriteFrames.tres" id="75_raider"]
+[ext_resource type="SpriteFrames" uid="uid://dyo3cbh846dgd" path="res://resources/sprites/RiflemanSpriteFrames.tres" id="76_rifleman"]
+[ext_resource type="SpriteFrames" uid="uid://cye6vs5ciuuw6" path="res://resources/sprites/ThugSpriteFrames.tres" id="77_thug"]
+[ext_resource type="SpriteFrames" uid="uid://btt5wtvy3gjfl" path="res://resources/sprites/NecromancerSpriteFrames.tres" id="78_necromancer"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/AdventurerSpriteFrames.tres" id="80_adventurer"]
+[ext_resource type="SpriteFrames" uid="uid://ccyascnpjwmsd" path="res://resources/sprites/NightborneSpriteFrames.tres" id="81_nightborne"]
+[ext_resource type="PackedScene" path="res://scenes/world/TrainingDummy.tscn" id="82_trainingdummy"]
+[ext_resource type="SpriteFrames" uid="uid://ny7talqn81iy" path="res://resources/sprites/ArchDemonSpriteFrames.tres" id="83_archdemon"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/SkeletonWarriorSpriteFrames.tres" id="84_skeletonwarrior"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/SkeletonGuardSpriteFrames.tres" id="85_skeletonguard"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/ShadowUrchinSpriteFrames.tres" id="86_shadowurchin"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/ArmoredKnightSpriteFrames.tres" id="87_armoredknight"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/HoodedArcherSpriteFrames.tres" id="88_hoodedarcher"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/HeroSpriteFrames.tres" id="89_hero"]
+[ext_resource type="SpriteFrames" uid="uid://bsn1smcu554j0" path="res://resources/sprites/HoodedKnightSpriteFrames.tres" id="90_hoodedknight"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn06r"]
 size = Vector2(67, 11.360123)
@@ -13008,6 +13025,153 @@ CustomSpriteYOffset = -7.875
 CustomSpriteScale = Vector2(1.75, 1.75)
 CollisionSize = Vector2(77, 64)
 
+[node name="NpcAsesino" parent="." unique_id=710691565 instance=ExtResource("6_npc")]
+position = Vector2(1488, 430)
+NpcName = "NPC_ASESINO_NAME"
+DialogueLines = PackedStringArray("NPC_ASESINO_L1")
+CustomSpriteFrames = ExtResource("73_assassin")
+CustomSpriteYOffset = -0.78
+CustomSpriteScale = Vector2(1.5556, 1.5556)
+CollisionSize = Vector2(36, 64)
+
+[node name="NpcSabueso" parent="." unique_id=874847831 instance=ExtResource("6_npc")]
+position = Vector2(1544, 430)
+NpcName = "NPC_SABUESO_NAME"
+DialogueLines = PackedStringArray("NPC_SABUESO_L1")
+CustomSpriteFrames = ExtResource("74_hound")
+CustomSpriteYOffset = 10.89
+CustomSpriteScale = Vector2(1.6071, 1.6071)
+CollisionSize = Vector2(68, 64)
+
+[node name="NpcSaqueador" parent="." unique_id=784332862 instance=ExtResource("6_npc")]
+position = Vector2(1602.5, 430)
+NpcName = "NPC_SAQUEADOR_NAME"
+DialogueLines = PackedStringArray("NPC_SAQUEADOR_L1")
+CustomSpriteFrames = ExtResource("75_raider")
+CustomSpriteYOffset = -1.59
+CustomSpriteScale = Vector2(1.5909, 1.5909)
+CollisionSize = Vector2(41, 64)
+
+[node name="NpcFusilero" parent="." unique_id=2123515890 instance=ExtResource("6_npc")]
+position = Vector2(1649, 430)
+NpcName = "NPC_FUSILERO_NAME"
+DialogueLines = PackedStringArray("NPC_FUSILERO_L1")
+CustomSpriteFrames = ExtResource("76_rifleman")
+CustomSpriteYOffset = -0.78
+CustomSpriteScale = Vector2(1.5556, 1.5556)
+CollisionSize = Vector2(44, 64)
+
+[node name="NpcMaton" parent="." unique_id=1855986543 instance=ExtResource("6_npc")]
+position = Vector2(1694.5, 430)
+NpcName = "NPC_MATON_NAME"
+DialogueLines = PackedStringArray("NPC_MATON_L1")
+CustomSpriteFrames = ExtResource("77_thug")
+CustomSpriteYOffset = -0.78
+CustomSpriteScale = Vector2(1.5556, 1.5556)
+CollisionSize = Vector2(39, 64)
+
+[node name="NpcNigromante" parent="." unique_id=302445292 instance=ExtResource("6_npc")]
+position = Vector2(1746.5, 430)
+NpcName = "NPC_NIGROMANTE_NAME"
+DialogueLines = PackedStringArray("NPC_NIGROMANTE_L1")
+CustomSpriteFrames = ExtResource("78_necromancer")
+CustomSpriteYOffset = -3.37
+CustomSpriteScale = Vector2(1.3462, 1.3462)
+CollisionSize = Vector2(57, 64)
+
+[node name="NpcAventurero" parent="." unique_id=1681061159 instance=ExtResource("6_npc")]
+position = Vector2(1802, 430)
+NpcName = "NPC_AVENTURERO_NAME"
+DialogueLines = PackedStringArray("NPC_AVENTURERO_L1")
+CustomSpriteFrames = ExtResource("80_adventurer")
+CustomSpriteYOffset = -4.83
+CustomSpriteScale = Vector2(2.4138, 2.4138)
+CollisionSize = Vector2(46, 64)
+
+[node name="NpcNightborne" parent="." unique_id=875747854 instance=ExtResource("6_npc")]
+position = Vector2(1871, 430)
+NpcName = "NPC_NIGHTBORNE_NAME"
+DialogueLines = PackedStringArray("NPC_NIGHTBORNE_L1")
+CustomSpriteFrames = ExtResource("81_nightborne")
+CustomSpriteYOffset = -20.52
+CustomSpriteScale = Vector2(2.4138, 2.4138)
+CollisionSize = Vector2(84, 64)
+
+[node name="TrainingDummy" parent="." unique_id=1832157128 instance=ExtResource("82_trainingdummy")]
+position = Vector2(1946.5, 430)
+
+[node name="NpcArquerDemonio" parent="." unique_id=2026402980 instance=ExtResource("6_npc")]
+position = Vector2(2004, 430)
+NpcName = "NPC_ARQUERODEMONIO_NAME"
+DialogueLines = PackedStringArray("NPC_ARQUERODEMONIO_L1")
+CustomSpriteFrames = ExtResource("83_archdemon")
+CustomSpriteYOffset = 17.5
+CustomSpriteScale = Vector2(1.1667, 1.1667)
+CollisionSize = Vector2(48, 64)
+
+[node name="NpcEsqueletoGuerrero" parent="." unique_id=1184450072 instance=ExtResource("6_npc")]
+position = Vector2(2061, 430)
+NpcName = "NPC_ESQUELETOGUERRERO_NAME"
+DialogueLines = PackedStringArray("NPC_ESQUELETOGUERRERO_L1")
+CustomSpriteFrames = ExtResource("84_skeletonwarrior")
+CustomSpriteYOffset = -20.76
+CustomSpriteScale = Vector2(1.1864, 1.1864)
+CollisionSize = Vector2(58, 64)
+
+[node name="NpcEsqueletoGuardian" parent="." unique_id=1642262424 instance=ExtResource("6_npc")]
+position = Vector2(2111, 430)
+NpcName = "NPC_ESQUELETOGUARDIAN_NAME"
+DialogueLines = PackedStringArray("NPC_ESQUELETOGUARDIAN_L1")
+CustomSpriteFrames = ExtResource("85_skeletonguard")
+CustomSpriteYOffset = -19.83
+CustomSpriteScale = Vector2(1.1667, 1.1667)
+CollisionSize = Vector2(34, 64)
+
+[node name="NpcErizoSombrio" parent="." unique_id=409861920 instance=ExtResource("6_npc")]
+position = Vector2(2163, 430)
+NpcName = "NPC_ERIZOSOMBRIO_NAME"
+DialogueLines = PackedStringArray("NPC_ERIZOSOMBRIO_L1")
+CustomSpriteFrames = ExtResource("86_shadowurchin")
+CustomSpriteYOffset = -40.2
+CustomSpriteScale = Vector2(1.6, 1.6)
+CollisionSize = Vector2(62, 64)
+
+[node name="NpcCaballeroBlindado" parent="." unique_id=1910597167 instance=ExtResource("6_npc")]
+position = Vector2(2241.5, 430)
+NpcName = "NPC_CABALLEROBLINDADO_NAME"
+DialogueLines = PackedStringArray("NPC_CABALLEROBLINDADO_L1")
+CustomSpriteFrames = ExtResource("87_armoredknight")
+CustomSpriteYOffset = -18.93
+CustomSpriteScale = Vector2(1.1475, 1.1475)
+CollisionSize = Vector2(87, 64)
+
+[node name="NpcArqueroEncapuchado" parent="." unique_id=134445404 instance=ExtResource("6_npc")]
+position = Vector2(2309.5, 430)
+NpcName = "NPC_ARQUEROENCAPUCHADO_NAME"
+DialogueLines = PackedStringArray("NPC_ARQUEROENCAPUCHADO_L1")
+CustomSpriteFrames = ExtResource("88_hoodedarcher")
+CustomSpriteYOffset = -23.75
+CustomSpriteScale = Vector2(1.25, 1.25)
+CollisionSize = Vector2(41, 64)
+
+[node name="NpcHeroe" parent="." unique_id=1048412368 instance=ExtResource("6_npc")]
+position = Vector2(2347.5, 430)
+NpcName = "NPC_HEROE_NAME"
+DialogueLines = PackedStringArray("NPC_HEROE_L1")
+CustomSpriteFrames = ExtResource("89_hero")
+CustomSpriteYOffset = -1.17
+CustomSpriteScale = Vector2(1.1667, 1.1667)
+CollisionSize = Vector2(27, 64)
+
+[node name="NpcCaballeroEncapuchado" parent="." unique_id=1169250265 instance=ExtResource("6_npc")]
+position = Vector2(2397, 430)
+NpcName = "NPC_CABALLEROENCAPUCHADO_NAME"
+DialogueLines = PackedStringArray("NPC_CABALLEROENCAPUCHADO_L1")
+CustomSpriteFrames = ExtResource("90_hoodedknight")
+CustomSpriteYOffset = 0.85
+CustomSpriteScale = Vector2(0.8537, 0.8537)
+CollisionSize = Vector2(64, 64)
+
 [node name="NpcMujerGuerrera" parent="." unique_id=457384258 instance=ExtResource("6_npc")]
 position = Vector2(999, 430)
 NpcName = "NPC_MUJERGUERRERA_NAME"
@@ -13183,6 +13347,7 @@ position = Vector2(-1251.476, 290.63867)
 scale = Vector2(0.15, 0.15)
 
 [node name="BigShip2" parent="." unique_id=547341806 instance=ExtResource("57_476li")]
+z_index = 2
 position = Vector2(-1584, 444)
 flip_h = true
 

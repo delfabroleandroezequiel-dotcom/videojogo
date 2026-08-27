@@ -177,3 +177,35 @@ NPC_BANDITLIGERO_NAME,Bandido Ligero,Light Bandit,Bandido Ligeiro
 NPC_BANDITLIGERO_L1,Yo distraigo, él golpea. Así nos ganamos la vida.,I distract, he hits. That's how we make a living.,Eu distraio, ele bate. É assim que ganhamos a vida.
 NPC_CABALLEROSVEN_NAME,Caballero de Capa Azul,Blue-Caped Knight,Cavaleiro de Capa Azul
 NPC_CABALLEROSVEN_L1,Serví en la guardia real hasta que colgué la capa. Ahora solo viajo.,I served in the royal guard until I hung up the cape. Now I just travel.,Servi na guarda real até pendurar a capa. Agora só viajo.
+NPC_ASESINO_NAME,Asesino Encapuchado,Hooded Assassin,Assassino Encapuzado
+NPC_ASESINO_L1,No hago preguntas sobre el contrato. Solo sobre el pago.,I don't ask questions about the contract. Only about the payment.,Não faço perguntas sobre o contrato. Só sobre o pagamento.
+NPC_SABUESO_NAME,Sabueso,Hound,Sabujo
+NPC_SABUESO_L1,*gruñe suavemente y olfatea el aire*,*growls softly and sniffs the air*,*rosna suavemente e fareja o ar*
+NPC_SAQUEADOR_NAME,Saqueador,Raider,Saqueador
+NPC_SAQUEADOR_L1,Este hacha ha abierto más puertas que cualquier llave.,This axe has opened more doors than any key.,Este machado abriu mais portas que qualquer chave.
+NPC_FUSILERO_NAME,Fusilero,Rifleman,Fuzileiro
+NPC_FUSILERO_L1,Consigo un arma como esta y de repente todos quieren negociar.,Get a gun like this and suddenly everyone wants to negotiate.,Consigo uma arma dessas e de repente todo mundo quer negociar.
+NPC_MATON_NAME,Matón,Thug,Capanga
+NPC_MATON_L1,No es personal. Bueno, a veces sí.,It's not personal. Well, sometimes it is.,Não é pessoal. Bom, às vezes é.
+NPC_NIGROMANTE_NAME,Nigromante,Necromancer,Necromante
+NPC_NIGROMANTE_L1,Los muertos no se quejan del sueldo. Por eso prefiero su compañía.,The dead don't complain about pay. That's why I prefer their company.,Os mortos não reclamam do salário. Por isso prefiro a companhia deles.
+NPC_AVENTURERO_NAME,Aventurero,Adventurer,Aventureiro
+NPC_AVENTURERO_L1,Hay tesoros ahí afuera esperando a quien se anime a buscarlos.,There are treasures out there waiting for whoever's brave enough to look.,Há tesouros lá fora esperando por quem tiver coragem de procurar.
+NPC_NIGHTBORNE_NAME,Nightborne,Nightborne,Nightborne
+NPC_NIGHTBORNE_L1,La oscuridad no me asusta. Yo vengo de ella.,The darkness doesn't scare me. I come from it.,A escuridão não me assusta. Eu venho dela.
+NPC_ARQUERODEMONIO_NAME,Arquero Demonio,Demon Archer,Arqueiro Demônio
+NPC_ARQUERODEMONIO_L1,Mi flecha nunca falla. Ni siquiera necesito apuntar.,My arrow never misses. I don't even need to aim.,Minha flecha nunca erra. Nem preciso mirar.
+NPC_ESQUELETOGUERRERO_NAME,Esqueleto Guerrero,Skeleton Warrior,Esqueleto Guerreiro
+NPC_ESQUELETOGUERRERO_L1,La muerte no me quitó las ganas de pelear. Solo me quitó la piel.,Death didn't take away my will to fight. Just my skin.,A morte não tirou minha vontade de lutar. Só a minha pele.
+NPC_ESQUELETOGUARDIAN_NAME,Esqueleto Guardián,Skeleton Guard,Esqueleto Guardião
+NPC_ESQUELETOGUARDIAN_L1,Nada pasa este escudo. Ni siquiera el tiempo pudo.,Nothing gets past this shield. Not even time could.,Nada passa por este escudo. Nem o tempo conseguiu.
+NPC_ERIZOSOMBRIO_NAME,Erizo Sombrío,Shadow Urchin,Ouriço Sombrio
+NPC_ERIZOSOMBRIO_L1,No me toques. En serio.,Don't touch me. Seriously.,Não me toque. Sério.
+NPC_CABALLEROBLINDADO_NAME,Caballero Blindado,Armored Knight,Cavaleiro Blindado
+NPC_CABALLEROBLINDADO_L1,Esta armadura pesa más que mis remordimientos. Y ya es mucho decir.,This armor weighs more than my regrets. And that's saying something.,Esta armadura pesa mais que meus remorsos. E isso já é dizer muito.
+NPC_ARQUEROENCAPUCHADO_NAME,Arquero Encapuchado,Hooded Archer,Arqueiro Encapuzado
+NPC_ARQUEROENCAPUCHADO_L1,Ya te tenía en la mira antes de que llegaras.,I had you in my sights before you even arrived.,Já estava te mirando antes de você chegar.
+NPC_HEROE_NAME,Héroe,Hero,Herói
+NPC_HEROE_L1,Todo pueblo necesita un héroe. Por ahora, con escuchar ya ayudo.,Every town needs a hero. For now, just listening helps.,Todo povoado precisa de um herói. Por enquanto, já ajudo escutando.
+NPC_CABALLEROENCAPUCHADO_NAME,Caballero Encapuchado,Hooded Knight,Cavaleiro Encapuzado
+NPC_CABALLEROENCAPUCHADO_L1,Mi espada brilla sola. Yo solo trato de no cortarme.,My sword glows on its own. I just try not to cut myself.,Minha espada brilha sozinha. Eu só tento não me cortar.
