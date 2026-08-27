@@ -2568,18 +2568,24 @@ FallingSpiderSpawnRadiusX = 50.0
 FallingSpiderInitialDelay = 1.0
 FallingSpiderRespawnDelay = 0.4
 FallingSpiderLostTimeout = 6.0
-Phase3ExplosionInterval = 1.0
-Phase3TelegraphDuration = 0.85
-Phase3ExplosionActiveDuration = 0.35
-Phase3ExplosionDamage = 35
-Phase3ExplosionRadius = 70.0
+PhaseWebSpitCooldownMultiplier = PackedFloat32Array(1, 0.75, 0.55)
+PhaseExplosionInterval = PackedFloat32Array(3.5, 2.2, 1.3)
+ExplosionTelegraphDuration = 0.85
+ExplosionActiveDuration = 0.35
+ExplosionDamage = 35
+ExplosionRadius = 70.0
 MarkerFramesPath = "res://resources/sprites/Pj3MagicOrbLargeGreenSpriteFrames.tres"
 ExplosionFramesPath = "res://resources/sprites/SmokePoisonSpriteFrames.tres"
 ExplosionAnimation = "smoke_poison"
-MeleeImpactFramesPath = "res://resources/sprites/FanfxPoisonLargeGreenSpriteFrames.tres"
-MeleeBurstMinHits = 1
-MeleeBurstMaxHits = 1
-MeleeBurstGapDuration = 0.25
+LightTexturePath = "res://resources/lighting/PointLightGradient.tres"
+MarkerLightColor = Color(0.6, 1, 0.55, 1)
+MarkerLightEnergy = 0.9
+MarkerLightScale = 1.5
+ExplosionLightColor = Color(0.55, 0.9, 0.5, 1)
+ExplosionFlashEnergy = 1.8
+ExplosionFlashScale = 3.0
+ExplosionFlashDuration = 0.3
+AttackRange = 130.0
 CustomPersistenceId = "spider_boss_arena_test"
 
 [node name="CaveCollapseOverlay" parent="." unique_id=609541333 instance=ExtResource("8_cy052")]
@@ -2606,7 +2612,7 @@ TintColor = Color(0.35, 0.85, 0.4, 0.18)
 
 [node name="Pedrasboss" type="Sprite2D" parent="." unique_id=475770763]
 modulate = Color(0.3, 0.3, 0.3, 1)
-position = Vector2(717, 228)
+position = Vector2(672, 231)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("10_eusf1")
 

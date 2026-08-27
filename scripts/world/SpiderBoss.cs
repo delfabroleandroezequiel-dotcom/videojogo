@@ -6,6 +6,11 @@ namespace Metroidvania.World;
 // This only adds what makes THIS boss a spider: a ranged web-spit alongside its melee/lunge, and
 // summoning spiderling reinforcements at HP breakpoints (rather than a repeating timer) so adds
 // read as a deliberate phase change instead of an infinite spam mechanic.
+//
+// This is the CuevaBosqueLobo1 encounter specifically — SpiderBossArena is a separate, independent
+// boss (its own harder kit: no melee, escalating phases, infinite spiderling spam) that happens to
+// reuse this scene as its starting point but diverges completely in SpiderBossArena.cs. Don't fold
+// arena-only behavior back in here; this one stays as its own simpler fight.
 public partial class SpiderBoss : Boss
 {
 	[Export] public PackedScene WebProjectileScene;
@@ -27,6 +32,10 @@ public partial class SpiderBoss : Boss
 	// SpiderSpriteFrames.tres only has "attack" (no "attack1") — Boss.cs's default is tuned for
 	// BossLobo/BanditBoss's naming instead.
 	protected override string DefaultAttackAnimation => "attack";
+
+	// Neutral here (this encounter's cooldown never changes) — exists purely so SpiderBossArena can
+	// scale its own web spit faster per phase without touching this class or its private timer.
+	protected virtual float WebSpitCooldownMultiplier => 1f;
 
 	public override void _Ready()
 	{
@@ -105,7 +114,7 @@ public partial class SpiderBoss : Boss
 	private async void SpitWeb(Vector2 targetPosition)
 	{
 		_isWebSpitting = true;
-		_webSpitCooldownTimer = WebSpitCooldown;
+		_webSpitCooldownTimer = WebSpitCooldown * WebSpitCooldownMultiplier;
 
 		await ToSignal(GetTree().CreateTimer(WebSpitReleaseDelay), SceneTreeTimer.SignalName.Timeout);
 		if (!IsInstanceValid(this) || IsQueuedForRemoval)
