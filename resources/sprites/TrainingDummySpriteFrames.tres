@@ -1,0 +1,73 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://b5ycbfswofx2k"]
+
+[ext_resource type="Texture2D" uid="uid://bibe5vyoeclgy" path="res://assets/external/Training Dummy 2D Pixel Art/Sprites/IDLE.png" id="1_idle"]
+[ext_resource type="Texture2D" uid="uid://djtwb4cuft0hx" path="res://assets/external/Training Dummy 2D Pixel Art/Sprites/HIT.png" id="2_hit"]
+
+[sub_resource type="AtlasTexture" id="AT_hit_0"]
+atlas = ExtResource("2_hit")
+region = Rect2(0, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AT_hit_1"]
+atlas = ExtResource("2_hit")
+region = Rect2(80, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AT_hit_2"]
+atlas = ExtResource("2_hit")
+region = Rect2(160, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AT_hit_3"]
+atlas = ExtResource("2_hit")
+region = Rect2(240, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AT_hit_4"]
+atlas = ExtResource("2_hit")
+region = Rect2(320, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AT_hit_5"]
+atlas = ExtResource("2_hit")
+region = Rect2(400, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AT_hit_6"]
+atlas = ExtResource("2_hit")
+region = Rect2(480, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AT_idle_0"]
+atlas = ExtResource("1_idle")
+region = Rect2(0, 0, 80, 48)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AT_hit_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_hit_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_hit_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_hit_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_hit_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_hit_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_hit_6")
+}],
+"loop": 0,
+"name": &"hit",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AT_idle_0")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]

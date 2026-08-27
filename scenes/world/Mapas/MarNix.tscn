@@ -3706,7 +3706,9 @@ scale = Vector2(0.9, 0.9)
 PhaseOffset = 1.2
 
 [node name="BigShip4" parent="." unique_id=1007998657 instance=ExtResource("9_ship")]
+z_index = 2
 position = Vector2(-1670, 96)
+rotation = -0.0022712233
 flip_h = true
 PhaseOffset = 3.7
 
@@ -3805,9 +3807,11 @@ FlipHorizontal = true
 position = Vector2(-1296, 26)
 
 [node name="BigShip1" parent="." unique_id=1937493553 instance=ExtResource("9_ship")]
+z_index = 2
 position = Vector2(979, 174)
 
 [node name="BigShip3" parent="." unique_id=1728800292 instance=ExtResource("9_ship")]
+z_index = 2
 position = Vector2(-414, 174)
 flip_h = true
 PhaseOffset = 2.4
@@ -3819,6 +3823,7 @@ position = Vector2(569, 48)
 position = Vector2(-1086, 52)
 
 [node name="BigShip5" parent="." unique_id=805178806 instance=ExtResource("17_maycc")]
+z_index = 2
 position = Vector2(1672, 324)
 flip_h = true
 

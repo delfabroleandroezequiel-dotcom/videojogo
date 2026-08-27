@@ -1,0 +1,31 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/TrainingDummy.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://b47a4kpptnpqi" path="res://scripts/shared/Stats.cs" id="2_stats"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/TrainingDummySpriteFrames.tres" id="3_spriteframes"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
+size = Vector2(59, 64)
+
+[node name="TrainingDummy" type="StaticBody2D" groups=["training_dummy"]]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual"]
+position = Vector2(0, -5.1)
+scale = Vector2(1.7949, 1.7949)
+sprite_frames = ExtResource("3_spriteframes")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("2_stats")
+MaxHealth = 50
+AttackPower = 0
+MaxStamina = 50
