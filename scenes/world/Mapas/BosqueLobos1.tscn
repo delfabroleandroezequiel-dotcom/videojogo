@@ -2937,6 +2937,7 @@ randomness = 0.5
 process_material = ExtResource("5_73lfw")
 
 [node name="WeatherOverlay" parent="." unique_id=-1194967297 instance=ExtResource("6_ddojd")]
+ForceWeatherIndex = -1
 
 [node name="Background" type="Node2D" parent="." unique_id=-1194967294]
 z_index = -10

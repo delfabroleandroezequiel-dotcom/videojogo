@@ -1,0 +1,44 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/ThunderEffectPack/Effect Pack #2/Effect 5/Effect 5.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AT_marker_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AT_marker_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AT_marker_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AT_marker_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AT_marker_4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AT_marker_5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AT_marker_6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AT_marker_7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AT_marker_8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1024, 0, 128, 128)
+
+[resource]
+animations = [{"frames": [
+{"duration": 1.0, "texture": SubResource("AT_marker_0")}, {"duration": 1.0, "texture": SubResource("AT_marker_1")}, {"duration": 1.0, "texture": SubResource("AT_marker_2")}, {"duration": 1.0, "texture": SubResource("AT_marker_3")}, {"duration": 1.0, "texture": SubResource("AT_marker_4")}, {"duration": 1.0, "texture": SubResource("AT_marker_5")}, {"duration": 1.0, "texture": SubResource("AT_marker_6")}, {"duration": 1.0, "texture": SubResource("AT_marker_7")}, {"duration": 1.0, "texture": SubResource("AT_marker_8")}], "loop": 0, "name": &"marker", "speed": 10.0
+}]

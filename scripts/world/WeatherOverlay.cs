@@ -10,6 +10,11 @@ public partial class WeatherOverlay : CanvasLayer
 	[Export] public AudioStream[] WeatherSounds = System.Array.Empty<AudioStream>();
 	[Export] public string AnimationName = "loop";
 
+	// -2 (default) keeps the random roll below. Set to a specific WeatherFrames index (0 = rain,
+	// per the shared WeatherOverlay.tscn's array order) on a map instance that wants a guaranteed
+	// weather instead of leaving it to chance — e.g. the desert boss fight wants rain every time.
+	[Export] public int ForceWeatherIndex = -2;
+
 	private AnimatedSprite2D _sprite;
 	private AudioStreamPlayer _audio;
 	private int _index = -1; // -1 = no weather
@@ -19,8 +24,10 @@ public partial class WeatherOverlay : CanvasLayer
 		_sprite = GetNode<AnimatedSprite2D>("Weather");
 		_audio = GetNode<AudioStreamPlayer>("WeatherAudio");
 
-		// -1..Length-1 inclusive, so "no weather" is just one more equally likely option.
-		_index = WeatherFrames.Length == 0 ? -1 : GD.RandRange(-1, WeatherFrames.Length - 1);
+		// -1..Length-1 inclusive, so "no weather" is just one more equally likely option — unless
+		// this instance forces a specific one.
+		_index = ForceWeatherIndex > -2 ? ForceWeatherIndex
+			: WeatherFrames.Length == 0 ? -1 : GD.RandRange(-1, WeatherFrames.Length - 1);
 		ApplyState();
 	}
 

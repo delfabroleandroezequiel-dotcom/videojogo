@@ -1,0 +1,427 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://cn84nbi6r13p3"]
+
+[ext_resource type="Texture2D" uid="uid://cfl27ltgbkcqp" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 1.png" id="f_1"]
+[ext_resource type="Texture2D" uid="uid://dpu03bnjmvdye" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 2.png" id="f_2"]
+[ext_resource type="Texture2D" uid="uid://ccvgnkb55ogjb" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 3.png" id="f_3"]
+[ext_resource type="Texture2D" uid="uid://co6yqwgt45u7l" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 4.png" id="f_4"]
+[ext_resource type="Texture2D" uid="uid://c8ofq4fl5wcl4" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 5.png" id="f_5"]
+[ext_resource type="Texture2D" uid="uid://2lks846v6cnn" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 6.png" id="f_6"]
+[ext_resource type="Texture2D" uid="uid://bh52kwb23d04i" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 7.png" id="f_7"]
+[ext_resource type="Texture2D" uid="uid://c1rti8ci8820y" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 8.png" id="f_8"]
+[ext_resource type="Texture2D" uid="uid://cctnnxoh77yng" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 9.png" id="f_9"]
+[ext_resource type="Texture2D" uid="uid://bghmx7pimb1pk" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 10.png" id="f_10"]
+[ext_resource type="Texture2D" uid="uid://bp0r3g26w14kc" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 11.png" id="f_11"]
+[ext_resource type="Texture2D" uid="uid://dpbuv6wb0b4kv" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 12.png" id="f_12"]
+[ext_resource type="Texture2D" uid="uid://cohyrd3dfhnwv" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 13.png" id="f_13"]
+[ext_resource type="Texture2D" uid="uid://bm3sa1f8kqgey" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 14.png" id="f_14"]
+[ext_resource type="Texture2D" uid="uid://bc2ja526p15yj" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 15.png" id="f_15"]
+[ext_resource type="Texture2D" uid="uid://chfee1rnjc4s2" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 16.png" id="f_16"]
+[ext_resource type="Texture2D" uid="uid://6t5tuyqx3f1q" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 17.png" id="f_17"]
+[ext_resource type="Texture2D" uid="uid://eu4qxia7v1pq" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 18.png" id="f_18"]
+[ext_resource type="Texture2D" uid="uid://dq3uwrdf510t2" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 19.png" id="f_19"]
+[ext_resource type="Texture2D" uid="uid://bn2prp3k7q451" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 20.png" id="f_20"]
+[ext_resource type="Texture2D" uid="uid://cc2yxajuswxhb" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 21.png" id="f_21"]
+[ext_resource type="Texture2D" uid="uid://yc6pogkpqb46" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 22.png" id="f_22"]
+[ext_resource type="Texture2D" uid="uid://dcgsu0v7mgy6v" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 23.png" id="f_23"]
+[ext_resource type="Texture2D" uid="uid://5wdyeuapl6xi" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 24.png" id="f_24"]
+[ext_resource type="Texture2D" uid="uid://bsru5mvk475nb" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 25.png" id="f_25"]
+[ext_resource type="Texture2D" uid="uid://8ghtq48fl8hr" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 26.png" id="f_26"]
+[ext_resource type="Texture2D" uid="uid://cg3gaa157m17m" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 27.png" id="f_27"]
+[ext_resource type="Texture2D" uid="uid://bemgv8p0rdax7" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 28.png" id="f_28"]
+[ext_resource type="Texture2D" uid="uid://00gi708nohj" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 32.png" id="f_32"]
+[ext_resource type="Texture2D" uid="uid://d0vyxq75ihhg3" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 33.png" id="f_33"]
+[ext_resource type="Texture2D" uid="uid://c41qbu8h3r2y8" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 34.png" id="f_34"]
+[ext_resource type="Texture2D" uid="uid://cgnlwh7k28ju0" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 35.png" id="f_35"]
+[ext_resource type="Texture2D" uid="uid://bu1dljmsy852e" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 36.png" id="f_36"]
+[ext_resource type="Texture2D" uid="uid://b5x6mobk1786u" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 37.png" id="f_37"]
+[ext_resource type="Texture2D" uid="uid://2fgtj3x14agj" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 38.png" id="f_38"]
+[ext_resource type="Texture2D" uid="uid://d4dp40i0n8t2x" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 39.png" id="f_39"]
+[ext_resource type="Texture2D" uid="uid://cetoa76qlr2ti" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 40.png" id="f_40"]
+[ext_resource type="Texture2D" uid="uid://cp6ghtffmoctp" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 41.png" id="f_41"]
+[ext_resource type="Texture2D" uid="uid://bncp4gnthobtq" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 42.png" id="f_42"]
+[ext_resource type="Texture2D" uid="uid://8siu0cc6fkwd" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 43.png" id="f_43"]
+[ext_resource type="Texture2D" uid="uid://csqfcw3ah7b5h" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 44.png" id="f_44"]
+[ext_resource type="Texture2D" uid="uid://daf14r4ers8sg" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 45.png" id="f_45"]
+[ext_resource type="Texture2D" uid="uid://djou8x8obac1r" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 46.png" id="f_46"]
+[ext_resource type="Texture2D" uid="uid://c570pqf37kbuu" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 47.png" id="f_47"]
+[ext_resource type="Texture2D" uid="uid://d4lf1b5d03ir5" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 48.png" id="f_48"]
+[ext_resource type="Texture2D" uid="uid://cdxbbapqefd3b" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 49.png" id="f_49"]
+[ext_resource type="Texture2D" uid="uid://31oemc10wr2s" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 50.png" id="f_50"]
+[ext_resource type="Texture2D" uid="uid://cg4d8ywal1qac" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 51.png" id="f_51"]
+[ext_resource type="Texture2D" uid="uid://cgsc7wp00bg1p" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 52.png" id="f_52"]
+[ext_resource type="Texture2D" uid="uid://khf3u3sc4hqk" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 53.png" id="f_53"]
+[ext_resource type="Texture2D" uid="uid://bee87nquk6yoy" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 54.png" id="f_54"]
+[ext_resource type="Texture2D" uid="uid://1nublb4i7h8k" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 55.png" id="f_55"]
+[ext_resource type="Texture2D" uid="uid://bn2irftoqdug0" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 56.png" id="f_56"]
+[ext_resource type="Texture2D" uid="uid://crwnjlb4nekwp" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 57.png" id="f_57"]
+[ext_resource type="Texture2D" uid="uid://bl5w7gfyljfi0" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 60.png" id="f_60"]
+[ext_resource type="Texture2D" uid="uid://c6k0ncsqm3etq" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 61.png" id="f_61"]
+[ext_resource type="Texture2D" uid="uid://bmay2xrm1a54s" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 62.png" id="f_62"]
+[ext_resource type="Texture2D" uid="uid://bt6csc1ggqfpp" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 63.png" id="f_63"]
+[ext_resource type="Texture2D" uid="uid://dwb58v0yiv4ei" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 64.png" id="f_64"]
+[ext_resource type="Texture2D" uid="uid://i5ncwlqi5jwu" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 65.png" id="f_65"]
+[ext_resource type="Texture2D" uid="uid://n1ah1uyyy3m" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 66.png" id="f_66"]
+[ext_resource type="Texture2D" uid="uid://c24pl40ughof6" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 67.png" id="f_67"]
+[ext_resource type="Texture2D" uid="uid://dilot2i1bc270" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 68.png" id="f_68"]
+[ext_resource type="Texture2D" uid="uid://bppjcnylvn877" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 69.png" id="f_69"]
+[ext_resource type="Texture2D" uid="uid://b76pkhd1xbrqw" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 70.png" id="f_70"]
+[ext_resource type="Texture2D" uid="uid://cwld2bku8lld" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 71.png" id="f_71"]
+[ext_resource type="Texture2D" uid="uid://c4ke6mq86jdot" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 72.png" id="f_72"]
+[ext_resource type="Texture2D" uid="uid://ceqkg0p0cn56g" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 73.png" id="f_73"]
+[ext_resource type="Texture2D" uid="uid://b5br6smh2cqf5" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 74.png" id="f_74"]
+[ext_resource type="Texture2D" uid="uid://rvi1wnikhcks" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 75.png" id="f_75"]
+[ext_resource type="Texture2D" uid="uid://dmwwq2hpihtn1" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 76.png" id="f_76"]
+[ext_resource type="Texture2D" uid="uid://bwcbfdtawwfn7" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 77.png" id="f_77"]
+[ext_resource type="Texture2D" uid="uid://dcrte11f0kws" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 78.png" id="f_78"]
+[ext_resource type="Texture2D" uid="uid://crq35t4i4hjsf" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 79.png" id="f_79"]
+[ext_resource type="Texture2D" uid="uid://812qa70b33vn" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 80.png" id="f_80"]
+[ext_resource type="Texture2D" uid="uid://c04ofqv2aknjv" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 81.png" id="f_81"]
+[ext_resource type="Texture2D" uid="uid://bo224071fsrf0" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 82.png" id="f_82"]
+[ext_resource type="Texture2D" uid="uid://dpcq60vqq5gjp" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 86.png" id="f_86"]
+[ext_resource type="Texture2D" uid="uid://cij0yjsxsfgga" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 87.png" id="f_87"]
+[ext_resource type="Texture2D" uid="uid://bkl2bn62dohkh" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 88.png" id="f_88"]
+[ext_resource type="Texture2D" uid="uid://tu02xdt455pl" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 89.png" id="f_89"]
+[ext_resource type="Texture2D" uid="uid://cchy6bq7esk13" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 90.png" id="f_90"]
+[ext_resource type="Texture2D" uid="uid://ytcnalx4c0dk" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 91.png" id="f_91"]
+[ext_resource type="Texture2D" uid="uid://cr0xa6453lr5q" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 92.png" id="f_92"]
+[ext_resource type="Texture2D" uid="uid://bw7yqovqmw2ui" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 93.png" id="f_93"]
+[ext_resource type="Texture2D" uid="uid://ca27xb467tjou" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 94.png" id="f_94"]
+[ext_resource type="Texture2D" uid="uid://ceyfk2wsucakr" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 95.png" id="f_95"]
+[ext_resource type="Texture2D" uid="uid://cupk0e4e7a8f8" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 96.png" id="f_96"]
+[ext_resource type="Texture2D" uid="uid://dxbliom0dd17j" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 97.png" id="f_97"]
+[ext_resource type="Texture2D" uid="uid://dk413mqpm6hst" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 98.png" id="f_98"]
+[ext_resource type="Texture2D" uid="uid://voqkmihltbo7" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 99.png" id="f_99"]
+[ext_resource type="Texture2D" uid="uid://c6l5s5bxdsjwv" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 100.png" id="f_100"]
+[ext_resource type="Texture2D" uid="uid://cmegduhepkua1" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 101.png" id="f_101"]
+[ext_resource type="Texture2D" uid="uid://bybn0bnrkni28" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 102.png" id="f_102"]
+[ext_resource type="Texture2D" uid="uid://7pw1qydpjle5" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 103.png" id="f_103"]
+[ext_resource type="Texture2D" uid="uid://hf88lih8rl7b" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 104.png" id="f_104"]
+[ext_resource type="Texture2D" uid="uid://cynwwebxsajgj" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 105.png" id="f_105"]
+[ext_resource type="Texture2D" uid="uid://bfu0rw03iudb4" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 106.png" id="f_106"]
+[ext_resource type="Texture2D" uid="uid://c8pniwb8tnwji" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 107.png" id="f_107"]
+[ext_resource type="Texture2D" uid="uid://c22no8356losj" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 108.png" id="f_108"]
+[ext_resource type="Texture2D" uid="uid://dl6e3sns5hv23" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 109.png" id="f_109"]
+[ext_resource type="Texture2D" uid="uid://b2n6urnfuf1mk" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 110.png" id="f_110"]
+[ext_resource type="Texture2D" uid="uid://diki5tsk1wkyc" path="res://assets/external/Chars/Giant Boss Pack –  2D Pixel Art Boss Collection/Boss (2)/Animation/PNG/Boss (2) 111.png" id="f_111"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("f_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_9")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_11")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_13")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_14")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_15")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_16")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_17")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_18")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_19")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_20")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_21")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_22")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_23")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_24")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_25")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_26")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_27")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_28")
+}],
+"loop": 0,
+"name": &"emerge",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("f_32")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_33")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_34")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_35")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_36")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_37")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_38")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_39")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_40")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_41")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_42")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_43")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_44")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_45")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_46")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_47")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_48")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_49")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_50")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_51")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_52")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_53")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_54")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_55")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_56")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_57")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_60")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_61")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_62")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_63")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_64")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_65")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_66")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_67")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_68")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_69")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_70")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_71")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_72")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_73")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_74")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_75")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_76")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_77")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_78")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_79")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_80")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_81")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_82")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_86")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_87")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_88")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_89")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_90")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_91")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_92")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_93")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_94")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_95")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_96")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_97")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_98")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_99")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_100")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_101")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_102")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_103")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_104")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_105")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_106")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_107")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_108")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_109")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_110")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f_111")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 12.0
+}]

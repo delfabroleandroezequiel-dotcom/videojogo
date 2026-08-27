@@ -9,6 +9,11 @@
 [ext_resource type="Texture2D" uid="uid://b37c5fqvueq8p" path="res://assets/backgrounds/caminodesierto.png" id="7_bg"]
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="8_player"]
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="9_transition"]
+[ext_resource type="PackedScene" path="res://scenes/world/SkeletonKingBoss.tscn" id="10_skeletonking"]
+[ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="11_parallax"]
+[ext_resource type="Texture2D" uid="uid://bj85kg3p1wddm" path="res://scenes/world/Mapas/piramide.png" id="11_qg6my"]
+[ext_resource type="Texture2D" uid="uid://lyxxdyldudnk" path="res://assets/external/_PNG/background/background_day2.png" id="12_cloud_a"]
+[ext_resource type="Texture2D" uid="uid://cldsonja71wum" path="res://assets/external/_PNG/background/background_day3.png" id="13_cloud_b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1774, 56)
@@ -26,7 +31,7 @@ CameraLimitBottom = 550
 environment = ExtResource("3_postprocess")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=19464656]
-color = Color(1, 0.95, 0.85, 1)
+color = Color(0.25, 0.25, 0.4, 1)
 
 [node name="DustMotes" type="GPUParticles2D" parent="." unique_id=664355185]
 position = Vector2(150, 258)
@@ -37,6 +42,7 @@ randomness = 0.5
 process_material = ExtResource("5_dustprocess")
 
 [node name="WeatherOverlay" parent="." unique_id=2076404700 instance=ExtResource("6_weather")]
+ForceWeatherIndex = 0
 
 [node name="Background" type="Node2D" parent="." unique_id=955525460]
 z_index = -10
@@ -45,12 +51,54 @@ z_index = -10
 position = Vector2(887, 0)
 texture = ExtResource("7_bg")
 
+[node name="CloudsOverlay" type="Node2D" parent="." unique_id=1668034639]
+z_index = -8
+script = ExtResource("11_parallax")
+ParallaxFactor = Vector2(0.15, 0.05)
+
+[node name="Cloud1" type="Sprite2D" parent="CloudsOverlay" unique_id=1431869098]
+position = Vector2(-1800, -26)
+texture = ExtResource("12_cloud_a")
+
+[node name="Cloud2" type="Sprite2D" parent="CloudsOverlay" unique_id=1883350572]
+position = Vector2(-1200, -26)
+texture = ExtResource("13_cloud_b")
+
+[node name="Cloud3" type="Sprite2D" parent="CloudsOverlay" unique_id=486565279]
+position = Vector2(-600, -26)
+texture = ExtResource("12_cloud_a")
+
+[node name="Cloud4" type="Sprite2D" parent="CloudsOverlay" unique_id=640637305]
+position = Vector2(0, -26)
+texture = ExtResource("13_cloud_b")
+
+[node name="Cloud5" type="Sprite2D" parent="CloudsOverlay" unique_id=1074712556]
+position = Vector2(600, -26)
+texture = ExtResource("12_cloud_a")
+
+[node name="Cloud6" type="Sprite2D" parent="CloudsOverlay" unique_id=913324925]
+position = Vector2(1200, -26)
+texture = ExtResource("13_cloud_b")
+
+[node name="Cloud7" type="Sprite2D" parent="CloudsOverlay" unique_id=1694471695]
+position = Vector2(1800, -26)
+texture = ExtResource("12_cloud_a")
+
+[node name="Cloud8" type="Sprite2D" parent="CloudsOverlay" unique_id=1201638023]
+position = Vector2(2400, -26)
+texture = ExtResource("13_cloud_b")
+
 [node name="Floor" type="StaticBody2D" parent="." unique_id=767381899]
 position = Vector2(887, 333)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1857164837]
 position = Vector2(-7, -37)
 shape = SubResource("RectangleShape2D_floor")
+
+[node name="Piramide" type="Sprite2D" parent="." unique_id=1157691324]
+position = Vector2(833, -29)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("11_qg6my")
 
 [node name="Player" parent="." unique_id=76887255 instance=ExtResource("8_player")]
 position = Vector2(114, 229)
@@ -68,3 +116,6 @@ TargetScenePath = "res://scenes/world/Mapas/CaminoNieve.tscn"
 TargetSpawnPosition = Vector2(100, 270)
 RequireInteract = true
 RememberOriginForReturn = true
+
+[node name="SkeletonKingBoss" parent="." unique_id=252701767 instance=ExtResource("10_skeletonking")]
+position = Vector2(828, 280)
