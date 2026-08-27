@@ -51,6 +51,7 @@ shader = ExtResource("22_spike_shader")
 [node name="Player" type="CharacterBody2D" unique_id=1867495339 groups=["player"]]
 collision_layer = 2
 floor_snap_length = 12.0
+z_index = 1
 script = ExtResource("1_script")
 FireSpriteFrames = ExtResource("11_fireframes")
 ArrowProjectileScene = ExtResource("18_projectile")
@@ -87,6 +88,14 @@ sprite_frames = ExtResource("6_spriteframes")
 animation = &"idle"
 autoplay = "idle"
 offset = Vector2(0, -5)
+
+[node name="BacklightGlow" type="Sprite2D" parent="Visual"]
+z_index = -1
+position = Vector2(-2, -10)
+scale = Vector2(0.32, 0.32)
+modulate = Color(1, 1, 1, 0.3)
+material = SubResource("CanvasItemMaterial_auraadd")
+texture = ExtResource("17_lightgrad")
 
 [node name="Head" type="Polygon2D" parent="Visual" unique_id=1781763319]
 visible = false
@@ -245,6 +254,7 @@ StartWithChargedAttack = true
 StartWithPoundAttack = true
 StartWithUpAttack = true
 StartWithLedgeGrab = true
+StartWithComboFinisher = true
 StartWithRopeSwing = true
 StartWithSwim = true
 StartWithBow = true
