@@ -1,13 +1,13 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://dqugr06wo4237"]
 
-[ext_resource type="Texture2D" uid="uid://omlsnwk6xnb3" path="res://assets/external/EVil Wizard 2/Sprites/Attack1.png" id="attack1_s"]
-[ext_resource type="Texture2D" uid="uid://dxly5no4dodrx" path="res://assets/external/EVil Wizard 2/Sprites/Attack2.png" id="attack2_s"]
-[ext_resource type="Texture2D" uid="uid://cqo0n2bagbn24" path="res://assets/external/EVil Wizard 2/Sprites/Death.png" id="death_s"]
-[ext_resource type="Texture2D" uid="uid://cqnpblwk1gu8q" path="res://assets/external/EVil Wizard 2/Sprites/Fall.png" id="fall_s"]
-[ext_resource type="Texture2D" uid="uid://5kuc73hirdiq" path="res://assets/external/EVil Wizard 2/Sprites/Take hit.png" id="hit_s"]
-[ext_resource type="Texture2D" uid="uid://d01ycw82esrnq" path="res://assets/external/EVil Wizard 2/Sprites/Idle.png" id="idle_s"]
-[ext_resource type="Texture2D" uid="uid://bbiqtv345yj3t" path="res://assets/external/EVil Wizard 2/Sprites/Jump.png" id="jump_s"]
-[ext_resource type="Texture2D" uid="uid://c60rnhd6tss8" path="res://assets/external/EVil Wizard 2/Sprites/Run.png" id="run_s"]
+[ext_resource type="Texture2D" uid="uid://omlsnwk6xnb3" path="res://assets/external/Chars/EVil Wizard 2/Sprites/Attack1.png" id="attack1_s"]
+[ext_resource type="Texture2D" uid="uid://dxly5no4dodrx" path="res://assets/external/Chars/EVil Wizard 2/Sprites/Attack2.png" id="attack2_s"]
+[ext_resource type="Texture2D" uid="uid://cqo0n2bagbn24" path="res://assets/external/Chars/EVil Wizard 2/Sprites/Death.png" id="death_s"]
+[ext_resource type="Texture2D" uid="uid://cqnpblwk1gu8q" path="res://assets/external/Chars/EVil Wizard 2/Sprites/Fall.png" id="fall_s"]
+[ext_resource type="Texture2D" uid="uid://5kuc73hirdiq" path="res://assets/external/Chars/EVil Wizard 2/Sprites/Take hit.png" id="hit_s"]
+[ext_resource type="Texture2D" uid="uid://d01ycw82esrnq" path="res://assets/external/Chars/EVil Wizard 2/Sprites/Idle.png" id="idle_s"]
+[ext_resource type="Texture2D" uid="uid://bbiqtv345yj3t" path="res://assets/external/Chars/EVil Wizard 2/Sprites/Jump.png" id="jump_s"]
+[ext_resource type="Texture2D" uid="uid://c60rnhd6tss8" path="res://assets/external/Chars/EVil Wizard 2/Sprites/Run.png" id="run_s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_attack1_f0"]
 atlas = ExtResource("attack1_s")

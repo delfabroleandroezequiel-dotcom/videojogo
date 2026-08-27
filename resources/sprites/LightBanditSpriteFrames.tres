@@ -1,64 +1,189 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://sv2oonats8vh"]
 
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Idle/LightBandit_Idle_0.png" id="idle_0"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Idle/LightBandit_Idle_1.png" id="idle_1"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Idle/LightBandit_Idle_2.png" id="idle_2"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Idle/LightBandit_Idle_3.png" id="idle_3"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Run/LightBandit_Run_0.png" id="run_0"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Run/LightBandit_Run_1.png" id="run_1"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Run/LightBandit_Run_2.png" id="run_2"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Run/LightBandit_Run_3.png" id="run_3"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Run/LightBandit_Run_4.png" id="run_4"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Run/LightBandit_Run_5.png" id="run_5"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Run/LightBandit_Run_6.png" id="run_6"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Run/LightBandit_Run_7.png" id="run_7"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Attack/LightBandit_Attack_0.png" id="attack_0"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Attack/LightBandit_Attack_1.png" id="attack_1"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Attack/LightBandit_Attack_2.png" id="attack_2"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Attack/LightBandit_Attack_3.png" id="attack_3"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Attack/LightBandit_Attack_4.png" id="attack_4"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Attack/LightBandit_Attack_5.png" id="attack_5"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Attack/LightBandit_Attack_6.png" id="attack_6"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Attack/LightBandit_Attack_7.png" id="attack_7"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Combat Idle/LightBandit_Combat Idle_0.png" id="combatidle_0"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Combat Idle/LightBandit_Combat Idle_1.png" id="combatidle_1"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Combat Idle/LightBandit_Combat Idle_2.png" id="combatidle_2"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Combat Idle/LightBandit_Combat Idle_3.png" id="combatidle_3"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Hurt/LightBandit_Hurt_0.png" id="hurt_0"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Hurt/LightBandit_Hurt_1.png" id="hurt_1"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Jump/LightBandit_Jump_0.png" id="jump_0"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Recover/LightBandit_Recover_0.png" id="recover_0"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Recover/LightBandit_Recover_1.png" id="recover_1"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Recover/LightBandit_Recover_2.png" id="recover_2"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Recover/LightBandit_Recover_3.png" id="recover_3"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Recover/LightBandit_Recover_4.png" id="recover_4"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Recover/LightBandit_Recover_5.png" id="recover_5"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Recover/LightBandit_Recover_6.png" id="recover_6"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Recover/LightBandit_Recover_7.png" id="recover_7"]
-[ext_resource type="Texture2D" path="res://assets/external/Bandits/Sprites/Light Bandit/Death/LightBandit_Death_0.png" id="death_0"]
+[ext_resource type="Texture2D" uid="uid://cb72afscqb0ye" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Attack/LightBandit_Attack_0.png" id="attack_0"]
+[ext_resource type="Texture2D" uid="uid://dwklst5lmmqan" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Attack/LightBandit_Attack_1.png" id="attack_1"]
+[ext_resource type="Texture2D" uid="uid://k6ofjdc6mwlt" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Attack/LightBandit_Attack_2.png" id="attack_2"]
+[ext_resource type="Texture2D" uid="uid://ddl7nxyvbk1bc" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Attack/LightBandit_Attack_3.png" id="attack_3"]
+[ext_resource type="Texture2D" uid="uid://dsladylyy6s02" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Attack/LightBandit_Attack_4.png" id="attack_4"]
+[ext_resource type="Texture2D" uid="uid://dvqsrhkyt06o" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Attack/LightBandit_Attack_5.png" id="attack_5"]
+[ext_resource type="Texture2D" uid="uid://bkvb2dplp8cnj" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Attack/LightBandit_Attack_6.png" id="attack_6"]
+[ext_resource type="Texture2D" uid="uid://b16rc50ne72dt" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Attack/LightBandit_Attack_7.png" id="attack_7"]
+[ext_resource type="Texture2D" uid="uid://ca2jx8q5p8n70" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Combat Idle/LightBandit_Combat Idle_0.png" id="combatidle_0"]
+[ext_resource type="Texture2D" uid="uid://do4qes6c1juoh" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Combat Idle/LightBandit_Combat Idle_1.png" id="combatidle_1"]
+[ext_resource type="Texture2D" uid="uid://cnrtfxlfflbk3" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Combat Idle/LightBandit_Combat Idle_2.png" id="combatidle_2"]
+[ext_resource type="Texture2D" uid="uid://dsagd22xj0ra4" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Combat Idle/LightBandit_Combat Idle_3.png" id="combatidle_3"]
+[ext_resource type="Texture2D" uid="uid://dhf7le7dtt450" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Death/LightBandit_Death_0.png" id="death_0"]
+[ext_resource type="Texture2D" uid="uid://dw5bmiw6klyqh" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Hurt/LightBandit_Hurt_0.png" id="hurt_0"]
+[ext_resource type="Texture2D" uid="uid://dsjuypw1ioaey" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Hurt/LightBandit_Hurt_1.png" id="hurt_1"]
+[ext_resource type="Texture2D" uid="uid://dsikc3vjsq1gg" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Idle/LightBandit_Idle_0.png" id="idle_0"]
+[ext_resource type="Texture2D" uid="uid://vi4rfokd1hl2" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Idle/LightBandit_Idle_1.png" id="idle_1"]
+[ext_resource type="Texture2D" uid="uid://dnbwlfoq5xkxo" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Idle/LightBandit_Idle_2.png" id="idle_2"]
+[ext_resource type="Texture2D" uid="uid://b6umw0t8gd0mt" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Idle/LightBandit_Idle_3.png" id="idle_3"]
+[ext_resource type="Texture2D" uid="uid://dwr5i5ie7f8qu" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Jump/LightBandit_Jump_0.png" id="jump_0"]
+[ext_resource type="Texture2D" uid="uid://dfa6mv6r0etsa" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Recover/LightBandit_Recover_0.png" id="recover_0"]
+[ext_resource type="Texture2D" uid="uid://dlntgn0ns6qn2" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Recover/LightBandit_Recover_1.png" id="recover_1"]
+[ext_resource type="Texture2D" uid="uid://cuel2m1sx8m7n" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Recover/LightBandit_Recover_2.png" id="recover_2"]
+[ext_resource type="Texture2D" uid="uid://croaw40fphbhj" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Recover/LightBandit_Recover_3.png" id="recover_3"]
+[ext_resource type="Texture2D" uid="uid://ct0d7rx43sp1w" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Recover/LightBandit_Recover_4.png" id="recover_4"]
+[ext_resource type="Texture2D" uid="uid://djwnufw8d0ncs" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Recover/LightBandit_Recover_5.png" id="recover_5"]
+[ext_resource type="Texture2D" uid="uid://dr2mxhn4itihp" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Recover/LightBandit_Recover_6.png" id="recover_6"]
+[ext_resource type="Texture2D" uid="uid://crgif4oag81pp" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Recover/LightBandit_Recover_7.png" id="recover_7"]
+[ext_resource type="Texture2D" uid="uid://coum4nmg1uerp" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Run/LightBandit_Run_0.png" id="run_0"]
+[ext_resource type="Texture2D" uid="uid://owwcqlbgkr7a" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Run/LightBandit_Run_1.png" id="run_1"]
+[ext_resource type="Texture2D" uid="uid://dyvu7qrv8osd2" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Run/LightBandit_Run_2.png" id="run_2"]
+[ext_resource type="Texture2D" uid="uid://cafr58mvdtyne" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Run/LightBandit_Run_3.png" id="run_3"]
+[ext_resource type="Texture2D" uid="uid://b312ejxlsehyx" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Run/LightBandit_Run_4.png" id="run_4"]
+[ext_resource type="Texture2D" uid="uid://b8idfkk3ceyq0" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Run/LightBandit_Run_5.png" id="run_5"]
+[ext_resource type="Texture2D" uid="uid://dwcm1k8amkgsr" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Run/LightBandit_Run_6.png" id="run_6"]
+[ext_resource type="Texture2D" uid="uid://din3mcccy6m3p" path="res://assets/external/Chars/Bandits/Sprites/Light Bandit/Run/LightBandit_Run_7.png" id="run_7"]
 
 [resource]
-animations = [{"frames": [
-{"duration": 1.0, "texture": ExtResource("idle_0")}, {"duration": 1.0, "texture": ExtResource("idle_1")}, {"duration": 1.0, "texture": ExtResource("idle_2")}, {"duration": 1.0, "texture": ExtResource("idle_3")}], "loop": 1, "name": &"idle", "speed": 8.0
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("attack_0")
 }, {
-"frames": [
-{"duration": 1.0, "texture": ExtResource("run_0")}, {"duration": 1.0, "texture": ExtResource("run_1")}, {"duration": 1.0, "texture": ExtResource("run_2")}, {"duration": 1.0, "texture": ExtResource("run_3")}, {"duration": 1.0, "texture": ExtResource("run_4")}, {"duration": 1.0, "texture": ExtResource("run_5")}, {"duration": 1.0, "texture": ExtResource("run_6")}, {"duration": 1.0, "texture": ExtResource("run_7")}], "loop": 1, "name": &"run", "speed": 12.0
+"duration": 1.0,
+"texture": ExtResource("attack_1")
 }, {
-"frames": [
-{"duration": 1.0, "texture": ExtResource("attack_0")}, {"duration": 1.0, "texture": ExtResource("attack_1")}, {"duration": 1.0, "texture": ExtResource("attack_2")}, {"duration": 1.0, "texture": ExtResource("attack_3")}, {"duration": 1.0, "texture": ExtResource("attack_4")}, {"duration": 1.0, "texture": ExtResource("attack_5")}, {"duration": 1.0, "texture": ExtResource("attack_6")}, {"duration": 1.0, "texture": ExtResource("attack_7")}], "loop": 0, "name": &"attack", "speed": 14.0
+"duration": 1.0,
+"texture": ExtResource("attack_2")
 }, {
-"frames": [
-{"duration": 1.0, "texture": ExtResource("combatidle_0")}, {"duration": 1.0, "texture": ExtResource("combatidle_1")}, {"duration": 1.0, "texture": ExtResource("combatidle_2")}, {"duration": 1.0, "texture": ExtResource("combatidle_3")}], "loop": 1, "name": &"combat_idle", "speed": 8.0
+"duration": 1.0,
+"texture": ExtResource("attack_3")
 }, {
-"frames": [
-{"duration": 1.0, "texture": ExtResource("hurt_0")}, {"duration": 1.0, "texture": ExtResource("hurt_1")}], "loop": 0, "name": &"hurt", "speed": 10.0
+"duration": 1.0,
+"texture": ExtResource("attack_4")
 }, {
-"frames": [
-{"duration": 1.0, "texture": ExtResource("jump_0")}], "loop": 0, "name": &"jump", "speed": 10.0
+"duration": 1.0,
+"texture": ExtResource("attack_5")
 }, {
-"frames": [
-{"duration": 1.0, "texture": ExtResource("recover_0")}, {"duration": 1.0, "texture": ExtResource("recover_1")}, {"duration": 1.0, "texture": ExtResource("recover_2")}, {"duration": 1.0, "texture": ExtResource("recover_3")}, {"duration": 1.0, "texture": ExtResource("recover_4")}, {"duration": 1.0, "texture": ExtResource("recover_5")}, {"duration": 1.0, "texture": ExtResource("recover_6")}, {"duration": 1.0, "texture": ExtResource("recover_7")}], "loop": 0, "name": &"recover", "speed": 10.0
+"duration": 1.0,
+"texture": ExtResource("attack_6")
 }, {
-"frames": [
-{"duration": 1.0, "texture": ExtResource("death_0")}], "loop": 0, "name": &"death", "speed": 8.0
+"duration": 1.0,
+"texture": ExtResource("attack_7")
+}],
+"loop": 0,
+"name": &"attack",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("combatidle_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("combatidle_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("combatidle_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("combatidle_3")
+}],
+"loop": 1,
+"name": &"combat_idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("death_0")
+}],
+"loop": 0,
+"name": &"death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("hurt_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("hurt_1")
+}],
+"loop": 0,
+"name": &"hurt",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("idle_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("idle_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("idle_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("idle_3")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("jump_0")
+}],
+"loop": 0,
+"name": &"jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("recover_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("recover_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("recover_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("recover_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("recover_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("recover_5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("recover_6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("recover_7")
+}],
+"loop": 0,
+"name": &"recover",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("run_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("run_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("run_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("run_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("run_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("run_5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("run_6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("run_7")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 12.0
 }]

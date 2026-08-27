@@ -1,6 +1,6 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://ddiajoa578s83"]
 
-[ext_resource type="Texture2D" uid="uid://8oltkmkf0wq0" path="res://assets/external/Viking/Viking/VikingNoEffect-Sheet.png" id="1_sheet"]
+[ext_resource type="Texture2D" uid="uid://8oltkmkf0wq0" path="res://assets/external/Chars/Viking/Viking/VikingNoEffect-Sheet.png" id="1_sheet"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_attack_f0"]
 atlas = ExtResource("1_sheet")

@@ -1,95 +1,435 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://dh182olvq6hci"]
 
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Idle/HeroKnight_Idle_0.png" id="idle_0"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Idle/HeroKnight_Idle_1.png" id="idle_1"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Idle/HeroKnight_Idle_2.png" id="idle_2"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Idle/HeroKnight_Idle_3.png" id="idle_3"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Idle/HeroKnight_Idle_4.png" id="idle_4"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Idle/HeroKnight_Idle_5.png" id="idle_5"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Idle/HeroKnight_Idle_6.png" id="idle_6"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Idle/HeroKnight_Idle_7.png" id="idle_7"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Run/HeroKnight_Run_0.png" id="run_0"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Run/HeroKnight_Run_1.png" id="run_1"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Run/HeroKnight_Run_2.png" id="run_2"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Run/HeroKnight_Run_3.png" id="run_3"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Run/HeroKnight_Run_4.png" id="run_4"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Run/HeroKnight_Run_5.png" id="run_5"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Run/HeroKnight_Run_6.png" id="run_6"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Run/HeroKnight_Run_7.png" id="run_7"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Run/HeroKnight_Run_8.png" id="run_8"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Run/HeroKnight_Run_9.png" id="run_9"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Attack1/HeroKnight_Attack1_0.png" id="attack1_0"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Attack1/HeroKnight_Attack1_1.png" id="attack1_1"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Attack1/HeroKnight_Attack1_2.png" id="attack1_2"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Attack1/HeroKnight_Attack1_3.png" id="attack1_3"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Attack1/HeroKnight_Attack1_4.png" id="attack1_4"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Attack1/HeroKnight_Attack1_5.png" id="attack1_5"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Attack2/HeroKnight_Attack2_0.png" id="attack2_0"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Attack2/HeroKnight_Attack2_1.png" id="attack2_1"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Attack2/HeroKnight_Attack2_2.png" id="attack2_2"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Attack2/HeroKnight_Attack2_3.png" id="attack2_3"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Attack2/HeroKnight_Attack2_4.png" id="attack2_4"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Attack2/HeroKnight_Attack2_5.png" id="attack2_5"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Attack3/HeroKnight_Attack3_0.png" id="attack3_0"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Attack3/HeroKnight_Attack3_1.png" id="attack3_1"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Attack3/HeroKnight_Attack3_2.png" id="attack3_2"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Attack3/HeroKnight_Attack3_3.png" id="attack3_3"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Attack3/HeroKnight_Attack3_4.png" id="attack3_4"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Attack3/HeroKnight_Attack3_5.png" id="attack3_5"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Attack3/HeroKnight_Attack3_6.png" id="attack3_6"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Attack3/HeroKnight_Attack3_7.png" id="attack3_7"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/BlockIdle/HeroKnight_Block Idle_0.png" id="block_idle_0"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/BlockIdle/HeroKnight_Block Idle_1.png" id="block_idle_1"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/BlockIdle/HeroKnight_Block Idle_2.png" id="block_idle_2"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/BlockIdle/HeroKnight_Block Idle_3.png" id="block_idle_3"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/BlockIdle/HeroKnight_Block Idle_4.png" id="block_idle_4"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/BlockIdle/HeroKnight_Block Idle_5.png" id="block_idle_5"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/BlockIdle/HeroKnight_Block Idle_6.png" id="block_idle_6"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/BlockIdle/HeroKnight_Block Idle_7.png" id="block_idle_7"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/BlockNoEffect/HeroKnight_BlockNoEffect_0.png" id="block_0"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/BlockNoEffect/HeroKnight_BlockNoEffect_1.png" id="block_1"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/BlockNoEffect/HeroKnight_BlockNoEffect_2.png" id="block_2"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/BlockNoEffect/HeroKnight_BlockNoEffect_3.png" id="block_3"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/BlockNoEffect/HeroKnight_BlockNoEffect_4.png" id="block_4"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/DeathNoBlood/HeroKnight_DeathNoBlood_0.png" id="death_0"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/DeathNoBlood/HeroKnight_DeathNoBlood_1.png" id="death_1"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/DeathNoBlood/HeroKnight_DeathNoBlood_2.png" id="death_2"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/DeathNoBlood/HeroKnight_DeathNoBlood_3.png" id="death_3"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/DeathNoBlood/HeroKnight_DeathNoBlood_4.png" id="death_4"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/DeathNoBlood/HeroKnight_DeathNoBlood_5.png" id="death_5"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/DeathNoBlood/HeroKnight_DeathNoBlood_6.png" id="death_6"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/DeathNoBlood/HeroKnight_DeathNoBlood_7.png" id="death_7"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/DeathNoBlood/HeroKnight_DeathNoBlood_8.png" id="death_8"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/DeathNoBlood/HeroKnight_DeathNoBlood_9.png" id="death_9"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Fall/HeroKnight_Fall_0.png" id="fall_0"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Fall/HeroKnight_Fall_1.png" id="fall_1"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Fall/HeroKnight_Fall_2.png" id="fall_2"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Fall/HeroKnight_Fall_3.png" id="fall_3"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Hurt/HeroKnight_Hurt_0.png" id="hurt_0"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Hurt/HeroKnight_Hurt_1.png" id="hurt_1"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Hurt/HeroKnight_Hurt_2.png" id="hurt_2"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Jump/HeroKnight_Jump_0.png" id="jump_0"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Jump/HeroKnight_Jump_1.png" id="jump_1"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Jump/HeroKnight_Jump_2.png" id="jump_2"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/LedgeGrab/HeroKnight_Grab Ledge_0.png" id="ledge_grab_0"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/LedgeGrab/HeroKnight_Grab Ledge_1.png" id="ledge_grab_1"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/LedgeGrab/HeroKnight_Grab Ledge_2.png" id="ledge_grab_2"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/LedgeGrab/HeroKnight_Grab Ledge_3.png" id="ledge_grab_3"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/LedgeGrab/HeroKnight_Grab Ledge_4.png" id="ledge_grab_4"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Roll/HeroKnight_Roll_0.png" id="roll_0"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Roll/HeroKnight_Roll_1.png" id="roll_1"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Roll/HeroKnight_Roll_2.png" id="roll_2"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Roll/HeroKnight_Roll_3.png" id="roll_3"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Roll/HeroKnight_Roll_4.png" id="roll_4"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Roll/HeroKnight_Roll_5.png" id="roll_5"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Roll/HeroKnight_Roll_6.png" id="roll_6"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Roll/HeroKnight_Roll_7.png" id="roll_7"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/Roll/HeroKnight_Roll_8.png" id="roll_8"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/WallSlide/HeroKnight_Slide_0.png" id="wall_slide_0"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/WallSlide/HeroKnight_Slide_1.png" id="wall_slide_1"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/WallSlide/HeroKnight_Slide_2.png" id="wall_slide_2"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/WallSlide/HeroKnight_Slide_3.png" id="wall_slide_3"]
-[ext_resource type="Texture2D" path="res://assets/external/Sven/Hero Knight/Sprites/HeroKnight/WallSlide/HeroKnight_Slide_4.png" id="wall_slide_4"]
+[ext_resource type="Texture2D" uid="uid://b0h2746s85uom" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Attack1/HeroKnight_Attack1_0.png" id="attack1_0"]
+[ext_resource type="Texture2D" uid="uid://b3vcb8o22kmm1" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Attack1/HeroKnight_Attack1_1.png" id="attack1_1"]
+[ext_resource type="Texture2D" uid="uid://bqrqb4i2yqkq8" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Attack1/HeroKnight_Attack1_2.png" id="attack1_2"]
+[ext_resource type="Texture2D" uid="uid://cl1wmqyw30k6c" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Attack1/HeroKnight_Attack1_3.png" id="attack1_3"]
+[ext_resource type="Texture2D" uid="uid://e7e4gy33f15p" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Attack1/HeroKnight_Attack1_4.png" id="attack1_4"]
+[ext_resource type="Texture2D" uid="uid://b2k6a1bdx18ms" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Attack1/HeroKnight_Attack1_5.png" id="attack1_5"]
+[ext_resource type="Texture2D" uid="uid://baa5m48e34gt" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Attack2/HeroKnight_Attack2_0.png" id="attack2_0"]
+[ext_resource type="Texture2D" uid="uid://c12wnlxtbd778" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Attack2/HeroKnight_Attack2_1.png" id="attack2_1"]
+[ext_resource type="Texture2D" uid="uid://b5srkkbgdej8t" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Attack2/HeroKnight_Attack2_2.png" id="attack2_2"]
+[ext_resource type="Texture2D" uid="uid://oedcqw8rwp0q" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Attack2/HeroKnight_Attack2_3.png" id="attack2_3"]
+[ext_resource type="Texture2D" uid="uid://6jypsp4gjywx" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Attack2/HeroKnight_Attack2_4.png" id="attack2_4"]
+[ext_resource type="Texture2D" uid="uid://6g5ybcpso475" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Attack2/HeroKnight_Attack2_5.png" id="attack2_5"]
+[ext_resource type="Texture2D" uid="uid://by0fvblkgwlud" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Attack3/HeroKnight_Attack3_0.png" id="attack3_0"]
+[ext_resource type="Texture2D" uid="uid://du0dfro1ltau2" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Attack3/HeroKnight_Attack3_1.png" id="attack3_1"]
+[ext_resource type="Texture2D" uid="uid://dau5lorexgpau" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Attack3/HeroKnight_Attack3_2.png" id="attack3_2"]
+[ext_resource type="Texture2D" uid="uid://cg64ontltmngf" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Attack3/HeroKnight_Attack3_3.png" id="attack3_3"]
+[ext_resource type="Texture2D" uid="uid://dwuf5sr82esqx" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Attack3/HeroKnight_Attack3_4.png" id="attack3_4"]
+[ext_resource type="Texture2D" uid="uid://hqnx4fgob5cm" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Attack3/HeroKnight_Attack3_5.png" id="attack3_5"]
+[ext_resource type="Texture2D" uid="uid://cc8qabwqa7tg3" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Attack3/HeroKnight_Attack3_6.png" id="attack3_6"]
+[ext_resource type="Texture2D" uid="uid://dtnu8l50uym0f" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Attack3/HeroKnight_Attack3_7.png" id="attack3_7"]
+[ext_resource type="Texture2D" uid="uid://dyb4d3hyp3ktm" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/BlockNoEffect/HeroKnight_BlockNoEffect_0.png" id="block_0"]
+[ext_resource type="Texture2D" uid="uid://dlmmx8018s7pk" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/BlockNoEffect/HeroKnight_BlockNoEffect_1.png" id="block_1"]
+[ext_resource type="Texture2D" uid="uid://byyqtds3pocu" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/BlockNoEffect/HeroKnight_BlockNoEffect_2.png" id="block_2"]
+[ext_resource type="Texture2D" uid="uid://dshlmyu8d4ang" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/BlockNoEffect/HeroKnight_BlockNoEffect_3.png" id="block_3"]
+[ext_resource type="Texture2D" uid="uid://dagqmo173fupi" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/BlockNoEffect/HeroKnight_BlockNoEffect_4.png" id="block_4"]
+[ext_resource type="Texture2D" uid="uid://wg6bec4y5t60" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/BlockIdle/HeroKnight_Block Idle_0.png" id="block_idle_0"]
+[ext_resource type="Texture2D" uid="uid://bol86dyqwnetv" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/BlockIdle/HeroKnight_Block Idle_1.png" id="block_idle_1"]
+[ext_resource type="Texture2D" uid="uid://d7lt2eteyyu2" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/BlockIdle/HeroKnight_Block Idle_2.png" id="block_idle_2"]
+[ext_resource type="Texture2D" uid="uid://dyhoviqdcajh0" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/BlockIdle/HeroKnight_Block Idle_3.png" id="block_idle_3"]
+[ext_resource type="Texture2D" uid="uid://o5id6cpswkxg" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/BlockIdle/HeroKnight_Block Idle_4.png" id="block_idle_4"]
+[ext_resource type="Texture2D" uid="uid://boupbpr3mv2iu" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/BlockIdle/HeroKnight_Block Idle_5.png" id="block_idle_5"]
+[ext_resource type="Texture2D" uid="uid://cs6bmags7w71t" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/BlockIdle/HeroKnight_Block Idle_6.png" id="block_idle_6"]
+[ext_resource type="Texture2D" uid="uid://bmj10phqpcdok" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/BlockIdle/HeroKnight_Block Idle_7.png" id="block_idle_7"]
+[ext_resource type="Texture2D" uid="uid://y0k6j52ls2d" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/DeathNoBlood/HeroKnight_DeathNoBlood_0.png" id="death_0"]
+[ext_resource type="Texture2D" uid="uid://3u11psgxxmps" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/DeathNoBlood/HeroKnight_DeathNoBlood_1.png" id="death_1"]
+[ext_resource type="Texture2D" uid="uid://c88u11p5hvhqn" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/DeathNoBlood/HeroKnight_DeathNoBlood_2.png" id="death_2"]
+[ext_resource type="Texture2D" uid="uid://cjbo5abhst8jn" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/DeathNoBlood/HeroKnight_DeathNoBlood_3.png" id="death_3"]
+[ext_resource type="Texture2D" uid="uid://cdlxolh7gwghm" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/DeathNoBlood/HeroKnight_DeathNoBlood_4.png" id="death_4"]
+[ext_resource type="Texture2D" uid="uid://c4jqguxvtfku0" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/DeathNoBlood/HeroKnight_DeathNoBlood_5.png" id="death_5"]
+[ext_resource type="Texture2D" uid="uid://l08kbh1cd0rm" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/DeathNoBlood/HeroKnight_DeathNoBlood_6.png" id="death_6"]
+[ext_resource type="Texture2D" uid="uid://bgm0opwqdehwj" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/DeathNoBlood/HeroKnight_DeathNoBlood_7.png" id="death_7"]
+[ext_resource type="Texture2D" uid="uid://de7neb2k2g1d1" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/DeathNoBlood/HeroKnight_DeathNoBlood_8.png" id="death_8"]
+[ext_resource type="Texture2D" uid="uid://c77oukf4lcqh" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/DeathNoBlood/HeroKnight_DeathNoBlood_9.png" id="death_9"]
+[ext_resource type="Texture2D" uid="uid://cvn382tutahv3" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Fall/HeroKnight_Fall_0.png" id="fall_0"]
+[ext_resource type="Texture2D" uid="uid://bkh2omjro26xq" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Fall/HeroKnight_Fall_1.png" id="fall_1"]
+[ext_resource type="Texture2D" uid="uid://daqwaamer68xr" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Fall/HeroKnight_Fall_2.png" id="fall_2"]
+[ext_resource type="Texture2D" uid="uid://b2p8m014blfq3" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Fall/HeroKnight_Fall_3.png" id="fall_3"]
+[ext_resource type="Texture2D" uid="uid://buc73oorh87fo" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Hurt/HeroKnight_Hurt_0.png" id="hurt_0"]
+[ext_resource type="Texture2D" uid="uid://c0ukvxiloqy14" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Hurt/HeroKnight_Hurt_1.png" id="hurt_1"]
+[ext_resource type="Texture2D" uid="uid://cul0nok2mgdcu" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Hurt/HeroKnight_Hurt_2.png" id="hurt_2"]
+[ext_resource type="Texture2D" uid="uid://kte4cbopsxwe" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Idle/HeroKnight_Idle_0.png" id="idle_0"]
+[ext_resource type="Texture2D" uid="uid://y2f2jrpcqcbr" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Idle/HeroKnight_Idle_1.png" id="idle_1"]
+[ext_resource type="Texture2D" uid="uid://b8lsnmrksjau6" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Idle/HeroKnight_Idle_2.png" id="idle_2"]
+[ext_resource type="Texture2D" uid="uid://clr3ja2mm03ne" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Idle/HeroKnight_Idle_3.png" id="idle_3"]
+[ext_resource type="Texture2D" uid="uid://b8r7v4opegm70" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Idle/HeroKnight_Idle_4.png" id="idle_4"]
+[ext_resource type="Texture2D" uid="uid://ctlquhugo6nlt" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Idle/HeroKnight_Idle_5.png" id="idle_5"]
+[ext_resource type="Texture2D" uid="uid://ca5xf1yn1g1vm" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Idle/HeroKnight_Idle_6.png" id="idle_6"]
+[ext_resource type="Texture2D" uid="uid://bqu1oydjyvn8n" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Idle/HeroKnight_Idle_7.png" id="idle_7"]
+[ext_resource type="Texture2D" uid="uid://dcjxfrtddbugn" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Jump/HeroKnight_Jump_0.png" id="jump_0"]
+[ext_resource type="Texture2D" uid="uid://dkaafwv0urtiy" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Jump/HeroKnight_Jump_1.png" id="jump_1"]
+[ext_resource type="Texture2D" uid="uid://txc8qqos8h67" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Jump/HeroKnight_Jump_2.png" id="jump_2"]
+[ext_resource type="Texture2D" uid="uid://c4d4r3ng7nhmv" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/LedgeGrab/HeroKnight_Grab Ledge_0.png" id="ledge_grab_0"]
+[ext_resource type="Texture2D" uid="uid://cnyq6ijqqod0k" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/LedgeGrab/HeroKnight_Grab Ledge_1.png" id="ledge_grab_1"]
+[ext_resource type="Texture2D" uid="uid://iqjx7sgm45hw" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/LedgeGrab/HeroKnight_Grab Ledge_2.png" id="ledge_grab_2"]
+[ext_resource type="Texture2D" uid="uid://dulex7kfrkst2" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/LedgeGrab/HeroKnight_Grab Ledge_3.png" id="ledge_grab_3"]
+[ext_resource type="Texture2D" uid="uid://cvn8eyasewaxm" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/LedgeGrab/HeroKnight_Grab Ledge_4.png" id="ledge_grab_4"]
+[ext_resource type="Texture2D" uid="uid://dq6whjedjpnry" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Roll/HeroKnight_Roll_0.png" id="roll_0"]
+[ext_resource type="Texture2D" uid="uid://b78fag0fujfrs" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Roll/HeroKnight_Roll_1.png" id="roll_1"]
+[ext_resource type="Texture2D" uid="uid://cs4lxnlh73a4t" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Roll/HeroKnight_Roll_2.png" id="roll_2"]
+[ext_resource type="Texture2D" uid="uid://cuoy56bw081tw" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Roll/HeroKnight_Roll_3.png" id="roll_3"]
+[ext_resource type="Texture2D" uid="uid://csdodwpb6n807" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Roll/HeroKnight_Roll_4.png" id="roll_4"]
+[ext_resource type="Texture2D" uid="uid://bimli30yy2le2" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Roll/HeroKnight_Roll_5.png" id="roll_5"]
+[ext_resource type="Texture2D" uid="uid://dcigognmgyd1v" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Roll/HeroKnight_Roll_6.png" id="roll_6"]
+[ext_resource type="Texture2D" uid="uid://eujn5uovy475" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Roll/HeroKnight_Roll_7.png" id="roll_7"]
+[ext_resource type="Texture2D" uid="uid://b21miqitwviuq" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Roll/HeroKnight_Roll_8.png" id="roll_8"]
+[ext_resource type="Texture2D" uid="uid://b4o16a25ouhwy" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Run/HeroKnight_Run_0.png" id="run_0"]
+[ext_resource type="Texture2D" uid="uid://d6lq8p5ueyof" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Run/HeroKnight_Run_1.png" id="run_1"]
+[ext_resource type="Texture2D" uid="uid://bn2f5kn1wsfu1" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Run/HeroKnight_Run_2.png" id="run_2"]
+[ext_resource type="Texture2D" uid="uid://bnbuoc4pyajas" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Run/HeroKnight_Run_3.png" id="run_3"]
+[ext_resource type="Texture2D" uid="uid://h2rq1ff1uwku" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Run/HeroKnight_Run_4.png" id="run_4"]
+[ext_resource type="Texture2D" uid="uid://b5525jsu1miw4" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Run/HeroKnight_Run_5.png" id="run_5"]
+[ext_resource type="Texture2D" uid="uid://pd7btt1bmnr1" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Run/HeroKnight_Run_6.png" id="run_6"]
+[ext_resource type="Texture2D" uid="uid://dgfjiihee41pp" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Run/HeroKnight_Run_7.png" id="run_7"]
+[ext_resource type="Texture2D" uid="uid://cy27sl410x6mg" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Run/HeroKnight_Run_8.png" id="run_8"]
+[ext_resource type="Texture2D" uid="uid://dmxs4e1f5t6n0" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/Run/HeroKnight_Run_9.png" id="run_9"]
+[ext_resource type="Texture2D" uid="uid://cc3u7iroqy2tw" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/WallSlide/HeroKnight_Slide_0.png" id="wall_slide_0"]
+[ext_resource type="Texture2D" uid="uid://c1thdd2thuytr" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/WallSlide/HeroKnight_Slide_1.png" id="wall_slide_1"]
+[ext_resource type="Texture2D" uid="uid://brwd183bixebl" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/WallSlide/HeroKnight_Slide_2.png" id="wall_slide_2"]
+[ext_resource type="Texture2D" uid="uid://drhe3e0tkd25x" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/WallSlide/HeroKnight_Slide_3.png" id="wall_slide_3"]
+[ext_resource type="Texture2D" uid="uid://kpx2q78ujqr3" path="res://assets/external/Chars/Sven/Hero Knight/Sprites/HeroKnight/WallSlide/HeroKnight_Slide_4.png" id="wall_slide_4"]
 
 [resource]
-animations = [{"frames": [{"duration": 1.0, "texture": ExtResource("idle_0")}, {"duration": 1.0, "texture": ExtResource("idle_1")}, {"duration": 1.0, "texture": ExtResource("idle_2")}, {"duration": 1.0, "texture": ExtResource("idle_3")}, {"duration": 1.0, "texture": ExtResource("idle_4")}, {"duration": 1.0, "texture": ExtResource("idle_5")}, {"duration": 1.0, "texture": ExtResource("idle_6")}, {"duration": 1.0, "texture": ExtResource("idle_7")}], "loop": 1, "name": &"idle", "speed": 8.0}, {"frames": [{"duration": 1.0, "texture": ExtResource("run_0")}, {"duration": 1.0, "texture": ExtResource("run_1")}, {"duration": 1.0, "texture": ExtResource("run_2")}, {"duration": 1.0, "texture": ExtResource("run_3")}, {"duration": 1.0, "texture": ExtResource("run_4")}, {"duration": 1.0, "texture": ExtResource("run_5")}, {"duration": 1.0, "texture": ExtResource("run_6")}, {"duration": 1.0, "texture": ExtResource("run_7")}, {"duration": 1.0, "texture": ExtResource("run_8")}, {"duration": 1.0, "texture": ExtResource("run_9")}], "loop": 1, "name": &"run", "speed": 12.0}, {"frames": [{"duration": 1.0, "texture": ExtResource("attack1_0")}, {"duration": 1.0, "texture": ExtResource("attack1_1")}, {"duration": 1.0, "texture": ExtResource("attack1_2")}, {"duration": 1.0, "texture": ExtResource("attack1_3")}, {"duration": 1.0, "texture": ExtResource("attack1_4")}, {"duration": 1.0, "texture": ExtResource("attack1_5")}], "loop": 0, "name": &"attack1", "speed": 14.0}, {"frames": [{"duration": 1.0, "texture": ExtResource("attack2_0")}, {"duration": 1.0, "texture": ExtResource("attack2_1")}, {"duration": 1.0, "texture": ExtResource("attack2_2")}, {"duration": 1.0, "texture": ExtResource("attack2_3")}, {"duration": 1.0, "texture": ExtResource("attack2_4")}, {"duration": 1.0, "texture": ExtResource("attack2_5")}], "loop": 0, "name": &"attack2", "speed": 14.0}, {"frames": [{"duration": 1.0, "texture": ExtResource("attack3_0")}, {"duration": 1.0, "texture": ExtResource("attack3_1")}, {"duration": 1.0, "texture": ExtResource("attack3_2")}, {"duration": 1.0, "texture": ExtResource("attack3_3")}, {"duration": 1.0, "texture": ExtResource("attack3_4")}, {"duration": 1.0, "texture": ExtResource("attack3_5")}, {"duration": 1.0, "texture": ExtResource("attack3_6")}, {"duration": 1.0, "texture": ExtResource("attack3_7")}], "loop": 0, "name": &"attack3", "speed": 14.0}, {"frames": [{"duration": 1.0, "texture": ExtResource("block_idle_0")}, {"duration": 1.0, "texture": ExtResource("block_idle_1")}, {"duration": 1.0, "texture": ExtResource("block_idle_2")}, {"duration": 1.0, "texture": ExtResource("block_idle_3")}, {"duration": 1.0, "texture": ExtResource("block_idle_4")}, {"duration": 1.0, "texture": ExtResource("block_idle_5")}, {"duration": 1.0, "texture": ExtResource("block_idle_6")}, {"duration": 1.0, "texture": ExtResource("block_idle_7")}], "loop": 1, "name": &"block_idle", "speed": 8.0}, {"frames": [{"duration": 1.0, "texture": ExtResource("block_0")}, {"duration": 1.0, "texture": ExtResource("block_1")}, {"duration": 1.0, "texture": ExtResource("block_2")}, {"duration": 1.0, "texture": ExtResource("block_3")}, {"duration": 1.0, "texture": ExtResource("block_4")}], "loop": 0, "name": &"block", "speed": 10.0}, {"frames": [{"duration": 1.0, "texture": ExtResource("death_0")}, {"duration": 1.0, "texture": ExtResource("death_1")}, {"duration": 1.0, "texture": ExtResource("death_2")}, {"duration": 1.0, "texture": ExtResource("death_3")}, {"duration": 1.0, "texture": ExtResource("death_4")}, {"duration": 1.0, "texture": ExtResource("death_5")}, {"duration": 1.0, "texture": ExtResource("death_6")}, {"duration": 1.0, "texture": ExtResource("death_7")}, {"duration": 1.0, "texture": ExtResource("death_8")}, {"duration": 1.0, "texture": ExtResource("death_9")}], "loop": 0, "name": &"death", "speed": 8.0}, {"frames": [{"duration": 1.0, "texture": ExtResource("fall_0")}, {"duration": 1.0, "texture": ExtResource("fall_1")}, {"duration": 1.0, "texture": ExtResource("fall_2")}, {"duration": 1.0, "texture": ExtResource("fall_3")}], "loop": 0, "name": &"fall", "speed": 10.0}, {"frames": [{"duration": 1.0, "texture": ExtResource("hurt_0")}, {"duration": 1.0, "texture": ExtResource("hurt_1")}, {"duration": 1.0, "texture": ExtResource("hurt_2")}], "loop": 0, "name": &"hurt", "speed": 10.0}, {"frames": [{"duration": 1.0, "texture": ExtResource("jump_0")}, {"duration": 1.0, "texture": ExtResource("jump_1")}, {"duration": 1.0, "texture": ExtResource("jump_2")}], "loop": 0, "name": &"jump", "speed": 10.0}, {"frames": [{"duration": 1.0, "texture": ExtResource("ledge_grab_0")}, {"duration": 1.0, "texture": ExtResource("ledge_grab_1")}, {"duration": 1.0, "texture": ExtResource("ledge_grab_2")}, {"duration": 1.0, "texture": ExtResource("ledge_grab_3")}, {"duration": 1.0, "texture": ExtResource("ledge_grab_4")}], "loop": 1, "name": &"ledge_grab", "speed": 8.0}, {"frames": [{"duration": 1.0, "texture": ExtResource("roll_0")}, {"duration": 1.0, "texture": ExtResource("roll_1")}, {"duration": 1.0, "texture": ExtResource("roll_2")}, {"duration": 1.0, "texture": ExtResource("roll_3")}, {"duration": 1.0, "texture": ExtResource("roll_4")}, {"duration": 1.0, "texture": ExtResource("roll_5")}, {"duration": 1.0, "texture": ExtResource("roll_6")}, {"duration": 1.0, "texture": ExtResource("roll_7")}, {"duration": 1.0, "texture": ExtResource("roll_8")}], "loop": 0, "name": &"roll", "speed": 14.0}, {"frames": [{"duration": 1.0, "texture": ExtResource("wall_slide_0")}, {"duration": 1.0, "texture": ExtResource("wall_slide_1")}, {"duration": 1.0, "texture": ExtResource("wall_slide_2")}, {"duration": 1.0, "texture": ExtResource("wall_slide_3")}, {"duration": 1.0, "texture": ExtResource("wall_slide_4")}], "loop": 1, "name": &"wall_slide", "speed": 8.0}]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("attack1_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack1_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack1_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack1_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack1_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack1_5")
+}],
+"loop": 0,
+"name": &"attack1",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("attack2_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack2_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack2_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack2_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack2_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack2_5")
+}],
+"loop": 0,
+"name": &"attack2",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("attack3_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack3_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack3_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack3_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack3_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack3_5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack3_6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("attack3_7")
+}],
+"loop": 0,
+"name": &"attack3",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("block_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("block_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("block_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("block_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("block_4")
+}],
+"loop": 0,
+"name": &"block",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("block_idle_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("block_idle_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("block_idle_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("block_idle_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("block_idle_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("block_idle_5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("block_idle_6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("block_idle_7")
+}],
+"loop": 1,
+"name": &"block_idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("death_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("death_9")
+}],
+"loop": 0,
+"name": &"death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("fall_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("fall_3")
+}],
+"loop": 0,
+"name": &"fall",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("hurt_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("hurt_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("hurt_2")
+}],
+"loop": 0,
+"name": &"hurt",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("idle_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("idle_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("idle_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("idle_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("idle_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("idle_5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("idle_6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("idle_7")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("jump_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("jump_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("jump_2")
+}],
+"loop": 0,
+"name": &"jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("ledge_grab_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("ledge_grab_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("ledge_grab_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("ledge_grab_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("ledge_grab_4")
+}],
+"loop": 1,
+"name": &"ledge_grab",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("roll_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("roll_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("roll_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("roll_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("roll_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("roll_5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("roll_6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("roll_7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("roll_8")
+}],
+"loop": 0,
+"name": &"roll",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("run_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("run_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("run_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("run_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("run_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("run_5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("run_6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("run_7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("run_8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("run_9")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("wall_slide_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("wall_slide_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("wall_slide_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("wall_slide_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("wall_slide_4")
+}],
+"loop": 1,
+"name": &"wall_slide",
+"speed": 8.0
+}]

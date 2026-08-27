@@ -1,6 +1,6 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://cdagqy4o47dm4"]
 
-[ext_resource type="Texture2D" uid="uid://b0t0ef2kgt0yh" path="res://assets/external/Spearwoman/Spearwoman/Spearwoman(No Effect)-Sheet.png" id="1_sheet"]
+[ext_resource type="Texture2D" uid="uid://b0t0ef2kgt0yh" path="res://assets/external/Chars/Spearwoman/Spearwoman/Spearwoman(No Effect)-Sheet.png" id="1_sheet"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_attack_f0"]
 atlas = ExtResource("1_sheet")
