@@ -6,9 +6,10 @@
 [ext_resource type="SpriteFrames" path="res://resources/sprites/LargeSkullSpriteFrames.tres" id="4_frames"]
 [ext_resource type="Resource" path="res://resources/balance/enemies/largeskullboss.tres" id="5_profile"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/OrbitingSkull.tscn" id="6_orbitskull"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemys/BurningDamned.tscn" id="7_burningdamned"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
-size = Vector2(56, 90)
+size = Vector2(73.92, 118.8)
 
 [node name="LargeSkullBoss" type="CharacterBody2D"]
 collision_layer = 4
@@ -18,6 +19,8 @@ ChaseSpeed = 70.0
 ChaseAcceleration = 140.0
 HoverAmplitude = 6.0
 Profile = ExtResource("5_profile")
+BurningDamnedScene = ExtResource("7_burningdamned")
+OrbitingSkullScene = ExtResource("6_orbitskull")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
@@ -34,7 +37,7 @@ shape = SubResource("RectangleShape2D_collision")
 [node name="Visual" type="Node2D" parent="."]
 
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual"]
-scale = Vector2(-1, 1)
+scale = Vector2(-1.32, 1.32)
 sprite_frames = ExtResource("4_frames")
 animation = &"fly"
 autoplay = "fly"
@@ -69,8 +72,8 @@ StartAngle = 5.498
 script = ExtResource("2_stats")
 
 [node name="HealthBar" parent="." instance=ExtResource("3_statbar")]
-position = Vector2(0, -70)
+position = Vector2(0, -92.4)
 
 [node name="StaminaBar" parent="." instance=ExtResource("3_statbar")]
-position = Vector2(0, -64)
+position = Vector2(0, -85.8)
 FillColor = Color(0.2, 0.6, 1, 1)
