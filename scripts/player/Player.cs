@@ -35,7 +35,11 @@ public partial class Player : CharacterBody2D
 	[Export] public float HitStopGapDuration = 0.03f;
 	[Export] public float AttackAnimDuration = 0.5f;
 	[Export] public float ComboResetWindow = 0.6f;
-	[Export] public int AttackStaminaCost = 10;
+	// DS1 doesn't publish per-weapon stamina costs anywhere accessible (unlike DS3, where the
+	// community datamined exact numbers). 15% is the midpoint of DS3's straight sword R1 cost
+	// (~19.5 stamina out of a 91-160 bar depending on Endurance, i.e. ~12-21%) — the closest real
+	// reference available, used deliberately as a stand-in since no DS1-specific figure exists.
+	[Export] public int AttackStaminaCost = 15;
 	[Export] public float CrouchAttackCooldown = 1f;
 	[Export] public float CrouchWeaponTrailYOffset = 30f;
 	[Export] public float HealAnimDuration = 0.8f;
@@ -43,7 +47,11 @@ public partial class Player : CharacterBody2D
 	[Export] public float DashDuration = 0.2f;
 	[Export] public float DashIframeDuration = 0.28f;
 	[Export] public float DashCooldown = 0.5f;
-	[Export] public int DashStaminaCost = 20;
+	// 25% of a 100 MaxStamina bar — matches Dark Souls 1's actual roll cost (community-measured: a
+	// full bar gets you about 4 rolls, i.e. ~25% each). Dash is the one with i-frames (see
+	// DashIframeDuration below), so it's the real analog to DS1's roll, not Roll itself (see its own
+	// comment — Roll has no i-frames, it's a slower non-invincible alternative, a different move).
+	[Export] public int DashStaminaCost = 25;
 	// Slower than Dash but travels almost as far (~105px vs Dash's ~112px) and ground-only — a
 	// slower, no-iframe alternative to Dash rather than a quicker one. RollDuration also has to
 	// leave the "roll" clip (7 frames at speed 12) enough time to actually read as a roll instead
@@ -56,7 +64,10 @@ public partial class Player : CharacterBody2D
 	[Export] public float RunThrustDuration = 0.3f;
 	[Export] public float RunThrustHitboxDelay = 0.05f;
 	[Export] public float RunThrustCooldown = 0.6f;
-	[Export] public int RunThrustStaminaCost = 15;
+	// A heavier committed attack than a normal swing — scaled up from AttackStaminaCost the same way
+	// DS1's heavy/strong attacks cost noticeably more stamina than a light attack, not a documented
+	// DS1 number itself.
+	[Export] public int RunThrustStaminaCost = 23;
 	[Export] public Vector2 RunThrustHitboxSize = new(105f, 44.1f);
 	[Export] public float RunThrustSecondHitGap = 0.06f;
 	[Export] public float CrouchSpeedMultiplier = 0.5f;
@@ -65,6 +76,8 @@ public partial class Player : CharacterBody2D
 	[Export] public float ParryBubbleHold = 0.15f;
 	[Export] public float ParryBubbleFadeOut = 0.3f;
 	[Export] public float BlockStaminaCostFraction = 0.7f;
+	// Dark Souls reduces (doesn't stop) stamina recovery by 80% while guard is up — same idea here.
+	[Export] public float BlockStaminaRegenMultiplier = 0.2f;
 	[Export] public SpriteFrames FireSpriteFrames;
 	[Export] public float TransformationInDuration = 1.5f;
 	[Export] public float TransformationOutDuration = 0.9f;
@@ -1292,6 +1305,7 @@ public partial class Player : CharacterBody2D
 			_parryWindowTimer = ParryWindowDuration;
 
 		_isBlocking = holdingBlock;
+		_stats.RegenRateMultiplier = holdingBlock ? BlockStaminaRegenMultiplier : 1f;
 
 		if (_parryWindowTimer > 0f)
 			_parryWindowTimer -= (float)delta;

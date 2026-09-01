@@ -34,6 +34,7 @@ animation = &"idle"
 autoplay = "idle"
 
 [node name="BacklightGlow" type="Sprite2D" parent="Visual"]
+visible = false
 z_index = -1
 position = Vector2(0, -8)
 scale = Vector2(0.3, 0.3)

@@ -1,30 +1,30 @@
-[gd_resource type="SpriteFrames" format=3 uid="uid://quxawr153nn5"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://mag5srt1lsam"]
 
-[ext_resource type="Texture2D" uid="uid://b2hqkwss3e7kt" path="res://assets/external/gandalfhardcore/GandalfHardcore Hell Asset Pack 32x32/Fire sheet.png" id="1_sheet"]
+[ext_resource type="Texture2D" uid="uid://dp4k7vxvc22kd" path="res://assets/external/gandalfhardcore/platformer/GandalfHardcore FREE Platformer Assets/Pixel Art Furnace and Sawmill.png" id="1_sheet"]
 
 [sub_resource type="AtlasTexture" id="AT_0"]
 atlas = ExtResource("1_sheet")
-region = Rect2(0, 0, 32, 32)
+region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AT_1"]
 atlas = ExtResource("1_sheet")
-region = Rect2(32, 0, 32, 32)
+region = Rect2(64, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AT_2"]
 atlas = ExtResource("1_sheet")
-region = Rect2(64, 0, 32, 32)
+region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AT_3"]
 atlas = ExtResource("1_sheet")
-region = Rect2(96, 0, 32, 32)
+region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AT_4"]
 atlas = ExtResource("1_sheet")
-region = Rect2(128, 0, 32, 32)
+region = Rect2(256, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AT_5"]
 atlas = ExtResource("1_sheet")
-region = Rect2(160, 0, 32, 32)
+region = Rect2(320, 0, 64, 64)
 
 [resource]
 animations = [{

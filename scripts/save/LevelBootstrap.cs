@@ -134,6 +134,13 @@ public partial class LevelBootstrap : Node
 		SaveManager.Instance.SessionHealCharges = null;
 		SaveManager.Instance.SessionElement = null;
 		SaveManager.Instance.SessionTorchEquipped = null;
+		// A "return to where you came from" LevelTransition (UseStoredReturnPosition) reads this and
+		// never clears it on its own — it stays pointing at wherever the player entered a building
+		// from, indefinitely, across deaths. Dying and respawning should mean starting fresh, not
+		// getting walked back into whatever was near that old spot in Nix (or wherever) when it was
+		// recorded; without this, respawning at home and walking back out could drop the player right
+		// on top of a hazard/mob that has nothing to do with where they actually died.
+		SaveManager.Instance.PendingReturnPosition = null;
 
 		if (targetScenePath == ScenePath)
 			GetTree().CallDeferred(SceneTree.MethodName.ReloadCurrentScene);

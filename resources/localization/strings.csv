@@ -209,3 +209,17 @@ NPC_HEROE_NAME,Héroe,Hero,Herói
 NPC_HEROE_L1,Todo pueblo necesita un héroe. Por ahora, con escuchar ya ayudo.,Every town needs a hero. For now, just listening helps.,Todo povoado precisa de um herói. Por enquanto, já ajudo escutando.
 NPC_CABALLEROENCAPUCHADO_NAME,Caballero Encapuchado,Hooded Knight,Cavaleiro Encapuzado
 NPC_CABALLEROENCAPUCHADO_L1,Mi espada brilla sola. Yo solo trato de no cortarme.,My sword glows on its own. I just try not to cut myself.,Minha espada brilha sozinha. Eu só tento não me cortar.
+NPC_HERRERO_NAME,Herrero,Blacksmith,Ferreiro
+NPC_HERRERO_L1,El acero no miente. El fuego tampoco, pero quema más.,Steel doesn't lie. Fire doesn't either, but it burns more.,O aço não mente. O fogo também não, mas queima mais.
+NPC_CARNICERO_NAME,Carnicero,Butcher,Açougueiro
+NPC_CARNICERO_L1,Fresco de esta mañana. No pregunto de dónde vino, y usted tampoco debería.,Fresh from this morning. I don't ask where it came from, and neither should you.,Fresco desta manhã. Não pergunto de onde veio, e você também não deveria.
+NPC_CANTINERO_NAME,Cantinero,Bartender,Barman
+NPC_CANTINERO_L1,Aquí dejan las espadas en la puerta. Los problemas, no tanto.,Swords stay at the door here. Trouble, not so much.,Aqui as espadas ficam na porta. Os problemas, nem tanto.
+NPC_PARROQUIANO1_NAME,Parroquiano,Tavern Regular,Frequentador
+NPC_PARROQUIANO1_L1,*bebe sin levantar la vista*,*drinks without looking up*,*bebe sem levantar os olhos*
+NPC_PARROQUIANO2_NAME,Parroquiano,Tavern Regular,Frequentador
+NPC_PARROQUIANO2_L1,Otra ronda. Y no me pregunte por qué, ya sabe por qué.,Another round. And don't ask me why, you already know why.,Mais uma rodada. E não me pergunte por quê, você já sabe.
+NPC_PARROQUIANO3_NAME,Parroquiano,Tavern Regular,Frequentador
+NPC_PARROQUIANO3_L1,Escuché que hay un dragón cerca. O era un perro grande. Ya no me acuerdo.,I heard there's a dragon nearby. Or maybe it was a big dog. I don't remember anymore.,Ouvi dizer que tem um dragão por perto. Ou era um cachorro grande. Já não me lembro.
+NPC_VENDEDORA_NAME,Vendedora,Vendor,Vendedora
+NPC_VENDEDORA_L1,Fruta fresca, buen precio, y ni una palabra sobre dónde la conseguí.,Fresh fruit, good price, and not a word about where I got it.,Frutas frescas, bom preço, e nem uma palavra sobre onde as consegui.

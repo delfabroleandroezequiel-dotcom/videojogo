@@ -49,6 +49,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Enemys/Bandido2.tscn" id="47_tqksy"]
 [ext_resource type="PackedScene" uid="uid://drser5bfbd5kp" path="res://scenes/world/Enemys/Perrito1.tscn" id="48_m12de"]
 [ext_resource type="PackedScene" uid="uid://cr4y0x7wnc2ps" path="res://scenes/world/Enemys/Bandido3.tscn" id="49_jkxdd"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CookingArea.tscn" id="50_tqksy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ac3st"]
 texture = ExtResource("6_31o40")
@@ -7763,6 +7764,7 @@ script = ExtResource("2_lympf")
 ParallaxFactor = Vector2(0.6, 0.6)
 
 [node name="Capa3MinaSprite" type="Sprite2D" parent="Fondos" unique_id=1941802521]
+visible = false
 modulate = Color(0.6, 0.6, 0.6, 1)
 texture_repeat = 2
 position = Vector2(0, -76.99999)
@@ -8556,12 +8558,14 @@ Width = 800.0
 
 [node name="Bandido1" parent="." unique_id=1252243445 instance=ExtResource("46_savdg")]
 position = Vector2(57, -40)
+DetectionRange = 60.0
 
 [node name="Bandido2" parent="." unique_id=1779695818 instance=ExtResource("47_tqksy")]
 position = Vector2(220, -40)
+DetectionRange = 50.0
 
 [node name="Perrito1" parent="." unique_id=1079485317 instance=ExtResource("48_m12de")]
-position = Vector2(128, -24)
+position = Vector2(16.03859, -26.390045)
 
 [node name="Bandido3" parent="." unique_id=85827569 instance=ExtResource("47_tqksy")]
 position = Vector2(655, 1305)
@@ -8574,3 +8578,7 @@ position = Vector2(1655, 1436)
 
 [node name="Perrito2" parent="." unique_id=1708043171 instance=ExtResource("48_m12de")]
 position = Vector2(1593, 1452)
+
+[node name="CookingArea" parent="." unique_id=596984616 instance=ExtResource("50_tqksy")]
+position = Vector2(134, -47)
+scale = Vector2(1.5, 1.5)

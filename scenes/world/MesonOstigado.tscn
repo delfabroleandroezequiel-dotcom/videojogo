@@ -3,10 +3,15 @@
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="2_bootstrap"]
 [ext_resource type="Texture2D" uid="uid://clu7un5mvouei" path="res://assets/backgrounds/MesonOstigado.png" id="3_tavern"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/TavernGuest1.tscn" id="4_fnkqi"]
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="4_transition"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/TavernGuest2.tscn" id="5_m7xmo"]
 [ext_resource type="PackedScene" uid="uid://d8tq20x6upcu" path="res://scenes/world/Npc.tscn" id="5_npc"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/TavernGuest3.tscn" id="6_bfv42"]
 [ext_resource type="SpriteFrames" uid="uid://cloak0rirad5q" path="res://assets/external/gandalfhardcore/npc/GoddessNpcSpriteFrames.tres" id="6_goddess_frames"]
 [ext_resource type="Resource" uid="uid://beqplhalhp4r6" path="res://resources/camera/ClosedRoomCamera.tres" id="7_camera_profile"]
+[ext_resource type="SpriteFrames" uid="uid://bvkqlsyfqh51m" path="res://resources/sprites/TavernBartenderSpriteFrames.tres" id="8_isvp4"]
+[ext_resource type="Texture2D" uid="uid://bnxhpt62p5fd2" path="res://scenes/world/MesonOstigadobarra.png" id="9_o0uk4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(816.4462, 24.48)
@@ -20,10 +25,6 @@ size = Vector2(30.6, 459)
 script = ExtResource("2_bootstrap")
 ScenePath = "res://scenes/world/MesonOstigado.tscn"
 CameraProfile = ExtResource("7_camera_profile")
-CameraLimitLeft = -397.035
-CameraLimitRight = 397.035
-CameraLimitTop = -198.135
-CameraLimitBottom = 198.135
 
 [node name="Backdrop" type="Polygon2D" parent="." unique_id=1414872837]
 z_index = -10
@@ -41,16 +42,6 @@ position = Vector2(0, 127.755)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1074538544]
 shape = SubResource("RectangleShape2D_floor")
 
-[node name="TavernKeeper" parent="." unique_id=1394990544 instance=ExtResource("5_npc")]
-position = Vector2(272, 43.35)
-NpcName = "NPC_OSTIGADA_NAME"
-DialogueLines = PackedStringArray("NPC_OSTIGADA_L1", "NPC_OSTIGADA_L2")
-CustomSpriteFrames = ExtResource("6_goddess_frames")
-CustomSpriteYOffset = -5.4
-
-[node name="Player" parent="." unique_id=695195560 instance=ExtResource("1_player")]
-position = Vector2(-261, 58)
-
 [node name="Floor2" type="StaticBody2D" parent="." unique_id=2122917517]
 position = Vector2(0, 255.51)
 collision_layer = 33
@@ -59,6 +50,25 @@ collision_layer = 33
 position = Vector2(272, -173.91)
 shape = SubResource("RectangleShape2D_bn06r")
 one_way_collision = true
+
+[node name="Floor3" type="StaticBody2D" parent="." unique_id=805153971]
+position = Vector2(154.70259, 72.53672)
+collision_layer = 33
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor3" unique_id=262467191]
+position = Vector2(-1.8573761, 11.278809)
+shape = SubResource("RectangleShape2D_bn06r")
+one_way_collision = true
+
+[node name="TavernGuest1" parent="." unique_id=1205701924 instance=ExtResource("4_fnkqi")]
+position = Vector2(-164, 56)
+
+[node name="TavernGuest2" parent="." unique_id=1070819981 instance=ExtResource("5_m7xmo")]
+position = Vector2(-42, 51)
+scale = Vector2(2.059, 2.059)
+
+[node name="TavernGuest3" parent="." unique_id=427580685 instance=ExtResource("6_bfv42")]
+position = Vector2(-258, 51)
 
 [node name="ReturnTransition" parent="." unique_id=893934910 instance=ExtResource("4_transition")]
 position = Vector2(-357.02, 107.1)
@@ -80,3 +90,26 @@ position = Vector2(423.81, 0)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=1000000004]
 position = Vector2(-16.809998, -2)
 shape = SubResource("RectangleShape2D_sidewall")
+
+[node name="NpcCantinero" parent="." unique_id=2040744673 instance=ExtResource("5_npc")]
+position = Vector2(153, 7)
+NpcName = "NPC_CANTINERO_NAME"
+DialogueLines = PackedStringArray("NPC_CANTINERO_L1")
+CustomSpriteFrames = ExtResource("8_isvp4")
+CustomSpriteScale = Vector2(1.3, 1.3)
+CollisionSize = Vector2(30, 64)
+
+[node name="MesonOstigadobarra" type="Sprite2D" parent="." unique_id=1322174916]
+position = Vector2(166, 85)
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("9_o0uk4")
+
+[node name="TavernKeeper" parent="." unique_id=1394990544 instance=ExtResource("5_npc")]
+position = Vector2(273, 19)
+NpcName = "NPC_OSTIGADA_NAME"
+DialogueLines = PackedStringArray("NPC_OSTIGADA_L1", "NPC_OSTIGADA_L2")
+CustomSpriteFrames = ExtResource("6_goddess_frames")
+CustomSpriteYOffset = -5.4
+
+[node name="Player" parent="." unique_id=695195560 instance=ExtResource("1_player")]
+position = Vector2(-263, -5)

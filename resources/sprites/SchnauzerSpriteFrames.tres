@@ -1,0 +1,143 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://b38b7w5n5gf0j"]
+
+[ext_resource type="Texture2D" uid="uid://cv8r2tu8nmayu" path="res://assets/external/Pet Dogs Pack/Dog-4-Schnauzer/Schnauzer-Idle.png" id="1_sheet"]
+[ext_resource type="Texture2D" uid="uid://c4ly7f03vk3a5" path="res://assets/external/Pet Dogs Pack/Dog-4-Schnauzer/Schnauzer-run.png" id="2_run"]
+
+[sub_resource type="AtlasTexture" id="AT_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(700, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(800, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_9"]
+atlas = ExtResource("1_sheet")
+region = Rect2(900, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_R0"]
+atlas = ExtResource("2_run")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_R1"]
+atlas = ExtResource("2_run")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_R2"]
+atlas = ExtResource("2_run")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_R3"]
+atlas = ExtResource("2_run")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_R4"]
+atlas = ExtResource("2_run")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_R5"]
+atlas = ExtResource("2_run")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_R6"]
+atlas = ExtResource("2_run")
+region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AT_R7"]
+atlas = ExtResource("2_run")
+region = Rect2(700, 0, 100, 100)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AT_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_9")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AT_R0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_R1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_R2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_R3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_R4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_R5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_R6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_R7")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 12.0
+}]

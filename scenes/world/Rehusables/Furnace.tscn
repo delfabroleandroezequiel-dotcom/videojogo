@@ -1,0 +1,18 @@
+[gd_scene format=3]
+
+[ext_resource type="SpriteFrames" path="res://resources/sprites/FurnaceSpriteFrames.tres" id="1_frames"]
+[ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="2_glow_tex"]
+
+[node name="Furnace" type="Node2D"]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("1_frames")
+animation = &"lit"
+autoplay = "lit"
+
+[node name="Glow" type="PointLight2D" parent="."]
+position = Vector2(0, -20)
+color = Color(1, 0.5, 0.2, 1)
+energy = 1.3
+texture = ExtResource("2_glow_tex")
+texture_scale = 0.8

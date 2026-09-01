@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="SpriteFrames" path="res://resources/sprites/TavernGuest1SpriteFrames.tres" id="1_frames"]
+
+[node name="TavernGuest1" type="AnimatedSprite2D"]
+scale = Vector2(1.42, 1.42)
+sprite_frames = ExtResource("1_frames")
+animation = &"idle"
+autoplay = "idle"

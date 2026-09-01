@@ -90,10 +90,11 @@ autoplay = "idle"
 offset = Vector2(0, -5)
 
 [node name="BacklightGlow" type="Sprite2D" parent="Visual"]
+visible = false
 z_index = -1
 position = Vector2(-2, -10)
-scale = Vector2(0.32, 0.32)
-modulate = Color(1, 1, 1, 0.3)
+scale = Vector2(0.22, 0.22)
+modulate = Color(1, 1, 1, 0.18)
 material = SubResource("CanvasItemMaterial_auraadd")
 texture = ExtResource("17_lightgrad")
 

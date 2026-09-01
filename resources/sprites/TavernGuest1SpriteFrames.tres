@@ -1,30 +1,30 @@
-[gd_resource type="SpriteFrames" format=3 uid="uid://quxawr153nn5"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://ci1ak7bsfc1ey"]
 
-[ext_resource type="Texture2D" uid="uid://b2hqkwss3e7kt" path="res://assets/external/gandalfhardcore/GandalfHardcore Hell Asset Pack 32x32/Fire sheet.png" id="1_sheet"]
+[ext_resource type="Texture2D" uid="uid://dvfotjikev1yq" path="res://assets/external/CharacterPacks/SSW_VP1_v1.0/_PNG/_NPC/Tavern_Guest1.png" id="1_sheet"]
 
 [sub_resource type="AtlasTexture" id="AT_0"]
 atlas = ExtResource("1_sheet")
-region = Rect2(0, 0, 32, 32)
+region = Rect2(0, 0, 32, 64)
 
 [sub_resource type="AtlasTexture" id="AT_1"]
 atlas = ExtResource("1_sheet")
-region = Rect2(32, 0, 32, 32)
+region = Rect2(32, 0, 32, 64)
 
 [sub_resource type="AtlasTexture" id="AT_2"]
 atlas = ExtResource("1_sheet")
-region = Rect2(64, 0, 32, 32)
+region = Rect2(64, 0, 32, 64)
 
 [sub_resource type="AtlasTexture" id="AT_3"]
 atlas = ExtResource("1_sheet")
-region = Rect2(96, 0, 32, 32)
+region = Rect2(96, 0, 32, 64)
 
 [sub_resource type="AtlasTexture" id="AT_4"]
 atlas = ExtResource("1_sheet")
-region = Rect2(128, 0, 32, 32)
+region = Rect2(0, 64, 32, 64)
 
 [sub_resource type="AtlasTexture" id="AT_5"]
 atlas = ExtResource("1_sheet")
-region = Rect2(160, 0, 32, 32)
+region = Rect2(32, 64, 32, 64)
 
 [resource]
 animations = [{
@@ -48,6 +48,6 @@ animations = [{
 "texture": SubResource("AT_5")
 }],
 "loop": 1,
-"name": &"lit",
-"speed": 8.0
+"name": &"idle",
+"speed": 6.0
 }]
