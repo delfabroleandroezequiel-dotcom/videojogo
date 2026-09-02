@@ -1,0 +1,606 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://c6d1ldkskwlfp"]
+
+[ext_resource type="Texture2D" uid="uid://3i0r85amxu57" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER1.png" id="f1"]
+[ext_resource type="Texture2D" uid="uid://d2xa38x6huklc" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER2.png" id="f2"]
+[ext_resource type="Texture2D" uid="uid://bffc3p0hpja6h" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER3.png" id="f3"]
+[ext_resource type="Texture2D" uid="uid://c2gnq65vrujiy" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER4.png" id="f4"]
+[ext_resource type="Texture2D" uid="uid://o7pjk88i810i" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER5.png" id="f5"]
+[ext_resource type="Texture2D" uid="uid://bnd1oqtdla2jd" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER6.png" id="f6"]
+[ext_resource type="Texture2D" uid="uid://bkomlyydvw61c" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER7.png" id="f7"]
+[ext_resource type="Texture2D" uid="uid://d3qb3ce1xk2dk" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER8.png" id="f8"]
+[ext_resource type="Texture2D" uid="uid://cb2dowt0r7nqu" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER11.png" id="f11"]
+[ext_resource type="Texture2D" uid="uid://c3alo3oupbjac" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER12.png" id="f12"]
+[ext_resource type="Texture2D" uid="uid://4ai240485ldl" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER13.png" id="f13"]
+[ext_resource type="Texture2D" uid="uid://du36oneh3vyrl" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER14.png" id="f14"]
+[ext_resource type="Texture2D" uid="uid://dg06nxyua2edn" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER15.png" id="f15"]
+[ext_resource type="Texture2D" uid="uid://dqadfq8top5yn" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER16.png" id="f16"]
+[ext_resource type="Texture2D" uid="uid://dcxiwplr2qrxk" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER17.png" id="f17"]
+[ext_resource type="Texture2D" uid="uid://ktvsl2qmau1s" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER18.png" id="f18"]
+[ext_resource type="Texture2D" uid="uid://sv7cneea8m7a" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER19.png" id="f19"]
+[ext_resource type="Texture2D" uid="uid://3do07w500168" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER20.png" id="f20"]
+[ext_resource type="Texture2D" uid="uid://c6uujbgbt2u6r" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER21.png" id="f21"]
+[ext_resource type="Texture2D" uid="uid://di1q40h7jeuvh" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER22.png" id="f22"]
+[ext_resource type="Texture2D" uid="uid://547nq0k0yx3o" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER23.png" id="f23"]
+[ext_resource type="Texture2D" uid="uid://b8nkh6e16in4p" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER24.png" id="f24"]
+[ext_resource type="Texture2D" uid="uid://dwbefk4wjnxsi" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER25.png" id="f25"]
+[ext_resource type="Texture2D" uid="uid://d4ed02vd06xqe" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER26.png" id="f26"]
+[ext_resource type="Texture2D" uid="uid://bhmt4pa5daleo" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER31.png" id="f31"]
+[ext_resource type="Texture2D" uid="uid://cuhq8oas75psf" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER32.png" id="f32"]
+[ext_resource type="Texture2D" uid="uid://c4vvfa5xt2d6h" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER33.png" id="f33"]
+[ext_resource type="Texture2D" uid="uid://bj041v0ml4hlx" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER34.png" id="f34"]
+[ext_resource type="Texture2D" uid="uid://cutlablaprj40" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER35.png" id="f35"]
+[ext_resource type="Texture2D" uid="uid://helrb1xrevtt" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER36.png" id="f36"]
+[ext_resource type="Texture2D" uid="uid://qrd5hk0b8qoh" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER37.png" id="f37"]
+[ext_resource type="Texture2D" uid="uid://bvpe2lch23576" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER38.png" id="f38"]
+[ext_resource type="Texture2D" uid="uid://0u46n7n3hm87" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER39.png" id="f39"]
+[ext_resource type="Texture2D" uid="uid://cmshyk7dc3b0m" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER40.png" id="f40"]
+[ext_resource type="Texture2D" uid="uid://cm0n88trfdoii" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER41.png" id="f41"]
+[ext_resource type="Texture2D" uid="uid://xopkkmgu4ls2" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER42.png" id="f42"]
+[ext_resource type="Texture2D" uid="uid://c505uubkslius" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER43.png" id="f43"]
+[ext_resource type="Texture2D" uid="uid://prvt5ow7el7b" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER44.png" id="f44"]
+[ext_resource type="Texture2D" uid="uid://p0itjstjajke" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER45.png" id="f45"]
+[ext_resource type="Texture2D" uid="uid://c2q3b25pim3uu" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER46.png" id="f46"]
+[ext_resource type="Texture2D" uid="uid://b7e28no0ohrun" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER47.png" id="f47"]
+[ext_resource type="Texture2D" uid="uid://d2x7hgkklleyt" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER49.png" id="f49"]
+[ext_resource type="Texture2D" uid="uid://bpi66j23f8ptj" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER50.png" id="f50"]
+[ext_resource type="Texture2D" uid="uid://dibi2vquxhnpc" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER51.png" id="f51"]
+[ext_resource type="Texture2D" uid="uid://dum066kmrr7vv" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER52.png" id="f52"]
+[ext_resource type="Texture2D" uid="uid://cmwkfc08yk5te" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER53.png" id="f53"]
+[ext_resource type="Texture2D" uid="uid://d1jlh2of0vwq5" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER54.png" id="f54"]
+[ext_resource type="Texture2D" uid="uid://bfd5sw34ltm5" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER55.png" id="f55"]
+[ext_resource type="Texture2D" uid="uid://bd1onvyk72iv3" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER59.png" id="f59"]
+[ext_resource type="Texture2D" uid="uid://v0sxp17xs0ku" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER60.png" id="f60"]
+[ext_resource type="Texture2D" uid="uid://cyd5v3rlgfgib" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER61.png" id="f61"]
+[ext_resource type="Texture2D" uid="uid://cjcxk4dyry3mi" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER62.png" id="f62"]
+[ext_resource type="Texture2D" uid="uid://psb02urj4hdg" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER63.png" id="f63"]
+[ext_resource type="Texture2D" uid="uid://dpkxb5ovcqm61" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER64.png" id="f64"]
+[ext_resource type="Texture2D" uid="uid://d0vmi1g187vtk" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER65.png" id="f65"]
+[ext_resource type="Texture2D" uid="uid://dkhsmr170dryy" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER66.png" id="f66"]
+[ext_resource type="Texture2D" uid="uid://cx2u5mhrsob8y" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER67.png" id="f67"]
+[ext_resource type="Texture2D" uid="uid://dcne1rr8wigtg" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER68.png" id="f68"]
+[ext_resource type="Texture2D" uid="uid://dwn081d00e166" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER69.png" id="f69"]
+[ext_resource type="Texture2D" uid="uid://dld4113ctmgt8" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER70.png" id="f70"]
+[ext_resource type="Texture2D" uid="uid://bo0f6e3mi6t8a" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER71.png" id="f71"]
+[ext_resource type="Texture2D" uid="uid://c7uwaiwkh4yy6" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER72.png" id="f72"]
+[ext_resource type="Texture2D" uid="uid://che1y2mc2sctm" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER73.png" id="f73"]
+[ext_resource type="Texture2D" uid="uid://dk1so8a2mv4o7" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER74.png" id="f74"]
+[ext_resource type="Texture2D" uid="uid://bdcfm535omdss" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER75.png" id="f75"]
+[ext_resource type="Texture2D" uid="uid://8kg8i7vliwwq" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER76.png" id="f76"]
+[ext_resource type="Texture2D" uid="uid://c7poy74ehsc7e" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER77.png" id="f77"]
+[ext_resource type="Texture2D" uid="uid://cnfdy5lo7j2ln" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER78.png" id="f78"]
+[ext_resource type="Texture2D" uid="uid://fqpxtlp8eydn" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER79.png" id="f79"]
+[ext_resource type="Texture2D" uid="uid://cgvjjwiqsv0df" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER80.png" id="f80"]
+[ext_resource type="Texture2D" uid="uid://cdoq81c0wyo8p" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER81.png" id="f81"]
+[ext_resource type="Texture2D" uid="uid://cicxjtptotrja" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER82.png" id="f82"]
+[ext_resource type="Texture2D" uid="uid://dcm2n6sojlr4s" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER83.png" id="f83"]
+[ext_resource type="Texture2D" uid="uid://dui3ydfltct60" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER84.png" id="f84"]
+[ext_resource type="Texture2D" uid="uid://1y7fxthkixch" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER85.png" id="f85"]
+[ext_resource type="Texture2D" uid="uid://s5m4irta48sj" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER86.png" id="f86"]
+[ext_resource type="Texture2D" uid="uid://diiv11tmyy66k" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER87.png" id="f87"]
+[ext_resource type="Texture2D" uid="uid://ck0ahg7ud4h8x" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER88.png" id="f88"]
+[ext_resource type="Texture2D" uid="uid://dog7441dptude" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER89.png" id="f89"]
+[ext_resource type="Texture2D" uid="uid://c5yqlhxvgwjgh" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER90.png" id="f90"]
+[ext_resource type="Texture2D" uid="uid://cud7wnmss1gsj" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER91.png" id="f91"]
+[ext_resource type="Texture2D" uid="uid://c7rcix7hrwruy" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER92.png" id="f92"]
+[ext_resource type="Texture2D" uid="uid://f8dyrtsotr0f" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER93.png" id="f93"]
+[ext_resource type="Texture2D" uid="uid://dgpxs5c00xbie" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER94.png" id="f94"]
+[ext_resource type="Texture2D" uid="uid://6upb0u760e1s" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER95.png" id="f95"]
+[ext_resource type="Texture2D" uid="uid://dp551qrt0u0gn" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER96.png" id="f96"]
+[ext_resource type="Texture2D" uid="uid://bur4wk28sywco" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER97.png" id="f97"]
+[ext_resource type="Texture2D" uid="uid://cpq734653hblc" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER98.png" id="f98"]
+[ext_resource type="Texture2D" uid="uid://cjvfoxgoi1jmm" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER99.png" id="f99"]
+[ext_resource type="Texture2D" uid="uid://ju2sk205dawp" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER110.png" id="f110"]
+[ext_resource type="Texture2D" uid="uid://d0w3bo2l5wy4j" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER111.png" id="f111"]
+[ext_resource type="Texture2D" uid="uid://ctxrq452n5jlx" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER112.png" id="f112"]
+[ext_resource type="Texture2D" uid="uid://bfkqele6nknjc" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER113.png" id="f113"]
+[ext_resource type="Texture2D" uid="uid://b4dn0u06ehva" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER114.png" id="f114"]
+[ext_resource type="Texture2D" uid="uid://bhi7cluss2lpw" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER115.png" id="f115"]
+[ext_resource type="Texture2D" uid="uid://1mysivqgyp7c" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER116.png" id="f116"]
+[ext_resource type="Texture2D" uid="uid://ieklpirlgugo" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER117.png" id="f117"]
+[ext_resource type="Texture2D" uid="uid://k8l8jjyjfujg" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER118.png" id="f118"]
+[ext_resource type="Texture2D" uid="uid://d4ksmwxj3wc1b" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER119.png" id="f119"]
+[ext_resource type="Texture2D" uid="uid://b0chfguj8pj7g" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER120.png" id="f120"]
+[ext_resource type="Texture2D" uid="uid://ctfevs2fxcpqf" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER121.png" id="f121"]
+[ext_resource type="Texture2D" uid="uid://iog532kr6cq6" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER122.png" id="f122"]
+[ext_resource type="Texture2D" uid="uid://bxqr4hjeegf8o" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER123.png" id="f123"]
+[ext_resource type="Texture2D" uid="uid://caenq276gryqr" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER124.png" id="f124"]
+[ext_resource type="Texture2D" uid="uid://dvffvddqqtmhi" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER125.png" id="f125"]
+[ext_resource type="Texture2D" uid="uid://cc2v2ksbfl5bc" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER126.png" id="f126"]
+[ext_resource type="Texture2D" uid="uid://defvuvyr54kor" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER127.png" id="f127"]
+[ext_resource type="Texture2D" uid="uid://dhi1qubya4rfr" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER129.png" id="f129"]
+[ext_resource type="Texture2D" uid="uid://dyvcdjpcah1ot" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER130.png" id="f130"]
+[ext_resource type="Texture2D" uid="uid://dm252fgcot6o5" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER131.png" id="f131"]
+[ext_resource type="Texture2D" uid="uid://v5w2nohefgx" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER132.png" id="f132"]
+[ext_resource type="Texture2D" uid="uid://cyc1ios5abxnu" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER133.png" id="f133"]
+[ext_resource type="Texture2D" uid="uid://dxvedjdxmobwp" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER134.png" id="f134"]
+[ext_resource type="Texture2D" uid="uid://csuv6exm0sk3h" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER135.png" id="f135"]
+[ext_resource type="Texture2D" uid="uid://b2jmc8nwdixbb" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER136.png" id="f136"]
+[ext_resource type="Texture2D" uid="uid://blvxmb14gn14t" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER137.png" id="f137"]
+[ext_resource type="Texture2D" uid="uid://njogqh3jcxdw" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER138.png" id="f138"]
+[ext_resource type="Texture2D" uid="uid://qdoyeshk4jnc" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER139.png" id="f139"]
+[ext_resource type="Texture2D" uid="uid://cgltr747kmcqv" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER140.png" id="f140"]
+[ext_resource type="Texture2D" uid="uid://enm5xh2rko6x" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER141.png" id="f141"]
+[ext_resource type="Texture2D" uid="uid://baukfif55x5p5" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER142.png" id="f142"]
+[ext_resource type="Texture2D" uid="uid://co88x28gh21rl" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER143.png" id="f143"]
+[ext_resource type="Texture2D" uid="uid://7vdvi85v1qgw" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER144.png" id="f144"]
+[ext_resource type="Texture2D" uid="uid://biinfea0sifdx" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER145.png" id="f145"]
+[ext_resource type="Texture2D" uid="uid://nu2ychqcr055" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER146.png" id="f146"]
+[ext_resource type="Texture2D" uid="uid://b84j7qcvje5vm" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER147.png" id="f147"]
+[ext_resource type="Texture2D" uid="uid://bf4p6yh2l4vd" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER148.png" id="f148"]
+[ext_resource type="Texture2D" uid="uid://dajmaj0kfr00s" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER149.png" id="f149"]
+[ext_resource type="Texture2D" uid="uid://20ursjkx6yox" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER150.png" id="f150"]
+[ext_resource type="Texture2D" uid="uid://df8booy6yhuq8" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER151.png" id="f151"]
+[ext_resource type="Texture2D" uid="uid://bayyik0y6jfuv" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER152.png" id="f152"]
+[ext_resource type="Texture2D" uid="uid://bdfpkqc7vuhn7" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER159.png" id="f159"]
+[ext_resource type="Texture2D" uid="uid://c7nfn7bkb2udr" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER160.png" id="f160"]
+[ext_resource type="Texture2D" uid="uid://b16og5mwkfl0p" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER161.png" id="f161"]
+[ext_resource type="Texture2D" uid="uid://ef6wvhmpoujw" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER162.png" id="f162"]
+[ext_resource type="Texture2D" uid="uid://bpq2xk566ku3" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER163.png" id="f163"]
+[ext_resource type="Texture2D" uid="uid://dh8bqmq14sx7c" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER164.png" id="f164"]
+[ext_resource type="Texture2D" uid="uid://d3gri17ugs2tr" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER165.png" id="f165"]
+[ext_resource type="Texture2D" uid="uid://d08tantqdikx7" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/CHARACTER/CHARACTER166.png" id="f166"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("f11")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f13")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f14")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f15")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f16")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f17")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f18")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f19")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f20")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f21")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f22")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f23")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f24")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f25")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f26")
+}],
+"loop": 0,
+"name": &"blade_spin_1",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("f90")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f91")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f92")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f93")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f94")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f95")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f96")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f97")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f98")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f99")
+}],
+"loop": 0,
+"name": &"blade_spin_2",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("f110")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f111")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f112")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f113")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f114")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f115")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f116")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f117")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f118")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f119")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f120")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f121")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f122")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f123")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f124")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f125")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f126")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f127")
+}],
+"loop": 0,
+"name": &"dash_attack",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("f1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f8")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("f31")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f32")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f33")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f34")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f35")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f36")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f37")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f38")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f39")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f40")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f41")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f42")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f43")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f44")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f45")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f46")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f47")
+}],
+"loop": 0,
+"name": &"power_attack",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("f49")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f50")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f51")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f52")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f53")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f54")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f55")
+}],
+"loop": 0,
+"name": &"quick_attack",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("f159")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f160")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f161")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f162")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f163")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f164")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f165")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f166")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("f59")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f60")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f61")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f62")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f63")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f64")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f65")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f66")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f67")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f68")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f69")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f70")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f71")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f72")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f73")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f74")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f75")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f76")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f77")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f78")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f79")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f80")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f81")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f82")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f83")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f84")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f85")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f86")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f87")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f88")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f89")
+}],
+"loop": 0,
+"name": &"summon_in",
+"speed": 18.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("f129")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f130")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f131")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f132")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f133")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f134")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f135")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f136")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f137")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f138")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f139")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f140")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f141")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f142")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f143")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f144")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f145")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f146")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f147")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f148")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f149")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f150")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f151")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f152")
+}],
+"loop": 0,
+"name": &"teleport_out",
+"speed": 18.0
+}]

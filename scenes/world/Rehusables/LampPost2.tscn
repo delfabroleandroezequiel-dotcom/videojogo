@@ -1,0 +1,18 @@
+[gd_scene format=3]
+
+[ext_resource type="SpriteFrames" path="res://resources/sprites/NecropolisLampPost2SpriteFrames.tres" id="1_frames"]
+[ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="2_glow_tex"]
+
+[node name="LampPost2" type="Node2D"]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("1_frames")
+animation = &"lit"
+autoplay = "lit"
+
+[node name="Glow" type="PointLight2D" parent="."]
+position = Vector2(0, -45)
+color = Color(0.7, 0.35, 1, 1)
+energy = 1.1
+texture = ExtResource("2_glow_tex")
+texture_scale = 0.4

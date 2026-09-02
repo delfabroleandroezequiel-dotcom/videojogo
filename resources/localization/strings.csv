@@ -175,6 +175,16 @@ NPC_BANDITPESADO_NAME,Bandido Pesado,Heavy Bandit,Bandido Pesado
 NPC_BANDITPESADO_L1,Antes andaba con una banda más grande. Ahora somos dos, pero rendimos por diez.,I used to run with a bigger crew. Now it's just the two of us, but we're worth ten.,Antes eu andava com uma gangue maior. Agora somos só nós dois, mas valemos por dez.
 NPC_BANDITLIGERO_NAME,Bandido Ligero,Light Bandit,Bandido Ligeiro
 NPC_BANDITLIGERO_L1,Yo distraigo, él golpea. Así nos ganamos la vida.,I distract, he hits. That's how we make a living.,Eu distraio, ele bate. É assim que ganhamos a vida.
+NPC_BANDITASESINO_NAME,Bandido Asesino,Assassin Bandit,Bandido Assassino
+NPC_BANDITASESINO_L1,Ni me vas a ver venir. Esa es la idea.,You won't see me coming. That's the point.,Você nem vai me ver chegando. Essa é a ideia.
+NPC_BANDITCORPULENTO_NAME,Bandido Corpulento,Brawny Bandit,Bandido Corpulento
+NPC_BANDITCORPULENTO_L1,Con este puño no hace falta arma.,With this fist, I don't need a weapon.,Com esse punho, não preciso de arma.
+NPC_BANDITINCENDIARIO_NAME,Bandido Incendiario,Torcher Bandit,Bandido Incendiário
+NPC_BANDITINCENDIARIO_L1,Todo lo que toco, termina en cenizas.,Everything I touch ends up ash.,Tudo que eu toco vira cinzas.
+NPC_BANDITSALVAJE_NAME,Bandido Salvaje,Wild Bandit,Bandido Selvagem
+NPC_BANDITSALVAJE_L1,No sigo órdenes de nadie. Solo instinto.,I don't follow orders. Just instinct.,Não sigo ordens de ninguém. Só instinto.
+NPC_GUERRERONECROPOLIS_NAME,Guerrero de la Necrópolis,Necropolis Warrior,Guerreiro da Necrópole
+NPC_GUERRERONECROPOLIS_L1,Los muertos no descansan aquí. Y yo tampoco.,The dead don't rest here. Neither do I.,Os mortos não descansam aqui. Nem eu.
 NPC_CABALLEROSVEN_NAME,Caballero de Capa Azul,Blue-Caped Knight,Cavaleiro de Capa Azul
 NPC_CABALLEROSVEN_L1,Serví en la guardia real hasta que colgué la capa. Ahora solo viajo.,I served in the royal guard until I hung up the cape. Now I just travel.,Servi na guarda real até pendurar a capa. Agora só viajo.
 NPC_ASESINO_NAME,Asesino Encapuchado,Hooded Assassin,Assassino Encapuzado

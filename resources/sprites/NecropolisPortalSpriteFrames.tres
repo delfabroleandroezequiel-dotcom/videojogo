@@ -1,0 +1,138 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://c8ewy87pllih1"]
+
+[ext_resource type="Texture2D" uid="uid://oxbp7xyqvm7c" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/PROPS/PORTAL/PORTAL 2.png" id="f2"]
+[ext_resource type="Texture2D" uid="uid://d0m6ut0l3cun8" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/PROPS/PORTAL/PORTAL 3.png" id="f3"]
+[ext_resource type="Texture2D" uid="uid://dd7sm46yvppdt" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/PROPS/PORTAL/PORTAL 4.png" id="f4"]
+[ext_resource type="Texture2D" uid="uid://buqefoc63w3cs" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/PROPS/PORTAL/PORTAL 5.png" id="f5"]
+[ext_resource type="Texture2D" uid="uid://coqnk7soxsytk" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/PROPS/PORTAL/PORTAL 6.png" id="f6"]
+[ext_resource type="Texture2D" uid="uid://8fc17q5ay2ij" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/PROPS/PORTAL/PORTAL 7.png" id="f7"]
+[ext_resource type="Texture2D" uid="uid://bb1tsuycw7enx" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/PROPS/PORTAL/PORTAL 8.png" id="f8"]
+[ext_resource type="Texture2D" uid="uid://bnrwlmttt2a7a" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/PROPS/PORTAL/PORTAL 9.png" id="f9"]
+[ext_resource type="Texture2D" uid="uid://dor7885poup1o" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/PROPS/PORTAL/PORTAL 10.png" id="f10"]
+[ext_resource type="Texture2D" uid="uid://otinvj8vd5lu" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/PROPS/PORTAL/PORTAL 11.png" id="f11"]
+[ext_resource type="Texture2D" uid="uid://ddjjm444g48op" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/PROPS/PORTAL/PORTAL 12.png" id="f12"]
+[ext_resource type="Texture2D" uid="uid://do35lu51yrsv5" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/PROPS/PORTAL/PORTAL 13.png" id="f13"]
+[ext_resource type="Texture2D" uid="uid://bsw3xk5rf652" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/PROPS/PORTAL/PORTAL 14.png" id="f14"]
+[ext_resource type="Texture2D" uid="uid://butgy6oey4772" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/PROPS/PORTAL/PORTAL 15.png" id="f15"]
+[ext_resource type="Texture2D" uid="uid://dxfmae6i3ewpj" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/PROPS/PORTAL/PORTAL 16.png" id="f16"]
+[ext_resource type="Texture2D" uid="uid://ddpwc2kd3spw7" path="res://assets/external/Dark Crimson Necropolis – 2D Pixel Art Platformer Asset Pack/PROPS/PORTAL/PORTAL 17.png" id="f17"]
+
+[sub_resource type="AtlasTexture" id="AT_2"]
+atlas = ExtResource("f2")
+region = Rect2(0, 0, 287, 511)
+
+[sub_resource type="AtlasTexture" id="AT_3"]
+atlas = ExtResource("f3")
+region = Rect2(0, 0, 287, 511)
+
+[sub_resource type="AtlasTexture" id="AT_4"]
+atlas = ExtResource("f4")
+region = Rect2(0, 0, 287, 511)
+
+[sub_resource type="AtlasTexture" id="AT_5"]
+atlas = ExtResource("f5")
+region = Rect2(0, 0, 287, 511)
+
+[sub_resource type="AtlasTexture" id="AT_6"]
+atlas = ExtResource("f6")
+region = Rect2(0, 0, 287, 511)
+
+[sub_resource type="AtlasTexture" id="AT_7"]
+atlas = ExtResource("f7")
+region = Rect2(0, 0, 287, 511)
+
+[sub_resource type="AtlasTexture" id="AT_8"]
+atlas = ExtResource("f8")
+region = Rect2(0, 0, 287, 511)
+
+[sub_resource type="AtlasTexture" id="AT_9"]
+atlas = ExtResource("f9")
+region = Rect2(0, 0, 287, 511)
+
+[sub_resource type="AtlasTexture" id="AT_10"]
+atlas = ExtResource("f10")
+region = Rect2(0, 0, 287, 511)
+
+[sub_resource type="AtlasTexture" id="AT_11"]
+atlas = ExtResource("f11")
+region = Rect2(0, 0, 287, 511)
+
+[sub_resource type="AtlasTexture" id="AT_12"]
+atlas = ExtResource("f12")
+region = Rect2(0, 0, 287, 511)
+
+[sub_resource type="AtlasTexture" id="AT_13"]
+atlas = ExtResource("f13")
+region = Rect2(0, 0, 287, 511)
+
+[sub_resource type="AtlasTexture" id="AT_14"]
+atlas = ExtResource("f14")
+region = Rect2(0, 0, 287, 511)
+
+[sub_resource type="AtlasTexture" id="AT_15"]
+atlas = ExtResource("f15")
+region = Rect2(0, 0, 287, 511)
+
+[sub_resource type="AtlasTexture" id="AT_16"]
+atlas = ExtResource("f16")
+region = Rect2(0, 0, 287, 511)
+
+[sub_resource type="AtlasTexture" id="AT_17"]
+atlas = ExtResource("f17")
+region = Rect2(0, 0, 287, 511)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AT_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_9")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_11")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_12")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_14")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_15")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_16")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_17")
+}],
+"loop": 1,
+"name": &"active",
+"speed": 6.0
+}]

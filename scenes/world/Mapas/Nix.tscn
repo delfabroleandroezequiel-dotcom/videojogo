@@ -96,9 +96,11 @@
 [ext_resource type="SpriteFrames" uid="uid://bxsagfbelmifi" path="res://resources/sprites/MeatVendorSpriteFrames.tres" id="99_carnicero"]
 [ext_resource type="SpriteFrames" uid="uid://bvkqlsyfqh51m" path="res://resources/sprites/TavernBartenderSpriteFrames.tres" id="100_cantinero"]
 [ext_resource type="SpriteFrames" uid="uid://duujbn8uutkd7" path="res://resources/sprites/VendorSSWSpriteFrames.tres" id="104_vendedora"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/TavernGuest1.tscn" id="105_parroquiano1"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/TavernGuest2.tscn" id="106_parroquiano2"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/TavernGuest3.tscn" id="107_parroquiano3"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/AssassinBandit3SpriteFrames.tres" id="108_banditasesino3"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/HeavyBandit3SpriteFrames.tres" id="109_banditcorpulento"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/TorcherBanditSpriteFrames.tres" id="110_banditincendiario"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/WildBanditSpriteFrames.tres" id="111_banditsalvaje"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/NecropolisWarriorSpriteFrames.tres" id="112_necropolisguerrero"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn06r"]
 size = Vector2(67, 11.360123)
@@ -13190,6 +13192,50 @@ CustomSpriteYOffset = 0.85
 CustomSpriteScale = Vector2(0.8537, 0.8537)
 CollisionSize = Vector2(64, 64)
 
+[node name="NpcBanditAsesino3" parent="." unique_id=1036515963 instance=ExtResource("6_npc")]
+position = Vector2(2461, 430)
+NpcName = "NPC_BANDITASESINO_NAME"
+DialogueLines = PackedStringArray("NPC_BANDITASESINO_L1")
+CustomSpriteFrames = ExtResource("108_banditasesino3")
+CustomSpriteYOffset = -11.6
+CustomSpriteScale = Vector2(1.6, 1.6)
+
+[node name="NpcBanditCorpulento" parent="." unique_id=1150222642 instance=ExtResource("6_npc")]
+position = Vector2(2526, 430)
+NpcName = "NPC_BANDITCORPULENTO_NAME"
+DialogueLines = PackedStringArray("NPC_BANDITCORPULENTO_L1")
+CustomSpriteFrames = ExtResource("109_banditcorpulento")
+CustomSpriteYOffset = -15.23
+CustomSpriteScale = Vector2(1.7171, 1.7171)
+CollisionSize = Vector2(52, 64)
+
+[node name="NpcBanditIncendiario" parent="." unique_id=2060003199 instance=ExtResource("6_npc")]
+position = Vector2(2591, 430)
+NpcName = "NPC_BANDITINCENDIARIO_NAME"
+DialogueLines = PackedStringArray("NPC_BANDITINCENDIARIO_L1")
+CustomSpriteFrames = ExtResource("110_banditincendiario")
+CustomSpriteYOffset = -12.2
+CustomSpriteScale = Vector2(1.6192, 1.6192)
+CollisionSize = Vector2(49, 64)
+
+[node name="NpcBanditSalvaje" parent="." unique_id=786646752 instance=ExtResource("6_npc")]
+position = Vector2(2656, 430)
+NpcName = "NPC_BANDITSALVAJE_NAME"
+DialogueLines = PackedStringArray("NPC_BANDITSALVAJE_L1")
+CustomSpriteFrames = ExtResource("111_banditsalvaje")
+CustomSpriteYOffset = -28.13
+CustomSpriteScale = Vector2(2.1333, 2.1333)
+CollisionSize = Vector2(70, 64)
+
+[node name="NpcGuerreroNecropolis" parent="." instance=ExtResource("6_npc")]
+position = Vector2(2730, 430)
+NpcName = "NPC_GUERRERONECROPOLIS_NAME"
+DialogueLines = PackedStringArray("NPC_GUERRERONECROPOLIS_L1")
+CustomSpriteFrames = ExtResource("112_necropolisguerrero")
+CustomSpriteYOffset = -30.9
+CustomSpriteScale = Vector2(1.3, 1.3)
+CollisionSize = Vector2(70, 64)
+
 [node name="NpcMujerGuerrera" parent="." unique_id=457384258 instance=ExtResource("6_npc")]
 position = Vector2(999, 430)
 NpcName = "NPC_MUJERGUERRERA_NAME"
@@ -13439,15 +13485,6 @@ DialogueLines = PackedStringArray("NPC_CANTINERO_L1")
 CustomSpriteFrames = ExtResource("100_cantinero")
 CustomSpriteScale = Vector2(1.3, 1.3)
 CollisionSize = Vector2(30, 64)
-
-[node name="TavernGuest1" parent="." instance=ExtResource("105_parroquiano1")]
-position = Vector2(2100, 430)
-
-[node name="TavernGuest2" parent="." instance=ExtResource("106_parroquiano2")]
-position = Vector2(2180, 430)
-
-[node name="TavernGuest3" parent="." instance=ExtResource("107_parroquiano3")]
-position = Vector2(2260, 430)
 
 [node name="NpcVendedora" parent="." unique_id=100240035 instance=ExtResource("6_npc")]
 position = Vector2(3000, 430)

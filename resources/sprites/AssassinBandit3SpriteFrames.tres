@@ -1,0 +1,67 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://cab7wakhrjesx"]
+
+[ext_resource type="Texture2D" uid="uid://dufbq83wk13kf" path="res://assets/external/Chars/Bandits3/BanditEnemyPack/AssassinBandit/Idle.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AT_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="AT_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="AT_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(256, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="AT_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(384, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="AT_4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(512, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="AT_5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(640, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="AT_6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(768, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="AT_7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(896, 0, 128, 96)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AT_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_7")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 8.0
+}]

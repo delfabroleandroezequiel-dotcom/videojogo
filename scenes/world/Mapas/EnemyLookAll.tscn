@@ -1,0 +1,168 @@
+[gd_scene format=3 uid="uid://bcuhhcu10knt5"]
+
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://dyb5srmo0idfu" path="res://scripts/world/AnimationCycler.cs" id="2_cycler"]
+[ext_resource type="SpriteFrames" uid="uid://c6d1ldkskwlfp" path="res://resources/sprites/NecropolisWarriorSpriteFrames.tres" id="6_necropolis"]
+[ext_resource type="SpriteFrames" uid="uid://sg3io3vxjfil" path="res://resources/sprites/EvilWizard3SpriteFrames.tres" id="7_hechicero"]
+[ext_resource type="SpriteFrames" uid="uid://bjt3xxl87i1mn" path="res://resources/sprites/WizardSpriteFrames.tres" id="8_magocamino"]
+[ext_resource type="SpriteFrames" uid="uid://dtd8dymti34pr" path="res://resources/sprites/FantasyWarriorSpriteFrames.tres" id="9_mercenario"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(1700, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(60, 700)
+
+[node name="EnemyLookAll" type="Node2D" unique_id=1183027699]
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=653339485]
+position = Vector2(800, 460)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1677327946]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="FloorVisual" type="ColorRect" parent="Floor" unique_id=823653674]
+offset_left = -850.0
+offset_top = -30.0
+offset_right = 850.0
+offset_bottom = 30.0
+color = Color(0.22, 0.22, 0.24, 1)
+
+[node name="WallLeft" type="StaticBody2D" parent="." unique_id=240636955]
+position = Vector2(-30, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft" unique_id=1956463224]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="WallRight" type="StaticBody2D" parent="." unique_id=136363820]
+position = Vector2(1630, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight" unique_id=641346876]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="Player" parent="." unique_id=968836729 instance=ExtResource("1_player")]
+position = Vector2(356, 388)
+
+[node name="MagoCaminoViewer" type="Node2D" parent="."]
+position = Vector2(1100, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="MagoCaminoViewer"]
+position = Vector2(0, -36.63)
+scale = Vector2(0.814, 0.814)
+sprite_frames = ExtResource("8_magocamino")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="MagoCaminoViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Mago Camino"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="MagoCaminoViewer"]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="MagoCaminoViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "run", "attack1", "attack2", "hit", "fall", "jump", "death")
+SecondsPerAnimation = 2.2
+
+[node name="GuerreroNecropolisViewer" type="Node2D" parent="." unique_id=813005880]
+position = Vector2(200, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="GuerreroNecropolisViewer" unique_id=391689175]
+position = Vector2(0, -79.58)
+scale = Vector2(1.5015, 1.5015)
+sprite_frames = ExtResource("6_necropolis")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="GuerreroNecropolisViewer" unique_id=6730260]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Guerrero Necropolis"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="GuerreroNecropolisViewer" unique_id=1794638672]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="GuerreroNecropolisViewer" unique_id=889509924]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "blade_spin_1", "power_attack", "quick_attack", "summon_in", "blade_spin_2", "dash_attack", "teleport_out", "run")
+SecondsPerAnimation = 2.2
+
+[node name="HechiceroViewer" type="Node2D" parent="."]
+position = Vector2(650, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="HechiceroViewer"]
+position = Vector2(0, -34.34)
+scale = Vector2(1.3208, 1.3208)
+sprite_frames = ExtResource("7_hechicero")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="HechiceroViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Hechicero"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="HechiceroViewer"]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="HechiceroViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "walk", "run", "attack", "hit", "fall", "jump", "death")
+SecondsPerAnimation = 2.2
+
+[node name="MercenarioViewer" type="Node2D" parent="."]
+position = Vector2(1550, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="MercenarioViewer"]
+position = Vector2(0, -29.56)
+scale = Vector2(1.5556, 1.5556)
+sprite_frames = ExtResource("9_mercenario")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="MercenarioViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Mercenario"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="MercenarioViewer"]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="MercenarioViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "run", "attack1", "attack2", "attack3", "hit", "fall", "jump", "death")
+SecondsPerAnimation = 2.2
