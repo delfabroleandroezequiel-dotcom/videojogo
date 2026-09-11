@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="MagoCaminoAttack" format=3 uid="uid://dti0gf4yhnj51"]
+
+[ext_resource type="Script" uid="uid://cjkkbtsovpcxu" path="res://scripts/world/MagoCaminoAttack.cs" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/world/StaffHomingBolt.tscn" id="2_projectile"]
+
+[resource]
+script = ExtResource("1_script")
+AttackName = "Homing Volley"
+ProjectileScene = ExtResource("2_projectile")
+ProjectileSpeed = 220.0
+Cooldown = 4.5
+CastDuration = 0.65
+ReleaseDelay = 0.3
+ProjectileCount = 3
+BurstInterval = 0.15

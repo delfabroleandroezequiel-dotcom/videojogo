@@ -6,9 +6,37 @@
 [ext_resource type="SpriteFrames" uid="uid://sg3io3vxjfil" path="res://resources/sprites/EvilWizard3SpriteFrames.tres" id="7_hechicero"]
 [ext_resource type="SpriteFrames" uid="uid://bjt3xxl87i1mn" path="res://resources/sprites/WizardSpriteFrames.tres" id="8_magocamino"]
 [ext_resource type="SpriteFrames" uid="uid://dtd8dymti34pr" path="res://resources/sprites/FantasyWarriorSpriteFrames.tres" id="9_mercenario"]
+[ext_resource type="SpriteFrames" uid="uid://dtlw2ll86ngrs" path="res://resources/sprites/MedievalWarrior2SpriteFrames.tres" id="10_npcguardianix"]
+[ext_resource type="SpriteFrames" uid="uid://cacyycs8amuq" path="res://resources/sprites/MedievalWarrior3SpriteFrames.tres" id="11_npccampesinoarmado"]
+[ext_resource type="SpriteFrames" uid="uid://204gcy5qjpy3" path="res://resources/sprites/EvilWizardSpriteFrames.tres" id="12_npcbrujosolitario"]
+[ext_resource type="SpriteFrames" uid="uid://cohg6prdhymh7" path="res://resources/sprites/HuntressSpriteFrames.tres" id="13_npcarquera"]
+[ext_resource type="SpriteFrames" uid="uid://bmjd4fpyu28p5" path="res://resources/sprites/HeroKnightSpriteFrames.tres" id="15_npccaballeroerrante"]
+[ext_resource type="SpriteFrames" uid="uid://d0tjxrnu13r2n" path="res://resources/sprites/HeroKnight2SpriteFrames.tres" id="16_npccaballeroguardia"]
+[ext_resource type="SpriteFrames" uid="uid://dj57ipe57egyq" path="res://resources/sprites/MedievalWarriorSpriteFrames.tres" id="17_npcsoldadoveterano"]
+[ext_resource type="SpriteFrames" uid="uid://cp1a3pyhrc580" path="res://resources/sprites/MedievalKingSpriteFrames.tres" id="18_npcnobleviajero"]
+[ext_resource type="SpriteFrames" uid="uid://d1nmra24q4ooc" path="res://resources/sprites/NinjaSpriteFrames.tres" id="19_npcninja"]
+[ext_resource type="SpriteFrames" uid="uid://dqugr06wo4237" path="res://resources/sprites/EvilWizard2SpriteFrames.tres" id="20_npchechicero2"]
+[ext_resource type="SpriteFrames" uid="uid://dh182olvq6hci" path="res://resources/sprites/HeroKnightSvenSpriteFrames.tres" id="21_npccaballerosven"]
+[ext_resource type="SpriteFrames" uid="uid://bi6065140glyf" path="res://resources/sprites/AssassinSpriteFrames.tres" id="22_npcasesino"]
+[ext_resource type="SpriteFrames" uid="uid://bx8s65nrjqmcu" path="res://resources/sprites/HoundSpriteFrames.tres" id="23_npcsabueso"]
+[ext_resource type="SpriteFrames" uid="uid://moxcuv0ckiq2" path="res://resources/sprites/RaiderSpriteFrames.tres" id="24_npcsaqueador"]
+[ext_resource type="SpriteFrames" uid="uid://dyo3cbh846dgd" path="res://resources/sprites/RiflemanSpriteFrames.tres" id="25_npcfusilero"]
+[ext_resource type="SpriteFrames" uid="uid://cye6vs5ciuuw6" path="res://resources/sprites/ThugSpriteFrames.tres" id="26_npcmaton"]
+[ext_resource type="SpriteFrames" uid="uid://btt5wtvy3gjfl" path="res://resources/sprites/NecromancerSpriteFrames.tres" id="27_npcnigromante"]
+[ext_resource type="SpriteFrames" uid="uid://ccyascnpjwmsd" path="res://resources/sprites/NightborneSpriteFrames.tres" id="29_npcnightborne"]
+[ext_resource type="SpriteFrames" uid="uid://ny7talqn81iy" path="res://resources/sprites/ArchDemonSpriteFrames.tres" id="30_npcarquerdemonio"]
+[ext_resource type="SpriteFrames" uid="uid://dyifqgwkfjoko" path="res://resources/sprites/SkeletonWarriorSpriteFrames.tres" id="31_npcesqueletoguerrero"]
+[ext_resource type="SpriteFrames" uid="uid://b1ic00oqnlcp4" path="res://resources/sprites/SkeletonGuardSpriteFrames.tres" id="32_npcesqueletoguardian"]
+[ext_resource type="SpriteFrames" uid="uid://cldajfwtly8mp" path="res://resources/sprites/ShadowUrchinSpriteFrames.tres" id="33_npcerizosombrio"]
+[ext_resource type="SpriteFrames" uid="uid://c7edvrd176qwl" path="res://resources/sprites/ArmoredKnightSpriteFrames.tres" id="34_npccaballeroblindado"]
+[ext_resource type="SpriteFrames" uid="uid://mbkmufpjh1j" path="res://resources/sprites/HoodedArcherSpriteFrames.tres" id="35_npcarqueroencapuchado"]
+[ext_resource type="SpriteFrames" uid="uid://8pvhxild82lb" path="res://resources/sprites/HeroSpriteFrames.tres" id="36_npcheroe"]
+[ext_resource type="SpriteFrames" uid="uid://bsn1smcu554j0" path="res://resources/sprites/HoodedKnightSpriteFrames.tres" id="37_npccaballeroencapuchado"]
+[ext_resource type="SpriteFrames" uid="uid://b28et50i8481u" path="res://resources/sprites/WomanWarriorSpriteFrames.tres" id="38_npcmujerguerrera"]
+[ext_resource type="SpriteFrames" uid="uid://cdagqy4o47dm4" path="res://resources/sprites/SpearwomanSpriteFrames.tres" id="39_npclancera"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
-size = Vector2(1700, 60)
+size = Vector2(15600, 60)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
 size = Vector2(60, 700)
@@ -16,15 +44,15 @@ size = Vector2(60, 700)
 [node name="EnemyLookAll" type="Node2D" unique_id=1183027699]
 
 [node name="Floor" type="StaticBody2D" parent="." unique_id=653339485]
-position = Vector2(800, 460)
+position = Vector2(7750, 460)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1677327946]
 shape = SubResource("RectangleShape2D_floor")
 
 [node name="FloorVisual" type="ColorRect" parent="Floor" unique_id=823653674]
-offset_left = -850.0
+offset_left = -7800.0
 offset_top = -30.0
-offset_right = 850.0
+offset_right = 7800.0
 offset_bottom = 30.0
 color = Color(0.22, 0.22, 0.24, 1)
 
@@ -35,25 +63,25 @@ position = Vector2(-30, 100)
 shape = SubResource("RectangleShape2D_wall")
 
 [node name="WallRight" type="StaticBody2D" parent="." unique_id=136363820]
-position = Vector2(1630, 100)
+position = Vector2(15550, 100)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight" unique_id=641346876]
 shape = SubResource("RectangleShape2D_wall")
 
 [node name="Player" parent="." unique_id=968836729 instance=ExtResource("1_player")]
-position = Vector2(356, 388)
+position = Vector2(342, 392)
 
-[node name="MagoCaminoViewer" type="Node2D" parent="."]
+[node name="MagoCaminoViewer" type="Node2D" parent="." unique_id=882763381]
 position = Vector2(1100, 430)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="MagoCaminoViewer"]
+[node name="Sprite" type="AnimatedSprite2D" parent="MagoCaminoViewer" unique_id=1875025419]
 position = Vector2(0, -36.63)
 scale = Vector2(0.814, 0.814)
 sprite_frames = ExtResource("8_magocamino")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="NameLabel" type="Label" parent="MagoCaminoViewer"]
+[node name="NameLabel" type="Label" parent="MagoCaminoViewer" unique_id=1109163648]
 offset_left = -60.0
 offset_top = -140.0
 offset_right = 60.0
@@ -61,7 +89,7 @@ offset_bottom = -120.0
 text = "Mago Camino"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="MagoCaminoViewer"]
+[node name="Label" type="Label" parent="MagoCaminoViewer" unique_id=2146421545]
 offset_left = -60.0
 offset_top = -120.0
 offset_right = 60.0
@@ -69,7 +97,7 @@ offset_bottom = -100.0
 text = "idle"
 horizontal_alignment = 1
 
-[node name="Cycler" type="Node" parent="MagoCaminoViewer"]
+[node name="Cycler" type="Node" parent="MagoCaminoViewer" unique_id=675652754]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("idle", "run", "attack1", "attack2", "hit", "fall", "jump", "death")
 SecondsPerAnimation = 2.2
@@ -105,17 +133,17 @@ script = ExtResource("2_cycler")
 Animations = PackedStringArray("idle", "blade_spin_1", "power_attack", "quick_attack", "summon_in", "blade_spin_2", "dash_attack", "teleport_out", "run")
 SecondsPerAnimation = 2.2
 
-[node name="HechiceroViewer" type="Node2D" parent="."]
+[node name="HechiceroViewer" type="Node2D" parent="." unique_id=1361753395]
 position = Vector2(650, 430)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="HechiceroViewer"]
+[node name="Sprite" type="AnimatedSprite2D" parent="HechiceroViewer" unique_id=423731174]
 position = Vector2(0, -34.34)
 scale = Vector2(1.3208, 1.3208)
 sprite_frames = ExtResource("7_hechicero")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="NameLabel" type="Label" parent="HechiceroViewer"]
+[node name="NameLabel" type="Label" parent="HechiceroViewer" unique_id=1112491273]
 offset_left = -60.0
 offset_top = -140.0
 offset_right = 60.0
@@ -123,7 +151,7 @@ offset_bottom = -120.0
 text = "Hechicero"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="HechiceroViewer"]
+[node name="Label" type="Label" parent="HechiceroViewer" unique_id=296389358]
 offset_left = -60.0
 offset_top = -120.0
 offset_right = 60.0
@@ -131,22 +159,22 @@ offset_bottom = -100.0
 text = "idle"
 horizontal_alignment = 1
 
-[node name="Cycler" type="Node" parent="HechiceroViewer"]
+[node name="Cycler" type="Node" parent="HechiceroViewer" unique_id=1052037188]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("idle", "walk", "run", "attack", "hit", "fall", "jump", "death")
 SecondsPerAnimation = 2.2
 
-[node name="MercenarioViewer" type="Node2D" parent="."]
+[node name="MercenarioViewer" type="Node2D" parent="." unique_id=2141795959]
 position = Vector2(1550, 430)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="MercenarioViewer"]
+[node name="Sprite" type="AnimatedSprite2D" parent="MercenarioViewer" unique_id=1184435148]
 position = Vector2(0, -29.56)
 scale = Vector2(1.5556, 1.5556)
 sprite_frames = ExtResource("9_mercenario")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="NameLabel" type="Label" parent="MercenarioViewer"]
+[node name="NameLabel" type="Label" parent="MercenarioViewer" unique_id=1098738146]
 offset_left = -60.0
 offset_top = -140.0
 offset_right = 60.0
@@ -154,7 +182,7 @@ offset_bottom = -120.0
 text = "Mercenario"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="MercenarioViewer"]
+[node name="Label" type="Label" parent="MercenarioViewer" unique_id=1200418275]
 offset_left = -60.0
 offset_top = -120.0
 offset_right = 60.0
@@ -162,7 +190,875 @@ offset_bottom = -100.0
 text = "idle"
 horizontal_alignment = 1
 
-[node name="Cycler" type="Node" parent="MercenarioViewer"]
+[node name="Cycler" type="Node" parent="MercenarioViewer" unique_id=281175202]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("idle", "run", "attack1", "attack2", "attack3", "hit", "fall", "jump", "death")
+SecondsPerAnimation = 2.2
+
+[node name="NpcGuardiaNixViewer" type="Node2D" parent="." unique_id=801133588]
+position = Vector2(2000, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcGuardiaNixViewer" unique_id=2013106549]
+position = Vector2(0, -35.44)
+scale = Vector2(1.7073, 1.7073)
+sprite_frames = ExtResource("10_npcguardianix")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcGuardiaNixViewer" unique_id=2001535683]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Guardia Nix"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcGuardiaNixViewer" unique_id=393155473]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcGuardiaNixViewer" unique_id=412163954]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack1", "attack2", "attack3", "attack4", "death", "fall", "hit", "idle", "jump", "run")
+SecondsPerAnimation = 2.2
+
+[node name="NpcCampesinoArmadoViewer" type="Node2D" parent="." unique_id=317578258]
+position = Vector2(2450, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcCampesinoArmadoViewer" unique_id=1271471806]
+position = Vector2(0, -35.24)
+scale = Vector2(1.8421, 1.8421)
+sprite_frames = ExtResource("11_npccampesinoarmado")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcCampesinoArmadoViewer" unique_id=1377934010]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Campesino Armado"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcCampesinoArmadoViewer" unique_id=1101313781]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcCampesinoArmadoViewer" unique_id=295226064]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack1", "attack2", "attack3", "death", "fall", "hit", "idle", "jump", "run")
+SecondsPerAnimation = 2.2
+
+[node name="NpcBrujoSolitarioViewer" type="Node2D" parent="." unique_id=1239741903]
+position = Vector2(2900, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcBrujoSolitarioViewer" unique_id=1081367214]
+position = Vector2(0, -37.58)
+scale = Vector2(1.4254, 1.4254)
+sprite_frames = ExtResource("12_npcbrujosolitario")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcBrujoSolitarioViewer" unique_id=1477790297]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Brujo Solitario"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcBrujoSolitarioViewer" unique_id=284276029]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcBrujoSolitarioViewer" unique_id=666187029]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack", "death", "hit", "idle", "run")
+SecondsPerAnimation = 2.2
+
+[node name="NpcArqueraViewer" type="Node2D" parent="." unique_id=1371840893]
+position = Vector2(3350, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcArqueraViewer" unique_id=2123662726]
+position = Vector2(0, -42.56)
+scale = Vector2(1.8667, 1.8667)
+sprite_frames = ExtResource("13_npcarquera")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcArqueraViewer" unique_id=1151097175]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Arquera"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcArqueraViewer" unique_id=169839551]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcArqueraViewer" unique_id=1102521941]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack1", "attack2", "attack3", "death", "fall", "hit", "idle", "jump", "run")
+SecondsPerAnimation = 2.2
+
+[node name="NpcCaballeroErranteViewer" type="Node2D" parent="." unique_id=2137084435]
+position = Vector2(4250, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcCaballeroErranteViewer" unique_id=1511523144]
+position = Vector2(0, -34.57)
+scale = Vector2(1.3725, 1.3725)
+sprite_frames = ExtResource("15_npccaballeroerrante")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcCaballeroErranteViewer" unique_id=1565705999]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Caballero Errante"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcCaballeroErranteViewer" unique_id=441325547]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcCaballeroErranteViewer" unique_id=1980630025]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack1", "attack2", "death", "fall", "hit", "idle", "jump", "run")
+SecondsPerAnimation = 2.2
+
+[node name="NpcCaballeroGuardiaViewer" type="Node2D" parent="." unique_id=881288706]
+position = Vector2(4700, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcCaballeroGuardiaViewer" unique_id=1342477919]
+position = Vector2(0, -24.54)
+scale = Vector2(1.7949, 1.7949)
+sprite_frames = ExtResource("16_npccaballeroguardia")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcCaballeroGuardiaViewer" unique_id=1738329504]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Caballero Guardia"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcCaballeroGuardiaViewer" unique_id=1981572766]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcCaballeroGuardiaViewer" unique_id=1461470110]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack", "dash", "death", "fall", "hit", "idle", "jump", "run")
+SecondsPerAnimation = 2.2
+
+[node name="NpcSoldadoVeteranoViewer" type="Node2D" parent="." unique_id=1009174873]
+position = Vector2(5150, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcSoldadoVeteranoViewer" unique_id=1946570256]
+position = Vector2(0, -50.96)
+scale = Vector2(0.8642, 0.8642)
+sprite_frames = ExtResource("17_npcsoldadoveterano")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcSoldadoVeteranoViewer" unique_id=530914547]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Soldado Veterano"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcSoldadoVeteranoViewer" unique_id=1953068471]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcSoldadoVeteranoViewer" unique_id=1235758799]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack1", "attack2", "attack3", "crouch", "death", "fall", "hit", "idle", "jump", "roll", "run", "run2", "slide")
+SecondsPerAnimation = 2.2
+
+[node name="NpcNobleViajeroViewer" type="Node2D" parent="." unique_id=656090609]
+position = Vector2(5600, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcNobleViajeroViewer" unique_id=628912584]
+position = Vector2(0, -35.41)
+scale = Vector2(0.8642, 0.8642)
+sprite_frames = ExtResource("18_npcnobleviajero")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcNobleViajeroViewer" unique_id=340678637]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Noble Viajero"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcNobleViajeroViewer" unique_id=830937725]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcNobleViajeroViewer" unique_id=937388530]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack1", "attack2", "death", "fall", "hit", "idle", "jump", "run")
+SecondsPerAnimation = 2.2
+
+[node name="NpcNinjaViewer" type="Node2D" parent="." unique_id=2039447623]
+position = Vector2(6050, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcNinjaViewer" unique_id=1996036763]
+position = Vector2(0, -61.75)
+scale = Vector2(1.9, 1.9)
+sprite_frames = ExtResource("19_npcninja")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcNinjaViewer" unique_id=505964056]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Ninja"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcNinjaViewer" unique_id=2084617180]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcNinjaViewer" unique_id=1807622684]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack", "death", "hit", "idle", "walk")
+SecondsPerAnimation = 2.2
+
+[node name="NpcHechicero2Viewer" type="Node2D" parent="." unique_id=642484513]
+position = Vector2(6500, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcHechicero2Viewer" unique_id=1432314765]
+position = Vector2(0, -40.51)
+scale = Vector2(0.8989, 0.8989)
+sprite_frames = ExtResource("20_npchechicero2")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcHechicero2Viewer" unique_id=2004709627]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Hechicero (2)"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcHechicero2Viewer" unique_id=294825554]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcHechicero2Viewer" unique_id=1109770883]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack1", "attack2", "death", "fall", "hit", "idle", "jump", "run")
+SecondsPerAnimation = 2.2
+
+[node name="NpcCaballeroSvenViewer" type="Node2D" parent="." unique_id=15735565]
+position = Vector2(6950, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcCaballeroSvenViewer" unique_id=894267739]
+position = Vector2(0, -45.875)
+scale = Vector2(1.75, 1.75)
+sprite_frames = ExtResource("21_npccaballerosven")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcCaballeroSvenViewer" unique_id=2013421545]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Caballero Sven"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcCaballeroSvenViewer" unique_id=1834437629]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcCaballeroSvenViewer" unique_id=1872256189]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack1", "attack2", "attack3", "block", "block_idle", "death", "fall", "hurt", "idle", "jump", "ledge_grab", "roll", "run", "wall_slide")
+SecondsPerAnimation = 2.2
+
+[node name="NpcAsesinoViewer" type="Node2D" parent="." unique_id=1770392713]
+position = Vector2(7400, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcAsesinoViewer" unique_id=1579384911]
+position = Vector2(0, -38.78)
+scale = Vector2(1.5556, 1.5556)
+sprite_frames = ExtResource("22_npcasesino")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcAsesinoViewer" unique_id=135566221]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Asesino"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcAsesinoViewer" unique_id=1011809834]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcAsesinoViewer" unique_id=855523768]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack1", "attack2", "block", "death", "fall", "hurt", "idle", "jump", "land", "run", "walk")
+SecondsPerAnimation = 2.2
+
+[node name="NpcSabuesoViewer" type="Node2D" parent="." unique_id=598374571]
+position = Vector2(7850, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcSabuesoViewer" unique_id=1866946038]
+position = Vector2(0, -27.11)
+scale = Vector2(1.6071, 1.6071)
+sprite_frames = ExtResource("23_npcsabueso")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcSabuesoViewer" unique_id=1497337814]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Sabueso"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcSabuesoViewer" unique_id=599355326]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcSabuesoViewer" unique_id=883080123]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack1", "block", "death", "fall", "hurt", "idle", "jump", "land", "run", "walk")
+SecondsPerAnimation = 2.2
+
+[node name="NpcSaqueadorViewer" type="Node2D" parent="." unique_id=1111387852]
+position = Vector2(8300, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcSaqueadorViewer" unique_id=1243484648]
+position = Vector2(0, -39.59)
+scale = Vector2(1.5909, 1.5909)
+sprite_frames = ExtResource("24_npcsaqueador")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcSaqueadorViewer" unique_id=1238848278]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Saqueador"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcSaqueadorViewer" unique_id=1707142084]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcSaqueadorViewer" unique_id=829130736]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack1", "block", "death", "fall", "hurt", "idle", "jump", "land", "run", "walk")
+SecondsPerAnimation = 2.2
+
+[node name="NpcFusileroViewer" type="Node2D" parent="." unique_id=1631527798]
+position = Vector2(8750, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcFusileroViewer" unique_id=11238313]
+position = Vector2(0, -38.78)
+scale = Vector2(1.5556, 1.5556)
+sprite_frames = ExtResource("25_npcfusilero")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcFusileroViewer" unique_id=145431916]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Fusilero"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcFusileroViewer" unique_id=252225209]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcFusileroViewer" unique_id=572008702]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack1", "attack2", "block", "death", "fall", "hurt", "idle", "jump", "land", "reload", "run", "walk")
+SecondsPerAnimation = 2.2
+
+[node name="NpcMatonViewer" type="Node2D" parent="." unique_id=795879163]
+position = Vector2(9200, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcMatonViewer" unique_id=1419196984]
+position = Vector2(0, -38.78)
+scale = Vector2(1.5556, 1.5556)
+sprite_frames = ExtResource("26_npcmaton")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcMatonViewer" unique_id=443764530]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Maton"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcMatonViewer" unique_id=1385669163]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcMatonViewer" unique_id=380018602]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack1", "block", "death", "fall", "hurt", "idle", "jump", "run", "walk")
+SecondsPerAnimation = 2.2
+
+[node name="NpcNigromanteViewer" type="Node2D" parent="." unique_id=315934377]
+position = Vector2(9650, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcNigromanteViewer" unique_id=814514628]
+position = Vector2(0, -44.27)
+scale = Vector2(1.4404, 1.4404)
+sprite_frames = ExtResource("27_npcnigromante")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcNigromanteViewer" unique_id=1538140472]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Nigromante"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcNigromanteViewer" unique_id=1640844357]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcNigromanteViewer" unique_id=1136295491]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack1", "attack2", "death", "hurt", "idle", "run", "walk")
+SecondsPerAnimation = 2.2
+
+[node name="NpcNightborneViewer" type="Node2D" parent="." unique_id=126242135]
+position = Vector2(10550, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcNightborneViewer" unique_id=396315759]
+position = Vector2(0, -58.52)
+scale = Vector2(2.4138, 2.4138)
+sprite_frames = ExtResource("29_npcnightborne")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcNightborneViewer" unique_id=809488204]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Nightborne"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcNightborneViewer" unique_id=2004757201]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcNightborneViewer" unique_id=933203668]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack", "death", "hurt", "idle", "run")
+SecondsPerAnimation = 2.2
+
+[node name="NpcArquerDemonioViewer" type="Node2D" parent="." unique_id=48687774]
+position = Vector2(11000, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcArquerDemonioViewer" unique_id=535699029]
+position = Vector2(0, -20.5)
+scale = Vector2(1.1667, 1.1667)
+sprite_frames = ExtResource("30_npcarquerdemonio")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcArquerDemonioViewer" unique_id=1158298458]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Arquero Demonio"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcArquerDemonioViewer" unique_id=1048223993]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcArquerDemonioViewer" unique_id=2044754040]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack", "death", "hurt", "idle")
+SecondsPerAnimation = 2.2
+
+[node name="NpcEsqueletoGuerreroViewer" type="Node2D" parent="." unique_id=2068100954]
+position = Vector2(11450, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcEsqueletoGuerreroViewer" unique_id=527649142]
+position = Vector2(0, -58.76)
+scale = Vector2(1.1864, 1.1864)
+sprite_frames = ExtResource("31_npcesqueletoguerrero")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcEsqueletoGuerreroViewer" unique_id=63145326]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Esqueleto Guerrero"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcEsqueletoGuerreroViewer" unique_id=587613937]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcEsqueletoGuerreroViewer" unique_id=484007925]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack_a", "attack_b", "dead", "hit", "idle", "jump", "walk")
+SecondsPerAnimation = 2.2
+
+[node name="NpcEsqueletoGuardianViewer" type="Node2D" parent="." unique_id=1516047370]
+position = Vector2(11900, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcEsqueletoGuardianViewer" unique_id=1072370126]
+position = Vector2(0, -57.83)
+scale = Vector2(1.1667, 1.1667)
+sprite_frames = ExtResource("32_npcesqueletoguardian")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcEsqueletoGuardianViewer" unique_id=817626044]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Esqueleto Guardian"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcEsqueletoGuardianViewer" unique_id=1626195980]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcEsqueletoGuardianViewer" unique_id=1503639335]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack_a", "attack_b", "dead", "hit", "idle", "jump", "shield_block", "walk")
+SecondsPerAnimation = 2.2
+
+[node name="NpcErizoSombrioViewer" type="Node2D" parent="." unique_id=1157878366]
+position = Vector2(12350, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcErizoSombrioViewer" unique_id=655601247]
+position = Vector2(0, -78.2)
+scale = Vector2(1.6, 1.6)
+sprite_frames = ExtResource("33_npcerizosombrio")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcErizoSombrioViewer" unique_id=1306408139]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Erizo Sombrio"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcErizoSombrioViewer" unique_id=1940509447]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcErizoSombrioViewer" unique_id=296249814]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack_a", "attack_b", "attack_c", "dead", "hit", "idle", "walk")
+SecondsPerAnimation = 2.2
+
+[node name="NpcCaballeroBlindadoViewer" type="Node2D" parent="." unique_id=555383614]
+position = Vector2(12800, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcCaballeroBlindadoViewer" unique_id=1941951951]
+position = Vector2(0, -56.93)
+scale = Vector2(1.1475, 1.1475)
+sprite_frames = ExtResource("34_npccaballeroblindado")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcCaballeroBlindadoViewer" unique_id=908340260]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Caballero Blindado"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcCaballeroBlindadoViewer" unique_id=1439294140]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcCaballeroBlindadoViewer" unique_id=1282218987]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack_a", "attack_b", "dead", "hit", "idle", "jump", "walk")
+SecondsPerAnimation = 2.2
+
+[node name="NpcArqueroEncapuchadoViewer" type="Node2D" parent="." unique_id=986425395]
+position = Vector2(13250, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcArqueroEncapuchadoViewer" unique_id=1710968407]
+position = Vector2(0, -61.75)
+scale = Vector2(1.25, 1.25)
+sprite_frames = ExtResource("35_npcarqueroencapuchado")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcArqueroEncapuchadoViewer" unique_id=2122010484]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Arquero Encapuchado"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcArqueroEncapuchadoViewer" unique_id=1327728638]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcArqueroEncapuchadoViewer" unique_id=861776335]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack_a", "attack_b", "dead", "hit", "idle", "jump", "run")
+SecondsPerAnimation = 2.2
+
+[node name="NpcHeroeViewer" type="Node2D" parent="." unique_id=1958038353]
+position = Vector2(13700, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcHeroeViewer" unique_id=220158084]
+position = Vector2(0, -39.17)
+scale = Vector2(1.1667, 1.1667)
+sprite_frames = ExtResource("36_npcheroe")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcHeroeViewer" unique_id=462382408]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Heroe"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcHeroeViewer" unique_id=1045553818]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcHeroeViewer" unique_id=599141555]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack_a", "attack_b", "attack_c", "attack_d", "climb", "dead", "hit_idle_a", "hit_idle_b", "hit_weapon_a", "hit_weapon_b", "idle", "idle_weapon", "jump", "jump_attack", "kick", "roll", "run", "shield_block_activ", "shield_block_center", "shield_block_up", "walk_weapon")
+SecondsPerAnimation = 2.2
+
+[node name="NpcCaballeroEncapuchadoViewer" type="Node2D" parent="." unique_id=1339083152]
+position = Vector2(14150, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcCaballeroEncapuchadoViewer" unique_id=562093455]
+position = Vector2(0, -37.15)
+scale = Vector2(0.8537, 0.8537)
+sprite_frames = ExtResource("37_npccaballeroencapuchado")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcCaballeroEncapuchadoViewer" unique_id=1889755255]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Caballero Encapuchado"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcCaballeroEncapuchadoViewer" unique_id=548808763]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcCaballeroEncapuchadoViewer" unique_id=751976993]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack", "idle", "powerup", "run")
+SecondsPerAnimation = 2.2
+
+[node name="NpcMujerGuerreraViewer" type="Node2D" parent="." unique_id=897504273]
+position = Vector2(14600, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcMujerGuerreraViewer" unique_id=445624310]
+position = Vector2(0, -80.55)
+scale = Vector2(1.3725, 1.3725)
+sprite_frames = ExtResource("38_npcmujerguerrera")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcMujerGuerreraViewer" unique_id=1933605668]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Mujer Guerrera"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcMujerGuerreraViewer" unique_id=135123641]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcMujerGuerreraViewer" unique_id=1784180972]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack", "death", "guard", "idle", "run")
+SecondsPerAnimation = 2.2
+
+[node name="NpcLanceraViewer" type="Node2D" parent="." unique_id=716437673]
+position = Vector2(15050, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NpcLanceraViewer" unique_id=1131395496]
+position = Vector2(0, -59.7)
+scale = Vector2(1.4, 1.4)
+sprite_frames = ExtResource("39_npclancera")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NpcLanceraViewer" unique_id=413694147]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Lancera"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NpcLanceraViewer" unique_id=1433040950]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NpcLanceraViewer" unique_id=1446928204]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack", "death", "idle", "run", "walk")
 SecondsPerAnimation = 2.2

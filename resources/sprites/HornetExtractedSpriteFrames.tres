@@ -1,0 +1,43 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/HornetExtracted/idle_00.png" id="1_idle0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/HornetExtracted/idle_01.png" id="2_idle1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/HornetExtracted/idle_02.png" id="3_idle2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/HornetExtracted/run_00.png" id="4_run0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/HornetExtracted/run_01.png" id="5_run1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/HornetExtracted/run_02.png" id="6_run2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/HornetExtracted/run_03.png" id="7_run3"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_idle0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_idle1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_idle2")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_run0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_run1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_run2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_run3")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]

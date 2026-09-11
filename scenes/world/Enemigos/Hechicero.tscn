@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://dsyi8ts6wxd7a"]
+
+[ext_resource type="Script" uid="uid://cuop8gweybhva" path="res://scripts/world/Hechicero.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://b47a4kpptnpqi" path="res://scripts/shared/Stats.cs" id="2_stats"]
+[ext_resource type="PackedScene" uid="uid://ba6e10sx6t2c8" path="res://scenes/ui/StatBar.tscn" id="3_statbar"]
+[ext_resource type="PackedScene" path="res://scenes/world/MagicBolt.tscn" id="4_projectile"]
+[ext_resource type="SpriteFrames" uid="uid://sg3io3vxjfil" path="res://resources/sprites/EvilWizard3SpriteFrames.tres" id="5_frames"]
+[ext_resource type="PackedScene" uid="uid://dq3mb122eef3v" path="res://scenes/world/Explosion.tscn" id="6_explosion"]
+[ext_resource type="PackedScene" path="res://scenes/world/Coin.tscn" id="7_coin"]
+[ext_resource type="Script" uid="uid://ca3by7a2nprbd" path="res://scripts/world/LootEntry.cs" id="8_lootentry_script"]
+[ext_resource type="Resource" path="res://resources/attacks/hechicero_bolt.tres" id="9_attack_bolt"]
+[ext_resource type="Resource" path="res://resources/attacks/hechicero_homing_bolt.tres" id="10_attack_homing"]
+[ext_resource type="Resource" path="res://resources/attacks/hechicero_homing_volley.tres" id="11_attack_volley"]
+
+[sub_resource type="Resource" id="LootEntry_coin"]
+script = ExtResource("8_lootentry_script")
+DropScene = ExtResource("7_coin")
+DropChance = 0.5
+MaxAmount = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
+size = Vector2(44, 71)
+
+[node name="Hechicero" type="CharacterBody2D" unique_id=2023115519]
+collision_layer = 4
+script = ExtResource("1_script")
+Attacks = [ExtResource("9_attack_bolt"), ExtResource("10_attack_homing"), ExtResource("11_attack_volley")]
+ProjectileScene = ExtResource("4_projectile")
+ExplosionScale = 0.7
+ExplosionScene = ExtResource("6_explosion")
+LootTable = [SubResource("LootEntry_coin")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1242149543]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="ContactArea" type="Area2D" parent="." unique_id=394714229]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea" unique_id=630875509]
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="Visual" type="Node2D" parent="." unique_id=1160021569]
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual" unique_id=917735718]
+scale = Vector2(1.3208, 1.3208)
+sprite_frames = ExtResource("5_frames")
+animation = &"idle"
+autoplay = "idle"
+offset = Vector2(0, -2.53)
+
+[node name="Stats" type="Node" parent="." unique_id=541859387]
+script = ExtResource("2_stats")
+MaxHealth = 30
+AttackPower = 15
+Defense = 2
+MaxStamina = 40
+
+[node name="HealthBar" parent="." unique_id=1199068897 instance=ExtResource("3_statbar")]
+position = Vector2(0, 34)
+
+[node name="StaminaBar" parent="." unique_id=973893240 instance=ExtResource("3_statbar")]
+position = Vector2(0, 40)
+FillColor = Color(0.2, 0.6, 1, 1)

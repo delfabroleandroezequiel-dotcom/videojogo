@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="HechiceroAttack" format=3]
+
+[ext_resource type="Script" path="res://scripts/world/HechiceroAttack.cs" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/world/MagicBolt.tscn" id="2_projectile"]
+
+[resource]
+script = ExtResource("1_script")
+AttackName = "Bolt"
+ProjectileScene = ExtResource("2_projectile")
+ProjectileSpeed = 250.0
+Cooldown = 2.0
+Range = 350.0
+CastDuration = 0.92
+ReleaseDelay = 0.67

@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://bqs84pwktk4n2"]
+
+[ext_resource type="Script" uid="uid://cnuqsp4othpew" path="res://scripts/world/MagoCamino.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://b47a4kpptnpqi" path="res://scripts/shared/Stats.cs" id="2_stats"]
+[ext_resource type="PackedScene" uid="uid://ba6e10sx6t2c8" path="res://scenes/ui/StatBar.tscn" id="3_statbar"]
+[ext_resource type="SpriteFrames" uid="uid://bjt3xxl87i1mn" path="res://resources/sprites/WizardSpriteFrames.tres" id="5_frames"]
+[ext_resource type="PackedScene" uid="uid://dq3mb122eef3v" path="res://scenes/world/Explosion.tscn" id="6_explosion"]
+[ext_resource type="PackedScene" path="res://scenes/world/Coin.tscn" id="7_coin"]
+[ext_resource type="Script" uid="uid://ca3by7a2nprbd" path="res://scripts/world/LootEntry.cs" id="8_lootentry_script"]
+[ext_resource type="Resource" path="res://resources/attacks/magocamino_bolt.tres" id="9_attack_bolt"]
+[ext_resource type="Resource" path="res://resources/attacks/magocamino_homing_bolt.tres" id="10_attack_homing"]
+[ext_resource type="Resource" path="res://resources/attacks/magocamino_homing_volley.tres" id="11_attack_volley"]
+
+[sub_resource type="Resource" id="LootEntry_coin"]
+script = ExtResource("8_lootentry_script")
+DropScene = ExtResource("7_coin")
+DropChance = 0.5
+MaxAmount = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
+size = Vector2(41, 65)
+
+[node name="MagoCamino" type="CharacterBody2D" unique_id=798112864]
+collision_layer = 4
+script = ExtResource("1_script")
+Attacks = [ExtResource("9_attack_bolt"), ExtResource("10_attack_homing"), ExtResource("11_attack_volley")]
+ExplosionScale = 0.7
+ExplosionScene = ExtResource("6_explosion")
+LootTable = [SubResource("LootEntry_coin")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=143389282]
+position = Vector2(-2.5, -0.5)
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="ContactArea" type="Area2D" parent="." unique_id=413322385]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea" unique_id=1064456630]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="Visual" type="Node2D" parent="." unique_id=1870883103]
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual" unique_id=1004218161]
+scale = Vector2(0.814, 0.814)
+sprite_frames = ExtResource("5_frames")
+animation = &"idle"
+autoplay = "idle"
+offset = Vector2(0, -6.92)
+
+[node name="Stats" type="Node" parent="." unique_id=1560942765]
+script = ExtResource("2_stats")
+MaxHealth = 30
+AttackPower = 15
+Defense = 2
+MaxStamina = 40
+
+[node name="HealthBar" parent="." unique_id=453354398 instance=ExtResource("3_statbar")]
+position = Vector2(0, 34)
+
+[node name="StaminaBar" parent="." unique_id=530554439 instance=ExtResource("3_statbar")]
+position = Vector2(0, 40)
+FillColor = Color(0.2, 0.6, 1, 1)

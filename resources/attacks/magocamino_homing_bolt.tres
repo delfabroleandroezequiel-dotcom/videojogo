@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MagoCaminoAttack" format=3 uid="uid://bul2hya2tggdn"]
+
+[ext_resource type="Script" uid="uid://cjkkbtsovpcxu" path="res://scripts/world/MagoCaminoAttack.cs" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/world/StaffHomingBolt.tscn" id="2_projectile"]
+
+[resource]
+script = ExtResource("1_script")
+AttackName = "Homing Bolt"
+ProjectileScene = ExtResource("2_projectile")
+ProjectileSpeed = 220.0
+Cooldown = 3.0
+CastDuration = 0.57
+ReleaseDelay = 0.42

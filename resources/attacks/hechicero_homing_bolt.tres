@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="HechiceroAttack" format=3 uid="uid://bggn1y37lvcm"]
+
+[ext_resource type="Script" uid="uid://dyopo6x5au2et" path="res://scripts/world/HechiceroAttack.cs" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/world/HomingBolt.tscn" id="2_projectile"]
+
+[resource]
+script = ExtResource("1_script")
+AttackName = "Homing Bolt"
+ProjectileScene = ExtResource("2_projectile")
+ProjectileSpeed = 220.0
+Cooldown = 3.0
+CastDuration = 0.93
+ReleaseDelay = 0.67

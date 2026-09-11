@@ -81,12 +81,7 @@ public partial class RangedEnemy : Enemy
 			if (!IsInstanceValid(this) || IsQueuedForRemoval)
 				return;
 
-			Projectile projectile = ProjectileScene.Instantiate<Projectile>();
-			GetTree().CurrentScene.AddChild(projectile);
-			projectile.GlobalPosition = GlobalPosition;
-			projectile.Speed = ProjectileSpeed;
-			projectile.Launch(targetPosition - GlobalPosition, Stats);
-			Sfx.PlayAt(this, Sfx.FalloGolpe);
+			await FireAsync(targetPosition);
 
 			await ToSignal(GetTree().CreateTimer(ShootAnimDuration - ShootReleaseDelay), SceneTreeTimer.SignalName.Timeout);
 			if (IsInstanceValid(this))
@@ -97,5 +92,25 @@ public partial class RangedEnemy : Enemy
 			EnemyCombatCoordinator.ReleaseAttackSlot();
 			HoldingAttackSlot = false;
 		}
+	}
+
+	// Single-shot by default. Overridden by subclasses that fire more than one projectile per
+	// cast (e.g. a burst/volley) — kept virtual+async rather than a fixed loop here so a subclass
+	// can space its own shots out with its own timing instead of being forced into one shape.
+	protected virtual async System.Threading.Tasks.Task FireAsync(Vector2 targetPosition)
+	{
+		SpawnProjectile(targetPosition);
+		await System.Threading.Tasks.Task.CompletedTask;
+	}
+
+	protected void SpawnProjectile(Vector2 targetPosition)
+	{
+		Projectile projectile = ProjectileScene.Instantiate<Projectile>();
+		GetTree().CurrentScene.AddChild(projectile);
+		projectile.GlobalPosition = GlobalPosition;
+		projectile.Speed = ProjectileSpeed;
+		projectile.Launch(targetPosition - GlobalPosition, Stats);
+		// Generic magic-release placeholder until each HechiceroAttack carries its own SoundCue.
+		Sfx.PlayAt(this, "Magic", "Fireball");
 	}
 }

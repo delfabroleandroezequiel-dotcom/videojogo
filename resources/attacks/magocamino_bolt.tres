@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MagoCaminoAttack" format=3 uid="uid://c7j8wsbrhh0ur"]
+
+[ext_resource type="Script" uid="uid://cjkkbtsovpcxu" path="res://scripts/world/MagoCaminoAttack.cs" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/world/StaffBolt.tscn" id="2_projectile"]
+
+[resource]
+script = ExtResource("1_script")
+ProjectileScene = ExtResource("2_projectile")
+CastDuration = 0.57
+ReleaseDelay = 0.42
