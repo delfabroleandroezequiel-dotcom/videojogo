@@ -7983,7 +7983,7 @@ tile_set = SubResource("TileSet_3sgbd")
 [node name="ForestExitTrigger" parent="." unique_id=585890114 instance=ExtResource("5_caoiq")]
 position = Vector2(1518, 3)
 TargetScenePath = "res://scenes/world/Mapas/BosqueLobos1.tscn"
-TargetSpawnPosition = Vector2(1500, 258)
+TargetSpawnPosition = Vector2(1464, 263)
 RequireInteract = true
 UseStoredReturnPosition = true
 

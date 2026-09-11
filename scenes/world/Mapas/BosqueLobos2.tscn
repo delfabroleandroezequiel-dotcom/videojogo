@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://cyhqukl6spjfn"]
+
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_camera"]
+[ext_resource type="Environment" path="res://resources/rendering/NixPostProcess.tres" id="3_postprocess"]
+[ext_resource type="Script" uid="uid://dmc84bj2qiwao" path="res://scripts/shared/LoopingAudioPlayer.cs" id="4_looping_audio"]
+[ext_resource type="AudioStream" uid="uid://dbg5k12n40k7g" path="res://assets/audio/Sonidos/Ambience/ForestDay/Forest Day.wav" id="5_forest_ambience"]
+[ext_resource type="Texture2D" uid="uid://cb8gyivleynt" path="res://resources/particles/SoftDotGradient.tres" id="6_dust_tex"]
+[ext_resource type="Material" uid="uid://jm40glxfalh" path="res://resources/particles/DustMoteProcess.tres" id="7_dust_process"]
+[ext_resource type="PackedScene" path="res://scenes/world/WeatherOverlay.tscn" id="8_weather"]
+[ext_resource type="Texture2D" uid="uid://6kig0gdifgss" path="res://assets/backgrounds/BosqueLobos2.png" id="9_bg"]
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="10_player"]
+[ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="11_transition"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(1774, 56)
+
+[node name="BosqueLobos2" type="Node2D" unique_id=1923934843]
+script = ExtResource("1_bootstrap")
+ScenePath = "res://scenes/world/Mapas/BosqueLobos2.tscn"
+ZoneName = "BOSQUE DE LOS LOBOS"
+CameraProfile = ExtResource("2_camera")
+CameraLimitLeft = 0
+CameraLimitRight = 1760
+CameraLimitBottom = 450
+
+[node name="PostProcessEnvironment" type="WorldEnvironment" parent="." unique_id=2007019401]
+environment = ExtResource("3_postprocess")
+
+[node name="Ambience" type="AudioStreamPlayer" parent="." unique_id=2127131108]
+stream = ExtResource("5_forest_ambience")
+volume_db = -10.0
+autoplay = true
+script = ExtResource("4_looping_audio")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=977582048]
+color = Color(0.85, 0.9, 1, 1)
+
+[node name="DustMotes" type="GPUParticles2D" parent="." unique_id=1802485292]
+position = Vector2(887, 258)
+amount = 18
+texture = ExtResource("6_dust_tex")
+lifetime = 7.0
+randomness = 0.5
+process_material = ExtResource("7_dust_process")
+
+[node name="WeatherOverlay" parent="." unique_id=1122461527 instance=ExtResource("8_weather")]
+ForceWeatherIndex = -1
+
+[node name="Background" type="Node2D" parent="." unique_id=2117686270]
+z_index = -10
+
+[node name="BgTile1" type="Sprite2D" parent="Background" unique_id=827498031]
+position = Vector2(887, 0)
+texture = ExtResource("9_bg")
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=1926381563]
+position = Vector2(888, 333)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=840270379]
+position = Vector2(-3, 2)
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Player" parent="." unique_id=2145623876 instance=ExtResource("10_player")]
+position = Vector2(1464, 263)
+
+[node name="ToBosqueLobos1" parent="." unique_id=1893594719 instance=ExtResource("11_transition")]
+position = Vector2(80, 290)
+TargetScenePath = "res://scenes/world/Mapas/BosqueLobos1.tscn"
+TargetSpawnPosition = Vector2(1650, 263)
+
+[node name="ToBosqueLobos3" parent="." unique_id=496332499 instance=ExtResource("11_transition")]
+position = Vector2(1700, 290)
+TargetScenePath = "res://scenes/world/Mapas/BosqueLobos3.tscn"
+TargetSpawnPosition = Vector2(150, 263)
