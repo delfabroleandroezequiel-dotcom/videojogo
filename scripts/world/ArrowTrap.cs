@@ -48,6 +48,6 @@ public partial class ArrowTrap : Node2D
 		projectile.Damage = Damage;
 		projectile.KnockbackForce = KnockbackForce;
 		projectile.Launch(Direction);
-		Sfx.PlayAt(this, Sfx.FalloGolpe);
+		Sfx.PlayAt(this, "Combat/Bow", "Bow Attack");
 	}
 }

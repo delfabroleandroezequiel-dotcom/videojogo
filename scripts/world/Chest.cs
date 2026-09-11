@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Godot;
 using Metroidvania.Items;
 using Metroidvania.Save;
+using Metroidvania.Shared;
 using Metroidvania.UI;
 
 namespace Metroidvania.World;
@@ -225,8 +226,12 @@ public partial class Chest : Area2D
 		SaveManager.Instance.MarkPickupCollected(_persistenceId);
 
 		_base.Play("open");
+		Sfx.PlayAt(this, "World/Doors", "Chest Open");
 		if (isLocked)
+		{
 			_lock.Play("open");
+			Sfx.PlayAt(this, "World/Doors", "Lock Unlock");
+		}
 
 		if (EffectFileName(_rarity) is not null)
 		{

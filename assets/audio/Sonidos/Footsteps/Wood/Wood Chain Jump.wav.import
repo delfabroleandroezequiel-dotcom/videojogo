@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c3oyvimbad62y"
+path="res://.godot/imported/Wood Chain Jump.wav-031c893168667e9dd62daf21c9fda0e8.sample"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Footsteps/Wood/Wood Chain Jump.wav"
+dest_files=["res://.godot/imported/Wood Chain Jump.wav-031c893168667e9dd62daf21c9fda0e8.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

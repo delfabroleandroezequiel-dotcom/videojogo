@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="2_glow_tex"]
 [ext_resource type="Texture2D" uid="uid://cb8gyivleynt" path="res://resources/particles/SoftDotGradient.tres" id="3_dust_tex"]
 [ext_resource type="Material" uid="uid://c86qne1xbdw5c" path="res://resources/particles/CaveDustProcess.tres" id="4_dust_process"]
+[ext_resource type="Script" path="res://scripts/world/AmbientLoopSound.cs" id="5_ambient"]
 
 [node name="Torch" type="Node2D" unique_id=165871865]
 
@@ -26,3 +27,6 @@ texture = ExtResource("3_dust_tex")
 lifetime = 5.5
 randomness = 0.6
 process_material = ExtResource("4_dust_process")
+
+[node name="AmbientSound" type="Node2D" parent="."]
+script = ExtResource("5_ambient")

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cyo7oj2g5pusq"
+path="res://.godot/imported/Fireball 1.wav-3e0134be8c3485aa1aa37bcb9a06c32a.sample"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Magic/Fireball 1.wav"
+dest_files=["res://.godot/imported/Fireball 1.wav-3e0134be8c3485aa1aa37bcb9a06c32a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

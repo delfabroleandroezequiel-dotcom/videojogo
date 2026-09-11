@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://coghbwnlictiy"
+path="res://.godot/imported/Sea Storm.wav-d53859ab0e0841b5fa8a4eeffe1dd850.sample"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Ambience/Sea/Sea Storm.wav"
+dest_files=["res://.godot/imported/Sea Storm.wav-d53859ab0e0841b5fa8a4eeffe1dd850.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

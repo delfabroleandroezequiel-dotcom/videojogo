@@ -284,8 +284,33 @@ public partial class Enemy : CharacterBody2D
 		// above stays at full MoveSpeed, so animating off the commanded value kept playing "run"
 		// against a wall the enemy wasn't actually moving through.
 		UpdateAnimation(Velocity);
+		UpdateFootsteps(Velocity, delta);
 		if (ContactDamageEnabled)
 			ApplyContactDamage();
+	}
+
+	[Export] public float FootstepInterval = 0.35f;
+	private float _footstepTimer;
+
+	// Shared across every enemy (not just melee/ranged) so nothing needs to opt in per subclass —
+	// same reasoning as contact damage/knockback living here instead of being hand-copied. Always
+	// "Footsteps/Dirt" for now since there's no surface-detection under the enemy yet; the player's
+	// own footsteps (Player.cs) have the same limitation, so this isn't a regression, just the same
+	// placeholder extended to enemies.
+	private void UpdateFootsteps(Vector2 velocity, double delta)
+	{
+		if (!IsOnFloor() || Mathf.Abs(velocity.X) <= 5f)
+		{
+			_footstepTimer = 0f;
+			return;
+		}
+
+		_footstepTimer -= (float)delta;
+		if (_footstepTimer > 0f)
+			return;
+
+		Sfx.PlayAt(this, "Footsteps/Dirt", "Dirt Walk");
+		_footstepTimer = FootstepInterval;
 	}
 
 	// False for enemies with a real attack hitbox (see MeleeEnemy) — otherwise just walking into

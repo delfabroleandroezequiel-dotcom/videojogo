@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cwvh2a8lim6rj"
+path="res://.godot/imported/Door Close 1.wav-7af8fa5e76e56835ceaa1e4e92f7b25a.sample"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/World/Doors/Door Close 1.wav"
+dest_files=["res://.godot/imported/Door Close 1.wav-7af8fa5e76e56835ceaa1e4e92f7b25a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ck3gs4a1thsbk"
+path="res://.godot/imported/Waterfall Loop.wav-693a86830c854075475077f23aede52a.sample"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/World/Water/Waterfall Loop.wav"
+dest_files=["res://.godot/imported/Waterfall Loop.wav-693a86830c854075475077f23aede52a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

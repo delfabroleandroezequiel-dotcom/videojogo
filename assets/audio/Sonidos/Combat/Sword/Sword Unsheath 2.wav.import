@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cm2jqki551o6e"
+path="res://.godot/imported/Sword Unsheath 2.wav-42cc74917e8f2210f8937f17f4c54ba2.sample"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Combat/Sword/Sword Unsheath 2.wav"
+dest_files=["res://.godot/imported/Sword Unsheath 2.wav-42cc74917e8f2210f8937f17f4c54ba2.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

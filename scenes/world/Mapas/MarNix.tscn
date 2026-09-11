@@ -4,6 +4,8 @@
 [ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_camera"]
 [ext_resource type="Environment" path="res://resources/rendering/NixPostProcess.tres" id="3_postprocess"]
 [ext_resource type="PackedScene" path="res://scenes/world/WeatherOverlay.tscn" id="4_weather"]
+[ext_resource type="Script" path="res://scripts/shared/LoopingAudioPlayer.cs" id="5_looping_audio"]
+[ext_resource type="AudioStream" path="res://assets/audio/Sonidos/Ambience/Beach/Beach.wav" id="6_beach_ambience"]
 [ext_resource type="Texture2D" uid="uid://dyr2dwwb52qqt" path="res://assets/backgrounds/MarNix.png" id="5_bg"]
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="6_player"]
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="7_transition"]
@@ -17,6 +19,8 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniRampa.tscn" id="14_uxjyq"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Chest.tscn" id="15_uxjyq"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/BigShip2.tscn" id="17_maycc"]
+[ext_resource type="PackedScene" uid="uid://d8tq20x6upcu" path="res://scenes/world/Npc.tscn" id="18_kioif"]
+[ext_resource type="SpriteFrames" uid="uid://duujbn8uutkd7" path="res://resources/sprites/VendorSSWSpriteFrames.tres" id="19_2n8hd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(3121, 29)
@@ -4670,6 +4674,12 @@ color = Color(0.85, 0.9, 1, 1)
 
 [node name="WeatherOverlay" parent="." unique_id=1405579099 instance=ExtResource("4_weather")]
 
+[node name="Ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_beach_ambience")
+volume_db = -10.0
+autoplay = true
+script = ExtResource("5_looping_audio")
+
 [node name="Background" type="Node2D" parent="." unique_id=2145554043]
 z_index = -10
 
@@ -4837,3 +4847,12 @@ TargetScenePath = "res://scenes/world/Mapas/InteriorMuelle.tscn"
 TargetSpawnPosition = Vector2(-6.054, 49.617)
 RequireInteract = true
 RememberOriginForReturn = true
+
+[node name="NpcVendedora" parent="." unique_id=2040744673 instance=ExtResource("18_kioif")]
+z_index = -1
+position = Vector2(641, 126)
+NpcName = "NPC_VENDEDORA_NAME"
+DialogueLines = PackedStringArray("NPC_VENDEDORA_L1")
+CustomSpriteFrames = ExtResource("19_2n8hd")
+CustomSpriteScale = Vector2(1.39, 1.39)
+CollisionSize = Vector2(24, 64)

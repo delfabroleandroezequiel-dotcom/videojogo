@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bcdjjwhgv865f"
+path="res://.godot/imported/Lock Unlock.wav-f535ff9fb202977a600694f20b8e3efc.sample"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/World/Doors/Lock Unlock.wav"
+dest_files=["res://.godot/imported/Lock Unlock.wav-f535ff9fb202977a600694f20b8e3efc.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

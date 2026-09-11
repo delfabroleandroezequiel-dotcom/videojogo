@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bhk04rs58b3t5"
+path="res://.godot/imported/Ice Freeze 2.wav-83a3aaabdb916038845a47a259893e14.sample"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Magic/Ice Freeze 2.wav"
+dest_files=["res://.godot/imported/Ice Freeze 2.wav-83a3aaabdb916038845a47a259893e14.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

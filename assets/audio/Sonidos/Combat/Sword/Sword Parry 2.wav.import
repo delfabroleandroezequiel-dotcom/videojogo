@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cyhy6jf18jb7"
+path="res://.godot/imported/Sword Parry 2.wav-566c49f0f6e26a65bd48a7bf089228e6.sample"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Combat/Sword/Sword Parry 2.wav"
+dest_files=["res://.godot/imported/Sword Parry 2.wav-566c49f0f6e26a65bd48a7bf089228e6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://drbplp7q0sv4k"
+path="res://.godot/imported/Forest Day Storm.wav-8e263946c844964d04f8b15a9db7fd3a.sample"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Ambience/ForestDay/Forest Day Storm.wav"
+dest_files=["res://.godot/imported/Forest Day Storm.wav-8e263946c844964d04f8b15a9db7fd3a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

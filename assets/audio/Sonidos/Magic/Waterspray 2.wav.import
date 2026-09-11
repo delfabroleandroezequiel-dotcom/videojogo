@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://p85d7abce0sq"
+path="res://.godot/imported/Waterspray 2.wav-caa33c8afab06c65f1d08c3139c313cd.sample"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Magic/Waterspray 2.wav"
+dest_files=["res://.godot/imported/Waterspray 2.wav-caa33c8afab06c65f1d08c3139c313cd.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

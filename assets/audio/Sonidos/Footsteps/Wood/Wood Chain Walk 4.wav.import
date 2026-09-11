@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://doeee8u1hm8bx"
+path="res://.godot/imported/Wood Chain Walk 4.wav-81bde6d2368885135c570c159da8ea09.sample"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Footsteps/Wood/Wood Chain Walk 4.wav"
+dest_files=["res://.godot/imported/Wood Chain Walk 4.wav-81bde6d2368885135c570c159da8ea09.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://85uor3s0r6yt"
+path="res://.godot/imported/Chest Open 1.wav-19844f1da9e9f53f6f637a5d13c1069f.sample"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/World/Doors/Chest Open 1.wav"
+dest_files=["res://.godot/imported/Chest Open 1.wav-19844f1da9e9f53f6f637a5d13c1069f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

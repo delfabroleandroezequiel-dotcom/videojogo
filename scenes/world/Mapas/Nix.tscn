@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://ymuqr7m5tvtx" path="res://assets/sprites/misprite/ChatGPT_Image_5_jul_2026__16_29_59-removebg-preview - copia (2).png" id="18_24ren"]
 [ext_resource type="Script" uid="uid://dmc84bj2qiwao" path="res://scripts/shared/LoopingAudioPlayer.cs" id="18_music_script"]
 [ext_resource type="AudioStream" uid="uid://ifsn6j0bgc3f" path="res://assets/audio/nix_theme.mp3" id="19_music"]
+[ext_resource type="AudioStream" path="res://assets/audio/Sonidos/Ambience/ForestDay/Forest Day.wav" id="20_forest_ambience"]
 [ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="20_camera_profile"]
 [ext_resource type="PackedScene" path="res://scenes/world/DialogueTrigger.tscn" id="21_dialogue_trigger"]
 [ext_resource type="Texture2D" uid="uid://cs5col88ywcfd" path="res://resources/lighting/GroundShadowGradient.tres" id="23_groundshadow"]
@@ -52,7 +53,6 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CargoCrane2.tscn" id="58_5u8xx"]
 [ext_resource type="SpriteFrames" uid="uid://dvbhwpifoiwad" path="res://resources/sprites/Huntress2SpriteFrames.tres" id="58_cazadora"]
 [ext_resource type="SpriteFrames" uid="uid://gg5s1il443br" path="res://resources/sprites/MartialHeroSpriteFrames.tres" id="59_monjeguerrero"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/RagPole1.tscn" id="59_yb2to"]
 [ext_resource type="SpriteFrames" uid="uid://bmjd4fpyu28p5" path="res://resources/sprites/HeroKnightSpriteFrames.tres" id="60_caballeroerrante"]
 [ext_resource type="SpriteFrames" uid="uid://d0tjxrnu13r2n" path="res://resources/sprites/HeroKnight2SpriteFrames.tres" id="61_caballeroguardia"]
 [ext_resource type="SpriteFrames" uid="uid://dj57ipe57egyq" path="res://resources/sprites/MedievalWarriorSpriteFrames.tres" id="62_soldadoveterano"]
@@ -95,12 +95,11 @@
 [ext_resource type="SpriteFrames" uid="uid://d1kuonjejlaa3" path="res://resources/sprites/BlacksmithNpcSSWSpriteFrames.tres" id="98_herrero"]
 [ext_resource type="SpriteFrames" uid="uid://bxsagfbelmifi" path="res://resources/sprites/MeatVendorSpriteFrames.tres" id="99_carnicero"]
 [ext_resource type="SpriteFrames" uid="uid://bvkqlsyfqh51m" path="res://resources/sprites/TavernBartenderSpriteFrames.tres" id="100_cantinero"]
-[ext_resource type="SpriteFrames" uid="uid://duujbn8uutkd7" path="res://resources/sprites/VendorSSWSpriteFrames.tres" id="104_vendedora"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/AssassinBandit3SpriteFrames.tres" id="108_banditasesino3"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/HeavyBandit3SpriteFrames.tres" id="109_banditcorpulento"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/TorcherBanditSpriteFrames.tres" id="110_banditincendiario"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/WildBanditSpriteFrames.tres" id="111_banditsalvaje"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/NecropolisWarriorSpriteFrames.tres" id="112_necropolisguerrero"]
+[ext_resource type="SpriteFrames" uid="uid://cab7wakhrjesx" path="res://resources/sprites/AssassinBandit3SpriteFrames.tres" id="108_banditasesino3"]
+[ext_resource type="SpriteFrames" uid="uid://x5pvny8mpyc7" path="res://resources/sprites/HeavyBandit3SpriteFrames.tres" id="109_banditcorpulento"]
+[ext_resource type="SpriteFrames" uid="uid://b3hs72kwpa6eg" path="res://resources/sprites/TorcherBanditSpriteFrames.tres" id="110_banditincendiario"]
+[ext_resource type="SpriteFrames" uid="uid://cf2xmdmu3m58h" path="res://resources/sprites/WildBanditSpriteFrames.tres" id="111_banditsalvaje"]
+[ext_resource type="SpriteFrames" uid="uid://c6d1ldkskwlfp" path="res://resources/sprites/NecropolisWarriorSpriteFrames.tres" id="112_necropolisguerrero"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn06r"]
 size = Vector2(67, 11.360123)
@@ -12734,6 +12733,11 @@ position = Vector2(0, 165)
 scale = Vector2(1.64, 0.39)
 texture = ExtResource("23_groundshadow")
 
+[node name="Furnace" parent="." unique_id=401195284 instance=ExtResource("85_5r7fk")]
+z_index = -10
+position = Vector2(3569, 416.00003)
+scale = Vector2(1.5, 1.5)
+
 [node name="DockFloor" type="StaticBody2D" parent="." unique_id=129704495]
 position = Vector2(-500, 400)
 
@@ -13001,7 +13005,7 @@ position = Vector2(2850, 420)
 position = Vector2(1155, 430)
 
 [node name="NpcNinja" parent="." unique_id=21639415 instance=ExtResource("6_npc")]
-position = Vector2(1209, 430)
+position = Vector2(1450, 300)
 NpcName = "NPC_NINJA_NAME"
 DialogueLines = PackedStringArray("NPC_NINJA_L1")
 CustomSpriteFrames = ExtResource("68_ninja")
@@ -13227,7 +13231,7 @@ CustomSpriteYOffset = -28.13
 CustomSpriteScale = Vector2(2.1333, 2.1333)
 CollisionSize = Vector2(70, 64)
 
-[node name="NpcGuerreroNecropolis" parent="." instance=ExtResource("6_npc")]
+[node name="NpcGuerreroNecropolis" parent="." unique_id=1812712041 instance=ExtResource("6_npc")]
 position = Vector2(2730, 430)
 NpcName = "NPC_GUERRERONECROPOLIS_NAME"
 DialogueLines = PackedStringArray("NPC_GUERRERONECROPOLIS_L1")
@@ -13288,6 +13292,12 @@ volume_db = -80.0
 autoplay = true
 script = ExtResource("18_music_script")
 
+[node name="Ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_forest_ambience")
+volume_db = -10.0
+autoplay = true
+script = ExtResource("18_music_script")
+
 [node name="RosaRoja" parent="." unique_id=168458546 instance=ExtResource("44_j75e2")]
 position = Vector2(-484, 469)
 scale = Vector2(0.18, 0.18)
@@ -13341,7 +13351,7 @@ position = Vector2(3244, 469)
 scale = Vector2(0.2, 0.2)
 
 [node name="RosaRoja16" parent="." unique_id=133492569 instance=ExtResource("44_j75e2")]
-position = Vector2(3566, 469)
+position = Vector2(3664.9998, 473.99997)
 scale = Vector2(0.22, 0.22)
 
 [node name="RosaRoja17" parent="." unique_id=1403546746 instance=ExtResource("44_j75e2")]
@@ -13418,30 +13428,19 @@ flip_h = true
 [node name="CargoCrane2" parent="." unique_id=17161549 instance=ExtResource("58_5u8xx")]
 position = Vector2(-1327, 291)
 
-[node name="RagPole3" parent="." unique_id=1338033528 instance=ExtResource("59_yb2to")]
-z_index = 2
-position = Vector2(-1123.111, 338.7207)
-
-[node name="RagPole1" parent="." unique_id=1597325508 instance=ExtResource("59_yb2to")]
-position = Vector2(-983.7092, 340.06534)
-
 [node name="Muelle" type="Sprite2D" parent="." unique_id=930761150]
 modulate = Color(0.64, 0.58, 0.37, 1)
 z_index = -1
-position = Vector2(-969.99994, 356)
+position = Vector2(-969.99994, 354)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("91_muelle")
 
 [node name="CookingArea" parent="." unique_id=1891858985 instance=ExtResource("84_uawx8")]
-position = Vector2(3297, 420)
-scale = Vector2(1.5, 1.5)
-
-[node name="Furnace" parent="." unique_id=401195284 instance=ExtResource("85_5r7fk")]
-position = Vector2(3028, 414.00003)
+position = Vector2(712, 417)
 scale = Vector2(1.5, 1.5)
 
 [node name="Sawmill" parent="." unique_id=976560213 instance=ExtResource("86_2cv5s")]
-position = Vector2(2899, 422.00003)
+position = Vector2(-458.99976, 422.00003)
 scale = Vector2(1.3, 1.3)
 
 [node name="GoldenRetriever" parent="." unique_id=442503181 instance=ExtResource("92_goldenretriever")]
@@ -13463,7 +13462,7 @@ position = Vector2(4655, 433)
 position = Vector2(-1400, 351)
 
 [node name="NpcHerrero" parent="." unique_id=1257441973 instance=ExtResource("6_npc")]
-position = Vector2(1100, 430)
+position = Vector2(3830, 428)
 NpcName = "NPC_HERRERO_NAME"
 DialogueLines = PackedStringArray("NPC_HERRERO_L1")
 CustomSpriteFrames = ExtResource("98_herrero")
@@ -13471,7 +13470,7 @@ CustomSpriteScale = Vector2(1.3, 1.3)
 CollisionSize = Vector2(42, 64)
 
 [node name="NpcCarnicero" parent="." unique_id=190981188 instance=ExtResource("6_npc")]
-position = Vector2(1200, 430)
+position = Vector2(-537, 428)
 NpcName = "NPC_CARNICERO_NAME"
 DialogueLines = PackedStringArray("NPC_CARNICERO_L1")
 CustomSpriteFrames = ExtResource("99_carnicero")
@@ -13485,11 +13484,3 @@ DialogueLines = PackedStringArray("NPC_CANTINERO_L1")
 CustomSpriteFrames = ExtResource("100_cantinero")
 CustomSpriteScale = Vector2(1.3, 1.3)
 CollisionSize = Vector2(30, 64)
-
-[node name="NpcVendedora" parent="." unique_id=100240035 instance=ExtResource("6_npc")]
-position = Vector2(3000, 430)
-NpcName = "NPC_VENDEDORA_NAME"
-DialogueLines = PackedStringArray("NPC_VENDEDORA_L1")
-CustomSpriteFrames = ExtResource("104_vendedora")
-CustomSpriteScale = Vector2(1.39, 1.39)
-CollisionSize = Vector2(24, 64)

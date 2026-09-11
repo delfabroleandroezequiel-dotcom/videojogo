@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c5ol7s2wisgm8"
+path="res://.godot/imported/Inside Day Rain.wav-7cc0f48f6c57e6c2c02eb0b10904dff9.sample"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Ambience/InteriorDay/Inside Day Rain.wav"
+dest_files=["res://.godot/imported/Inside Day Rain.wav-7cc0f48f6c57e6c2c02eb0b10904dff9.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

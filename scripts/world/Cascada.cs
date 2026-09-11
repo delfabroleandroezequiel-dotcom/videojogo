@@ -317,5 +317,13 @@ public partial class Cascada : Node2D
 		}
 
 		ElementGlow.AddTo(this, new Vector2(_width / 2f, _height / 2f), LavaElement.Water);
+
+		// Rebuild() wipes every child above, so this has to be (re)created here rather than as a
+		// static node in Cascada.tscn — a plain child node would just get Free()'d on the next
+		// property edit. Every Cascada is a vertical fall by design (see the class comment), so
+		// no orientation check is needed here.
+		var waterfallSound = new AmbientLoopSound { Category = "World/Water", Key = "Waterfall Loop" };
+		AddChild(waterfallSound);
+		waterfallSound.Owner = this;
 	}
 }

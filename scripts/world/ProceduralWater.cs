@@ -500,5 +500,16 @@ public partial class ProceduralWater : Node2D
 		}
 
 		ElementGlow.AddTo(this, new Vector2(_width / 2f, _height / 2f), _element);
+
+		// Reads as a waterfall (vs. a pool/river/sea surface) once it's taller than it is wide —
+		// same shape heuristic as everywhere else in this class distinguishing the two, since there
+		// isn't a separate orientation flag. Rebuild() wipes every child above on each edit, so this
+		// has to be (re)created here rather than as a static node, same reasoning as Cascada.
+		if (_height > _width && _element == LavaElement.Water)
+		{
+			var waterfallSound = new AmbientLoopSound { Category = "World/Water", Key = "Waterfall Loop" };
+			AddChild(waterfallSound);
+			waterfallSound.Owner = this;
+		}
 	}
 }

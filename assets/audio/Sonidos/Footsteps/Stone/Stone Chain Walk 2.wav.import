@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://q5dvjhjsfbgr"
+path="res://.godot/imported/Stone Chain Walk 2.wav-094c81c48c859198ae73183ddf20a9a8.sample"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Footsteps/Stone/Stone Chain Walk 2.wav"
+dest_files=["res://.godot/imported/Stone Chain Walk 2.wav-094c81c48c859198ae73183ddf20a9a8.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

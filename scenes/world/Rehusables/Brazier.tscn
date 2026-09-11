@@ -2,6 +2,7 @@
 
 [ext_resource type="SpriteFrames" path="res://resources/sprites/NecropolisBrazierSpriteFrames.tres" id="1_frames"]
 [ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="2_glow_tex"]
+[ext_resource type="Script" path="res://scripts/world/AmbientLoopSound.cs" id="3_ambient"]
 
 [node name="Brazier" type="Node2D"]
 
@@ -16,3 +17,6 @@ color = Color(0.7, 0.35, 1, 1)
 energy = 1.1
 texture = ExtResource("2_glow_tex")
 texture_scale = 0.35
+
+[node name="AmbientSound" type="Node2D" parent="."]
+script = ExtResource("3_ambient")

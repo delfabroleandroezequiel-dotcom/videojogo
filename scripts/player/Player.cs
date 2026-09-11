@@ -182,7 +182,6 @@ public partial class Player : CharacterBody2D
 	private Node2D _armRight;
 	private float _walkPhase;
 	private float _lastStepSin;
-	private int _footstepIndex;
 	private CollisionShape2D _standCollision;
 	private CollisionShape2D _crouchCollision;
 	private Camera2D _camera;
@@ -214,6 +213,8 @@ public partial class Player : CharacterBody2D
 	private string _currentAttackAnimation = "attack1";
 	private int _jumpCount;
 	private bool _isDoubleJumping;
+	private bool _lowStaminaWarned;
+	private const float LowStaminaRatio = 0.15f;
 	private bool _infiniteJumpDebug;
 	private bool _isDashing;
 	private bool _canDash = true;
@@ -362,12 +363,22 @@ public partial class Player : CharacterBody2D
 		_goldLabel = GetNode<Label>("HUD/VBox/GoldLabel");
 		_stats.HealthChanged += (current, max) => healthBar.SetRatio((float)current / max);
 		_stats.StaminaChanged += (current, max) => staminaBar.SetRatio((float)current / max);
+		// Edge-triggered on crossing INTO the low band (not every frame while under it) — plays
+		// once per drop, resets once stamina climbs back above the threshold so it can fire again
+		// next time it runs low.
+		_stats.StaminaChanged += (current, max) =>
+		{
+			bool isLow = (float)current / max <= LowStaminaRatio;
+			if (isLow && !_lowStaminaWarned)
+				Sfx.Play(this, "Voice/Player", "EstaminaInsuficiente");
+			_lowStaminaWarned = isLow;
+		};
 		healthBar.SetRatio((float)_stats.CurrentHealth / _stats.MaxHealth);
 		staminaBar.SetRatio((float)_stats.CurrentStamina / _stats.MaxStamina);
 		_stats.HitTaken += (isProjectile) => FlashHit(_visual, new Color(1f, 0.2f, 0.2f));
-		_stats.HitTaken += (isProjectile) => Sfx.Play(this, isProjectile ? Sfx.HitRecibidoFlecha : Sfx.HitRecibido);
+		_stats.HitTaken += (isProjectile) => Sfx.Play(this, "Voice/Player", "Damage Grunt (Male)");
 		_hitbox.HitDealt += () => FlashHit(_visual, new Color(1f, 1f, 0.2f));
-		_hitbox.HitDealt += () => Sfx.Play(this, Sfx.HitDado);
+		_hitbox.HitDealt += () => Sfx.Play(this, "Combat/Sword", "Sword Impact Hit");
 		_healFlask.ChargesChanged += (current, max) => UpdateHealChargesLabel(current, max);
 		UpdateHealChargesLabel(_healFlask.CurrentCharges, _healFlask.MaxCharges);
 		LocaleManager.Instance.LocaleChanged += _ => UpdateHealChargesLabel(_healFlask.CurrentCharges, _healFlask.MaxCharges);
@@ -997,6 +1008,10 @@ public partial class Player : CharacterBody2D
 		if (!droppedThrough && Input.IsActionJustPressed("jump") && (IsOnFloor() || _infiniteJumpDebug || _jumpCount < maxJumps))
 		{
 			velocity.Y = JumpVelocity;
+			// _jumpCount still holds its pre-increment value here, so >=1 means this is the second
+			// (double) jump about to happen.
+			bool isDoubleJump = !_infiniteJumpDebug && _jumpCount >= 1;
+			Sfx.Play(this, "Voice/Player", isDoubleJump ? "DobleSalto" : "Salto");
 			if (!_infiniteJumpDebug)
 			{
 				_jumpCount++;
@@ -1111,6 +1126,8 @@ public partial class Player : CharacterBody2D
 			_equipTorchKeyReleased = false;
 			_torchEquipped = !_torchEquipped;
 			SaveManager.Instance.SessionTorchEquipped = _torchEquipped;
+			if (_torchEquipped)
+				Sfx.Play(this, "World/Torch", "Light Torch");
 		}
 
 		_torchLight.Enabled = _torchEquipped && !_isFireImbued;
@@ -1275,8 +1292,7 @@ public partial class Player : CharacterBody2D
 		float stepSin = Mathf.Sin(_walkPhase);
 		if (Mathf.Sign(stepSin) != 0f && Mathf.Sign(stepSin) != Mathf.Sign(_lastStepSin))
 		{
-			Sfx.Play(this, _footstepIndex == 0 ? Sfx.Paso1 : Sfx.Paso2);
-			_footstepIndex = 1 - _footstepIndex;
+			Sfx.Play(this, "Footsteps/Dirt", "Dirt Walk");
 		}
 		_lastStepSin = stepSin;
 	}
@@ -1536,7 +1552,7 @@ public partial class Player : CharacterBody2D
 		_hitbox.Deactivate();
 		_hitbox.HitDealt -= OnHitLanded;
 		if (!hitLanded)
-			Sfx.Play(this, Sfx.FalloGolpe);
+			Sfx.Play(this, "Combat/Sword", "Sword Attack");
 
 		await ToSignal(GetTree().CreateTimer(0.2f), SceneTreeTimer.SignalName.Timeout);
 		_isCharging = false;
@@ -1631,7 +1647,7 @@ public partial class Player : CharacterBody2D
 		_hitbox.Deactivate();
 		_hitbox.HitDealt -= OnHitLanded;
 		if (!hitLanded)
-			Sfx.Play(this, Sfx.FalloGolpe);
+			Sfx.Play(this, "Combat/Sword", "Sword Attack");
 
 		_weaponTrail.Rotation = 0f;
 
@@ -1657,7 +1673,7 @@ public partial class Player : CharacterBody2D
 		arrow.GlobalPosition = GlobalPosition + new Vector2(0, ArrowSpawnYOffset);
 		arrow.Speed = ArrowSpeed;
 		arrow.Launch(direction, _stats);
-		Sfx.Play(this, Sfx.FalloGolpe);
+		Sfx.Play(this, "Combat/Bow", "Bow Attack");
 
 		float remainingAnimTime = Mathf.Max(0f, BowAnimDuration - BowReleaseDelay);
 		await ToSignal(GetTree().CreateTimer(remainingAnimTime), SceneTreeTimer.SignalName.Timeout);
@@ -1747,7 +1763,7 @@ public partial class Player : CharacterBody2D
 		_hitbox.HitDealt -= OnHitLanded;
 		if (!hitLanded)
 		{
-			Sfx.Play(this, Sfx.FalloGolpe);
+			Sfx.Play(this, "Combat/Sword", "Sword Attack");
 			_crystalEffect.Visible = false;
 		}
 
@@ -1809,7 +1825,7 @@ public partial class Player : CharacterBody2D
 
 		_hitbox.HitDealt -= OnHitLanded;
 		if (!hitLanded)
-			Sfx.Play(this, Sfx.FalloGolpe);
+			Sfx.Play(this, "Combat/Sword", "Sword Attack");
 
 		Tween returnTween = GetTree().CreateTween();
 		returnTween.TweenProperty(_weaponPivot, "rotation_degrees", WeaponRestAngle, 0.1f);
@@ -1868,7 +1884,7 @@ public partial class Player : CharacterBody2D
 		_hitbox.Deactivate();
 		_hitbox.HitDealt -= OnHitLanded;
 		if (!hitLanded)
-			Sfx.Play(this, Sfx.FalloGolpe);
+			Sfx.Play(this, "Combat/Sword", "Sword Attack");
 
 		float remainingAnimTime = Mathf.Max(0f, AttackAnimDuration - AttackHitboxDelay - AttackDuration);
 		await ToSignal(GetTree().CreateTimer(remainingAnimTime), SceneTreeTimer.SignalName.Timeout);
@@ -1963,7 +1979,7 @@ public partial class Player : CharacterBody2D
 		if (!_healFlask.TryUse(_stats))
 			return;
 
-		Sfx.Play(this, Sfx.EstusFlask);
+		Sfx.Play(this, "Magic", "Firebuff"); // TODO: swap for a real potion/heal sound once we have one
 		_healing = true;
 		await ToSignal(GetTree().CreateTimer(HealAnimDuration), SceneTreeTimer.SignalName.Timeout);
 		_healing = false;

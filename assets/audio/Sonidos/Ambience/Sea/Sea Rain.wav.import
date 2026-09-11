@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://foq6sc1dgmpt"
+path="res://.godot/imported/Sea Rain.wav-7dba45c1479552573c734ac6aaaad423.sample"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Ambience/Sea/Sea Rain.wav"
+dest_files=["res://.godot/imported/Sea Rain.wav-7dba45c1479552573c734ac6aaaad423.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bp8o6npquwh2k"
+path="res://.godot/imported/Stone Chain Jump.wav-8ac20f19f2c02e09f7554b51e0679a30.sample"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Footsteps/Stone/Stone Chain Jump.wav"
+dest_files=["res://.godot/imported/Stone Chain Jump.wav-8ac20f19f2c02e09f7554b51e0679a30.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
