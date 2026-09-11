@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="6_disgq"]
 [ext_resource type="PackedScene" path="res://scenes/world/SpiderBossArena.tscn" id="7_72pjj"]
 [ext_resource type="PackedScene" path="res://scenes/world/CaveCollapseOverlay.tscn" id="8_cy052"]
+[ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="9_disgq"]
 [ext_resource type="Script" uid="uid://dgfme40ce5n06" path="res://scripts/world/GroundFog.cs" id="9_lh25p"]
 [ext_resource type="Texture2D" uid="uid://c8u136yyw3rtd" path="res://resources/vfx/FogBlobGradient.tres" id="10_05bt2"]
 [ext_resource type="Texture2D" uid="uid://c60pktdpdmdcu" path="res://assets/external/tileset/_PNG/MainBackTile.png" id="10_1702f"]
@@ -2487,6 +2488,7 @@ ScenePath = "res://scenes/world/Mapas/SpiderBossArena.tscn"
 ZoneName = "GUARIDA DE LA ARAÑA"
 CameraLimitLeft = -859
 CameraLimitRight = 630
+CameraLimitTop = -475
 CameraLimitBottom = 484
 
 [node name="Fondos" type="Container" parent="." unique_id=1484155064]
@@ -2528,6 +2530,7 @@ position = Vector2(-283, -67)
 texture = ExtResource("6_a337u")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Fondos" unique_id=1838663506]
+visible = false
 scale = Vector2(0.99999994, 0.99999994)
 color = Color(0.05, 0.05, 0.08, 1)
 
@@ -2558,7 +2561,14 @@ position = Vector2(700, 0)
 shape = SubResource("RectangleShape2D_wall")
 
 [node name="Player" parent="." unique_id=783706312 instance=ExtResource("6_disgq")]
-position = Vector2(-831.4344, -338.82922)
+position = Vector2(-755, -475)
+
+[node name="LevelTransition2" parent="." unique_id=2116574566 instance=ExtResource("9_disgq")]
+position = Vector2(-1025, -263)
+TargetScenePath = "res://scenes/world/Mapas/InteriorCuevaBosqueLobos4.tscn"
+TargetSpawnPosition = Vector2(563, 382)
+Width = 321.0
+Height = 800.0
 
 [node name="SpiderBossArena" parent="." unique_id=1474088077 instance=ExtResource("7_72pjj")]
 position = Vector2(383, 357)

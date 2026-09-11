@@ -15,6 +15,10 @@ public partial class Bandido2 : MeleeEnemy
 	[Export] public float WindupDuration = 0.4f;
 	[Export] public int AttackTelegraphFrame = 2;
 
+	// attack1 plays at 14fps (see RaiderSpriteFrames.tres) — frame 3 of the resumed swing is where
+	// the axe actually connects.
+	[Export] public float HitFrameDelay = 3f / 14f;
+
 	// Same dash-cross reposition as Bandido1 — breaks off and retreats a short burst if the player
 	// dashes past it, instead of standing there while they circle behind.
 	[Export] public float RepositionSpeed = 220f;
@@ -119,6 +123,10 @@ public partial class Bandido2 : MeleeEnemy
 			return;
 
 		Sprite.Play("attack1");
+		await ToSignal(GetTree().CreateTimer(HitFrameDelay), SceneTreeTimer.SignalName.Timeout);
+		if (!IsInstanceValid(this) || IsQueuedForRemoval)
+			return;
+
 		await base.Attack();
 	}
 }

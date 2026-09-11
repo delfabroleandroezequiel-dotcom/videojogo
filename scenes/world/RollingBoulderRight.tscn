@@ -11,6 +11,7 @@ radius = 54.0
 [node name="RollingBoulderRight" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 1
+floor_snap_length = 12.0
 script = ExtResource("1_script")
 Direction = 1
 ExplosionScene = ExtResource("4_explosion")

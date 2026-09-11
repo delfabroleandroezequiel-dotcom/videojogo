@@ -1756,6 +1756,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Fondos" unique_id=1941802606]
+visible = false
 color = Color(0.05, 0.05, 0.05, 1)
 
 [node name="Background" type="Node2D" parent="Fondos" unique_id=1941802601]
@@ -1962,6 +1963,7 @@ IsSwimmable = true
 InstantKill = false
 
 [node name="Container" type="Container" parent="." unique_id=1941802605]
+visible = false
 offset_right = 40.0
 offset_bottom = 40.0
 
@@ -2147,6 +2149,10 @@ Length = 800.0
 AngleDegrees = -25.5
 FacingLeft = true
 
+[node name="Player" parent="." unique_id=1941802604 instance=ExtResource("5_sfql7")]
+position = Vector2(3094, 94)
+floor_snap_length = 1.0
+
 [node name="ProceduralWater" parent="." unique_id=23236820 instance=ExtResource("8_65ed8")]
 position = Vector2(768, -6)
 Width = 770
@@ -2158,6 +2164,7 @@ IsSwimmable = true
 InstantKill = false
 
 [node name="MiniCorridorAccordion" parent="." unique_id=1995765242 instance=ExtResource("7_s1nch")]
+visible = false
 position = Vector2(949, -190)
 Climbable = true
 
@@ -2210,10 +2217,6 @@ TravelDistance = 650.0
 PointStart = 0.0
 AutoTravel = true
 
-[node name="Player" parent="." unique_id=1941802604 instance=ExtResource("5_sfql7")]
-position = Vector2(2252, 612)
-floor_snap_length = 1.0
-
 [node name="RangedEnemyBrown" parent="." unique_id=760427542 instance=ExtResource("18_archerbrown")]
 position = Vector2(2075, -224)
 ProjectileSpeed = 300.0
@@ -2258,8 +2261,8 @@ Width = 321.0
 
 [node name="LevelTransition2" parent="." unique_id=1977850491 instance=ExtResource("4_4om83")]
 position = Vector2(3291, 236)
-TargetScenePath = "res://scenes/world/Mapas/SpiderBossArena.tscn"
-TargetSpawnPosition = Vector2(-608, -191.564)
+TargetScenePath = "res://scenes/world/Mapas/InteriorCuevaBosqueLobos4.tscn"
+TargetSpawnPosition = Vector2(-693, -247)
 Width = 321.0
 Height = 800.0
 

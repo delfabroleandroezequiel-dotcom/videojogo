@@ -18,6 +18,10 @@ public partial class Bandido1 : MeleeEnemy
 	[Export] public int Attack1TelegraphFrame = 1;
 	[Export] public int Attack2TelegraphFrame = 2;
 
+	// Both attack1/attack2 play at 14fps (see AssassinSpriteFrames.tres) — frame 3 of the resumed
+	// swing is where the dagger actually connects, same for either variant.
+	[Export] public float HitFrameDelay = 3f / 14f;
+
 	// If the player dashes past it (crosses from one side to the other mid-dash — the classic
 	// "dash through and hit from behind" trick), it breaks off and runs a short burst back toward
 	// where the player started, re-opening the gap instead of just standing there flat-footed.
@@ -139,6 +143,10 @@ public partial class Bandido1 : MeleeEnemy
 			return;
 
 		Sprite.Play(_currentAttackAnimation);
+		await ToSignal(GetTree().CreateTimer(HitFrameDelay), SceneTreeTimer.SignalName.Timeout);
+		if (!IsInstanceValid(this) || IsQueuedForRemoval)
+			return;
+
 		await base.Attack();
 	}
 }

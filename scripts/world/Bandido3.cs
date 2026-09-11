@@ -15,6 +15,10 @@ public partial class Bandido3 : MeleeEnemy
 {
 	[Export] public float WindupDuration = 0.35f;
 
+	// "attack" plays at 14fps (see LightBanditSpriteFrames.tres) — frame 4 of the resumed swing is
+	// where the hit actually connects.
+	[Export] public float HitFrameDelay = 4f / 14f;
+
 	protected override async Task Attack()
 	{
 		Attacking = true;
@@ -26,6 +30,10 @@ public partial class Bandido3 : MeleeEnemy
 			return;
 
 		Sprite.Play("attack");
+		await ToSignal(GetTree().CreateTimer(HitFrameDelay), SceneTreeTimer.SignalName.Timeout);
+		if (!IsInstanceValid(this) || IsQueuedForRemoval)
+			return;
+
 		await base.Attack();
 	}
 }
