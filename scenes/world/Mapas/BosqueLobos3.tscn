@@ -71,8 +71,8 @@ TargetSpawnPosition = Vector2(1650, 263)
 
 [node name="ToCaminoDesiertoTransition" parent="." unique_id=131675093 instance=ExtResource("11_transition")]
 position = Vector2(887, 290)
-TargetScenePath = "res://scenes/world/Mapas/CaminoDesierto.tscn"
-TargetSpawnPosition = Vector2(270, 229)
+TargetScenePath = "res://scenes/world/Mapas/CaminoDesierto1.tscn"
+TargetSpawnPosition = Vector2(887, 229)
 RequireInteract = true
 
 [node name="ToBosqueLobos4" parent="." unique_id=519030033 instance=ExtResource("11_transition")]
