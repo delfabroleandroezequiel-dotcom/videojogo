@@ -1,9 +1,13 @@
 [gd_scene format=3 uid="uid://dwgsommb60mbk"]
 
 [ext_resource type="Script" uid="uid://bxubpujb8g3f4" path="res://scripts/world/LevelTransition.cs" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="2_lightgrad"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
 size = Vector2(32, 106)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_add"]
+blend_mode = 1
 
 [node name="LevelTransition" type="Area2D" unique_id=2116574566]
 collision_layer = 0
@@ -20,6 +24,14 @@ position = Vector2(0, -49.5)
 scale = Vector2(1, 0.505)
 color = Color(0.2, 0.8, 0.9, 0.35)
 polygon = PackedVector2Array(-16, -100, 16, -100, 16, 100, -16, 100)
+
+[node name="LightBeam" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -230)
+scale = Vector2(0.35, 3.2)
+modulate = Color(1, 0.95, 0.8, 0.55)
+material = SubResource("CanvasItemMaterial_add")
+texture = ExtResource("2_lightgrad")
 
 [node name="InteractPrompt" type="Label" parent="."]
 offset_left = -8.0

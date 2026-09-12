@@ -12,6 +12,7 @@ public partial class LevelTransition : Area2D
 	[Export] public bool RequireInteract = false;
 	[Export] public bool RememberOriginForReturn = false;
 	[Export] public bool UseStoredReturnPosition = false;
+	[Export] public bool Iluminado = false;
 
 	private float _width = 32f;
 	private float _height = 106f;
@@ -55,6 +56,10 @@ public partial class LevelTransition : Area2D
 		_visual = GetNode<Polygon2D>("Visual");
 		_initialized = true;
 		RefreshShape();
+
+		var lightBeam = GetNodeOrNull<CanvasItem>("LightBeam");
+		if (lightBeam is not null)
+			lightBeam.Visible = Iluminado;
 
 		if (Engine.IsEditorHint())
 			return;
