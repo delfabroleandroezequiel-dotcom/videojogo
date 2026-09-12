@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://6kig0gdifgss" path="res://assets/backgrounds/BosqueLobos2.png" id="9_bg"]
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="10_player"]
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="11_transition"]
+[ext_resource type="Texture2D" uid="uid://ty3n1f388iap" path="res://scenes/world/Mapas/entradaarbol.png" id="12_ldpml"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1774, 56)
@@ -73,3 +74,8 @@ TargetSpawnPosition = Vector2(1650, 263)
 position = Vector2(1700, 290)
 TargetScenePath = "res://scenes/world/Mapas/BosqueLobos3.tscn"
 TargetSpawnPosition = Vector2(150, 263)
+
+[node name="Entradaarbol" type="Sprite2D" parent="." unique_id=2143336118]
+position = Vector2(1042, 164)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("12_ldpml")
