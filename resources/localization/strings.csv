@@ -110,6 +110,10 @@ QUEST_MAIN_BOSS_REWARD,El aldeano te recompensa por liberar el camino.,The villa
 QUEST_SIDE_GREET_TITLE,Un saludo en el camino,A greeting along the way,Uma saudação no caminho
 QUEST_SIDE_GREET_DESC,Hablá con el aldeano cerca del primer claro.,Talk to the villager near the first clearing.,Fale com o aldeão perto da primeira clareira.
 QUEST_SIDE_GREET_OBJECTIVE,Hablar con el aldeano,Talk to the villager,Falar com o aldeão
+QUEST_RESCUE_GRANSIN_TITLE,Rescatar a Gransin,Rescue Gransin,Resgatar Gransin
+QUEST_RESCUE_GRANSIN_DESC,El cantinero no tiene noticias de su hijo Gransin desde hace días. Dicen que las minas de la cueva se lo tragaron.,The bartender hasn't heard from his son Gransin in days. They say the cave mines swallowed him.,O taverneiro não tem notícias do filho Gransin há dias. Dizem que as minas da caverna o engoliram.
+QUEST_RESCUE_GRANSIN_OBJECTIVE,Encontrar a Gransin en las minas,Find Gransin in the mines,Encontrar Gransin nas minas
+QUEST_RESCUE_GRANSIN_REWARD,El cantinero vuelve a ver a su hijo sano y salvo.,The bartender sees his son safe and sound again.,O taverneiro vê o filho são e salvo novamente.
 ITEM_ABILITY_DASH_NAME,Esencia del dash,Dash Essence,Essência da investida
 ITEM_ABILITY_DASH_DESC,Te permite hacer un dash horizontal rápido.,Lets you perform a quick horizontal dash.,Permite fazer uma investida horizontal rápida.
 ITEM_ABILITY_DOUBLEJUMP_NAME,Pluma del salto doble,Double Jump Feather,Pena do pulo duplo
@@ -224,7 +228,12 @@ NPC_HERRERO_L1,El acero no miente. El fuego tampoco, pero quema más.,Steel does
 NPC_CARNICERO_NAME,Carnicero,Butcher,Açougueiro
 NPC_CARNICERO_L1,Fresco de esta mañana. No pregunto de dónde vino, y usted tampoco debería.,Fresh from this morning. I don't ask where it came from, and neither should you.,Fresco desta manhã. Não pergunto de onde veio, e você também não deveria.
 NPC_CANTINERO_NAME,Cantinero,Bartender,Barman
-NPC_CANTINERO_L1,Aquí dejan las espadas en la puerta. Los problemas, no tanto.,Swords stay at the door here. Trouble, not so much.,Aqui as espadas ficam na porta. Os problemas, nem tanto.
+NPC_CANTINERO_L1,Mi hijo Gransin... hace días que no sé nada de él. Se metió en las minas de la cueva y no volvió. ¿Podrías ir a buscarlo?,My son Gransin... I haven't heard from him in days. He went into the cave mines and never came back. Could you go look for him?,Meu filho Gransin... faz dias que não tenho notícias dele. Ele entrou nas minas da caverna e não voltou. Você poderia ir procurá-lo?
+NPC_CANTINERO_INPROGRESS_L1,¿Todavía no hay señales de Gransin? Por favor, encontralo.,Still no sign of Gransin? Please find him.,Ainda nenhum sinal do Gransin? Por favor, encontre-o.
+NPC_CANTINERO_COMPLETED_L1,Gracias por traer a mi hijo de vuelta. No sé cómo pagarte esto.,Thank you for bringing my son back. I don't know how to repay you for this.,Obrigado por trazer meu filho de volta. Não sei como te agradecer por isso.
+NPC_GRANSIN_NAME,Gransin,Gransin,Gransin
+NPC_GRANSIN_RESCUED_L1,¡Gracias al cielo! Pensé que nadie vendría. Sácame de aquí, por favor.,Thank goodness! I thought no one would come. Please get me out of here.,Graças a Deus! Pensei que ninguém viria. Por favor me tire daqui.
+NPC_GRANSIN_BAR_L1,Mi padre no deja de invitarme tragos desde que volví. No me quejo.,My father hasn't stopped buying me drinks since I got back. Not complaining.,Meu pai não para de me pagar bebidas desde que voltei. Não que eu me importe.
 NPC_PARROQUIANO1_NAME,Parroquiano,Tavern Regular,Frequentador
 NPC_PARROQUIANO1_L1,*bebe sin levantar la vista*,*drinks without looking up*,*bebe sem levantar os olhos*
 NPC_PARROQUIANO2_NAME,Parroquiano,Tavern Regular,Frequentador
