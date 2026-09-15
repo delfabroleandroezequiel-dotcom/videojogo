@@ -1756,7 +1756,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Fondos" unique_id=1941802606]
-visible = false
 color = Color(0.05, 0.05, 0.05, 1)
 
 [node name="Background" type="Node2D" parent="Fondos" unique_id=1941802601]
@@ -2151,7 +2150,6 @@ FacingLeft = true
 
 [node name="Player" parent="." unique_id=1941802604 instance=ExtResource("5_sfql7")]
 position = Vector2(3094, 94)
-floor_snap_length = 1.0
 
 [node name="ProceduralWater" parent="." unique_id=23236820 instance=ExtResource("8_65ed8")]
 position = Vector2(768, -6)

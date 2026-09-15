@@ -7764,7 +7764,6 @@ script = ExtResource("2_lympf")
 ParallaxFactor = Vector2(0.6, 0.6)
 
 [node name="Capa3MinaSprite" type="Sprite2D" parent="Fondos" unique_id=1941802521]
-visible = false
 modulate = Color(0.6, 0.6, 0.6, 1)
 texture_repeat = 2
 position = Vector2(0, -76.99999)
@@ -7810,7 +7809,7 @@ scale = Vector2(1.4, 1.4)
 texture = ExtResource("6_2jfu5")
 
 [node name="46e0b3191Bac477991De7c9251474681Copia5" type="Sprite2D" parent="Pilares" unique_id=1315412919]
-position = Vector2(1206, 826.00006)
+position = Vector2(1203, 548.0001)
 scale = Vector2(1.4, 1.4)
 texture = ExtResource("6_2jfu5")
 

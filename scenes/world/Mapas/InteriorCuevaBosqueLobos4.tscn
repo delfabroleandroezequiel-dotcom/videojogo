@@ -2512,7 +2512,6 @@ region_enabled = true
 region_rect = Rect2(-20000, -20000, 40000, 40000)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Fondos" unique_id=1717858736]
-visible = false
 color = Color(0.05, 0.05, 0.08, 1)
 
 [node name="Container" type="Container" parent="." unique_id=160113435]
