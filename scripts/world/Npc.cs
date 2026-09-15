@@ -22,6 +22,12 @@ public partial class Npc : CharacterBody2D
 
 	[Export] public Quest Quest;
 	[Export] public bool GrantsOwnObjective = true;
+
+	// For an NPC that relocates once a quest wraps up (e.g. a rescued villager who leaves the
+	// place you found them and turns up back home) -- set one of these on each of the two
+	// placements instead of writing a one-off script per NPC that moves around.
+	[Export] public string DisappearWhenQuestCompleted = "";
+	[Export] public string AppearOnlyWhenQuestCompleted = "";
 	[Export] public float Gravity = 900f;
 	[Export] public float ExplosionScale = 1f;
 	[Export] public PackedScene ExplosionScene;
@@ -44,6 +50,18 @@ public partial class Npc : CharacterBody2D
 	{
 		_persistenceId = GetPath().ToString();
 		if (SaveManager.Instance.IsCommonEnemyDefeated(_persistenceId))
+		{
+			QueueFree();
+			return;
+		}
+
+		if (!string.IsNullOrEmpty(DisappearWhenQuestCompleted) && QuestManager.Instance.IsCompleted(DisappearWhenQuestCompleted))
+		{
+			QueueFree();
+			return;
+		}
+
+		if (!string.IsNullOrEmpty(AppearOnlyWhenQuestCompleted) && !QuestManager.Instance.IsCompleted(AppearOnlyWhenQuestCompleted))
 		{
 			QueueFree();
 			return;

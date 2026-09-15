@@ -18,6 +18,9 @@ public enum CascadaCollision
 // CollisionMode picks None (pure background decoration — no Area2D at all), Hazard (InstantKill/
 // Damage/KnockbackForce, same as ProceduralWater's default), or Swimmable (a Water zone the player
 // can swim through, gated by the Swim ability).
+// LEGACY / currently unused: Cascada.tscn isn't instanced in any scene in the project — every
+// placed waterfall today is a tall ProceduralWater (its height>width case handles the vertical
+// fall directly, organic-edge options and all). Check before building on this instead of that.
 // [Tool] so it previews live in the editor (the shader's TIME-driven flow/edges animate there too).
 [Tool]
 public partial class Cascada : Node2D
@@ -322,7 +325,17 @@ public partial class Cascada : Node2D
 		// static node in Cascada.tscn — a plain child node would just get Free()'d on the next
 		// property edit. Every Cascada is a vertical fall by design (see the class comment), so
 		// no orientation check is needed here.
-		var waterfallSound = new AmbientLoopSound { Category = "World/Water", Key = "Waterfall Loop" };
+		// Centered on the fall's midpoint (not left at the (0,0) top origin) and ranged to reach
+		// past both ends — AmbientLoopSound's own 220px default is tuned for dense lantern
+		// clusters, way short of a tall waterfall (Height can run up to 2000), which otherwise
+		// reads as "sound only near the top" while standing at the base hears nothing.
+		var waterfallSound = new AmbientLoopSound
+		{
+			Category = "World/Water",
+			Key = "Waterfall Loop",
+			Position = new Vector2(_width / 2f, _height / 2f),
+			MaxDistance = _height / 2f + 200f,
+		};
 		AddChild(waterfallSound);
 		waterfallSound.Owner = this;
 	}

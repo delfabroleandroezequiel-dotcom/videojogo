@@ -507,7 +507,17 @@ public partial class ProceduralWater : Node2D
 		// has to be (re)created here rather than as a static node, same reasoning as Cascada.
 		if (_height > _width && _element == LavaElement.Water)
 		{
-			var waterfallSound = new AmbientLoopSound { Category = "World/Water", Key = "Waterfall Loop" };
+			// Centered on the fall's midpoint (not left at the (0,0) top origin) and ranged to
+			// reach past both ends — AmbientLoopSound's own 220px default is tuned for dense
+			// lantern clusters, way short of a tall waterfall (some of these run 1000px+), which
+			// otherwise reads as "sound only near the top" while standing at the base hears nothing.
+			var waterfallSound = new AmbientLoopSound
+			{
+				Category = "World/Water",
+				Key = "Waterfall Loop",
+				Position = new Vector2(_width / 2f, _height / 2f),
+				MaxDistance = _height / 2f + 200f,
+			};
 			AddChild(waterfallSound);
 			waterfallSound.Owner = this;
 		}
