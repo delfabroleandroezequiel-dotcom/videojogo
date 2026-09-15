@@ -18,3 +18,6 @@ test.txt
 
 # Secrets
 .env
+
+# Reference-only art (not integrated into the game, kept out of git history for size)
+assets/external/HollowKight/
