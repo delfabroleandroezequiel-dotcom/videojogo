@@ -41,6 +41,11 @@ public partial class Hechicero : RangedEnemy
 	[Export] public float JumpVelocity = -420f;
 	[Export] public float JumpAwaySpeed = 180f;
 
+	// RangedEnemy's own CanChase only checks !IsShooting, so without this override a
+	// HoldPosition Hechicero would still walk toward the player the moment it wasn't mid-cast
+	// (e.g. between shots, or after the player steps out of ShootRange and the cooldown lapses).
+	protected override bool CanChase => !HoldPosition && !IsShooting;
+
 	private readonly RandomNumberGenerator _rng = new();
 	private bool _wasShooting;
 	private HechiceroAttack _currentAttack;
