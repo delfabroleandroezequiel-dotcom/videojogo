@@ -17,6 +17,14 @@ public partial class LevelBootstrap : Node
 	[Export] public int CameraLimitTop = -10000000;
 	[Export] public int CameraLimitBottom = 10000000;
 
+	// Player.FallDeathY defaults to a flat 700 that has nothing to do with any particular map's
+	// actual depth — several interiors/caves already sit deeper than that and needed a manual
+	// per-scene FallDeathY override just to stop the player dying on their own floor. CameraLimitBottom
+	// is already authored per map for the camera clamp, so it's a ready-made per-map depth reference:
+	// only ever raises FallDeathY (never lowers it below whatever the scene explicitly set), so an
+	// existing manual override still wins whenever it's already deeper than this margin.
+	[Export] public float FallDeathMargin = 300f;
+
 	private Player.Player _player;
 
 	public override void _Ready()
@@ -165,6 +173,7 @@ public partial class LevelBootstrap : Node
 		camera.LimitRight = CameraLimitRight;
 		camera.LimitTop = CameraLimitTop;
 		camera.LimitBottom = CameraLimitBottom;
+		_player.FallDeathY = Mathf.Max(_player.FallDeathY, CameraLimitBottom + FallDeathMargin);
 
 		if (CameraProfile is null)
 			return;
