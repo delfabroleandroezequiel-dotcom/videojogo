@@ -520,10 +520,12 @@ public partial class Player : CharacterBody2D
 	}
 
 	// Ledge detection is two steps rather than a fixed two-raycast band: first find ANY wall in
-	// front near chest height (forgiving — a short, tall shapecast, not a single pixel-precise
-	// ray), then probe straight down from well above the player to find the ledge's actual top
-	// surface. Using the real surface height (instead of just keeping the player's current Y) is
-	// what makes the grab position — and therefore the climb-up target — land correctly on top.
+	// front near head height (a small shapecast, not a single pixel-precise ray, but kept tight
+	// and high so the hang reads as grabbing with the hands near the top of the sprite instead of
+	// snagging on the chest), then probe straight down from well above the player to find the
+	// ledge's actual top surface. Using the real surface height (instead of just keeping the
+	// player's current Y) is what makes the grab position — and therefore the climb-up target —
+	// land correctly on top.
 	private bool TryDetectLedge(out Vector2 grabPosition)
 	{
 		float dir = _facingRight ? 1f : -1f;
