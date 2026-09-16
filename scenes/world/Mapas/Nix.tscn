@@ -92,13 +92,11 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SiberianHusky.tscn" id="97_siberianhusky"]
 [ext_resource type="SpriteFrames" uid="uid://d1kuonjejlaa3" path="res://resources/sprites/BlacksmithNpcSSWSpriteFrames.tres" id="98_herrero"]
 [ext_resource type="SpriteFrames" uid="uid://bxsagfbelmifi" path="res://resources/sprites/MeatVendorSpriteFrames.tres" id="99_carnicero"]
-[ext_resource type="SpriteFrames" uid="uid://bvkqlsyfqh51m" path="res://resources/sprites/TavernBartenderSpriteFrames.tres" id="100_cantinero"]
 [ext_resource type="SpriteFrames" uid="uid://cab7wakhrjesx" path="res://resources/sprites/AssassinBandit3SpriteFrames.tres" id="108_banditasesino3"]
 [ext_resource type="SpriteFrames" uid="uid://x5pvny8mpyc7" path="res://resources/sprites/HeavyBandit3SpriteFrames.tres" id="109_banditcorpulento"]
 [ext_resource type="SpriteFrames" uid="uid://b3hs72kwpa6eg" path="res://resources/sprites/TorcherBanditSpriteFrames.tres" id="110_banditincendiario"]
 [ext_resource type="SpriteFrames" uid="uid://cf2xmdmu3m58h" path="res://resources/sprites/WildBanditSpriteFrames.tres" id="111_banditsalvaje"]
 [ext_resource type="SpriteFrames" uid="uid://c6d1ldkskwlfp" path="res://resources/sprites/NecropolisWarriorSpriteFrames.tres" id="112_necropolisguerrero"]
-[ext_resource type="Resource" path="res://resources/quests/rescue_gransin.tres" id="113_gransinquest"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn06r"]
 size = Vector2(67, 11.360123)
@@ -15872,18 +15870,6 @@ DialogueLines = PackedStringArray("NPC_CARNICERO_L1")
 CustomSpriteFrames = ExtResource("99_carnicero")
 CustomSpriteScale = Vector2(1.39, 1.39)
 CollisionSize = Vector2(47, 64)
-
-[node name="NpcCantinero" parent="." unique_id=1087998085 instance=ExtResource("6_npc")]
-position = Vector2(2000, 430)
-NpcName = "NPC_CANTINERO_NAME"
-DialogueLines = PackedStringArray("NPC_CANTINERO_L1")
-InProgressDialogueLines = PackedStringArray("NPC_CANTINERO_INPROGRESS_L1")
-CompletedDialogueLines = PackedStringArray("NPC_CANTINERO_COMPLETED_L1")
-Quest = ExtResource("113_gransinquest")
-GrantsOwnObjective = false
-CustomSpriteFrames = ExtResource("100_cantinero")
-CustomSpriteScale = Vector2(1.3, 1.3)
-CollisionSize = Vector2(30, 64)
 
 [node name="NpcGransin" parent="." unique_id=475770780 instance=ExtResource("6_npc")]
 position = Vector2(2060, 430)

@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://beqplhalhp4r6" path="res://resources/camera/ClosedRoomCamera.tres" id="7_camera_profile"]
 [ext_resource type="SpriteFrames" uid="uid://bvkqlsyfqh51m" path="res://resources/sprites/TavernBartenderSpriteFrames.tres" id="8_isvp4"]
 [ext_resource type="Texture2D" uid="uid://bnxhpt62p5fd2" path="res://scenes/world/MesonOstigadobarra.png" id="9_o0uk4"]
+[ext_resource type="Resource" path="res://resources/quests/rescue_gransin.tres" id="10_gransinquest"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(816.4462, 24.48)
@@ -95,6 +96,10 @@ shape = SubResource("RectangleShape2D_sidewall")
 position = Vector2(153, 7)
 NpcName = "NPC_CANTINERO_NAME"
 DialogueLines = PackedStringArray("NPC_CANTINERO_L1")
+InProgressDialogueLines = PackedStringArray("NPC_CANTINERO_INPROGRESS_L1")
+CompletedDialogueLines = PackedStringArray("NPC_CANTINERO_COMPLETED_L1")
+Quest = ExtResource("10_gransinquest")
+GrantsOwnObjective = false
 CustomSpriteFrames = ExtResource("8_isvp4")
 CustomSpriteScale = Vector2(1.3, 1.3)
 CollisionSize = Vector2(30, 64)
