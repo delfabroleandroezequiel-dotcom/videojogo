@@ -31,6 +31,11 @@ public enum CorridorPreset
 [Tool]
 public partial class CorridorBlock : Node2D
 {
+	// World only, by default — matches MiniCorridor's SolidLayer/ClimbableLayer split so existing
+	// pieces don't suddenly become graspable on load.
+	private const uint SolidLayer = 1u;
+	private const uint ClimbableLayer = 1u | PhysicsLayers.ClimbableWalls;
+
 	private CorridorOrientation _orientation = CorridorOrientation.Lateral;
 
 	[Export]
@@ -115,6 +120,19 @@ public partial class CorridorBlock : Node2D
 	{
 		get => _hasFloor;
 		set { _hasFloor = value; Rebuild(); }
+	}
+
+	private bool _floorClimbable;
+
+	// Tags Floor's collision on the ClimbableWalls physics layer so Player's existing ledge-grab
+	// already catches it — same idea as MiniCorridor.Climbable, but only exposed on Floor for now
+	// since that's the side that's come up in practice (the other 3 sides can get their own toggle
+	// the day a piece actually needs it).
+	[Export]
+	public bool FloorClimbable
+	{
+		get => _floorClimbable;
+		set { _floorClimbable = value; Rebuild(); }
 	}
 
 	private bool _hasCeiling = true;
@@ -257,7 +275,8 @@ public partial class CorridorBlock : Node2D
 			ApplyPart(GetNodeOrNull<StaticBody2D>("Floor"), _hasFloor,
 				new Vector2(_length, _wallThickness),
 				new Vector2(_length / 2f, _wallThickness / 2f),
-				Vector2.Down, _floorFillExtend, FillColor, _floorShowFill);
+				Vector2.Down, _floorFillExtend, FillColor, _floorShowFill,
+				_floorClimbable ? ClimbableLayer : SolidLayer);
 
 			ApplyPart(GetNodeOrNull<StaticBody2D>("Ceiling"), _hasCeiling,
 				new Vector2(_length, _wallThickness),
@@ -289,7 +308,8 @@ public partial class CorridorBlock : Node2D
 			ApplyPart(GetNodeOrNull<StaticBody2D>("Floor"), _hasFloor,
 				new Vector2(_crossSize, _wallThickness),
 				new Vector2(_crossSize / 2f, _length + _wallThickness / 2f),
-				Vector2.Down, _floorFillExtend, FillColor, _floorShowFill);
+				Vector2.Down, _floorFillExtend, FillColor, _floorShowFill,
+				_floorClimbable ? ClimbableLayer : SolidLayer);
 
 			ApplyPart(GetNodeOrNull<StaticBody2D>("Ceiling"), _hasCeiling,
 				new Vector2(_crossSize, _wallThickness),
@@ -303,13 +323,14 @@ public partial class CorridorBlock : Node2D
 			exit.Position = lateral ? new Vector2(_length, 0f) : new Vector2(0f, _length);
 	}
 
-	private void ApplyPart(StaticBody2D body, bool active, Vector2 size, Vector2 center, Vector2 outwardDir, float fillExtend, Color color, bool showFill)
+	private void ApplyPart(StaticBody2D body, bool active, Vector2 size, Vector2 center, Vector2 outwardDir, float fillExtend, Color color, bool showFill, uint collisionLayer = SolidLayer)
 	{
 		if (body is null)
 			return;
 
 		body.Visible = active;
 		body.Position = center;
+		body.CollisionLayer = collisionLayer;
 
 		if (body.GetNodeOrNull<CollisionShape2D>("CollisionShape2D") is CollisionShape2D collision)
 		{
