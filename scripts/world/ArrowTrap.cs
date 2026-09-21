@@ -16,6 +16,10 @@ public partial class ArrowTrap : Node2D
 	[Export] public float FireInterval = 1.8f;
 	[Export] public float StartOffset;
 	[Export] public float ProjectileSpeed = 380f;
+	// How far the arrow flies (px) before it disappears. 0 = leave ArrowProjectile's own Lifetime
+	// alone (Speed * Lifetime, i.e. 950px at the defaults). Converted to a lifetime from
+	// ProjectileSpeed, so changing the speed keeps the distance the same.
+	[Export] public float MaxDistance;
 	[Export] public int Damage = 15;
 	[Export] public float KnockbackForce = 260f;
 
@@ -42,6 +46,9 @@ public partial class ArrowTrap : Node2D
 			return;
 
 		ArrowProjectile projectile = ProjectileScene.Instantiate<ArrowProjectile>();
+		// Has to be set before AddChild: ArrowProjectile starts its Lifetime timer in _Ready.
+		if (MaxDistance > 0f && ProjectileSpeed > 0f)
+			projectile.Lifetime = MaxDistance / ProjectileSpeed;
 		GetTree().CurrentScene.AddChild(projectile);
 		projectile.GlobalPosition = GetNode<Marker2D>("Muzzle").GlobalPosition;
 		projectile.Speed = ProjectileSpeed;
