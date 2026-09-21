@@ -2479,6 +2479,7 @@ CameraLimitRight = 642
 CameraLimitBottom = 568
 
 [node name="Fondos" type="Container" parent="." unique_id=19140486]
+visible = false
 offset_right = 40.0
 offset_bottom = 40.0
 
