@@ -1,0 +1,350 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Attack1/Elf_Assassin_Attack1_1.png" id="1_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Attack1/Elf_Assassin_Attack1_2.png" id="2_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Attack1/Elf_Assassin_Attack1_3.png" id="3_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Attack1/Elf_Assassin_Attack1_4.png" id="4_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Attack2/Elf_Assassin_Attack2_1.png" id="5_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Attack2/Elf_Assassin_Attack2_2.png" id="6_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Attack2/Elf_Assassin_Attack2_3.png" id="7_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Attack2/Elf_Assassin_Attack2_4.png" id="8_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Death/Elf_Assassin_Death1.png" id="9_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Death/Elf_Assassin_Death2.png" id="10_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Death/Elf_Assassin_Death3.png" id="11_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Death/Elf_Assassin_Death4.png" id="12_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Death/Elf_Assassin_Death5.png" id="13_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Death/Elf_Assassin_Death6.png" id="14_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Death/Elf_Assassin_Death7.png" id="15_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Death/Elf_Assassin_Death8.png" id="16_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Death/Elf_Assassin_Death9.png" id="17_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Death/Elf_Assassin_Death10.png" id="18_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Death/Elf_Assassin_Death11.png" id="19_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_DeathNoEffeckt/Elf_Assassin_Death1.png" id="20_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_DeathNoEffeckt/Elf_Assassin_Death2.png" id="21_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_DeathNoEffeckt/Elf_Assassin_Death3.png" id="22_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_DeathNoEffeckt/Elf_Assassin_Death4.png" id="23_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_DeathNoEffeckt/Elf_Assassin_Death5.png" id="24_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_DeathNoEffeckt/Elf_Assassin_Death6.png" id="25_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_DeathNoEffeckt/Elf_Assassin_Death7.png" id="26_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_DeathNoEffeckt/Elf_Assassin_Death8.png" id="27_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_DeathNoEffeckt/Elf_Assassin_Death9.png" id="28_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_DeathNoEffeckt/Elf_Assassin_Death10.png" id="29_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_DeathNoEffeckt/Elf_Assassin_Death11.png" id="30_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Fall/Elf_Assassin_Fall1.png" id="31_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Fall/Elf_Assassin_Fall2.png" id="32_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Hit/Elf_Assassin_Hit1.png" id="33_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Hit/Elf_Assassin_Hit2.png" id="34_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Hit/Elf_Assassin_Hit3.png" id="35_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Hit/Elf_Assassin_Hit4.png" id="36_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_HitNoEffeckt/Elf_Assassin_Hit1.png" id="37_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_HitNoEffeckt/Elf_Assassin_Hit2.png" id="38_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_HitNoEffeckt/Elf_Assassin_Hit3.png" id="39_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_HitNoEffeckt/Elf_Assassin_Hit4.png" id="40_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Idle/Elf_Assassin_Idle1.png" id="41_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Idle/Elf_Assassin_Idle2.png" id="42_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Idle/Elf_Assassin_Idle3.png" id="43_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Idle/Elf_Assassin_Idle4.png" id="44_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Jump/Elf_Assassin_Jump1.png" id="45_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Jump/Elf_Assassin_Jump2.png" id="46_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_JumpToFall/Elf_Assassin_JumpToFall1.png" id="47_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_JumpToFall/Elf_Assassin_JumpToFall2.png" id="48_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Run/Elf_Assassin_Run1.png" id="49_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Run/Elf_Assassin_Run2.png" id="50_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Run/Elf_Assassin_Run3.png" id="51_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Run/Elf_Assassin_Run4.png" id="52_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Run/Elf_Assassin_Run5.png" id="53_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Run/Elf_Assassin_Run6.png" id="54_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Run/Elf_Assassin_Run7.png" id="55_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Run/Elf_Assassin_Run8.png" id="56_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Throw/Elf_Assassin_Throw1.png" id="57_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Throw/Elf_Assassin_Throw2.png" id="58_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Throw/Elf_Assassin_Throw3.png" id="59_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Throw/Elf_Assassin_Throw4.png" id="60_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Throw/Elf_Assassin_Throw5.png" id="61_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Throw/Elf_Assassin_Throw6.png" id="62_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Walk/Elf_Assassin_Walk1.png" id="63_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Walk/Elf_Assassin_Walk2.png" id="64_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Walk/Elf_Assassin_Walk3.png" id="65_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Walk/Elf_Assassin_Walk4.png" id="66_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Walk/Elf_Assassin_Walk5.png" id="67_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Walk/Elf_Assassin_Walk6.png" id="68_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Walk/Elf_Assassin_Walk7.png" id="69_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Assassin/Elf_Assassin_Walk/Elf_Assassin_Walk8.png" id="70_f"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_f")
+}],
+"loop": false,
+"name": &"attack1",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_f")
+}],
+"loop": false,
+"name": &"attack2",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_f")
+}],
+"loop": false,
+"name": &"death",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_f")
+}],
+"loop": false,
+"name": &"deathnoeffect",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("31_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_f")
+}],
+"loop": false,
+"name": &"fall",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("33_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_f")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("37_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_f")
+}],
+"loop": false,
+"name": &"hitnoeffect",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("41_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_f")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("45_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_f")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("47_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_f")
+}],
+"loop": false,
+"name": &"jumptofall",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("49_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_f")
+}],
+"loop": true,
+"name": &"run",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("57_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_f")
+}],
+"loop": false,
+"name": &"throw",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("63_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_f")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]

@@ -1,0 +1,296 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Attack/Elf_Archer_Attack1.png" id="1_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Attack/Elf_Archer_Attack2.png" id="2_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Attack/Elf_Archer_Attack3.png" id="3_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Attack/Elf_Archer_Attack4.png" id="4_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Attack/Elf_Archer_Attack5.png" id="5_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Attack/Elf_Archer_Attack6.png" id="6_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Attack/Elf_Archer_Attack7.png" id="7_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Attack/Elf_Archer_Attack8.png" id="8_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Attack/Elf_Archer_Attack9.png" id="9_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Attack/Elf_Archer_Attack10.png" id="10_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Death/Elf_Archer_Death1.png" id="11_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Death/Elf_Archer_Death2.png" id="12_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Death/Elf_Archer_Death3.png" id="13_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Death/Elf_Archer_Death4.png" id="14_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Death/Elf_Archer_Death5.png" id="15_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Death/Elf_Archer_Death6.png" id="16_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Death/Elf_Archer_Death7.png" id="17_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Death/Elf_Archer_Death8.png" id="18_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_DeathNoEffeckt/Elf_Archer_Death1.png" id="19_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_DeathNoEffeckt/Elf_Archer_Death2.png" id="20_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_DeathNoEffeckt/Elf_Archer_Death3.png" id="21_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_DeathNoEffeckt/Elf_Archer_Death4.png" id="22_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_DeathNoEffeckt/Elf_Archer_Death5.png" id="23_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_DeathNoEffeckt/Elf_Archer_Death6.png" id="24_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_DeathNoEffeckt/Elf_Archer_Death7.png" id="25_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_DeathNoEffeckt/Elf_Archer_Death8.png" id="26_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Fall/Elf_Archer_Fall1.png" id="27_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Fall/Elf_Archer_Fall2.png" id="28_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Fall/Elf_Archer_Fall3.png" id="29_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Hit/Elf_Archer_Hit1.png" id="30_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Hit/Elf_Archer_Hit2.png" id="31_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Hit/Elf_Archer_Hit3.png" id="32_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_HitNoEffeckt/Elf_Archer_Hit1.png" id="33_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_HitNoEffeckt/Elf_Archer_Hit2.png" id="34_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_HitNoEffeckt/Elf_Archer_Hit3.png" id="35_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Idle/Elf_Archer_Idle1.png" id="36_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Idle/Elf_Archer_Idle2.png" id="37_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Idle/Elf_Archer_Idle3.png" id="38_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Idle/Elf_Archer_Idle4.png" id="39_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Jump/Elf_Archer_Jump1.png" id="40_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Jump/Elf_Archer_Jump2.png" id="41_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_JumpToFall/Elf_Archer_JumpToFall​1.png" id="42_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_JumpToFall/Elf_Archer_JumpToFall​2.png" id="43_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Run/Elf_Archer_Run1.png" id="44_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Run/Elf_Archer_Run2.png" id="45_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Run/Elf_Archer_Run3.png" id="46_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Run/Elf_Archer_Run4.png" id="47_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Run/Elf_Archer_Run5.png" id="48_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Run/Elf_Archer_Run6.png" id="49_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Run/Elf_Archer_Run7.png" id="50_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Run/Elf_Archer_Run8.png" id="51_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Walk/Elf_Archer_Walk1.png" id="52_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Walk/Elf_Archer_Walk2.png" id="53_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Walk/Elf_Archer_Walk3.png" id="54_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Walk/Elf_Archer_Walk4.png" id="55_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Walk/Elf_Archer_Walk5.png" id="56_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Walk/Elf_Archer_Walk6.png" id="57_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Walk/Elf_Archer_Walk7.png" id="58_f"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Elf_Archer_Walk/Elf_Archer_Walk8.png" id="59_f"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_f")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_f")
+}],
+"loop": false,
+"name": &"death",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_f")
+}],
+"loop": false,
+"name": &"deathnoeffect",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_f")
+}],
+"loop": false,
+"name": &"fall",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("30_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_f")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("33_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_f")
+}],
+"loop": false,
+"name": &"hitnoeffect",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("36_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_f")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("40_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_f")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("42_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_f")
+}],
+"loop": false,
+"name": &"jumptofall",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("44_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_f")
+}],
+"loop": true,
+"name": &"run",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("52_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_f")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
