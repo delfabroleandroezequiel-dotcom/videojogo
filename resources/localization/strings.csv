@@ -233,6 +233,8 @@ NPC_CANTINERO_INPROGRESS_L1,¿Todavía no hay señales de Gransin? Por favor, en
 NPC_CANTINERO_COMPLETED_L1,Gracias por traer a mi hijo de vuelta. No sé cómo pagarte esto.,Thank you for bringing my son back. I don't know how to repay you for this.,Obrigado por trazer meu filho de volta. Não sei como te agradecer por isso.
 NPC_GRANSIN_NAME,Gransin,Gransin,Gransin
 NPC_GRANSIN_RESCUED_L1,¡Gracias al cielo! Pensé que nadie vendría. Sácame de aquí, por favor.,Thank goodness! I thought no one would come. Please get me out of here.,Graças a Deus! Pensei que ninguém viria. Por favor me tire daqui.
+NPC_GRANSIN_SPIDER_ALIVE_L1,¡Huye de aquí! Ese demonio te matará.,Get out of here! That demon will kill you.,Fuja daqui! Aquele demônio vai te matar.
+NPC_GRANSIN_SPIDER_ALIVE_L2,Dile a mi padre que no me busque.,Tell my father not to come looking for me.,Diga ao meu pai que não me procure.
 NPC_GRANSIN_BAR_L1,Mi padre no deja de invitarme tragos desde que volví. No me quejo.,My father hasn't stopped buying me drinks since I got back. Not complaining.,Meu pai não para de me pagar bebidas desde que voltei. Não que eu me importe.
 NPC_PARROQUIANO1_NAME,Parroquiano,Tavern Regular,Frequentador
 NPC_PARROQUIANO1_L1,*bebe sin levantar la vista*,*drinks without looking up*,*bebe sem levantar os olhos*

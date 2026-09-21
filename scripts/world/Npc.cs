@@ -28,6 +28,12 @@ public partial class Npc : CharacterBody2D
 	// placements instead of writing a one-off script per NPC that moves around.
 	[Export] public string DisappearWhenQuestCompleted = "";
 	[Export] public string AppearOnlyWhenQuestCompleted = "";
+
+	// For an NPC that can be reached before the boss holding them is dead (a shortcut into their
+	// room): while that boss is alive they say these lines instead and the quest logic is skipped
+	// entirely, so talking to them can't start or complete it early. Both must be set to apply.
+	[Export] public string BossAliveDialogueBossId = "";
+	[Export] public string[] BossAliveDialogueLines = { };
 	[Export] public float Gravity = 900f;
 	[Export] public float ExplosionScale = 1f;
 	[Export] public PackedScene ExplosionScene;
@@ -170,6 +176,13 @@ public partial class Npc : CharacterBody2D
 
 	private void Interact()
 	{
+		if (!string.IsNullOrEmpty(BossAliveDialogueBossId) && BossAliveDialogueLines.Length > 0
+			&& !SaveManager.Instance.IsBossDefeated(BossAliveDialogueBossId))
+		{
+			DialogueBox.Instance.Show(NpcName, BossAliveDialogueLines);
+			return;
+		}
+
 		if (Quest is null)
 		{
 			DialogueBox.Instance.Show(NpcName, GetCurrentDialogueLines());
