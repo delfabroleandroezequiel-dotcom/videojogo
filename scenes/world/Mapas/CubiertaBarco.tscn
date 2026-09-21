@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://cp7ae4u5dpgi"]
+
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_camera"]
+[ext_resource type="Texture2D" uid="uid://dyr2dwwb52qqt" path="res://assets/backgrounds/MarNix.png" id="3_bg"]
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="4_player"]
+[ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="5_transition"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Barco.tscn" id="6_barco"]
+[ext_resource type="Script" uid="uid://xy323prms1ue" path="res://scripts/world/RockingFloor.cs" id="7_rockingfloor"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(1015.876, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sl3lh"]
+size = Vector2(152, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(40, 600)
+
+[node name="CubiertaBarco" type="Node2D" unique_id=1196996396]
+script = ExtResource("1_bootstrap")
+ScenePath = "res://scenes/world/Mapas/CubiertaBarco.tscn"
+CameraProfile = ExtResource("2_camera")
+CameraLimitLeft = -836
+CameraLimitRight = 836
+CameraLimitBottom = 406
+
+[node name="Background" type="Sprite2D" parent="." unique_id=900453013]
+z_index = -10
+texture = ExtResource("3_bg")
+
+[node name="Floor" type="AnimatableBody2D" parent="." unique_id=532937665]
+position = Vector2(0, 191.5)
+script = ExtResource("7_rockingfloor")
+RockingNodePath = NodePath("../Barco")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1100049284]
+position = Vector2(-107.93796, 56.704758)
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Floor" unique_id=6172141]
+position = Vector2(364, -19.5)
+shape = SubResource("RectangleShape2D_sl3lh")
+one_way_collision = true
+
+[node name="LeftWall" type="StaticBody2D" parent="." unique_id=700483450]
+position = Vector2(-856, 85)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=357177024]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="RightWall" type="StaticBody2D" parent="." unique_id=361077750]
+position = Vector2(856, 85)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=463596087]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="Player" parent="." unique_id=1301781094 instance=ExtResource("4_player")]
+position = Vector2(-600, 140)
+
+[node name="ReturnToMarNix" parent="." unique_id=308722348 instance=ExtResource("5_transition")]
+position = Vector2(400, 148)
+TargetScenePath = "res://scenes/world/Mapas/MarNix.tscn"
+TargetSpawnPosition = Vector2(979, 26)
+RequireInteract = true
+UseStoredReturnPosition = true
+
+[node name="Barco" parent="." unique_id=1919393143 instance=ExtResource("6_barco")]
+position = Vector2(0, 129)
+scale = Vector2(0.64, 0.64)

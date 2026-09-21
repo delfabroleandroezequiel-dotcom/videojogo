@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" uid="uid://dnvplgmrgttj3" path="res://assets/sprites/deco/barco.png" id="1_tex"]
+[ext_resource type="Script" path="res://scripts/world/RotationSway.cs" id="2_sway"]
+
+[node name="Barco" type="Sprite2D"]
+texture = ExtResource("1_tex")
+script = ExtResource("2_sway")
+AmplitudeDegrees = 2.5
+Speed = 0.5
