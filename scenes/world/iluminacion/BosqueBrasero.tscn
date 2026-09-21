@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueBraseroSpriteFrames.tres" id="1_frames"]
+[ext_resource type="PackedScene" path="res://scenes/world/iluminacion/FlickerLight.tscn" id="2_light"]
+[ext_resource type="Script" path="res://scripts/world/LitDecoration.cs" id="3_script"]
+[ext_resource type="Script" path="res://scripts/world/AmbientLoopSound.cs" id="4_ambient"]
+
+[node name="BosqueBrasero" type="Node2D"]
+script = ExtResource("3_script")
+
+[node name="Flame" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -32)
+sprite_frames = ExtResource("1_frames")
+animation = &"lit"
+autoplay = "lit"
+
+[node name="Light" parent="." instance=ExtResource("2_light")]
+position = Vector2(0, -34)
+color = Color(1, 0.65, 0.3, 1)
+texture_scale = 1.3
+
+[node name="AmbientSound" type="Node2D" parent="."]
+script = ExtResource("4_ambient")
