@@ -34,9 +34,26 @@
 [ext_resource type="SpriteFrames" uid="uid://bsn1smcu554j0" path="res://resources/sprites/HoodedKnightSpriteFrames.tres" id="37_npccaballeroencapuchado"]
 [ext_resource type="SpriteFrames" uid="uid://b28et50i8481u" path="res://resources/sprites/WomanWarriorSpriteFrames.tres" id="38_npcmujerguerrera"]
 [ext_resource type="SpriteFrames" uid="uid://cdagqy4o47dm4" path="res://resources/sprites/SpearwomanSpriteFrames.tres" id="39_npclancera"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/UndeadSkeletonWarriorSpriteFrames.tres" id="100_undeadskeletonwarrior"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/UndeadSkeletonArcherSpriteFrames.tres" id="101_undeadskeletonarcher"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/UndeadNecromancerSpriteFrames.tres" id="102_undeadnecromancer"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/UndeadGhostSpriteFrames.tres" id="103_undeadghost"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/UndeadDeathKnightSpriteFrames.tres" id="104_undeaddeathknight"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/ElfArcherSpriteFrames.tres" id="105_elfarcher"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/ElfAssassinSpriteFrames.tres" id="106_elfassassin"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/ElfMageSpriteFrames.tres" id="107_elfmage"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/ElfSpearmanSpriteFrames.tres" id="108_elfspearman"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/ElfSwordsmanSpriteFrames.tres" id="109_elfswordsman"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/DesertCactusBedouinSpriteFrames.tres" id="110_desertcactusbedouin"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/DesertGlassBedouinSpriteFrames.tres" id="111_desertglassbedouin"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/DesertCamelRiderBedouinSpriteFrames.tres" id="112_desertcamelriderbedouin"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/DesertSandBugSpriteFrames.tres" id="113_desertsandbug"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/DesertScorpionSpriteFrames.tres" id="114_desertscorpion"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/DesertVultureSpriteFrames.tres" id="115_desertvulture"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/ShamanSpriteFrames.tres" id="116_shaman"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
-size = Vector2(15600, 60)
+size = Vector2(23350, 60)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
 size = Vector2(60, 700)
@@ -44,15 +61,15 @@ size = Vector2(60, 700)
 [node name="EnemyLookAll" type="Node2D" unique_id=1183027699]
 
 [node name="Floor" type="StaticBody2D" parent="." unique_id=653339485]
-position = Vector2(7750, 460)
+position = Vector2(11625, 460)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1677327946]
 shape = SubResource("RectangleShape2D_floor")
 
 [node name="FloorVisual" type="ColorRect" parent="Floor" unique_id=823653674]
-offset_left = -7800.0
+offset_left = -11675.0
 offset_top = -30.0
-offset_right = 7800.0
+offset_right = 11675.0
 offset_bottom = 30.0
 color = Color(0.22, 0.22, 0.24, 1)
 
@@ -63,13 +80,13 @@ position = Vector2(-30, 100)
 shape = SubResource("RectangleShape2D_wall")
 
 [node name="WallRight" type="StaticBody2D" parent="." unique_id=136363820]
-position = Vector2(15550, 100)
+position = Vector2(23300, 100)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight" unique_id=641346876]
 shape = SubResource("RectangleShape2D_wall")
 
 [node name="Player" parent="." unique_id=968836729 instance=ExtResource("1_player")]
-position = Vector2(342, 392)
+position = Vector2(11713.615, 343.33862)
 
 [node name="MagoCaminoViewer" type="Node2D" parent="." unique_id=882763381]
 position = Vector2(1100, 430)
@@ -1061,4 +1078,529 @@ horizontal_alignment = 1
 [node name="Cycler" type="Node" parent="NpcLanceraViewer" unique_id=1446928204]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("attack", "death", "idle", "run", "walk")
+SecondsPerAnimation = 2.2
+
+[node name="UndeadSkeletonWarriorViewer" type="Node2D" parent="." unique_id=372434235]
+position = Vector2(15500, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="UndeadSkeletonWarriorViewer" unique_id=71339232]
+position = Vector2(0, -38.4)
+scale = Vector2(1.6, 1.6)
+sprite_frames = ExtResource("100_undeadskeletonwarrior")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="UndeadSkeletonWarriorViewer" unique_id=1069601469]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Esqueleto Guerrero"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="UndeadSkeletonWarriorViewer" unique_id=445226846]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="UndeadSkeletonWarriorViewer" unique_id=325622319]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "walk", "run", "hit", "death", "revival", "attack", "block", "jumpfall")
+SecondsPerAnimation = 2.2
+
+[node name="UndeadSkeletonArcherViewer" type="Node2D" parent="." unique_id=2068350265]
+position = Vector2(15950, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="UndeadSkeletonArcherViewer" unique_id=603500918]
+position = Vector2(0, -38.4)
+scale = Vector2(1.6, 1.6)
+sprite_frames = ExtResource("101_undeadskeletonarcher")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="UndeadSkeletonArcherViewer" unique_id=829454989]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Esqueleto Arquero"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="UndeadSkeletonArcherViewer" unique_id=2126025815]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="UndeadSkeletonArcherViewer" unique_id=243297390]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "walk", "run", "hit", "death", "revival", "attack", "jumpfall")
+SecondsPerAnimation = 2.2
+
+[node name="UndeadNecromancerViewer" type="Node2D" parent="." unique_id=582017673]
+position = Vector2(16400, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="UndeadNecromancerViewer" unique_id=1538626765]
+position = Vector2(0, -46.4)
+scale = Vector2(1.6, 1.6)
+sprite_frames = ExtResource("102_undeadnecromancer")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="UndeadNecromancerViewer" unique_id=985242953]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Nigromante (Undead)"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="UndeadNecromancerViewer" unique_id=1671538745]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="UndeadNecromancerViewer" unique_id=157676402]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "walk", "run", "hit", "death", "attack", "spell", "jump")
+SecondsPerAnimation = 2.2
+
+[node name="UndeadGhostViewer" type="Node2D" parent="." unique_id=198029663]
+position = Vector2(16850, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="UndeadGhostViewer" unique_id=1680135014]
+position = Vector2(0, -32)
+scale = Vector2(1.6, 1.6)
+sprite_frames = ExtResource("103_undeadghost")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="UndeadGhostViewer" unique_id=1801198617]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Fantasma"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="UndeadGhostViewer" unique_id=1715775155]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="UndeadGhostViewer" unique_id=91302343]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "move_fast", "move_slow", "hit", "death", "exile", "attack", "spell")
+SecondsPerAnimation = 2.2
+
+[node name="UndeadDeathKnightViewer" type="Node2D" parent="." unique_id=1452746882]
+position = Vector2(17300, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="UndeadDeathKnightViewer" unique_id=255495229]
+position = Vector2(0, -38.4)
+scale = Vector2(1.6, 1.6)
+sprite_frames = ExtResource("104_undeaddeathknight")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="UndeadDeathKnightViewer" unique_id=1486598273]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Caballero de la Muerte"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="UndeadDeathKnightViewer" unique_id=1761496715]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="UndeadDeathKnightViewer" unique_id=1418595431]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "walk", "run", "hit", "death", "attack", "spell", "jump", "jumptofall", "fall")
+SecondsPerAnimation = 2.2
+
+[node name="ElfArcherViewer" type="Node2D" parent="." unique_id=1696845934]
+position = Vector2(17750, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="ElfArcherViewer" unique_id=1091092749]
+position = Vector2(0, -38.4)
+scale = Vector2(1.6, 1.6)
+sprite_frames = ExtResource("105_elfarcher")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="ElfArcherViewer" unique_id=464307786]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Elfo Arquero"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="ElfArcherViewer" unique_id=741297344]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="ElfArcherViewer" unique_id=1318333389]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack", "death", "fall", "hit", "idle", "jump", "jumptofall", "run", "walk")
+SecondsPerAnimation = 2.2
+
+[node name="ElfAssassinViewer" type="Node2D" parent="." unique_id=1958767859]
+position = Vector2(18200, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="ElfAssassinViewer" unique_id=1752948377]
+position = Vector2(0, -38.4)
+scale = Vector2(1.6, 1.6)
+sprite_frames = ExtResource("106_elfassassin")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="ElfAssassinViewer" unique_id=1955329557]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Elfo Asesino"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="ElfAssassinViewer" unique_id=1927487993]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="ElfAssassinViewer" unique_id=1275377695]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack1", "attack2", "death", "fall", "hit", "idle", "jump", "jumptofall", "run", "throw", "walk")
+SecondsPerAnimation = 2.2
+
+[node name="ElfMageViewer" type="Node2D" parent="." unique_id=1780779572]
+position = Vector2(18650, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="ElfMageViewer" unique_id=1493701161]
+position = Vector2(0, -41.6)
+scale = Vector2(1.6, 1.6)
+sprite_frames = ExtResource("107_elfmage")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="ElfMageViewer" unique_id=1220122367]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Elfo Mago"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="ElfMageViewer" unique_id=1143698601]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="ElfMageViewer" unique_id=2143117742]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack", "death", "fall", "hit", "idle", "jump", "jumptofall", "run", "spell_1", "spell_2")
+SecondsPerAnimation = 2.2
+
+[node name="ElfSpearmanViewer" type="Node2D" parent="." unique_id=1375368662]
+position = Vector2(19100, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="ElfSpearmanViewer" unique_id=1132964539]
+position = Vector2(0, -38.4)
+scale = Vector2(1.6, 1.6)
+sprite_frames = ExtResource("108_elfspearman")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="ElfSpearmanViewer" unique_id=694364792]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Elfo Lancero"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="ElfSpearmanViewer" unique_id=708248860]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="ElfSpearmanViewer" unique_id=2131004000]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack", "block", "death", "fall", "hit", "idle", "jump", "jumptofall", "run", "walk")
+SecondsPerAnimation = 2.2
+
+[node name="ElfSwordsmanViewer" type="Node2D" parent="." unique_id=1363862975]
+position = Vector2(19550, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="ElfSwordsmanViewer" unique_id=1898499039]
+position = Vector2(0, -64)
+scale = Vector2(1.6, 1.6)
+sprite_frames = ExtResource("109_elfswordsman")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="ElfSwordsmanViewer" unique_id=127192480]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Elfo Espadachin"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="ElfSwordsmanViewer" unique_id=980774132]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="ElfSwordsmanViewer" unique_id=146479003]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack1", "attack2", "death", "fall", "hit", "idle", "jump", "jumptofall", "run", "walk")
+SecondsPerAnimation = 2.2
+
+[node name="DesertCactusBedouinViewer" type="Node2D" parent="." unique_id=1925900547]
+position = Vector2(20000, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="DesertCactusBedouinViewer" unique_id=1330693583]
+position = Vector2(0, -51.2)
+scale = Vector2(1.6, 1.6)
+sprite_frames = ExtResource("110_desertcactusbedouin")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="DesertCactusBedouinViewer" unique_id=1830786805]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Beduino Cactus"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="DesertCactusBedouinViewer" unique_id=551944129]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="DesertCactusBedouinViewer" unique_id=1512615327]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack_melle", "attack_ranged", "death", "hit", "idle", "walk")
+SecondsPerAnimation = 2.2
+
+[node name="DesertGlassBedouinViewer" type="Node2D" parent="." unique_id=96075461]
+position = Vector2(20450, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="DesertGlassBedouinViewer" unique_id=494979293]
+position = Vector2(0, -51.2)
+scale = Vector2(1.6, 1.6)
+sprite_frames = ExtResource("111_desertglassbedouin")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="DesertGlassBedouinViewer" unique_id=1356795033]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Beduino Cristal"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="DesertGlassBedouinViewer" unique_id=1570255957]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="DesertGlassBedouinViewer" unique_id=678909549]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack_melle", "attack_ranged", "death", "hit", "idle", "walk")
+SecondsPerAnimation = 2.2
+
+[node name="DesertCamelRiderBedouinViewer" type="Node2D" parent="." unique_id=1249357987]
+position = Vector2(20900, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="DesertCamelRiderBedouinViewer" unique_id=394344230]
+position = Vector2(0, -59.5)
+sprite_frames = ExtResource("112_desertcamelriderbedouin")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="DesertCamelRiderBedouinViewer" unique_id=1565209981]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Jinete de Camello"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="DesertCamelRiderBedouinViewer" unique_id=37578054]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="DesertCamelRiderBedouinViewer" unique_id=1700891766]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("back_attack", "death", "front_attack", "hit", "idle", "turn_left", "turn_right", "walk")
+SecondsPerAnimation = 2.2
+
+[node name="DesertSandBugViewer" type="Node2D" parent="." unique_id=1480567242]
+position = Vector2(21350, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="DesertSandBugViewer" unique_id=971680200]
+position = Vector2(0, -51.2)
+scale = Vector2(1.6, 1.6)
+sprite_frames = ExtResource("113_desertsandbug")
+animation = &"digging_idle"
+autoplay = "digging_idle"
+
+[node name="NameLabel" type="Label" parent="DesertSandBugViewer" unique_id=879020894]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Bicho de Arena"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="DesertSandBugViewer" unique_id=432563827]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "digging_idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="DesertSandBugViewer" unique_id=775825557]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack_jump_start", "attack_jump_static", "catch", "catch_endd", "digging_idle", "gettingup", "hit", "miss", "move", "takeblock", "takeguard")
+SecondsPerAnimation = 2.2
+
+[node name="DesertScorpionViewer" type="Node2D" parent="." unique_id=1801616438]
+position = Vector2(21800, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="DesertScorpionViewer" unique_id=1274433986]
+position = Vector2(0, -51.2)
+scale = Vector2(1.6, 1.6)
+sprite_frames = ExtResource("114_desertscorpion")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="DesertScorpionViewer" unique_id=500892444]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Escorpion"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="DesertScorpionViewer" unique_id=1447630097]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="DesertScorpionViewer" unique_id=1666544202]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack", "death", "hit", "idle", "walk")
+SecondsPerAnimation = 2.2
+
+[node name="DesertVultureViewer" type="Node2D" parent="." unique_id=1206806607]
+position = Vector2(22250, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="DesertVultureViewer" unique_id=585167141]
+position = Vector2(0, -67.2)
+scale = Vector2(1.4, 1.4)
+sprite_frames = ExtResource("115_desertvulture")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="DesertVultureViewer" unique_id=771136754]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Buitre"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="DesertVultureViewer" unique_id=312142004]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="DesertVultureViewer" unique_id=339183797]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("death_fall_loop", "death_landing", "death_start", "dive", "dive_end", "dive_start", "fly", "hit", "idle", "take_off")
+SecondsPerAnimation = 2.2
+
+[node name="ShamanViewer" type="Node2D" parent="."]
+position = Vector2(22700, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="ShamanViewer"]
+position = Vector2(0, -32)
+sprite_frames = ExtResource("116_shaman")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="ShamanViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Chaman"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="ShamanViewer"]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="ShamanViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "walk", "walkfire", "fire", "fireend", "throwash", "branchshield", "branch_up", "branch_down", "eatfruit", "hit", "whit", "death")
 SecondsPerAnimation = 2.2
