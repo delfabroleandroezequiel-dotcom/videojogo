@@ -11,7 +11,8 @@ public partial class Ladder : Area2D
 
 	// The source sheet has a lot of transparent padding around the actual rungs;
 	// this is the column that contains the art, tall enough to tile seamlessly.
-	private static readonly Rect2 TileSourceRect = new(438, 0, 164, 340);
+	// Default matches Escalera.png; other ladder textures override it per scene.
+	[Export] public Rect2 TileSourceRect = new(438, 0, 164, 340);
 
 	public override void _Ready()
 	{

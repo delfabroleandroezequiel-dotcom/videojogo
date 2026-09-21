@@ -765,8 +765,10 @@ public partial class Player : CharacterBody2D
 
 		if (_ladder != null)
 		{
-			if (!_isClimbing && _ladderGrabLockout <= 0f
-				&& (Input.IsActionPressed("move_up") || Input.IsActionPressed("move_down")))
+			// Only up latches onto a ladder; down is reserved for crouching/dropping through
+			// platforms and must not snap the player onto a ladder they're merely standing next to.
+			// Once latched, down still climbs down (see climbInput below).
+			if (!_isClimbing && _ladderGrabLockout <= 0f && Input.IsActionPressed("move_up"))
 			{
 				_isClimbing = true;
 				GlobalPosition = new Vector2(_ladder.GlobalPosition.X, GlobalPosition.Y);
