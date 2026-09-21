@@ -1,4 +1,5 @@
 using Godot;
+using Metroidvania.Save;
 using Metroidvania.Shared;
 
 namespace Metroidvania.World;
@@ -51,8 +52,25 @@ public partial class SecretWall : StaticBody2D
 		set { _maxHealth = Mathf.Max(1, value); Rebuild(); }
 	}
 
+	// Optional TileMapLayer painted over the map's own layer to disguise the passage behind this
+	// wall — "one drawing over another": the base layer already shows the opening, this layer hides
+	// it, and breaking the wall removes this layer to reveal it. Point it at the layer in the map
+	// scene's Inspector. Its own tile physics is switched off before it fades so it can't keep
+	// blocking after the reveal (the wall's collision is what blocks, this layer is only the art).
+	[Export] public TileMapLayer OverlayLayer;
+
+	// Seconds the overlay takes to fade out once the wall breaks; 0 removes it instantly.
+	[Export] public float OverlayFadeDuration = 0.25f;
+
+	// A broken wall stays broken for the save (SaveManager.BrokenWalls, committed at the next
+	// checkpoint, same lifetime as opened gates): on load it removes itself and its overlay before
+	// the player sees it. Identified by its node path in the scene unless this is set — set it if
+	// the wall gets renamed/moved in the tree and a save already knows it by the old path.
+	[Export] public string CustomPersistenceId = "";
+
 	[Export] public Color FillColor = new(0.5f, 0.5f, 0.55f, 0.6f);
 
+	private string _persistenceId;
 	private bool _showFill;
 
 	[Export]
@@ -66,8 +84,30 @@ public partial class SecretWall : StaticBody2D
 	{
 		Rebuild();
 
-		if (!Engine.IsEditorHint())
-			GetNode<Stats>("Stats").Died += Break;
+		if (Engine.IsEditorHint())
+			return;
+
+		_persistenceId = string.IsNullOrEmpty(CustomPersistenceId) ? GetPath().ToString() : CustomPersistenceId;
+
+		if (SaveManager.Instance.IsWallBroken(_persistenceId))
+		{
+			RemoveSilently();
+			return;
+		}
+
+		GetNode<Stats>("Stats").Died += Break;
+	}
+
+	// Already broken in this save: no explosion, no fade — just never appear.
+	private void RemoveSilently()
+	{
+		if (GetNodeOrNull<CollisionShape2D>("CollisionShape2D") is CollisionShape2D collision)
+			collision.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+
+		if (IsInstanceValid(OverlayLayer))
+			OverlayLayer.QueueFree();
+
+		QueueFree();
 	}
 
 	private void Rebuild()
@@ -108,6 +148,8 @@ public partial class SecretWall : StaticBody2D
 
 	private void Break()
 	{
+		SaveManager.Instance.MarkWallBroken(_persistenceId);
+
 		if (GetNodeOrNull<CollisionShape2D>("CollisionShape2D") is CollisionShape2D collision)
 			collision.Disabled = true;
 
@@ -118,6 +160,27 @@ public partial class SecretWall : StaticBody2D
 		GetTree().CurrentScene.AddChild(explosion);
 		explosion.GlobalPosition = GlobalPosition;
 
+		RevealBehindOverlay();
+
 		QueueFree();
+	}
+
+	private void RevealBehindOverlay()
+	{
+		if (!IsInstanceValid(OverlayLayer))
+			return;
+
+		OverlayLayer.CollisionEnabled = false;
+
+		if (OverlayFadeDuration <= 0f)
+		{
+			OverlayLayer.QueueFree();
+			return;
+		}
+
+		// Tween is created on the layer, not on this wall, so it keeps running after the wall frees itself.
+		Tween tween = OverlayLayer.CreateTween();
+		tween.TweenProperty(OverlayLayer, "modulate:a", 0f, OverlayFadeDuration);
+		tween.TweenCallback(Callable.From(OverlayLayer.QueueFree));
 	}
 }

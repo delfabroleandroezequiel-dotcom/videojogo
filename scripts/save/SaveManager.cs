@@ -42,6 +42,7 @@ public partial class SaveManager : Node
 	private readonly HashSet<string> _collectedPickups = new();
 	private readonly HashSet<string> _playedCutscenes = new();
 	private readonly HashSet<string> _openedGates = new();
+	private readonly HashSet<string> _brokenWalls = new();
 	private readonly List<string> _equippedRings = new();
 
 	[Signal] public delegate void GoldChangedEventHandler(int gold);
@@ -154,6 +155,12 @@ public partial class SaveManager : Node
 	public void MarkGateOpened(string id) => _openedGates.Add(id);
 	public IReadOnlyCollection<string> GetOpenedGates() => _openedGates;
 
+	// Permanent, same lifetime as OpenedGates/PlayedCutscenes — a SecretWall that has been broken
+	// stays gone for this save (see SecretWall.cs), committed to disk at the next checkpoint.
+	public bool IsWallBroken(string id) => _brokenWalls.Contains(id);
+	public void MarkWallBroken(string id) => _brokenWalls.Add(id);
+	public IReadOnlyCollection<string> GetBrokenWalls() => _brokenWalls;
+
 	public bool HasAbility(string id) => _unlockedAbilities.Contains(id);
 	public void UnlockAbility(string id) => _unlockedAbilities.Add(id);
 	public IReadOnlyCollection<string> GetUnlockedAbilities() => _unlockedAbilities;
@@ -204,6 +211,7 @@ public partial class SaveManager : Node
 		_collectedPickups.Clear();
 		_playedCutscenes.Clear();
 		_openedGates.Clear();
+		_brokenWalls.Clear();
 		_maxHealCharges = 1;
 		StoryStage = 0;
 		Gold = 0;
@@ -300,6 +308,10 @@ public partial class SaveManager : Node
 		_openedGates.Clear();
 		foreach (string gateId in PendingLoad.OpenedGates)
 			_openedGates.Add(gateId);
+
+		_brokenWalls.Clear();
+		foreach (string wallId in PendingLoad.BrokenWalls)
+			_brokenWalls.Add(wallId);
 
 		_unlockedAbilities.Clear();
 		foreach (string abilityId in PendingLoad.UnlockedAbilities)

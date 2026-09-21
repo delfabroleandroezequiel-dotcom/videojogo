@@ -98,6 +98,7 @@ public partial class LevelBootstrap : Node
 		data.LitSavePoints.AddRange(SaveManager.Instance.GetLitSavePoints());
 		data.PlayedCutscenes.AddRange(SaveManager.Instance.GetPlayedCutscenes());
 		data.OpenedGates.AddRange(SaveManager.Instance.GetOpenedGates());
+		data.BrokenWalls.AddRange(SaveManager.Instance.GetBrokenWalls());
 		data.CompanionRecruited = SaveManager.Instance.CompanionRecruited;
 		data.ActiveQuests.AddRange(QuestManager.Instance.GetActiveQuestIds());
 		data.CompletedQuests.AddRange(QuestManager.Instance.GetCompletedQuestIds());
