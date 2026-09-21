@@ -1,0 +1,57 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/CrushingPlatform.cs" id="1_script"]
+[ext_resource type="Script" path="res://scripts/world/Hazard.cs" id="2_hazard"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(192, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_zone"]
+size = Vector2(184, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_probe"]
+size = Vector2(184, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sensor"]
+size = Vector2(240, 400)
+
+[node name="CrushingPlatform" type="AnimatableBody2D"]
+collision_layer = 1
+collision_mask = 0
+sync_to_physics = true
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Fill" type="Polygon2D" parent="."]
+color = Color(0.5, 0.5, 0.55, 0.6)
+polygon = PackedVector2Array(-96, -32, 96, -32, 96, 32, -96, 32)
+
+[node name="Skin" type="Node2D" parent="."]
+
+[node name="CrushZone" type="Area2D" parent="."]
+position = Vector2(0, 32)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_hazard")
+InstantKill = true
+HitWhileOverlapping = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CrushZone"]
+shape = SubResource("RectangleShape2D_zone")
+disabled = true
+
+[node name="FloorProbe" type="ShapeCast2D" parent="."]
+position = Vector2(0, 31)
+shape = SubResource("RectangleShape2D_probe")
+target_position = Vector2(0, 640)
+collision_mask = 1
+
+[node name="Sensor" type="Area2D" parent="."]
+position = Vector2(0, 232)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensor"]
+shape = SubResource("RectangleShape2D_sensor")

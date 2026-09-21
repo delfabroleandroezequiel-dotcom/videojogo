@@ -1,0 +1,39 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/PendulumTrap.cs" id="1_script"]
+[ext_resource type="Script" path="res://scripts/world/Hazard.cs" id="2_hazard"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pendulo_bola.png" id="3_ball"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pendulo_cadena.png" id="4_chain"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ball"]
+radius = 25.5
+
+[node name="PendulumTrap" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Pivot" type="Node2D" parent="."]
+
+[node name="Chain" type="Line2D" parent="Pivot"]
+texture_repeat = 2
+points = PackedVector2Array(0, 0, 0, 96)
+width = 15.0
+texture = ExtResource("4_chain")
+texture_mode = 1
+
+[node name="Ball" type="Node2D" parent="Pivot"]
+position = Vector2(0, 96)
+
+[node name="Visual" type="Sprite2D" parent="Pivot/Ball"]
+texture = ExtResource("3_ball")
+
+[node name="HazardArea" type="Area2D" parent="Pivot/Ball"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_hazard")
+InstantKill = false
+Damage = 30
+KnockbackForce = 400.0
+HitWhileOverlapping = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/Ball/HazardArea"]
+shape = SubResource("CircleShape2D_ball")

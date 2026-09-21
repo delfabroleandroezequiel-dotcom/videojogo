@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/SawAroundPlatform.cs" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SawTrap.tscn" id="2_saw"]
+
+[node name="SawAroundPlatform" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Saw" parent="." instance=ExtResource("2_saw")]

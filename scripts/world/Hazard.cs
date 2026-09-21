@@ -9,6 +9,12 @@ public partial class Hazard : Area2D
 	[Export] public int Damage = 20;
 	[Export] public float KnockbackForce = 300f;
 
+	// BodyEntered only fires once per overlap, so a hazard that keeps sitting on the player (a saw
+	// sliding into them, a pendulum resting on them) stops hurting as soon as the post-hit
+	// invulnerability window ends. Turn this on for hazards that must keep hurting for as long as
+	// they overlap; off by default so lava/spikes behave exactly as before.
+	[Export] public bool HitWhileOverlapping = false;
+
 	// Runtime-built pieces (LavaFall/LavaFloor/ProceduralWater, etc.) all want this same
 	// InstantKill/Damage/KnockbackForce Area2D — build it here once instead of each kit
 	// hand-rolling its own copy.
@@ -30,10 +36,17 @@ public partial class Hazard : Area2D
 
 	public override void _Ready()
 	{
-		BodyEntered += OnBodyEntered;
+		BodyEntered += TryHit;
+		SetPhysicsProcess(HitWhileOverlapping);
 	}
 
-	private void OnBodyEntered(Node2D body)
+	public override void _PhysicsProcess(double delta)
+	{
+		foreach (Node2D body in GetOverlappingBodies())
+			TryHit(body);
+	}
+
+	private void TryHit(Node2D body)
 	{
 		if (!body.IsInGroup("player"))
 			return;
