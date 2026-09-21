@@ -344,7 +344,7 @@ public partial class CorridorBlock : Node2D
 
 		if (body.GetNodeOrNull<Polygon2D>("Fill") is Polygon2D fill)
 		{
-			fill.Visible = showFill;
+			fill.Visible = showFill && GameConfig.GreyboxFillVisible;
 			fill.Color = color;
 			// fillExtend grows the polygon past WallThickness in outwardDir only, relative to
 			// body.Position (= center) — the collision shape above never sees this.

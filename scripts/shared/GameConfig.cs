@@ -53,6 +53,14 @@ public partial class GameConfig : Node
 		new(1920, 1080),
 	};
 
+	// The grey translucent Fill polygon on CorridorBlock/MiniCorridor/MiniRampa/MiniPared/
+	// MiniPlataforma is only a greybox stand-in for tiles that aren't painted yet. It always shows
+	// in the editor (so pieces stay visible while placing them), but while actually playing it stays
+	// hidden unless this is flipped to true — set it when playtesting a bare greybox map and you want
+	// to see the pieces. Per-instance ShowFill toggles still apply on top of this.
+	public const bool ShowGreyboxFillAtRuntime = false;
+	public static bool GreyboxFillVisible => Engine.IsEditorHint() || ShowGreyboxFillAtRuntime;
+
 	// Default cross-axis size for CorridorBlock (corridor height when Lateral, width when
 	// Vertical) — a sane starting point, not a lock; CrossSize/CrossPreset override it per
 	// instance for narrow squeezes, wide boss arenas, etc.

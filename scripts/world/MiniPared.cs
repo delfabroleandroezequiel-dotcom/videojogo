@@ -59,6 +59,7 @@ public partial class MiniPared : Node2D
 
 			if (body.GetNodeOrNull<Polygon2D>("Fill") is Polygon2D fill)
 			{
+				fill.Visible = GameConfig.GreyboxFillVisible;
 				fill.Color = FillColor;
 				Vector2 half = size / 2f;
 				fill.Polygon = new[]

@@ -130,7 +130,7 @@ public partial class MiniRampa : Node2D
 
 			if (body.GetNodeOrNull<Polygon2D>("Fill") is Polygon2D fill)
 			{
-				fill.Visible = _showFill;
+				fill.Visible = _showFill && GameConfig.GreyboxFillVisible;
 				fill.Color = FillColor;
 				fill.Polygon = points;
 			}
@@ -155,7 +155,7 @@ public partial class MiniRampa : Node2D
 
 			if (ceiling.GetNodeOrNull<Polygon2D>("Fill") is Polygon2D ceilingFill)
 			{
-				ceilingFill.Visible = _hasCeiling && _showFill;
+				ceilingFill.Visible = _hasCeiling && _showFill && GameConfig.GreyboxFillVisible;
 				ceilingFill.Color = FillColor;
 				ceilingFill.Polygon = ceilingPoints;
 			}
