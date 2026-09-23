@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/PoisonSpit.cs" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://ct5f2yj2vrjxf" path="res://assets/sprites/effects/white_square.png" id="2_white"]
+[ext_resource type="Shader" path="res://resources/shaders/PoisonBlob.gdshader" id="3_shader"]
+[ext_resource type="Texture2D" uid="uid://cb8gyivleynt" path="res://resources/particles/SoftDotGradient.tres" id="4_dot_tex"]
+[ext_resource type="ParticleProcessMaterial" path="res://resources/particles/PoisonDripProcess.tres" id="5_drip_process"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PoisonPuddle.tscn" id="6_puddle"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_spit"]
+radius = 7.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_blob"]
+shader = ExtResource("3_shader")
+shader_parameter/is_puddle = false
+
+[node name="PoisonSpitBoss" type="Area2D"]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_script")
+ArcGravity = 0.0
+PuddleScene = ExtResource("6_puddle")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_spit")
+
+[node name="Visual" type="Sprite2D" parent="."]
+scale = Vector2(0.4375, 0.4375)
+texture = ExtResource("2_white")
+material = SubResource("ShaderMaterial_blob")
+
+[node name="Drip" type="GPUParticles2D" parent="."]
+position = Vector2(-6, 0)
+amount = 10
+lifetime = 0.5
+randomness = 0.5
+local_coords = false
+process_material = ExtResource("5_drip_process")
+texture = ExtResource("4_dot_tex")

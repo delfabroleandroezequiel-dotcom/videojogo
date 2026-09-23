@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dq3mb122eef3v" path="res://scenes/world/Explosion.tscn" id="6_explosion"]
 [ext_resource type="PackedScene" path="res://scenes/world/Coin.tscn" id="7_coin"]
 [ext_resource type="Script" path="res://scripts/world/LootEntry.cs" id="8_lootentry_script"]
-[ext_resource type="PackedScene" path="res://scenes/world/SpiderWebProjectile.tscn" id="9_web"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PoisonSpitBoss.tscn" id="9_web"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemy.tscn" id="10_spiderling"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
@@ -45,7 +45,7 @@ LungeSpeed = 340.0
 LungeDuration = 0.4
 EnrageHealthPercent = 0.35
 EnrageSpeedMultiplier = 1.5
-WebProjectileScene = ExtResource("9_web")
+PoisonSpitScene = ExtResource("9_web")
 WebSpitRange = 320.0
 WebSpitCooldown = 4.0
 SpiderlingScene = ExtResource("10_spiderling")

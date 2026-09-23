@@ -3,9 +3,14 @@ using Godot;
 namespace Metroidvania.World;
 
 // Boss.cs already provides the generic wander/retreat/lunge/combo/enrage chassis (see BossLobo).
-// This only adds what makes THIS boss a spider: a ranged web-spit alongside its melee/lunge, and
-// summoning spiderling reinforcements at HP breakpoints (rather than a repeating timer) so adds
-// read as a deliberate phase change instead of an infinite spam mechanic.
+// This only adds what makes THIS boss a spider: a ranged poison spit alongside its melee/lunge,
+// and summoning spiderling reinforcements at HP breakpoints (rather than a repeating timer) so
+// adds read as a deliberate phase change instead of an infinite spam mechanic.
+//
+// The spit used to be a web shot (plain Projectile, straight line); it's now PoisonSpit's same
+// glob visual as the small spiders' own poison attack, just launched with ArcGravity=0 on its own
+// scene (PoisonSpitBoss.tscn) so it still travels dead straight instead of lobbing — a boss-scale
+// "spit," not a parabola — and scaled up 25% over the small spiders' version.
 //
 // This is the CuevaBosqueLobo1 encounter specifically — SpiderBossArena is a separate, independent
 // boss (its own harder kit: no melee, escalating phases, infinite spiderling spam) that happens to
@@ -13,12 +18,12 @@ namespace Metroidvania.World;
 // arena-only behavior back in here; this one stays as its own simpler fight.
 public partial class SpiderBoss : Boss
 {
-	[Export] public PackedScene WebProjectileScene;
+	[Export] public PackedScene PoisonSpitScene;
 	[Export] public float WebSpitRange = 280f;
 	[Export] public float WebSpitCooldown = 3.5f;
 	[Export] public float WebSpitReleaseDelay = 0.3f;
 	[Export] public float WebSpitRecoverDuration = 0.3f;
-	[Export] public float WebProjectileSpeed = 220f;
+	[Export] public float PoisonSpitSpeed = 220f;
 
 	[Export] public PackedScene SpiderlingScene;
 	[Export] public int SpiderlingsPerSummon = 2;
@@ -58,7 +63,7 @@ public partial class SpiderBoss : Boss
 		CheckSummonThreshold();
 
 		_webSpitCooldownTimer -= (float)delta;
-		if (_isWebSpitting || _webSpitCooldownTimer > 0f || WebProjectileScene is null)
+		if (_isWebSpitting || _webSpitCooldownTimer > 0f || PoisonSpitScene is null)
 			return;
 
 		Node2D player = GetTree().GetFirstNodeInGroup("player") as Node2D;
@@ -120,11 +125,12 @@ public partial class SpiderBoss : Boss
 		if (!IsInstanceValid(this) || IsQueuedForRemoval)
 			return;
 
-		Projectile web = WebProjectileScene.Instantiate<Projectile>();
-		GetTree().CurrentScene.AddChild(web);
-		web.GlobalPosition = GlobalPosition;
-		web.Speed = WebProjectileSpeed;
-		web.Launch(targetPosition - GlobalPosition, Stats);
+		PoisonSpit spit = PoisonSpitScene.Instantiate<PoisonSpit>();
+		GetTree().CurrentScene.AddChild(spit);
+		spit.GlobalPosition = GlobalPosition;
+		// ArcGravity is 0 on PoisonSpitBoss.tscn, so this straight-line velocity is the whole
+		// trajectory — no lob, just a direct spit toward wherever the player was at release time.
+		spit.Launch((targetPosition - GlobalPosition).Normalized() * PoisonSpitSpeed, Stats);
 
 		await ToSignal(GetTree().CreateTimer(WebSpitRecoverDuration), SceneTreeTimer.SignalName.Timeout);
 		if (IsInstanceValid(this))
