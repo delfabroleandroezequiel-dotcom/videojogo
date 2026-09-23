@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
 using Metroidvania.Save;
@@ -19,7 +20,11 @@ public partial class Player : CharacterBody2D
 	[Export] public float AttackHitboxDelay = 0.12f;
 	[Export] public float AttackDuration = 0.22f;
 	[Export] public float AttackHitboxReach = 50.6f;
-	[Export] public float AttackHitboxYOffset = -12f;
+	// Was -12 (well above the player's own body center) — shorter enemies (rats, slimes) whose
+	// collision center sits much lower than the player's often ended up entirely below the
+	// hitbox, reading as "the attack lands above the enemy." Closer to center is more forgiving
+	// both ways instead of consistently biased upward.
+	[Export] public float AttackHitboxYOffset = -4f;
 
 	// The combo's third hit (the thrust) actually lands 3 separate hits, not one — the hitbox
 	// re-activates 3 times, each landing its own hit-stop freeze pulse, so it reads as a
@@ -40,7 +45,6 @@ public partial class Player : CharacterBody2D
 	// (~19.5 stamina out of a 91-160 bar depending on Endurance, i.e. ~12-21%) — the closest real
 	// reference available, used deliberately as a stand-in since no DS1-specific figure exists.
 	[Export] public int AttackStaminaCost = 15;
-	[Export] public float CrouchAttackCooldown = 1f;
 	[Export] public float CrouchWeaponTrailYOffset = 30f;
 	[Export] public float HealAnimDuration = 0.8f;
 	[Export] public float DashSpeed = 560f;
@@ -123,6 +127,34 @@ public partial class Player : CharacterBody2D
 	[Export] public float WeaponRestAngle = -20f;
 	[Export] public float WeaponSwingStartAngle = -70f;
 	[Export] public float WeaponSwingEndAngle = 60f;
+	// How far from WeaponPivot's origin the traced blade tip sits. A screen-captured playtest
+	// showed 62 reading as a detached blob (that was also before the width got fixed) — 52 with
+	// today's much thinner line reads as a longer, further-out arc without that problem.
+	[Export] public float SwordArcTrailRadius = 52f;
+	// Minimum tip movement (px) before a new trail point is recorded — see RunSwordArcTrail's
+	// hit-stop comment for why this matters.
+	[Export] public float MinSwordArcPointSpacing = 1.5f;
+	// attack2's own quick circular spin trail (see RunSwordSpinTrail) — shorter and a much
+	// wider sweep than attack1's arc, on purpose, so it reads as its own move.
+	[Export] public float SwordSpinDuration = 0.2f;
+	[Export] public float SwordSpinDegrees = 280f;
+	// Its own radius (bigger than SwordArcTrailRadius) instead of sharing attack1's — this arc
+	// is meant to read as a bit more generous/dramatic than attack1's, not the same size.
+	[Export] public float SwordSpinRadius = 56f;
+	// attack3's own forward-piercing thrust trail (see RunSwordThrustTrail).
+	[Export] public float SwordThrustReach = 70f;
+	[Export] public float SwordThrustExtendDuration = 0.08f;
+	[Export] public float SwordThrustHoldDuration = 0.1f;
+	// Crouch attack's own trail (see RunCrouchArcTrail): unlike attack2's invented circle, this
+	// actually swings _weaponPivot through this shallow angle range and traces THAT real motion,
+	// same idea as attack1 — just a smaller, lower arc matching a quick crouched horizontal cut.
+	// A video capture showed 42 leaving a visible gap between the character and the whole arc
+	// (the arc only ever draws its 42-unit-out edge, never anything closer), reading as a
+	// detached floating blob instead of a cut coming off the blade — much smaller fixes that.
+	[Export] public float CrouchArcRadius = 24f;
+	[Export] public float CrouchSwingStartAngle = -20f;
+	[Export] public float CrouchSwingEndAngle = 55f;
+	[Export] public float CrouchArcDuration = 0.16f;
 	[Export] public float KnockbackDuration = 0.35f;
 	// Pop straight up on every hit taken (regardless of the attack's own direction) so it reads as
 	// a Hollow Knight-style launch-and-arc instead of a flat horizontal shove — gravity takes over
@@ -174,6 +206,13 @@ public partial class Player : CharacterBody2D
 	private AnimatedSprite2D _crystalEffect;
 	private float _weaponTrailBaseX;
 	private float _weaponTrailBaseY;
+	private Line2D _swordArcGlow;
+	private Line2D _swordArcCore;
+	private GpuParticles2D _swordArcSparks;
+	private readonly List<Vector2> _swordArcPoints = new();
+	private int _swordArcRunId;
+	private float _swordArcBaseCoreWidth;
+	private float _swordArcBaseGlowWidth;
 	private RectangleShape2D _hitboxShape;
 	private Vector2 _hitboxBaseSize;
 	private Node2D _legLeft;
@@ -226,7 +265,6 @@ public partial class Player : CharacterBody2D
 	private bool _isRunThrusting;
 	private bool _canRunThrust = true;
 	private float _runThrustDirection;
-	private bool _canCrouchAttack = true;
 	private bool _canUpAttack = true;
 	private bool _isShooting;
 	private bool _isCastingSpell;
@@ -296,6 +334,16 @@ public partial class Player : CharacterBody2D
 		_weaponPivot = GetNode<Node2D>("Visual/WeaponPivot");
 		_weaponTrail = GetNode<AnimatedSprite2D>("Visual/WeaponTrail");
 		_weaponTrail.AnimationFinished += () => _weaponTrail.Visible = false;
+		_swordArcGlow = GetNode<Line2D>("Visual/SwordArcGlow");
+		_swordArcCore = GetNode<Line2D>("Visual/SwordArcCore");
+		_swordArcSparks = GetNode<GpuParticles2D>("Visual/SwordArcSparks");
+		var swordArcWidthTaper = new Curve();
+		swordArcWidthTaper.AddPoint(new Vector2(0f, 0.2f));
+		swordArcWidthTaper.AddPoint(new Vector2(1f, 1f));
+		_swordArcGlow.WidthCurve = swordArcWidthTaper;
+		_swordArcCore.WidthCurve = swordArcWidthTaper;
+		_swordArcBaseCoreWidth = _swordArcCore.Width;
+		_swordArcBaseGlowWidth = _swordArcGlow.Width;
 		_weaponTrailBaseX = _weaponTrail.Position.X;
 		_weaponTrailBaseY = _weaponTrail.Position.Y;
 		_crystalEffect = GetNode<AnimatedSprite2D>("Visual/CrystalEffect");
@@ -1797,17 +1845,34 @@ public partial class Player : CharacterBody2D
 		Tween swingTween = GetTree().CreateTween();
 		swingTween.TweenProperty(_weaponPivot, "rotation_degrees", WeaponSwingEndAngle, AttackHitboxDelay + AttackDuration);
 
+		// All three combo hits now get their own procedural trail instead of a pre-baked sprite:
+		// attack1 traces the actual swing (RunSwordArcTrail), attack2 is its own quick circular
+		// spin (RunSwordSpinTrail), attack3 is a forward-piercing thrust (RunSwordThrustTrail) —
+		// see each method's comment for why none of them just reuse another one's shape. Started
+		// here (not after the await below) so attack1's trail captures the windup portion of the
+		// swing too.
+		bool useProceduralArcTrail = _currentAttackAnimation is "attack1" or "attack2" or "attack3";
+		if (_currentAttackAnimation == "attack1")
+			RunSwordArcTrail(AttackHitboxDelay + AttackDuration);
+		else if (_currentAttackAnimation == "attack2")
+			RunSwordSpinTrail();
+		else if (_currentAttackAnimation == "attack3")
+			RunSwordThrustTrail();
+
 		if (AttackHitboxDelay > 0f)
 			await ToSignal(GetTree().CreateTimer(AttackHitboxDelay), SceneTreeTimer.SignalName.Timeout);
 
 		_hitboxShape.Size = _hitboxBaseSize;
 		_hitbox.Position = new Vector2(_facingRight ? AttackHitboxReach : -AttackHitboxReach, AttackHitboxYOffset);
 
-		string comboTrail = WeaponTrailAnimation(_currentAttackAnimation);
-		_weaponTrail.Scale = WeaponTrailScale(comboTrail);
-		_weaponTrail.Position = new Vector2(_weaponTrailBaseX, _weaponTrailBaseY);
-		_weaponTrail.Visible = true;
-		_weaponTrail.Play(comboTrail);
+		if (!useProceduralArcTrail)
+		{
+			string comboTrail = WeaponTrailAnimation(_currentAttackAnimation);
+			_weaponTrail.Scale = WeaponTrailScale(comboTrail);
+			_weaponTrail.Position = new Vector2(_weaponTrailBaseX, _weaponTrailBaseY);
+			_weaponTrail.Visible = true;
+			_weaponTrail.Play(comboTrail);
+		}
 
 		int comboPulseCount = _currentAttackAnimation switch
 		{
@@ -1822,7 +1887,7 @@ public partial class Player : CharacterBody2D
 		}
 		else
 		{
-			_hitbox.Activate(_stats, ComboImpactFramesPath(_currentAttackAnimation), _currentElement);
+			_hitbox.Activate(_stats, element: _currentElement, customImpactEffect: SpawnComboImpact);
 			await ToSignal(GetTree().CreateTimer(AttackDuration), SceneTreeTimer.SignalName.Timeout);
 			_hitbox.Deactivate();
 		}
@@ -1840,22 +1905,7 @@ public partial class Player : CharacterBody2D
 		_comboResetTimer = ComboResetWindow;
 	}
 
-	private async void CrouchAttack()
-	{
-		if (!_canCrouchAttack)
-			return;
-
-		_canCrouchAttack = false;
-		bool attacked = await RunSingleAttack("crouch_attack", "slash_vertical", CrouchWeaponTrailYOffset);
-		if (!attacked)
-		{
-			_canCrouchAttack = true;
-			return;
-		}
-
-		await ToSignal(GetTree().CreateTimer(CrouchAttackCooldown), SceneTreeTimer.SignalName.Timeout);
-		_canCrouchAttack = true;
-	}
+	private async void CrouchAttack() => await RunSingleAttack("crouch_attack", "slash_vertical", CrouchWeaponTrailYOffset);
 
 	// Returns whether the attack actually landed/spent stamina — callers use this to skip their
 	// own cooldown when it didn't (matches how every other stamina-gated move, e.g. UpAttack,
@@ -1879,10 +1929,17 @@ public partial class Player : CharacterBody2D
 		_hitbox.Position = new Vector2(_facingRight ? AttackHitboxReach : -AttackHitboxReach, 0);
 		_hitbox.Activate(_stats, element: _currentElement);
 
-		_weaponTrail.Scale = new Vector2(2.904f, 2.904f);
-		_weaponTrail.Position = new Vector2(_weaponTrailBaseX, _weaponTrailBaseY + trailYOffset);
-		_weaponTrail.Visible = true;
-		_weaponTrail.Play(trailAnimation);
+		if (animationName == "crouch_attack")
+		{
+			RunCrouchArcTrail();
+		}
+		else
+		{
+			_weaponTrail.Scale = new Vector2(2.904f, 2.904f);
+			_weaponTrail.Position = new Vector2(_weaponTrailBaseX, _weaponTrailBaseY + trailYOffset);
+			_weaponTrail.Visible = true;
+			_weaponTrail.Play(trailAnimation);
+		}
 
 		await ToSignal(GetTree().CreateTimer(AttackDuration), SceneTreeTimer.SignalName.Timeout);
 		_hitbox.Deactivate();
@@ -1894,6 +1951,221 @@ public partial class Player : CharacterBody2D
 		await ToSignal(GetTree().CreateTimer(remainingAnimTime), SceneTreeTimer.SignalName.Timeout);
 		_attacking = false;
 		return true;
+	}
+
+	// attack1's own procedural trail: instead of WeaponTrail's pre-baked smear sprite, this
+	// literally traces the blade tip's position while _weaponPivot swings, so the streak always
+	// matches the real swing's speed/arc instead of a canned animation playing at its own fixed
+	// pace. _swordArcRunId guards the fade-out below against a second swing starting before it
+	// finishes (shouldn't happen given _attacking's own gating, but it's a cheap guard).
+	private async void RunSwordArcTrail(float duration)
+	{
+		int runId = ++_swordArcRunId;
+		Color tint = _isFireImbued ? new Color(1f, 0.55f, 0.2f, 1f) : new Color(0.15f, 0.65f, 1f, 1f);
+
+		_swordArcPoints.Clear();
+		_swordArcCore.Points = System.Array.Empty<Vector2>();
+		_swordArcGlow.Points = System.Array.Empty<Vector2>();
+		_swordArcCore.Modulate = tint;
+		_swordArcGlow.Modulate = tint;
+		_swordArcCore.Width = _swordArcBaseCoreWidth * 1.5f;
+		_swordArcGlow.Width = _swordArcBaseGlowWidth * 1.5f;
+		_swordArcSparks.Modulate = tint;
+		_swordArcSparks.Amount = 14;
+		_swordArcSparks.Emitting = true;
+
+		float elapsed = 0f;
+		while (elapsed < duration)
+		{
+			Vector2 tip = _weaponPivot.Position + Vector2.Right.Rotated(-_weaponPivot.Rotation) * SwordArcTrailRadius;
+			// attack2's combo hit-stop (see ComboMultiHit) briefly drops Engine.TimeScale near 0
+			// without pausing this loop's own frame ticks — without this check, the barely-moving
+			// tip during that freeze piles up a knot of near-duplicate points, reading as a kink/
+			// cut in the line once time resumes. Skipping points that haven't actually moved keeps
+			// the line paused-but-smooth through the freeze instead.
+			if (_swordArcPoints.Count == 0 || _swordArcPoints[^1].DistanceSquaredTo(tip) > MinSwordArcPointSpacing * MinSwordArcPointSpacing)
+			{
+				_swordArcPoints.Add(tip);
+				_swordArcCore.Points = _swordArcPoints.ToArray();
+				_swordArcGlow.Points = _swordArcPoints.ToArray();
+			}
+			_swordArcSparks.Position = tip;
+
+			await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+			if (!IsInstanceValid(this) || runId != _swordArcRunId)
+				return;
+			elapsed += (float)GetPhysicsProcessDeltaTime();
+		}
+
+		_swordArcSparks.Emitting = false;
+		Tween fadeTween = CreateTween();
+		fadeTween.TweenProperty(_swordArcCore, "modulate:a", 0f, 0.08f);
+		fadeTween.Parallel().TweenProperty(_swordArcGlow, "modulate:a", 0f, 0.08f);
+	}
+
+	// attack2's own thing: its old bought trail ("Effect 1", see WeaponTrailSpriteFrames.tres's
+	// slash_horizontal_09) was a near-full circular spin, not a scaled copy of attack1's straight
+	// diagonal swipe ("Effect 7") — so this traces an independent sweep around the weapon hand
+	// instead of reusing RunSwordArcTrail's _weaponPivot-following logic. The crouch attack reuses
+	// this same crescent-sweep idea (see RunCrouchArcTrail) with its own tighter numbers rather
+	// than duplicating the loop.
+	private async void RunSwordSpinTrail()
+	{
+		Color tint = _isFireImbued ? new Color(1f, 0.55f, 0.2f, 1f) : new Color(0.15f, 0.65f, 1f, 1f);
+		await RunSwordCrescentTrail(SwordSpinRadius, SwordSpinDegrees, SwordSpinDuration, tint, widthMul: 1.5f, sparkAmount: 20);
+	}
+
+	// The crouch attack's own trail: unlike attack2's invented circle (RunSwordCrescentTrail),
+	// this actually swings _weaponPivot through a shallow angle range and traces THAT real
+	// rotation — same idea as RunSwordArcTrail (attack1), just its own smaller/lower arc and
+	// centered CrouchWeaponTrailYOffset lower to match the crouched stance. RunSingleAttack
+	// (crouch_attack's only caller) never otherwise touches _weaponPivot, so this owns driving
+	// the swing tween itself, including restoring it to WeaponRestAngle afterward.
+	private async void RunCrouchArcTrail()
+	{
+		Color tint = _isFireImbued ? new Color(1f, 0.55f, 0.2f, 1f) : new Color(0.15f, 0.65f, 1f, 1f);
+
+		_weaponPivot.RotationDegrees = CrouchSwingStartAngle;
+		Tween swingTween = GetTree().CreateTween();
+		swingTween.TweenProperty(_weaponPivot, "rotation_degrees", CrouchSwingEndAngle, CrouchArcDuration);
+
+		int runId = ++_swordArcRunId;
+		_swordArcPoints.Clear();
+		_swordArcCore.Points = System.Array.Empty<Vector2>();
+		_swordArcGlow.Points = System.Array.Empty<Vector2>();
+		_swordArcCore.Modulate = tint;
+		_swordArcGlow.Modulate = tint;
+		_swordArcCore.Width = _swordArcBaseCoreWidth;
+		_swordArcGlow.Width = _swordArcBaseGlowWidth;
+		_swordArcSparks.Modulate = tint;
+		_swordArcSparks.Amount = 12;
+		_swordArcSparks.Emitting = true;
+
+		Vector2 center = _weaponPivot.Position + new Vector2(0f, CrouchWeaponTrailYOffset);
+
+		float elapsed = 0f;
+		while (elapsed < CrouchArcDuration)
+		{
+			Vector2 tip = center + Vector2.Right.Rotated(-_weaponPivot.Rotation) * CrouchArcRadius;
+			if (_swordArcPoints.Count == 0 || _swordArcPoints[^1].DistanceSquaredTo(tip) > MinSwordArcPointSpacing * MinSwordArcPointSpacing)
+			{
+				_swordArcPoints.Add(tip);
+				_swordArcCore.Points = _swordArcPoints.ToArray();
+				_swordArcGlow.Points = _swordArcPoints.ToArray();
+			}
+			_swordArcSparks.Position = tip;
+
+			await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+			if (!IsInstanceValid(this) || runId != _swordArcRunId)
+				return;
+			elapsed += (float)GetPhysicsProcessDeltaTime();
+		}
+
+		_swordArcSparks.Emitting = false;
+		Tween fadeTween = CreateTween();
+		fadeTween.TweenProperty(_swordArcCore, "modulate:a", 0f, 0.08f);
+		fadeTween.Parallel().TweenProperty(_swordArcGlow, "modulate:a", 0f, 0.08f);
+
+		Tween restoreTween = GetTree().CreateTween();
+		restoreTween.TweenProperty(_weaponPivot, "rotation_degrees", WeaponRestAngle, 0.1f);
+	}
+
+	// Shared crescent-sweep tracer: builds an arc of `sweepDegrees` around WeaponPivot's origin
+	// over `duration`, with the unswept gap centered behind the character (180°, since 0°=front)
+	// so any sweep amount reads as a "C" bulging forward rather than a bowl open at the top. Used
+	// by both RunSwordSpinTrail (attack2) and RunCrouchArcTrail with different numbers instead of
+	// each duplicating this loop.
+	private async Task RunSwordCrescentTrail(float radius, float sweepDegrees, float duration, Color tint, float widthMul, int sparkAmount)
+	{
+		int runId = ++_swordArcRunId;
+
+		_swordArcPoints.Clear();
+		_swordArcCore.Points = System.Array.Empty<Vector2>();
+		_swordArcGlow.Points = System.Array.Empty<Vector2>();
+		_swordArcCore.Modulate = tint;
+		_swordArcGlow.Modulate = tint;
+		_swordArcCore.Width = _swordArcBaseCoreWidth * widthMul;
+		_swordArcGlow.Width = _swordArcBaseGlowWidth * widthMul;
+		_swordArcSparks.Modulate = tint;
+		_swordArcSparks.Amount = sparkAmount;
+		_swordArcSparks.Emitting = true;
+
+		// No _facingRight branch needed: Visual's own scale flip already mirrors these
+		// Visual-local points for facing left (same as RunSwordArcTrail), and a crescent traced
+		// either way still reads as a crescent once mirrored.
+		Vector2 center = _weaponPivot.Position;
+		float startAngleDeg = 180f - (sweepDegrees + 360f) / 2f;
+
+		float elapsed = 0f;
+		while (elapsed < duration)
+		{
+			float t = Mathf.Clamp(elapsed / duration, 0f, 1f);
+			float angleRad = Mathf.DegToRad(startAngleDeg + sweepDegrees * t);
+			Vector2 tip = center + Vector2.Right.Rotated(angleRad) * radius;
+			if (_swordArcPoints.Count == 0 || _swordArcPoints[^1].DistanceSquaredTo(tip) > MinSwordArcPointSpacing * MinSwordArcPointSpacing)
+			{
+				_swordArcPoints.Add(tip);
+				_swordArcCore.Points = _swordArcPoints.ToArray();
+				_swordArcGlow.Points = _swordArcPoints.ToArray();
+			}
+			_swordArcSparks.Position = tip;
+
+			await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+			if (!IsInstanceValid(this) || runId != _swordArcRunId)
+				return;
+			elapsed += (float)GetPhysicsProcessDeltaTime();
+		}
+
+		_swordArcSparks.Emitting = false;
+		Tween fadeTween = CreateTween();
+		fadeTween.TweenProperty(_swordArcCore, "modulate:a", 0f, 0.08f);
+		fadeTween.Parallel().TweenProperty(_swordArcGlow, "modulate:a", 0f, 0.08f);
+	}
+
+	// attack3 (the finisher, "la estocada"): a straight piercing beam that grows forward from the
+	// blade instead of an arc or a spin — it's a lunge, not a swing, so the trail should shoot
+	// out and hold rather than sweep. Same taper (thin at the hilt, thick at the tip) as the
+	// other two comes for free from the WidthCurve set up in _Ready.
+	private async void RunSwordThrustTrail()
+	{
+		int runId = ++_swordArcRunId;
+		Color tint = _isFireImbued ? new Color(1f, 0.55f, 0.2f, 1f) : new Color(0.15f, 0.65f, 1f, 1f);
+
+		_swordArcCore.Modulate = tint;
+		_swordArcGlow.Modulate = tint;
+		_swordArcSparks.Modulate = tint;
+		_swordArcCore.Width = _swordArcBaseCoreWidth * 1.4f;
+		_swordArcGlow.Width = _swordArcBaseGlowWidth * 1.4f;
+
+		Vector2 basePoint = _weaponPivot.Position;
+
+		float elapsed = 0f;
+		while (elapsed < SwordThrustExtendDuration)
+		{
+			float t = Mathf.Clamp(elapsed / SwordThrustExtendDuration, 0f, 1f);
+			Vector2 tip = basePoint + Vector2.Right * SwordThrustReach * t;
+			Vector2[] points = { basePoint, tip };
+			_swordArcCore.Points = points;
+			_swordArcGlow.Points = points;
+			_swordArcSparks.Position = tip;
+
+			await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+			if (!IsInstanceValid(this) || runId != _swordArcRunId)
+				return;
+			elapsed += (float)GetPhysicsProcessDeltaTime();
+		}
+
+		_swordArcSparks.Amount = 18;
+		_swordArcSparks.Emitting = true;
+
+		await ToSignal(GetTree().CreateTimer(SwordThrustHoldDuration), SceneTreeTimer.SignalName.Timeout);
+		if (!IsInstanceValid(this) || runId != _swordArcRunId)
+			return;
+
+		_swordArcSparks.Emitting = false;
+		Tween fadeTween = CreateTween();
+		fadeTween.TweenProperty(_swordArcCore, "modulate:a", 0f, 0.1f);
+		fadeTween.Parallel().TweenProperty(_swordArcGlow, "modulate:a", 0f, 0.1f);
 	}
 
 	private string WeaponTrailAnimation(string attackAnimation) => attackAnimation switch
@@ -1922,7 +2194,6 @@ public partial class Player : CharacterBody2D
 	// flurry instead of a single hit.
 	private async Task ComboMultiHit(int pulseCount)
 	{
-		string impactFramesPath = ComboImpactFramesPath(_currentAttackAnimation);
 		try
 		{
 			for (int i = 0; i < pulseCount; i++)
@@ -1931,7 +2202,7 @@ public partial class Player : CharacterBody2D
 				void OnPulseHit() => pulseHitLanded = true;
 				_hitbox.HitDealt += OnPulseHit;
 
-				_hitbox.Activate(_stats, impactFramesPath, _currentElement, ignoreTargetInvulnerability: true);
+				_hitbox.Activate(_stats, element: _currentElement, ignoreTargetInvulnerability: true, customImpactEffect: SpawnComboImpact);
 
 				// Give the physics step a moment at normal speed to actually detect the overlap
 				// and fire HitDealt before we freeze time out from under it.
@@ -1970,13 +2241,20 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
-	private static string ComboImpactFramesPath(string attackAnimation) => attackAnimation switch
+	// Homemade replacement for the old bought impact_medium/impact_big sprite sheets: attack1 is
+	// a quick light burst, attack2 medium, attack3 (the finisher) the biggest one with its own
+	// flash. Passed to Hitbox.Activate as a customImpactEffect so this only changes the player's
+	// own combo — every other Hitbox caller (enemies, bosses) is untouched.
+	private void SpawnComboImpact(Vector2 point)
 	{
-		"attack1" => "res://resources/sprites/HitImpactMediumSpriteFrames.tres",
-		"attack2" => "res://resources/sprites/HitImpactMediumSpriteFrames.tres",
-		"attack3" => "res://resources/sprites/HitImpactBigSpriteFrames.tres",
-		_ => null,
-	};
+		HitImpactBurst.ImpactTier tier = _currentAttackAnimation switch
+		{
+			"attack2" => HitImpactBurst.ImpactTier.Medium,
+			"attack3" => HitImpactBurst.ImpactTier.Heavy,
+			_ => HitImpactBurst.ImpactTier.Light,
+		};
+		HitImpactBurst.SpawnAt(this, point, tier);
+	}
 
 	private async void UseHealFlask()
 	{

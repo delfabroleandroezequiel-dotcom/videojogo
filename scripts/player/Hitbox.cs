@@ -16,6 +16,7 @@ public partial class Hitbox : Area2D
 	private DamageElement _element;
 	private bool _ignoreTargetInvulnerability;
 	private Color? _impactModulate;
+	private System.Action<Vector2> _customImpactEffect;
 
 	public override void _Ready()
 	{
@@ -28,14 +29,17 @@ public partial class Hitbox : Area2D
 	// first pulse just armed on the same target. Every other caller leaves this false and gets
 	// today's normal single-hit-per-i-frame-window behavior. impactModulate lets a caller with its
 	// own custom impactFramesPath also tint/darken that spark (e.g. SpiderBossArena) — left null,
-	// the spark keeps whatever colors its source frames already have.
-	public void Activate(Stats attackerStats, string impactFramesPath = null, DamageElement element = DamageElement.Normal, bool ignoreTargetInvulnerability = false, Color? impactModulate = null)
+	// the spark keeps whatever colors its source frames already have. customImpactEffect lets a
+	// caller replace the sprite-based impact spark entirely with its own VFX (e.g. Player's combo
+	// uses it for HitImpactBurst) without changing this generic default for every other caller.
+	public void Activate(Stats attackerStats, string impactFramesPath = null, DamageElement element = DamageElement.Normal, bool ignoreTargetInvulnerability = false, Color? impactModulate = null, System.Action<Vector2> customImpactEffect = null)
 	{
 		_attackerStats = attackerStats;
 		_impactFramesPath = impactFramesPath;
 		_element = element;
 		_ignoreTargetInvulnerability = ignoreTargetInvulnerability;
 		_impactModulate = impactModulate;
+		_customImpactEffect = customImpactEffect;
 		_shape.Disabled = false;
 	}
 
@@ -52,9 +56,16 @@ public partial class Hitbox : Area2D
 		targetStats.TakeDamage(_attackerStats.AttackPower, element: _element, ignoreInvulnerability: _ignoreTargetInvulnerability);
 		Vector2 impactPoint = (GlobalPosition + body.GlobalPosition) / 2f;
 		BloodEffect.SpawnAt(this, body.GlobalPosition);
-		string framesPath = _impactFramesPath ?? "res://resources/sprites/HitSparkSpriteFrames.tres";
-		string animation = _impactFramesPath is null ? "spark" : "impact";
-		VfxSpawner.SpawnAt(this, impactPoint, framesPath, animation, new Vector2(0f, 10f), modulate: _impactModulate);
+		if (_customImpactEffect is not null)
+		{
+			_customImpactEffect(impactPoint);
+		}
+		else
+		{
+			string framesPath = _impactFramesPath ?? "res://resources/sprites/HitSparkSpriteFrames.tres";
+			string animation = _impactFramesPath is null ? "spark" : "impact";
+			VfxSpawner.SpawnAt(this, impactPoint, framesPath, animation, new Vector2(0f, 10f), modulate: _impactModulate);
+		}
 		EmitSignal(SignalName.HitDealt);
 
 		if (body.HasMethod("ApplyKnockback"))

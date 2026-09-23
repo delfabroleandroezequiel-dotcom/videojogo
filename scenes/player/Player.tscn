@@ -21,6 +21,7 @@
 [ext_resource type="Shader" path="res://resources/shaders/EnergySpike.gdshader" id="22_spike_shader"]
 [ext_resource type="ParticleProcessMaterial" path="res://resources/particles/ChargeDustProcess.tres" id="23_dust_process"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/CrystalFallSpriteFrames.tres" id="24_crystalframes"]
+[ext_resource type="ParticleProcessMaterial" path="res://resources/particles/LightningSparkProcess.tres" id="25_sword_spark_process"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_parrybubble"]
 shader = ExtResource("10_bubbleshader")
@@ -34,7 +35,7 @@ size = Vector2(32, 64)
 size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
-size = Vector2(66.99, 63.06)
+size = Vector2(66.99, 74.0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ledgecheck"]
 size = Vector2(4, 12)
@@ -47,6 +48,10 @@ blend_mode = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_spike"]
 shader = ExtResource("22_spike_shader")
+
+[sub_resource type="Gradient" id="Gradient_swordarcfade"]
+offsets = PackedFloat32Array(0, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 
 [node name="Player" type="CharacterBody2D" unique_id=1867495339 groups=["player"]]
 collision_layer = 2
@@ -151,6 +156,31 @@ scale = Vector2(2.904, 2.904)
 sprite_frames = ExtResource("9_trailframes")
 animation = &"slash_horizontal"
 visible = false
+
+[node name="SwordArcGlow" type="Line2D" parent="Visual"]
+material = SubResource("CanvasItemMaterial_auraadd")
+width = 5.0
+gradient = SubResource("Gradient_swordarcfade")
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="SwordArcCore" type="Line2D" parent="Visual"]
+material = SubResource("CanvasItemMaterial_auraadd")
+width = 2.0
+gradient = SubResource("Gradient_swordarcfade")
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="SwordArcSparks" type="GPUParticles2D" parent="Visual"]
+material = SubResource("CanvasItemMaterial_auraadd")
+emitting = false
+amount = 14
+lifetime = 0.35
+randomness = 0.6
+explosiveness = 0.0
+process_material = ExtResource("25_sword_spark_process")
+texture = ExtResource("19_dot_tex")
+scale = Vector2(0.5, 0.5)
 
 [node name="CrystalEffect" type="AnimatedSprite2D" parent="Visual"]
 position = Vector2(0, 0)
