@@ -55,9 +55,10 @@
 [ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterMimicSpriteFrames.tres" id="118_monstermimic"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterRatSpriteFrames.tres" id="119_monsterrat"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterSlimeSpriteFrames.tres" id="120_monsterslime"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/BringerOfDeathSpriteFrames.tres" id="121_bringerofdeath"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
-size = Vector2(25000, 60)
+size = Vector2(25500, 60)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
 size = Vector2(60, 700)
@@ -65,15 +66,15 @@ size = Vector2(60, 700)
 [node name="EnemyLookAll" type="Node2D" unique_id=1183027699]
 
 [node name="Floor" type="StaticBody2D" parent="." unique_id=653339485]
-position = Vector2(12450, 460)
+position = Vector2(12700, 460)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1677327946]
 shape = SubResource("RectangleShape2D_floor")
 
 [node name="FloorVisual" type="ColorRect" parent="Floor" unique_id=823653674]
-offset_left = -12500.0
+offset_left = -12750.0
 offset_top = -30.0
-offset_right = 12500.0
+offset_right = 12750.0
 offset_bottom = 30.0
 color = Color(0.22, 0.22, 0.24, 1)
 
@@ -84,7 +85,7 @@ position = Vector2(-30, 100)
 shape = SubResource("RectangleShape2D_wall")
 
 [node name="WallRight" type="StaticBody2D" parent="." unique_id=136363820]
-position = Vector2(24950, 100)
+position = Vector2(25450, 100)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight" unique_id=641346876]
 shape = SubResource("RectangleShape2D_wall")
@@ -1731,4 +1732,35 @@ horizontal_alignment = 1
 [node name="Cycler" type="Node" parent="MonsterSlimeViewer"]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("idle", "walk", "attack", "hurt", "death")
+SecondsPerAnimation = 2.2
+
+[node name="BringerOfDeathViewer" type="Node2D" parent="."]
+position = Vector2(25000, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="BringerOfDeathViewer"]
+position = Vector2(-47.6, -63.7)
+scale = Vector2(1.4, 1.4)
+sprite_frames = ExtResource("121_bringerofdeath")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="BringerOfDeathViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Portador de la Muerte"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="BringerOfDeathViewer"]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="BringerOfDeathViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "walk", "attack", "cast", "spell", "hurt", "death")
 SecondsPerAnimation = 2.2
