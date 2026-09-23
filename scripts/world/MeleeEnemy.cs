@@ -43,6 +43,18 @@ public partial class MeleeEnemy : Enemy
 	protected bool Attacking;
 	protected bool CanAttack = true;
 	private float _yieldTimer;
+
+	// Opt-in "smart enemy" toolkit for subclasses that want it (the bandits): player reads updated
+	// every frame, a safe evasive hop, a way to attack on demand (punishes, anti-air) with a
+	// shorter wind-up, and ledge-safe spacing. Unused by default — enemies that don't call these
+	// behave exactly as before.
+	protected readonly DashWatcher Dash = new();
+	protected readonly WhiffWatcher Whiff = new();
+	protected Metroidvania.Player.Player PlayerRef;
+	protected bool Hopping;
+	// Multiplier a subclass's own wind-up/telegraph should apply to its next Attack() (punish and
+	// anti-air attacks come out faster); Attack() implementations read it and reset it to 1.
+	protected float WindupScale = 1f;
 	private static readonly RandomNumberGenerator JitterRng = new();
 
 	static MeleeEnemy()
@@ -58,12 +70,17 @@ public partial class MeleeEnemy : Enemy
 
 		StopDistance = AttackRange * 0.8f;
 		AttackHitbox = GetNode<Hitbox>("AttackHitbox");
+		Stats.HitTaken += _ => Whiff.NotifyHitTaken();
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		if (IsQueuedForRemoval)
 			return;
+
+		PlayerRef = PlayerReads.Find(this);
+		Dash.Update(PlayerRef, (float)delta);
+		Whiff.Update(PlayerRef, (float)delta);
 
 		if (_yieldTimer > 0f)
 		{
@@ -76,8 +93,13 @@ public partial class MeleeEnemy : Enemy
 		}
 
 		base._PhysicsProcess(delta);
+		if (IsQueuedForRemoval)
+			return;
 
-		if (Attacking || !CanAttack || _yieldTimer > 0f)
+		if (Hopping && IsOnFloor() && Velocity.Y >= 0f)
+			Hopping = false;
+
+		if (Attacking || !CanAttack || _yieldTimer > 0f || Hopping)
 			return;
 
 		Node2D playerNode = GetTree().GetFirstNodeInGroup("player") as Node2D;
@@ -121,6 +143,67 @@ public partial class MeleeEnemy : Enemy
 	// e.g. requiring the enemy to have actually stopped moving for a beat first.
 	protected virtual bool ReadyToCommitAttack() => true;
 
+	protected override float ComputeMoveX(Node2D player, float distanceX, float currentVelocityX, double delta) =>
+		Hopping ? currentVelocityX : base.ComputeMoveX(player, distanceX, currentVelocityX, delta);
+
+	// Starts an attack right now (reactions: punishes, anti-air), skipping the normal range/commit
+	// checks but still respecting the cooldown and the shared attack slot.
+	protected bool TryAttackNow(float windupScale = 1f)
+	{
+		if (Attacking || !CanAttack || Hopping || !IsOnFloor())
+			return false;
+		if (!EnemyCombatCoordinator.TryAcquireAttackSlot())
+			return false;
+
+		HoldingAttackSlot = true;
+		WindupScale = windupScale;
+		_ = Attack();
+		return true;
+	}
+
+	// Jumps with launchVelocity only if the arc lands on ground (never into a pit).
+	protected bool TryHop(Vector2 launchVelocity, float maxDrop = 40f)
+	{
+		if (Hopping || Attacking || !IsOnFloor() || !LandsSafely(launchVelocity, maxDrop))
+			return false;
+		Velocity = launchVelocity;
+		Hopping = true;
+		return true;
+	}
+
+	// Ledge-safe spacing: walk up to stopDistance, back off when closer than 	ooClose, never
+	// off a ledge or into a wall.
+	protected float SpacingMoveX(float distanceX, float currentVelocityX, float stopDistance, float tooClose, float speedMultiplier = 1f)
+	{
+		if (Hopping)
+			return currentVelocityX;
+		if (Attacking || !CanChase)
+			return Mathf.MoveToward(currentVelocityX, 0f, MoveSpeed);
+
+		float absDistance = Mathf.Abs(distanceX);
+		float toward = Mathf.Sign(distanceX);
+		if (absDistance < tooClose && CanStepTo(-toward))
+			return -toward * MoveSpeed * 0.8f * speedMultiplier;
+		if (absDistance > stopDistance && CanStepTo(toward))
+			return toward * MoveSpeed * speedMultiplier;
+		return Mathf.MoveToward(currentVelocityX, 0f, MoveSpeed);
+	}
+
+	// jump/fall while airborne, if the sheet has them. Returns whether it took over the animation.
+	protected bool PlayAirAnimation(Vector2 velocity)
+	{
+		if (Sprite is null || IsOnFloor())
+			return false;
+		string anim = velocity.Y < 0f ? "jump" : "fall";
+		if (!Sprite.SpriteFrames.HasAnimation(anim))
+			anim = Sprite.SpriteFrames.HasAnimation("jump") ? "jump" : null;
+		if (anim is null)
+			return false;
+		if (Sprite.Animation != anim)
+			Sprite.Play(anim);
+		return true;
+	}
+
 	// Locked for the whole Attacking window — covers the swing itself and, for enemies that wrap
 	// Attack() with their own windup (e.g. OrcEnemy), the telegraph too, since both set Attacking
 	// true immediately. Spinning to face a player who circled around mid-swing would otherwise
@@ -132,6 +215,7 @@ public partial class MeleeEnemy : Enemy
 	protected override void UpdateAnimation(Vector2 velocity)
 	{
 		if (Sprite is null) return;
+		if (Hopping && PlayAirAnimation(velocity)) return;
 		string anim = Attacking ? "attack" : (Mathf.Abs(velocity.X) > 5f ? "run" : "idle");
 		if (Sprite.Animation != anim)
 			Sprite.Play(anim);

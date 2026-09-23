@@ -89,7 +89,9 @@ public partial class Stats : Node
 	// ignoreInvulnerability lets a deliberate multi-hit move (see Player.ThrustTripleHit) land
 	// its own consecutive pulses on the same target — normal invulnerability still gets
 	// (re-)armed by this call same as any hit, it's just not used to block THIS hit.
-	public void TakeDamage(int incomingAttack, bool isProjectile = false, DamageElement element = DamageElement.Normal, bool ignoreInvulnerability = false)
+	// armInvulnerability = false is for small damage-over-time ticks (e.g. GroundFire): they must
+	// not grant i-frames either, or standing in the hazard would make the target immune to real hits.
+	public void TakeDamage(int incomingAttack, bool isProjectile = false, DamageElement element = DamageElement.Normal, bool ignoreInvulnerability = false, bool armInvulnerability = true)
 	{
 		if (IsInvulnerable && !ignoreInvulnerability)
 			return;
@@ -100,7 +102,8 @@ public partial class Stats : Node
 		float multiplier = element != DamageElement.Normal && element == Weakness ? WeaknessDamageMultiplier : 1f;
 		int damage = Mathf.Max(1, Mathf.RoundToInt(incomingAttack * multiplier) - Defense);
 		CurrentHealth = Mathf.Max(0, CurrentHealth - damage);
-		_invulnerableTimer = InvulnerabilityDuration;
+		if (armInvulnerability)
+			_invulnerableTimer = InvulnerabilityDuration;
 		EmitSignal(SignalName.HealthChanged, CurrentHealth, MaxHealth);
 		EmitSignal(SignalName.HitTaken, isProjectile);
 

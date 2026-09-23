@@ -12,15 +12,17 @@
 size = Vector2(36, 66)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
-size = Vector2(26, 32)
+size = Vector2(67, 74)
 
 [node name="Bandido2" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_script")
 AttackSpriteYOffset = -4.0
-AttackHitboxReach = 26.0
+AttackRange = 60.0
+AttackHitboxReach = 50.6
 Profile = ExtResource("7_profile")
 ExplosionScene = ExtResource("6_explosion")
+ExplodeOnDeath = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_collision")
@@ -43,7 +45,7 @@ animation = &"idle"
 autoplay = "idle"
 
 [node name="AttackHitbox" type="Area2D" parent="."]
-position = Vector2(26, 0)
+position = Vector2(50.6, 0)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("2_hitbox")

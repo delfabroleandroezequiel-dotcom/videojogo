@@ -1,0 +1,49 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/GroundFire.cs" id="1_script"]
+[ext_resource type="SpriteFrames" uid="uid://quxawr153nn5" path="res://resources/sprites/CampfireSpriteFrames.tres" id="2_fireframes"]
+[ext_resource type="Texture2D" uid="uid://cb8gyivleynt" path="res://resources/particles/SoftDotGradient.tres" id="3_dot_tex"]
+[ext_resource type="ParticleProcessMaterial" path="res://resources/particles/FlameEmberProcess.tres" id="4_ember_process"]
+[ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="5_light_tex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fire"]
+size = Vector2(40, 22)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_add"]
+blend_mode = 1
+
+[node name="GroundFire" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -11)
+shape = SubResource("RectangleShape2D_fire")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Flames" type="AnimatedSprite2D" parent="Visual"]
+position = Vector2(0, -24)
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("2_fireframes")
+animation = &"lit"
+autoplay = "lit"
+
+[node name="Embers" type="GPUParticles2D" parent="Visual"]
+material = SubResource("CanvasItemMaterial_add")
+position = Vector2(0, -8)
+rotation = -1.5708
+amount = 6
+lifetime = 0.7
+randomness = 0.5
+process_material = ExtResource("4_ember_process")
+texture = ExtResource("3_dot_tex")
+modulate = Color(1, 0.75, 0.35, 1)
+
+[node name="Light" type="PointLight2D" parent="Visual"]
+position = Vector2(0, -14)
+color = Color(1, 0.55, 0.2, 1)
+energy = 0.9
+texture = ExtResource("5_light_tex")
+texture_scale = 0.3

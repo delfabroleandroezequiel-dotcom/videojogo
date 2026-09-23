@@ -25,11 +25,60 @@ public partial class Bandido2 : MeleeEnemy
 	[Export] public float RepositionDuration = 0.3f;
 	[Export] public float RepositionCooldown = 1.5f;
 
-	private bool _isRepositioning;
+	// The axe chop's neon-red slash trail, drawn by EnemySlashTrail: same top-to-bottom cut and
+	// numbers as Bandido1's overhead stab (itself sized to the player's attack2 reach — center 12px
+	// in front, radius 56). Angles: 0° = front, -90° = up, +90° = down. The attack hitbox in
+	// Bandido2.tscn is sized to cover this arc.
+	[Export] public Vector2 SlashTrailCenter = new(12f, 0f);
+	[Export] public float SlashTrailRadius = 56f;
+	[Export] public float SlashTrailStartAngle = -115f;
+	[Export] public float SlashTrailEndAngle = 85f;
+	[Export] public float SlashTrailDuration = 0.2f;
+	[Export] public float SlashTrailCoreWidth = 3f;
+	[Export] public float SlashTrailGlowWidth = 9f;
+	[Export] public Color SlashTrailGlowColor = new(1f, 0.05f, 0.12f, 1f);
+	[Export] public Color SlashTrailCoreColor = new(1f, 0.55f, 0.6f, 1f);
+	[Export] public float MinSlashTrailPointSpacing = 1.5f;
+
+	// ── Patient-brute AI ──
+	// Hovers just outside the player's reach instead of walking into their sword, waiting for an
+	// opening: a whiffed swing, a dash ending nearby or the player turning their back → charges in
+	// and chops with a shorter wind-up. Gives up waiting after MaxBaitTime and just walks in.
+	// Its axe doesn't care much about a raised shield (high BlockEngageChance).
+	[ExportGroup("AI")]
+	[Export] public float BaitDistanceExtra = 45f;
+	[Export] public float MaxBaitTime = 1.4f;
+	[Export] public float ChargeSpeed = 260f;
+	[Export] public float ChargeMaxTime = 0.6f;
+	[Export] public float PunishWindupScale = 0.5f;
+	[Export] public float AxeBlockEngageChance = 0.85f;
+
+	private EnemySlashTrail _slashTrail;
+	private bool _charging;
+	private float _chargeTimer;
+	private float _baitTimer;	private bool _isRepositioning;
 	private bool _canReposition = true;
 	private float _repositionDirection;
 	private bool _hasPlayerSideSample;
 	private bool _wasPlayerOnRight;
+
+	public override void _Ready()
+	{
+		base._Ready();
+		if (IsQueuedForRemoval)
+			return;
+
+		BlockEngageChance = AxeBlockEngageChance;
+		_slashTrail = new EnemySlashTrail
+		{
+			CoreWidth = SlashTrailCoreWidth,
+			GlowWidth = SlashTrailGlowWidth,
+			GlowColor = SlashTrailGlowColor,
+			CoreColor = SlashTrailCoreColor,
+			MinPointSpacing = MinSlashTrailPointSpacing,
+		};
+		Visual.AddChild(_slashTrail);
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -54,8 +103,66 @@ public partial class Bandido2 : MeleeEnemy
 			return;
 
 		CheckPlayerDashCross();
+		Think((float)delta);
 	}
 
+	private bool Baiting(Metroidvania.Player.Player player) =>
+		player is not null && _baitTimer < MaxBaitTime && player.IsOnFloor()
+		&& player.IsFacingRight == (GlobalPosition.X > player.GlobalPosition.X);
+
+	private void Think(float dt)
+	{
+		var player = PlayerRef;
+		if (player is null || _isRepositioning || !PlayerDetected || Attacking)
+			return;
+
+		float absDistance = Mathf.Abs(player.GlobalPosition.X - GlobalPosition.X);
+		bool playerFacesMe = player.IsFacingRight == (GlobalPosition.X > player.GlobalPosition.X);
+		float threatZone = AttackRange + BaitDistanceExtra + 30f;
+
+		if (absDistance <= threatZone && playerFacesMe)
+			_baitTimer += dt;
+		else if (absDistance > threatZone + 60f)
+			_baitTimer = 0f;
+
+		bool opening = Whiff.JustWhiffed || Dash.SinceDashEnded < 0.1f || (!playerFacesMe && absDistance <= threatZone);
+		if (!_charging && opening && absDistance <= threatZone + 40f)
+		{
+			Whiff.Consume();
+			_charging = true;
+			_chargeTimer = ChargeMaxTime;
+		}
+
+		if (_charging)
+		{
+			_chargeTimer -= dt;
+			if (absDistance <= AttackRange)
+			{
+				_charging = false;
+				_baitTimer = 0f;
+				TryAttackNow(PunishWindupScale);
+			}
+			else if (_chargeTimer <= 0f)
+			{
+				_charging = false;
+			}
+		}
+	}
+
+	protected override float ComputeMoveX(Node2D player, float distanceX, float currentVelocityX, double delta)
+	{
+		if (Hopping)
+			return currentVelocityX;
+		float toward = Mathf.Sign(distanceX);
+		if (_charging && !Attacking)
+			return CanStepTo(toward) ? toward * ChargeSpeed : 0f;
+		if (Baiting(PlayerRef))
+			return SpacingMoveX(distanceX, currentVelocityX, AttackRange + BaitDistanceExtra, AttackRange * 0.7f);
+		return SpacingMoveX(distanceX, currentVelocityX, StopDistance, 0f);
+	}
+
+	// While baiting it stays out of range on purpose — don't let the base loop swing at air.
+	protected override bool ReadyToCommitAttack() => !Baiting(PlayerRef);
 	private void CheckPlayerDashCross()
 	{
 		if (_isRepositioning || !_canReposition)
@@ -106,6 +213,9 @@ public partial class Bandido2 : MeleeEnemy
 		if (Sprite is null)
 			return;
 
+		if (Hopping && PlayAirAnimation(velocity))
+			return;
+
 		string anim = Attacking ? "attack1" : Mathf.Abs(velocity.X) > 5f ? "run" : "idle";
 		if (Sprite.Animation != anim)
 			Sprite.Play(anim);
@@ -118,11 +228,14 @@ public partial class Bandido2 : MeleeEnemy
 
 		HoldTelegraphFrame("attack1");
 		Sprite.Frame = AttackTelegraphFrame;
-		await ToSignal(GetTree().CreateTimer(WindupDuration), SceneTreeTimer.SignalName.Timeout);
+		float windup = WindupDuration * WindupScale;
+		WindupScale = 1f;
+		await ToSignal(GetTree().CreateTimer(windup), SceneTreeTimer.SignalName.Timeout);
 		if (!IsInstanceValid(this) || IsQueuedForRemoval)
 			return;
 
 		Sprite.Play("attack1");
+		_slashTrail.Play(SlashTrailCenter, SlashTrailRadius, SlashTrailStartAngle, SlashTrailEndAngle, SlashTrailDuration);
 		await ToSignal(GetTree().CreateTimer(HitFrameDelay), SceneTreeTimer.SignalName.Timeout);
 		if (!IsInstanceValid(this) || IsQueuedForRemoval)
 			return;

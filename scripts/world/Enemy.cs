@@ -36,6 +36,9 @@ public partial class Enemy : CharacterBody2D
 	[Export] public float KnockbackDuration = 0.2f;
 	[Export] public float ExplosionScale = 1f;
 	[Export] public PackedScene ExplosionScene;
+	// Off = play the sprite's own "death" animation and leave the corpse lying there (it goes away
+	// with the scene; on reload IsDefeated() skips it) instead of the ExplosionScene burst. Falls back to exploding if the sprite has no "death" animation.
+	[Export] public bool ExplodeOnDeath = true;
 	[Export] public string CustomPersistenceId = "";
 	[Export] public LootEntry[] LootTable = System.Array.Empty<LootEntry>();
 	[Export] public float ContactDamageMultiplier = 0.3f;
@@ -97,6 +100,7 @@ public partial class Enemy : CharacterBody2D
 		Sprite = Visual.GetNodeOrNull<AnimatedSprite2D>("CharacterSprite");
 		ContactArea = GetNode<Area2D>("ContactArea");
 		_ledgeCheck = GetNodeOrNull<RayCast2D>("LedgeCheck");
+		CacheBodyExtents();
 		Stats.Died += OnDefeated;
 
 		StatBar healthBar = GetNode<StatBar>("HealthBar");
@@ -161,9 +165,38 @@ public partial class Enemy : CharacterBody2D
 		}
 
 		SaveManager.Instance.MarkCommonEnemyDefeated(PersistenceId);
-		SpawnExplosion();
 		CallDeferred(MethodName.SpawnLoot);
+
+		if (!ExplodeOnDeath && Sprite?.SpriteFrames?.HasAnimation("death") == true)
+		{
+			PlayDeathAnimation();
+			return;
+		}
+
+		SpawnExplosion();
 		QueueFree();
+	}
+
+	// IsQueuedForRemoval makes every AI/attack loop bail out (same flag the subclasses already
+	// check), and dropping the collision layer/contact area stops the corpse from being hit again
+	// or hurting the player while the animation plays. The attack hitbox is switched off here too,
+	// since an attack coroutine that bails on IsQueuedForRemoval skips its own Deactivate().
+	private void PlayDeathAnimation()
+	{
+		IsQueuedForRemoval = true;
+		// The corpse stays in the tree, so drop it from "enemy" or companions (CompanionNpc) keep targeting it.
+		RemoveFromGroup("enemy");
+		Velocity = Vector2.Zero;
+		SetDeferred(CollisionObject2D.PropertyName.CollisionLayer, 0);
+		ContactArea.SetDeferred(Area2D.PropertyName.Monitoring, false);
+		if (GetNodeOrNull<Metroidvania.Player.Hitbox>("AttackHitbox") is { } attackHitbox)
+			attackHitbox.CallDeferred(Metroidvania.Player.Hitbox.MethodName.Deactivate);
+		GetNode<StatBar>("HealthBar").Visible = false;
+		GetNode<StatBar>("StaminaBar").Visible = false;
+
+		Visual.Modulate = _baseModulate;
+		// Non-looping, so it holds on its last frame — the corpse stays until the scene unloads.
+		Sprite.Play("death");
 	}
 
 	protected void SpawnExplosion()
@@ -213,6 +246,9 @@ public partial class Enemy : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (IsQueuedForRemoval)
+			return;
+
 		Vector2 velocity = Velocity;
 
 		if (_knockbackTimer > 0)
@@ -236,7 +272,7 @@ public partial class Enemy : CharacterBody2D
 			PlayerDetected = absDistance <= DetectionRange;
 			if (PlayerDetected)
 			{
-				bool desiredFacingRight = distanceX >= 0;
+				bool desiredFacingRight = DesiredFacingRight(player, distanceX);
 				if (CanTurnToFacePlayer && desiredFacingRight != FacingRight)
 				{
 					_turnAwayTimer += (float)delta;
@@ -252,21 +288,7 @@ public partial class Enemy : CharacterBody2D
 				}
 				Visual.Scale = new Vector2(FacingRight ? 1 : -1, 1);
 
-				float moveSign = Mathf.Sign(distanceX);
-
-				if (_isHoldingDistance)
-				{
-					if (absDistance > StopDistance + ChaseHysteresis)
-						_isHoldingDistance = false;
-				}
-				else if (absDistance <= StopDistance)
-				{
-					_isHoldingDistance = true;
-				}
-
-				velocity.X = !_isHoldingDistance && CanChase && CanMoveInDirection(moveSign)
-					? moveSign * MoveSpeed
-					: Mathf.MoveToward(velocity.X, 0, MoveSpeed);
+				velocity.X = ComputeMoveX(player, distanceX, velocity.X, delta);
 			}
 			else
 			{
@@ -287,6 +309,122 @@ public partial class Enemy : CharacterBody2D
 		UpdateFootsteps(Velocity, delta);
 		if (ContactDamageEnabled)
 			ApplyContactDamage();
+	}
+
+	// Horizontal movement while the player is detected. Default = walk straight at the player until
+	// StopDistance, with ChaseHysteresis. Enemies with their own spacing logic (e.g. ElfArcher
+	// kiting away, hopping) override this instead of re-implementing gravity/knockback/animation.
+	protected virtual float ComputeMoveX(Node2D player, float distanceX, float currentVelocityX, double delta)
+	{
+		float absDistance = Mathf.Abs(distanceX);
+		float moveSign = Mathf.Sign(distanceX);
+
+		if (_isHoldingDistance)
+		{
+			if (absDistance > StopDistance + ChaseHysteresis)
+				_isHoldingDistance = false;
+		}
+		else if (absDistance <= StopDistance)
+		{
+			_isHoldingDistance = true;
+		}
+
+		return !_isHoldingDistance && CanChase && CanMoveInDirection(moveSign)
+			? moveSign * MoveSpeed
+			: Mathf.MoveToward(currentVelocityX, 0, MoveSpeed);
+	}
+
+	// Which way the enemy wants to face while the player is detected (still subject to
+	// CanTurnToFacePlayer and TurnDelay). Default: toward the player.
+	protected virtual bool DesiredFacingRight(Node2D player, float distanceX) => distanceX >= 0;
+
+	// ── Terrain-aware movement helpers (used by the "smart" enemies: ElfArcher, the casters) ──
+
+	// Half width of the body and how far below the origin its feet are, read from the root
+	// CollisionShape2D so helpers don't need a hand-measured offset per enemy.
+	protected float BodyHalfWidth { get; private set; } = 16f;
+	protected float BodyBottom { get; private set; } = 30f;
+
+	private void CacheBodyExtents()
+	{
+		CollisionShape2D body = GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
+		switch (body?.Shape)
+		{
+			case RectangleShape2D rect:
+				BodyHalfWidth = rect.Size.X * 0.5f;
+				BodyBottom = body.Position.Y + rect.Size.Y * 0.5f;
+				break;
+			case CapsuleShape2D capsule:
+				BodyHalfWidth = capsule.Radius;
+				BodyBottom = body.Position.Y + capsule.Height * 0.5f;
+				break;
+		}
+	}
+
+	// Ground right past the body's leading edge — works with or without a LedgeCheck node.
+	protected bool HasGroundAhead(float sign, float maxStepDown = 14f)
+	{
+		float x = GlobalPosition.X + sign * (BodyHalfWidth + 2f);
+		float feetY = GlobalPosition.Y + BodyBottom;
+		var query = PhysicsRayQueryParameters2D.Create(new Vector2(x, feetY - 6f), new Vector2(x, feetY + maxStepDown),
+			CollisionMask, new Godot.Collections.Array<Rid> { GetRid() });
+		return GetWorld2D().DirectSpaceState.IntersectRay(query).Count > 0;
+	}
+
+	// Safe to walk this way: ground ahead and no wall right in front.
+	protected bool CanStepTo(float sign) =>
+		CanMoveInDirection(sign) && HasGroundAhead(sign) && !TestMove(GlobalTransform, new Vector2(sign * 12f, 0f));
+
+	// Steps a jump's ballistic arc with TestMove (stopping where the body would bump into something),
+	// then checks there's ground under that spot within maxDrop of the current feet level. Uses the
+	// body's own CollisionMask so one-way platforms it can't stand on don't count. Lets an enemy
+	// refuse a hop that would land it in a pit or off a ledge.
+	protected bool LandsSafely(Vector2 launchVelocity, float maxDrop)
+	{
+		const float step = 1f / 30f;
+		float airTime = 2f * -launchVelocity.Y / Mathf.Max(1f, Gravity);
+		Transform2D probe = GlobalTransform;
+		Vector2 velocity = launchVelocity;
+		for (float t = 0f; t < airTime; t += step)
+		{
+			Vector2 motion = velocity * step;
+			if (TestMove(probe, motion))
+				break;
+			probe.Origin += motion;
+			velocity.Y += Gravity * step;
+		}
+
+		float feetY = GlobalPosition.Y + BodyBottom;
+		Vector2 from = new(probe.Origin.X, Mathf.Min(probe.Origin.Y, GlobalPosition.Y) - BodyBottom);
+		Vector2 to = new(probe.Origin.X, feetY + maxDrop);
+		var query = PhysicsRayQueryParameters2D.Create(from, to, CollisionMask, new Godot.Collections.Array<Rid> { GetRid() });
+		var hit = GetWorld2D().DirectSpaceState.IntersectRay(query);
+		return hit.Count > 0 && ((Vector2)hit["normal"]).Y < -0.7f;
+	}
+
+	// Keeps the player inside a [minDistance, maxDistance] band: backs off (with `overshoot`
+	// hysteresis so it opens a real gap instead of stuttering at the threshold) when they're too
+	// close, walks up when too far, never off a ledge or into a wall. `retreating` is the caller's
+	// own state flag (also handy for facing the way it flees).
+	protected float KitingMoveX(float distanceX, float currentVelocityX, float minDistance, float maxDistance,
+		float overshoot, float retreatSpeedMultiplier, ref bool retreating)
+	{
+		float absDistance = Mathf.Abs(distanceX);
+		float toward = Mathf.Sign(distanceX);
+		float away = -toward;
+
+		bool wantsRetreat = absDistance < minDistance || (retreating && absDistance < minDistance + overshoot);
+		if (wantsRetreat && CanStepTo(away))
+		{
+			retreating = true;
+			return away * MoveSpeed * retreatSpeedMultiplier;
+		}
+		retreating = false;
+
+		if (absDistance > maxDistance && CanStepTo(toward))
+			return toward * MoveSpeed;
+
+		return Mathf.MoveToward(currentVelocityX, 0f, MoveSpeed);
 	}
 
 	[Export] public float FootstepInterval = 0.35f;

@@ -21,10 +21,72 @@ public partial class BandidoCorpulento : MeleeEnemy
 	[Export] public int SlamDamage = 15;
 	[Export] public Vector2 SlamHitboxSize = new(48f, 30f);
 
+	// ── Artillery AI ──
+	// The slam's shockwave marches SlamTileCount tiles forward, so it uses it as a ranged attack:
+	// with the player on the ground in that lane it slams from a distance instead of walking into
+	// melee. It won't waste the slam on a jumping player (the shockwave runs along the floor) —
+	// it waits and slams the moment they land.
+	[ExportGroup("AI")]
+	[Export] public float LaneHeightTolerance = 40f;
+	[Export] public float RangedSlamDecisionInterval = 0.5f;
+	[Export] public float RangedSlamChance = 0.6f;
+
+	private float _slamDecisionTimer;
+	private bool _playerWasAirborne;
+
+	private float SlamReach => AttackRange + SlamTileCount * SlamTileSpacing;
+
+	public override void _PhysicsProcess(double delta)
+	{
+		base._PhysicsProcess(delta);
+		if (IsQueuedForRemoval)
+			return;
+		Think((float)delta);
+	}
+
+	private void Think(float dt)
+	{
+		var player = PlayerRef;
+		bool airborne = player is not null && !player.IsOnFloor();
+		bool justLanded = _playerWasAirborne && !airborne;
+		_playerWasAirborne = airborne;
+		_slamDecisionTimer -= dt;
+		if (player is null || Attacking || !PlayerDetected)
+			return;
+
+		float distanceX = player.GlobalPosition.X - GlobalPosition.X;
+		float absDistance = Mathf.Abs(distanceX);
+		bool inLane = Mathf.Abs(player.GlobalPosition.Y - GlobalPosition.Y) <= LaneHeightTolerance;
+		bool facingPlayer = FacingRight == (distanceX >= 0f);
+		if (!inLane || !facingPlayer || absDistance > SlamReach)
+			return;
+
+		if (justLanded)
+		{
+			TryAttackNow();
+			return;
+		}
+
+		if (!airborne && absDistance > AttackRange && _slamDecisionTimer <= 0f)
+		{
+			_slamDecisionTimer = RangedSlamDecisionInterval;
+			if (GD.Randf() < RangedSlamChance)
+				TryAttackNow();
+		}
+	}
+
+	// Don't slam at a player who's in the air right over the lane — wait for the landing.
+	protected override bool ReadyToCommitAttack() => PlayerRef is null || PlayerRef.IsOnFloor();
+
+	protected override float ComputeMoveX(Node2D player, float distanceX, float currentVelocityX, double delta) =>
+		SpacingMoveX(distanceX, currentVelocityX, StopDistance, 0f);
 	protected override async Task Attack()
 	{
 		Attacking = true;
 		CanAttack = false;
+		// The wind-up here IS the animation's own lead-in (hit on frame 9), so it can't be shortened
+		// without desyncing the slam from the art — punishes use the normal timing.
+		WindupScale = 1f;
 		Sprite.Play("attack");
 
 		await ToSignal(GetTree().CreateTimer(WindupDuration), SceneTreeTimer.SignalName.Timeout);
