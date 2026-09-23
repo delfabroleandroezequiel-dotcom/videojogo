@@ -273,11 +273,28 @@ public partial class Boss : Enemy
 			_canRetreat = true;
 	}
 
+	// Optional pre-attack tell for bosses that want one (e.g. SpiderBoss's neon blink): the lunge
+	// holds still for LungeTelegraphLead before charging, and OnAttackTelegraph(duration) is called
+	// so the boss can play its own warning. Both default to nothing — other bosses are unchanged.
+	protected virtual float LungeTelegraphLead => 0f;
+	protected virtual void OnAttackTelegraph(float duration) { }
+
 	private async void StartLunge()
 	{
 		_isLunging = true;
-		_lungeMoving = true;
+		_lungeMoving = false;
 		_canAttack = false;
+
+		float lead = LungeTelegraphLead;
+		if (lead > 0f)
+		{
+			OnAttackTelegraph(lead + LungeHitboxDelay);
+			await ToSignal(GetTree().CreateTimer(lead), SceneTreeTimer.SignalName.Timeout);
+			if (!IsInstanceValid(this) || IsQueuedForRemoval)
+				return;
+		}
+
+		_lungeMoving = true;
 		_lungeDirection = FacingRight ? 1f : -1f;
 
 		if (LungeHitboxDelay > 0f)
