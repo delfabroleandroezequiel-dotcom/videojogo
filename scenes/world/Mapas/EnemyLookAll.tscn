@@ -51,9 +51,13 @@
 [ext_resource type="SpriteFrames" path="res://resources/sprites/DesertScorpionSpriteFrames.tres" id="114_desertscorpion"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/DesertVultureSpriteFrames.tres" id="115_desertvulture"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/ShamanSpriteFrames.tres" id="116_shaman"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterBatSpriteFrames.tres" id="117_monsterbat"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterMimicSpriteFrames.tres" id="118_monstermimic"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterRatSpriteFrames.tres" id="119_monsterrat"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterSlimeSpriteFrames.tres" id="120_monsterslime"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
-size = Vector2(23350, 60)
+size = Vector2(25000, 60)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
 size = Vector2(60, 700)
@@ -61,15 +65,15 @@ size = Vector2(60, 700)
 [node name="EnemyLookAll" type="Node2D" unique_id=1183027699]
 
 [node name="Floor" type="StaticBody2D" parent="." unique_id=653339485]
-position = Vector2(11625, 460)
+position = Vector2(12450, 460)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1677327946]
 shape = SubResource("RectangleShape2D_floor")
 
 [node name="FloorVisual" type="ColorRect" parent="Floor" unique_id=823653674]
-offset_left = -11675.0
+offset_left = -12500.0
 offset_top = -30.0
-offset_right = 11675.0
+offset_right = 12500.0
 offset_bottom = 30.0
 color = Color(0.22, 0.22, 0.24, 1)
 
@@ -80,7 +84,7 @@ position = Vector2(-30, 100)
 shape = SubResource("RectangleShape2D_wall")
 
 [node name="WallRight" type="StaticBody2D" parent="." unique_id=136363820]
-position = Vector2(23300, 100)
+position = Vector2(24950, 100)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight" unique_id=641346876]
 shape = SubResource("RectangleShape2D_wall")
@@ -1603,4 +1607,128 @@ horizontal_alignment = 1
 [node name="Cycler" type="Node" parent="ShamanViewer"]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("idle", "walk", "walkfire", "fire", "fireend", "throwash", "branchshield", "branch_up", "branch_down", "eatfruit", "hit", "whit", "death")
+SecondsPerAnimation = 2.2
+
+[node name="MonsterBatViewer" type="Node2D" parent="."]
+position = Vector2(23150, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="MonsterBatViewer"]
+position = Vector2(0, -57)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("117_monsterbat")
+animation = &"fly"
+autoplay = "fly"
+
+[node name="NameLabel" type="Label" parent="MonsterBatViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Murcielago"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="MonsterBatViewer"]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "fly"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="MonsterBatViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("fly", "attack", "hurt", "fly_to_fall", "fall", "death")
+SecondsPerAnimation = 2.2
+
+[node name="MonsterMimicViewer" type="Node2D" parent="."]
+position = Vector2(23600, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="MonsterMimicViewer"]
+position = Vector2(0, -20)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("118_monstermimic")
+animation = &"idle_closed"
+autoplay = "idle_closed"
+
+[node name="NameLabel" type="Label" parent="MonsterMimicViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Mimico"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="MonsterMimicViewer"]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle_closed"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="MonsterMimicViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle_closed", "opening", "idle_open", "transform", "idle_transformed", "walk", "attack_1", "attack_2", "hurt", "death")
+SecondsPerAnimation = 2.2
+
+[node name="MonsterRatViewer" type="Node2D" parent="."]
+position = Vector2(24050, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="MonsterRatViewer"]
+position = Vector2(0, -20)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("119_monsterrat")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="MonsterRatViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Rata"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="MonsterRatViewer"]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="MonsterRatViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "run", "attack_bite", "hurt", "death")
+SecondsPerAnimation = 2.2
+
+[node name="MonsterSlimeViewer" type="Node2D" parent="."]
+position = Vector2(24500, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="MonsterSlimeViewer"]
+position = Vector2(0, -18)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("120_monsterslime")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="MonsterSlimeViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Slime"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="MonsterSlimeViewer"]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="MonsterSlimeViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "walk", "attack", "hurt", "death")
 SecondsPerAnimation = 2.2
