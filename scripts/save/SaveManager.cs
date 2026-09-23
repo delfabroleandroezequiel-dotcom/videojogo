@@ -20,7 +20,15 @@ public partial class SaveManager : Node
 	public string CurrentCharacterName { get; set; } = "Héroe";
 	public SaveData PendingLoad { get; private set; }
 	public Vector2? PendingSpawnPosition { get; set; }
-	public Vector2? PendingReturnPosition { get; set; }
+	// Where to put the player back when a UseStoredReturnPosition transition leads to a scene,
+	// keyed by THAT scene's path (recorded by a RememberOriginForReturn transition leaving it).
+	// Per-scene rather than a single slot: a single slot got overwritten by any other remembering
+	// transition in between (e.g. going Cueva1 → Cueva2 → Cueva1 replaced the forest door with a
+	// cave coordinate, so exiting to BosqueLobos1 dropped the player at the top of the map).
+	public Dictionary<string, Vector2> ReturnPositions { get; } = new();
+	// Set by a LevelTransition with SpawnOnLadder: the player arrives already hanging on the
+	// ladder at PendingSpawnPosition instead of dropping off it.
+	public bool PendingSpawnOnLadder { get; set; }
 
 	// Current HP/heal-charge count carried between scenes within the same play session.
 	// Null means "no cached value" — Stats/HealFlask keep their fresh full-refill default.

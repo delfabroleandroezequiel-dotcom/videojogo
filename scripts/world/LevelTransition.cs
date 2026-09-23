@@ -13,6 +13,9 @@ public partial class LevelTransition : Area2D
 	[Export] public bool RememberOriginForReturn = false;
 	[Export] public bool UseStoredReturnPosition = false;
 	[Export] public bool Iluminado = false;
+	// Arrive already hanging on the ladder at TargetSpawnPosition (the spawn point must be inside
+	// that ladder's zone) instead of falling off it until the player presses up.
+	[Export] public bool SpawnOnLadder = false;
 
 	private float _width = 32f;
 	private float _height = 106f;
@@ -134,13 +137,16 @@ public partial class LevelTransition : Area2D
 	{
 		_triggered = true;
 
-		if (RememberOriginForReturn)
-			SaveManager.Instance.PendingReturnPosition = GlobalPosition;
+		var returnPositions = SaveManager.Instance.ReturnPositions;
+		string currentScenePath = GetTree().CurrentScene?.SceneFilePath;
+		if (RememberOriginForReturn && !string.IsNullOrEmpty(currentScenePath))
+			returnPositions[currentScenePath] = GlobalPosition;
 
 		SaveManager.Instance.PendingSpawnPosition =
-			UseStoredReturnPosition && SaveManager.Instance.PendingReturnPosition.HasValue
-				? SaveManager.Instance.PendingReturnPosition
+			UseStoredReturnPosition && returnPositions.TryGetValue(TargetScenePath, out Vector2 stored)
+				? stored
 				: TargetSpawnPosition;
+		SaveManager.Instance.PendingSpawnOnLadder = SpawnOnLadder;
 
 		SceneFader.ChangeSceneWithFade(GetTree(), TargetScenePath);
 	}

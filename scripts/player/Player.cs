@@ -604,6 +604,13 @@ public partial class Player : CharacterBody2D
 		_ladder = ladder;
 	}
 
+	// Arriving through a LevelTransition with SpawnOnLadder: latch onto the ladder we spawned
+	// inside as soon as its Area2D registers us (a physics frame or two after the teleport),
+	// instead of falling off it until up is pressed.
+	private float _latchLadderOnSpawnTimer;
+
+	public void LatchLadderOnSpawn() => _latchLadderOnSpawnTimer = 0.5f;
+
 	public void ExitLadder(Ladder ladder)
 	{
 		if (_ladder != ladder)
@@ -654,7 +661,9 @@ public partial class Player : CharacterBody2D
 		if (OS.HasFeature("debug") && Input.IsActionJustPressed("debug_invincible"))
 			_stats.ExternalInvulnerable = !_stats.ExternalInvulnerable;
 
-		if (GlobalPosition.Y > FallDeathY)
+		// While a scene transition is fading/loading, this (old-scene) player keeps falling through
+		// a pit exit — that fall must not count as a death (see SceneFader.IsChangingScene).
+		if (GlobalPosition.Y > FallDeathY && !SceneFader.IsChangingScene)
 		{
 			_stats.Kill();
 			return;
@@ -675,7 +684,7 @@ public partial class Player : CharacterBody2D
 
 		bool isGroundedOrClimbing = IsOnFloor() || _isClimbing || _isWallClimbing || _isLedgeHanging || _isLedgeClimbing || _isSwinging || _isSwimming;
 		_airborneTimer = isGroundedOrClimbing ? 0f : _airborneTimer + (float)delta;
-		if (_airborneTimer > MaxAirborneTime)
+		if (_airborneTimer > MaxAirborneTime && !SceneFader.IsChangingScene)
 		{
 			// Safety net against out-of-bounds/collision bugs that let the player fall forever
 			// without ever crossing FallDeathY (e.g. a hole in the level's collision).
@@ -810,6 +819,16 @@ public partial class Player : CharacterBody2D
 
 		if (_ladderGrabLockout > 0f)
 			_ladderGrabLockout -= (float)delta;
+		if (_latchLadderOnSpawnTimer > 0f)
+			_latchLadderOnSpawnTimer -= (float)delta;
+
+		if (_ladder != null && !_isClimbing && _latchLadderOnSpawnTimer > 0f)
+		{
+			_latchLadderOnSpawnTimer = 0f;
+			_isClimbing = true;
+			velocity = Vector2.Zero;
+			GlobalPosition = new Vector2(_ladder.GlobalPosition.X, GlobalPosition.Y);
+		}
 
 		if (_ladder != null)
 		{
@@ -2313,6 +2332,12 @@ public partial class Player : CharacterBody2D
 
 	private void OnDied()
 	{
+		// Killed while the scene is being swapped out (hazard, fall, enemy hit during the fade):
+		// ignore it — this whole scene is about to be freed, and the death screen would otherwise
+		// show over the new map and call RespawnPlayer on a level that no longer exists.
+		if (SceneFader.IsChangingScene)
+			return;
+
 		// Dying mid-Pound skips the rest of _PhysicsProcess (see the _isDead guard at its top),
 		// which otherwise reaches EndPound() itself — without this, the 90° sprite/trail
 		// rotation and the active hitbox would stay stuck through the death animation.
@@ -2321,7 +2346,8 @@ public partial class Player : CharacterBody2D
 
 		_isDead = true;
 		_sprite.Play("death");
-		if (GetTree().CurrentScene is LevelBootstrap level)
+		// Only this player's own level may drive the respawn — never a scene that already replaced it.
+		if (GetTree().CurrentScene is LevelBootstrap level && level.IsAncestorOf(this))
 			DeathScreen.Instance.Show(level.RespawnPlayer);
 	}
 }

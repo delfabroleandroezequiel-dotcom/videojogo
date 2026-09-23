@@ -46,9 +46,13 @@ public partial class LevelBootstrap : Node
 			_player.GlobalPosition = SaveManager.Instance.PendingSpawnPosition.Value;
 			_player.GetNode<Camera2D>("Camera2D").ResetSmoothing();
 			SaveManager.Instance.PendingSpawnPosition = null;
+			if (SaveManager.Instance.PendingSpawnOnLadder)
+				_player.LatchLadderOnSpawn();
+			SaveManager.Instance.PendingSpawnOnLadder = false;
 		}
 		else
 		{
+			SaveManager.Instance.PendingSpawnOnLadder = false;
 			SaveData pending = SaveManager.Instance.PendingLoad;
 			if (pending is not null)
 				ApplySave(pending);
@@ -149,7 +153,7 @@ public partial class LevelBootstrap : Node
 		// getting walked back into whatever was near that old spot in Nix (or wherever) when it was
 		// recorded; without this, respawning at home and walking back out could drop the player right
 		// on top of a hazard/mob that has nothing to do with where they actually died.
-		SaveManager.Instance.PendingReturnPosition = null;
+		SaveManager.Instance.ReturnPositions.Clear();
 
 		if (targetScenePath == ScenePath)
 			GetTree().CallDeferred(SceneTree.MethodName.ReloadCurrentScene);

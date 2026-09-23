@@ -4,8 +4,15 @@ namespace Metroidvania.World;
 
 public static class SceneFader
 {
+	// True from the moment a transition starts until the new scene is in. The OLD scene keeps running
+	// during the fade + threaded load (the player keeps falling through a pit exit, enemies keep
+	// swinging), so anything that would kill the player then — FallDeathY, hazards — must be ignored
+	// (see Player.OnDied), or the death screen pops up over the new map for no reason.
+	public static bool IsChangingScene { get; private set; }
+
 	public static async void ChangeSceneWithFade(SceneTree tree, string scenePath, float fadeDuration = 0.25f)
 	{
+		IsChangingScene = true;
 		CanvasLayer overlay = new() { Layer = 20 };
 		ColorRect fade = new()
 		{
@@ -32,6 +39,10 @@ public static class SceneFader
 			tree.ChangeSceneToPacked((PackedScene)ResourceLoader.LoadThreadedGet(scenePath));
 		else
 			tree.ChangeSceneToFile(scenePath);
+
+		// The swap itself is deferred to the end of the frame — wait for it before letting deaths count again.
+		await tree.ToSignal(tree, SceneTree.SignalName.ProcessFrame);
+		IsChangingScene = false;
 
 		Tween fadeOut = tree.CreateTween();
 		fadeOut.TweenProperty(fade, "color:a", 0f, fadeDuration);
