@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://drf075afyhega" path="res://scenes/world/Mapas/46e0b319-1bac-4779-91de-7c9251474681.png" id="8_nuqup"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/RopeAccordion.tscn" id="11_6dulm"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CorridorBlock.tscn" id="12_vfppi"]
-[ext_resource type="PackedScene" path="res://scenes/world/iluminacion/BosqueAntorchaPilar.tscn" id="13_savdg"]
+[ext_resource type="PackedScene" path="res://scenes/world/iluminacion/BosqueAntorchaPilarAzul.tscn" id="13_savdg"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ProceduralWater.tscn" id="14_dqnmn"]
 [ext_resource type="PackedScene" path="res://scenes/world/SpiderBoss.tscn" id="14_oqhyp"]
 [ext_resource type="PackedScene" path="res://scenes/world/iluminacion/BosqueBrasero.tscn" id="14_savdg"]
@@ -37,7 +37,6 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniCorridorAccordionCueva.tscn" id="28_oqhyp"]
 [ext_resource type="Texture2D" uid="uid://c60pktdpdmdcu" path="res://assets/external/tileset/_PNG/MainBackTile.png" id="30_jkxdd"]
 [ext_resource type="Texture2D" uid="uid://c2pm3pc4lmk63" path="res://assets/external/tileset/_PNG/Decoratives.png" id="31_paw0v"]
-[ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="33_lightgrad"]
 [ext_resource type="Texture2D" uid="uid://1qd0nimfqvj7" path="res://assets/external/Fondos/bosque/_PNG/MainLevBuild.png" id="34_tqksy"]
 [ext_resource type="PackedScene" path="res://scenes/world/iluminacion/CuevaLantern.tscn" id="36_80ojl"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/DrippingWater.tscn" id="36_cbs4y"]
@@ -19183,7 +19182,6 @@ region_enabled = true
 region_rect = Rect2(-20000, -20000, 40000, 40000)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Fondos" unique_id=1369605341]
-visible = false
 scale = Vector2(0.99999994, 0.99999994)
 color = Color(0.05, 0.05, 0.08, 1)
 
@@ -19347,32 +19345,40 @@ position = Vector2(4756.991, 1252.0724)
 LightPower = 1.0
 LightRange = 4.0
 
-[node name="BosqueAntorchaPilar" parent="Iluminacion" unique_id=466412356 instance=ExtResource("13_savdg")]
+[node name="BosqueAntorchaPilarAzul" parent="Iluminacion" unique_id=466412356 instance=ExtResource("13_savdg")]
 position = Vector2(1125, 1390)
 LightRange = 1.0
 
-[node name="BosqueAntorchaPilar2" parent="Iluminacion" unique_id=2047983653 instance=ExtResource("13_savdg")]
+[node name="BosqueAntorchaPilarAzul2" parent="Iluminacion" unique_id=2047983653 instance=ExtResource("13_savdg")]
 position = Vector2(647, 1394)
 LightRange = 1.0
 
-[node name="BosqueAntorchaPilar3" parent="Iluminacion" unique_id=24844337 instance=ExtResource("13_savdg")]
+[node name="BosqueAntorchaPilarAzul3" parent="Iluminacion" unique_id=24844337 instance=ExtResource("13_savdg")]
 position = Vector2(1158.6484, 53.271606)
 LightRange = 1.0
 
-[node name="BosqueAntorchaPilar4" parent="Iluminacion" unique_id=972492581 instance=ExtResource("13_savdg")]
+[node name="BosqueAntorchaPilarAzul4" parent="Iluminacion" unique_id=972492581 instance=ExtResource("13_savdg")]
 position = Vector2(1000.709, 49.067535)
 LightRange = 1.0
 
-[node name="BosqueAntorchaPilar5" parent="Iluminacion" unique_id=2087165109 instance=ExtResource("13_savdg")]
+[node name="BosqueAntorchaPilarAzul5" parent="Iluminacion" unique_id=2087165109 instance=ExtResource("13_savdg")]
 position = Vector2(830.3402, 47.835953)
 LightRange = 1.0
 
-[node name="BosqueAntorchaPilar6" parent="Iluminacion" unique_id=2094118507 instance=ExtResource("13_savdg")]
+[node name="BosqueAntorchaPilarAzul6" parent="Iluminacion" unique_id=2094118507 instance=ExtResource("13_savdg")]
 position = Vector2(477.68182, 51.120087)
 LightRange = 1.0
 
-[node name="BosqueAntorchaPilar7" parent="Iluminacion" unique_id=1464618891 instance=ExtResource("13_savdg")]
+[node name="BosqueAntorchaPilarAzul8" parent="Iluminacion" unique_id=912230197 instance=ExtResource("13_savdg")]
+position = Vector2(1473.9156, -4.504883)
+LightRange = 1.0
+
+[node name="BosqueAntorchaPilarAzul7" parent="Iluminacion" unique_id=1464618891 instance=ExtResource("13_savdg")]
 position = Vector2(-0.8232231, 51.03856)
+LightRange = 1.0
+
+[node name="BosqueAntorchaPilarAzul9" parent="Iluminacion" unique_id=1842614126 instance=ExtResource("13_savdg")]
+position = Vector2(1314.0396, -3.6021423)
 LightRange = 1.0
 
 [node name="BosqueBrasero" parent="Iluminacion" unique_id=1220658123 instance=ExtResource("14_savdg")]
@@ -19397,13 +19403,6 @@ TargetScenePath = "res://scenes/world/Mapas/BosqueLobos1.tscn"
 TargetSpawnPosition = Vector2(1464, 263)
 RequireInteract = true
 UseStoredReturnPosition = true
-
-[node name="CaveMouthDaylight" type="PointLight2D" parent="." unique_id=292879243]
-position = Vector2(1502, 78)
-color = Color(0.85, 0.92, 1, 1)
-energy = 2.2
-texture = ExtResource("33_lightgrad")
-texture_scale = 6.0
 
 [node name="Ladder" parent="." unique_id=1168745236 instance=ExtResource("6_r77k5")]
 position = Vector2(-58, 757)
@@ -19433,7 +19432,7 @@ scale = Vector2(0.22638324, 0.26157203)
 texture = ExtResource("22_x0wdf")
 
 [node name="Player" parent="." unique_id=2070432193 instance=ExtResource("7_nga76")]
-position = Vector2(1205.0924, 1995.4807)
+position = Vector2(1459.0375, -64.97119)
 FallDeathY = 1000000.0
 
 [node name="Elevator2" parent="." unique_id=828852518 instance=ExtResource("21_savdg")]
