@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/PoisonPuddle.cs" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://ct5f2yj2vrjxf" path="res://assets/sprites/effects/white_square.png" id="2_white"]
+[ext_resource type="Shader" path="res://resources/shaders/PoisonBlob.gdshader" id="3_shader"]
+[ext_resource type="Texture2D" uid="uid://cb8gyivleynt" path="res://resources/particles/SoftDotGradient.tres" id="4_dot_tex"]
+[ext_resource type="ParticleProcessMaterial" path="res://resources/particles/PoisonBubbleProcess.tres" id="5_bubble_process"]
+[ext_resource type="ParticleProcessMaterial" path="res://resources/particles/PoisonGasProcess.tres" id="6_gas_process"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_puddle"]
+size = Vector2(56, 18)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_puddle"]
+shader = ExtResource("3_shader")
+shader_parameter/is_puddle = true
+
+[node name="PoisonPuddle" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_puddle")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Blob" type="Sprite2D" parent="Visual"]
+scale = Vector2(0.95, 0.32)
+texture = ExtResource("2_white")
+material = SubResource("ShaderMaterial_puddle")
+
+[node name="Bubbles" type="GPUParticles2D" parent="Visual"]
+amount = 8
+lifetime = 1.1
+randomness = 0.7
+explosiveness = 0.15
+process_material = ExtResource("5_bubble_process")
+texture = ExtResource("4_dot_tex")
+
+[node name="Gas" type="GPUParticles2D" parent="Visual"]
+amount = 10
+lifetime = 1.8
+randomness = 0.6
+process_material = ExtResource("6_gas_process")
+texture = ExtResource("4_dot_tex")
