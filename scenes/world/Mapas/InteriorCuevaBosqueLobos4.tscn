@@ -2479,7 +2479,6 @@ CameraLimitRight = 642
 CameraLimitBottom = 568
 
 [node name="Fondos" type="Container" parent="." unique_id=19140486]
-visible = false
 offset_right = 40.0
 offset_bottom = 40.0
 
@@ -2505,6 +2504,7 @@ script = ExtResource("2_parallax")
 ParallaxFactor = Vector2(0.6, 0.6)
 
 [node name="Capa3MinaSprite" type="Sprite2D" parent="Fondos/Capa3Mina" unique_id=1881127240]
+visible = false
 modulate = Color(0.6, 0.6, 0.6, 1)
 texture_repeat = 2
 scale = Vector2(0.4, 0.4)
