@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ShadowBlock.tscn" id="7_tr7a5"]
 [ext_resource type="Texture2D" uid="uid://c60pktdpdmdcu" path="res://assets/external/tileset/_PNG/MainBackTile.png" id="8_cexwh"]
 [ext_resource type="PackedScene" path="res://scenes/world/iluminacion/BosqueAntorchaPilarAzul.tscn" id="10_tr7a5"]
+[ext_resource type="Texture2D" uid="uid://d2v6fnc1sjgwl" path="res://scenes/world/Mapas/raices2.png" id="90_raices2png"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_80r0d"]
 size = Vector2(387.75, 37.5)
@@ -6769,3 +6770,26 @@ LightRange = 1.0
 [node name="BosqueAntorchaPilarAzul4" parent="." unique_id=1240966860 instance=ExtResource("10_tr7a5")]
 position = Vector2(-390, -296)
 LightRange = 1.0
+
+[node name="Raices2" type="Sprite2D" parent="." unique_id=710535958]
+z_index = 10
+position = Vector2(-78, -757)
+texture = ExtResource("90_raices2png")
+
+[node name="Raices3" type="Sprite2D" parent="." unique_id=1001250178]
+z_index = 10
+position = Vector2(-78, 427)
+rotation = 3.1415927
+texture = ExtResource("90_raices2png")
+
+[node name="Raices4" type="Sprite2D" parent="." unique_id=1871610698]
+z_index = 10
+position = Vector2(851, -203)
+rotation = 1.5707964
+texture = ExtResource("90_raices2png")
+
+[node name="Raices5" type="Sprite2D" parent="." unique_id=1310360204]
+z_index = 10
+position = Vector2(-1107, -203)
+rotation = 4.712389
+texture = ExtResource("90_raices2png")
