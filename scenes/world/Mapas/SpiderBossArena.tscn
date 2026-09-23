@@ -2517,6 +2517,7 @@ script = ExtResource("1_1702f")
 ParallaxFactor = Vector2(0.8, 0.8)
 
 [node name="CaparocasminaSprite" type="Sprite2D" parent="Fondos" unique_id=787913700]
+visible = false
 modulate = Color(0.6, 0.6, 0.6, 1)
 texture = ExtResource("3_jss0f")
 
@@ -2526,6 +2527,7 @@ script = ExtResource("1_1702f")
 ParallaxFactor = Vector2(0.6, 0.6)
 
 [node name="Capa3MinaSprite" type="Sprite2D" parent="Fondos" unique_id=1262094579]
+visible = false
 modulate = Color(0.6, 0.6, 0.6, 1)
 texture_repeat = 2
 scale = Vector2(0.4, 0.4)

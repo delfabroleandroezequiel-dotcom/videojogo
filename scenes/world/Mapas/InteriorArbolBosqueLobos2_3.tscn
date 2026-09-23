@@ -6,7 +6,9 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PendulumTrapBosque.tscn" id="4_1y0vf"]
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="4_transition"]
 [ext_resource type="PackedScene" path="res://scenes/world/iluminacion/BosqueAntorchaPilar.tscn" id="4_wewlf"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/ElfSpearman.tscn" id="5_6i52x"]
 [ext_resource type="Resource" uid="uid://beqplhalhp4r6" path="res://resources/camera/ClosedRoomCamera.tres" id="5_camera_profile"]
+[ext_resource type="PackedScene" uid="uid://drser5bfbd5kp" path="res://scenes/world/Enemys/Perrito1.tscn" id="6_c4qvg"]
 [ext_resource type="Texture2D" uid="uid://1qd0nimfqvj7" path="res://assets/external/Fondos/bosque/_PNG/MainLevBuild.png" id="6_iqfpv"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SpikeAccordion.tscn" id="7_d0owx"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ArrowTrap.tscn" id="8_gt2yn"]
@@ -14015,6 +14017,18 @@ LightRange = 1.0
 [node name="BosqueAntorchaPilar4" parent="Background" unique_id=1247166700 instance=ExtResource("4_wewlf")]
 position = Vector2(-803.7281, 497.55573)
 LightRange = 1.0
+
+[node name="ElfSpearman" parent="Background" unique_id=651036867 instance=ExtResource("5_6i52x")]
+position = Vector2(280, 136)
+
+[node name="ElfSpearman2" parent="Background" unique_id=1815142719 instance=ExtResource("5_6i52x")]
+position = Vector2(488, 8)
+
+[node name="ElfSpearman3" parent="Background" unique_id=1006515786 instance=ExtResource("5_6i52x")]
+position = Vector2(248, -128)
+
+[node name="Perrito1" parent="Background" unique_id=1079485317 instance=ExtResource("6_c4qvg")]
+position = Vector2(312, -104)
 
 [node name="Floor" type="StaticBody2D" parent="." unique_id=1042001006]
 position = Vector2(0, 350)

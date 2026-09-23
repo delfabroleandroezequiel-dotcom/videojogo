@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://0gtim0a0jwfa" path="res://scenes/world/Rehusables/CrushingPlatformSmallArbol.tscn" id="16_q4w4e"]
 [ext_resource type="PackedScene" path="res://scenes/world/iluminacion/BosqueBrasero.tscn" id="17_3grs0"]
 [ext_resource type="PackedScene" path="res://scenes/world/iluminacion/BosqueAntorchaPilar.tscn" id="18_76eks"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/ElfSpearman.tscn" id="19_76eks"]
 [ext_resource type="Texture2D" uid="uid://d2v6fnc1sjgwl" path="res://scenes/world/Mapas/raices2.png" id="90_raices2png"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
@@ -14210,3 +14211,9 @@ LightRange = 1.0
 [node name="BosqueAntorchaPilar2" parent="." unique_id=761811349 instance=ExtResource("18_76eks")]
 position = Vector2(-814.8805, 497.4425)
 LightRange = 1.0
+
+[node name="ElfSpearman" parent="." unique_id=1967019247 instance=ExtResource("19_76eks")]
+position = Vector2(240, 440)
+
+[node name="ElfSpearman2" parent="." unique_id=513453315 instance=ExtResource("19_76eks")]
+position = Vector2(296, 440)
