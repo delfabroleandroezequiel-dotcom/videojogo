@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://b56iyefxyhuy5" path="res://scripts/world/EnemyTestRoomHealthBuff.cs" id="3_healthbuff"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Hornet.tscn" id="4_hornet"]
 [ext_resource type="Texture2D" uid="uid://b37c5fqvueq8p" path="res://assets/backgrounds/caminodesierto.png" id="4_mv8r7"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/ElfSpearman.tscn" id="8_elfspearman"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1400, 60)
@@ -6075,6 +6075,13 @@ position = Vector2(650, 460)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1234138968]
 shape = SubResource("RectangleShape2D_floor")
 
+[node name="FloorVisual" type="ColorRect" parent="Floor" unique_id=349589256]
+offset_left = -700.0
+offset_top = -30.0
+offset_right = 700.0
+offset_bottom = 30.0
+color = Color(0.22, 0.22, 0.24, 1)
+
 [node name="WallLeft" type="StaticBody2D" parent="." unique_id=82917253]
 position = Vector2(-30, 100)
 
@@ -6094,8 +6101,34 @@ position = Vector2(505, 387)
 script = ExtResource("3_healthbuff")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=927335237]
+visible = false
 tile_map_data = PackedByteArray("AAAAABsAAAAPAC4AAAABABsAAAAQAC4AAAACABsAAAARAC4AAAADABsAAAASAC4AAAAEABsAAAATAC4AAAAFABsAAAAUAC4AAAAGABsAAAAVAC4AAAAHABsAAAAWAC4AAAAIABsAAAAXAC4AAAAJABsAAAAYAC4AAAAKABsAAAAPAC4AAAALABsAAAAQAC4AAAAMABsAAAARAC4AAAANABsAAAASAC4AAAAOABsAAAATAC4AAAAPABsAAAAUAC4AAAAQABsAAAAVAC4AAAARABsAAAAWAC4AAAASABsAAAAXAC4AAAATABsAAAAYAC4AAAAUABsAAAAPAC4AAAAVABsAAAAQAC4AAAAWABsAAAARAC4AAAAXABsAAAASAC4AAAAYABsAAAATAC4AAAAZABsAAAAUAC4AAAAaABsAAAAVAC4AAAAbABsAAAAWAC4AAAAcABsAAAAXAC4AAAAdABsAAAAYAC4AAAAeABsAAAAPAC4AAAAfABsAAAAQAC4AAAAgABsAAAARAC4AAAAhABsAAAASAC4AAAAiABsAAAATAC4AAAAjABsAAAAUAC4AAAAkABsAAAAVAC4AAAAlABsAAAAWAC4AAAAmABsAAAAXAC4AAAAnABsAAAAYAC4AAAAoABsAAAAPAC4AAAApABsAAAAQAC4AAAAqABsAAAARAC4AAAArABsAAAASAC4AAAAsABsAAAATAC4AAAAtABsAAAAUAC4AAAAuABsAAAAVAC4AAAAvABsAAAAWAC4AAAAwABsAAAAXAC4AAAAxABsAAAAYAC4AAAAyABsAAAAPAC4AAAAzABsAAAAQAC4AAAA0ABsAAAARAC4AAAA1ABsAAAASAC4AAAA2ABsAAAATAC4AAAA3ABsAAAAUAC4AAAA4ABsAAAAVAC4AAAA5ABsAAAAWAC4AAAA6ABsAAAAXAC4AAAA7ABsAAAAYAC4AAAA8ABsAAAAPAC4AAAA9ABsAAAAQAC4AAAA+ABsAAAARAC4AAAA/ABsAAAASAC4AAABAABsAAAATAC4AAABBABsAAAAUAC4AAABCABsAAAAVAC4AAABDABsAAAAWAC4AAABEABsAAAAXAC4AAABFABsAAAAYAC4AAABGABsAAAAPAC4AAABHABsAAAAQAC4AAABIABsAAAARAC4AAABJABsAAAASAC4AAABKABsAAAATAC4AAABLABsAAAAUAC4AAABMABsAAAAVAC4AAABNABsAAAAWAC4AAABOABsAAAAXAC4AAABPABsAAAAYAC4AAABQABsAAAAPAC4AAABRABsAAAAQAC4AAAA=")
 tile_set = SubResource("TileSet_bn06r")
 
-[node name="Hornet" parent="." unique_id=268502135 instance=ExtResource("4_hornet")]
-position = Vector2(283, 388)
+[node name="BlackBackground" type="CanvasLayer" parent="." unique_id=1881311011]
+layer = -100
+
+[node name="ColorRect" type="ColorRect" parent="BlackBackground" unique_id=292288048]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ElfSpearman" parent="." unique_id=1709740828 instance=ExtResource("8_elfspearman")]
+position = Vector2(800, 385)
+GuardStaminaCostPerBlock = 1
+
+[node name="ElfSpearman2" parent="." unique_id=1196273659 instance=ExtResource("8_elfspearman")]
+position = Vector2(850, 385)
+GuardStaminaCostPerBlock = 1
+
+[node name="ElfSpearman4" parent="." unique_id=1995284631 instance=ExtResource("8_elfspearman")]
+position = Vector2(304.876, 374.002)
+GuardStaminaCostPerBlock = 1
+
+[node name="ElfSpearman3" parent="." unique_id=386420461 instance=ExtResource("8_elfspearman")]
+position = Vector2(265, 370)
+GuardStaminaCostPerBlock = 1

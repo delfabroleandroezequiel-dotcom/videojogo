@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ElfMageAttack" format=3]
+
+[ext_resource type="Script" path="res://scripts/world/ElfMageAttack.cs" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/world/MagicBolt.tscn" id="2_projectile"]
+
+[resource]
+script = ExtResource("1_script")
+AttackName = "Bolt"
+ProjectileScene = ExtResource("2_projectile")
+ProjectileSpeed = 260.0
+Cooldown = 2.0
+Range = 360.0
+CastDuration = 0.67
+ReleaseDelay = 0.25
+ProjectileCount = 1
+BurstInterval = 0.15
+Animation = &"attack"
+SpawnOffset = Vector2(30, -15)

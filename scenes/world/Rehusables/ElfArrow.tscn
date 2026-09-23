@@ -1,0 +1,20 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/ElfArrow.cs" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Arrow/Arrow1.png" id="2_arrow_tex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_arrow"]
+size = Vector2(22, 6)
+
+[node name="ElfArrow" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 0)
+shape = SubResource("RectangleShape2D_arrow")
+
+[node name="Visual" type="Sprite2D" parent="."]
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("2_arrow_tex")

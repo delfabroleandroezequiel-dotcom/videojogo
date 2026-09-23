@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ElfMageAttack" format=3]
+
+[ext_resource type="Script" path="res://scripts/world/ElfMageAttack.cs" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/world/HomingBolt.tscn" id="2_projectile"]
+
+[resource]
+script = ExtResource("1_script")
+AttackName = "Homing Bolt"
+ProjectileScene = ExtResource("2_projectile")
+ProjectileSpeed = 220.0
+Cooldown = 3.0
+Range = 360.0
+CastDuration = 0.67
+ReleaseDelay = 0.58
+ProjectileCount = 1
+BurstInterval = 0.15
+Animation = &"spell_1"
+SpawnOffset = Vector2(-8, -39)

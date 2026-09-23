@@ -1,0 +1,61 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/ElfSpearman.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://b47a4kpptnpqi" path="res://scripts/shared/Stats.cs" id="2_stats"]
+[ext_resource type="PackedScene" uid="uid://ba6e10sx6t2c8" path="res://scenes/ui/StatBar.tscn" id="3_statbar"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/ElfSpearmanSpriteFrames.tres" id="4_frames"]
+[ext_resource type="PackedScene" uid="uid://dq3mb122eef3v" path="res://scenes/world/Explosion.tscn" id="5_explosion"]
+[ext_resource type="Resource" path="res://resources/balance/enemies/elfspearman.tres" id="6_profile"]
+[ext_resource type="Script" uid="uid://c6cqqo7m28qp1" path="res://scripts/player/Hitbox.cs" id="7_hitbox"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
+size = Vector2(28, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_thrust"]
+size = Vector2(66, 26)
+
+[node name="ElfSpearman" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_script")
+Profile = ExtResource("6_profile")
+ExplosionScene = ExtResource("5_explosion")
+ExplodeOnDeath = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="ContactArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea"]
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="AttackHitbox" type="Area2D" parent="."]
+position = Vector2(50, -15)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("7_hitbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+shape = SubResource("RectangleShape2D_thrust")
+disabled = true
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual"]
+position = Vector2(-1.4, -2.2)
+scale = Vector2(1.4, 1.4)
+sprite_frames = ExtResource("4_frames")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("2_stats")
+
+[node name="HealthBar" parent="." instance=ExtResource("3_statbar")]
+position = Vector2(0, 40)
+
+[node name="StaminaBar" parent="." instance=ExtResource("3_statbar")]
+position = Vector2(0, 46)
+FillColor = Color(0.2, 0.6, 1, 1)

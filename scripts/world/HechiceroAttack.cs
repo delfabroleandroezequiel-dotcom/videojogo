@@ -6,7 +6,7 @@ namespace Metroidvania.World;
 // an editable block in the Inspector instead of being hardcoded per-attack fields on the enemy
 // itself. Hechicero picks one of these to drive its (inherited) RangedEnemy shoot loop.
 [GlobalClass]
-public partial class HechiceroAttack : Resource
+public partial class HechiceroAttack : Resource, ISpellDefinition
 {
 	[Export] public bool Enabled = true;
 	[Export] public string AttackName = "Bolt";
@@ -24,4 +24,15 @@ public partial class HechiceroAttack : Resource
 	// between each one in that burst. 1/0 means a plain single shot, same as before this existed.
 	[Export] public int ProjectileCount = 1;
 	[Export] public float BurstInterval = 0.15f;
+
+	bool ISpellDefinition.Enabled => Enabled;
+	string ISpellDefinition.AttackName => AttackName;
+	PackedScene ISpellDefinition.ProjectileScene => ProjectileScene;
+	float ISpellDefinition.ProjectileSpeed => ProjectileSpeed;
+	float ISpellDefinition.Cooldown => Cooldown;
+	float ISpellDefinition.Range => Range;
+	float ISpellDefinition.CastDuration => CastDuration;
+	float ISpellDefinition.ReleaseDelay => ReleaseDelay;
+	int ISpellDefinition.ProjectileCount => ProjectileCount;
+	float ISpellDefinition.BurstInterval => BurstInterval;
 }
