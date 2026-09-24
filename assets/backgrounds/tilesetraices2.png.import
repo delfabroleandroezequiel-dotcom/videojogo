@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brxxb31rsfo10"
-path="res://.godot/imported/cueva.webp-e5a43a2f81d4efdaa9fa428d5c1e2aed.ctex"
+uid="uid://bme0oiff870rj"
+path="res://.godot/imported/tilesetraices2.png-f27e129b92b70f82cb149de39bae77a4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/misprite/cueva.webp"
-dest_files=["res://.godot/imported/cueva.webp-e5a43a2f81d4efdaa9fa428d5c1e2aed.ctex"]
+source_file="res://assets/backgrounds/tilesetraices2.png"
+dest_files=["res://.godot/imported/tilesetraices2.png-f27e129b92b70f82cb149de39bae77a4.ctex"]
 
 [params]
 

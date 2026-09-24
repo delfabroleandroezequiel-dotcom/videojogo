@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnf5l12ihs1km"
-path="res://.godot/imported/cueva_sheet.png-4ee393609f2d31485f42e8a01a577a0f.ctex"
+uid="uid://bn42xl7nwt7q0"
+path="res://.godot/imported/fondoRaices.png-92f76b40311b59f2d127c5a0ad6788fa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/misprite/cueva_sheet.png"
-dest_files=["res://.godot/imported/cueva_sheet.png-4ee393609f2d31485f42e8a01a577a0f.ctex"]
+source_file="res://assets/backgrounds/fondoRaices.png"
+dest_files=["res://.godot/imported/fondoRaices.png-92f76b40311b59f2d127c5a0ad6788fa.ctex"]
 
 [params]
 

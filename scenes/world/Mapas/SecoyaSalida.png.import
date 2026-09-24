@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cesbjk43pw4it"
-path="res://.godot/imported/cueva2.png-1268e2520e38bc82757fa7c7f8cdb497.ctex"
+uid="uid://cev0cpkd5k600"
+path="res://.godot/imported/SecoyaSalida.png-a3e62f6f7f905cdb47952e2809e0a8fd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/misprite/cueva2.png"
-dest_files=["res://.godot/imported/cueva2.png-1268e2520e38bc82757fa7c7f8cdb497.ctex"]
+source_file="res://scenes/world/Mapas/SecoyaSalida.png"
+dest_files=["res://.godot/imported/SecoyaSalida.png-a3e62f6f7f905cdb47952e2809e0a8fd.ctex"]
 
 [params]
 

@@ -14083,7 +14083,7 @@ Height = 200.0
 
 [node name="LevelTransition3" parent="." unique_id=1378739391 instance=ExtResource("4_transition")]
 position = Vector2(-1106, 462)
-TargetScenePath = "res://scenes/world/Mapas/InteriorArbolBosqueLobos2_4.tscn"
+TargetScenePath = "res://scenes/world/Mapas/InteriorArbolBosqueLobos2_9.tscn"
 TargetSpawnPosition = Vector2(630, 265)
 Width = 500.0
 Height = 200.0

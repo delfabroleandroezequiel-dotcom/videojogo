@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhxl8xgatkskf"
-path="res://.godot/imported/97a27c0b-9cb4-4c20-a8f8-a9104c7423a8.png-1026c995063af67fae6e1f30d9120f02.ctex"
+uid="uid://di0o36lai01k2"
+path="res://.godot/imported/transicionraices.png-2c25dc0bd574c2a002a4c6a0ae703005.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/misprite/97a27c0b-9cb4-4c20-a8f8-a9104c7423a8.png"
-dest_files=["res://.godot/imported/97a27c0b-9cb4-4c20-a8f8-a9104c7423a8.png-1026c995063af67fae6e1f30d9120f02.ctex"]
+source_file="res://assets/backgrounds/transicionraices.png"
+dest_files=["res://.godot/imported/transicionraices.png-2c25dc0bd574c2a002a4c6a0ae703005.ctex"]
 
 [params]
 

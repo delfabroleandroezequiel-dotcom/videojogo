@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://iter867wx6c0"
-path="res://.godot/imported/f26335f172cf3a058ab4959b50825c08.jpg-36e8419b33231b21459c05c552b15009.ctex"
+uid="uid://jjgp35yljcio"
+path="res://.godot/imported/SecoyaSalida.png-5e7acc19987f674c3fa80529964caa51.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/deco/f26335f172cf3a058ab4959b50825c08.jpg"
-dest_files=["res://.godot/imported/f26335f172cf3a058ab4959b50825c08.jpg-36e8419b33231b21459c05c552b15009.ctex"]
+source_file="res://assets/sprites/deco/SecoyaSalida.png"
+dest_files=["res://.godot/imported/SecoyaSalida.png-5e7acc19987f674c3fa80529964caa51.ctex"]
 
 [params]
 

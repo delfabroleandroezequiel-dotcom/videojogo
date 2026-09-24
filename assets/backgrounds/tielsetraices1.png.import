@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7f63oskoin8n"
-path="res://.godot/imported/InteriorCuevaBosquLobos1.png-97e28dd36c8e22378396b375d5235610.ctex"
+uid="uid://bjrgjb3ivgkrh"
+path="res://.godot/imported/tielsetraices1.png-a53430a1daa851f2a63e75a80bbb3a10.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/misprite/InteriorCuevaBosquLobos1.png"
-dest_files=["res://.godot/imported/InteriorCuevaBosquLobos1.png-97e28dd36c8e22378396b375d5235610.ctex"]
+source_file="res://assets/backgrounds/tielsetraices1.png"
+dest_files=["res://.godot/imported/tielsetraices1.png-a53430a1daa851f2a63e75a80bbb3a10.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpqcgu1hpbln5"
-path="res://.godot/imported/mercado.png-b941b2bafd73400542c5edaba7c347f1.ctex"
+uid="uid://bm07w7wiausdm"
+path="res://.godot/imported/MainLevBuildRosa.png-f49a8cd399aafe7d4959acb7cd6808a4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/misprite/mercado.png"
-dest_files=["res://.godot/imported/mercado.png-b941b2bafd73400542c5edaba7c347f1.ctex"]
+source_file="res://assets/external/Fondos/bosque/_PNG/MainLevBuildRosa.png"
+dest_files=["res://.godot/imported/MainLevBuildRosa.png-f49a8cd399aafe7d4959acb7cd6808a4.ctex"]
 
 [params]
 

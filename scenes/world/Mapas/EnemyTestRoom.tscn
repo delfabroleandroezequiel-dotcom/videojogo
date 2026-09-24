@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://b56iyefxyhuy5" path="res://scripts/world/EnemyTestRoomHealthBuff.cs" id="3_healthbuff"]
 [ext_resource type="Texture2D" uid="uid://b37c5fqvueq8p" path="res://assets/backgrounds/caminodesierto.png" id="4_mv8r7"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/ElfSpearman.tscn" id="8_elfspearman"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/RatEnemy.tscn" id="9_rat"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1400, 60)
@@ -6132,3 +6133,6 @@ GuardStaminaCostPerBlock = 1
 [node name="ElfSpearman3" parent="." unique_id=386420461 instance=ExtResource("8_elfspearman")]
 position = Vector2(265, 370)
 GuardStaminaCostPerBlock = 1
+
+[node name="RatEnemy" parent="." instance=ExtResource("9_rat")]
+position = Vector2(620, 400)
