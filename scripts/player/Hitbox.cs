@@ -15,6 +15,7 @@ public partial class Hitbox : Area2D
 	private string _impactFramesPath;
 	private DamageElement _element;
 	private bool _ignoreTargetInvulnerability;
+	private bool _ignorePostHitInvulnerability;
 	private Color? _impactModulate;
 	private System.Action<Vector2> _customImpactEffect;
 
@@ -32,9 +33,13 @@ public partial class Hitbox : Area2D
 	// the spark keeps whatever colors its source frames already have. customImpactEffect lets a
 	// caller replace the sprite-based impact spark entirely with its own VFX (e.g. Player's combo
 	// uses it for HitImpactBurst) without changing this generic default for every other caller.
-	public void Activate(Stats attackerStats, string impactFramesPath = null, DamageElement element = DamageElement.Normal, bool ignoreTargetInvulnerability = false, Color? impactModulate = null, System.Action<Vector2> customImpactEffect = null)
+	// ignorePostHitInvulnerability: pierce the target's short post-hit i-frames but still respect
+	// ExternalInvulnerable (dash/roll i-frames) — for multi-hit combos meant to land in full on a
+	// player who got caught, while a well-timed dash still dodges each hit (MushroomBoss's dance).
+	public void Activate(Stats attackerStats, string impactFramesPath = null, DamageElement element = DamageElement.Normal, bool ignoreTargetInvulnerability = false, Color? impactModulate = null, System.Action<Vector2> customImpactEffect = null, bool ignorePostHitInvulnerability = false)
 	{
 		_attackerStats = attackerStats;
+		_ignorePostHitInvulnerability = ignorePostHitInvulnerability;
 		_impactFramesPath = impactFramesPath;
 		_element = element;
 		_ignoreTargetInvulnerability = ignoreTargetInvulnerability;
@@ -50,10 +55,13 @@ public partial class Hitbox : Area2D
 		Stats targetStats = body.GetNodeOrNull<Stats>("Stats");
 		if (targetStats is null || targetStats == _attackerStats)
 			return;
-		if (targetStats.IsInvulnerable && !_ignoreTargetInvulnerability)
+		if (_ignorePostHitInvulnerability && targetStats.ExternalInvulnerable)
+			return;
+		bool pierce = _ignoreTargetInvulnerability || _ignorePostHitInvulnerability;
+		if (targetStats.IsInvulnerable && !pierce)
 			return;
 
-		targetStats.TakeDamage(_attackerStats.AttackPower, element: _element, ignoreInvulnerability: _ignoreTargetInvulnerability);
+		targetStats.TakeDamage(_attackerStats.AttackPower, element: _element, ignoreInvulnerability: pierce);
 		Vector2 impactPoint = (GlobalPosition + body.GlobalPosition) / 2f;
 		BloodEffect.SpawnAt(this, body.GlobalPosition);
 		if (_customImpactEffect is not null)

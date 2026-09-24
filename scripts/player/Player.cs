@@ -51,6 +51,13 @@ public partial class Player : CharacterBody2D
 	[Export] public float DashDuration = 0.2f;
 	[Export] public float DashIframeDuration = 0.28f;
 	[Export] public float DashCooldown = 0.5f;
+	// Neon afterimages left behind while dashing (see RunDashGhosts). Colours match the sword trails.
+	[Export] public float DashGhostInterval = 0.035f;
+	[Export] public float DashGhostLifetime = 0.22f;
+	[Export] public float DashGhostAlpha = 0.85f;
+	[Export] public float DashGhostIntensity = 1.8f;
+	[Export] public Color DashGhostColor = new(0.15f, 0.65f, 1f, 1f);
+	[Export] public Color DashGhostFireColor = new(1f, 0.55f, 0.2f, 1f);
 	// 25% of a 100 MaxStamina bar — matches Dark Souls 1's actual roll cost (community-measured: a
 	// full bar gets you about 4 rolls, i.e. ~25% each). Dash is the one with i-frames (see
 	// DashIframeDuration below), so it's the real analog to DS1's roll, not Roll itself (see its own
@@ -101,7 +108,15 @@ public partial class Player : CharacterBody2D
 	// Duration matches each clip's frame_count / speed (see FireWarriorSpriteFrames.tres).
 	[Export] public float SpellAnimDuration = 0.9f;
 	[Export] public float Spell2AnimDuration = 1.7f;
-	[Export] public float BowAnimDuration = 0.5f;
+	// Spell 1 = shadow clone (see CastSpell / ShadowClone).
+	[Export] public int ShadowCloneStaminaCost = 20;
+	[Export] public float ShadowCloneCooldown = 1.2f;
+	[Export] public float ShadowCloneSpawnDelay = 0.3f;
+	[Export] public float ShadowCloneOffsetX = 34f;
+	[Export] public float ShadowCloneAlpha = 0.8f;
+	[Export] public float ShadowCloneIntensity = 1.6f;
+	[Export] public float ShadowCloneFadeIn = 0.08f;
+	[Export] public float ShadowCloneFadeOut = 0.2f;	[Export] public float BowAnimDuration = 0.5f;
 	[Export] public float BowReleaseDelay = 0.35f;
 	[Export] public float ArrowSpeed = 420f;
 	[Export] public float ArrowSpawnYOffset = -20f;
@@ -119,10 +134,17 @@ public partial class Player : CharacterBody2D
 	public bool IsBlocking => _isBlocking;
 	public bool IsAttacking => _attacking;
 	public bool IsDashing => _isDashing;
+	// Drinking the heal flask (read by enemies that punish healing, e.g. MushroomBoss).
+	public bool IsHealing => _healing;
 	public bool IsFacingRight => _facingRight;
 	[Export] public float BossZoomDistance = 500f;
 	[Export] public float BossZoomInMultiplier = 0.75f;
 	[Export] public float ZoomSmoothSpeed = 3f;
+	// Keep a boss that goes high above the player in frame (camera shifts up + pulls back).
+	[Export] public float BossFramingThreshold = 120f;
+	[Export] public float BossFramingMargin = 90f;
+	[Export] public float BossFramingMinZoom = 0.8f;
+	private float _bossFramingOffsetY;
 	[Export] public float HeadLookUpAngle = -25f;
 	[Export] public float WeaponRestAngle = -20f;
 	[Export] public float WeaponSwingStartAngle = -70f;
@@ -268,6 +290,9 @@ public partial class Player : CharacterBody2D
 	private bool _canUpAttack = true;
 	private bool _isShooting;
 	private bool _isCastingSpell;
+	// Engine time (seconds) when spell 1 can be cast again — a timestamp, so it keeps counting down
+	// through states whose physics branch returns early (ledge hang, pound...).
+	private double _shadowCloneReadyAt;
 	private bool _isCastingSpell2;
 	private bool _isBlocking;
 	private float _parryWindowTimer;
@@ -472,10 +497,14 @@ public partial class Player : CharacterBody2D
 	// next iteration see a stale _poisonSequence and quietly stop.
 	private int _poisonSequence;
 
+	// Tint on the character while poisoned, so being poisoned reads at a glance.
+	[Export] public Color PoisonTint = new(0.7f, 1.25f, 0.6f, 1f);
+
 	public async void ApplyPoison(int tickDamage, float tickInterval, float duration)
 	{
 		int mySequence = ++_poisonSequence;
 		float elapsed = 0f;
+		_sprite.SelfModulate = PoisonTint;
 
 		while (elapsed < duration)
 		{
@@ -483,9 +512,14 @@ public partial class Player : CharacterBody2D
 			if (!IsInstanceValid(this) || mySequence != _poisonSequence)
 				return;
 
-			_stats.TakeDamage(tickDamage, ignoreInvulnerability: true);
+			// Ticks don't grant i-frames: with the 1s post-hit invulnerability, every tick used to
+			// make a poisoned player immune to real hits for as long as the poison lasted.
+			_stats.TakeDamage(tickDamage, ignoreInvulnerability: true, armInvulnerability: false);
 			elapsed += tickInterval;
 		}
+
+		if (IsInstanceValid(this) && mySequence == _poisonSequence)
+			_sprite.SelfModulate = Colors.White;
 	}
 
 	private bool IsTouchingClimbableWall(out float wallNormalX)
@@ -1439,7 +1473,7 @@ public partial class Player : CharacterBody2D
 		bool lookingUp = Input.IsActionPressed("move_up");
 		float targetY = BaseCameraOffsetY + ProfileCameraOffsetY + (lookingUp ? LookUpOffset : _crouching ? LookDownOffset : 0f);
 
-		Vector2 targetOffset = new Vector2(0, targetY);
+		Vector2 targetOffset = new Vector2(0, targetY + _bossFramingOffsetY);
 		// Tracked separately from _camera.Offset so Shake() can add a jitter on top of it each
 		// frame without that jitter itself getting lerped-toward next frame (which would just
 		// smooth the shake away to nothing).
@@ -1498,12 +1532,25 @@ public partial class Player : CharacterBody2D
 		if (boss != _trackedBoss)
 			TrackBoss(boss);
 
+		float framingOffsetY = 0f;
 		if (boss is not null)
 		{
 			float distance = GlobalPosition.DistanceTo(boss.GlobalPosition);
 			float t = Mathf.Clamp(distance / BossZoomDistance, 0f, 1f);
 			targetZoom = ProfileZoom * Mathf.Lerp(BossZoomInMultiplier, 1f, t);
+
+			// Boss high above (e.g. MushroomBoss's scarlet-flower leap): shift the camera up halfway
+			// toward it and pull back just enough to keep both in frame, instead of losing it off the top.
+			float above = GlobalPosition.Y - boss.GlobalPosition.Y;
+			if (above > BossFramingThreshold)
+			{
+				framingOffsetY = -above * 0.5f;
+				float halfViewHeight = GetViewportRect().Size.Y * 0.5f;
+				float requiredZoom = halfViewHeight / (above * 0.5f + BossFramingMargin);
+				targetZoom = Mathf.Min(targetZoom, Mathf.Max(requiredZoom, BossFramingMinZoom));
+			}
 		}
+		_bossFramingOffsetY = Mathf.Lerp(_bossFramingOffsetY, framingOffsetY, (float)delta * ZoomSmoothSpeed);
 
 		float newZoom = Mathf.Lerp(_camera.Zoom.X, targetZoom, (float)delta * ZoomSmoothSpeed);
 		_camera.Zoom = new Vector2(newZoom, newZoom);
@@ -1540,6 +1587,7 @@ public partial class Player : CharacterBody2D
 		_canDash = false;
 		_dashDirection = _facingRight ? 1f : -1f;
 		_stats.ExternalInvulnerable = true;
+		RunDashGhosts();
 
 		await ToSignal(GetTree().CreateTimer(DashDuration), SceneTreeTimer.SignalName.Timeout);
 		_isDashing = false;
@@ -1551,6 +1599,48 @@ public partial class Player : CharacterBody2D
 
 		await ToSignal(GetTree().CreateTimer(DashCooldown), SceneTreeTimer.SignalName.Timeout);
 		_canDash = true;
+	}
+
+	// Neon afterimages while dashing: every DashGhostInterval a copy of the current frame is left
+	// behind in the world, additive-tinted in the same colour as the sword trails (blue, or orange
+	// while fire-imbued), fading out over DashGhostLifetime. Plain Sprite2Ds parented to the scene
+	// (not the player) so they stay where they were dropped.
+	private async void RunDashGhosts()
+	{
+		while (_isDashing && IsInstanceValid(this))
+		{
+			SpawnDashGhost();
+			await ToSignal(GetTree().CreateTimer(DashGhostInterval), SceneTreeTimer.SignalName.Timeout);
+		}
+	}
+
+	private void SpawnDashGhost()
+	{
+		Texture2D frame = _sprite.SpriteFrames?.GetFrameTexture(_sprite.Animation, _sprite.Frame);
+		if (frame is null || GetTree().CurrentScene is not Node scene)
+			return;
+
+		Color tint = _isFireImbued ? DashGhostFireColor : DashGhostColor;
+		// Solid neon silhouette (the frame's alpha filled with the tint, additive) — tinting the
+		// sprite's own colours instead left the mostly dark character nearly invisible.
+		var material = NeonSilhouette.CreateMaterial(tint, DashGhostIntensity);
+		var ghost = new Sprite2D
+		{
+			Texture = frame,
+			Centered = _sprite.Centered,
+			Offset = _sprite.Offset,
+			FlipH = _sprite.FlipH,
+			Material = material,
+			Modulate = new Color(1f, 1f, 1f, DashGhostAlpha),
+			ZIndex = ZIndex - 1,
+		};
+		scene.AddChild(ghost);
+		ghost.GlobalTransform = _sprite.GlobalTransform;
+
+		Tween fade = ghost.CreateTween();
+		// Ease-in: stays bright most of its life, then drops off — a linear fade read as dim navy.
+		fade.TweenProperty(ghost, "modulate:a", 0f, DashGhostLifetime).SetEase(Tween.EaseType.In).SetTrans(Tween.TransitionType.Quad);
+		fade.TweenCallback(Callable.From(ghost.QueueFree));
 	}
 
 	private async void StartRoll()
@@ -1755,12 +1845,42 @@ public partial class Player : CharacterBody2D
 	// Plays the "spell"/"spell2" clip only — no effect/projectile yet, see the SpellAnimDuration
 	// export doc. Split into two methods (rather than one CastSpell(int slot)) to match how every
 	// other single-purpose action here (ShootBow, StartDash, StartRoll...) is its own method.
+	// Spell 1: shadow clone. Partway through the "spell" clip a neon silhouette of the player pops
+	// in beside them (facing side), throws one normal attack1 with the player's own hitbox size,
+	// reach, timing and AttackPower, then fades out (see ShadowClone). Costs stamina, has its own
+	// cooldown on top of the cast animation.
 	private async void CastSpell()
 	{
+		double now = Time.GetTicksMsec() / 1000.0;
+		if (now < _shadowCloneReadyAt || !_stats.TrySpendStamina(ShadowCloneStaminaCost))
+			return;
+
 		_isCastingSpell = true;
-		await ToSignal(GetTree().CreateTimer(SpellAnimDuration), SceneTreeTimer.SignalName.Timeout);
+		_shadowCloneReadyAt = now + ShadowCloneCooldown;
+
+		await ToSignal(GetTree().CreateTimer(ShadowCloneSpawnDelay), SceneTreeTimer.SignalName.Timeout);
+		if (!IsInstanceValid(this) || _isDead)
+			return;
+		SpawnShadowClone();
+
+		await ToSignal(GetTree().CreateTimer(Mathf.Max(0f, SpellAnimDuration - ShadowCloneSpawnDelay)), SceneTreeTimer.SignalName.Timeout);
 		if (IsInstanceValid(this))
 			_isCastingSpell = false;
+	}
+
+	private void SpawnShadowClone()
+	{
+		if (GetTree().CurrentScene is not Node scene)
+			return;
+
+		var clone = new ShadowClone();
+		clone.Setup(_sprite.SpriteFrames, "attack1", _facingRight, _sprite.Position, _sprite.Offset, _sprite.Scale, _stats,
+			_isFireImbued ? DashGhostFireColor : DashGhostColor, ShadowCloneIntensity, ShadowCloneAlpha,
+			_hitboxBaseSize, AttackHitboxReach, AttackHitboxYOffset, AttackHitboxDelay, AttackDuration,
+			ShadowCloneFadeIn, ShadowCloneFadeOut);
+		clone.ZIndex = ZIndex;
+		scene.AddChild(clone);
+		clone.GlobalPosition = GlobalPosition + new Vector2(_facingRight ? ShadowCloneOffsetX : -ShadowCloneOffsetX, 0f);
 	}
 
 	private async void CastSpell2()

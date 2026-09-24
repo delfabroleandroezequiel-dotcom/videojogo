@@ -39,6 +39,15 @@ public partial class Enemy : CharacterBody2D
 	// Off = play the sprite's own "death" animation and leave the corpse lying there (it goes away
 	// with the scene; on reload IsDefeated() skips it) instead of the ExplosionScene burst. Falls back to exploding if the sprite has no "death" animation.
 	[Export] public bool ExplodeOnDeath = true;
+	// On = instead of exploding (or the death animation), the sprite freezes and burns away in
+	// pixel-sized chunks with a glowing edge (DissolveShader, see Dissolve.gdshader), shedding
+	// sparks, then the body is removed. Takes priority over ExplodeOnDeath. Needs DissolveShader set.
+	[Export] public bool DissolveOnDeath = false;
+	[Export] public Shader DissolveShader;
+	[Export] public float DissolveDuration = 0.9f;
+	[Export] public Color DissolveEdgeColor = new(0.35f, 1f, 0.5f, 1f);
+	// Size of one rising spark, in world pixels (1-2x this).
+	[Export] public float DissolveSparkPixelSize = 1.5f;
 	[Export] public string CustomPersistenceId = "";
 	[Export] public LootEntry[] LootTable = System.Array.Empty<LootEntry>();
 	[Export] public float ContactDamageMultiplier = 0.3f;
@@ -167,6 +176,12 @@ public partial class Enemy : CharacterBody2D
 		SaveManager.Instance.MarkCommonEnemyDefeated(PersistenceId);
 		CallDeferred(MethodName.SpawnLoot);
 
+		if (DissolveOnDeath && DissolveShader is not null && Sprite is not null)
+		{
+			DissolveAway();
+			return;
+		}
+
 		if (!ExplodeOnDeath && Sprite?.SpriteFrames?.HasAnimation("death") == true)
 		{
 			PlayDeathAnimation();
@@ -183,6 +198,15 @@ public partial class Enemy : CharacterBody2D
 	// since an attack coroutine that bails on IsQueuedForRemoval skips its own Deactivate().
 	private void PlayDeathAnimation()
 	{
+		DisableForDeath();
+		// Non-looping, so it holds on its last frame — the corpse stays until the scene unloads.
+		Sprite.Play("death");
+	}
+
+	// Shared by every non-exploding death: stops AI/attacks, collisions, contact damage, the attack
+	// hitbox and the stat bars while the body is still on screen.
+	private void DisableForDeath()
+	{
 		IsQueuedForRemoval = true;
 		// The corpse stays in the tree, so drop it from "enemy" or companions (CompanionNpc) keep targeting it.
 		RemoveFromGroup("enemy");
@@ -195,8 +219,71 @@ public partial class Enemy : CharacterBody2D
 		GetNode<StatBar>("StaminaBar").Visible = false;
 
 		Visual.Modulate = _baseModulate;
-		// Non-looping, so it holds on its last frame — the corpse stays until the scene unloads.
-		Sprite.Play("death");
+	}
+
+	private async void DissolveAway()
+	{
+		DisableForDeath();
+		Sprite.Pause();
+
+		Texture2D frame = Sprite.SpriteFrames.GetFrameTexture(Sprite.Animation, Sprite.Frame);
+		Vector2 frameSize = frame?.GetSize() ?? new Vector2(48f, 48f);
+		var material = new ShaderMaterial { Shader = DissolveShader };
+		material.SetShaderParameter("progress", 0f);
+		material.SetShaderParameter("edge_color", DissolveEdgeColor);
+		material.SetShaderParameter("sprite_height", frameSize.Y);
+		Sprite.Material = material;
+
+		GpuParticles2D sparks = BuildDissolveSparks(frameSize * Sprite.Scale.Abs());
+		Visual.AddChild(sparks);
+		sparks.Position = Sprite.Position;
+		sparks.Emitting = true;
+
+		Tween tween = CreateTween();
+		tween.TweenMethod(Callable.From<float>(p => material.SetShaderParameter("progress", p)), 0f, 1f, DissolveDuration)
+			.SetEase(Tween.EaseType.In).SetTrans(Tween.TransitionType.Sine);
+		await ToSignal(tween, Tween.SignalName.Finished);
+		if (!IsInstanceValid(this))
+			return;
+
+		sparks.Emitting = false;
+		Sprite.Visible = false;
+		await ToSignal(GetTree().CreateTimer(sparks.Lifetime), SceneTreeTimer.SignalName.Timeout);
+		if (IsInstanceValid(this))
+			QueueFree();
+	}
+
+	// Tiny square pixel sparks rising off the dissolving body, same color as the burning edge —
+	private GpuParticles2D BuildDissolveSparks(Vector2 bodySize)
+	{
+		var process = new ParticleProcessMaterial
+		{
+			EmissionShape = ParticleProcessMaterial.EmissionShapeEnum.Box,
+			EmissionBoxExtents = new Vector3(bodySize.X * 0.35f, bodySize.Y * 0.35f, 1f),
+			Direction = new Vector3(0f, -1f, 0f),
+			Spread = 30f,
+			InitialVelocityMin = 18f,
+			InitialVelocityMax = 45f,
+			Gravity = new Vector3(0f, -25f, 0f),
+			ScaleMin = DissolveSparkPixelSize / 64f,
+			ScaleMax = DissolveSparkPixelSize * 2f / 64f,
+		};
+		var fade = new Gradient();
+		fade.SetColor(0, new Color(1f, 1f, 1f, 1f));
+		fade.SetColor(1, new Color(1f, 1f, 1f, 0f));
+		process.ColorRamp = new GradientTexture1D { Gradient = fade };
+
+		return new GpuParticles2D
+		{
+			Amount = 16,
+			Lifetime = 0.8,
+			Randomness = 0.5f,
+			ProcessMaterial = process,
+			Texture = GD.Load<Texture2D>("res://assets/sprites/effects/white_square.png"),
+			Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add },
+			Modulate = DissolveEdgeColor,
+			Emitting = false,
+		};
 	}
 
 	protected void SpawnExplosion()
