@@ -1,0 +1,19 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/DefeatWall.cs" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+resource_local_to_scene = true
+size = Vector2(64, 96)
+
+[node name="DefeatWall" type="StaticBody2D"]
+collision_layer = 1
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Fill" type="Polygon2D" parent="."]
+visible = false
+color = Color(0.55, 0.45, 0.5, 0.6)
+polygon = PackedVector2Array(-32, -48, 32, -48, 32, 48, -32, 48)

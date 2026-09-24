@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/CrumbleFloor.cs" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_zone"]
+resource_local_to_scene = true
+size = Vector2(96, 16)
+
+[node name="CrumbleFloor" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_zone")
+
+[node name="Fill" type="Polygon2D" parent="."]
+visible = false
+color = Color(0.5, 0.4, 0.3, 0.6)
+polygon = PackedVector2Array(-48, -8, 48, -8, 48, 8, -48, 8)
