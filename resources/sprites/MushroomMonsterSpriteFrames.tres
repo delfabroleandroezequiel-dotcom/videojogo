@@ -1,0 +1,681 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Idle_Frames/mushroom_idle_160x160_1.png" id="1_idle"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Idle_Frames/mushroom_idle_160x160_2.png" id="2_idle"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Idle_Frames/mushroom_idle_160x160_3.png" id="3_idle"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Idle_Frames/mushroom_idle_160x160_4.png" id="4_idle"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Idle_Frames/mushroom_idle_160x160_5.png" id="5_idle"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Idle_Frames/mushroom_idle_160x160_6.png" id="6_idle"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Idle_Frames/mushroom_idle_160x160_7.png" id="7_idle"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Idle_Frames/mushroom_idle_160x160_8.png" id="8_idle"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Idle_Frames/mushroom_idle_160x160_9.png" id="9_idle"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Idle_Frames/mushroom_idle_160x160_10.png" id="10_idle"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Idle_Frames/mushroom_idle_160x160_11.png" id="11_idle"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Idle_Frames/mushroom_idle_160x160_12.png" id="12_idle"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Idle_Frames/mushroom_idle_160x160_13.png" id="13_idle"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Idle_Frames/mushroom_idle_160x160_14.png" id="14_idle"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Idle_Frames/mushroom_idle_160x160_15.png" id="15_idle"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Idle_Frames/mushroom_idle_160x160_16.png" id="16_idle"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Walk_Frames/mushroom_walk_160x160_1.png" id="17_walk"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Walk_Frames/mushroom_walk_160x160_2.png" id="18_walk"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Walk_Frames/mushroom_walk_160x160_3.png" id="19_walk"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Walk_Frames/mushroom_walk_160x160_4.png" id="20_walk"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Walk_Frames/mushroom_walk_160x160_5.png" id="21_walk"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Walk_Frames/mushroom_walk_160x160_6.png" id="22_walk"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Walk_Frames/mushroom_walk_160x160_7.png" id="23_walk"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Walk_Frames/mushroom_walk_160x160_8.png" id="24_walk"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Change_Direction_Frames/mushroom_change_direction_160x160_2.png" id="25_turn"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Change_Direction_Frames/mushroom_change_direction_160x160_3.png" id="26_turn"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Change_Direction_Frames/mushroom_change_direction_160x160_4.png" id="27_turn"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Jump_Frames/mushroom_jump_160x160_1.png" id="28_jump"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Jump_Frames/mushroom_jump_160x160_2.png" id="29_jump"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Jump_Frames/mushroom_jump_160x160_3.png" id="30_jump"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Jump_Frames/mushroom_jump_160x160_4.png" id="31_jump"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Jump_Frames/mushroom_jump_160x160_5.png" id="32_jump"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Jump_Frames/mushroom_jump_160x160_6.png" id="33_jump"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Jump_Frames/mushroom_jump_160x160_7.png" id="34_jump"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Jump_Frames/mushroom_jump_160x160_8.png" id="35_jump"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Jump_Frames/mushroom_jump_160x160_9.png" id="36_jump"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Jump_Frames/mushroom_jump_160x160_10.png" id="37_jump"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Jump_Frames/mushroom_jump_160x160_11.png" id="38_jump"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Jump_Frames/mushroom_jump_160x160_12.png" id="39_jump"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Hurt_Frames/mushroom_hurt_160x160_1.png" id="40_hurt"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Hurt_Frames/mushroom_hurt_160x160_2.png" id="41_hurt"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Hurt_Frames/mushroom_hurt_160x160_3.png" id="42_hurt"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Spin_Attack_With_Poison/mushroom_spin_attack_with_poison_160x160_1.png" id="43_spin_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Spin_Attack_With_Poison/mushroom_spin_attack_with_poison_160x160_2.png" id="44_spin_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Spin_Attack_With_Poison/mushroom_spin_attack_with_poison_160x160_3.png" id="45_spin_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Spin_Attack_With_Poison/mushroom_spin_attack_with_poison_160x160_4.png" id="46_spin_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Spin_Attack_With_Poison/mushroom_spin_attack_with_poison_160x160_5.png" id="47_spin_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Spin_Attack_With_Poison/mushroom_spin_attack_with_poison_160x160_6.png" id="48_spin_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Spin_Attack_With_Poison/mushroom_spin_attack_with_poison_160x160_7.png" id="49_spin_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Spin_Attack_With_Poison/mushroom_spin_attack_with_poison_160x160_8.png" id="50_spin_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Spin_Attack_With_Poison/mushroom_spin_attack_with_poison_160x160_9.png" id="51_spin_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Spin_Attack_Without_Poison/mushroom_spin_attack_without_poison_160x160_1.png" id="52_spin"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Spin_Attack_Without_Poison/mushroom_spin_attack_without_poison_160x160_2.png" id="53_spin"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Spin_Attack_Without_Poison/mushroom_spin_attack_without_poison_160x160_3.png" id="54_spin"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Spin_Attack_Without_Poison/mushroom_spin_attack_without_poison_160x160_4.png" id="55_spin"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Spin_Attack_Without_Poison/mushroom_spin_attack_without_poison_160x160_5.png" id="56_spin"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Spin_Attack_Without_Poison/mushroom_spin_attack_without_poison_160x160_6.png" id="57_spin"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Spin_Attack_Without_Poison/mushroom_spin_attack_without_poison_160x160_7.png" id="58_spin"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Spin_Attack_Without_Poison/mushroom_spin_attack_without_poison_160x160_8.png" id="59_spin"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Spin_Attack_Without_Poison/mushroom_spin_attack_without_poison_160x160_9.png" id="60_spin"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_With_Stone_Effect_Frames/mushroom_cast_magic_with_stone_effect_160x160_1.png" id="61_cast_stone"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_With_Stone_Effect_Frames/mushroom_cast_magic_with_stone_effect_160x160_2.png" id="62_cast_stone"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_With_Stone_Effect_Frames/mushroom_cast_magic_with_stone_effect_160x160_3.png" id="63_cast_stone"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_With_Stone_Effect_Frames/mushroom_cast_magic_with_stone_effect_160x160_4.png" id="64_cast_stone"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_With_Stone_Effect_Frames/mushroom_cast_magic_with_stone_effect_160x160_5.png" id="65_cast_stone"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_With_Stone_Effect_Frames/mushroom_cast_magic_with_stone_effect_160x160_6.png" id="66_cast_stone"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_With_Stone_Effect_Frames/mushroom_cast_magic_with_stone_effect_160x160_7.png" id="67_cast_stone"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_With_Stone_Effect_Frames/mushroom_cast_magic_with_stone_effect_160x160_8.png" id="68_cast_stone"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_With_Stone_Effect_Frames/mushroom_cast_magic_with_stone_effect_160x160_9.png" id="69_cast_stone"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_With_Stone_Effect_Frames/mushroom_cast_magic_with_stone_effect_160x160_10.png" id="70_cast_stone"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_With_Stone_Effect_Frames/mushroom_cast_magic_with_stone_effect_160x160_11.png" id="71_cast_stone"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_With_Stone_Effect_Frames/mushroom_cast_magic_with_stone_effect_160x160_12.png" id="72_cast_stone"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_With_Stone_Effect_Frames/mushroom_cast_magic_with_stone_effect_160x160_13.png" id="73_cast_stone"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_With_Stone_Effect_Frames/mushroom_cast_magic_with_stone_effect_160x160_14.png" id="74_cast_stone"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_With_Stone_Effect_Frames/mushroom_cast_magic_with_stone_effect_160x160_15.png" id="75_cast_stone"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_With_Stone_Effect_Frames/mushroom_cast_magic_with_stone_effect_160x160_16.png" id="76_cast_stone"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_With_Stone_Effect_Frames/mushroom_cast_magic_with_stone_effect_160x160_17.png" id="77_cast_stone"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_With_Stone_Effect_Frames/mushroom_cast_magic_with_stone_effect_160x160_18.png" id="78_cast_stone"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_With_Stone_Effect_Frames/mushroom_cast_magic_with_stone_effect_160x160_19.png" id="79_cast_stone"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Frames/mushroom_cast_magic_160x160_1.png" id="80_cast"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Frames/mushroom_cast_magic_160x160_2.png" id="81_cast"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Frames/mushroom_cast_magic_160x160_3.png" id="82_cast"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Frames/mushroom_cast_magic_160x160_4.png" id="83_cast"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Frames/mushroom_cast_magic_160x160_5.png" id="84_cast"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Frames/mushroom_cast_magic_160x160_6.png" id="85_cast"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Frames/mushroom_cast_magic_160x160_7.png" id="86_cast"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Frames/mushroom_cast_magic_160x160_8.png" id="87_cast"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Frames/mushroom_cast_magic_160x160_9.png" id="88_cast"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Frames/mushroom_cast_magic_160x160_10.png" id="89_cast"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Frames/mushroom_cast_magic_160x160_11.png" id="90_cast"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Frames/mushroom_cast_magic_160x160_12.png" id="91_cast"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Frames/mushroom_cast_magic_160x160_13.png" id="92_cast"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Frames/mushroom_cast_magic_160x160_14.png" id="93_cast"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Frames/mushroom_cast_magic_160x160_15.png" id="94_cast"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Frames/mushroom_cast_magic_160x160_16.png" id="95_cast"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Frames/mushroom_cast_magic_160x160_17.png" id="96_cast"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Frames/mushroom_cast_magic_160x160_18.png" id="97_cast"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Frames/mushroom_cast_magic_160x160_19.png" id="98_cast"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Without_Effect_Frames/mushroom_cast_magic_without_effect_160x160_1.png" id="99_cast_plain"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Without_Effect_Frames/mushroom_cast_magic_without_effect_160x160_2.png" id="100_cast_plain"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Without_Effect_Frames/mushroom_cast_magic_without_effect_160x160_3.png" id="101_cast_plain"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Without_Effect_Frames/mushroom_cast_magic_without_effect_160x160_4.png" id="102_cast_plain"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Without_Effect_Frames/mushroom_cast_magic_without_effect_160x160_5.png" id="103_cast_plain"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Without_Effect_Frames/mushroom_cast_magic_without_effect_160x160_6.png" id="104_cast_plain"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Without_Effect_Frames/mushroom_cast_magic_without_effect_160x160_7.png" id="105_cast_plain"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Without_Effect_Frames/mushroom_cast_magic_without_effect_160x160_8.png" id="106_cast_plain"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Without_Effect_Frames/mushroom_cast_magic_without_effect_160x160_9.png" id="107_cast_plain"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Without_Effect_Frames/mushroom_cast_magic_without_effect_160x160_10.png" id="108_cast_plain"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Without_Effect_Frames/mushroom_cast_magic_without_effect_160x160_11.png" id="109_cast_plain"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Without_Effect_Frames/mushroom_cast_magic_without_effect_160x160_12.png" id="110_cast_plain"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Without_Effect_Frames/mushroom_cast_magic_without_effect_160x160_13.png" id="111_cast_plain"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Without_Effect_Frames/mushroom_cast_magic_without_effect_160x160_14.png" id="112_cast_plain"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Without_Effect_Frames/mushroom_cast_magic_without_effect_160x160_15.png" id="113_cast_plain"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Without_Effect_Frames/mushroom_cast_magic_without_effect_160x160_16.png" id="114_cast_plain"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Without_Effect_Frames/mushroom_cast_magic_without_effect_160x160_17.png" id="115_cast_plain"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Without_Effect_Frames/mushroom_cast_magic_without_effect_160x160_18.png" id="116_cast_plain"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Cast_Magic_Without_Effect_Frames/mushroom_cast_magic_without_effect_160x160_19.png" id="117_cast_plain"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_Frames/mushroom_death_160x160_1.png" id="118_death"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_Frames/mushroom_death_160x160_2.png" id="119_death"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_Frames/mushroom_death_160x160_3.png" id="120_death"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_Frames/mushroom_death_160x160_4.png" id="121_death"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_Frames/mushroom_death_160x160_5.png" id="122_death"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_Frames/mushroom_death_160x160_6.png" id="123_death"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_Frames/mushroom_death_160x160_7.png" id="124_death"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_Frames/mushroom_death_160x160_8.png" id="125_death"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_1.png" id="126_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_2.png" id="127_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_3.png" id="128_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_4.png" id="129_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_5.png" id="130_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_6.png" id="131_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_7.png" id="132_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_8.png" id="133_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_9.png" id="134_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_10.png" id="135_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_11.png" id="136_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_12.png" id="137_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_13.png" id="138_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_14.png" id="139_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_15.png" id="140_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_16.png" id="141_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_17.png" id="142_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_18.png" id="143_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_19.png" id="144_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_20.png" id="145_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_21.png" id="146_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_22.png" id="147_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_23.png" id="148_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_24.png" id="149_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_25.png" id="150_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_26.png" id="151_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_27.png" id="152_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_28.png" id="153_death_poison"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Mushroom Monster/Frames/Mushroom_Death_With_Poison_Frames/mushroom_death_with_poison_160x160_29.png" id="154_death_poison"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_idle")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_idle")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_idle")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_idle")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_idle")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_idle")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_idle")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_idle")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_idle")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_idle")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_idle")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_idle")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_idle")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_idle")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_idle")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_idle")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_walk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_walk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_walk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_walk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_walk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_walk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_walk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_walk")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("25_turn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_turn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_turn")
+}],
+"loop": false,
+"name": &"turn",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("28_jump")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_jump")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_jump")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_jump")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_jump")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_jump")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_jump")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_jump")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_jump")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_jump")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_jump")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_jump")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("40_hurt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_hurt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_hurt")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("43_spin_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_spin_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_spin_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_spin_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_spin_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_spin_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_spin_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_spin_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_spin_poison")
+}],
+"loop": true,
+"name": &"spin_poison",
+"speed": 18.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("52_spin")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_spin")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_spin")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_spin")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_spin")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_spin")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_spin")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_spin")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_spin")
+}],
+"loop": true,
+"name": &"spin",
+"speed": 18.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("61_cast_stone")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_cast_stone")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_cast_stone")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_cast_stone")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_cast_stone")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_cast_stone")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_cast_stone")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_cast_stone")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_cast_stone")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_cast_stone")
+}, {
+"duration": 1.0,
+"texture": ExtResource("71_cast_stone")
+}, {
+"duration": 1.0,
+"texture": ExtResource("72_cast_stone")
+}, {
+"duration": 1.0,
+"texture": ExtResource("73_cast_stone")
+}, {
+"duration": 1.0,
+"texture": ExtResource("74_cast_stone")
+}, {
+"duration": 1.0,
+"texture": ExtResource("75_cast_stone")
+}, {
+"duration": 1.0,
+"texture": ExtResource("76_cast_stone")
+}, {
+"duration": 1.0,
+"texture": ExtResource("77_cast_stone")
+}, {
+"duration": 1.0,
+"texture": ExtResource("78_cast_stone")
+}, {
+"duration": 1.0,
+"texture": ExtResource("79_cast_stone")
+}],
+"loop": false,
+"name": &"cast_stone",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("80_cast")
+}, {
+"duration": 1.0,
+"texture": ExtResource("81_cast")
+}, {
+"duration": 1.0,
+"texture": ExtResource("82_cast")
+}, {
+"duration": 1.0,
+"texture": ExtResource("83_cast")
+}, {
+"duration": 1.0,
+"texture": ExtResource("84_cast")
+}, {
+"duration": 1.0,
+"texture": ExtResource("85_cast")
+}, {
+"duration": 1.0,
+"texture": ExtResource("86_cast")
+}, {
+"duration": 1.0,
+"texture": ExtResource("87_cast")
+}, {
+"duration": 1.0,
+"texture": ExtResource("88_cast")
+}, {
+"duration": 1.0,
+"texture": ExtResource("89_cast")
+}, {
+"duration": 1.0,
+"texture": ExtResource("90_cast")
+}, {
+"duration": 1.0,
+"texture": ExtResource("91_cast")
+}, {
+"duration": 1.0,
+"texture": ExtResource("92_cast")
+}, {
+"duration": 1.0,
+"texture": ExtResource("93_cast")
+}, {
+"duration": 1.0,
+"texture": ExtResource("94_cast")
+}, {
+"duration": 1.0,
+"texture": ExtResource("95_cast")
+}, {
+"duration": 1.0,
+"texture": ExtResource("96_cast")
+}, {
+"duration": 1.0,
+"texture": ExtResource("97_cast")
+}, {
+"duration": 1.0,
+"texture": ExtResource("98_cast")
+}],
+"loop": false,
+"name": &"cast",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("99_cast_plain")
+}, {
+"duration": 1.0,
+"texture": ExtResource("100_cast_plain")
+}, {
+"duration": 1.0,
+"texture": ExtResource("101_cast_plain")
+}, {
+"duration": 1.0,
+"texture": ExtResource("102_cast_plain")
+}, {
+"duration": 1.0,
+"texture": ExtResource("103_cast_plain")
+}, {
+"duration": 1.0,
+"texture": ExtResource("104_cast_plain")
+}, {
+"duration": 1.0,
+"texture": ExtResource("105_cast_plain")
+}, {
+"duration": 1.0,
+"texture": ExtResource("106_cast_plain")
+}, {
+"duration": 1.0,
+"texture": ExtResource("107_cast_plain")
+}, {
+"duration": 1.0,
+"texture": ExtResource("108_cast_plain")
+}, {
+"duration": 1.0,
+"texture": ExtResource("109_cast_plain")
+}, {
+"duration": 1.0,
+"texture": ExtResource("110_cast_plain")
+}, {
+"duration": 1.0,
+"texture": ExtResource("111_cast_plain")
+}, {
+"duration": 1.0,
+"texture": ExtResource("112_cast_plain")
+}, {
+"duration": 1.0,
+"texture": ExtResource("113_cast_plain")
+}, {
+"duration": 1.0,
+"texture": ExtResource("114_cast_plain")
+}, {
+"duration": 1.0,
+"texture": ExtResource("115_cast_plain")
+}, {
+"duration": 1.0,
+"texture": ExtResource("116_cast_plain")
+}, {
+"duration": 1.0,
+"texture": ExtResource("117_cast_plain")
+}],
+"loop": false,
+"name": &"cast_plain",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("118_death")
+}, {
+"duration": 1.0,
+"texture": ExtResource("119_death")
+}, {
+"duration": 1.0,
+"texture": ExtResource("120_death")
+}, {
+"duration": 1.0,
+"texture": ExtResource("121_death")
+}, {
+"duration": 1.0,
+"texture": ExtResource("122_death")
+}, {
+"duration": 1.0,
+"texture": ExtResource("123_death")
+}, {
+"duration": 1.0,
+"texture": ExtResource("124_death")
+}, {
+"duration": 1.0,
+"texture": ExtResource("125_death")
+}],
+"loop": false,
+"name": &"death",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("126_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("127_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("128_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("129_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("130_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("131_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("132_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("133_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("134_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("135_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("136_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("137_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("138_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("139_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("140_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("141_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("142_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("143_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("144_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("145_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("146_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("147_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("148_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("149_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("150_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("151_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("152_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("153_death_poison")
+}, {
+"duration": 1.0,
+"texture": ExtResource("154_death_poison")
+}],
+"loop": false,
+"name": &"death_poison",
+"speed": 14.0
+}]
