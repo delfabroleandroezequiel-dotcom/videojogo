@@ -4,29 +4,24 @@
 [ext_resource type="Script" uid="uid://c6cqqo7m28qp1" path="res://scripts/player/Hitbox.cs" id="2_hitbox"]
 [ext_resource type="Script" uid="uid://b47a4kpptnpqi" path="res://scripts/shared/Stats.cs" id="3_stats"]
 [ext_resource type="Script" uid="uid://qnk2hpd3127d" path="res://scripts/player/PlayerAbilities.cs" id="4_abilities"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/FireWarriorSpriteFrames.tres" id="6_spriteframes"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/WeaponTrailSpriteFrames.tres" id="9_trailframes"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/ParryFlashSpriteFrames.tres" id="10_parryframes"]
-[ext_resource type="Shader" path="res://resources/shaders/ForceFieldBubble.gdshader" id="10_bubbleshader"]
-[ext_resource type="Texture2D" path="res://assets/sprites/effects/white_square.png" id="10_bubbletex"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/FireWarriorFireSwordSpriteFrames.tres" id="11_fireframes"]
+[ext_resource type="SpriteFrames" uid="uid://85a3w5or238f" path="res://resources/sprites/FireWarriorSpriteFrames.tres" id="6_spriteframes"]
 [ext_resource type="Script" uid="uid://23i50oqrkp5o" path="res://scripts/items/PlayerInventory.cs" id="7_inventory"]
 [ext_resource type="Script" uid="uid://c6jivd8ex7umw" path="res://scripts/player/HealFlask.cs" id="8_healflask"]
+[ext_resource type="SpriteFrames" uid="uid://6ng7emg6uhie" path="res://resources/sprites/WeaponTrailSpriteFrames.tres" id="9_trailframes"]
+[ext_resource type="Shader" uid="uid://dcvngrsq7o73b" path="res://resources/shaders/ForceFieldBubble.gdshader" id="10_bubbleshader"]
+[ext_resource type="Texture2D" uid="uid://ct5f2yj2vrjxf" path="res://assets/sprites/effects/white_square.png" id="10_bubbletex"]
+[ext_resource type="SpriteFrames" uid="uid://circlkt6xeniq" path="res://resources/sprites/ParryFlashSpriteFrames.tres" id="10_parryframes"]
+[ext_resource type="SpriteFrames" uid="uid://j4jc0pc1fxd5" path="res://resources/sprites/FireWarriorFireSwordSpriteFrames.tres" id="11_fireframes"]
 [ext_resource type="PackedScene" path="res://scenes/ui/HudBar.tscn" id="16_hudbar"]
-[ext_resource type="Texture2D" path="res://resources/lighting/PointLightGradient.tres" id="17_lightgrad"]
-[ext_resource type="PackedScene" path="res://scenes/world/Projectile.tscn" id="18_projectile"]
-[ext_resource type="Texture2D" path="res://resources/particles/SoftDotGradient.tres" id="19_dot_tex"]
-[ext_resource type="ParticleProcessMaterial" path="res://resources/particles/ChargeAuraPlayerProcess.tres" id="20_aura_process"]
-[ext_resource type="Texture2D" path="res://resources/particles/SpikeGradient.tres" id="21_spike_tex"]
-[ext_resource type="Shader" path="res://resources/shaders/EnergySpike.gdshader" id="22_spike_shader"]
-[ext_resource type="ParticleProcessMaterial" path="res://resources/particles/ChargeDustProcess.tres" id="23_dust_process"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/CrystalFallSpriteFrames.tres" id="24_crystalframes"]
-[ext_resource type="ParticleProcessMaterial" path="res://resources/particles/LightningSparkProcess.tres" id="25_sword_spark_process"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_parrybubble"]
-shader = ExtResource("10_bubbleshader")
-shader_parameter/rim_width = 0.12
-shader_parameter/fill_strength = 0.35
+[ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="17_lightgrad"]
+[ext_resource type="PackedScene" uid="uid://cuhg0wrlo6of" path="res://scenes/world/Projectile.tscn" id="18_projectile"]
+[ext_resource type="Texture2D" uid="uid://cb8gyivleynt" path="res://resources/particles/SoftDotGradient.tres" id="19_dot_tex"]
+[ext_resource type="Material" uid="uid://ch03r6ui4r7fq" path="res://resources/particles/ChargeAuraPlayerProcess.tres" id="20_aura_process"]
+[ext_resource type="Texture2D" uid="uid://cagka7h2qpyxf" path="res://resources/particles/SpikeGradient.tres" id="21_spike_tex"]
+[ext_resource type="Shader" uid="uid://rqet1cannyox" path="res://resources/shaders/EnergySpike.gdshader" id="22_spike_shader"]
+[ext_resource type="Material" uid="uid://b6apx0jncfu8a" path="res://resources/particles/ChargeDustProcess.tres" id="23_dust_process"]
+[ext_resource type="SpriteFrames" uid="uid://w2vrtn1ekg4" path="res://resources/sprites/CrystalFallSpriteFrames.tres" id="24_crystalframes"]
+[ext_resource type="Material" uid="uid://cnrbsejsgoy25" path="res://resources/particles/LightningSparkProcess.tres" id="25_sword_spark_process"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
 size = Vector2(32, 64)
@@ -34,29 +29,33 @@ size = Vector2(32, 64)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_crouch"]
 size = Vector2(32, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
-size = Vector2(66.99, 74.0)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_swimsensor"]
+size = Vector2(28, 6)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ledgecheck"]
 size = Vector2(4, 12)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_swimsensor"]
-size = Vector2(28, 6)
-
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_auraadd"]
 blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_swordarcfade"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_parrybubble"]
+shader = ExtResource("10_bubbleshader")
+shader_parameter/rim_width = 0.12
+shader_parameter/fill_strength = 0.35
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_spike"]
 shader = ExtResource("22_spike_shader")
 
-[sub_resource type="Gradient" id="Gradient_swordarcfade"]
-offsets = PackedFloat32Array(0, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(66.99, 74)
 
 [node name="Player" type="CharacterBody2D" unique_id=1867495339 groups=["player"]]
+z_index = 1
 collision_layer = 2
 floor_snap_length = 12.0
-z_index = 1
 script = ExtResource("1_script")
 FireSpriteFrames = ExtResource("11_fireframes")
 ArrowProjectileScene = ExtResource("18_projectile")
@@ -94,13 +93,13 @@ animation = &"idle"
 autoplay = "idle"
 offset = Vector2(0, -5)
 
-[node name="BacklightGlow" type="Sprite2D" parent="Visual"]
+[node name="BacklightGlow" type="Sprite2D" parent="Visual" unique_id=916681189]
 visible = false
+modulate = Color(1, 1, 1, 0.18)
 z_index = -1
+material = SubResource("CanvasItemMaterial_auraadd")
 position = Vector2(-2, -10)
 scale = Vector2(0.22, 0.22)
-modulate = Color(1, 1, 1, 0.18)
-material = SubResource("CanvasItemMaterial_auraadd")
 texture = ExtResource("17_lightgrad")
 
 [node name="Head" type="Polygon2D" parent="Visual" unique_id=1781763319]
@@ -151,80 +150,94 @@ color = Color(0.75, 0.78, 0.8, 1)
 polygon = PackedVector2Array(0, -2, 26, -3, 30, 0, 26, 3, 0, 2)
 
 [node name="WeaponTrail" type="AnimatedSprite2D" parent="Visual" unique_id=1200787190]
+visible = false
 position = Vector2(38.5, -12.15)
 scale = Vector2(2.904, 2.904)
 sprite_frames = ExtResource("9_trailframes")
 animation = &"slash_horizontal"
-visible = false
 
-[node name="SwordArcGlow" type="Line2D" parent="Visual"]
+[node name="SwordArcGlow" type="Line2D" parent="Visual" unique_id=974545986]
 material = SubResource("CanvasItemMaterial_auraadd")
 width = 5.0
 gradient = SubResource("Gradient_swordarcfade")
 begin_cap_mode = 2
 end_cap_mode = 2
 
-[node name="SwordArcCore" type="Line2D" parent="Visual"]
+[node name="SwordArcCore" type="Line2D" parent="Visual" unique_id=1142720326]
 material = SubResource("CanvasItemMaterial_auraadd")
 width = 2.0
 gradient = SubResource("Gradient_swordarcfade")
 begin_cap_mode = 2
 end_cap_mode = 2
 
-[node name="SwordArcSparks" type="GPUParticles2D" parent="Visual"]
+[node name="SwordArcSparks" type="GPUParticles2D" parent="Visual" unique_id=87661460]
 material = SubResource("CanvasItemMaterial_auraadd")
+scale = Vector2(0.5, 0.5)
 emitting = false
 amount = 14
+texture = ExtResource("19_dot_tex")
 lifetime = 0.35
 randomness = 0.6
-explosiveness = 0.0
 process_material = ExtResource("25_sword_spark_process")
-texture = ExtResource("19_dot_tex")
-scale = Vector2(0.5, 0.5)
 
-[node name="CrystalEffect" type="AnimatedSprite2D" parent="Visual"]
-position = Vector2(0, 0)
+[node name="CrystalEffect" type="AnimatedSprite2D" parent="Visual" unique_id=438349703]
+visible = false
 scale = Vector2(0.5, 0.5)
 sprite_frames = ExtResource("24_crystalframes")
 animation = &"fall"
-visible = false
 
 [node name="ParryFlash" type="AnimatedSprite2D" parent="Visual" unique_id=1200787191]
+visible = false
 position = Vector2(20, -20)
 scale = Vector2(0.844, 0.844)
 sprite_frames = ExtResource("10_parryframes")
 animation = &"parry_flash"
-visible = false
 
-[node name="ParryBubble" type="Sprite2D" parent="Visual"]
+[node name="ParryBubble" type="Sprite2D" parent="Visual" unique_id=82440465]
+visible = false
+self_modulate = Color(0.5, 0.85, 1, 1)
+material = SubResource("ShaderMaterial_parrybubble")
 position = Vector2(20, -20)
 scale = Vector2(2.2, 2.2)
-material = SubResource("ShaderMaterial_parrybubble")
-self_modulate = Color(0.5, 0.85, 1, 1)
 texture = ExtResource("10_bubbletex")
-visible = false
 
 [node name="ChargeAura" type="GPUParticles2D" parent="Visual" unique_id=1200787194]
 material = SubResource("ShaderMaterial_spike")
 position = Vector2(0, -15)
 emitting = false
 amount = 22
-lifetime = 0.6
-randomness = 0.65
-explosiveness = 0.1
-process_material = ExtResource("20_aura_process")
 texture = ExtResource("21_spike_tex")
+lifetime = 0.6
+explosiveness = 0.1
+randomness = 0.65
+process_material = ExtResource("20_aura_process")
 
 [node name="ChargeDust" type="GPUParticles2D" parent="Visual" unique_id=1200787195]
 material = SubResource("CanvasItemMaterial_auraadd")
 position = Vector2(0, 26)
 emitting = false
 amount = 14
-lifetime = 1.2
-randomness = 0.7
-explosiveness = 0.1
-process_material = ExtResource("23_dust_process")
 texture = ExtResource("19_dot_tex")
+lifetime = 1.2
+explosiveness = 0.1
+randomness = 0.7
+process_material = ExtResource("23_dust_process")
+
+[node name="TorchLight" type="PointLight2D" parent="Visual" unique_id=2072408141]
+position = Vector2(16, -34)
+enabled = false
+color = Color(1, 0.82, 0.55, 1)
+energy = 1.8
+texture = ExtResource("17_lightgrad")
+texture_scale = 2.0
+
+[node name="SwordFireLight" type="PointLight2D" parent="Visual" unique_id=909566222]
+position = Vector2(34, -10)
+enabled = false
+color = Color(1, 0.4, 0.15, 1)
+energy = 2.0
+texture = ExtResource("17_lightgrad")
+texture_scale = 2.2
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1899723348]
 zoom = Vector2(1.5, 1.5)
@@ -237,22 +250,6 @@ color = Color(1, 0.78, 0.5, 1)
 energy = 1.7
 texture = ExtResource("17_lightgrad")
 texture_scale = 1.3
-
-[node name="TorchLight" type="PointLight2D" parent="Visual"]
-position = Vector2(16, -34)
-enabled = false
-color = Color(1, 0.82, 0.55, 1)
-energy = 1.8
-texture = ExtResource("17_lightgrad")
-texture_scale = 2.0
-
-[node name="SwordFireLight" type="PointLight2D" parent="Visual"]
-position = Vector2(34, -10)
-enabled = false
-color = Color(1, 0.4, 0.15, 1)
-energy = 2.0
-texture = ExtResource("17_lightgrad")
-texture_scale = 2.2
 
 [node name="AttackHitbox" type="Area2D" parent="." unique_id=1263946272]
 position = Vector2(60, 0)
@@ -299,6 +296,7 @@ script = ExtResource("8_healflask")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=104556565]
 layer = 10
+visible = false
 
 [node name="VBox" type="VBoxContainer" parent="HUD" unique_id=1995252872]
 offset_left = 16.0
@@ -327,14 +325,16 @@ FillColor = Color(0.85, 0.15, 0.15, 1)
 layout_mode = 2
 FillColor = Color(0.2, 0.6, 1, 1)
 
-[node name="BossHealthBar" parent="HUD" instance=ExtResource("16_hudbar")]
+[node name="BossHealthBar" parent="HUD" unique_id=159979684 instance=ExtResource("16_hudbar")]
 visible = false
+layout_mode = 3
+anchors_preset = 7
 anchor_left = 0.5
-anchor_right = 0.5
 anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -180.0
-offset_right = 180.0
 offset_top = -50.0
+offset_right = 180.0
 offset_bottom = -30.0
 FillColor = Color(0.55, 0.05, 0.05, 1)

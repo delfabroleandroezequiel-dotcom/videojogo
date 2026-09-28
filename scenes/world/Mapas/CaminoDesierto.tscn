@@ -617,7 +617,7 @@ RememberOriginForReturn = true
 [node name="SkeletonKingBoss" parent="." unique_id=252701767 instance=ExtResource("10_skeletonking")]
 position = Vector2(828, 280)
 
-[node name="ReturnToCaminoDesierto1Transition" parent="." instance=ExtResource("9_transition")]
+[node name="ReturnToCaminoDesierto1Transition" parent="." unique_id=1074457276 instance=ExtResource("9_transition")]
 position = Vector2(200, 259)
 TargetScenePath = "res://scenes/world/Mapas/CaminoDesierto1.tscn"
 TargetSpawnPosition = Vector2(1700, 229)

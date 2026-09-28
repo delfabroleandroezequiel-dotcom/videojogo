@@ -8396,7 +8396,7 @@ position = Vector2(151.5, -290)
 shape = SubResource("RectangleShape2D_iqfpv")
 
 [node name="Player" parent="." unique_id=1042001012 instance=ExtResource("6_tr3gf")]
-position = Vector2(-441.72394, 149.21796)
+position = Vector2(320, 270)
 
 [node name="LevelTransition3" parent="." unique_id=2116574566 instance=ExtResource("7_0573b")]
 position = Vector2(1056, 269)
@@ -8413,7 +8413,7 @@ Width = 500.0
 Height = 200.0
 
 [node name="MushroomBoss" parent="." unique_id=581949089 instance=ExtResource("6_mushroomboss")]
-position = Vector2(150, 280)
+position = Vector2(-412, 280)
 CustomPersistenceId = "mushroom_boss_interior_arbol_2_9"
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=143385921]
