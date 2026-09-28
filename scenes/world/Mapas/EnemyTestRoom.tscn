@@ -3,8 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://b56iyefxyhuy5" path="res://scripts/world/EnemyTestRoomHealthBuff.cs" id="3_healthbuff"]
 [ext_resource type="Texture2D" uid="uid://b37c5fqvueq8p" path="res://assets/backgrounds/caminodesierto.png" id="4_mv8r7"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/ElfSpearman.tscn" id="8_elfspearman"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/RatEnemy.tscn" id="9_rat"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GhostWarrior2.tscn" id="9_ghostwarrior2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1400, 60)
@@ -6113,26 +6112,19 @@ layer = -100
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 75.0
+offset_top = -41.0
+offset_right = 75.0
+offset_bottom = -41.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="ElfSpearman" parent="." unique_id=1709740828 instance=ExtResource("8_elfspearman")]
-position = Vector2(800, 385)
-GuardStaminaCostPerBlock = 1
+[node name="GhostWarrior2" parent="." unique_id=194887245 instance=ExtResource("9_ghostwarrior2")]
+position = Vector2(756, 395)
 
-[node name="ElfSpearman2" parent="." unique_id=1196273659 instance=ExtResource("8_elfspearman")]
-position = Vector2(850, 385)
-GuardStaminaCostPerBlock = 1
-
-[node name="ElfSpearman4" parent="." unique_id=1995284631 instance=ExtResource("8_elfspearman")]
-position = Vector2(304.876, 374.002)
-GuardStaminaCostPerBlock = 1
-
-[node name="ElfSpearman3" parent="." unique_id=386420461 instance=ExtResource("8_elfspearman")]
-position = Vector2(265, 370)
-GuardStaminaCostPerBlock = 1
-
-[node name="RatEnemy" parent="." instance=ExtResource("9_rat")]
-position = Vector2(620, 400)
+[node name="GhostWarrior3" parent="." unique_id=1627449829 instance=ExtResource("9_ghostwarrior2")]
+position = Vector2(257, 387)
+AttackRange = 70.0
+AttackHitboxReach = 30.0

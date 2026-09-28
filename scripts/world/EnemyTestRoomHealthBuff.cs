@@ -14,7 +14,11 @@ public partial class EnemyTestRoomHealthBuff : Node2D
 {
 	[Export] public float HealthMultiplier = 5f;
 
-	public override void _Ready()
+	// Deferred: enemies placed after this node in the tree haven't run their own _Ready yet (which is
+	// where they join "enemy" and load their profile HP), so a direct pass here missed them.
+	public override void _Ready() => CallDeferred(MethodName.ApplyBuff);
+
+	private void ApplyBuff()
 	{
 		foreach (Node enemy in GetTree().GetNodesInGroup("enemy"))
 		{
