@@ -1,0 +1,65 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="2_bootstrap"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/interiormuelle.png" id="3_bg"]
+[ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="4_transition"]
+[ext_resource type="Resource" uid="uid://beqplhalhp4r6" path="res://resources/camera/ClosedRoomCamera.tres" id="5_camera_profile"]
+[ext_resource type="PackedScene" path="res://scenes/world/iluminacion/FlickerLight.tscn" id="6_flicker"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(860, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sidewall"]
+size = Vector2(30, 460)
+
+[node name="InteriorMuelleNix" type="Node2D"]
+script = ExtResource("2_bootstrap")
+CameraProfile = ExtResource("5_camera_profile")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.55, 0.5, 0.5, 1)
+
+[node name="Backdrop" type="Polygon2D" parent="."]
+z_index = -10
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-1100, -650, 1100, -650, 1100, 650, -1100, 650)
+
+[node name="MuelleBackground" type="Sprite2D" parent="."]
+z_index = -9
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("3_bg")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(0, 78)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(-407, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("RectangleShape2D_sidewall")
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+position = Vector2(406, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+shape = SubResource("RectangleShape2D_sidewall")
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(-273, 23)
+
+[node name="ReturnTransition" parent="." instance=ExtResource("4_transition")]
+position = Vector2(-313, 33)
+TargetScenePath = "res://scenes/world/Mapas/Nix.tscn"
+TargetSpawnPosition = Vector2(-1048, 455)
+RequireInteract = true
+UseStoredReturnPosition = true
+
+[node name="FlickerLight" parent="." instance=ExtResource("6_flicker")]
+position = Vector2(-378, -25)
+
+[node name="FlickerLight2" parent="." instance=ExtResource("6_flicker")]
+position = Vector2(371, -25)

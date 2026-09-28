@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bd3mcone1i07j"
-path="res://.godot/imported/muelle.png-9771be24d60957b0a940e3c1e6c85260.ctex"
+uid="uid://dp81befyx71ff"
+path="res://.godot/imported/interiorestablo.png-00c6c293723200c023c6e5d98dbcace7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/misprite/muelle.png"
-dest_files=["res://.godot/imported/muelle.png-9771be24d60957b0a940e3c1e6c85260.ctex"]
+source_file="res://assets/backgrounds/interiorestablo.png"
+dest_files=["res://.godot/imported/interiorestablo.png-00c6c293723200c023c6e5d98dbcace7.ctex"]
 
 [params]
 

@@ -83,7 +83,7 @@
 [ext_resource type="SpriteFrames" uid="uid://mbkmufpjh1j" path="res://resources/sprites/HoodedArcherSpriteFrames.tres" id="88_hoodedarcher"]
 [ext_resource type="SpriteFrames" uid="uid://8pvhxild82lb" path="res://resources/sprites/HeroSpriteFrames.tres" id="89_hero"]
 [ext_resource type="SpriteFrames" uid="uid://bsn1smcu554j0" path="res://resources/sprites/HoodedKnightSpriteFrames.tres" id="90_hoodedknight"]
-[ext_resource type="Texture2D" uid="uid://bd3mcone1i07j" path="res://assets/sprites/misprite/muelle.png" id="91_muelle"]
+[ext_resource type="Texture2D" uid="uid://c8p41flfyppjd" path="res://assets/sprites/misprite/muelle_2.png" id="91_muelle"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/GoldenRetriever.tscn" id="92_goldenretriever"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Akita.tscn" id="93_akita"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/GreatDane.tscn" id="94_greatdane"]
@@ -98,6 +98,8 @@
 [ext_resource type="SpriteFrames" uid="uid://b3hs72kwpa6eg" path="res://resources/sprites/TorcherBanditSpriteFrames.tres" id="110_banditincendiario"]
 [ext_resource type="SpriteFrames" uid="uid://cf2xmdmu3m58h" path="res://resources/sprites/WildBanditSpriteFrames.tres" id="111_banditsalvaje"]
 [ext_resource type="SpriteFrames" uid="uid://c6d1ldkskwlfp" path="res://resources/sprites/NecropolisWarriorSpriteFrames.tres" id="112_necropolisguerrero"]
+[ext_resource type="Script" uid="uid://c66cvo06t25i2" path="res://scripts/world/AtmosphereHaze.cs" id="113_haze"]
+[ext_resource type="Script" uid="uid://bgg0sgbr3un2" path="res://scripts/world/FogWisps.cs" id="114_fog"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn06r"]
 size = Vector2(67, 11.360123)
@@ -15098,6 +15100,15 @@ texture = ExtResource("2_35fdj")
 position = Vector2(4442.5, 153)
 texture = ExtResource("2_35fdj")
 
+[node name="AtmosphereHaze" type="Node2D" parent="Background/BgSprite4" unique_id=87279919]
+visible = false
+position = Vector2(-2602.5, 72)
+script = ExtResource("113_haze")
+Size = Vector2(7200, 1000)
+TopAlpha = 0.02
+HorizonAlpha = 0.1
+BottomAlpha = 0.05
+
 [node name="Sprite2D3" type="Sprite2D" parent="Background/BgSprite4" unique_id=1234199123]
 position = Vector2(-4442.5, -153)
 
@@ -15251,6 +15262,7 @@ randomness = 0.5
 process_material = ExtResource("26_dust_process")
 
 [node name="NpcHechicero" parent="." unique_id=1189617440 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(300, 430)
 NpcName = "NPC_HECHICERO_NAME"
 DialogueLines = PackedStringArray("NPC_HECHICERO_L1")
@@ -15260,6 +15272,7 @@ CustomSpriteScale = Vector2(1.3208, 1.3208)
 CollisionSize = Vector2(44, 64)
 
 [node name="NpcMagoCamino" parent="." unique_id=309578450 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(349, 430)
 NpcName = "NPC_MAGOCAMINO_NAME"
 DialogueLines = PackedStringArray("NPC_MAGOCAMINO_L1")
@@ -15272,6 +15285,7 @@ CollisionSize = Vector2(46, 64)
 position = Vector2(1059, 222.00002)
 
 [node name="NpcMercenario" parent="." unique_id=-294966995 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(407, 430)
 NpcName = "NPC_MERCENARIO2_NAME"
 DialogueLines = PackedStringArray("NPC_MERCENARIO2_L1")
@@ -15281,6 +15295,7 @@ CustomSpriteScale = Vector2(1.5556, 1.5556)
 CollisionSize = Vector2(61, 64)
 
 [node name="NpcGuardiaNix" parent="." unique_id=-294966994 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(463, 430)
 NpcName = "NPC_GUARDIANIX_NAME"
 DialogueLines = PackedStringArray("NPC_GUARDIANIX_L1")
@@ -15290,6 +15305,7 @@ CustomSpriteScale = Vector2(1.7073, 1.7073)
 CollisionSize = Vector2(44, 64)
 
 [node name="NpcCampesinoArmado" parent="." unique_id=-294966993 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(513, 430)
 NpcName = "NPC_CAMPESINOARMADO_NAME"
 DialogueLines = PackedStringArray("NPC_CAMPESINOARMADO_L1")
@@ -15299,6 +15315,7 @@ CustomSpriteScale = Vector2(1.8421, 1.8421)
 CollisionSize = Vector2(48, 64)
 
 [node name="NpcBrujoSolitario" parent="." unique_id=-294966992 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(562, 430)
 NpcName = "NPC_BRUJOSOLITARIO_NAME"
 DialogueLines = PackedStringArray("NPC_BRUJOSOLITARIO_L1")
@@ -15308,6 +15325,7 @@ CustomSpriteScale = Vector2(1.2727, 1.2727)
 CollisionSize = Vector2(41, 64)
 
 [node name="NpcArquera" parent="." unique_id=-294966991 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(613, 430)
 NpcName = "NPC_ARQUERA_NAME"
 DialogueLines = PackedStringArray("NPC_ARQUERA_L1")
@@ -15316,6 +15334,7 @@ CustomSpriteScale = Vector2(1.6667, 1.6667)
 CollisionSize = Vector2(53, 64)
 
 [node name="NpcCazadora" parent="." unique_id=-294966990 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(674, 430)
 NpcName = "NPC_CAZADORA_NAME"
 DialogueLines = PackedStringArray("NPC_CAZADORA_L1")
@@ -15325,6 +15344,7 @@ CustomSpriteScale = Vector2(1.9444, 1.9444)
 CollisionSize = Vector2(62, 64)
 
 [node name="NpcMonjeGuerrero" parent="." unique_id=-294966989 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(734, 430)
 NpcName = "NPC_MONJEGUERRERO_NAME"
 DialogueLines = PackedStringArray("NPC_MONJEGUERRERO_L1")
@@ -15334,6 +15354,7 @@ CustomSpriteScale = Vector2(1.3462, 1.3462)
 CollisionSize = Vector2(50, 64)
 
 [node name="NpcCaballeroErrante" parent="." unique_id=-294966986 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(796, 430)
 NpcName = "NPC_CABALLEROERRANTE_NAME"
 DialogueLines = PackedStringArray("NPC_CABALLEROERRANTE_L1")
@@ -15343,6 +15364,7 @@ CustomSpriteScale = Vector2(1.3725, 1.3725)
 CollisionSize = Vector2(65, 64)
 
 [node name="NpcCaballeroGuardia" parent="." unique_id=2040744673 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(861, 430)
 NpcName = "NPC_CABALLEROGUARDIA_NAME"
 DialogueLines = PackedStringArray("NPC_CABALLEROGUARDIA_L1")
@@ -15370,8 +15392,16 @@ texture = ExtResource("14_cloud1")
 position = Vector2(5030, 295)
 texture = ExtResource("14_n4hbi")
 
+[node name="FogWisps" type="Node2D" parent="." unique_id=1947356005]
+visible = false
+z_index = 5
+position = Vector2(1840, 430)
+script = ExtResource("114_fog")
+Area = Vector2(7200, 220)
+Count = 16
+
 [node name="Player" parent="." unique_id=1962161526 instance=ExtResource("1_player")]
-position = Vector2(-697.05817, -200.26825)
+position = Vector2(-480.10242, -126.03177)
 ArrowProjectileScene = null
 
 [node name="ProceduralWater" parent="." unique_id=907448503 instance=ExtResource("15_xdiy7")]
@@ -15422,6 +15452,7 @@ position = Vector2(2850, 420)
 position = Vector2(1155, 430)
 
 [node name="NpcNinja" parent="." unique_id=21639415 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(1450, 300)
 NpcName = "NPC_NINJA_NAME"
 DialogueLines = PackedStringArray("NPC_NINJA_L1")
@@ -15431,6 +15462,7 @@ CustomSpriteScale = Vector2(2, 2)
 CollisionSize = Vector2(50, 64)
 
 [node name="NpcHechicero2" parent="." unique_id=523843846 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(1259, 430)
 NpcName = "NPC_HECHICERO2_NAME"
 DialogueLines = PackedStringArray("NPC_HECHICERO2_L1")
@@ -15440,6 +15472,7 @@ CustomSpriteScale = Vector2(0.7368, 0.7368)
 CollisionSize = Vector2(42, 64)
 
 [node name="NpcBanditPesado" parent="." unique_id=1306961811 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(1308, 430)
 NpcName = "NPC_BANDITPESADO_NAME"
 DialogueLines = PackedStringArray("NPC_BANDITPESADO_L1")
@@ -15449,6 +15482,7 @@ CustomSpriteScale = Vector2(1.8421, 1.8421)
 CollisionSize = Vector2(48, 64)
 
 [node name="NpcBanditLigero" parent="." unique_id=495646100 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(1360.5, 430)
 NpcName = "NPC_BANDITLIGERO_NAME"
 DialogueLines = PackedStringArray("NPC_BANDITLIGERO_L1")
@@ -15458,6 +15492,7 @@ CustomSpriteScale = Vector2(1.8919, 1.8919)
 CollisionSize = Vector2(49, 64)
 
 [node name="NpcCaballeroSven" parent="." unique_id=1657021009 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(1427.5, 430)
 NpcName = "NPC_CABALLEROSVEN_NAME"
 DialogueLines = PackedStringArray("NPC_CABALLEROSVEN_L1")
@@ -15467,6 +15502,7 @@ CustomSpriteScale = Vector2(1.75, 1.75)
 CollisionSize = Vector2(77, 64)
 
 [node name="NpcAsesino" parent="." unique_id=710691565 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(1488, 430)
 NpcName = "NPC_ASESINO_NAME"
 DialogueLines = PackedStringArray("NPC_ASESINO_L1")
@@ -15476,6 +15512,7 @@ CustomSpriteScale = Vector2(1.5556, 1.5556)
 CollisionSize = Vector2(36, 64)
 
 [node name="NpcSabueso" parent="." unique_id=874847831 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(1544, 430)
 NpcName = "NPC_SABUESO_NAME"
 DialogueLines = PackedStringArray("NPC_SABUESO_L1")
@@ -15485,6 +15522,7 @@ CustomSpriteScale = Vector2(1.6071, 1.6071)
 CollisionSize = Vector2(68, 64)
 
 [node name="NpcSaqueador" parent="." unique_id=784332862 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(1602.5, 430)
 NpcName = "NPC_SAQUEADOR_NAME"
 DialogueLines = PackedStringArray("NPC_SAQUEADOR_L1")
@@ -15494,6 +15532,7 @@ CustomSpriteScale = Vector2(1.5909, 1.5909)
 CollisionSize = Vector2(41, 64)
 
 [node name="NpcFusilero" parent="." unique_id=2123515890 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(1649, 430)
 NpcName = "NPC_FUSILERO_NAME"
 DialogueLines = PackedStringArray("NPC_FUSILERO_L1")
@@ -15503,6 +15542,7 @@ CustomSpriteScale = Vector2(1.5556, 1.5556)
 CollisionSize = Vector2(44, 64)
 
 [node name="NpcMaton" parent="." unique_id=1855986543 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(1694.5, 430)
 NpcName = "NPC_MATON_NAME"
 DialogueLines = PackedStringArray("NPC_MATON_L1")
@@ -15512,6 +15552,7 @@ CustomSpriteScale = Vector2(1.5556, 1.5556)
 CollisionSize = Vector2(39, 64)
 
 [node name="NpcNigromante" parent="." unique_id=302445292 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(1746.5, 430)
 NpcName = "NPC_NIGROMANTE_NAME"
 DialogueLines = PackedStringArray("NPC_NIGROMANTE_L1")
@@ -15521,6 +15562,7 @@ CustomSpriteScale = Vector2(1.3462, 1.3462)
 CollisionSize = Vector2(57, 64)
 
 [node name="NpcAventurero" parent="." unique_id=1681061159 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(1802, 430)
 NpcName = "NPC_AVENTURERO_NAME"
 DialogueLines = PackedStringArray("NPC_AVENTURERO_L1")
@@ -15530,6 +15572,7 @@ CustomSpriteScale = Vector2(2.4138, 2.4138)
 CollisionSize = Vector2(46, 64)
 
 [node name="NpcNightborne" parent="." unique_id=875747854 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(1871, 430)
 NpcName = "NPC_NIGHTBORNE_NAME"
 DialogueLines = PackedStringArray("NPC_NIGHTBORNE_L1")
@@ -15539,9 +15582,11 @@ CustomSpriteScale = Vector2(2.4138, 2.4138)
 CollisionSize = Vector2(84, 64)
 
 [node name="TrainingDummy" parent="." unique_id=1832157128 instance=ExtResource("82_trainingdummy")]
+visible = false
 position = Vector2(1946.5, 430)
 
 [node name="NpcArquerDemonio" parent="." unique_id=2026402980 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(2004, 430)
 NpcName = "NPC_ARQUERODEMONIO_NAME"
 DialogueLines = PackedStringArray("NPC_ARQUERODEMONIO_L1")
@@ -15551,6 +15596,7 @@ CustomSpriteScale = Vector2(1.1667, 1.1667)
 CollisionSize = Vector2(48, 64)
 
 [node name="NpcEsqueletoGuerrero" parent="." unique_id=1184450072 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(2061, 430)
 NpcName = "NPC_ESQUELETOGUERRERO_NAME"
 DialogueLines = PackedStringArray("NPC_ESQUELETOGUERRERO_L1")
@@ -15560,6 +15606,7 @@ CustomSpriteScale = Vector2(1.1864, 1.1864)
 CollisionSize = Vector2(58, 64)
 
 [node name="NpcEsqueletoGuardian" parent="." unique_id=1642262424 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(2111, 430)
 NpcName = "NPC_ESQUELETOGUARDIAN_NAME"
 DialogueLines = PackedStringArray("NPC_ESQUELETOGUARDIAN_L1")
@@ -15569,6 +15616,7 @@ CustomSpriteScale = Vector2(1.1667, 1.1667)
 CollisionSize = Vector2(34, 64)
 
 [node name="NpcErizoSombrio" parent="." unique_id=409861920 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(2163, 430)
 NpcName = "NPC_ERIZOSOMBRIO_NAME"
 DialogueLines = PackedStringArray("NPC_ERIZOSOMBRIO_L1")
@@ -15578,6 +15626,7 @@ CustomSpriteScale = Vector2(1.6, 1.6)
 CollisionSize = Vector2(62, 64)
 
 [node name="NpcCaballeroBlindado" parent="." unique_id=1910597167 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(2241.5, 430)
 NpcName = "NPC_CABALLEROBLINDADO_NAME"
 DialogueLines = PackedStringArray("NPC_CABALLEROBLINDADO_L1")
@@ -15587,6 +15636,7 @@ CustomSpriteScale = Vector2(1.1475, 1.1475)
 CollisionSize = Vector2(87, 64)
 
 [node name="NpcArqueroEncapuchado" parent="." unique_id=134445404 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(2309.5, 430)
 NpcName = "NPC_ARQUEROENCAPUCHADO_NAME"
 DialogueLines = PackedStringArray("NPC_ARQUEROENCAPUCHADO_L1")
@@ -15596,6 +15646,7 @@ CustomSpriteScale = Vector2(1.25, 1.25)
 CollisionSize = Vector2(41, 64)
 
 [node name="NpcHeroe" parent="." unique_id=1048412368 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(2347.5, 430)
 NpcName = "NPC_HEROE_NAME"
 DialogueLines = PackedStringArray("NPC_HEROE_L1")
@@ -15605,6 +15656,7 @@ CustomSpriteScale = Vector2(1.1667, 1.1667)
 CollisionSize = Vector2(27, 64)
 
 [node name="NpcCaballeroEncapuchado" parent="." unique_id=1169250265 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(2397, 430)
 NpcName = "NPC_CABALLEROENCAPUCHADO_NAME"
 DialogueLines = PackedStringArray("NPC_CABALLEROENCAPUCHADO_L1")
@@ -15614,6 +15666,7 @@ CustomSpriteScale = Vector2(0.8537, 0.8537)
 CollisionSize = Vector2(64, 64)
 
 [node name="NpcBanditAsesino3" parent="." unique_id=1036515963 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(2461, 430)
 NpcName = "NPC_BANDITASESINO_NAME"
 DialogueLines = PackedStringArray("NPC_BANDITASESINO_L1")
@@ -15622,6 +15675,7 @@ CustomSpriteYOffset = -11.6
 CustomSpriteScale = Vector2(1.6, 1.6)
 
 [node name="NpcBanditCorpulento" parent="." unique_id=1150222642 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(2526, 430)
 NpcName = "NPC_BANDITCORPULENTO_NAME"
 DialogueLines = PackedStringArray("NPC_BANDITCORPULENTO_L1")
@@ -15631,6 +15685,7 @@ CustomSpriteScale = Vector2(1.7171, 1.7171)
 CollisionSize = Vector2(52, 64)
 
 [node name="NpcBanditIncendiario" parent="." unique_id=2060003199 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(2591, 430)
 NpcName = "NPC_BANDITINCENDIARIO_NAME"
 DialogueLines = PackedStringArray("NPC_BANDITINCENDIARIO_L1")
@@ -15640,6 +15695,7 @@ CustomSpriteScale = Vector2(1.6192, 1.6192)
 CollisionSize = Vector2(49, 64)
 
 [node name="NpcBanditSalvaje" parent="." unique_id=786646752 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(2656, 430)
 NpcName = "NPC_BANDITSALVAJE_NAME"
 DialogueLines = PackedStringArray("NPC_BANDITSALVAJE_L1")
@@ -15649,6 +15705,7 @@ CustomSpriteScale = Vector2(2.1333, 2.1333)
 CollisionSize = Vector2(70, 64)
 
 [node name="NpcGuerreroNecropolis" parent="." unique_id=1812712041 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(2730, 430)
 NpcName = "NPC_GUERRERONECROPOLIS_NAME"
 DialogueLines = PackedStringArray("NPC_GUERRERONECROPOLIS_L1")
@@ -15658,6 +15715,7 @@ CustomSpriteScale = Vector2(1.3, 1.3)
 CollisionSize = Vector2(70, 64)
 
 [node name="NpcMujerGuerrera" parent="." unique_id=457384258 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(999, 430)
 NpcName = "NPC_MUJERGUERRERA_NAME"
 DialogueLines = PackedStringArray("NPC_MUJERGUERRERA_L1")
@@ -15667,6 +15725,7 @@ CustomSpriteScale = Vector2(1.3725, 1.3725)
 CollisionSize = Vector2(59, 64)
 
 [node name="NpcLancera" parent="." unique_id=1414441799 instance=ExtResource("6_npc")]
+visible = false
 position = Vector2(1053, 430)
 NpcName = "NPC_LANCERA_NAME"
 DialogueLines = PackedStringArray("NPC_LANCERA_L1")
@@ -15697,6 +15756,20 @@ RememberOriginForReturn = true
 position = Vector2(2788, 463)
 TargetScenePath = "res://scenes/world/Mapas/Iglesia1.tscn"
 TargetSpawnPosition = Vector2(405, 215)
+RequireInteract = true
+RememberOriginForReturn = true
+
+[node name="EstabloEntranceTrigger" parent="." unique_id=746612121 instance=ExtResource("17_transition")]
+position = Vector2(4197, 463)
+TargetScenePath = "res://scenes/world/Mapas/InteriorEstablo.tscn"
+TargetSpawnPosition = Vector2(-273, 52)
+RequireInteract = true
+RememberOriginForReturn = true
+
+[node name="MuelleEntranceTrigger" parent="." unique_id=757197138 instance=ExtResource("17_transition")]
+position = Vector2(-1048, 455)
+TargetScenePath = "res://scenes/world/Mapas/InteriorMuelleNix.tscn"
+TargetSpawnPosition = Vector2(-273, 23)
 RequireInteract = true
 RememberOriginForReturn = true
 
@@ -15846,7 +15919,6 @@ flip_h = true
 position = Vector2(-1327, 291)
 
 [node name="Muelle" type="Sprite2D" parent="." unique_id=930761150]
-modulate = Color(0.64, 0.58, 0.37, 1)
 z_index = -1
 position = Vector2(-969.99994, 354)
 scale = Vector2(0.4, 0.4)
