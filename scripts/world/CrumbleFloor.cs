@@ -8,7 +8,9 @@ namespace Metroidvania.World;
 // as the floor, its tile physics included) and/or AttachedCollision (a CollisionShape2D in the map).
 // The player enters the zone → the floor shakes for TriggerDelay (the tell, time to jump off) → an
 // explosion plays, AttachedCollision turns off and OverlayLayer loses its collision and fades out.
-// Persistent (default): broken for good for this save, like a one-way drop/shortcut. Off: it's back
+// RespawnDelay > 0 turns it into the classic crumbling platform: it fades back in after a while and
+// can break again. Otherwise, Persistent (default): broken for good for this save, like a one-way
+// drop/shortcut. Off: it's back
 // every time the scene loads.
 // [Tool] so Width/Height/ShowFill preview live in the editor.
 [Tool]
@@ -46,7 +48,14 @@ public partial class CrumbleFloor : Area2D
 	[Export] public float TriggerDelay = 0.5f;
 	[Export] public float ShakeAmplitude = 2f;
 	[Export] public float OverlayFadeDuration = 0.25f;
+	[Export] public bool ShowExplosion = true;
 	[Export] public float ExplosionScale = 1f;
+
+	// > 0 = the classic crumbling platform: it comes back this many seconds after breaking (fading
+	// in, once the player isn't standing in its zone) and can be triggered again. Persistent is ignored.
+	// 0 = breaks once and stays gone.
+	[Export] public float RespawnDelay = 0f;
+	[Export] public float RespawnFadeDuration = 0.3f;
 
 	[Export] public bool Persistent = true;
 	// Identified by its node path unless set — set it if the floor gets renamed/moved after a save
@@ -75,7 +84,7 @@ public partial class CrumbleFloor : Area2D
 			return;
 
 		_persistenceId = string.IsNullOrEmpty(CustomPersistenceId) ? GetPath().ToString() : CustomPersistenceId;
-		if (Persistent && SaveManager.Instance.IsGateOpened(_persistenceId))
+		if (IsPersisted && SaveManager.Instance.IsGateOpened(_persistenceId))
 		{
 			RemoveSilently();
 			return;
@@ -92,9 +101,12 @@ public partial class CrumbleFloor : Area2D
 		Crumble();
 	}
 
+	private bool Respawns => RespawnDelay > 0f;
+	private bool IsPersisted => Persistent && !Respawns;
+
 	private async void Crumble()
 	{
-		if (Persistent)
+		if (IsPersisted)
 			SaveManager.Instance.MarkGateOpened(_persistenceId);
 
 		if (TriggerDelay > 0f)
@@ -107,14 +119,74 @@ public partial class CrumbleFloor : Area2D
 
 		DisableCollisions();
 
-		var explosion = GD.Load<PackedScene>(ExplosionScenePath).Instantiate<Node2D>();
-		if (explosion is Explosion boom)
-			boom.TargetScale = ExplosionScale;
-		GetTree().CurrentScene.AddChild(explosion);
-		explosion.GlobalPosition = GlobalPosition;
+		if (ShowExplosion)
+		{
+			var explosion = GD.Load<PackedScene>(ExplosionScenePath).Instantiate<Node2D>();
+			if (explosion is Explosion boom)
+				boom.TargetScale = ExplosionScale;
+			GetTree().CurrentScene.AddChild(explosion);
+			explosion.GlobalPosition = GlobalPosition;
+		}
+
+		if (Respawns)
+		{
+			await HideAndRespawn();
+			return;
+		}
 
 		RevealBehindOverlay();
 		QueueFree();
+	}
+
+	// Respawning variant: the floor fades out but isn't freed, comes back after RespawnDelay and
+	// re-arms the trigger.
+	private async System.Threading.Tasks.Task HideAndRespawn()
+	{
+		var fill = GetNodeOrNull<Polygon2D>("Fill");
+		if (IsInstanceValid(OverlayLayer))
+		{
+			OverlayLayer.CollisionEnabled = false;
+			FadeOverlay(0f, OverlayFadeDuration);
+		}
+		if (fill is not null)
+			fill.Visible = false;
+
+		await ToSignal(GetTree().CreateTimer(RespawnDelay), SceneTreeTimer.SignalName.Timeout);
+		// Don't re-solidify inside the player: wait until it's out of the zone.
+		while (IsInstanceValid(this) && IsInsideTree() && HasPlayerInside())
+			await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+		if (!IsInstanceValid(this) || !IsInsideTree())
+			return;
+
+		if (IsInstanceValid(AttachedCollision))
+			AttachedCollision.SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
+		if (IsInstanceValid(OverlayLayer))
+		{
+			OverlayLayer.CollisionEnabled = true;
+			FadeOverlay(1f, RespawnFadeDuration);
+		}
+		if (fill is not null)
+			fill.Visible = _showFill;
+		_triggered = false;
+	}
+
+	private bool HasPlayerInside()
+	{
+		foreach (Node2D body in GetOverlappingBodies())
+			if (body.IsInGroup("player"))
+				return true;
+		return false;
+	}
+
+	private void FadeOverlay(float alpha, float duration)
+	{
+		if (duration <= 0f)
+		{
+			OverlayLayer.Modulate = OverlayLayer.Modulate with { A = alpha };
+			return;
+		}
+		Tween tween = OverlayLayer.CreateTween();
+		tween.TweenProperty(OverlayLayer, "modulate:a", alpha, duration);
 	}
 
 	// Jitters the painted floor (and the debug fill) around its rest position until the collapse.
