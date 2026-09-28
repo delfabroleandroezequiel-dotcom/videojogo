@@ -1,0 +1,150 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://cunnq5vce18ah"]
+
+[ext_resource type="Texture2D" uid="uid://8fhftje0usd4" path="res://assets/external/Chars/Monster_Creatures_Fantasy(Version 1.3)/Mushroom/Attack3.png" id="1_tex"]
+[ext_resource type="Texture2D" uid="uid://vy6ng4j8ly6x" path="res://assets/external/Chars/Monster_Creatures_Fantasy(Version 1.3)/Mushroom/Projectile_sprite.png" id="2_tex"]
+
+[sub_resource type="AtlasTexture" id="AT_attack3_0"]
+atlas = ExtResource("1_tex")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AT_attack3_1"]
+atlas = ExtResource("1_tex")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AT_attack3_2"]
+atlas = ExtResource("1_tex")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AT_attack3_3"]
+atlas = ExtResource("1_tex")
+region = Rect2(450, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AT_attack3_4"]
+atlas = ExtResource("1_tex")
+region = Rect2(600, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AT_attack3_5"]
+atlas = ExtResource("1_tex")
+region = Rect2(750, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AT_attack3_6"]
+atlas = ExtResource("1_tex")
+region = Rect2(900, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AT_attack3_7"]
+atlas = ExtResource("1_tex")
+region = Rect2(1050, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AT_attack3_8"]
+atlas = ExtResource("1_tex")
+region = Rect2(1200, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AT_attack3_9"]
+atlas = ExtResource("1_tex")
+region = Rect2(1350, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AT_attack3_10"]
+atlas = ExtResource("1_tex")
+region = Rect2(1500, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AT_projectile_0"]
+atlas = ExtResource("2_tex")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AT_projectile_1"]
+atlas = ExtResource("2_tex")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AT_projectile_2"]
+atlas = ExtResource("2_tex")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AT_projectile_3"]
+atlas = ExtResource("2_tex")
+region = Rect2(150, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AT_projectile_4"]
+atlas = ExtResource("2_tex")
+region = Rect2(200, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AT_projectile_5"]
+atlas = ExtResource("2_tex")
+region = Rect2(250, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AT_projectile_6"]
+atlas = ExtResource("2_tex")
+region = Rect2(300, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AT_projectile_7"]
+atlas = ExtResource("2_tex")
+region = Rect2(350, 0, 50, 50)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AT_attack3_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack3_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack3_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack3_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack3_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack3_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack3_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack3_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack3_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack3_9")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_attack3_10")
+}],
+"loop": 0,
+"name": &"attack3",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AT_projectile_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_projectile_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_projectile_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_projectile_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_projectile_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_projectile_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_projectile_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_projectile_7")
+}],
+"loop": 1,
+"name": &"projectile",
+"speed": 12.0
+}]

@@ -56,9 +56,20 @@
 [ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterRatSpriteFrames.tres" id="119_monsterrat"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterSlimeSpriteFrames.tres" id="120_monsterslime"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/BringerOfDeathSpriteFrames.tres" id="121_bringerofdeath"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MartialHero3SpriteFrames.tres" id="122_martialhero3"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/PaladinSpriteFrames.tres" id="123_paladin"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/NecromancerCreativeKindSpriteFrames.tres" id="124_necromancercreativekind"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/RangerArcherSpriteFrames.tres" id="125_rangerarcher"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/GhostWarrior2SpriteFrames.tres" id="126_ghostwarrior2"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterFlyingEyeSpriteFrames.tres" id="127_monsterflyingeye"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterGoblinSpriteFrames.tres" id="128_monstergoblin"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterMushroomSpriteFrames.tres" id="129_monstermushroom"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterSkeletonSpriteFrames.tres" id="130_monsterskeleton"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/ShieldKnightSpriteFrames.tres" id="131_shieldknight"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/RedWarriorSpriteFrames.tres" id="132_redwarrior"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
-size = Vector2(25500, 60)
+size = Vector2(30500, 60)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
 size = Vector2(60, 700)
@@ -66,15 +77,15 @@ size = Vector2(60, 700)
 [node name="EnemyLookAll" type="Node2D" unique_id=1183027699]
 
 [node name="Floor" type="StaticBody2D" parent="." unique_id=653339485]
-position = Vector2(12700, 460)
+position = Vector2(15200, 460)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1677327946]
 shape = SubResource("RectangleShape2D_floor")
 
 [node name="FloorVisual" type="ColorRect" parent="Floor" unique_id=823653674]
-offset_left = -12750.0
+offset_left = -15250.0
 offset_top = -30.0
-offset_right = 12750.0
+offset_right = 15250.0
 offset_bottom = 30.0
 color = Color(0.22, 0.22, 0.24, 1)
 
@@ -85,7 +96,7 @@ position = Vector2(-30, 100)
 shape = SubResource("RectangleShape2D_wall")
 
 [node name="WallRight" type="StaticBody2D" parent="." unique_id=136363820]
-position = Vector2(25450, 100)
+position = Vector2(30450, 100)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight" unique_id=641346876]
 shape = SubResource("RectangleShape2D_wall")
@@ -1763,4 +1774,344 @@ horizontal_alignment = 1
 [node name="Cycler" type="Node" parent="BringerOfDeathViewer"]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("idle", "walk", "attack", "cast", "spell", "hurt", "death")
+SecondsPerAnimation = 2.2
+[node name="MartialHero3Viewer" type="Node2D" parent="."]
+position = Vector2(25500, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="MartialHero3Viewer"]
+position = Vector2(-8, -36)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("122_martialhero3")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="MartialHero3Viewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Heroe Marcial 3"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="MartialHero3Viewer"]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="MartialHero3Viewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "run", "attack1", "attack2", "attack3", "jump", "fall", "hurt", "death")
+SecondsPerAnimation = 2.2
+
+[node name="PaladinViewer" type="Node2D" parent="."]
+position = Vector2(25950, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="PaladinViewer"]
+position = Vector2(6, 2)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("123_paladin")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="PaladinViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Paladin"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="PaladinViewer"]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="PaladinViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "walk", "attack", "attack2", "jump", "hurt", "death")
+SecondsPerAnimation = 2.2
+
+[node name="NecromancerCKViewer" type="Node2D" parent="."]
+position = Vector2(26400, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NecromancerCKViewer"]
+position = Vector2(-4.8, -24)
+scale = Vector2(1.6, 1.6)
+sprite_frames = ExtResource("124_necromancercreativekind")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="NecromancerCKViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Nigromante (CK)"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="NecromancerCKViewer"]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="NecromancerCKViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "walk", "attack", "spawn", "jump", "hurt", "death")
+SecondsPerAnimation = 2.2
+
+[node name="RangerArcherViewer" type="Node2D" parent="."]
+position = Vector2(26850, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="RangerArcherViewer"]
+position = Vector2(56, -22)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("125_rangerarcher")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="RangerArcherViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Arquero"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="RangerArcherViewer"]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="RangerArcherViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "run", "dash", "jump", "attack", "melee", "death")
+SecondsPerAnimation = 2.2
+
+[node name="GhostWarrior2Viewer" type="Node2D" parent="."]
+position = Vector2(27300, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="GhostWarrior2Viewer"]
+position = Vector2(8, -33.5)
+scale = Vector2(1.56, 1.56)
+sprite_frames = ExtResource("126_ghostwarrior2")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="GhostWarrior2Viewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Ghost Warrior 2"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="GhostWarrior2Viewer"]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="GhostWarrior2Viewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "walk", "run", "attack", "hurt", "death")
+SecondsPerAnimation = 2.2
+
+[node name="MonsterFlyingEyeViewer" type="Node2D" parent="."]
+position = Vector2(27750, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="MonsterFlyingEyeViewer"]
+position = Vector2(0, -30)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("127_monsterflyingeye")
+animation = &"attack3"
+autoplay = "attack3"
+
+[node name="NameLabel" type="Label" parent="MonsterFlyingEyeViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Ojo Volador"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="MonsterFlyingEyeViewer"]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "attack3"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="MonsterFlyingEyeViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack3", "projectile")
+SecondsPerAnimation = 2.2
+
+[node name="MonsterGoblinViewer" type="Node2D" parent="."]
+position = Vector2(28200, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="MonsterGoblinViewer"]
+position = Vector2(0, -50)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("128_monstergoblin")
+animation = &"attack3"
+autoplay = "attack3"
+
+[node name="NameLabel" type="Label" parent="MonsterGoblinViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Goblin"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="MonsterGoblinViewer"]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "attack3"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="MonsterGoblinViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack3", "projectile")
+SecondsPerAnimation = 2.2
+
+[node name="MonsterMushroomViewer" type="Node2D" parent="."]
+position = Vector2(28650, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="MonsterMushroomViewer"]
+position = Vector2(0, -50)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("129_monstermushroom")
+animation = &"attack3"
+autoplay = "attack3"
+
+[node name="NameLabel" type="Label" parent="MonsterMushroomViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Hongo"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="MonsterMushroomViewer"]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "attack3"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="MonsterMushroomViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack3", "projectile")
+SecondsPerAnimation = 2.2
+
+[node name="MonsterSkeletonViewer" type="Node2D" parent="."]
+position = Vector2(29100, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="MonsterSkeletonViewer"]
+position = Vector2(0, -50)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("130_monsterskeleton")
+animation = &"attack3"
+autoplay = "attack3"
+
+[node name="NameLabel" type="Label" parent="MonsterSkeletonViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Esqueleto"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="MonsterSkeletonViewer"]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "attack3"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="MonsterSkeletonViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("attack3", "projectile")
+SecondsPerAnimation = 2.2
+
+[node name="ShieldKnightViewer" type="Node2D" parent="."]
+position = Vector2(29550, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="ShieldKnightViewer"]
+position = Vector2(58.75, -27.5)
+scale = Vector2(2.5, 2.5)
+sprite_frames = ExtResource("131_shieldknight")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="ShieldKnightViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Caballero (escudo)"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="ShieldKnightViewer"]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="ShieldKnightViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "run", "attack", "shield", "roll", "jump", "death")
+SecondsPerAnimation = 2.2
+
+[node name="RedWarriorViewer" type="Node2D" parent="."]
+position = Vector2(30000, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="RedWarriorViewer"]
+position = Vector2(100, -86)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("132_redwarrior")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="RedWarriorViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Guerrero Rojo"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="RedWarriorViewer"]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="RedWarriorViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "walk", "dash", "attack", "spin_attack", "jump", "leap", "taunt", "death")
 SecondsPerAnimation = 2.2
