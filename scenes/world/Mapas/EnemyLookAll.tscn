@@ -34,37 +34,37 @@
 [ext_resource type="SpriteFrames" uid="uid://bsn1smcu554j0" path="res://resources/sprites/HoodedKnightSpriteFrames.tres" id="37_npccaballeroencapuchado"]
 [ext_resource type="SpriteFrames" uid="uid://b28et50i8481u" path="res://resources/sprites/WomanWarriorSpriteFrames.tres" id="38_npcmujerguerrera"]
 [ext_resource type="SpriteFrames" uid="uid://cdagqy4o47dm4" path="res://resources/sprites/SpearwomanSpriteFrames.tres" id="39_npclancera"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/UndeadSkeletonWarriorSpriteFrames.tres" id="100_undeadskeletonwarrior"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/UndeadSkeletonArcherSpriteFrames.tres" id="101_undeadskeletonarcher"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/UndeadNecromancerSpriteFrames.tres" id="102_undeadnecromancer"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/UndeadGhostSpriteFrames.tres" id="103_undeadghost"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/UndeadDeathKnightSpriteFrames.tres" id="104_undeaddeathknight"]
+[ext_resource type="SpriteFrames" uid="uid://d2ec8m7i0kfsa" path="res://resources/sprites/UndeadSkeletonWarriorSpriteFrames.tres" id="100_undeadskeletonwarrior"]
+[ext_resource type="SpriteFrames" uid="uid://cnehlpexo0re2" path="res://resources/sprites/UndeadSkeletonArcherSpriteFrames.tres" id="101_undeadskeletonarcher"]
+[ext_resource type="SpriteFrames" uid="uid://l7nti14r5xmi" path="res://resources/sprites/UndeadNecromancerSpriteFrames.tres" id="102_undeadnecromancer"]
+[ext_resource type="SpriteFrames" uid="uid://dmxpff6hanx3f" path="res://resources/sprites/UndeadGhostSpriteFrames.tres" id="103_undeadghost"]
+[ext_resource type="SpriteFrames" uid="uid://0wspagefximi" path="res://resources/sprites/UndeadDeathKnightSpriteFrames.tres" id="104_undeaddeathknight"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/ElfArcherSpriteFrames.tres" id="105_elfarcher"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/ElfAssassinSpriteFrames.tres" id="106_elfassassin"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/ElfMageSpriteFrames.tres" id="107_elfmage"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/ElfSpearmanSpriteFrames.tres" id="108_elfspearman"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/ElfSwordsmanSpriteFrames.tres" id="109_elfswordsman"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/DesertCactusBedouinSpriteFrames.tres" id="110_desertcactusbedouin"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/DesertGlassBedouinSpriteFrames.tres" id="111_desertglassbedouin"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/DesertCamelRiderBedouinSpriteFrames.tres" id="112_desertcamelriderbedouin"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/DesertSandBugSpriteFrames.tres" id="113_desertsandbug"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/DesertScorpionSpriteFrames.tres" id="114_desertscorpion"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/DesertVultureSpriteFrames.tres" id="115_desertvulture"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/ShamanSpriteFrames.tres" id="116_shaman"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterBatSpriteFrames.tres" id="117_monsterbat"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterMimicSpriteFrames.tres" id="118_monstermimic"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterRatSpriteFrames.tres" id="119_monsterrat"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterSlimeSpriteFrames.tres" id="120_monsterslime"]
+[ext_resource type="SpriteFrames" uid="uid://c5hxbv5mevlsn" path="res://resources/sprites/DesertCactusBedouinSpriteFrames.tres" id="110_desertcactusbedouin"]
+[ext_resource type="SpriteFrames" uid="uid://bda3utlmanal3" path="res://resources/sprites/DesertGlassBedouinSpriteFrames.tres" id="111_desertglassbedouin"]
+[ext_resource type="SpriteFrames" uid="uid://b75u03uknrc6a" path="res://resources/sprites/DesertCamelRiderBedouinSpriteFrames.tres" id="112_desertcamelriderbedouin"]
+[ext_resource type="SpriteFrames" uid="uid://b4hth53eb53b5" path="res://resources/sprites/DesertSandBugSpriteFrames.tres" id="113_desertsandbug"]
+[ext_resource type="SpriteFrames" uid="uid://dxomiriu033r2" path="res://resources/sprites/DesertScorpionSpriteFrames.tres" id="114_desertscorpion"]
+[ext_resource type="SpriteFrames" uid="uid://c8b2vr5y8kchb" path="res://resources/sprites/DesertVultureSpriteFrames.tres" id="115_desertvulture"]
+[ext_resource type="SpriteFrames" uid="uid://c8qk5wlcja8u5" path="res://resources/sprites/ShamanSpriteFrames.tres" id="116_shaman"]
+[ext_resource type="SpriteFrames" uid="uid://lb7auurl6hgi" path="res://resources/sprites/MonsterBatSpriteFrames.tres" id="117_monsterbat"]
+[ext_resource type="SpriteFrames" uid="uid://difprcr3jjwdh" path="res://resources/sprites/MonsterMimicSpriteFrames.tres" id="118_monstermimic"]
+[ext_resource type="SpriteFrames" uid="uid://2fhhvjm1vlso" path="res://resources/sprites/MonsterRatSpriteFrames.tres" id="119_monsterrat"]
+[ext_resource type="SpriteFrames" uid="uid://s7lcvfg1adlw" path="res://resources/sprites/MonsterSlimeSpriteFrames.tres" id="120_monsterslime"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/BringerOfDeathSpriteFrames.tres" id="121_bringerofdeath"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/MartialHero3SpriteFrames.tres" id="122_martialhero3"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/PaladinSpriteFrames.tres" id="123_paladin"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/NecromancerCreativeKindSpriteFrames.tres" id="124_necromancercreativekind"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/RangerArcherSpriteFrames.tres" id="125_rangerarcher"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/GhostWarrior2SpriteFrames.tres" id="126_ghostwarrior2"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterFlyingEyeSpriteFrames.tres" id="127_monsterflyingeye"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterGoblinSpriteFrames.tres" id="128_monstergoblin"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterMushroomSpriteFrames.tres" id="129_monstermushroom"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterSkeletonSpriteFrames.tres" id="130_monsterskeleton"]
+[ext_resource type="SpriteFrames" uid="uid://cnwbh1slcjyfl" path="res://resources/sprites/MartialHero3SpriteFrames.tres" id="122_martialhero3"]
+[ext_resource type="SpriteFrames" uid="uid://28pmg54aatap" path="res://resources/sprites/PaladinSpriteFrames.tres" id="123_paladin"]
+[ext_resource type="SpriteFrames" uid="uid://bay4vlevw5enn" path="res://resources/sprites/NecromancerCreativeKindSpriteFrames.tres" id="124_necromancercreativekind"]
+[ext_resource type="SpriteFrames" uid="uid://cpndhq104epl8" path="res://resources/sprites/RangerArcherSpriteFrames.tres" id="125_rangerarcher"]
+[ext_resource type="SpriteFrames" uid="uid://ypbb4my0b6n" path="res://resources/sprites/GhostWarrior2SpriteFrames.tres" id="126_ghostwarrior2"]
+[ext_resource type="SpriteFrames" uid="uid://c6v7084ulbf85" path="res://resources/sprites/MonsterFlyingEyeSpriteFrames.tres" id="127_monsterflyingeye"]
+[ext_resource type="SpriteFrames" uid="uid://6uurf67xjo3l" path="res://resources/sprites/MonsterGoblinSpriteFrames.tres" id="128_monstergoblin"]
+[ext_resource type="SpriteFrames" uid="uid://cunnq5vce18ah" path="res://resources/sprites/MonsterMushroomSpriteFrames.tres" id="129_monstermushroom"]
+[ext_resource type="SpriteFrames" uid="uid://tgcbf0d6ksdb" path="res://resources/sprites/MonsterSkeletonSpriteFrames.tres" id="130_monsterskeleton"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/ShieldKnightSpriteFrames.tres" id="131_shieldknight"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/RedWarriorSpriteFrames.tres" id="132_redwarrior"]
 
@@ -102,7 +102,7 @@ position = Vector2(30450, 100)
 shape = SubResource("RectangleShape2D_wall")
 
 [node name="Player" parent="." unique_id=968836729 instance=ExtResource("1_player")]
-position = Vector2(11713.615, 343.33862)
+position = Vector2(29291.123, 342.55954)
 
 [node name="MagoCaminoViewer" type="Node2D" parent="." unique_id=882763381]
 position = Vector2(1100, 430)
@@ -1591,16 +1591,16 @@ script = ExtResource("2_cycler")
 Animations = PackedStringArray("death_fall_loop", "death_landing", "death_start", "dive", "dive_end", "dive_start", "fly", "hit", "idle", "take_off")
 SecondsPerAnimation = 2.2
 
-[node name="ShamanViewer" type="Node2D" parent="."]
+[node name="ShamanViewer" type="Node2D" parent="." unique_id=425542595]
 position = Vector2(22700, 430)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="ShamanViewer"]
+[node name="Sprite" type="AnimatedSprite2D" parent="ShamanViewer" unique_id=1560587423]
 position = Vector2(0, -32)
 sprite_frames = ExtResource("116_shaman")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="NameLabel" type="Label" parent="ShamanViewer"]
+[node name="NameLabel" type="Label" parent="ShamanViewer" unique_id=1775804638]
 offset_left = -60.0
 offset_top = -140.0
 offset_right = 60.0
@@ -1608,7 +1608,7 @@ offset_bottom = -120.0
 text = "Chaman"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="ShamanViewer"]
+[node name="Label" type="Label" parent="ShamanViewer" unique_id=1985148467]
 offset_left = -60.0
 offset_top = -120.0
 offset_right = 60.0
@@ -1616,22 +1616,22 @@ offset_bottom = -100.0
 text = "idle"
 horizontal_alignment = 1
 
-[node name="Cycler" type="Node" parent="ShamanViewer"]
+[node name="Cycler" type="Node" parent="ShamanViewer" unique_id=599897765]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("idle", "walk", "walkfire", "fire", "fireend", "throwash", "branchshield", "branch_up", "branch_down", "eatfruit", "hit", "whit", "death")
 SecondsPerAnimation = 2.2
 
-[node name="MonsterBatViewer" type="Node2D" parent="."]
+[node name="MonsterBatViewer" type="Node2D" parent="." unique_id=962067540]
 position = Vector2(23150, 430)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="MonsterBatViewer"]
+[node name="Sprite" type="AnimatedSprite2D" parent="MonsterBatViewer" unique_id=678085284]
 position = Vector2(0, -57)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("117_monsterbat")
 animation = &"fly"
 autoplay = "fly"
 
-[node name="NameLabel" type="Label" parent="MonsterBatViewer"]
+[node name="NameLabel" type="Label" parent="MonsterBatViewer" unique_id=1241106050]
 offset_left = -60.0
 offset_top = -140.0
 offset_right = 60.0
@@ -1639,7 +1639,7 @@ offset_bottom = -120.0
 text = "Murcielago"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="MonsterBatViewer"]
+[node name="Label" type="Label" parent="MonsterBatViewer" unique_id=425002836]
 offset_left = -60.0
 offset_top = -120.0
 offset_right = 60.0
@@ -1647,22 +1647,22 @@ offset_bottom = -100.0
 text = "fly"
 horizontal_alignment = 1
 
-[node name="Cycler" type="Node" parent="MonsterBatViewer"]
+[node name="Cycler" type="Node" parent="MonsterBatViewer" unique_id=212530430]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("fly", "attack", "hurt", "fly_to_fall", "fall", "death")
 SecondsPerAnimation = 2.2
 
-[node name="MonsterMimicViewer" type="Node2D" parent="."]
+[node name="MonsterMimicViewer" type="Node2D" parent="." unique_id=727597975]
 position = Vector2(23600, 430)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="MonsterMimicViewer"]
+[node name="Sprite" type="AnimatedSprite2D" parent="MonsterMimicViewer" unique_id=746838948]
 position = Vector2(0, -20)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("118_monstermimic")
 animation = &"idle_closed"
 autoplay = "idle_closed"
 
-[node name="NameLabel" type="Label" parent="MonsterMimicViewer"]
+[node name="NameLabel" type="Label" parent="MonsterMimicViewer" unique_id=1111179629]
 offset_left = -60.0
 offset_top = -140.0
 offset_right = 60.0
@@ -1670,7 +1670,7 @@ offset_bottom = -120.0
 text = "Mimico"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="MonsterMimicViewer"]
+[node name="Label" type="Label" parent="MonsterMimicViewer" unique_id=1988118751]
 offset_left = -60.0
 offset_top = -120.0
 offset_right = 60.0
@@ -1678,22 +1678,22 @@ offset_bottom = -100.0
 text = "idle_closed"
 horizontal_alignment = 1
 
-[node name="Cycler" type="Node" parent="MonsterMimicViewer"]
+[node name="Cycler" type="Node" parent="MonsterMimicViewer" unique_id=2018883308]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("idle_closed", "opening", "idle_open", "transform", "idle_transformed", "walk", "attack_1", "attack_2", "hurt", "death")
 SecondsPerAnimation = 2.2
 
-[node name="MonsterRatViewer" type="Node2D" parent="."]
+[node name="MonsterRatViewer" type="Node2D" parent="." unique_id=1656426543]
 position = Vector2(24050, 430)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="MonsterRatViewer"]
+[node name="Sprite" type="AnimatedSprite2D" parent="MonsterRatViewer" unique_id=830756895]
 position = Vector2(0, -20)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("119_monsterrat")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="NameLabel" type="Label" parent="MonsterRatViewer"]
+[node name="NameLabel" type="Label" parent="MonsterRatViewer" unique_id=1804244739]
 offset_left = -60.0
 offset_top = -140.0
 offset_right = 60.0
@@ -1701,7 +1701,7 @@ offset_bottom = -120.0
 text = "Rata"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="MonsterRatViewer"]
+[node name="Label" type="Label" parent="MonsterRatViewer" unique_id=1657195737]
 offset_left = -60.0
 offset_top = -120.0
 offset_right = 60.0
@@ -1709,22 +1709,22 @@ offset_bottom = -100.0
 text = "idle"
 horizontal_alignment = 1
 
-[node name="Cycler" type="Node" parent="MonsterRatViewer"]
+[node name="Cycler" type="Node" parent="MonsterRatViewer" unique_id=1787482271]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("idle", "run", "attack_bite", "hurt", "death")
 SecondsPerAnimation = 2.2
 
-[node name="MonsterSlimeViewer" type="Node2D" parent="."]
+[node name="MonsterSlimeViewer" type="Node2D" parent="." unique_id=1008211159]
 position = Vector2(24500, 430)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="MonsterSlimeViewer"]
+[node name="Sprite" type="AnimatedSprite2D" parent="MonsterSlimeViewer" unique_id=1251472288]
 position = Vector2(0, -18)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("120_monsterslime")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="NameLabel" type="Label" parent="MonsterSlimeViewer"]
+[node name="NameLabel" type="Label" parent="MonsterSlimeViewer" unique_id=1050126593]
 offset_left = -60.0
 offset_top = -140.0
 offset_right = 60.0
@@ -1732,7 +1732,7 @@ offset_bottom = -120.0
 text = "Slime"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="MonsterSlimeViewer"]
+[node name="Label" type="Label" parent="MonsterSlimeViewer" unique_id=2087702691]
 offset_left = -60.0
 offset_top = -120.0
 offset_right = 60.0
@@ -1740,22 +1740,22 @@ offset_bottom = -100.0
 text = "idle"
 horizontal_alignment = 1
 
-[node name="Cycler" type="Node" parent="MonsterSlimeViewer"]
+[node name="Cycler" type="Node" parent="MonsterSlimeViewer" unique_id=2046639897]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("idle", "walk", "attack", "hurt", "death")
 SecondsPerAnimation = 2.2
 
-[node name="BringerOfDeathViewer" type="Node2D" parent="."]
+[node name="BringerOfDeathViewer" type="Node2D" parent="." unique_id=1541937366]
 position = Vector2(25000, 430)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="BringerOfDeathViewer"]
+[node name="Sprite" type="AnimatedSprite2D" parent="BringerOfDeathViewer" unique_id=1242205155]
 position = Vector2(-47.6, -63.7)
 scale = Vector2(1.4, 1.4)
 sprite_frames = ExtResource("121_bringerofdeath")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="NameLabel" type="Label" parent="BringerOfDeathViewer"]
+[node name="NameLabel" type="Label" parent="BringerOfDeathViewer" unique_id=864045768]
 offset_left = -60.0
 offset_top = -140.0
 offset_right = 60.0
@@ -1763,7 +1763,7 @@ offset_bottom = -120.0
 text = "Portador de la Muerte"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="BringerOfDeathViewer"]
+[node name="Label" type="Label" parent="BringerOfDeathViewer" unique_id=964709087]
 offset_left = -60.0
 offset_top = -120.0
 offset_right = 60.0
@@ -1771,21 +1771,22 @@ offset_bottom = -100.0
 text = "idle"
 horizontal_alignment = 1
 
-[node name="Cycler" type="Node" parent="BringerOfDeathViewer"]
+[node name="Cycler" type="Node" parent="BringerOfDeathViewer" unique_id=910114049]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("idle", "walk", "attack", "cast", "spell", "hurt", "death")
 SecondsPerAnimation = 2.2
-[node name="MartialHero3Viewer" type="Node2D" parent="."]
+
+[node name="MartialHero3Viewer" type="Node2D" parent="." unique_id=491621832]
 position = Vector2(25500, 430)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="MartialHero3Viewer"]
+[node name="Sprite" type="AnimatedSprite2D" parent="MartialHero3Viewer" unique_id=1536895308]
 position = Vector2(-8, -36)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("122_martialhero3")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="NameLabel" type="Label" parent="MartialHero3Viewer"]
+[node name="NameLabel" type="Label" parent="MartialHero3Viewer" unique_id=1415841275]
 offset_left = -60.0
 offset_top = -140.0
 offset_right = 60.0
@@ -1793,7 +1794,7 @@ offset_bottom = -120.0
 text = "Heroe Marcial 3"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="MartialHero3Viewer"]
+[node name="Label" type="Label" parent="MartialHero3Viewer" unique_id=867449839]
 offset_left = -60.0
 offset_top = -120.0
 offset_right = 60.0
@@ -1801,22 +1802,22 @@ offset_bottom = -100.0
 text = "idle"
 horizontal_alignment = 1
 
-[node name="Cycler" type="Node" parent="MartialHero3Viewer"]
+[node name="Cycler" type="Node" parent="MartialHero3Viewer" unique_id=1447144362]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("idle", "run", "attack1", "attack2", "attack3", "jump", "fall", "hurt", "death")
 SecondsPerAnimation = 2.2
 
-[node name="PaladinViewer" type="Node2D" parent="."]
+[node name="PaladinViewer" type="Node2D" parent="." unique_id=1340253591]
 position = Vector2(25950, 430)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="PaladinViewer"]
+[node name="Sprite" type="AnimatedSprite2D" parent="PaladinViewer" unique_id=2011824785]
 position = Vector2(6, 2)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("123_paladin")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="NameLabel" type="Label" parent="PaladinViewer"]
+[node name="NameLabel" type="Label" parent="PaladinViewer" unique_id=547815359]
 offset_left = -60.0
 offset_top = -140.0
 offset_right = 60.0
@@ -1824,7 +1825,7 @@ offset_bottom = -120.0
 text = "Paladin"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="PaladinViewer"]
+[node name="Label" type="Label" parent="PaladinViewer" unique_id=1267975415]
 offset_left = -60.0
 offset_top = -120.0
 offset_right = 60.0
@@ -1832,22 +1833,22 @@ offset_bottom = -100.0
 text = "idle"
 horizontal_alignment = 1
 
-[node name="Cycler" type="Node" parent="PaladinViewer"]
+[node name="Cycler" type="Node" parent="PaladinViewer" unique_id=911769982]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("idle", "walk", "attack", "attack2", "jump", "hurt", "death")
 SecondsPerAnimation = 2.2
 
-[node name="NecromancerCKViewer" type="Node2D" parent="."]
+[node name="NecromancerCKViewer" type="Node2D" parent="." unique_id=832465565]
 position = Vector2(26400, 430)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="NecromancerCKViewer"]
+[node name="Sprite" type="AnimatedSprite2D" parent="NecromancerCKViewer" unique_id=1903294454]
 position = Vector2(-4.8, -24)
 scale = Vector2(1.6, 1.6)
 sprite_frames = ExtResource("124_necromancercreativekind")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="NameLabel" type="Label" parent="NecromancerCKViewer"]
+[node name="NameLabel" type="Label" parent="NecromancerCKViewer" unique_id=60642652]
 offset_left = -60.0
 offset_top = -140.0
 offset_right = 60.0
@@ -1855,7 +1856,7 @@ offset_bottom = -120.0
 text = "Nigromante (CK)"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="NecromancerCKViewer"]
+[node name="Label" type="Label" parent="NecromancerCKViewer" unique_id=2080963917]
 offset_left = -60.0
 offset_top = -120.0
 offset_right = 60.0
@@ -1863,22 +1864,22 @@ offset_bottom = -100.0
 text = "idle"
 horizontal_alignment = 1
 
-[node name="Cycler" type="Node" parent="NecromancerCKViewer"]
+[node name="Cycler" type="Node" parent="NecromancerCKViewer" unique_id=472506484]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("idle", "walk", "attack", "spawn", "jump", "hurt", "death")
 SecondsPerAnimation = 2.2
 
-[node name="RangerArcherViewer" type="Node2D" parent="."]
+[node name="RangerArcherViewer" type="Node2D" parent="." unique_id=1576485961]
 position = Vector2(26850, 430)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="RangerArcherViewer"]
+[node name="Sprite" type="AnimatedSprite2D" parent="RangerArcherViewer" unique_id=102600539]
 position = Vector2(56, -22)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("125_rangerarcher")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="NameLabel" type="Label" parent="RangerArcherViewer"]
+[node name="NameLabel" type="Label" parent="RangerArcherViewer" unique_id=2116541011]
 offset_left = -60.0
 offset_top = -140.0
 offset_right = 60.0
@@ -1886,7 +1887,7 @@ offset_bottom = -120.0
 text = "Arquero"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="RangerArcherViewer"]
+[node name="Label" type="Label" parent="RangerArcherViewer" unique_id=1518486072]
 offset_left = -60.0
 offset_top = -120.0
 offset_right = 60.0
@@ -1894,22 +1895,22 @@ offset_bottom = -100.0
 text = "idle"
 horizontal_alignment = 1
 
-[node name="Cycler" type="Node" parent="RangerArcherViewer"]
+[node name="Cycler" type="Node" parent="RangerArcherViewer" unique_id=329141327]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("idle", "run", "dash", "jump", "attack", "melee", "death")
 SecondsPerAnimation = 2.2
 
-[node name="GhostWarrior2Viewer" type="Node2D" parent="."]
+[node name="GhostWarrior2Viewer" type="Node2D" parent="." unique_id=1396312625]
 position = Vector2(27300, 430)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="GhostWarrior2Viewer"]
+[node name="Sprite" type="AnimatedSprite2D" parent="GhostWarrior2Viewer" unique_id=1879373509]
 position = Vector2(8, -33.5)
 scale = Vector2(1.56, 1.56)
 sprite_frames = ExtResource("126_ghostwarrior2")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="NameLabel" type="Label" parent="GhostWarrior2Viewer"]
+[node name="NameLabel" type="Label" parent="GhostWarrior2Viewer" unique_id=519572502]
 offset_left = -60.0
 offset_top = -140.0
 offset_right = 60.0
@@ -1917,7 +1918,7 @@ offset_bottom = -120.0
 text = "Ghost Warrior 2"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="GhostWarrior2Viewer"]
+[node name="Label" type="Label" parent="GhostWarrior2Viewer" unique_id=1645387089]
 offset_left = -60.0
 offset_top = -120.0
 offset_right = 60.0
@@ -1925,22 +1926,22 @@ offset_bottom = -100.0
 text = "idle"
 horizontal_alignment = 1
 
-[node name="Cycler" type="Node" parent="GhostWarrior2Viewer"]
+[node name="Cycler" type="Node" parent="GhostWarrior2Viewer" unique_id=903918472]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("idle", "walk", "run", "attack", "hurt", "death")
 SecondsPerAnimation = 2.2
 
-[node name="MonsterFlyingEyeViewer" type="Node2D" parent="."]
+[node name="MonsterFlyingEyeViewer" type="Node2D" parent="." unique_id=2145044263]
 position = Vector2(27750, 430)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="MonsterFlyingEyeViewer"]
+[node name="Sprite" type="AnimatedSprite2D" parent="MonsterFlyingEyeViewer" unique_id=884019651]
 position = Vector2(0, -30)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("127_monsterflyingeye")
 animation = &"attack3"
 autoplay = "attack3"
 
-[node name="NameLabel" type="Label" parent="MonsterFlyingEyeViewer"]
+[node name="NameLabel" type="Label" parent="MonsterFlyingEyeViewer" unique_id=826001127]
 offset_left = -60.0
 offset_top = -140.0
 offset_right = 60.0
@@ -1948,7 +1949,7 @@ offset_bottom = -120.0
 text = "Ojo Volador"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="MonsterFlyingEyeViewer"]
+[node name="Label" type="Label" parent="MonsterFlyingEyeViewer" unique_id=265170349]
 offset_left = -60.0
 offset_top = -120.0
 offset_right = 60.0
@@ -1956,22 +1957,22 @@ offset_bottom = -100.0
 text = "attack3"
 horizontal_alignment = 1
 
-[node name="Cycler" type="Node" parent="MonsterFlyingEyeViewer"]
+[node name="Cycler" type="Node" parent="MonsterFlyingEyeViewer" unique_id=511736470]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("attack3", "projectile")
 SecondsPerAnimation = 2.2
 
-[node name="MonsterGoblinViewer" type="Node2D" parent="."]
+[node name="MonsterGoblinViewer" type="Node2D" parent="." unique_id=538456709]
 position = Vector2(28200, 430)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="MonsterGoblinViewer"]
+[node name="Sprite" type="AnimatedSprite2D" parent="MonsterGoblinViewer" unique_id=1082591277]
 position = Vector2(0, -50)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("128_monstergoblin")
 animation = &"attack3"
 autoplay = "attack3"
 
-[node name="NameLabel" type="Label" parent="MonsterGoblinViewer"]
+[node name="NameLabel" type="Label" parent="MonsterGoblinViewer" unique_id=1344486773]
 offset_left = -60.0
 offset_top = -140.0
 offset_right = 60.0
@@ -1979,7 +1980,7 @@ offset_bottom = -120.0
 text = "Goblin"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="MonsterGoblinViewer"]
+[node name="Label" type="Label" parent="MonsterGoblinViewer" unique_id=76342989]
 offset_left = -60.0
 offset_top = -120.0
 offset_right = 60.0
@@ -1987,22 +1988,22 @@ offset_bottom = -100.0
 text = "attack3"
 horizontal_alignment = 1
 
-[node name="Cycler" type="Node" parent="MonsterGoblinViewer"]
+[node name="Cycler" type="Node" parent="MonsterGoblinViewer" unique_id=1696353151]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("attack3", "projectile")
 SecondsPerAnimation = 2.2
 
-[node name="MonsterMushroomViewer" type="Node2D" parent="."]
+[node name="MonsterMushroomViewer" type="Node2D" parent="." unique_id=1075467546]
 position = Vector2(28650, 430)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="MonsterMushroomViewer"]
+[node name="Sprite" type="AnimatedSprite2D" parent="MonsterMushroomViewer" unique_id=293261291]
 position = Vector2(0, -50)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("129_monstermushroom")
 animation = &"attack3"
 autoplay = "attack3"
 
-[node name="NameLabel" type="Label" parent="MonsterMushroomViewer"]
+[node name="NameLabel" type="Label" parent="MonsterMushroomViewer" unique_id=167139087]
 offset_left = -60.0
 offset_top = -140.0
 offset_right = 60.0
@@ -2010,7 +2011,7 @@ offset_bottom = -120.0
 text = "Hongo"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="MonsterMushroomViewer"]
+[node name="Label" type="Label" parent="MonsterMushroomViewer" unique_id=1357945677]
 offset_left = -60.0
 offset_top = -120.0
 offset_right = 60.0
@@ -2018,22 +2019,22 @@ offset_bottom = -100.0
 text = "attack3"
 horizontal_alignment = 1
 
-[node name="Cycler" type="Node" parent="MonsterMushroomViewer"]
+[node name="Cycler" type="Node" parent="MonsterMushroomViewer" unique_id=1574084447]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("attack3", "projectile")
 SecondsPerAnimation = 2.2
 
-[node name="MonsterSkeletonViewer" type="Node2D" parent="."]
+[node name="MonsterSkeletonViewer" type="Node2D" parent="." unique_id=1701079815]
 position = Vector2(29100, 430)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="MonsterSkeletonViewer"]
+[node name="Sprite" type="AnimatedSprite2D" parent="MonsterSkeletonViewer" unique_id=1846348293]
 position = Vector2(0, -50)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("130_monsterskeleton")
 animation = &"attack3"
 autoplay = "attack3"
 
-[node name="NameLabel" type="Label" parent="MonsterSkeletonViewer"]
+[node name="NameLabel" type="Label" parent="MonsterSkeletonViewer" unique_id=1054878846]
 offset_left = -60.0
 offset_top = -140.0
 offset_right = 60.0
@@ -2041,7 +2042,7 @@ offset_bottom = -120.0
 text = "Esqueleto"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="MonsterSkeletonViewer"]
+[node name="Label" type="Label" parent="MonsterSkeletonViewer" unique_id=1702778393]
 offset_left = -60.0
 offset_top = -120.0
 offset_right = 60.0
@@ -2049,22 +2050,22 @@ offset_bottom = -100.0
 text = "attack3"
 horizontal_alignment = 1
 
-[node name="Cycler" type="Node" parent="MonsterSkeletonViewer"]
+[node name="Cycler" type="Node" parent="MonsterSkeletonViewer" unique_id=303243352]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("attack3", "projectile")
 SecondsPerAnimation = 2.2
 
-[node name="ShieldKnightViewer" type="Node2D" parent="."]
+[node name="ShieldKnightViewer" type="Node2D" parent="." unique_id=434951959]
 position = Vector2(29550, 430)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="ShieldKnightViewer"]
+[node name="Sprite" type="AnimatedSprite2D" parent="ShieldKnightViewer" unique_id=1156013628]
 position = Vector2(58.75, -27.5)
 scale = Vector2(2.5, 2.5)
 sprite_frames = ExtResource("131_shieldknight")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="NameLabel" type="Label" parent="ShieldKnightViewer"]
+[node name="NameLabel" type="Label" parent="ShieldKnightViewer" unique_id=938497024]
 offset_left = -60.0
 offset_top = -140.0
 offset_right = 60.0
@@ -2072,7 +2073,7 @@ offset_bottom = -120.0
 text = "Caballero (escudo)"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="ShieldKnightViewer"]
+[node name="Label" type="Label" parent="ShieldKnightViewer" unique_id=1258311850]
 offset_left = -60.0
 offset_top = -120.0
 offset_right = 60.0
@@ -2080,22 +2081,22 @@ offset_bottom = -100.0
 text = "idle"
 horizontal_alignment = 1
 
-[node name="Cycler" type="Node" parent="ShieldKnightViewer"]
+[node name="Cycler" type="Node" parent="ShieldKnightViewer" unique_id=92325851]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("idle", "run", "attack", "shield", "roll", "jump", "death")
 SecondsPerAnimation = 2.2
 
-[node name="RedWarriorViewer" type="Node2D" parent="."]
+[node name="RedWarriorViewer" type="Node2D" parent="." unique_id=316382647]
 position = Vector2(30000, 430)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="RedWarriorViewer"]
+[node name="Sprite" type="AnimatedSprite2D" parent="RedWarriorViewer" unique_id=193868858]
 position = Vector2(100, -86)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("132_redwarrior")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="NameLabel" type="Label" parent="RedWarriorViewer"]
+[node name="NameLabel" type="Label" parent="RedWarriorViewer" unique_id=1716358966]
 offset_left = -60.0
 offset_top = -140.0
 offset_right = 60.0
@@ -2103,7 +2104,7 @@ offset_bottom = -120.0
 text = "Guerrero Rojo"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="RedWarriorViewer"]
+[node name="Label" type="Label" parent="RedWarriorViewer" unique_id=1337708201]
 offset_left = -60.0
 offset_top = -120.0
 offset_right = 60.0
@@ -2111,7 +2112,7 @@ offset_bottom = -100.0
 text = "idle"
 horizontal_alignment = 1
 
-[node name="Cycler" type="Node" parent="RedWarriorViewer"]
+[node name="Cycler" type="Node" parent="RedWarriorViewer" unique_id=762937107]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("idle", "walk", "dash", "attack", "spin_attack", "jump", "leap", "taunt", "death")
 SecondsPerAnimation = 2.2
