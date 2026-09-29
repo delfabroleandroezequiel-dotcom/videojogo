@@ -331,6 +331,19 @@ public partial class Enemy : CharacterBody2D
 		_knockbackTimer = KnockbackDuration;
 	}
 
+	// Forced displacement from the environment/spells (e.g. a Tornado pulling and lifting), applied
+	// even to enemies with KnockbackEnabled off: horizontal velocity.X for duration, and an upward
+	// velocity.Y (negative) launches it into the air, then gravity takes over.
+	public void Launch(Vector2 velocity, float duration)
+	{
+		if (IsQueuedForRemoval)
+			return;
+		_knockbackVelocity = new Vector2(velocity.X, 0f);
+		_knockbackTimer = Mathf.Max(_knockbackTimer, duration);
+		if (velocity.Y < 0f)
+			Velocity = new Vector2(Velocity.X, Mathf.Min(Velocity.Y, velocity.Y));
+	}
+
 	public override void _PhysicsProcess(double delta)
 	{
 		if (IsQueuedForRemoval)
@@ -342,7 +355,8 @@ public partial class Enemy : CharacterBody2D
 		{
 			_knockbackTimer -= (float)delta;
 			velocity.X = _knockbackVelocity.X;
-			velocity.Y = IsOnFloor() ? 0 : velocity.Y + Gravity * (float)delta;
+			// Only pin to the floor when not moving up (a Launch lift starts on the floor).
+			velocity.Y = IsOnFloor() && velocity.Y >= 0f ? 0 : velocity.Y + Gravity * (float)delta;
 			Velocity = velocity;
 			MoveAndSlide();
 			return;

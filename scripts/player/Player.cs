@@ -116,7 +116,15 @@ public partial class Player : CharacterBody2D
 	[Export] public float ShadowCloneAlpha = 0.8f;
 	[Export] public float ShadowCloneIntensity = 1.6f;
 	[Export] public float ShadowCloneFadeIn = 0.08f;
-	[Export] public float ShadowCloneFadeOut = 0.2f;	[Export] public float BowAnimDuration = 0.5f;
+	[Export] public float ShadowCloneFadeOut = 0.2f;
+	// Tornado spell (key 1, "spell_tornado"): a procedural Tornado that travels forward, pulling and
+	// lifting enemies and hitting them every tick for AttackPower × TornadoDamageMultiplier.
+	[Export] public int TornadoStaminaCost = 30;
+	[Export] public float TornadoCooldown = 3f;
+	[Export] public float TornadoCastDelay = 0.35f;
+	[Export] public float TornadoOffsetX = 40f;
+	[Export] public float TornadoDamageMultiplier = 0.5f;
+	[Export] public float BowAnimDuration = 0.5f;
 	[Export] public float BowReleaseDelay = 0.35f;
 	[Export] public float ArrowSpeed = 420f;
 	[Export] public float ArrowSpawnYOffset = -20f;
@@ -293,6 +301,7 @@ public partial class Player : CharacterBody2D
 	// Engine time (seconds) when spell 1 can be cast again — a timestamp, so it keeps counting down
 	// through states whose physics branch returns early (ledge hang, pound...).
 	private double _shadowCloneReadyAt;
+	private double _tornadoReadyAt;
 	private bool _isCastingSpell2;
 	private bool _isBlocking;
 	private float _parryWindowTimer;
@@ -1204,6 +1213,13 @@ public partial class Player : CharacterBody2D
 			CastSpell2();
 		}
 
+		if (Input.IsActionJustPressed("spell_tornado") && !_isCastingSpell
+			&& !_isCastingSpell2 && !_attacking && !_healing && !_isBlocking && !_isTransforming && !_crouching
+			&& !_isDashing && !_isRolling && !_isRunThrusting && !_isCharging && !_isShooting)
+		{
+			CastTornado();
+		}
+
 		if (Input.IsActionJustPressed("heal") && !_attacking && !_healing && !_isDashing && !_isRolling)
 			UseHealFlask();
 
@@ -1882,6 +1898,37 @@ public partial class Player : CharacterBody2D
 		scene.AddChild(clone);
 		clone.GlobalPosition = GlobalPosition + new Vector2(_facingRight ? ShadowCloneOffsetX : -ShadowCloneOffsetX, 0f);
 	}
+
+	// Plays the "spell" clip and releases a Tornado in front of the player, heading the way they face.
+	private async void CastTornado()
+	{
+		double now = Time.GetTicksMsec() / 1000.0;
+		if (now < _tornadoReadyAt || !_stats.TrySpendStamina(TornadoStaminaCost))
+			return;
+
+		_isCastingSpell = true;
+		_tornadoReadyAt = now + TornadoCooldown;
+		bool facingRight = _facingRight;
+
+		await ToSignal(GetTree().CreateTimer(TornadoCastDelay), SceneTreeTimer.SignalName.Timeout);
+		if (!IsInstanceValid(this) || _isDead || GetTree().CurrentScene is not Node scene)
+			return;
+
+		var tornado = new Metroidvania.World.Tornado();
+		tornado.Setup(facingRight ? 1f : -1f, Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * TornadoDamageMultiplier)));
+		scene.AddChild(tornado);
+		// Origin = the funnel's base: on the ground under the player.
+		tornado.GlobalPosition = GlobalPosition + new Vector2(facingRight ? TornadoOffsetX : -TornadoOffsetX, BodyHalfHeight());
+
+		await ToSignal(GetTree().CreateTimer(Mathf.Max(0f, SpellAnimDuration - TornadoCastDelay)), SceneTreeTimer.SignalName.Timeout);
+		if (IsInstanceValid(this))
+			_isCastingSpell = false;
+	}
+
+	private float BodyHalfHeight() =>
+		GetNodeOrNull<CollisionShape2D>("CollisionShape2D")?.Shape is RectangleShape2D rect ? rect.Size.Y / 2f
+		: GetNodeOrNull<CollisionShape2D>("CollisionShape2D")?.Shape is CapsuleShape2D capsule ? capsule.Height / 2f
+		: 30f;
 
 	private async void CastSpell2()
 	{
