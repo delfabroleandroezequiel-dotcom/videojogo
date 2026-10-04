@@ -16,6 +16,10 @@ public partial class MainMenu : Control
 	private SettingsPanel _settings;
 	private int _pendingNewSlot = -1;
 
+	private const float SlotRowWidth = 300f;
+	private const float SlotRowHeight = 46f;
+	private const float DeleteButtonWidth = 100f;
+
 	public override void _Ready()
 	{
 		_topMenu = GetNode<VBoxContainer>("TopMenu");
@@ -81,16 +85,19 @@ public partial class MainMenu : Control
 			bool hasSave = SaveManager.Instance.HasSaveFile(slot);
 			int capturedSlot = slot;
 
-			HBoxContainer row = new();
+			HBoxContainer row = new() { Alignment = BoxContainer.AlignmentMode.Center };
+			row.AddThemeConstantOverride("separation", 6);
 			_slotsContainer.AddChild(row);
 
+			// Every row is SlotRowWidth wide: an occupied slot's name button shrinks to make room for
+			// its (compact) delete button.
 			Button slotButton = new()
 			{
 				Text = hasSave
 					? string.Format(TranslationServer.Translate("UI_MAINMENU_SLOT_BUSY"), SaveManager.Instance.GetCharacterName(slot))
 					: "UI_MAINMENU_SLOT_EMPTY",
 				Disabled = hasSave,
-				CustomMinimumSize = new Vector2(220, 32),
+				CustomMinimumSize = new Vector2(hasSave ? SlotRowWidth - DeleteButtonWidth - 6f : SlotRowWidth, SlotRowHeight),
 			};
 			slotButton.Pressed += () => ShowNamePrompt(capturedSlot);
 			row.AddChild(slotButton);
@@ -100,7 +107,8 @@ public partial class MainMenu : Control
 				Button deleteButton = new()
 				{
 					Text = "UI_MAINMENU_DELETE",
-					CustomMinimumSize = new Vector2(70, 32),
+					ThemeTypeVariation = "SmallButton",
+					CustomMinimumSize = new Vector2(DeleteButtonWidth, SlotRowHeight),
 				};
 				deleteButton.Pressed += () => OnDeletePressed(capturedSlot);
 				row.AddChild(deleteButton);

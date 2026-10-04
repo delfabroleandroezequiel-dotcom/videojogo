@@ -10,24 +10,9 @@ namespace Metroidvania.UI;
 // for Closed to know when to bring its own view back.
 public partial class SettingsPanel : Control
 {
-	private static readonly Dictionary<string, string> ActionLabelKeys = new()
-	{
-		{ "move_left", "UI_ACTION_MOVE_LEFT" },
-		{ "move_right", "UI_ACTION_MOVE_RIGHT" },
-		{ "move_up", "UI_ACTION_MOVE_UP" },
-		{ "move_down", "UI_ACTION_MOVE_DOWN" },
-		{ "jump", "UI_ACTION_JUMP" },
-		{ "attack", "UI_ACTION_ATTACK" },
-		{ "dash", "UI_ACTION_DASH" },
-		{ "sprint", "UI_ACTION_SPRINT" },
-		{ "interact", "UI_ACTION_INTERACT" },
-		{ "quest_log", "UI_ACTION_QUEST_LOG" },
-		{ "inventory", "UI_ACTION_INVENTORY" },
-		{ "heal", "UI_ACTION_HEAL" },
-		{ "companion_stance", "UI_ACTION_COMPANION_STANCE" },
-		{ "block", "UI_ACTION_BLOCK" },
-		{ "charged_attack", "UI_ACTION_CHARGED_ATTACK" },
-	};
+	// Row label = "UI_ACTION_" + the action name in caps (e.g. spell_tornado → UI_ACTION_SPELL_TORNADO), so a new
+	// remappable action only needs its entry in GameConfig.RemappableActions plus that string key.
+	private static string ActionLabelKey(string action) => "UI_ACTION_" + action.ToUpperInvariant();
 
 	[Signal] public delegate void ClosedEventHandler();
 
@@ -97,6 +82,26 @@ public partial class SettingsPanel : Control
 		EmitSignal(SignalName.Closed);
 	}
 
+	// Escape/back: a sub-panel (Controls, Display) goes back to the settings list, the list closes the
+	// panel. Returns false if the panel wasn't open (the caller handles the key itself).
+	public bool Back()
+	{
+		if (!Visible)
+			return false;
+		if (_controlsPanel.Visible || _displayPanel.Visible)
+			CloseSubPanels();
+		else
+			Close();
+		return true;
+	}
+
+	// Closes everything without signalling (e.g. the pause menu being dismissed while it's open).
+	public void HideNow()
+	{
+		CloseSubPanels();
+		Visible = false;
+	}
+
 	private void OpenControlsPanel()
 	{
 		_mainView.Visible = false;
@@ -160,7 +165,7 @@ public partial class SettingsPanel : Control
 
 			var label = new Label
 			{
-				Text = ActionLabelKeys[action],
+				Text = ActionLabelKey(action),
 				CustomMinimumSize = new Vector2(140, 0),
 				AutowrapMode = TextServer.AutowrapMode.Off,
 			};

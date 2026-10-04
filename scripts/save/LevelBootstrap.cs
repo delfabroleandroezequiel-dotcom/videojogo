@@ -61,6 +61,106 @@ public partial class LevelBootstrap : Node
 		}
 
 		SpawnCompanionIfRecruited();
+		RandomizeEnemies();
+	}
+
+	// Enemy randomizer: maps place their enemies directly (nobody authors EnemySpawnPoints), so the
+	// randomizer works on what's already there — every common enemy is swapped for a pick from
+	// GameConfig's ground/flying pool. Runs from the root's _Ready, i.e. after every enemy's own
+	// _Ready (already-defeated ones have queued themselves out). Bosses and enemies wired into
+	// scripted events (DefeatWall, RockslideBlocker, CaveCollapseOverlay hold them by path) stay.
+	// The replacement keeps the original's parent, name and position, so its PersistenceId (= node
+	// path) is the same and "defeated" flags carry over between randomizer on/off.
+	private void RandomizeEnemies()
+	{
+		if (!SaveManager.Instance.EnemyRandomizerEnabled)
+			return;
+
+		var scripted = CollectScriptedEnemies();
+		foreach (Node node in GetTree().GetNodesInGroup("enemy"))
+		{
+			if (node is not Enemy enemy || enemy.IsQueuedForDeletion() || !IsAncestorOf(enemy))
+				continue;
+			if (IsBoss(enemy) || scripted.Contains(enemy))
+				continue;
+
+			PackedScene pick = PickRandomEnemy(enemy);
+			if (pick is null || pick.ResourcePath == enemy.SceneFilePath)
+				continue;
+			ReplaceEnemy(enemy, pick);
+		}
+	}
+
+	private static bool IsBoss(Enemy enemy) =>
+		enemy is Boss or MushroomBoss or LargeSkullBoss || enemy.IsInGroup("boss");
+
+	private System.Collections.Generic.HashSet<Node> CollectScriptedEnemies()
+	{
+		var result = new System.Collections.Generic.HashSet<Node>();
+		var stack = new System.Collections.Generic.Stack<Node>();
+		stack.Push(this);
+		while (stack.Count > 0)
+		{
+			Node node = stack.Pop();
+			foreach (Node child in node.GetChildren())
+				stack.Push(child);
+
+			switch (node)
+			{
+				case DefeatWall wall:
+					foreach (NodePath path in wall.Enemies)
+						AddResolved(result, wall, path);
+					break;
+				case RockslideBlocker blocker:
+					AddResolved(result, blocker, blocker.TriggerEnemyPath);
+					break;
+				case CaveCollapseOverlay overlay:
+					AddResolved(result, overlay, overlay.TriggerEnemyPath);
+					break;
+			}
+		}
+		return result;
+	}
+
+	private static void AddResolved(System.Collections.Generic.HashSet<Node> set, Node from, NodePath path)
+	{
+		if (path is not null && !path.IsEmpty && from.GetNodeOrNull(path) is Node target)
+			set.Add(target);
+	}
+
+	// Same seeding as EnemySpawnPoint: save seed XOR the enemy's stable path, so a given save always
+	// reproduces the same shuffle and each spot rolls independently.
+	private static PackedScene PickRandomEnemy(Enemy enemy)
+	{
+		PackedScene[] pool = enemy is FlyingEnemy
+			? GameConfig.Instance.FlyingEnemyPool
+			: GameConfig.Instance.GroundEnemyPool;
+		if (pool.Length == 0)
+			return null;
+
+		uint seed = (uint)SaveManager.Instance.RandomizerSeed ^ (uint)enemy.GetPath().ToString().Hash();
+		var rng = new RandomNumberGenerator { Seed = seed };
+		return pool[rng.RandiRange(0, pool.Length - 1)];
+	}
+
+	private static void ReplaceEnemy(Enemy original, PackedScene scene)
+	{
+		Node parent = original.GetParent();
+		int index = original.GetIndex();
+		StringName name = original.Name;
+		Vector2 position = original.Position;
+
+		parent.RemoveChild(original);
+		original.QueueFree();
+
+		Node replacement = scene.Instantiate();
+		replacement.Name = name;
+		if (replacement is Enemy replacementEnemy)
+			replacementEnemy.CustomPersistenceId = original.CustomPersistenceId;
+		if (replacement is Node2D replacement2D)
+			replacement2D.Position = position;
+		parent.AddChild(replacement);
+		parent.MoveChild(replacement, index);
 	}
 
 	private const string CompanionDogScenePath = "res://scenes/world/CompanionDog.tscn";
@@ -113,6 +213,9 @@ public partial class LevelBootstrap : Node
 		data.CollectedPickups.AddRange(SaveManager.Instance.GetCollectedPickups());
 		data.MaxHealCharges = SaveManager.Instance.GetMaxHealCharges();
 		data.Gold = SaveManager.Instance.Gold;
+		// In slot order, so each type keeps its HUD square after loading.
+		foreach (string shadowKey in SaveManager.Instance.GetShadowSlotKeys())
+			data.ShadowUses[shadowKey] = SaveManager.Instance.GetShadowUses(shadowKey);
 		data.EnemyRandomizerEnabled = SaveManager.Instance.EnemyRandomizerEnabled;
 		data.RandomizerSeed = SaveManager.Instance.RandomizerSeed;
 

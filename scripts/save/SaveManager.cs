@@ -159,6 +159,52 @@ public partial class SaveManager : Node
 
 	// Permanent, same lifetime as LitSavePoints/DefeatedBosses — once a shortcut gate opens it
 	// stays open forever for this save, from both sides (see Gate.cs).
+	// Bastón: summon slots — up to MaxShadowSlots enemy types (key = the enemy's scene path), each
+	// with an unlimited, farmable number of uses (+1 per shadow essence taken from a corpse). A slot
+	// at 0 uses stays until discarded. Spent to summon a one-attack shadow (Player.CastShadowSummon).
+	public const int MaxShadowSlots = 5;
+	private readonly Dictionary<string, int> _shadowUses = new();
+	// Stable slot order (a type keeps its HUD square; new types take the next free one).
+	private readonly List<string> _shadowSlotOrder = new();
+	public IReadOnlyList<string> GetShadowSlotKeys() => _shadowSlotOrder;
+	[Signal] public delegate void ShadowUsesChangedEventHandler();
+
+	public int GetShadowUses(string key) => _shadowUses.TryGetValue(key, out int count) ? count : 0;
+	public bool HasShadowSlot(string key) => _shadowUses.ContainsKey(key);
+	public bool ShadowSlotsFull => _shadowUses.Count >= MaxShadowSlots;
+	public IReadOnlyDictionary<string, int> GetAllShadowUses() => _shadowUses;
+
+	// +1 use: always for a type already slotted; a new type only if a slot is free.
+	public bool AddShadowUse(string key)
+	{
+		if (string.IsNullOrEmpty(key) || (!_shadowUses.ContainsKey(key) && ShadowSlotsFull))
+			return false;
+		if (!_shadowUses.ContainsKey(key))
+			_shadowSlotOrder.Add(key);
+		_shadowUses[key] = GetShadowUses(key) + 1;
+		EmitSignal(SignalName.ShadowUsesChanged);
+		return true;
+	}
+
+	public bool SpendShadowUse(string key)
+	{
+		int count = GetShadowUses(key);
+		if (count <= 0)
+			return false;
+		_shadowUses[key] = count - 1;
+		EmitSignal(SignalName.ShadowUsesChanged);
+		return true;
+	}
+
+	public void DiscardShadowSlot(string key)
+	{
+		if (_shadowUses.Remove(key))
+		{
+			_shadowSlotOrder.Remove(key);
+			EmitSignal(SignalName.ShadowUsesChanged);
+		}
+	}
+
 	public bool IsGateOpened(string id) => _openedGates.Contains(id);
 	public void MarkGateOpened(string id) => _openedGates.Add(id);
 	public IReadOnlyCollection<string> GetOpenedGates() => _openedGates;
@@ -220,6 +266,8 @@ public partial class SaveManager : Node
 		_playedCutscenes.Clear();
 		_openedGates.Clear();
 		_brokenWalls.Clear();
+		_shadowUses.Clear();
+		_shadowSlotOrder.Clear();
 		_maxHealCharges = 1;
 		StoryStage = 0;
 		Gold = 0;
@@ -341,6 +389,15 @@ public partial class SaveManager : Node
 		_maxHealCharges = Mathf.Clamp(PendingLoad.MaxHealCharges, 1, MaxHealChargeCap);
 		StoryStage = PendingLoad.StoryStage;
 		Gold = PendingLoad.Gold;
+		_shadowUses.Clear();
+		_shadowSlotOrder.Clear();
+		if (PendingLoad.ShadowUses is not null)
+			foreach (KeyValuePair<string, int> entry in PendingLoad.ShadowUses)
+			{
+				_shadowUses[entry.Key] = entry.Value;
+				_shadowSlotOrder.Add(entry.Key);
+			}
+		EmitSignal(SignalName.ShadowUsesChanged);
 		Reputation = PendingLoad.Reputation;
 		CompanionRecruited = PendingLoad.CompanionRecruited;
 		EmitSignal(SignalName.GoldChanged, Gold);

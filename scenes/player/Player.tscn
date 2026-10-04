@@ -266,6 +266,10 @@ script = ExtResource("3_stats")
 AttackPower = 15
 Defense = 5
 InvulnerabilityDuration = 1.0
+MaxStamina = 999
+StaminaRegenPerSecond = 400
+StaminaRegenDelay = 0.1
+StaminaExhaustedRegenDelay = 0.2
 
 [node name="Abilities" type="Node" parent="." unique_id=97306542]
 script = ExtResource("4_abilities")
@@ -296,7 +300,6 @@ script = ExtResource("8_healflask")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=104556565]
 layer = 10
-visible = false
 
 [node name="VBox" type="VBoxContainer" parent="HUD" unique_id=1995252872]
 offset_left = 16.0

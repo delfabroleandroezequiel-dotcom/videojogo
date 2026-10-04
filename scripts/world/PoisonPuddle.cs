@@ -14,6 +14,8 @@ public partial class PoisonPuddle : Area2D
 	[Export] public int PoisonTickDamage = 3;
 	[Export] public float PoisonTickInterval = 0.5f;
 	[Export] public float PoisonDurationOnContact = 2f;
+	// Who the puddle poisons: "player" for enemy spit, "enemy" for the player's own spit.
+	[Export] public string TargetGroup = "player";
 
 	private Node2D _visual;
 
@@ -47,7 +49,7 @@ public partial class PoisonPuddle : Area2D
 
 	private void OnBodyEntered(Node2D body)
 	{
-		if (!body.IsInGroup("player"))
+		if (!body.IsInGroup(TargetGroup))
 			return;
 
 		Stats stats = body.GetNodeOrNull<Stats>("Stats");

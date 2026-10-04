@@ -4,12 +4,12 @@ UI_MAINMENU_CONTINUE,Continuar,Continue,Continuar
 UI_MAINMENU_NEW_GAME,Nueva Partida,New Game,Novo Jogo
 UI_MAINMENU_CHOOSE_SLOT,Elegí una partida vacía,Choose an empty slot,Escolha um slot vazio
 UI_MAINMENU_BACK,Volver,Back,Voltar
-UI_MAINMENU_NAME_LABEL,Nombre del personaje:,Character name:,Nome do personagem:
+UI_MAINMENU_NAME_LABEL,Nombre del personaje,Character name,Nome do personagem
 UI_MAINMENU_NAME_PLACEHOLDER,Ej: Aria,E.g.: Aria,Ex: Aria
 UI_MAINMENU_START,Comenzar,Start,Começar
 UI_MAINMENU_CANCEL,Cancelar,Cancel,Cancelar
-UI_MAINMENU_SLOT_BUSY,{0} (ocupado),{0} (in use),{0} (ocupado)
-UI_MAINMENU_SLOT_EMPTY,Vacío — crear nueva,Empty — create new,Vazio — criar novo
+UI_MAINMENU_SLOT_BUSY,{0},{0},{0}
+UI_MAINMENU_SLOT_EMPTY,Vacío,Empty,Vazio
 UI_MAINMENU_DELETE,Borrar,Delete,Apagar
 UI_DEFAULT_HERO_NAME,Héroe,Hero,Herói
 UI_DEATHSCREEN_TEXT,HAS MUERTO,YOU DIED,VOCÊ MORREU
@@ -23,19 +23,21 @@ UI_DIALOGUE_DEFAULT_TEXT,...,...,...
 UI_QUESTLOG_TITLE,Misiones,Quests,Missões
 UI_QUESTLOG_ACTIVE,En curso,In progress,Em andamento
 UI_QUESTLOG_COMPLETED_TITLE,Completadas,Completed,Concluídas
-UI_QUESTLOG_CLOSE_HINT,[L] cerrar,[L] close,[L] fechar
+UI_QUESTLOG_CLOSE_HINT,[{0}] cerrar,[{0}] close,[{0}] fechar
 UI_QUESTLOG_MAIN_PREFIX,[Principal] ,[Main] ,[Principal]
 UI_QUESTLOG_SIDE_PREFIX,[Secundaria] ,[Side] ,[Secundária]
 UI_QUESTLOG_PROGRESS," ({0}/{1})"," ({0}/{1})"," ({0}/{1})"
 UI_QUESTLOG_COMPLETED_ENTRY,✓ {0},✓ {0},✓ {0}
+UI_QUESTLOG_EMPTY,Sin misiones por ahora,No quests yet,Nenhuma missão por enquanto
 UI_INVENTORY_TITLE,Inventario,Inventory,Inventário
 UI_INVENTORY_EQUIPPED,Anillos equipados: {0}/{1},Equipped rings: {0}/{1},Anéis equipados: {0}/{1}
-UI_INVENTORY_CLOSE_HINT,[I] cerrar,[I] close,[I] fechar
+UI_INVENTORY_CLOSE_HINT,[{0}] cerrar,[{0}] close,[{0}] fechar
 UI_INVENTORY_TAG_ABILITY,[Habilidad],[Ability],[Habilidade]
 UI_INVENTORY_TAG_RING,[Anillo],[Ring],[Anel]
 UI_INVENTORY_TAG_QUEST,[Misión],[Quest],[Missão]
 UI_INVENTORY_TAG_LORE,[Lore],[Lore],[Lore]
 UI_INVENTORY_UNEQUIP,Quitar,Unequip,Remover
+UI_INVENTORY_EMPTY,Todavía no llevás objetos,No items yet,Nenhum item ainda
 UI_INVENTORY_EQUIP,Equipar,Equip,Equipar
 UI_PAUSE_TITLE,PAUSA,PAUSED,PAUSA
 UI_PAUSE_RESUME,Continuar,Resume,Continuar
@@ -64,6 +66,18 @@ UI_ACTION_HEAL,Curarse,Heal,Curar-se
 UI_ACTION_COMPANION_STANCE,Modo Compañero,Companion Stance,Modo Companheiro
 UI_ACTION_BLOCK,Bloquear,Block,Bloquear
 UI_ACTION_CHARGED_ATTACK,Ataque Cargado,Charged Attack,Ataque Carregado
+UI_ACTION_ROLL,Rodar,Roll,Rolar
+UI_ACTION_RUN_THRUST,Estocada en Carrera,Running Thrust,Estocada em Corrida
+UI_ACTION_SPELL,Clon de Sombra,Shadow Clone,Clone de Sombra
+UI_ACTION_SPELL_TORNADO,Tornado,Tornado,Tornado
+UI_ACTION_SPELL_POISON,Bola de Veneno,Poison Ball,Bola de Veneno
+UI_ACTION_SPELL_FIREBALL,Bola de Fuego,Fireball,Bola de Fogo
+UI_ACTION_SHOOT_BOW,Disparar Arco,Shoot Bow,Atirar com Arco
+UI_ACTION_FIRE_IMBUE,Imbuir Fuego,Fire Imbue,Imbuir Fogo
+UI_ACTION_EQUIP_TORCH,Antorcha,Torch,Tocha
+UI_ACTION_SUMMON_CYCLE,Cambiar Invocación,Cycle Summon,Trocar Invocação
+UI_ACTION_SUMMON_CAST,Invocar Sombra,Summon Shadow,Invocar Sombra
+UI_ACTION_SUMMON_DISCARD,Descartar Invocación,Discard Summon,Descartar Invocação
 UI_COMPANION_AGGRESSIVE,Compañero: Agresivo,Companion: Aggressive,Companheiro: Agressivo
 UI_COMPANION_PASSIVE,Compañero: Pasivo,Companion: Passive,Companheiro: Passivo
 UI_COMPANION_RECRUITED,¡El perro se une a vos!,The dog joins you!,O cachorro se junta a você!
@@ -78,6 +92,14 @@ UI_RESTSCREEN_TEXT,Descansando,Resting,Descansando
 UI_INTERACT_PROMPT,E,E,E
 UI_HUD_HEAL_CHARGES,Curas: {0}/{1},Heals: {0}/{1},Curas: {0}/{1}
 UI_HUD_GOLD,Oro: {0},Gold: {0},Ouro: {0}
+UI_HUD_SHADOW_SUMMON,Bastón: {0} ×{1},Staff: {0} ×{1},Cajado: {0} ×{1}
+UI_HUD_SHADOW_NONE,Bastón: —,Staff: —,Cajado: —
+UI_SHADOW_ESSENCE_FULL,Lleno,Full,Cheio
+UI_SHADOW_SLOT_ENTRY,"{0} ×{1}","{0} ×{1}","{0} ×{1}"
+UI_SHADOW_SWAP_TITLE,"Espacios del Bastón llenos. ¿Qué descartás para llevar {0}?","Staff slots full. What do you discard to take {0}?","Espaços do Cajado cheios. O que você descarta para levar {0}?"
+UI_SHADOW_SWAP_DECLINE,"No llevarlo","Leave it","Não levar"
+UI_SHADOW_DISCARD_TITLE,"¿Qué espacio del Bastón descartás?","Which Staff slot do you discard?","Qual espaço do Cajado você descarta?"
+UI_SHADOW_CANCEL,"Cancelar","Cancel","Cancelar"
 SAVEPOINT_LIGHT_CONFIRM,"¿Desea encenderla?","Do you want to light it?","Deseja acendê-la?"
 SAVEPOINT_REST_CONFIRM,"¿Desea descansar?","Do you want to rest?","Deseja descansar?"
 NPC_DEFAULT_NAME,NPC,NPC,NPC

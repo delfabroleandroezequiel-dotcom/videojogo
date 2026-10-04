@@ -16,6 +16,10 @@ public partial class PoisonSpit : Area2D
 	[Export] public float PoisonTickInterval = 0.5f;
 	[Export] public float PoisonDuration = 3f;
 	[Export] public PackedScene PuddleScene;
+	// Passed on to the puddle it leaves: who it poisons and which physics layers it watches (0 = keep
+	// the puddle scene's own mask). The player's spit sets "enemy" + the enemy layer.
+	[Export] public string PuddleTargetGroup = "player";
+	[Export(PropertyHint.Layers2DPhysics)] public uint PuddleCollisionMask;
 
 	private Vector2 _velocity;
 	private Stats _shooterStats;
@@ -76,6 +80,12 @@ public partial class PoisonSpit : Area2D
 			Callable.From(() =>
 			{
 				var puddle = PuddleScene.Instantiate<Node2D>();
+				if (puddle is PoisonPuddle poisonPuddle)
+				{
+					poisonPuddle.TargetGroup = PuddleTargetGroup;
+					if (PuddleCollisionMask != 0)
+						poisonPuddle.CollisionMask = PuddleCollisionMask;
+				}
 				currentScene.AddChild(puddle);
 				puddle.GlobalPosition = position;
 			}).CallDeferred();

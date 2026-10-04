@@ -33,9 +33,16 @@ public partial class PauseMenu : CanvasLayer
 		bool inLevel = GetTree().CurrentScene is LevelBootstrap;
 		if (!inLevel && !GetTree().Paused)
 			return;
+		// Paused by someone else (quest log, inventory, dialogue, prompts): that overlay owns the screen,
+		// so the pause menu doesn't open on top of it.
+		if (GetTree().Paused && !_panel.Visible)
+			return;
 
-		TogglePause();
 		GetViewport().SetInputAsHandled();
+		// Settings open: Escape steps back inside it instead of closing the whole pause menu.
+		if (_panel.Visible && _settings.Back())
+			return;
+		TogglePause();
 	}
 
 	private void TogglePause()
@@ -44,7 +51,11 @@ public partial class PauseMenu : CanvasLayer
 		GetTree().Paused = paused;
 		_panel.Visible = paused;
 		if (!paused)
+		{
+			// Never leave settings open underneath — reopening the pause menu must show only its list.
+			_settings.HideNow();
 			_mainView.Visible = true;
+		}
 	}
 
 	private void OnMainMenuPressed()

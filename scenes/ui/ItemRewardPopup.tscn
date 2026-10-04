@@ -20,6 +20,7 @@ theme = ExtResource("2_theme")
 mouse_filter = 2
 
 [node name="VBox" type="VBoxContainer" parent="Root"]
+mouse_filter = 2
 theme_override_constants/separation = 8
 alignment = 1
 
@@ -32,5 +33,6 @@ horizontal_alignment = 1
 text = ""
 
 [node name="ItemsList" type="VBoxContainer" parent="Root/VBox"]
+mouse_filter = 2
 theme_override_constants/separation = 4
 alignment = 1

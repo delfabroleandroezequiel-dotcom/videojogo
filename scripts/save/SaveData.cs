@@ -28,6 +28,8 @@ public class SaveData
 	public int MaxHealCharges { get; set; } = 1;
 	public int StoryStage { get; set; }
 	public int Gold { get; set; }
+	// Bastón: summon slots (max 5) — enemy scene path → stored uses (unlimited, farmable).
+	public Dictionary<string, int> ShadowUses { get; set; } = new();
 	public int Reputation { get; set; }
 
 	// Decided once at New Game creation and never changed mid-save — see SaveManager.

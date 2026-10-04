@@ -124,6 +124,31 @@ public partial class Player : CharacterBody2D
 	[Export] public float TornadoCastDelay = 0.35f;
 	[Export] public float TornadoOffsetX = 40f;
 	[Export] public float TornadoDamageMultiplier = 0.5f;
+	// Poison spit (key 2, "spell_poison"): the spiders' lobbed poison glob, thrown forward — hits for
+	// AttackPower on impact, poisons the enemy, and leaves a puddle that poisons enemies walking in.
+	[Export] public PackedScene PoisonSpitScene = GD.Load<PackedScene>("res://scenes/world/Rehusables/PoisonSpit.tscn");
+	[Export] public int PoisonSpitStaminaCost = 15;
+	[Export] public float PoisonSpitCooldown = 0.8f;
+	[Export] public float PoisonSpitCastDelay = 0.25f;
+	[Export] public Vector2 PoisonSpitVelocity = new(320f, -170f);
+	[Export] public float PoisonSpitSpawnYOffset = -8f;
+	[Export] public int PoisonSpitTickDamage = 4;
+	// Fireball (key 3, "spell_fireball"): a procedural Fireball fired straight ahead that bursts on
+	// impact, burning everything in its blast for AttackPower × FireballDamageMultiplier.
+	[Export] public int FireballStaminaCost = 20;
+	[Export] public float FireballCooldown = 0.9f;
+	[Export] public float FireballCastDelay = 0.25f;
+	[Export] public float FireballDamageMultiplier = 1.4f;
+	[Export] public float FireballSpawnYOffset = -12f;
+	// Bastón summons: 4 cycles the selected slot, 5 summons it (one shadow attack on the nearest
+	// enemy, costs 1 use + stamina), 6 discards the selected slot (asks which).
+	[Export] public int ShadowSummonStaminaCost = 10;
+	[Export] public float ShadowSummonCooldown = 0.6f;
+	[Export] public float ShadowSummonDamageMultiplier = 1f;
+	[Export] public float ShadowSummonSearchRadius = 380f;
+	[Export] public float ShadowSummonReach = 50f;
+	[Export] public float ShadowSummonIntensity = 1.6f;
+	[Export] public Color ShadowSummonColor = new(0.55f, 0.35f, 1f, 1f);
 	[Export] public float BowAnimDuration = 0.5f;
 	[Export] public float BowReleaseDelay = 0.35f;
 	[Export] public float ArrowSpeed = 420f;
@@ -302,6 +327,12 @@ public partial class Player : CharacterBody2D
 	// through states whose physics branch returns early (ledge hang, pound...).
 	private double _shadowCloneReadyAt;
 	private double _tornadoReadyAt;
+	private double _poisonSpitReadyAt;
+	private double _fireballReadyAt;
+	private double _summonReadyAt;
+	private string _selectedSummon;
+	private Metroidvania.UI.ShadowSlotsHud _summonHud;
+	private GoldHud _goldHud;
 	private bool _isCastingSpell2;
 	private bool _isBlocking;
 	private float _parryWindowTimer;
@@ -445,6 +476,24 @@ public partial class Player : CharacterBody2D
 		_goldLabel = GetNode<Label>("HUD/VBox/GoldLabel");
 		_stats.HealthChanged += (current, max) => healthBar.SetRatio((float)current / max);
 		_stats.StaminaChanged += (current, max) => staminaBar.SetRatio((float)current / max);
+
+		// Jekyria-styled health/stamina (emblem orb + ornate rails) at the top of the HUD; the plain
+		// bars stay in the scene, hidden, so nothing else that references them breaks.
+		var statusBars = new JekyriaStatusBars { Name = "JekyriaStatusBars" };
+		Node hudBox = GetNode("HUD/VBox");
+		hudBox.AddChild(statusBars);
+		hudBox.MoveChild(statusBars, 0);
+		healthBar.Visible = false;
+		staminaBar.Visible = false;
+		_stats.HealthChanged += (current, max) =>
+		{
+			statusBars.SetMaxHealth(max);
+			statusBars.SetHealthRatio((float)current / max);
+		};
+		statusBars.SetMaxHealth(_stats.MaxHealth);
+		_stats.StaminaChanged += (current, max) => statusBars.SetStaminaRatio((float)current / max);
+		statusBars.SetHealthRatio((float)_stats.CurrentHealth / _stats.MaxHealth);
+		statusBars.SetStaminaRatio((float)_stats.CurrentStamina / _stats.MaxStamina);
 		// Edge-triggered on crossing INTO the low band (not every frame while under it) — plays
 		// once per drop, resets once stamina climbs back above the threshold so it can fire again
 		// next time it runs low.
@@ -463,16 +512,140 @@ public partial class Player : CharacterBody2D
 		_hitbox.HitDealt += () => Sfx.Play(this, "Combat/Sword", "Sword Impact Hit");
 		_healFlask.ChargesChanged += (current, max) => UpdateHealChargesLabel(current, max);
 		UpdateHealChargesLabel(_healFlask.CurrentCharges, _healFlask.MaxCharges);
+		// Heal charges as the Jekyria red potion bar (one pip per charge) under the status bars; the old
+		// "Curas: x/y" label stays in the scene, hidden.
+		var potionBar = new JekyriaPotionBar { Name = "JekyriaPotionBar" };
+		hudBox.AddChild(potionBar);
+		hudBox.MoveChild(potionBar, 1);
+		_healChargesLabel.Visible = false;
+		_healFlask.ChargesChanged += (current, max) => potionBar.SetCharges(current, max);
+		potionBar.SetCharges(_healFlask.CurrentCharges, _healFlask.MaxCharges);
 		LocaleManager.Instance.LocaleChanged += _ => UpdateHealChargesLabel(_healFlask.CurrentCharges, _healFlask.MaxCharges);
 
 		SaveManager.Instance.GoldChanged += UpdateGoldLabel;
 		UpdateGoldLabel(SaveManager.Instance.Gold);
+		// Gold now lives in the top-right corner (bag icon + Jekyria digits); the old text label stays
+		// in the scene, hidden.
+		_goldHud = new GoldHud { Name = "GoldHud" };
+		GetNode("HUD").AddChild(_goldHud);
+		_goldHud.SetGold(SaveManager.Instance.Gold);
+		_goldLabel.Visible = false;
 		LocaleManager.Instance.LocaleChanged += _ => UpdateGoldLabel(SaveManager.Instance.Gold);
+
+		// Bastón mini HUD: 5 slot squares in the bottom-left corner of the HUD layer.
+		_summonHud = new Metroidvania.UI.ShadowSlotsHud { Name = "ShadowSlotsHud" };
+		GetNode("HUD").AddChild(_summonHud);
+		SaveManager.Instance.ShadowUsesChanged += UpdateSummonLabel;
+		LocaleManager.Instance.LocaleChanged += _ => UpdateSummonLabel();
+		UpdateSummonLabel();
+	}
+
+	public override void _ExitTree()
+	{
+		// SaveManager is an autoload that outlives this player.
+		if (SaveManager.Instance is not null)
+			SaveManager.Instance.ShadowUsesChanged -= UpdateSummonLabel;
+	}
+
+	// ── Bastón summons ──
+
+	// Taking an enemy's shadow essence: +1 use. False when all slots are full with other types.
+	public bool CollectShadowEssence(string enemyKey)
+	{
+		if (!SaveManager.Instance.AddShadowUse(enemyKey))
+			return false;
+		_selectedSummon ??= enemyKey;
+		UpdateSummonLabel();
+		return true;
+	}
+
+	// All slots full: ask which slot to discard to make room for enemyKey (or keep them all).
+	public void OfferShadowSlotSwap(string enemyKey, System.Action<bool> onDone)
+	{
+		string title = string.Format(TranslationServer.Translate("UI_SHADOW_SWAP_TITLE"), Metroidvania.UI.ShadowNames.DisplayName(enemyKey));
+		Metroidvania.UI.ShadowSlotPrompt.Open(this, title, TranslationServer.Translate("UI_SHADOW_SWAP_DECLINE"), discarded =>
+		{
+			bool accepted = discarded is not null && SaveManager.Instance.AddShadowUse(enemyKey);
+			if (accepted)
+				_selectedSummon = enemyKey;
+			EnsureValidSummonSelection();
+			onDone?.Invoke(accepted);
+		});
+	}
+
+	private void CycleSummon()
+	{
+		var keys = new System.Collections.Generic.List<string>(SaveManager.Instance.GetShadowSlotKeys());
+		if (keys.Count == 0)
+			return;
+		int index = _selectedSummon is null ? -1 : keys.IndexOf(_selectedSummon);
+		_selectedSummon = keys[(index + 1) % keys.Count];
+		UpdateSummonLabel();
+	}
+
+	private void DiscardSummonSlot()
+	{
+		if (SaveManager.Instance.GetAllShadowUses().Count == 0)
+			return;
+		Metroidvania.UI.ShadowSlotPrompt.Open(this, TranslationServer.Translate("UI_SHADOW_DISCARD_TITLE"),
+			TranslationServer.Translate("UI_SHADOW_CANCEL"), _ => EnsureValidSummonSelection());
+	}
+
+	private void EnsureValidSummonSelection()
+	{
+		if (_selectedSummon is null || !SaveManager.Instance.HasShadowSlot(_selectedSummon))
+		{
+			_selectedSummon = null;
+			foreach (string key in SaveManager.Instance.GetShadowSlotKeys())
+			{
+				_selectedSummon = key;
+				break;
+			}
+		}
+		UpdateSummonLabel();
+	}
+
+	private void CastShadowSummon()
+	{
+		EnsureValidSummonSelection();
+		double now = Time.GetTicksMsec() / 1000.0;
+		if (_selectedSummon is null || now < _summonReadyAt || SaveManager.Instance.GetShadowUses(_selectedSummon) <= 0
+			|| GetTree().CurrentScene is not Node scene || !_stats.TrySpendStamina(ShadowSummonStaminaCost))
+			return;
+		SaveManager.Instance.SpendShadowUse(_selectedSummon);
+		_summonReadyAt = now + ShadowSummonCooldown;
+
+		var summon = new ShadowSummon();
+		summon.Setup(_selectedSummon, _stats, Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * ShadowSummonDamageMultiplier)),
+			_facingRight, ShadowSummonSearchRadius, ShadowSummonReach, ShadowSummonColor, ShadowSummonIntensity);
+		scene.AddChild(summon);
+		summon.GlobalPosition = GlobalPosition + new Vector2(_facingRight ? 30f : -30f, 0f);
+	}
+
+	private void UpdateSummonLabel()
+	{
+		if (_summonHud is null)
+			return;
+		EnsureSelectionSilently();
+		_summonHud.Refresh(_selectedSummon);
+	}
+
+	private void EnsureSelectionSilently()
+	{
+		if (_selectedSummon is not null && SaveManager.Instance.HasShadowSlot(_selectedSummon))
+			return;
+		_selectedSummon = null;
+		foreach (string key in SaveManager.Instance.GetShadowSlotKeys())
+		{
+			_selectedSummon = key;
+			break;
+		}
 	}
 
 	private void UpdateGoldLabel(int gold)
 	{
 		_goldLabel.Text = string.Format(TranslationServer.Translate("UI_HUD_GOLD"), gold);
+		_goldHud?.SetGold(gold);
 	}
 
 	private void UpdateHealChargesLabel(int current, int max)
@@ -1220,6 +1393,28 @@ public partial class Player : CharacterBody2D
 			CastTornado();
 		}
 
+		if (Input.IsActionJustPressed("spell_poison") && !_isCastingSpell
+			&& !_isCastingSpell2 && !_attacking && !_healing && !_isBlocking && !_isTransforming && !_crouching
+			&& !_isDashing && !_isRolling && !_isRunThrusting && !_isCharging && !_isShooting)
+		{
+			CastPoisonSpit();
+		}
+
+		if (Input.IsActionJustPressed("spell_fireball") && !_isCastingSpell
+			&& !_isCastingSpell2 && !_attacking && !_healing && !_isBlocking && !_isTransforming && !_crouching
+			&& !_isDashing && !_isRolling && !_isRunThrusting && !_isCharging && !_isShooting)
+		{
+			CastFireball();
+		}
+
+		if (Input.IsActionJustPressed("summon_cycle"))
+			CycleSummon();
+		if (Input.IsActionJustPressed("summon_discard"))
+			DiscardSummonSlot();
+		if (Input.IsActionJustPressed("summon_cast") && !_attacking && !_healing && !_isBlocking && !_isTransforming
+			&& !_isDashing && !_isRolling && !_isRunThrusting && !_isCharging)
+			CastShadowSummon();
+
 		if (Input.IsActionJustPressed("heal") && !_attacking && !_healing && !_isDashing && !_isRolling)
 			UseHealFlask();
 
@@ -1921,6 +2116,64 @@ public partial class Player : CharacterBody2D
 		tornado.GlobalPosition = GlobalPosition + new Vector2(facingRight ? TornadoOffsetX : -TornadoOffsetX, BodyHalfHeight());
 
 		await ToSignal(GetTree().CreateTimer(Mathf.Max(0f, SpellAnimDuration - TornadoCastDelay)), SceneTreeTimer.SignalName.Timeout);
+		if (IsInstanceValid(this))
+			_isCastingSpell = false;
+	}
+
+	// Plays the "spell" clip and lobs the spiders' PoisonSpit forward, retargeted at enemies (its
+	// mask hits world + enemies, not the player, and its puddle poisons the "enemy" group).
+	private async void CastPoisonSpit()
+	{
+		double now = Time.GetTicksMsec() / 1000.0;
+		if (PoisonSpitScene is null || now < _poisonSpitReadyAt || !_stats.TrySpendStamina(PoisonSpitStaminaCost))
+			return;
+
+		_isCastingSpell = true;
+		_poisonSpitReadyAt = now + PoisonSpitCooldown;
+		bool facingRight = _facingRight;
+
+		await ToSignal(GetTree().CreateTimer(PoisonSpitCastDelay), SceneTreeTimer.SignalName.Timeout);
+		if (!IsInstanceValid(this) || _isDead || GetTree().CurrentScene is not Node scene)
+			return;
+
+		var spit = PoisonSpitScene.Instantiate<Metroidvania.World.PoisonSpit>();
+		// World (1) + enemies (4); not the player (2).
+		spit.CollisionMask = 1u | 4u;
+		spit.ContactDamage = _stats.AttackPower;
+		spit.PoisonTickDamage = PoisonSpitTickDamage;
+		spit.PuddleTargetGroup = "enemy";
+		spit.PuddleCollisionMask = 4u;
+		scene.AddChild(spit);
+		spit.GlobalPosition = GlobalPosition + new Vector2(facingRight ? 20f : -20f, PoisonSpitSpawnYOffset);
+		spit.Launch(new Vector2(facingRight ? PoisonSpitVelocity.X : -PoisonSpitVelocity.X, PoisonSpitVelocity.Y), _stats);
+
+		await ToSignal(GetTree().CreateTimer(Mathf.Max(0f, SpellAnimDuration - PoisonSpitCastDelay)), SceneTreeTimer.SignalName.Timeout);
+		if (IsInstanceValid(this))
+			_isCastingSpell = false;
+	}
+
+	// Plays the "spell" clip and fires a Fireball straight ahead.
+	private async void CastFireball()
+	{
+		double now = Time.GetTicksMsec() / 1000.0;
+		if (now < _fireballReadyAt || !_stats.TrySpendStamina(FireballStaminaCost))
+			return;
+
+		_isCastingSpell = true;
+		_fireballReadyAt = now + FireballCooldown;
+		bool facingRight = _facingRight;
+
+		await ToSignal(GetTree().CreateTimer(FireballCastDelay), SceneTreeTimer.SignalName.Timeout);
+		if (!IsInstanceValid(this) || _isDead || GetTree().CurrentScene is not Node scene)
+			return;
+
+		var fireball = new Metroidvania.World.Fireball();
+		fireball.Launch(new Vector2(facingRight ? 1f : -1f, 0f),
+			Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * FireballDamageMultiplier)), _stats);
+		scene.AddChild(fireball);
+		fireball.GlobalPosition = GlobalPosition + new Vector2(facingRight ? 24f : -24f, FireballSpawnYOffset);
+
+		await ToSignal(GetTree().CreateTimer(Mathf.Max(0f, SpellAnimDuration - FireballCastDelay)), SceneTreeTimer.SignalName.Timeout);
 		if (IsInstanceValid(this))
 			_isCastingSpell = false;
 	}

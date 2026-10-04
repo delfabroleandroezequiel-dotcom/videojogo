@@ -23,7 +23,8 @@ public partial class GameConfig : Node
 	public static readonly string[] RemappableActions =
 	{
 		"move_left", "move_right", "move_up", "move_down", "jump", "attack", "dash", "sprint", "interact", "quest_log",
-		"inventory", "heal", "companion_stance", "block", "charged_attack",
+		"inventory", "heal", "companion_stance", "block", "charged_attack", "roll", "run_thrust", "spell", "spell_tornado",
+		"spell_poison", "spell_fireball", "shoot_bow", "fire_imbue", "equip_torch", "summon_cycle", "summon_cast", "summon_discard",
 	};
 
 	private static readonly Dictionary<string, Key> DefaultBindings = new()
@@ -43,6 +44,18 @@ public partial class GameConfig : Node
 		{ "companion_stance", Key.P },
 		{ "block", Key.K },
 		{ "charged_attack", Key.H },
+		{ "roll", Key.X },
+		{ "run_thrust", Key.Ctrl },
+		{ "spell", Key.Q },
+		{ "spell_tornado", Key.Key1 },
+		{ "spell_poison", Key.Key2 },
+		{ "spell_fireball", Key.Key3 },
+		{ "shoot_bow", Key.G },
+		{ "fire_imbue", Key.F },
+		{ "equip_torch", Key.V },
+		{ "summon_cycle", Key.Key4 },
+		{ "summon_cast", Key.Key5 },
+		{ "summon_discard", Key.Key6 },
 	};
 
 	public static readonly Vector2I[] ResolutionPresets =

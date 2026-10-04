@@ -175,6 +175,8 @@ public partial class Enemy : CharacterBody2D
 
 		SaveManager.Instance.MarkCommonEnemyDefeated(PersistenceId);
 		CallDeferred(MethodName.SpawnLoot);
+		if (DropsShadowEssence && !string.IsNullOrEmpty(SceneFilePath))
+			CallDeferred(MethodName.SpawnShadowEssence);
 
 		if (DissolveOnDeath && DissolveShader is not null && Sprite is not null)
 		{
@@ -299,6 +301,19 @@ public partial class Enemy : CharacterBody2D
 		((Node2D)explosionNode).GlobalPosition = GlobalPosition;
 	}
 
+	// Bastón: the defeated enemy leaves a wisp of shadow; taking it stores one summon use of this enemy
+	// type (keyed by its scene). Bosses override OnDefeated and don't drop one.
+	[Export] public bool DropsShadowEssence = true;
+
+	private void SpawnShadowEssence()
+	{
+		if (GetTree()?.CurrentScene is not Node scene)
+			return;
+		var essence = new ShadowEssence { EnemyKey = SceneFilePath };
+		scene.AddChild(essence);
+		essence.GlobalPosition = GlobalPosition + new Vector2(0f, -10f);
+	}
+
 	protected void SpawnLoot()
 	{
 		if (LootTable is null || LootTable.Length == 0)
@@ -329,6 +344,32 @@ public partial class Enemy : CharacterBody2D
 
 		_knockbackVelocity = direction * force;
 		_knockbackTimer = KnockbackDuration;
+	}
+
+	// Poison damage-over-time — same contract as Player.ApplyPoison (PoisonSpit/PoisonPuddle call it
+	// through HasMethod), so the player's own poison spit works on enemies. A new poison replaces the
+	// running one; ticks don't arm invulnerability, so they never eat a real hit.
+	[Export] public Color PoisonTint = new(0.7f, 1.25f, 0.6f, 1f);
+	private int _poisonSequence;
+
+	public async void ApplyPoison(int tickDamage, float tickInterval, float duration)
+	{
+		if (IsQueuedForRemoval || Stats is null)
+			return;
+		int sequence = ++_poisonSequence;
+		if (Sprite is not null)
+			Sprite.SelfModulate = PoisonTint;
+		float elapsed = 0f;
+		while (elapsed < duration)
+		{
+			await ToSignal(GetTree().CreateTimer(tickInterval), SceneTreeTimer.SignalName.Timeout);
+			if (!IsInstanceValid(this) || IsQueuedForRemoval || sequence != _poisonSequence)
+				return;
+			Stats.TakeDamage(tickDamage, element: DamageElement.Poison, ignoreInvulnerability: true, armInvulnerability: false);
+			elapsed += tickInterval;
+		}
+		if (IsInstanceValid(this) && sequence == _poisonSequence && Sprite is not null)
+			Sprite.SelfModulate = Colors.White;
 	}
 
 	// Forced displacement from the environment/spells (e.g. a Tornado pulling and lifting), applied

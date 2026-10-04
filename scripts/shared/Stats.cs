@@ -28,6 +28,10 @@ public partial class Stats : Node
 	public int CurrentHealth { get; private set; }
 	public int CurrentStamina { get; private set; }
 	public bool ExternalInvulnerable { get; set; }
+	// Damage never takes CurrentHealth below this (0 = normal: can die). A multi-life boss sets it to 1
+	// so "killing" it triggers its next phase instead of emitting Died (which would open DefeatWalls,
+	// fog walls, etc. early). Kill() ignores it.
+	public int MinHealth { get; set; }
 	public bool IsInvulnerable => _invulnerableTimer > 0f || ExternalInvulnerable;
 
 	// Lets a controller (e.g. the player's block/parry state) veto an incoming hit before
@@ -101,7 +105,7 @@ public partial class Stats : Node
 
 		float multiplier = element != DamageElement.Normal && element == Weakness ? WeaknessDamageMultiplier : 1f;
 		int damage = Mathf.Max(1, Mathf.RoundToInt(incomingAttack * multiplier) - Defense);
-		CurrentHealth = Mathf.Max(0, CurrentHealth - damage);
+		CurrentHealth = Mathf.Max(MinHealth, CurrentHealth - damage);
 		if (armInvulnerability)
 			_invulnerableTimer = InvulnerabilityDuration;
 		EmitSignal(SignalName.HealthChanged, CurrentHealth, MaxHealth);

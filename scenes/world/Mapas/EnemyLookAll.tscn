@@ -67,9 +67,10 @@
 [ext_resource type="SpriteFrames" uid="uid://tgcbf0d6ksdb" path="res://resources/sprites/MonsterSkeletonSpriteFrames.tres" id="130_monsterskeleton"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/ShieldKnightSpriteFrames.tres" id="131_shieldknight"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/RedWarriorSpriteFrames.tres" id="132_redwarrior"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/AlatheaSpriteFrames.tres" id="133_alathea"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
-size = Vector2(30500, 60)
+size = Vector2(31400, 60)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
 size = Vector2(60, 700)
@@ -77,15 +78,15 @@ size = Vector2(60, 700)
 [node name="EnemyLookAll" type="Node2D" unique_id=1183027699]
 
 [node name="Floor" type="StaticBody2D" parent="." unique_id=653339485]
-position = Vector2(15200, 460)
+position = Vector2(15650, 460)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1677327946]
 shape = SubResource("RectangleShape2D_floor")
 
 [node name="FloorVisual" type="ColorRect" parent="Floor" unique_id=823653674]
-offset_left = -15250.0
+offset_left = -15700.0
 offset_top = -30.0
-offset_right = 15250.0
+offset_right = 15700.0
 offset_bottom = 30.0
 color = Color(0.22, 0.22, 0.24, 1)
 
@@ -96,7 +97,7 @@ position = Vector2(-30, 100)
 shape = SubResource("RectangleShape2D_wall")
 
 [node name="WallRight" type="StaticBody2D" parent="." unique_id=136363820]
-position = Vector2(30450, 100)
+position = Vector2(30900, 100)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight" unique_id=641346876]
 shape = SubResource("RectangleShape2D_wall")
@@ -2115,4 +2116,35 @@ horizontal_alignment = 1
 [node name="Cycler" type="Node" parent="RedWarriorViewer" unique_id=762937107]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("idle", "walk", "dash", "attack", "spin_attack", "jump", "leap", "taunt", "death")
+SecondsPerAnimation = 2.2
+
+[node name="AlatheaViewer" type="Node2D" parent="."]
+position = Vector2(30450, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="AlatheaViewer"]
+position = Vector2(0, -54)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("133_alathea")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="AlatheaViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "Alathea"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="AlatheaViewer"]
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -100.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="AlatheaViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "move", "attack1", "attack2", "attack3", "flip", "hit", "death")
 SecondsPerAnimation = 2.2
