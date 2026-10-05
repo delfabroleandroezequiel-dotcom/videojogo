@@ -165,12 +165,16 @@ public partial class LevelBootstrap : Node
 
 	private const string CompanionDogScenePath = "res://scenes/world/CompanionDog.tscn";
 
+	// The dalmatian companion is shelved for now (art no longer fits) — kept intact, just never
+	// spawned. Flip back to true to bring it back.
+	private static readonly bool CompanionDogEnabled = false;
+
 	// Re-spawns the dog companion fresh in every map instead of it surviving as an autoload —
 	// matches how every other per-map persistent bit of state here (opened gates, lit save
 	// points...) is just a SaveManager flag re-applied on load, not a node that lives forever.
 	private void SpawnCompanionIfRecruited()
 	{
-		if (!SaveManager.Instance.CompanionRecruited)
+		if (!CompanionDogEnabled || !SaveManager.Instance.CompanionRecruited)
 			return;
 
 		PackedScene companionScene = GD.Load<PackedScene>(CompanionDogScenePath);

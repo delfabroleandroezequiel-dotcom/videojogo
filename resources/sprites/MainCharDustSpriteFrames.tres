@@ -1,0 +1,108 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://dv4ogn6wbx483"]
+
+[ext_resource type="Texture2D" uid="uid://dae5gl458fc24" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v1)/VFX_Jump.png" id="t1"]
+[ext_resource type="Texture2D" uid="uid://br8yu0tkq4cw2" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v1)/VFX_Landing.png" id="t2"]
+
+[sub_resource type="AtlasTexture" id="a1"]
+atlas = ExtResource("t1")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="a2"]
+atlas = ExtResource("t1")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="a3"]
+atlas = ExtResource("t1")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="a4"]
+atlas = ExtResource("t1")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="a5"]
+atlas = ExtResource("t1")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="a6"]
+atlas = ExtResource("t1")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="a7"]
+atlas = ExtResource("t1")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="a8"]
+atlas = ExtResource("t2")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="a9"]
+atlas = ExtResource("t2")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="a10"]
+atlas = ExtResource("t2")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="a11"]
+atlas = ExtResource("t2")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="a12"]
+atlas = ExtResource("t2")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="a13"]
+atlas = ExtResource("t2")
+region = Rect2(320, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("a1")
+}, {
+"duration": 1.0,
+"texture": SubResource("a2")
+}, {
+"duration": 1.0,
+"texture": SubResource("a3")
+}, {
+"duration": 1.0,
+"texture": SubResource("a4")
+}, {
+"duration": 1.0,
+"texture": SubResource("a5")
+}, {
+"duration": 1.0,
+"texture": SubResource("a6")
+}, {
+"duration": 1.0,
+"texture": SubResource("a7")
+}],
+"loop": 0,
+"name": &"jump_dust",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("a8")
+}, {
+"duration": 1.0,
+"texture": SubResource("a9")
+}, {
+"duration": 1.0,
+"texture": SubResource("a10")
+}, {
+"duration": 1.0,
+"texture": SubResource("a11")
+}, {
+"duration": 1.0,
+"texture": SubResource("a12")
+}, {
+"duration": 1.0,
+"texture": SubResource("a13")
+}],
+"loop": 0,
+"name": &"land_dust",
+"speed": 16.0
+}]

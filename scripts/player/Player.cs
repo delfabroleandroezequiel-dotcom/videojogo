@@ -58,6 +58,17 @@ public partial class Player : CharacterBody2D
 	[Export] public float DashGhostIntensity = 1.8f;
 	[Export] public Color DashGhostColor = new(0.15f, 0.65f, 1f, 1f);
 	[Export] public Color DashGhostFireColor = new(1f, 0.55f, 0.2f, 1f);
+	// Same afterimages, much fainter, while rising from a jump (see RunJumpGhosts). Same colours.
+	[Export] public float JumpGhostInterval = 0.05f;
+	[Export] public float JumpGhostLifetime = 0.16f;
+	[Export] public float JumpGhostAlpha = 0.3f;
+	[Export] public float JumpGhostIntensity = 1.1f;
+	// Ground dust puffs ("jump_dust" on a ground takeoff, "land_dust" on touchdown); null = none.
+	// Frames are expected with the dust's bottom edge at the frame's bottom (see SpawnDust).
+	[Export] public SpriteFrames DustFrames;
+	// Crouch beat on the floor before a ground jump lifts off (plays "jump_squat" when the sheet
+	// has it; 0 or no clip = instant jump).
+	[Export] public float JumpSquatDuration = 0.07f;
 	// 25% of a 100 MaxStamina bar — matches Dark Souls 1's actual roll cost (community-measured: a
 	// full bar gets you about 4 rolls, i.e. ~25% each). Dash is the one with i-frames (see
 	// DashIframeDuration below), so it's the real analog to DS1's roll, not Roll itself (see its own
@@ -90,11 +101,51 @@ public partial class Player : CharacterBody2D
 	// Dark Souls reduces (doesn't stop) stamina recovery by 80% while guard is up — same idea here.
 	[Export] public float BlockStaminaRegenMultiplier = 0.2f;
 	[Export] public SpriteFrames FireSpriteFrames;
+	// Fire imbue look that keeps the same character: when set, entering fire swaps only the
+	// sprite's material (e.g. a palette with a burning blade) and FireSpriteFrames is ignored.
+	[Export] public Material FireMaterial;
 	[Export] public float TransformationInDuration = 1.5f;
 	[Export] public float TransformationOutDuration = 0.9f;
 	[Export] public float ChargedAttackDuration = 2f;
 	[Export] public Vector2 ChargedAttackHitboxSize = new(90f, 50f);
 	[Export] public float ChargedAttackReach = 60f;
+	// Blink tint shown once the charge is full (the only charge feedback).
+	[Export] public Color ChargedReadyBlinkColor = new(1f, 0.25f, 0.25f, 1f);
+	// Sword-tip path for the charged attack's neon trail, in the "charged_attack" sprite frame's
+	// own pixel space (top-left origin). Measured per sprite sheet, so each skin scene sets its
+	// own; empty = no trail.
+	[Export] public Vector2[] ChargedTrailPath = System.Array.Empty<Vector2>();
+	// How long the trail takes to draw along ChargedTrailPath — should match the frames where the
+	// blade actually sweeps in the sheet.
+	[Export] public float ChargedTrailDrawTime = 0.14f;
+	// Same idea for the air combo (air_attack1..3): blade-tip paths in each clip's frame-pixel
+	// space, plus when the swing starts and how long it takes. Empty path = falls back to the
+	// matching ground hit's procedural trail.
+	[Export] public Vector2[] AirAttack1TrailPath = System.Array.Empty<Vector2>();
+	[Export] public Vector2[] AirAttack2TrailPath = System.Array.Empty<Vector2>();
+	[Export] public Vector2[] AirAttack3TrailPath = System.Array.Empty<Vector2>();
+	// x = delay before drawing, y = draw time (seconds), per air hit.
+	[Export] public Vector2 AirAttack1TrailTiming = new(0f, 0.1f);
+	[Export] public Vector2 AirAttack2TrailTiming = new(0f, 0.15f);
+	[Export] public Vector2 AirAttack3TrailTiming = new(0.04f, 0.15f);
+	// Same for the ground combo's third hit ("attack3" clip); timing counted from the attack's start.
+	// Empty path = the procedural thrust trail.
+	[Export] public Vector2[] Attack3TrailPath = System.Array.Empty<Vector2>();
+	[Export] public Vector2 Attack3TrailTiming = new(0.1f, 0.08f);
+	// attack3's thrust shakes the sprite back and forth while the blade is out (reads as a burst
+	// of stabs over its 3 damage pulses). Starts when the hitbox opens.
+	[Export] public float ThrustVibrationAmplitude = 2.5f;
+	[Export] public float ThrustVibrationDuration = 0.18f;
+	[Export] public float ThrustVibrationInterval = 0.03f;
+	// Attacking from a ladder ("ladder_attack" clip): when the hitbox opens (to match the sheet's
+	// swing frame) and the blade-tip trail path/timing for that swing.
+	[Export] public float LadderAttackHitDelay = 0.15f;
+	[Export] public Vector2[] LadderAttackTrailPath = System.Array.Empty<Vector2>();
+	[Export] public Vector2 LadderAttackTrailTiming = new(0.15f, 0.1f);
+	// Same for the crouch attack ("crouch_attack" clip). Timing x is counted from when the hitbox
+	// opens (AttackHitboxDelay into the attack). Empty path = the old pivot-traced arc.
+	[Export] public Vector2[] CrouchTrailPath = System.Array.Empty<Vector2>();
+	[Export] public Vector2 CrouchTrailTiming = new(0f, 0.08f);
 	[Export] public float PoundSpeed = 500f;
 	[Export] public float PoundBounceVelocity = -420f;
 	[Export] public Vector2 PoundHitboxSize = new(50f, 70f);
@@ -243,6 +294,15 @@ public partial class Player : CharacterBody2D
 	[Export] public float LedgeHangDropY = 26f;
 	[Export] public float LedgeClimbForwardX = 26f;
 	[Export] public float LedgeClimbDuration = 0.35f;
+	// With a dedicated "ledge_climb" clip the body only travels up during these frames of it
+	// (the sheet hangs/pulls in place first, then tucks over the edge); the climb ends when the
+	// clip does, so LedgeClimbDuration only applies to sheets without that clip.
+	[Export] public int LedgeClimbMoveStartFrame;
+	[Export] public int LedgeClimbMoveEndFrame = 1;
+	// Nudges only the sprite toward the wall while hanging (eased back out as the climb moves up),
+	// for sheets whose hang pose sits back from the frame centre — the body itself stays
+	// LedgeGrabOffsetX away so its collider never overlaps the wall.
+	[Export] public float LedgeHangVisualShiftX;
 	[Export] public float LedgeGrabLockoutDuration = 0.3f;
 	[Export] public float LedgeAutoClimbDelay = 0.15f;
 	[Export] public float DropThroughDuration = 0.3f;
@@ -276,6 +336,7 @@ public partial class Player : CharacterBody2D
 	private Node2D _armRight;
 	private float _walkPhase;
 	private float _lastStepSin;
+	private bool _wasAirborne;
 	private CollisionShape2D _standCollision;
 	private CollisionShape2D _crouchCollision;
 	private Camera2D _camera;
@@ -303,6 +364,12 @@ public partial class Player : CharacterBody2D
 	private bool _attacking;
 	private bool _healing;
 	private int _comboStep;
+	// Separate counter for the airborne combo (air_attack1..3) so a jump doesn't eat the ground
+	// combo's progress; reset on touchdown.
+	private int _airComboStep;
+	private int _jumpGhostRunId;
+	private float _jumpSquatTimer;
+	private bool _isLadderAttacking;
 	private float _comboResetTimer;
 	private string _currentAttackAnimation = "attack1";
 	private int _jumpCount;
@@ -340,6 +407,7 @@ public partial class Player : CharacterBody2D
 	private Sprite2D _parryBubble;
 	private Tween _parryBubbleTween;
 	private SpriteFrames _normalSpriteFrames;
+	private Material _normalMaterial;
 	private bool _isFireImbued;
 	private bool _isTransforming;
 	private bool _fireImbueKeyReleased = true;
@@ -349,8 +417,6 @@ public partial class Player : CharacterBody2D
 	// Stats weakness multiplier until they get their own art.
 	private DamageElement _currentElement = DamageElement.Normal;
 	private bool _isCharging;
-	private GpuParticles2D _chargeAura;
-	private GpuParticles2D _chargeDust;
 	private bool _isPounding;
 	private bool _poundHitLanded;
 	private float _knockbackTimer;
@@ -422,8 +488,6 @@ public partial class Player : CharacterBody2D
 		_parryFlash = GetNode<AnimatedSprite2D>("Visual/ParryFlash");
 		_parryFlash.AnimationFinished += () => _parryFlash.Visible = false;
 		_parryBubble = GetNode<Sprite2D>("Visual/ParryBubble");
-		_chargeAura = GetNode<GpuParticles2D>("Visual/ChargeAura");
-		_chargeDust = GetNode<GpuParticles2D>("Visual/ChargeDust");
 		_legLeft = GetNode<Node2D>("Visual/LegLeft");
 		_legRight = GetNode<Node2D>("Visual/LegRight");
 		_armLeft = GetNode<Node2D>("Visual/ArmLeft");
@@ -443,6 +507,7 @@ public partial class Player : CharacterBody2D
 		_torchLight = GetNode<PointLight2D>("Visual/TorchLight");
 		_swordFireLight = GetNode<PointLight2D>("Visual/SwordFireLight");
 		_normalSpriteFrames = _sprite.SpriteFrames;
+		_normalMaterial = _sprite.Material;
 		_stats.Died += OnDied;
 		_stats.IncomingHitInterceptor = TryBlockIncomingHit;
 
@@ -462,7 +527,7 @@ public partial class Player : CharacterBody2D
 				// Restoring straight into the post-transform state, not replaying CycleElement's
 				// transform-in animation — that's only meant to play once, at the moment the
 				// player actually presses the button, not every time a scene loads.
-				_sprite.SpriteFrames = FireSpriteFrames;
+				ApplyFireLook(true);
 				_isFireImbued = true;
 			}
 		}
@@ -670,6 +735,7 @@ public partial class Player : CharacterBody2D
 			_isLedgeHanging = false;
 			_isLedgeClimbing = false;
 			_ledgeGrabLockout = LedgeGrabLockoutDuration;
+			_visual.Position = Vector2.Zero;
 		}
 	}
 
@@ -912,8 +978,13 @@ public partial class Player : CharacterBody2D
 		{
 			_comboResetTimer -= (float)delta;
 			if (_comboResetTimer <= 0f)
+			{
 				_comboStep = 0;
+				_airComboStep = 0;
+			}
 		}
+		if (IsOnFloor())
+			_airComboStep = 0;
 
 		_attackBufferTimer = Mathf.Max(0f, _attackBufferTimer - (float)delta);
 		_dashBufferTimer = Mathf.Max(0f, _dashBufferTimer - (float)delta);
@@ -1011,6 +1082,8 @@ public partial class Player : CharacterBody2D
 			velocity.Y = PoundSpeed;
 			Velocity = velocity;
 			MoveAndSlide();
+			if (_currentAttackAnimation == "down_attack_start" && _sprite.Animation == "down_attack_start" && !_sprite.IsPlaying())
+				_currentAttackAnimation = "down_attack_loop";
 			UpdateAnimation(delta, false);
 
 			// The trail clip is a short one-shot (it auto-hides on AnimationFinished), but a
@@ -1019,7 +1092,7 @@ public partial class Player : CharacterBody2D
 			// instead of vanishing partway down.
 			if (!_weaponTrail.IsPlaying())
 			{
-				string poundFallTrail = WeaponTrailAnimation(_currentAttackAnimation);
+				string poundFallTrail = WeaponTrailAnimation("attack3");
 				_weaponTrail.Scale = WeaponTrailScale(poundFallTrail);
 				_weaponTrail.Visible = true;
 				_weaponTrail.Play(poundFallTrail);
@@ -1029,6 +1102,7 @@ public partial class Player : CharacterBody2D
 			{
 				_crystalEffect.Play("break");
 				EndPound();
+				PlayDownAttackLanding();
 			}
 			return;
 		}
@@ -1064,18 +1138,32 @@ public partial class Player : CharacterBody2D
 
 		if (_isClimbing)
 		{
-			float climbInput = (Input.IsActionPressed("move_down") ? 1f : 0f) - (Input.IsActionPressed("move_up") ? 1f : 0f);
-			velocity.Y = climbInput * ClimbSpeed;
+			if (_isLadderAttacking)
+			{
+				// Hold position on the rungs while swinging.
+				velocity = Vector2.Zero;
+			}
+			else
+			{
+				float climbInput = (Input.IsActionPressed("move_down") ? 1f : 0f) - (Input.IsActionPressed("move_up") ? 1f : 0f);
+				velocity.Y = climbInput * ClimbSpeed;
 
-			float climbDirection = Input.GetAxis("move_left", "move_right");
-			velocity.X = climbDirection * Speed * ClimbHorizontalSpeedMultiplier;
-			if (climbDirection != 0)
-				_facingRight = climbDirection > 0;
+				float climbDirection = Input.GetAxis("move_left", "move_right");
+				velocity.X = climbDirection * Speed * ClimbHorizontalSpeedMultiplier;
+				if (climbDirection != 0)
+					_facingRight = climbDirection > 0;
+
+				if (_attackBufferTimer > 0f && !_attacking && _sprite.SpriteFrames.HasAnimation("ladder_attack"))
+				{
+					_attackBufferTimer = 0f;
+					LadderAttack();
+				}
+			}
 
 			_visual.Scale = new Vector2(_facingRight ? 1 : -1, 1f);
 			_visual.Position = Vector2.Zero;
 
-			if (Input.IsActionJustPressed("jump"))
+			if (Input.IsActionJustPressed("jump") && !_isLadderAttacking)
 			{
 				_isClimbing = false;
 				_ladderGrabLockout = LadderJumpLockoutDuration;
@@ -1182,13 +1270,30 @@ public partial class Player : CharacterBody2D
 		if (_isLedgeClimbing)
 		{
 			_ledgeClimbTimer += (float)delta;
-			float climbT = Mathf.Clamp(_ledgeClimbTimer / LedgeClimbDuration, 0f, 1f);
-			GlobalPosition = _ledgeClimbStartPosition.Lerp(_ledgeClimbEndPosition, climbT);
-			if (_sprite.Animation != "wall_climb")
-				_sprite.Play("wall_climb");
-
-			if (climbT >= 1f)
+			float climbT;
+			bool climbDone;
+			if (_sprite.Animation == "ledge_climb")
 			{
+				float frame = _sprite.Frame + _sprite.FrameProgress;
+				float moveFrames = Mathf.Max(1, LedgeClimbMoveEndFrame - LedgeClimbMoveStartFrame);
+				climbT = Mathf.Clamp((frame - LedgeClimbMoveStartFrame) / moveFrames, 0f, 1f);
+				climbDone = !_sprite.IsPlaying();
+				if (climbDone)
+					climbT = 1f;
+			}
+			else
+			{
+				climbT = Mathf.Clamp(_ledgeClimbTimer / LedgeClimbDuration, 0f, 1f);
+				climbDone = climbT >= 1f;
+				if (_sprite.Animation != "wall_climb")
+					_sprite.Play("wall_climb");
+			}
+			GlobalPosition = _ledgeClimbStartPosition.Lerp(_ledgeClimbEndPosition, climbT);
+			_visual.Position = new Vector2((_facingRight ? 1f : -1f) * LedgeHangVisualShiftX * (1f - climbT), 0f);
+
+			if (climbDone)
+			{
+				_visual.Position = Vector2.Zero;
 				_isLedgeClimbing = false;
 				_jumpCount = 0;
 				_isDoubleJumping = false;
@@ -1199,8 +1304,10 @@ public partial class Player : CharacterBody2D
 		if (_isLedgeHanging)
 		{
 			Velocity = Vector2.Zero;
-			if (_sprite.Animation != "wall_hang")
-				_sprite.Play("wall_hang");
+			_visual.Position = new Vector2((_facingRight ? 1f : -1f) * LedgeHangVisualShiftX, 0f);
+			string hangAnim = _sprite.SpriteFrames.HasAnimation("ledge_hang") ? "ledge_hang" : "wall_hang";
+			if (_sprite.Animation != hangAnim)
+				_sprite.Play(hangAnim);
 
 			// Brief beat on the grab pose so the catch actually reads, then climb up on its own —
 			// no input wait, the ability is meant to always carry you over the ledge.
@@ -1215,6 +1322,13 @@ public partial class Player : CharacterBody2D
 				_ledgeClimbEndPosition = new Vector2(
 					GlobalPosition.X + climbDir * LedgeClimbForwardX,
 					_ledgeSurfaceY - _standHalfHeight - 2f);
+				// Restart from frame 0 even if the previous climb left this clip parked on its
+				// last frame — the climb above ends when the clip stops playing.
+				if (_sprite.SpriteFrames.HasAnimation("ledge_climb"))
+				{
+					_sprite.Stop();
+					_sprite.Play("ledge_climb");
+				}
 			}
 			return;
 		}
@@ -1230,7 +1344,8 @@ public partial class Player : CharacterBody2D
 			GlobalPosition = ledgeGrabPosition;
 			Velocity = Vector2.Zero;
 			_isWallClimbing = false;
-			_sprite.Play("wall_hang");
+			_sprite.Stop();
+			_sprite.Play(_sprite.SpriteFrames.HasAnimation("ledge_hang") ? "ledge_hang" : "wall_hang");
 			return;
 		}
 
@@ -1292,18 +1407,20 @@ public partial class Player : CharacterBody2D
 		bool droppedThrough = Input.IsActionPressed("move_down") && Input.IsActionJustPressed("jump")
 			&& IsOnFloor() && TryDropThroughOneWayPlatform();
 
-		if (!droppedThrough && Input.IsActionJustPressed("jump") && (IsOnFloor() || _infiniteJumpDebug || _jumpCount < maxJumps))
+		bool jumpPressed = !droppedThrough && Input.IsActionJustPressed("jump") && _jumpSquatTimer <= 0f
+			&& (IsOnFloor() || _infiniteJumpDebug || _jumpCount < maxJumps);
+		// Ground jumps crouch for JumpSquatDuration on the floor before lifting off (a short
+		// anticipation beat, like a fighting game's jump squat); air jumps launch at once.
+		if (jumpPressed && IsOnFloor() && JumpSquatDuration > 0f && _sprite.SpriteFrames.HasAnimation("jump_squat"))
+			_jumpSquatTimer = JumpSquatDuration;
+		else if (jumpPressed)
+			LaunchJump(ref velocity);
+
+		if (_jumpSquatTimer > 0f)
 		{
-			velocity.Y = JumpVelocity;
-			// _jumpCount still holds its pre-increment value here, so >=1 means this is the second
-			// (double) jump about to happen.
-			bool isDoubleJump = !_infiniteJumpDebug && _jumpCount >= 1;
-			Sfx.Play(this, "Voice/Player", isDoubleJump ? "DobleSalto" : "Salto");
-			if (!_infiniteJumpDebug)
-			{
-				_jumpCount++;
-				_isDoubleJumping = _jumpCount >= 2;
-			}
+			_jumpSquatTimer -= (float)delta;
+			if (_jumpSquatTimer <= 0f)
+				LaunchJump(ref velocity);
 		}
 
 		UpdateCrouch();
@@ -1464,6 +1581,24 @@ public partial class Player : CharacterBody2D
 		// that pause doesn't leak into whatever animation plays next after leaving the ladder.
 		_sprite.SpeedScale = 1f;
 
+		bool onFloor = IsOnFloor();
+		bool justLanded = _wasAirborne && onFloor;
+		_wasAirborne = !onFloor;
+		if (justLanded)
+			SpawnDust("land_dust");
+
+		// Surface swimming: treading water when still, stroking when moving, its own hit flinch.
+		// Sheets without swim clips fall through to the regular air animations as before.
+		if (_isSwimming && _sprite.SpriteFrames.HasAnimation("swim_idle"))
+		{
+			string swimAnim = Mathf.Abs(velocityX) > 1f && _sprite.SpriteFrames.HasAnimation("swim") ? "swim" : "swim_idle";
+			if (_knockbackTimer > 0f && _sprite.SpriteFrames.HasAnimation("swim_hit"))
+				swimAnim = "swim_hit";
+			if (_sprite.Animation != swimAnim)
+				_sprite.Play(swimAnim);
+			return;
+		}
+
 		if (_knockbackTimer > 0f)
 		{
 			_sprite.Play("hurt");
@@ -1479,7 +1614,7 @@ public partial class Player : CharacterBody2D
 
 		if (_isTransforming)
 		{
-			string transformAnim = _isFireImbued ? "transformation_out" : "transformation";
+			string transformAnim = _isFireImbued && _sprite.SpriteFrames.HasAnimation("transformation_out") ? "transformation_out" : "transformation";
 			if (_sprite.Animation != transformAnim)
 				_sprite.Play(transformAnim);
 			return;
@@ -1503,6 +1638,13 @@ public partial class Player : CharacterBody2D
 		{
 			if (_sprite.Animation != "spell2")
 				_sprite.Play("spell2");
+			return;
+		}
+
+		if (isLadderClimbing && _isLadderAttacking)
+		{
+			if (_sprite.Animation != "ladder_attack")
+				_sprite.Play("ladder_attack");
 			return;
 		}
 
@@ -1554,9 +1696,24 @@ public partial class Player : CharacterBody2D
 			_armRight.RotationDegrees = -30f;
 			return;
 		}
-		else if (!IsOnFloor())
+		else if (_jumpSquatTimer > 0f)
 		{
-			_sprite.Play(_isDoubleJumping ? TorchAnim("double_jump") : TorchAnim("jump"));
+			if (_sprite.Animation != "jump_squat")
+				_sprite.Play("jump_squat");
+			return;
+		}
+		else if (!onFloor)
+		{
+			// Air sequence is jump (rising) -> jump_to_fall (once, at the apex) -> fall (loop).
+			// Torch variants only exist for the rising clip, so with a torch the jump clip is
+			// held for the whole airtime rather than swapping to the torchless fall.
+			bool torchHeld = TorchAnim("jump") != "jump";
+			if (Velocity.Y < 0f || torchHeld)
+				_sprite.Play(_isDoubleJumping ? TorchAnim("double_jump") : TorchAnim("jump"));
+			else if (_sprite.Animation == "fall" || (_sprite.Animation == "jump_to_fall" && !_sprite.IsPlaying()))
+				_sprite.Play("fall");
+			else if (_sprite.Animation != "jump_to_fall")
+				_sprite.Play("jump_to_fall");
 			_legLeft.RotationDegrees = JumpLegAngleDeg;
 			_legRight.RotationDegrees = JumpLegAngleDeg * 0.6f;
 			_armLeft.RotationDegrees = -JumpArmAngleDeg;
@@ -1571,16 +1728,40 @@ public partial class Player : CharacterBody2D
 		}
 		else if (_isBlocking)
 		{
-			if (_sprite.Animation != "idle_block")
-				_sprite.Play("idle_block");
+			// Raise the guard with block_start (when the sheet has it), then hold idle_block.
+			if (_sprite.Animation == "block_start")
+			{
+				if (!_sprite.IsPlaying())
+					_sprite.Play("idle_block");
+			}
+			else if (_sprite.Animation != "idle_block")
+			{
+				_sprite.Play(_sprite.SpriteFrames.HasAnimation("block_start") ? "block_start" : "idle_block");
+			}
 			return;
 		}
 
 		float speedRatio = Mathf.Abs(velocityX) / Speed;
+
+		// Lowering the guard: block_end plays once when standing still; moving or attacking cuts it.
+		if (!_attacking && speedRatio < 0.05f)
+		{
+			if ((_sprite.Animation == "idle_block" || _sprite.Animation == "block_start") && _sprite.SpriteFrames.HasAnimation("block_end"))
+				_sprite.Play("block_end");
+			if (_sprite.Animation == "block_end" && _sprite.IsPlaying())
+				return;
+		}
 		if (speedRatio < 0.05f)
 		{
 			if (!_attacking)
-				_sprite.Play(TorchAnim("idle"));
+			{
+				// Standing still on touchdown plays the landing squat once before idle; moving
+				// or attacking cuts it. Skipped for sheets without a "landing" clip.
+				if (justLanded && TorchAnim("idle") == "idle" && _sprite.SpriteFrames.HasAnimation("landing"))
+					_sprite.Play("landing");
+				if (_sprite.Animation != "landing" || !_sprite.IsPlaying())
+					_sprite.Play(TorchAnim("idle"));
+			}
 
 			float t = (float)delta * 10f;
 			_legLeft.RotationDegrees = Mathf.Lerp(_legLeft.RotationDegrees, 0f, t);
@@ -1820,12 +2001,65 @@ public partial class Player : CharacterBody2D
 	{
 		while (_isDashing && IsInstanceValid(this))
 		{
-			SpawnDashGhost();
+			SpawnGhost(DashGhostAlpha, DashGhostIntensity, DashGhostLifetime);
 			await ToSignal(GetTree().CreateTimer(DashGhostInterval), SceneTreeTimer.SignalName.Timeout);
 		}
 	}
 
-	private void SpawnDashGhost()
+	// Subtler version of the dash ghosts for the rising part of a jump (and double jump). Ends
+	// at the apex, on landing, or when a dash takes over with its own brighter ghosts. The run id
+	// stops a double jump from stacking a second loop on top of the first.
+	private async void RunJumpGhosts()
+	{
+		int runId = ++_jumpGhostRunId;
+		await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+		while (IsInstanceValid(this) && runId == _jumpGhostRunId && Velocity.Y < 0f && !IsOnFloor() && !_isDashing)
+		{
+			SpawnGhost(JumpGhostAlpha, JumpGhostIntensity, JumpGhostLifetime);
+			await ToSignal(GetTree().CreateTimer(JumpGhostInterval), SceneTreeTimer.SignalName.Timeout);
+		}
+	}
+
+	private void LaunchJump(ref Vector2 velocity)
+	{
+		if (IsOnFloor())
+			SpawnDust("jump_dust");
+		velocity.Y = JumpVelocity;
+		// _jumpCount still holds its pre-increment value here, so >=1 means this is the second
+		// (double) jump about to happen.
+		bool isDoubleJump = !_infiniteJumpDebug && _jumpCount >= 1;
+		Sfx.Play(this, "Voice/Player", isDoubleJump ? "DobleSalto" : "Salto");
+		if (!_infiniteJumpDebug)
+		{
+			_jumpCount++;
+			_isDoubleJumping = _jumpCount >= 2;
+		}
+		RunJumpGhosts();
+	}
+
+	// One-shot dust at the feet, left in the world (not parented to the player) so it stays put
+	// while the player moves off. Sized like the character sprite so the pixel scale matches.
+	private void SpawnDust(string animation)
+	{
+		if (DustFrames is null || !DustFrames.HasAnimation(animation) || GetTree().CurrentScene is not Node scene)
+			return;
+
+		Texture2D first = DustFrames.GetFrameTexture(animation, 0);
+		var dust = new AnimatedSprite2D
+		{
+			SpriteFrames = DustFrames,
+			Offset = new Vector2(0f, -first.GetHeight() / 2f),
+			Scale = new Vector2(Mathf.Abs(_sprite.Scale.X), _sprite.Scale.Y),
+			FlipH = !_facingRight,
+			ZIndex = ZIndex,
+		};
+		scene.AddChild(dust);
+		dust.GlobalPosition = GlobalPosition + new Vector2(0f, _standHalfHeight);
+		dust.AnimationFinished += dust.QueueFree;
+		dust.Play(animation);
+	}
+
+	private void SpawnGhost(float alpha, float intensity, float lifetime)
 	{
 		Texture2D frame = _sprite.SpriteFrames?.GetFrameTexture(_sprite.Animation, _sprite.Frame);
 		if (frame is null || GetTree().CurrentScene is not Node scene)
@@ -1834,7 +2068,7 @@ public partial class Player : CharacterBody2D
 		Color tint = _isFireImbued ? DashGhostFireColor : DashGhostColor;
 		// Solid neon silhouette (the frame's alpha filled with the tint, additive) — tinting the
 		// sprite's own colours instead left the mostly dark character nearly invisible.
-		var material = NeonSilhouette.CreateMaterial(tint, DashGhostIntensity);
+		var material = NeonSilhouette.CreateMaterial(tint, intensity);
 		var ghost = new Sprite2D
 		{
 			Texture = frame,
@@ -1842,7 +2076,7 @@ public partial class Player : CharacterBody2D
 			Offset = _sprite.Offset,
 			FlipH = _sprite.FlipH,
 			Material = material,
-			Modulate = new Color(1f, 1f, 1f, DashGhostAlpha),
+			Modulate = new Color(1f, 1f, 1f, alpha),
 			ZIndex = ZIndex - 1,
 		};
 		scene.AddChild(ghost);
@@ -1850,7 +2084,7 @@ public partial class Player : CharacterBody2D
 
 		Tween fade = ghost.CreateTween();
 		// Ease-in: stays bright most of its life, then drops off — a linear fade read as dim navy.
-		fade.TweenProperty(ghost, "modulate:a", 0f, DashGhostLifetime).SetEase(Tween.EaseType.In).SetTrans(Tween.TransitionType.Quad);
+		fade.TweenProperty(ghost, "modulate:a", 0f, lifetime).SetEase(Tween.EaseType.In).SetTrans(Tween.TransitionType.Quad);
 		fade.TweenCallback(Callable.From(ghost.QueueFree));
 	}
 
@@ -1874,27 +2108,31 @@ public partial class Player : CharacterBody2D
 	{
 		_isCharging = true;
 		_attacking = true;
-		_currentAttackAnimation = "idle_block";
+		// Sheets with a dedicated windup play charge -> charge_hold (loop); older ones fall back
+		// to holding the guard pose.
+		bool hasChargeAnims = _sprite.SpriteFrames.HasAnimation("charge") && _sprite.SpriteFrames.HasAnimation("charge_hold");
+		_currentAttackAnimation = hasChargeAnims ? "charge" : "idle_block";
 
-		_chargeAura.Emitting = true;
-		_chargeDust.Emitting = true;
-
-		Tween flickerTween = CreateTween().SetLoops();
-		flickerTween.TweenProperty(_visual, "modulate:a", 0.35f, 0.15f);
-		flickerTween.TweenProperty(_visual, "modulate:a", 1f, 0.15f);
-
+		// No effects while building up — the only cue is a red blink once the charge is ready.
+		Tween readyBlink = null;
 		float heldTime = 0f;
 		while (Input.IsActionPressed("charged_attack"))
 		{
 			await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
 			heldTime += (float)GetPhysicsProcessDeltaTime();
+			if (_currentAttackAnimation == "charge" && _sprite.Animation == "charge" && !_sprite.IsPlaying())
+				_currentAttackAnimation = "charge_hold";
+
+			if (readyBlink is null && heldTime >= ChargedAttackDuration)
+			{
+				readyBlink = CreateTween().SetLoops();
+				readyBlink.TweenProperty(_visual, "modulate", ChargedReadyBlinkColor, 0.1f);
+				readyBlink.TweenProperty(_visual, "modulate", Colors.White, 0.1f);
+			}
 		}
 
-		flickerTween.Kill();
-		Color modulate = _visual.Modulate;
-		_visual.Modulate = new Color(modulate.R, modulate.G, modulate.B, 1f);
-		_chargeAura.Emitting = false;
-		_chargeDust.Emitting = false;
+		readyBlink?.Kill();
+		_visual.Modulate = Colors.White;
 
 		if (heldTime < ChargedAttackDuration)
 		{
@@ -1904,7 +2142,8 @@ public partial class Player : CharacterBody2D
 			return;
 		}
 
-		_currentAttackAnimation = "attack3";
+		bool hasChargedAnim = _sprite.SpriteFrames.HasAnimation("charged_attack");
+		_currentAttackAnimation = hasChargedAnim ? "charged_attack" : "attack3";
 
 		bool hitLanded = false;
 		void OnHitLanded() => hitLanded = true;
@@ -1914,11 +2153,7 @@ public partial class Player : CharacterBody2D
 		_hitbox.Position = new Vector2(_facingRight ? ChargedAttackReach : -ChargedAttackReach, 0);
 		_hitbox.Activate(_stats, element: _currentElement);
 
-		string chargedTrail = _isFireImbued ? "thrust_02_fire" : "thrust_02";
-		_weaponTrail.Scale = WeaponTrailScale(chargedTrail);
-		_weaponTrail.Position = new Vector2(_weaponTrailBaseX, _weaponTrailBaseY);
-		_weaponTrail.Visible = true;
-		_weaponTrail.Play(chargedTrail);
+		RunChargedNeonTrail();
 
 		await ToSignal(GetTree().CreateTimer(AttackDuration), SceneTreeTimer.SignalName.Timeout);
 		_hitbox.Deactivate();
@@ -1926,7 +2161,15 @@ public partial class Player : CharacterBody2D
 		if (!hitLanded)
 			Sfx.Play(this, "Combat/Sword", "Sword Attack");
 
-		await ToSignal(GetTree().CreateTimer(0.2f), SceneTreeTimer.SignalName.Timeout);
+		// Let the full lunge + recover play out when the sheet has it, never shorter than the old
+		// fixed 0.2s tail.
+		float tail = 0.2f;
+		if (hasChargedAnim)
+		{
+			float clipLength = _sprite.SpriteFrames.GetFrameCount("charged_attack") / (float)_sprite.SpriteFrames.GetAnimationSpeed("charged_attack");
+			tail = Mathf.Max(tail, clipLength - AttackDuration);
+		}
+		await ToSignal(GetTree().CreateTimer(tail), SceneTreeTimer.SignalName.Timeout);
 		_isCharging = false;
 		_attacking = false;
 	}
@@ -1939,17 +2182,22 @@ public partial class Player : CharacterBody2D
 		_attacking = true;
 		_isPounding = true;
 		_poundHitLanded = false;
-		_currentAttackAnimation = "attack3";
+		// Sheets with a real plunge (start -> loop, then a landing clip) use it; older ones fake
+		// the dive by turning attack3 sideways.
+		bool hasDownAttack = _sprite.SpriteFrames.HasAnimation("down_attack_start")
+			&& _sprite.SpriteFrames.HasAnimation("down_attack_loop");
+		_currentAttackAnimation = hasDownAttack ? "down_attack_start" : "attack3";
 
 		_hitboxShape.Size = PoundHitboxSize;
 		_hitbox.Position = new Vector2(0, PoundHitboxReach);
 		_hitbox.Activate(_stats, element: _currentElement);
 
-		_sprite.Rotation = Mathf.Pi / 2f;
+		if (!hasDownAttack)
+			_sprite.Rotation = Mathf.Pi / 2f;
 
 		_weaponTrail.Rotation = Mathf.Pi / 2f;
 		_weaponTrail.Position = new Vector2(0, PoundWeaponTrailYOffset);
-		string poundTrail = WeaponTrailAnimation(_currentAttackAnimation);
+		string poundTrail = WeaponTrailAnimation("attack3");
 		_weaponTrail.Scale = WeaponTrailScale(poundTrail);
 		_weaponTrail.Visible = true;
 		_weaponTrail.Play(poundTrail);
@@ -1979,6 +2227,21 @@ public partial class Player : CharacterBody2D
 		_weaponTrail.Rotation = 0f;
 		_hitbox.Deactivate();
 		_hitbox.HitDealt -= OnPoundHit;
+	}
+
+	// The plunge's touchdown recovery — only when the dive actually reached the floor (an enemy
+	// bounce or a water cancel goes straight back to normal air/swim animations).
+	private async void PlayDownAttackLanding()
+	{
+		if (!_sprite.SpriteFrames.HasAnimation("down_attack_landing"))
+			return;
+
+		_attacking = true;
+		_currentAttackAnimation = "down_attack_landing";
+		float clipLength = _sprite.SpriteFrames.GetFrameCount("down_attack_landing") / (float)_sprite.SpriteFrames.GetAnimationSpeed("down_attack_landing");
+		await ToSignal(GetTree().CreateTimer(clipLength), SceneTreeTimer.SignalName.Timeout);
+		if (_currentAttackAnimation == "down_attack_landing")
+			_attacking = false;
 	}
 
 	private async void UpAttack()
@@ -2199,7 +2462,7 @@ public partial class Player : CharacterBody2D
 		_attacking = true;
 		_isRunThrusting = true;
 		_canRunThrust = false;
-		_currentAttackAnimation = "attack3";
+		_currentAttackAnimation = _sprite.SpriteFrames.HasAnimation("run_thrust") ? "run_thrust" : "attack3";
 		_runThrustDirection = _facingRight ? 1f : -1f;
 
 		bool hitLanded = false;
@@ -2272,8 +2535,24 @@ public partial class Player : CharacterBody2D
 			return;
 
 		_attacking = true;
-		_currentAttackAnimation = $"attack{_comboStep + 1}";
-		_comboStep = (_comboStep + 1) % EffectiveComboHitCount;
+		// In the air, sheets with their own air combo (air_attack1..3) swing that instead; it
+		// reuses the matching ground hit's trail/pulses below via comboKey.
+		if (!IsOnFloor() && _sprite.SpriteFrames.HasAnimation("air_attack1"))
+		{
+			_currentAttackAnimation = $"air_attack{_airComboStep + 1}";
+			int airHits = 1;
+			while (airHits < EffectiveComboHitCount && _sprite.SpriteFrames.HasAnimation($"air_attack{airHits + 1}"))
+				airHits++;
+			_airComboStep = (_airComboStep + 1) % airHits;
+		}
+		else
+		{
+			_currentAttackAnimation = $"attack{_comboStep + 1}";
+			_comboStep = (_comboStep + 1) % EffectiveComboHitCount;
+		}
+		string comboKey = _currentAttackAnimation.StartsWith("air_") ? _currentAttackAnimation[4..] : _currentAttackAnimation;
+		if (_currentAttackAnimation == "attack3" && IsOnFloor())
+			SpawnDust("pierce_dust");
 		_comboResetTimer = 0f;
 
 		bool hitLanded = false;
@@ -2290,12 +2569,23 @@ public partial class Player : CharacterBody2D
 		// see each method's comment for why none of them just reuse another one's shape. Started
 		// here (not after the await below) so attack1's trail captures the windup portion of the
 		// swing too.
-		bool useProceduralArcTrail = _currentAttackAnimation is "attack1" or "attack2" or "attack3";
-		if (_currentAttackAnimation == "attack1")
+		(Vector2[] sheetPath, Vector2 sheetTiming) = _currentAttackAnimation switch
+		{
+			"air_attack1" => (AirAttack1TrailPath, AirAttack1TrailTiming),
+			"air_attack2" => (AirAttack2TrailPath, AirAttack2TrailTiming),
+			"air_attack3" => (AirAttack3TrailPath, AirAttack3TrailTiming),
+			"attack3" => (Attack3TrailPath, Attack3TrailTiming),
+			_ => (null, Vector2.Zero),
+		};
+		bool useSheetPath = sheetPath is { Length: >= 2 } && _sprite.SpriteFrames.HasAnimation(_currentAttackAnimation);
+		bool useProceduralArcTrail = useSheetPath || comboKey is "attack1" or "attack2" or "attack3";
+		if (useSheetPath)
+			RunPathNeonTrail(_currentAttackAnimation, sheetPath, sheetTiming.Y, sheetTiming.X, 1.5f, 16);
+		else if (comboKey == "attack1")
 			RunSwordArcTrail(AttackHitboxDelay + AttackDuration);
-		else if (_currentAttackAnimation == "attack2")
+		else if (comboKey == "attack2")
 			RunSwordSpinTrail();
-		else if (_currentAttackAnimation == "attack3")
+		else if (comboKey == "attack3")
 			RunSwordThrustTrail();
 
 		if (AttackHitboxDelay > 0f)
@@ -2303,17 +2593,19 @@ public partial class Player : CharacterBody2D
 
 		_hitboxShape.Size = _hitboxBaseSize;
 		_hitbox.Position = new Vector2(_facingRight ? AttackHitboxReach : -AttackHitboxReach, AttackHitboxYOffset);
+		if (_currentAttackAnimation == "attack3")
+			RunThrustVibration();
 
 		if (!useProceduralArcTrail)
 		{
-			string comboTrail = WeaponTrailAnimation(_currentAttackAnimation);
+			string comboTrail = WeaponTrailAnimation(comboKey);
 			_weaponTrail.Scale = WeaponTrailScale(comboTrail);
 			_weaponTrail.Position = new Vector2(_weaponTrailBaseX, _weaponTrailBaseY);
 			_weaponTrail.Visible = true;
 			_weaponTrail.Play(comboTrail);
 		}
 
-		int comboPulseCount = _currentAttackAnimation switch
+		int comboPulseCount = comboKey switch
 		{
 			"attack2" => 2,
 			"attack3" => 3,
@@ -2344,6 +2636,65 @@ public partial class Player : CharacterBody2D
 		_comboResetTimer = ComboResetWindow;
 	}
 
+	// Jitters only the sprite along X (alternating forward/back from its rest spot) and always puts
+	// it back, so the body, hitbox and trails never move.
+	private async void RunThrustVibration()
+	{
+		if (ThrustVibrationAmplitude <= 0f || ThrustVibrationDuration <= 0f)
+			return;
+
+		Vector2 rest = _sprite.Position;
+		float elapsed = 0f;
+		bool forward = true;
+		while (elapsed < ThrustVibrationDuration && IsInstanceValid(this) && _attacking)
+		{
+			_sprite.Position = rest + new Vector2(forward ? ThrustVibrationAmplitude : -ThrustVibrationAmplitude * 0.5f, 0f);
+			forward = !forward;
+			float step = Mathf.Max(ThrustVibrationInterval, 0.01f);
+			await ToSignal(GetTree().CreateTimer(step), SceneTreeTimer.SignalName.Timeout);
+			elapsed += step;
+		}
+		if (IsInstanceValid(this))
+			_sprite.Position = rest;
+	}
+
+	// A single swing while hanging on a ladder: the climber stops in place (see the _isClimbing
+	// branch), swings in the facing direction, then can climb again once the clip ends.
+	private async void LadderAttack()
+	{
+		if (!_stats.TrySpendStamina(AttackStaminaCost))
+			return;
+
+		_attacking = true;
+		_isLadderAttacking = true;
+		_currentAttackAnimation = "ladder_attack";
+		_sprite.Stop();
+		_sprite.Play("ladder_attack");
+		RunPathNeonTrail("ladder_attack", LadderAttackTrailPath, LadderAttackTrailTiming.Y, LadderAttackTrailTiming.X, 1.5f, 14);
+
+		bool hitLanded = false;
+		void OnHitLanded() => hitLanded = true;
+		_hitbox.HitDealt += OnHitLanded;
+
+		if (LadderAttackHitDelay > 0f)
+			await ToSignal(GetTree().CreateTimer(LadderAttackHitDelay), SceneTreeTimer.SignalName.Timeout);
+
+		_hitboxShape.Size = _hitboxBaseSize;
+		_hitbox.Position = new Vector2(_facingRight ? AttackHitboxReach : -AttackHitboxReach, AttackHitboxYOffset);
+		_hitbox.Activate(_stats, element: _currentElement);
+		await ToSignal(GetTree().CreateTimer(AttackDuration), SceneTreeTimer.SignalName.Timeout);
+		_hitbox.Deactivate();
+		_hitbox.HitDealt -= OnHitLanded;
+		if (!hitLanded)
+			Sfx.Play(this, "Combat/Sword", "Sword Attack");
+
+		float clipLength = _sprite.SpriteFrames.GetFrameCount("ladder_attack") / (float)_sprite.SpriteFrames.GetAnimationSpeed("ladder_attack");
+		float remaining = Mathf.Max(0f, clipLength - LadderAttackHitDelay - AttackDuration);
+		await ToSignal(GetTree().CreateTimer(remaining), SceneTreeTimer.SignalName.Timeout);
+		_isLadderAttacking = false;
+		_attacking = false;
+	}
+
 	private async void CrouchAttack() => await RunSingleAttack("crouch_attack", "slash_vertical", CrouchWeaponTrailYOffset);
 
 	// Returns whether the attack actually landed/spent stamina — callers use this to skip their
@@ -2370,7 +2721,10 @@ public partial class Player : CharacterBody2D
 
 		if (animationName == "crouch_attack")
 		{
-			RunCrouchArcTrail();
+			if (CrouchTrailPath.Length >= 2 && _sprite.SpriteFrames.HasAnimation("crouch_attack"))
+				RunPathNeonTrail("crouch_attack", CrouchTrailPath, CrouchTrailTiming.Y, CrouchTrailTiming.X, 1.3f, 12);
+			else
+				RunCrouchArcTrail();
 		}
 		else
 		{
@@ -2390,6 +2744,85 @@ public partial class Player : CharacterBody2D
 		await ToSignal(GetTree().CreateTimer(remainingAnimTime), SceneTreeTimer.SignalName.Timeout);
 		_attacking = false;
 		return true;
+	}
+
+	// The charged attack's neon trail: draws a smooth curve through ChargedTrailPath (the blade
+	// tip measured per frame of the "charged_attack" sheet), revealed over ChargedTrailDrawTime
+	// so it rides along with the sprite's own sweep instead of a canned smear. Reuses the
+	// SwordArc lines/sparks (same additive neon look as attack1), just thicker.
+	private void RunChargedNeonTrail() =>
+		RunPathNeonTrail("charged_attack", ChargedTrailPath, ChargedTrailDrawTime, 0f, 2.2f, 24);
+
+	// Shared by the charged attack and the air combo: path is in the given clip's own frame-pixel
+	// space, revealed over drawTime after an optional delay (to line up with the frame where the
+	// sheet's swing actually happens).
+	private async void RunPathNeonTrail(string animation, Vector2[] path, float drawTime, float delay, float widthMul, int sparkAmount)
+	{
+		if (path is null || path.Length < 2 || !_sprite.SpriteFrames.HasAnimation(animation))
+			return;
+
+		int runId = ++_swordArcRunId;
+		if (delay > 0f)
+		{
+			await ToSignal(GetTree().CreateTimer(delay), SceneTreeTimer.SignalName.Timeout);
+			if (!IsInstanceValid(this) || runId != _swordArcRunId)
+				return;
+		}
+		Color tint = _isFireImbued ? new Color(1f, 0.55f, 0.2f, 1f) : new Color(0.15f, 0.65f, 1f, 1f);
+
+		// Sheet pixel -> Visual-local (the lines live under Visual, so facing flips for free).
+		Vector2 frameSize = _sprite.SpriteFrames.GetFrameTexture(animation, 0).GetSize();
+		Vector2 ToVisual(Vector2 px) => _sprite.Position + (px - frameSize / 2f + _sprite.Offset) * _sprite.Scale - _swordArcCore.Position;
+
+		const int samplesPerSegment = 8;
+		var curve = new List<Vector2>();
+		for (int i = 0; i < path.Length - 1; i++)
+		{
+			Vector2 pre = ToVisual(path[Mathf.Max(i - 1, 0)]);
+			Vector2 a = ToVisual(path[i]);
+			Vector2 b = ToVisual(path[i + 1]);
+			Vector2 post = ToVisual(path[Mathf.Min(i + 2, path.Length - 1)]);
+			for (int s = 0; s < samplesPerSegment; s++)
+				curve.Add(a.CubicInterpolate(b, pre, post, s / (float)samplesPerSegment));
+		}
+		curve.Add(ToVisual(path[^1]));
+
+		_swordArcPoints.Clear();
+		_swordArcCore.Points = System.Array.Empty<Vector2>();
+		_swordArcGlow.Points = System.Array.Empty<Vector2>();
+		_swordArcCore.Modulate = tint;
+		_swordArcGlow.Modulate = tint;
+		_swordArcCore.Width = _swordArcBaseCoreWidth * widthMul;
+		_swordArcGlow.Width = _swordArcBaseGlowWidth * widthMul;
+		_swordArcSparks.Modulate = tint;
+		_swordArcSparks.Amount = sparkAmount;
+		_swordArcSparks.Emitting = true;
+
+		float elapsed = 0f;
+		while (true)
+		{
+			float progress = Mathf.Clamp(elapsed / Mathf.Max(drawTime, 0.01f), 0f, 1f);
+			int count = Mathf.Max(2, Mathf.CeilToInt(curve.Count * progress));
+			Vector2[] shown = curve.GetRange(0, count).ToArray();
+			_swordArcCore.Points = shown;
+			_swordArcGlow.Points = shown;
+			_swordArcSparks.Position = shown[^1];
+			if (progress >= 1f)
+				break;
+
+			await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+			if (!IsInstanceValid(this) || runId != _swordArcRunId)
+				return;
+			elapsed += (float)GetPhysicsProcessDeltaTime();
+		}
+
+		_swordArcSparks.Emitting = false;
+		await ToSignal(GetTree().CreateTimer(0.06f), SceneTreeTimer.SignalName.Timeout);
+		if (!IsInstanceValid(this) || runId != _swordArcRunId)
+			return;
+		Tween fadeTween = CreateTween();
+		fadeTween.TweenProperty(_swordArcCore, "modulate:a", 0f, 0.18f);
+		fadeTween.Parallel().TweenProperty(_swordArcGlow, "modulate:a", 0f, 0.18f);
 	}
 
 	// attack1's own procedural trail: instead of WeaponTrail's pre-baked smear sprite, this
@@ -2731,7 +3164,7 @@ public partial class Player : CharacterBody2D
 			SaveManager.Instance.SessionTorchEquipped = false;
 			_isTransforming = true;
 			await ToSignal(GetTree().CreateTimer(TransformationInDuration), SceneTreeTimer.SignalName.Timeout);
-			_sprite.SpriteFrames = FireSpriteFrames;
+			ApplyFireLook(true);
 			// The node was still holding "transformation" (only valid in the normal set) the
 			// instant SpriteFrames swapped out from under it — reset to a name that exists in
 			// both sets immediately, instead of leaving it dangling until the next animation update.
@@ -2743,11 +3176,19 @@ public partial class Player : CharacterBody2D
 		{
 			_isTransforming = true;
 			await ToSignal(GetTree().CreateTimer(TransformationOutDuration), SceneTreeTimer.SignalName.Timeout);
-			_sprite.SpriteFrames = _normalSpriteFrames;
+			ApplyFireLook(false);
 			_sprite.Play("idle");
 			_isFireImbued = false;
 			_isTransforming = false;
 		}
+	}
+
+	private void ApplyFireLook(bool fire)
+	{
+		if (FireMaterial != null)
+			_sprite.Material = fire ? FireMaterial : _normalMaterial;
+		else if (FireSpriteFrames != null)
+			_sprite.SpriteFrames = fire ? FireSpriteFrames : _normalSpriteFrames;
 	}
 
 	private void OnDied()

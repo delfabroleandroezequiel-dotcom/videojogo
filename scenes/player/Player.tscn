@@ -4,7 +4,10 @@
 [ext_resource type="Script" uid="uid://c6cqqo7m28qp1" path="res://scripts/player/Hitbox.cs" id="2_hitbox"]
 [ext_resource type="Script" uid="uid://b47a4kpptnpqi" path="res://scripts/shared/Stats.cs" id="3_stats"]
 [ext_resource type="Script" uid="uid://qnk2hpd3127d" path="res://scripts/player/PlayerAbilities.cs" id="4_abilities"]
-[ext_resource type="SpriteFrames" uid="uid://85a3w5or238f" path="res://resources/sprites/FireWarriorSpriteFrames.tres" id="6_spriteframes"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MainCharSpriteFrames.tres" id="6_spriteframes"]
+[ext_resource type="Material" path="res://resources/sprites/MainCharPalette.tres" id="26_palette"]
+[ext_resource type="Material" path="res://resources/sprites/MainCharPaletteFire.tres" id="27_palette_fire"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MainCharDustSpriteFrames.tres" id="28_dust"]
 [ext_resource type="Script" uid="uid://23i50oqrkp5o" path="res://scripts/items/PlayerInventory.cs" id="7_inventory"]
 [ext_resource type="Script" uid="uid://c6jivd8ex7umw" path="res://scripts/player/HealFlask.cs" id="8_healflask"]
 [ext_resource type="SpriteFrames" uid="uid://6ng7emg6uhie" path="res://resources/sprites/WeaponTrailSpriteFrames.tres" id="9_trailframes"]
@@ -59,6 +62,24 @@ floor_snap_length = 12.0
 script = ExtResource("1_script")
 FireSpriteFrames = ExtResource("11_fireframes")
 ArrowProjectileScene = ExtResource("18_projectile")
+FireMaterial = ExtResource("27_palette_fire")
+DustFrames = ExtResource("28_dust")
+WeaponSwingStartAngle = 60.0
+WeaponSwingEndAngle = -70.0
+ChargedTrailPath = PackedVector2Array(44, 86, 51, 67, 70, 48, 104, 16, 140, 26, 163, 54, 162, 88)
+ChargedTrailDrawTime = 0.12
+AirAttack1TrailPath = PackedVector2Array(121, 84, 136, 60, 130, 32, 108, 18, 83, 17, 61, 27)
+AirAttack2TrailPath = PackedVector2Array(137, 52, 128, 62, 100, 76, 70, 80, 45, 76, 34, 68)
+AirAttack3TrailPath = PackedVector2Array(34, 63, 52, 45, 90, 30, 119, 25, 138, 45, 140, 62, 130, 80, 122, 86)
+LadderAttackTrailPath = PackedVector2Array(78, 50, 84, 26, 100, 22, 122, 38, 148, 58, 146, 82, 128, 96, 120, 106)
+CrouchTrailPath = PackedVector2Array(80, 88, 96, 95, 120, 93, 140, 87, 151, 82)
+CrouchTrailTiming = Vector2(0.11, 0.06)
+HealAnimDuration = 1.5
+LedgeHangDropY = 46.0
+LedgeAutoClimbDelay = 0.25
+LedgeClimbMoveStartFrame = 10
+LedgeClimbMoveEndFrame = 13
+LedgeHangVisualShiftX = 8.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=724603580]
 shape = SubResource("RectangleShape2D_collision")
@@ -86,12 +107,12 @@ collision_mask = 16
 [node name="Visual" type="Node2D" parent="." unique_id=2040902481]
 
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual" unique_id=1202741970]
-position = Vector2(-1.9999999, -4.9999995)
-scale = Vector2(1.4, 1.4)
+position = Vector2(-2, -8.9)
+material = ExtResource("26_palette")
+scale = Vector2(1.245, 1.245)
 sprite_frames = ExtResource("6_spriteframes")
 animation = &"idle"
 autoplay = "idle"
-offset = Vector2(0, -5)
 
 [node name="BacklightGlow" type="Sprite2D" parent="Visual" unique_id=916681189]
 visible = false
@@ -266,10 +287,6 @@ script = ExtResource("3_stats")
 AttackPower = 15
 Defense = 5
 InvulnerabilityDuration = 1.0
-MaxStamina = 999
-StaminaRegenPerSecond = 400
-StaminaRegenDelay = 0.1
-StaminaExhaustedRegenDelay = 0.2
 
 [node name="Abilities" type="Node" parent="." unique_id=97306542]
 script = ExtResource("4_abilities")
