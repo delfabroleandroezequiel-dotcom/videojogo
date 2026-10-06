@@ -78,6 +78,14 @@ UI_ACTION_EQUIP_TORCH,Antorcha,Torch,Tocha
 UI_ACTION_SUMMON_CYCLE,Cambiar Invocación,Cycle Summon,Trocar Invocação
 UI_ACTION_SUMMON_CAST,Invocar Sombra,Summon Shadow,Invocar Sombra
 UI_ACTION_SUMMON_DISCARD,Descartar Invocación,Discard Summon,Descartar Invocação
+UI_ACTION_TORNADO_CYCLE,Cambiar Tornado,Cycle Tornado,Trocar Tornado
+UI_ACTION_WIND_SHIELD,Escudo de Viento,Wind Shield,Escudo de Vento
+UI_ACTION_WIND_HURRICANE,Huracán,Hurricane,Furacão
+UI_TORNADO_NORMAL,Tornado,Tornado,Tornado
+UI_TORNADO_DOUBLE,Doble,Double,Duplo
+UI_TORNADO_BIDIRECTIONAL,Bidireccional,Bidirectional,Bidirecional
+UI_TORNADO_MINI,Mini,Mini,Mini
+UI_TORNADO_GROWING,Creciente,Growing,Crescente
 UI_COMPANION_AGGRESSIVE,Compañero: Agresivo,Companion: Aggressive,Companheiro: Agressivo
 UI_COMPANION_PASSIVE,Compañero: Pasivo,Companion: Passive,Companheiro: Passivo
 UI_COMPANION_RECRUITED,¡El perro se une a vos!,The dog joins you!,O cachorro se junta a você!

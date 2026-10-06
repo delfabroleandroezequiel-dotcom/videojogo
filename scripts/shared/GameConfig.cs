@@ -25,6 +25,7 @@ public partial class GameConfig : Node
 		"move_left", "move_right", "move_up", "move_down", "jump", "attack", "dash", "sprint", "interact", "quest_log",
 		"inventory", "heal", "companion_stance", "block", "charged_attack", "roll", "run_thrust", "spell", "spell_tornado",
 		"spell_poison", "spell_fireball", "shoot_bow", "fire_imbue", "equip_torch", "summon_cycle", "summon_cast", "summon_discard",
+		"tornado_cycle", "wind_shield", "wind_hurricane",
 	};
 
 	private static readonly Dictionary<string, Key> DefaultBindings = new()
@@ -56,6 +57,9 @@ public partial class GameConfig : Node
 		{ "summon_cycle", Key.Key4 },
 		{ "summon_cast", Key.Key5 },
 		{ "summon_discard", Key.Key6 },
+		{ "tornado_cycle", Key.O },
+		{ "wind_shield", Key.Key7 },
+		{ "wind_hurricane", Key.Key8 },
 	};
 
 	public static readonly Vector2I[] ResolutionPresets =
@@ -126,6 +130,7 @@ public partial class GameConfig : Node
 	{
 		Instance = this;
 		Achievements = GetNode<AchievementTracker>("Achievements");
+		EnsureRemappableActionsExist();
 		LoadBindings();
 		LoadDisplaySettings();
 	}
@@ -231,6 +236,19 @@ public partial class GameConfig : Node
 		InputMap.ActionAddEvent(action, new InputEventKey { PhysicalKeycode = keycode });
 		foreach (InputEvent preserved in nonKeyEvents)
 			InputMap.ActionAddEvent(action, preserved);
+	}
+
+	// Actions added after project.godot's input map was authored (e.g. tornado_cycle) are
+	// registered here with their default key, so a new remappable action needs no project.godot edit.
+	private static void EnsureRemappableActionsExist()
+	{
+		foreach (string action in RemappableActions)
+		{
+			if (InputMap.HasAction(action))
+				continue;
+			InputMap.AddAction(action);
+			ApplyBinding(action, DefaultBindings[action]);
+		}
 	}
 
 	private void LoadBindings()

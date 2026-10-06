@@ -41,6 +41,8 @@ public partial class SaveManager : Node
 	// these directly wherever CycleElement/the torch toggle mutate them.
 	public DamageElement? SessionElement { get; set; }
 	public bool? SessionTorchEquipped { get; set; }
+	// Selected tornado variant (Player.TornadoVariant as int), so the choice survives map changes.
+	public int? SessionTornadoVariant { get; set; }
 
 	private readonly HashSet<string> _defeatedBosses = new();
 	private readonly HashSet<string> _defeatedCommonEnemies = new();

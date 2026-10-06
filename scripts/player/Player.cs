@@ -92,6 +92,8 @@ public partial class Player : CharacterBody2D
 	[Export] public int RunThrustStaminaCost = 23;
 	[Export] public Vector2 RunThrustHitboxSize = new(105f, 44.1f);
 	[Export] public float RunThrustSecondHitGap = 0.06f;
+	// Brightness of the lunge's neon shockwave (see RunThrustEffects).
+	[Export] public float RunThrustNeonIntensity = 1.5f;
 	[Export] public float CrouchSpeedMultiplier = 0.5f;
 	[Export] public float ParryWindowDuration = 0.2f;
 	[Export] public float ParryBubbleFadeIn = 0.08f;
@@ -132,6 +134,21 @@ public partial class Player : CharacterBody2D
 	// Empty path = the procedural thrust trail.
 	[Export] public Vector2[] Attack3TrailPath = System.Array.Empty<Vector2>();
 	[Export] public Vector2 Attack3TrailTiming = new(0.1f, 0.08f);
+	// Down-attack (pound) trails, measured on the MainCharacter pack: the blade point the falling
+	// line follows (in the "down_attack_loop" frame's pixel space), and the slam crescent drawn on
+	// touchdown ("down_attack_landing" clip, path + delay/draw time).
+	[Export] public Vector2 PoundTrailBladePixel = new(68f, 62f);
+	[Export] public Vector2[] PoundLandingTrailPath = { new(100, 46), new(118, 52), new(132, 68), new(134, 82), new(120, 92), new(98, 95) };
+	[Export] public Vector2 PoundLandingTrailTiming = new(0f, 0.06f);
+	// How long the slam pose holds after bouncing off an enemy before normal air animations resume.
+	[Export] public float PoundBounceSlamHold = 0.14f;
+	// Opening the ground combo while moving faster than this fraction of Speed uses "run_attack"
+	// (when the sheet has it) instead of attack1, with its own blade-tip trail.
+	[Export] public float RunAttackSpeedThreshold = 0.3f;
+	// Default measured on the MainCharacter pack's MainChar_RunAttack sheet (kept here rather than
+	// in Player.tscn to avoid another on-disk scene edit while the editor has it open).
+	[Export] public Vector2[] RunAttackTrailPath = { new(72, 14), new(98, 38), new(126, 54), new(143, 63), new(126, 70), new(96, 72), new(72, 67) };
+	[Export] public Vector2 RunAttackTrailTiming = new(0.13f, 0.07f);
 	// attack3's thrust shakes the sprite back and forth while the blade is out (reads as a burst
 	// of stabs over its 3 damage pulses). Starts when the hitbox opens.
 	[Export] public float ThrustVibrationAmplitude = 2.5f;
@@ -150,10 +167,13 @@ public partial class Player : CharacterBody2D
 	[Export] public float PoundBounceVelocity = -420f;
 	[Export] public Vector2 PoundHitboxSize = new(50f, 70f);
 	[Export] public float PoundHitboxReach = 40f;
-	[Export] public float PoundWeaponTrailYOffset = 25f;
 	[Export] public Vector2 UpAttackHitboxSize = new(46f, 90f);
 	[Export] public float UpAttackHitboxReach = 40f;
 	[Export] public float UpAttackCooldown = 0.4f;
+	// The up attack reuses air_attack1's trail path scaled out from this point (the body's centre,
+	// in that clip's frame pixels) so the streak reaches as far as the up hitbox does.
+	[Export] public Vector2 UpAttackTrailPivot = new(92f, 60f);
+	[Export] public float UpAttackTrailReachScale = 1.35f;
 	// Animation-only for now — no effect/projectile is spawned yet, this just gets the two existing
 	// "spell"/"spell2" clips playable; actual spell effects get attached to these slots later.
 	// Duration matches each clip's frame_count / speed (see FireWarriorSpriteFrames.tres).
@@ -168,13 +188,37 @@ public partial class Player : CharacterBody2D
 	[Export] public float ShadowCloneIntensity = 1.6f;
 	[Export] public float ShadowCloneFadeIn = 0.08f;
 	[Export] public float ShadowCloneFadeOut = 0.2f;
-	// Tornado spell (key 1, "spell_tornado"): a procedural Tornado that travels forward, pulling and
-	// lifting enemies and hitting them every tick for AttackPower × TornadoDamageMultiplier.
+	// Tornado spell (key 1, "spell_tornado"): a procedural Tornado that travels forward, hitting every
+	// enemy inside it each tick for AttackPower × TornadoDamageMultiplier (it never moves them).
 	[Export] public int TornadoStaminaCost = 30;
 	[Export] public float TornadoCooldown = 3f;
 	[Export] public float TornadoCastDelay = 0.35f;
 	[Export] public float TornadoOffsetX = 40f;
 	[Export] public float TornadoDamageMultiplier = 0.5f;
+	// Variant tuning (see SpawnTornadoVariant). Double: second tornado this far beyond the first.
+	[Export] public float DoubleTornadoGap = 70f;
+	// Mini: three small airborne tornadoes fanned out at these angles (degrees, negative = upward),
+	// launched from this height above the player's centre.
+	[Export] public float[] MiniTornadoAngles = { -35f, -12f, 10f };
+	[Export] public float MiniTornadoScale = 0.4f;
+	[Export] public float MiniTornadoDamageMultiplier = 0.5f;
+	[Export] public float MiniTornadoLifetime = 2f;
+	[Export] public float MiniTornadoLaunchHeight = 10f;
+	// Growing: starts this small and grows with each enemy it touches (see Tornado.GrowPerEnemy).
+	[Export] public float GrowingTornadoStartScale = 0.4f;
+	// Wind shield (key 7): a tornado wrapped around the player — fully invulnerable (no damage,
+	// knockback or poison) and no sword while it lasts; it also grazes whatever touches it.
+	[Export] public float WindShieldDuration = 2f;
+	[Export] public int WindShieldStaminaCost = 40;
+	[Export] public float WindShieldCooldown = 8f;
+	[Export] public float WindShieldDamageMultiplier = 0.25f;
+	// Hurricane super (key 8): a screen-wide tornado ticking fast over everything on screen
+	// (bosses included). Needs this fraction of a full stamina bar and spends all of it.
+	[Export] public float HurricaneDuration = 2.2f;
+	[Export] public float HurricaneTickInterval = 0.1f;
+	[Export] public float HurricaneDamageMultiplier = 0.35f;
+	[Export] public float HurricaneCooldown = 30f;
+	[Export] public float HurricaneStaminaFraction = 1f;
 	// Poison spit (key 2, "spell_poison"): the spiders' lobbed poison glob, thrown forward — hits for
 	// AttackPower on impact, poisons the enemy, and leaves a puddle that poisons enemies walking in.
 	[Export] public PackedScene PoisonSpitScene = GD.Load<PackedScene>("res://scenes/world/Rehusables/PoisonSpit.tscn");
@@ -319,6 +363,7 @@ public partial class Player : CharacterBody2D
 	private Node2D _weaponPivot;
 	private AnimatedSprite2D _weaponTrail;
 	private AnimatedSprite2D _crystalEffect;
+	private Material _weaponTrailBaseMaterial;
 	private float _weaponTrailBaseX;
 	private float _weaponTrailBaseY;
 	private Line2D _swordArcGlow;
@@ -394,6 +439,11 @@ public partial class Player : CharacterBody2D
 	// through states whose physics branch returns early (ledge hang, pound...).
 	private double _shadowCloneReadyAt;
 	private double _tornadoReadyAt;
+	private TornadoVariant _tornadoVariant;
+	private bool _windShieldActive;
+	private double _windShieldReadyAt;
+	private double _hurricaneReadyAt;
+	private Metroidvania.UI.TornadoVariantsHud _tornadoHud;
 	private double _poisonSpitReadyAt;
 	private double _fireballReadyAt;
 	private double _summonReadyAt;
@@ -464,7 +514,12 @@ public partial class Player : CharacterBody2D
 		_head = GetNode<Node2D>("Visual/Head");
 		_weaponPivot = GetNode<Node2D>("Visual/WeaponPivot");
 		_weaponTrail = GetNode<AnimatedSprite2D>("Visual/WeaponTrail");
-		_weaponTrail.AnimationFinished += () => _weaponTrail.Visible = false;
+		_weaponTrailBaseMaterial = _weaponTrail.Material;
+		_weaponTrail.AnimationFinished += () =>
+		{
+			_weaponTrail.Visible = false;
+			_weaponTrail.Material = _weaponTrailBaseMaterial;
+		};
 		_swordArcGlow = GetNode<Line2D>("Visual/SwordArcGlow");
 		_swordArcCore = GetNode<Line2D>("Visual/SwordArcCore");
 		_swordArcSparks = GetNode<GpuParticles2D>("Visual/SwordArcSparks");
@@ -603,6 +658,20 @@ public partial class Player : CharacterBody2D
 		SaveManager.Instance.ShadowUsesChanged += UpdateSummonLabel;
 		LocaleManager.Instance.LocaleChanged += _ => UpdateSummonLabel();
 		UpdateSummonLabel();
+
+		// Tornado variant picker, just above the Bastón row.
+		if (SaveManager.Instance.SessionTornadoVariant is int savedVariant
+			&& savedVariant >= 0 && savedVariant < TornadoVariantNameKeys.Length)
+			_tornadoVariant = (TornadoVariant)savedVariant;
+		_tornadoHud = new Metroidvania.UI.TornadoVariantsHud { Name = "TornadoVariantsHud" };
+		GetNode("HUD").AddChild(_tornadoHud);
+		_tornadoHud.Build(TornadoVariantNameKeys);
+		_tornadoHud.Refresh((int)_tornadoVariant);
+		LocaleManager.Instance.LocaleChanged += _ =>
+		{
+			if (IsInstanceValid(_tornadoHud))
+				_tornadoHud.Refresh((int)_tornadoVariant);
+		};
 	}
 
 	public override void _ExitTree()
@@ -727,6 +796,9 @@ public partial class Player : CharacterBody2D
 
 	public void ApplyKnockback(Vector2 direction, float force)
 	{
+		// Inside the wind shield nothing reaches the player — not even the shove.
+		if (_windShieldActive)
+			return;
 		_knockbackVelocity = new Vector2(direction.X * force, -KnockbackUpwardVelocity);
 		_knockbackTimer = KnockbackDuration;
 
@@ -750,6 +822,8 @@ public partial class Player : CharacterBody2D
 
 	public async void ApplyPoison(int tickDamage, float tickInterval, float duration)
 	{
+		if (_windShieldActive)
+			return;
 		int mySequence = ++_poisonSequence;
 		float elapsed = 0f;
 		_sprite.SelfModulate = PoisonTint;
@@ -1056,10 +1130,7 @@ public partial class Player : CharacterBody2D
 		// the pound the instant it touches water so this frame falls through to the swim/float
 		// block below instead of continuing the dive.
 		if (_isPounding && _water != null)
-		{
-			_crystalEffect.Visible = false;
 			EndPound();
-		}
 
 		if (_isPounding)
 		{
@@ -1072,8 +1143,8 @@ public partial class Player : CharacterBody2D
 				Velocity = new Vector2(Velocity.X, PoundBounceVelocity);
 				_jumpCount = 0;
 				_isDoubleJumping = false;
-				_crystalEffect.Play("break");
 				EndPound();
+				PlayDownAttackBounceSlam();
 				UpdateAnimation(delta, false);
 				return;
 			}
@@ -1086,21 +1157,8 @@ public partial class Player : CharacterBody2D
 				_currentAttackAnimation = "down_attack_loop";
 			UpdateAnimation(delta, false);
 
-			// The trail clip is a short one-shot (it auto-hides on AnimationFinished), but a
-			// dive with no enemy to bounce off can fall for way longer than that clip's length.
-			// Keep re-triggering it every time it finishes so the effect covers the whole drop
-			// instead of vanishing partway down.
-			if (!_weaponTrail.IsPlaying())
-			{
-				string poundFallTrail = WeaponTrailAnimation("attack3");
-				_weaponTrail.Scale = WeaponTrailScale(poundFallTrail);
-				_weaponTrail.Visible = true;
-				_weaponTrail.Play(poundFallTrail);
-			}
-
 			if (IsOnFloor())
 			{
-				_crystalEffect.Play("break");
 				EndPound();
 				PlayDownAttackLanding();
 			}
@@ -1455,7 +1513,7 @@ public partial class Player : CharacterBody2D
 			StartRoll();
 		}
 
-		if (_attackBufferTimer > 0f && !_attacking && !_healing && !_isBlocking && !_isTransforming)
+		if (_attackBufferTimer > 0f && !_attacking && !_healing && !_isBlocking && !_isTransforming && !_windShieldActive)
 		{
 			_attackBufferTimer = 0f;
 			bool wantsRunThrust = Input.IsActionPressed("run_thrust") && _abilities.Has(PlayerAbilities.RunThrust)
@@ -1474,7 +1532,7 @@ public partial class Player : CharacterBody2D
 				Attack();
 		}
 
-		if (Input.IsActionJustPressed("charged_attack") && _abilities.Has(PlayerAbilities.ChargedAttack) && !_isCharging
+		if (Input.IsActionJustPressed("charged_attack") && _abilities.Has(PlayerAbilities.ChargedAttack) && !_isCharging && !_windShieldActive
 			&& !_attacking && !_healing && !_isBlocking && !_isTransforming && !_crouching
 			&& !_isDashing && !_isRolling && !_isRunThrusting)
 		{
@@ -1524,6 +1582,22 @@ public partial class Player : CharacterBody2D
 			CastFireball();
 		}
 
+		if (Input.IsActionJustPressed("tornado_cycle"))
+			CycleTornadoVariant();
+
+		if (Input.IsActionJustPressed("wind_shield") && !_windShieldActive && !_isCastingSpell
+			&& !_isCastingSpell2 && !_attacking && !_healing && !_isTransforming
+			&& !_isDashing && !_isRolling && !_isRunThrusting && !_isCharging && !_isShooting)
+		{
+			StartWindShield();
+		}
+
+		if (Input.IsActionJustPressed("wind_hurricane") && !_isCastingSpell
+			&& !_isCastingSpell2 && !_attacking && !_healing && !_isBlocking && !_isTransforming && !_crouching
+			&& !_isDashing && !_isRolling && !_isRunThrusting && !_isCharging && !_isShooting)
+		{
+			CastHurricane();
+		}
 		if (Input.IsActionJustPressed("summon_cycle"))
 			CycleSummon();
 		if (Input.IsActionJustPressed("summon_discard"))
@@ -1987,7 +2061,8 @@ public partial class Player : CharacterBody2D
 		float remainingIframeTime = Mathf.Max(0f, DashIframeDuration - DashDuration);
 		if (remainingIframeTime > 0f)
 			await ToSignal(GetTree().CreateTimer(remainingIframeTime), SceneTreeTimer.SignalName.Timeout);
-		_stats.ExternalInvulnerable = false;
+		// The wind shield keeps its own invulnerability going if it was raised mid-dash.
+		_stats.ExternalInvulnerable = _windShieldActive;
 
 		await ToSignal(GetTree().CreateTimer(DashCooldown), SceneTreeTimer.SignalName.Timeout);
 		_canDash = true;
@@ -2195,18 +2270,58 @@ public partial class Player : CharacterBody2D
 		if (!hasDownAttack)
 			_sprite.Rotation = Mathf.Pi / 2f;
 
-		_weaponTrail.Rotation = Mathf.Pi / 2f;
-		_weaponTrail.Position = new Vector2(0, PoundWeaponTrailYOffset);
-		string poundTrail = WeaponTrailAnimation("attack3");
-		_weaponTrail.Scale = WeaponTrailScale(poundTrail);
-		_weaponTrail.Visible = true;
-		_weaponTrail.Play(poundTrail);
-
-		_crystalEffect.Rotation = 0f;
-		_crystalEffect.Visible = true;
-		_crystalEffect.Play("fall");
-
 		_hitbox.HitDealt += OnPoundHit;
+		RunPoundFallTrail();
+	}
+
+	// While diving: a neon line anchored where the dive began and stretched down to the blade
+	// (thin at the top, full width at the blade — the same taper as the sword trails), with faint
+	// afterimages stacking up behind the body. Ends when the dive does; a landing hands over to
+	// the slam's own trail (PlayDownAttackLanding), a bounce/cancel just fades it out.
+	private async void RunPoundFallTrail()
+	{
+		if (!_sprite.SpriteFrames.HasAnimation("down_attack_loop"))
+			return;
+
+		int runId = ++_swordArcRunId;
+		Color tint = _isFireImbued ? DashGhostFireColor : DashGhostColor;
+		Vector2 frameSize = _sprite.SpriteFrames.GetFrameTexture("down_attack_loop", 0).GetSize();
+		Vector2 bladeLocal = _sprite.Position + (PoundTrailBladePixel - frameSize / 2f + _sprite.Offset) * _sprite.Scale;
+		Vector2 startGlobal = _visual.ToGlobal(bladeLocal);
+
+		_swordArcCore.Modulate = tint;
+		_swordArcGlow.Modulate = tint;
+		_swordArcCore.Width = _swordArcBaseCoreWidth * 1.8f;
+		_swordArcGlow.Width = _swordArcBaseGlowWidth * 1.8f;
+		_swordArcSparks.Modulate = tint;
+		_swordArcSparks.Amount = 16;
+		_swordArcSparks.Emitting = true;
+
+		float ghostTimer = 0f;
+		while (_isPounding)
+		{
+			Vector2 bladeGlobal = _visual.ToGlobal(bladeLocal);
+			Vector2[] points = { _swordArcCore.ToLocal(startGlobal), _swordArcCore.ToLocal(startGlobal.Lerp(bladeGlobal, 0.5f)), _swordArcCore.ToLocal(bladeGlobal) };
+			_swordArcCore.Points = points;
+			_swordArcGlow.Points = points;
+			_swordArcSparks.Position = points[^1];
+
+			ghostTimer -= (float)GetPhysicsProcessDeltaTime();
+			if (ghostTimer <= 0f)
+			{
+				SpawnGhost(JumpGhostAlpha * 1.5f, JumpGhostIntensity, JumpGhostLifetime * 1.5f);
+				ghostTimer = JumpGhostInterval;
+			}
+
+			await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+			if (!IsInstanceValid(this) || runId != _swordArcRunId)
+				return;
+		}
+
+		_swordArcSparks.Emitting = false;
+		Tween fadeTween = CreateTween();
+		fadeTween.TweenProperty(_swordArcCore, "modulate:a", 0f, 0.18f);
+		fadeTween.Parallel().TweenProperty(_swordArcGlow, "modulate:a", 0f, 0.18f);
 	}
 
 	private void OnPoundHit()
@@ -2229,6 +2344,22 @@ public partial class Player : CharacterBody2D
 		_hitbox.HitDealt -= OnPoundHit;
 	}
 
+	// Bouncing off an enemy still shows the slam: the landing clip's crescent frame alone
+	// ("down_attack_slam"), held for PoundBounceSlamHold while rising, with the same slam trail —
+	// without the grounded crouch/get-up frames, which would read wrong in mid-air.
+	private async void PlayDownAttackBounceSlam()
+	{
+		if (!_sprite.SpriteFrames.HasAnimation("down_attack_slam"))
+			return;
+
+		_attacking = true;
+		_currentAttackAnimation = "down_attack_slam";
+		RunPathNeonTrail("down_attack_landing", PoundLandingTrailPath, PoundLandingTrailTiming.Y, PoundLandingTrailTiming.X, 1.8f, 20);
+		await ToSignal(GetTree().CreateTimer(PoundBounceSlamHold), SceneTreeTimer.SignalName.Timeout);
+		if (_currentAttackAnimation == "down_attack_slam")
+			_attacking = false;
+	}
+
 	// The plunge's touchdown recovery — only when the dive actually reached the floor (an enemy
 	// bounce or a water cancel goes straight back to normal air/swim animations).
 	private async void PlayDownAttackLanding()
@@ -2238,6 +2369,7 @@ public partial class Player : CharacterBody2D
 
 		_attacking = true;
 		_currentAttackAnimation = "down_attack_landing";
+		RunPathNeonTrail("down_attack_landing", PoundLandingTrailPath, PoundLandingTrailTiming.Y, PoundLandingTrailTiming.X, 1.8f, 20);
 		float clipLength = _sprite.SpriteFrames.GetFrameCount("down_attack_landing") / (float)_sprite.SpriteFrames.GetAnimationSpeed("down_attack_landing");
 		await ToSignal(GetTree().CreateTimer(clipLength), SceneTreeTimer.SignalName.Timeout);
 		if (_currentAttackAnimation == "down_attack_landing")
@@ -2257,13 +2389,27 @@ public partial class Player : CharacterBody2D
 		}
 
 		_attacking = true;
-		_currentAttackAnimation = "attack1";
+		// Sheets with the air combo's rising slash use it for the up attack (it's the pack's only
+		// upward swing), with that slash's trail pushed further out to match this hitbox's longer
+		// upward reach. Older sheets keep attack1 + the rotated sprite trail.
+		bool sheetUpSlash = _sprite.SpriteFrames.HasAnimation("air_attack1") && AirAttack1TrailPath.Length >= 2;
+		_currentAttackAnimation = sheetUpSlash ? "air_attack1" : "attack1";
 
 		bool hitLanded = false;
 		void OnHitLanded() => hitLanded = true;
 		_hitbox.HitDealt += OnHitLanded;
 
-		_weaponTrail.Rotation = -Mathf.Pi / 2f;
+		if (sheetUpSlash)
+		{
+			var reachPath = new Vector2[AirAttack1TrailPath.Length];
+			for (int i = 0; i < reachPath.Length; i++)
+				reachPath[i] = UpAttackTrailPivot + (AirAttack1TrailPath[i] - UpAttackTrailPivot) * UpAttackTrailReachScale;
+			RunPathNeonTrail("air_attack1", reachPath, AirAttack1TrailTiming.Y, AirAttack1TrailTiming.X, 1.8f, 18);
+		}
+		else
+		{
+			_weaponTrail.Rotation = -Mathf.Pi / 2f;
+		}
 
 		if (AttackHitboxDelay > 0f)
 			await ToSignal(GetTree().CreateTimer(AttackHitboxDelay), SceneTreeTimer.SignalName.Timeout);
@@ -2272,11 +2418,14 @@ public partial class Player : CharacterBody2D
 		_hitbox.Position = new Vector2(0, -UpAttackHitboxReach);
 		_hitbox.Activate(_stats, element: _currentElement);
 
-		_weaponTrail.Position = new Vector2(0, -UpAttackHitboxReach);
-		string upAttackTrail = WeaponTrailAnimation(_currentAttackAnimation);
-		_weaponTrail.Scale = WeaponTrailScale(upAttackTrail);
-		_weaponTrail.Visible = true;
-		_weaponTrail.Play(upAttackTrail);
+		if (!sheetUpSlash)
+		{
+			_weaponTrail.Position = new Vector2(0, -UpAttackHitboxReach);
+			string upAttackTrail = WeaponTrailAnimation(_currentAttackAnimation);
+			_weaponTrail.Scale = WeaponTrailScale(upAttackTrail);
+			_weaponTrail.Visible = true;
+			_weaponTrail.Play(upAttackTrail);
+		}
 
 		await ToSignal(GetTree().CreateTimer(AttackDuration), SceneTreeTimer.SignalName.Timeout);
 		_hitbox.Deactivate();
@@ -2372,11 +2521,160 @@ public partial class Player : CharacterBody2D
 		if (!IsInstanceValid(this) || _isDead || GetTree().CurrentScene is not Node scene)
 			return;
 
-		var tornado = new Metroidvania.World.Tornado();
-		tornado.Setup(facingRight ? 1f : -1f, Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * TornadoDamageMultiplier)));
-		scene.AddChild(tornado);
-		// Origin = the funnel's base: on the ground under the player.
-		tornado.GlobalPosition = GlobalPosition + new Vector2(facingRight ? TornadoOffsetX : -TornadoOffsetX, BodyHalfHeight());
+		SpawnTornadoVariant(scene, facingRight);
+
+		await ToSignal(GetTree().CreateTimer(Mathf.Max(0f, SpellAnimDuration - TornadoCastDelay)), SceneTreeTimer.SignalName.Timeout);
+		if (IsInstanceValid(this))
+			_isCastingSpell = false;
+	}
+
+	// Viento variants: which pattern key 1 casts, picked with tornado_cycle (selectable, they don't
+	// stack). Damage per tornado = AttackPower × TornadoDamageMultiplier, scaled per variant below.
+	public enum TornadoVariant { Normal, Double, Bidirectional, Mini, Growing }
+
+	private static readonly string[] TornadoVariantNameKeys =
+	{
+		"UI_TORNADO_NORMAL", "UI_TORNADO_DOUBLE", "UI_TORNADO_BIDIRECTIONAL", "UI_TORNADO_MINI", "UI_TORNADO_GROWING",
+	};
+
+	private void CycleTornadoVariant()
+	{
+		int count = TornadoVariantNameKeys.Length;
+		_tornadoVariant = (TornadoVariant)(((int)_tornadoVariant + 1) % count);
+		SaveManager.Instance.SessionTornadoVariant = (int)_tornadoVariant;
+		_tornadoHud?.Refresh((int)_tornadoVariant);
+	}
+
+	private void SpawnTornadoVariant(Node scene, bool facingRight)
+	{
+		float facing = facingRight ? 1f : -1f;
+		int damage = Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * TornadoDamageMultiplier));
+		// Ground tornadoes stand on the floor under the player; airborne minis start at chest height.
+		Vector2 ground = GlobalPosition + new Vector2(0f, BodyHalfHeight());
+
+		Metroidvania.World.Tornado Spawn(Vector2 travel, Vector2 at, int power, float size = 1f, bool growing = false, float lifetime = -1f)
+		{
+			var tornado = new Metroidvania.World.Tornado();
+			tornado.Setup(travel, power, _isFireImbued, size, growing);
+			if (lifetime > 0f)
+				tornado.Lifetime = lifetime;
+			scene.AddChild(tornado);
+			tornado.GlobalPosition = at;
+			return tornado;
+		}
+
+		switch (_tornadoVariant)
+		{
+			case TornadoVariant.Double:
+				Spawn(new Vector2(facing, 0f), ground + new Vector2(facing * TornadoOffsetX, 0f), damage);
+				Spawn(new Vector2(facing, 0f), ground + new Vector2(facing * (TornadoOffsetX + DoubleTornadoGap), 0f), damage);
+				break;
+			case TornadoVariant.Bidirectional:
+				Spawn(Vector2.Right, ground + new Vector2(TornadoOffsetX, 0f), damage);
+				Spawn(Vector2.Left, ground + new Vector2(-TornadoOffsetX, 0f), damage);
+				break;
+			case TornadoVariant.Mini:
+				int miniDamage = Mathf.Max(1, Mathf.RoundToInt(damage * MiniTornadoDamageMultiplier));
+				Vector2 chest = GlobalPosition + new Vector2(facing * TornadoOffsetX * 0.6f, -MiniTornadoLaunchHeight);
+				foreach (float angle in MiniTornadoAngles)
+				{
+					Vector2 dir = new Vector2(facing, 0f).Rotated(Mathf.DegToRad(angle) * facing);
+					Spawn(dir, chest, miniDamage, MiniTornadoScale, lifetime: MiniTornadoLifetime);
+				}
+				break;
+			case TornadoVariant.Growing:
+				Spawn(new Vector2(facing, 0f), ground + new Vector2(facing * TornadoOffsetX, 0f), damage, GrowingTornadoStartScale, growing: true);
+				break;
+			default:
+				Spawn(new Vector2(facing, 0f), ground + new Vector2(facing * TornadoOffsetX, 0f), damage);
+				break;
+		}
+	}
+
+	private async void StartWindShield()
+	{
+		double now = Time.GetTicksMsec() / 1000.0;
+		if (now < _windShieldReadyAt || !_stats.TrySpendStamina(WindShieldStaminaCost))
+			return;
+		_windShieldReadyAt = now + WindShieldCooldown;
+		_windShieldActive = true;
+		_stats.ExternalInvulnerable = true;
+
+		// A short, wide, nearly straight column hugging the body (not a cone), parented to the
+		// player so it moves with them; drawn over the player so they read as inside it.
+		var shield = new Metroidvania.World.Tornado
+		{
+			Height = 110f,
+			TipRadius = 34f,
+			TopRadius = 48f,
+			ConePower = 0.3f,
+			BandCount = 7f,
+			ThicknessBottom = 7f,
+			ThicknessTop = 10f,
+			Flatten = 0.35f,
+			SwayAmplitude = 4f,
+			HitHalfWidth = 40f,
+			Speed = 0f,
+			Lifetime = WindShieldDuration,
+			GrowTime = 0.15f,
+			FadeTime = 0.25f,
+			TickInterval = 0.25f,
+			ZIndex = 1,
+		};
+		shield.Setup(Vector2.Right, Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * WindShieldDamageMultiplier)), _isFireImbued);
+		AddChild(shield);
+		shield.Position = new Vector2(0f, BodyHalfHeight());
+
+		await ToSignal(GetTree().CreateTimer(WindShieldDuration), SceneTreeTimer.SignalName.Timeout);
+		if (!IsInstanceValid(this))
+			return;
+		_windShieldActive = false;
+		_stats.ExternalInvulnerable = _isDashing;
+	}
+
+	private async void CastHurricane()
+	{
+		double now = Time.GetTicksMsec() / 1000.0;
+		int needed = Mathf.CeilToInt(_stats.MaxStamina * HurricaneStaminaFraction);
+		if (now < _hurricaneReadyAt || _stats.CurrentStamina < needed || _camera is null)
+			return;
+		_stats.SpendStaminaClamped(_stats.MaxStamina);
+		_hurricaneReadyAt = now + HurricaneCooldown;
+		_isCastingSpell = true;
+		bool fire = _isFireImbued;
+
+		await ToSignal(GetTree().CreateTimer(TornadoCastDelay), SceneTreeTimer.SignalName.Timeout);
+		if (!IsInstanceValid(this) || _isDead || GetTree().CurrentScene is not Node scene)
+			return;
+
+		// Sized from what the camera shows right now: the funnel's point sits at the bottom-centre
+		// of the screen and it opens up to cover the whole view.
+		Vector2 view = GetViewport().GetVisibleRect().Size / _camera.Zoom;
+		Vector2 screenCenter = _camera.GetScreenCenterPosition();
+		float height = view.Y * 1.02f;
+		var hurricane = new Metroidvania.World.Tornado
+		{
+			Height = height,
+			TipRadius = 40f,
+			TopRadius = view.X * 0.43f,
+			ConePower = 0.35f,
+			BandCount = Mathf.Round(height / 30f),
+			ThicknessBottom = 16f,
+			ThicknessTop = 70f,
+			// Big columns need flat ribbons: at this radius a normal curve would sink far below each band.
+			Flatten = 0.12f,
+			SwayAmplitude = 12f,
+			HitHalfWidth = view.X * 0.5f,
+			Speed = 0f,
+			Lifetime = HurricaneDuration,
+			GrowTime = 0.35f,
+			FadeTime = 0.45f,
+			TickInterval = HurricaneTickInterval,
+			ZIndex = 2,
+		};
+		hurricane.Setup(Vector2.Right, Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * HurricaneDamageMultiplier)), fire);
+		scene.AddChild(hurricane);
+		hurricane.GlobalPosition = screenCenter + new Vector2(0f, view.Y * 0.5f);
 
 		await ToSignal(GetTree().CreateTimer(Mathf.Max(0f, SpellAnimDuration - TornadoCastDelay)), SceneTreeTimer.SignalName.Timeout);
 		if (IsInstanceValid(this))
@@ -2462,19 +2760,19 @@ public partial class Player : CharacterBody2D
 		_attacking = true;
 		_isRunThrusting = true;
 		_canRunThrust = false;
-		_currentAttackAnimation = _sprite.SpriteFrames.HasAnimation("run_thrust") ? "run_thrust" : "attack3";
+		// The lunge uses the leaning, legs-tucked dash pose ("air_thrust") both in the air and on
+		// the ground — it reads as a lunge either way; sheets without it fall back below.
+		if (_sprite.SpriteFrames.HasAnimation("air_thrust"))
+			_currentAttackAnimation = "air_thrust";
+		else
+			_currentAttackAnimation = _sprite.SpriteFrames.HasAnimation("run_thrust") ? "run_thrust" : "attack3";
 		_runThrustDirection = _facingRight ? 1f : -1f;
 
 		bool hitLanded = false;
-		void OnHitLanded()
-		{
-			if (hitLanded)
-				return;
-
-			hitLanded = true;
-			_crystalEffect.Play("break");
-		}
+		void OnHitLanded() => hitLanded = true;
 		_hitbox.HitDealt += OnHitLanded;
+
+		RunThrustEffects(RunThrustDuration);
 
 		if (RunThrustHitboxDelay > 0f)
 			await ToSignal(GetTree().CreateTimer(RunThrustHitboxDelay), SceneTreeTimer.SignalName.Timeout);
@@ -2482,21 +2780,6 @@ public partial class Player : CharacterBody2D
 		_hitboxShape.Size = RunThrustHitboxSize;
 		_hitbox.Position = new Vector2(_runThrustDirection * (RunThrustHitboxSize.X / 2f), 0);
 		_hitbox.Activate(_stats, element: _currentElement);
-		string runThrustTrail = _isFireImbued ? "thrust_05_fire" : "thrust_05";
-		_weaponTrail.Scale = WeaponTrailScale(runThrustTrail);
-		_weaponTrail.Position = new Vector2(_weaponTrailBaseX, _weaponTrailBaseY);
-		_weaponTrail.Visible = true;
-		_weaponTrail.Play(runThrustTrail);
-
-		// The crystal art isn't left/right symmetric (the shard scatter leans one way), so
-		// flipping the rotation's sign per direction rotated the asymmetric detail the wrong
-		// way for one side instead of mirroring it — same rotation every time, mirrored via
-		// FlipV (pre-rotation flip on the axis that becomes screen-left/right after a ±90°
-		// turn) for the other direction instead.
-		_crystalEffect.Rotation = -Mathf.Pi / 2f;
-		_crystalEffect.FlipH = _runThrustDirection < 0f;
-		_crystalEffect.Visible = true;
-		_crystalEffect.Play("fall");
 
 		// Two separate hitbox pulses (with a brief gap in between) so an enemy still standing
 		// in the lunge's path when it re-activates takes a second tick of damage, instead of
@@ -2516,10 +2799,7 @@ public partial class Player : CharacterBody2D
 		_hitbox.Deactivate();
 		_hitbox.HitDealt -= OnHitLanded;
 		if (!hitLanded)
-		{
 			Sfx.Play(this, "Combat/Sword", "Sword Attack");
-			_crystalEffect.Visible = false;
-		}
 
 		_isRunThrusting = false;
 		_attacking = false;
@@ -2527,6 +2807,31 @@ public partial class Player : CharacterBody2D
 
 		await ToSignal(GetTree().CreateTimer(RunThrustCooldown), SceneTreeTimer.SignalName.Timeout);
 		_canRunThrust = true;
+	}
+
+	// The Ctrl lunge's effect: the old Effect 5 piercing shockwave (it wraps the whole body and
+	// opens into a wide arrowhead) rendered as a solid additive neon silhouette, so it matches the
+	// rest of the neon kit, plus a dense run of afterimages for the lunge itself. The trail's
+	// normal material comes back when the clip finishes (see the AnimationFinished hook in _Ready).
+	private async void RunThrustEffects(float duration)
+	{
+		Color tint = _isFireImbued ? DashGhostFireColor : DashGhostColor;
+		_weaponTrail.Material = NeonSilhouette.CreateMaterial(tint, RunThrustNeonIntensity);
+		_weaponTrail.Rotation = 0f;
+		_weaponTrail.Scale = WeaponTrailScale("thrust_05");
+		_weaponTrail.Position = new Vector2(_weaponTrailBaseX, _weaponTrailBaseY);
+		_weaponTrail.Visible = true;
+		_weaponTrail.Stop();
+		_weaponTrail.Play("thrust_05");
+
+		float elapsed = 0f;
+		while (elapsed < duration && IsInstanceValid(this) && _isRunThrusting)
+		{
+			SpawnGhost(DashGhostAlpha, DashGhostIntensity, DashGhostLifetime);
+			float step = DashGhostInterval * 0.7f;
+			await ToSignal(GetTree().CreateTimer(step), SceneTreeTimer.SignalName.Timeout);
+			elapsed += step;
+		}
 	}
 
 	private async void Attack()
@@ -2548,9 +2853,19 @@ public partial class Player : CharacterBody2D
 		else
 		{
 			_currentAttackAnimation = $"attack{_comboStep + 1}";
+			// Opening the combo while moving on the ground swings the running slash instead of
+			// the planted attack1; the rest of the combo continues as usual.
+			if (_comboStep == 0 && IsOnFloor() && Mathf.Abs(Velocity.X) > Speed * RunAttackSpeedThreshold
+				&& _sprite.SpriteFrames.HasAnimation("run_attack"))
+				_currentAttackAnimation = "run_attack";
 			_comboStep = (_comboStep + 1) % EffectiveComboHitCount;
 		}
-		string comboKey = _currentAttackAnimation.StartsWith("air_") ? _currentAttackAnimation[4..] : _currentAttackAnimation;
+		string comboKey = _currentAttackAnimation switch
+		{
+			"run_attack" => "attack1",
+			_ when _currentAttackAnimation.StartsWith("air_") => _currentAttackAnimation[4..],
+			_ => _currentAttackAnimation,
+		};
 		if (_currentAttackAnimation == "attack3" && IsOnFloor())
 			SpawnDust("pierce_dust");
 		_comboResetTimer = 0f;
@@ -2575,6 +2890,7 @@ public partial class Player : CharacterBody2D
 			"air_attack2" => (AirAttack2TrailPath, AirAttack2TrailTiming),
 			"air_attack3" => (AirAttack3TrailPath, AirAttack3TrailTiming),
 			"attack3" => (Attack3TrailPath, Attack3TrailTiming),
+			"run_attack" => (RunAttackTrailPath, RunAttackTrailTiming),
 			_ => (null, Vector2.Zero),
 		};
 		bool useSheetPath = sheetPath is { Length: >= 2 } && _sprite.SpriteFrames.HasAnimation(_currentAttackAnimation);
