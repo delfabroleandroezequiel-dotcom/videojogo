@@ -4,18 +4,23 @@
 [ext_resource type="Theme" path="res://resources/ui/JekyriaMenuTheme.res" id="2_theme"]
 [ext_resource type="PackedScene" path="res://scenes/ui/SettingsPanel.tscn" id="3_settings"]
 [ext_resource type="Texture2D" uid="uid://0wfm25e4atxn" path="res://assets/backgrounds/PortadaCarga.png" id="4_cover"]
-[ext_resource type="SpriteFrames" uid="uid://85a3w5or238f" path="res://resources/sprites/FireWarriorSpriteFrames.tres" id="5_prota"]
+[ext_resource type="SpriteFrames" uid="uid://b0rmbvyk80pdx" path="res://resources/sprites/MainCharSpriteFrames.tres" id="5_prota"]
 [ext_resource type="SpriteFrames" uid="uid://dtlw2ll86ngrs" path="res://resources/sprites/MedievalWarrior2SpriteFrames.tres" id="6_gransin"]
 [ext_resource type="SpriteFrames" uid="uid://ctvox0uvqgu0p" path="res://resources/sprites/AlatheaSpriteFrames.tres" id="7_alathea"]
 [ext_resource type="SpriteFrames" uid="uid://bh3xqrdjpq3kb" path="res://resources/sprites/DalmatianSpriteFrames.tres" id="8_dog"]
-[ext_resource type="Texture2D" path="res://assets/sprites/deco/Logotipo fantástico JEKYRIA con emblema ancestral.png" id="9_logo"]
+[ext_resource type="Texture2D" uid="uid://c38rb8v62wtis" path="res://assets/sprites/deco/Logotipo fantástico JEKYRIA con emblema ancestral.png" id="9_logo"]
 [ext_resource type="FontFile" path="res://resources/ui/JekyriaFont.res" id="10_font"]
+[ext_resource type="Material" uid="uid://ccgbxy3cl38w7" path="res://resources/sprites/MainCharPalette.tres" id="11_prota_palette"]
+[ext_resource type="Script" uid="uid://dmc84bj2qiwao" path="res://scripts/shared/LoopingAudioPlayer.cs" id="12_music_script"]
+[ext_resource type="AudioStream" uid="uid://ifsn6j0bgc3f" path="res://assets/audio/nix_theme.mp3" id="13_menu_music"]
 
 [node name="MainMenu" type="Control" unique_id=952815470]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("2_theme")
 script = ExtResource("1_script")
 
@@ -32,6 +37,7 @@ stretch_mode = 6
 position = Vector2(180.33029, 1.5013123)
 
 [node name="Dog" type="AnimatedSprite2D" parent="Cast" unique_id=670363817]
+visible = false
 position = Vector2(193.31618, 424.81885)
 scale = Vector2(2.2, 2.2)
 sprite_frames = ExtResource("8_dog")
@@ -40,15 +46,16 @@ autoplay = "idle"
 offset = Vector2(0, -17)
 
 [node name="Protagonist" type="AnimatedSprite2D" parent="Cast" unique_id=1302839945]
+material = ExtResource("11_prota_palette")
 position = Vector2(374.59616, 372.0188)
-scale = Vector2(2.2, 2.2)
+scale = Vector2(1.96, 1.96)
 sprite_frames = ExtResource("5_prota")
 animation = &"idle"
 autoplay = "idle"
 offset = Vector2(0, -31)
 
 [node name="Alathea" type="AnimatedSprite2D" parent="Cast" unique_id=838940632]
-position = Vector2(100.91621, 408.09882)
+position = Vector2(170.43616, 400.17877)
 scale = Vector2(2.2, 2.2)
 sprite_frames = ExtResource("7_alathea")
 animation = &"idle"
@@ -63,15 +70,15 @@ animation = &"idle"
 autoplay = "idle"
 offset = Vector2(0, -20)
 
-[node name="Logo" type="TextureRect" parent="."]
+[node name="Logo" type="TextureRect" parent="." unique_id=2062040352]
 layout_mode = 0
-anchor_left = 0.5
-anchor_top = 0.03
-anchor_right = 0.5
-anchor_bottom = 0.03
-offset_left = -270.0
-offset_right = 270.0
-offset_bottom = 180.0
+anchor_left = 0.78
+anchor_top = 0.15
+anchor_right = 0.78
+anchor_bottom = 0.15
+offset_left = -210.0
+offset_right = 210.0
+offset_bottom = 137.0
 mouse_filter = 2
 texture = ExtResource("9_logo")
 expand_mode = 1
@@ -107,13 +114,14 @@ text = "UI_PAUSE_SETTINGS"
 [node name="SlotMenu" type="VBoxContainer" parent="." unique_id=1516760171]
 visible = false
 layout_mode = 0
-anchor_left = 0.5
-anchor_top = 0.35
-anchor_right = 0.5
-anchor_bottom = 0.35
+anchor_left = 0.78
+anchor_top = 0.62
+anchor_right = 0.78
+anchor_bottom = 0.62
 offset_left = -150.0
+offset_top = -89.0
 offset_right = 150.0
-offset_bottom = 400.0
+offset_bottom = 311.0
 theme_override_constants/separation = 4
 
 [node name="SlotsContainer" type="VBoxContainer" parent="SlotMenu" unique_id=1912835721]
@@ -133,9 +141,9 @@ anchor_top = 0.62
 anchor_right = 0.78
 anchor_bottom = 0.62
 offset_left = -140.0
-offset_top = -100.0
+offset_top = -89.0
 offset_right = 140.0
-offset_bottom = 100.0
+offset_bottom = 111.0
 theme_override_constants/separation = 8
 
 [node name="NameLabel" type="Label" parent="NamePrompt" unique_id=19984223]
@@ -167,3 +175,9 @@ text = "UI_MAINMENU_CANCEL"
 
 [node name="Settings" parent="." unique_id=502638938 instance=ExtResource("3_settings")]
 anchors_preset = 0
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_menu_music")
+volume_db = -6.0
+autoplay = true
+script = ExtResource("12_music_script")

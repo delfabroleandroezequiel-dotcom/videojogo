@@ -9,7 +9,7 @@ namespace Metroidvania.Save;
 
 public partial class SaveManager : Node
 {
-	public const int SlotCount = 6;
+	public const int SlotCount = 5;
 
 	// Bump this whenever a saved field's meaning changes, and add the corresponding
 	// upgrade step to MigrateSaveData. Legacy saves written before this existed load as 0.

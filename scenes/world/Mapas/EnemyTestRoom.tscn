@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://b56iyefxyhuy5" path="res://scripts/world/EnemyTestRoomHealthBuff.cs" id="3_healthbuff"]
 [ext_resource type="Texture2D" uid="uid://b37c5fqvueq8p" path="res://assets/backgrounds/caminodesierto.png" id="4_mv8r7"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/MushroomBoss.tscn" id="10_mushroomboss"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemys/Bandido2.tscn" id="4_ttgj4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1400, 60)
@@ -6121,7 +6121,5 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="MushroomBoss" parent="." unique_id=1674113856 instance=ExtResource("10_mushroomboss")]
-position = Vector2(1000, 300)
-StartInPhaseThree = true
-CustomPersistenceId = "mushroom_boss_enemy_test_room"
+[node name="Bandido2" parent="." unique_id=1712822582 instance=ExtResource("4_ttgj4")]
+position = Vector2(977, 384)

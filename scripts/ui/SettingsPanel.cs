@@ -82,6 +82,25 @@ public partial class SettingsPanel : Control
 		EmitSignal(SignalName.Closed);
 	}
 
+	// Moves the settings list and the display list (keeping their sizes) so their top edge sits at
+	// (anchorX, anchorY) + topOffset — the main menu lines them up with its own button column. The key
+	// bindings list keeps its centred layout (it needs the room).
+	public void PlaceInColumn(float anchorX, float anchorY, float topOffset)
+	{
+		foreach (Control box in new[] { _mainView, GetNode<Control>("DisplayPanel/DVBox") })
+		{
+			Vector2 size = new(box.OffsetRight - box.OffsetLeft, box.OffsetBottom - box.OffsetTop);
+			box.AnchorLeft = anchorX;
+			box.AnchorRight = anchorX;
+			box.AnchorTop = anchorY;
+			box.AnchorBottom = anchorY;
+			box.OffsetLeft = -size.X / 2f;
+			box.OffsetRight = size.X / 2f;
+			box.OffsetTop = topOffset;
+			box.OffsetBottom = topOffset + size.Y;
+		}
+	}
+
 	// Escape/back: a sub-panel (Controls, Display) goes back to the settings list, the list closes the
 	// panel. Returns false if the panel wasn't open (the caller handles the key itself).
 	public bool Back()
