@@ -19,7 +19,12 @@ public partial class PlayerAbilities : Node
 	public const string PoundAttack = "pound_attack";
 	public const string UpAttack = "up_attack";
 	public const string LedgeGrab = "ledge_grab";
+	// Maestro de Espadas: ComboFinisher unlocks the combo's 3rd hit, ComboFourth the 4th (needs the
+	// 3rd), FlyingSword the thrown boomerang sword (G). PoundAttack (dive) and RunThrust (Ctrl lunge)
+	// above belong to it too.
 	public const string ComboFinisher = "combo_finisher";
+	public const string ComboFourth = "combo_fourth";
+	public const string FlyingSword = "flying_sword";
 	public const string RopeSwing = "rope_swing";
 	public const string Swim = "swim";
 	public const string Bow = "bow";
@@ -43,6 +48,10 @@ public partial class PlayerAbilities : Node
 	[Export] public bool StartWithSwim;
 	[Export] public bool StartWithBow;
 	[Export] public bool StartWithTorch;
+	// Start unlocked for now, like everything above is in Player.tscn, until the skill tree grants
+	// them — untick on the Abilities node to test them locked.
+	[Export] public bool StartWithComboFourth = true;
+	[Export] public bool StartWithFlyingSword = true;
 
 	private readonly HashSet<string> _unlocked = new();
 
@@ -84,6 +93,10 @@ public partial class PlayerAbilities : Node
 			Unlock(Swim);
 		if (StartWithBow)
 			Unlock(Bow);
+		if (StartWithComboFourth)
+			Unlock(ComboFourth);
+		if (StartWithFlyingSword)
+			Unlock(FlyingSword);
 		if (StartWithTorch)
 			Unlock(Torch);
 

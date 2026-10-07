@@ -75,7 +75,7 @@ LadderAttackTrailPath = PackedVector2Array(78, 50, 84, 26, 100, 22, 122, 38, 148
 CrouchTrailPath = PackedVector2Array(80, 88, 96, 95, 120, 93, 140, 87, 151, 82)
 CrouchTrailTiming = Vector2(0.11, 0.06)
 HealAnimDuration = 1.5
-LedgeHangDropY = 46.0
+LedgeHangDropY = 41.0
 LedgeAutoClimbDelay = 0.25
 LedgeClimbMoveStartFrame = 10
 LedgeClimbMoveEndFrame = 13
@@ -107,9 +107,9 @@ collision_mask = 16
 [node name="Visual" type="Node2D" parent="." unique_id=2040902481]
 
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual" unique_id=1202741970]
-position = Vector2(-2, -8.9)
+position = Vector2(-2, -6.2)
 material = ExtResource("26_palette")
-scale = Vector2(1.245, 1.245)
+scale = Vector2(1.158, 1.158)
 sprite_frames = ExtResource("6_spriteframes")
 animation = &"idle"
 autoplay = "idle"

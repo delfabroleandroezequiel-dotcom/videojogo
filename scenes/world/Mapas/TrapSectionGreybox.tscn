@@ -1,0 +1,220 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniPlataforma.tscn" id="2_plat"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniPared.tscn" id="3_wall"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ArrowTrap.tscn" id="4_arrow"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SpikeAccordion.tscn" id="5_spikes"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CrumbleFloor.tscn" id="6_crumble"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PendulumTrap.tscn" id="7_pendulum"]
+[ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="8_ladder"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CrushingPlatform.tscn" id="9_crusher"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/DefeatWall.tscn" id="10_defeat"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SecretWall.tscn" id="11_secret"]
+[ext_resource type="PackedScene" uid="uid://chest_main" path="res://scenes/world/Rehusables/Chest.tscn" id="12_chest"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/WarriorEnemy.tscn" id="13_warrior"]
+
+[node name="TrapSectionGreybox" type="Node2D"]
+
+[node name="Greybox" type="Node2D" parent="."]
+
+[node name="WallLeft" parent="Greybox" instance=ExtResource("3_wall")]
+position = Vector2(-32, -500)
+Length = 564.0
+Thickness = 32.0
+
+[node name="FloorEntrance" parent="Greybox" instance=ExtResource("2_plat")]
+position = Vector2(-32, 0)
+Length = 512.0
+Thickness = 64.0
+OneWay = false
+
+[node name="CeilingLower" parent="Greybox" instance=ExtResource("2_plat")]
+position = Vector2(-32, -300)
+Length = 932.0
+Thickness = 32.0
+OneWay = false
+
+[node name="PitFloor" parent="Greybox" instance=ExtResource("2_plat")]
+position = Vector2(480, 160)
+Length = 240.0
+Thickness = 48.0
+OneWay = false
+
+[node name="PitWallLeft" parent="Greybox" instance=ExtResource("3_wall")]
+position = Vector2(448, 64)
+Length = 144.0
+Thickness = 32.0
+
+[node name="PitWallRight" parent="Greybox" instance=ExtResource("3_wall")]
+position = Vector2(720, 64)
+Length = 144.0
+Thickness = 32.0
+
+[node name="FloorMain" parent="Greybox" instance=ExtResource("2_plat")]
+position = Vector2(720, 0)
+Length = 1280.0
+Thickness = 64.0
+OneWay = false
+
+[node name="UpperFloor" parent="Greybox" instance=ExtResource("2_plat")]
+position = Vector2(900, -260)
+Length = 520.0
+Thickness = 24.0
+
+[node name="CeilingUpper" parent="Greybox" instance=ExtResource("2_plat")]
+position = Vector2(900, -452)
+Length = 792.0
+Thickness = 32.0
+OneWay = false
+
+[node name="ArenaWallUpper" parent="Greybox" instance=ExtResource("3_wall")]
+position = Vector2(1000, -236)
+Length = 116.0
+Thickness = 32.0
+
+[node name="AlcoveFloor" parent="Greybox" instance=ExtResource("2_plat")]
+position = Vector2(1500, -260)
+Length = 192.0
+Thickness = 24.0
+OneWay = false
+
+[node name="AlcoveWallRight" parent="Greybox" instance=ExtResource("3_wall")]
+position = Vector2(1660, -420)
+Length = 160.0
+Thickness = 32.0
+
+[node name="WallRightUpper" parent="Greybox" instance=ExtResource("3_wall")]
+position = Vector2(1900, -500)
+Length = 360.0
+Thickness = 32.0
+
+[node name="CrumbleTiles" type="Node2D" parent="Greybox"]
+
+[node name="CrumbleTileA" parent="Greybox/CrumbleTiles" instance=ExtResource("2_plat")]
+position = Vector2(508, 0)
+Length = 48.0
+Thickness = 16.0
+OneWay = false
+
+[node name="CrumbleTileB" parent="Greybox/CrumbleTiles" instance=ExtResource("2_plat")]
+position = Vector2(592, 0)
+Length = 48.0
+Thickness = 16.0
+OneWay = false
+
+[node name="CrumbleTileC" parent="Greybox/CrumbleTiles" instance=ExtResource("2_plat")]
+position = Vector2(676, 0)
+Length = 48.0
+Thickness = 16.0
+OneWay = false
+
+[node name="Trampas" type="Node2D" parent="."]
+
+[node name="1_ArrowTrap" parent="Trampas" instance=ExtResource("4_arrow")]
+position = Vector2(0, -34)
+FireInterval = 2.2
+StartOffset = 1.0
+MaxDistance = 470.0
+
+[node name="2_PitSpikes" parent="Trampas" instance=ExtResource("5_spikes")]
+position = Vector2(530, 160)
+Count = 3
+Spacing = 80.0
+
+[node name="2_CrumbleA" parent="Trampas" node_paths=PackedStringArray("AttachedCollision") instance=ExtResource("6_crumble")]
+position = Vector2(532, -6)
+Width = 48.0
+Height = 12.0
+AttachedCollision = NodePath("../../Greybox/CrumbleTiles/CrumbleTileA/Body/CollisionShape2D")
+TriggerDelay = 0.45
+RespawnDelay = 2.5
+Persistent = false
+
+[node name="2_CrumbleB" parent="Trampas" node_paths=PackedStringArray("AttachedCollision") instance=ExtResource("6_crumble")]
+position = Vector2(616, -6)
+Width = 48.0
+Height = 12.0
+AttachedCollision = NodePath("../../Greybox/CrumbleTiles/CrumbleTileB/Body/CollisionShape2D")
+TriggerDelay = 0.45
+RespawnDelay = 2.5
+Persistent = false
+
+[node name="2_CrumbleC" parent="Trampas" node_paths=PackedStringArray("AttachedCollision") instance=ExtResource("6_crumble")]
+position = Vector2(700, -6)
+Width = 48.0
+Height = 12.0
+AttachedCollision = NodePath("../../Greybox/CrumbleTiles/CrumbleTileC/Body/CollisionShape2D")
+TriggerDelay = 0.45
+RespawnDelay = 2.5
+Persistent = false
+
+[node name="3_Pendulum" parent="Trampas" instance=ExtResource("7_pendulum")]
+position = Vector2(616, -268)
+ChainLength = 200.0
+MaxAngleDegrees = 50.0
+SwingPeriod = 2.4
+
+[node name="4_Ladder" parent="Trampas" instance=ExtResource("8_ladder")]
+position = Vector2(940, -130)
+Length = 260.0
+
+[node name="5_CrusherA" parent="Trampas" instance=ExtResource("9_crusher")]
+position = Vector2(1090, -396)
+Size = Vector2(96, 48)
+Trigger = 1
+IdleDuration = 1.6
+StartOffset = 0.0
+MaxFallDistance = 112.0
+
+[node name="5_CrusherB" parent="Trampas" instance=ExtResource("9_crusher")]
+position = Vector2(1230, -396)
+Size = Vector2(96, 48)
+Trigger = 1
+IdleDuration = 1.6
+StartOffset = 0.5
+MaxFallDistance = 112.0
+
+[node name="5_CrusherC" parent="Trampas" instance=ExtResource("9_crusher")]
+position = Vector2(1370, -396)
+Size = Vector2(96, 48)
+Trigger = 1
+IdleDuration = 1.6
+StartOffset = 1.0
+MaxFallDistance = 112.0
+
+[node name="Enemigos" type="Node2D" parent="."]
+
+[node name="6_WarriorA" parent="Enemigos" instance=ExtResource("13_warrior")]
+position = Vector2(1300, -40)
+
+[node name="6_WarriorB" parent="Enemigos" instance=ExtResource("13_warrior")]
+position = Vector2(1600, -40)
+
+[node name="Puertas" type="Node2D" parent="."]
+
+[node name="8_ShortcutWall" parent="Puertas" instance=ExtResource("10_defeat")]
+position = Vector2(1016, -60)
+Enemies = Array[NodePath]([NodePath("../../Enemigos/6_WarriorA"), NodePath("../../Enemigos/6_WarriorB")])
+Width = 32.0
+Height = 120.0
+
+[node name="ExitWall" parent="Puertas" instance=ExtResource("10_defeat")]
+position = Vector2(1916, -70)
+Enemies = Array[NodePath]([NodePath("../../Enemigos/6_WarriorA"), NodePath("../../Enemigos/6_WarriorB")])
+Width = 32.0
+Height = 140.0
+
+[node name="ExitMarker" type="Marker2D" parent="Puertas"]
+position = Vector2(1970, -40)
+
+[node name="7_SecretWall" parent="." instance=ExtResource("11_secret")]
+position = Vector2(1516, -340)
+Width = 32.0
+Height = 160.0
+
+[node name="7_Chest" parent="." instance=ExtResource("12_chest")]
+position = Vector2(1600, -276)
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(80, -40)

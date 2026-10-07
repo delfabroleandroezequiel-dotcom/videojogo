@@ -1,18 +1,21 @@
+using System.Collections.Generic;
 using Godot;
 using Metroidvania.Shared;
 
 namespace Metroidvania.World;
 
-// Procedural tornado (no art), drawn as a pixel-art hurricane column — distinct stacked swooshes
-// rising up a funnel, bright crest on top, broken dash tails at the sides — by the
-// HurricaneTornado shader on a ColorRect. White by default, warm fire tones when the caster is
-// fire-imbued. Grows in from the ground, travels, then fades.
+// Procedural tornado (no art): smooth spinning wind rings, Joe Higashi "Hurricane Upper" twist.
+// A cone that starts as a point on the ground and widens upward, made of elliptical ring arcs that
+// keep climbing the column (fading in at the base, out at the top). Each ring is a soft body line
+// with a thin additive crest riding on top for volume, plus short streaks flung off its ends; debris
+// spirals up the funnel and dust puffs at the base. Tinted by the caster's element (white, fire, poison, ice,
+// lightning). Grows in from the ground, travels, then fades.
 // Gameplay: damage only — it never moves enemies (forced displacement caused bugs: enemies pushed
 // into walls, off ledges, AI desync). Every TickInterval everything inside the column takes a hit;
 // caster decides the stats (the player's spell passes its own attack power in Setup).
 public partial class Tornado : Node2D
 {
-	private const string ShaderPath = "res://resources/shaders/HurricaneTornado.gdshader";
+	private const int ArcPoints = 24;
 
 	[ExportGroup("Shape")]
 	[Export] public float Height = 220f;
@@ -20,26 +23,26 @@ public partial class Tornado : Node2D
 	[Export] public float TipRadius = 3f;
 	[Export] public float TopRadius = 62f;
 	[Export] public float ConePower = 0.65f;
-	// How strongly each ribbon curves up at its ends.
-	[Export] public float Flatten = 0.5f;
+	// Ellipse squash: how flat each ring looks (depth read).
+	[Export] public float Flatten = 0.32f;
 	[Export] public float BandCount = 13f;
-	[Export] public float ThicknessBottom = 5f;
-	[Export] public float ThicknessTop = 20f;
-	// Ribbons per second climbing the column.
+	// Ring line width at the bottom / top of the column.
+	[Export] public float ThicknessBottom = 4f;
+	[Export] public float ThicknessTop = 14f;
+	// How much of each ring's circle is drawn, in degrees (gaps read as swirling wind).
+	[Export] public float RingArcDegrees = 230f;
+	// Rings per second climbing the column.
 	[Export] public float RiseSpeed = 1.4f;
-	[Export] public float SpinSpeed = 70f;
+	// Ring spin, radians per second.
+	[Export] public float SpinSpeed = 7f;
 	[Export] public float SwayAmplitude = 5f;
-	// Size of one "pixel" of the effect, matched to the sprites' pixel scale.
-	[Export] public float PixelSize = 2f;
-	// Four flat tones, brightest to darkest.
-	[Export] public Color[] WindColors =
-	{
-		new(1f, 1f, 1f), new(0.84f, 0.886f, 0.949f), new(0.576f, 0.655f, 0.769f), new(0.337f, 0.396f, 0.541f),
-	};
-	[Export] public Color[] FireColors =
-	{
-		new(1f, 0.953f, 0.722f), new(0.949f, 0.71f, 0.267f), new(0.706f, 0.384f, 0.165f), new(0.369f, 0.165f, 0.102f),
-	};
+	// Brightest to darkest: crest, streaks, ring body.
+	[Export] public Color[] WindColors = { new(1f, 1f, 1f), new(0.84f, 0.886f, 0.949f), new(0.576f, 0.655f, 0.769f) };
+	[Export] public Color[] FireColors = { new(1f, 0.965f, 0.784f), new(0.965f, 0.753f, 0.306f), new(0.722f, 0.416f, 0.18f) };
+	[Export] public Color[] PoisonColors = { new(0.92f, 1f, 0.72f), new(0.6f, 0.95f, 0.35f), new(0.3f, 0.6f, 0.2f) };
+	[Export] public Color[] IceColors = { new(1f, 1f, 1f), new(0.75f, 0.95f, 1f), new(0.42f, 0.7f, 0.95f) };
+	[Export] public Color[] LightningColors = { new(1f, 1f, 0.85f), new(1f, 0.9f, 0.3f), new(0.8f, 0.62f, 0.12f) };
+	[Export] public Color DebrisColor = new(0.55f, 0.5f, 0.42f, 1f);
 
 	[ExportGroup("Motion")]
 	[Export] public float Speed = 150f;
@@ -60,36 +63,44 @@ public partial class Tornado : Node2D
 	[Export] public float GrowPerEnemy = 0.18f;
 	[Export] public float MaxSizeScale = 1.6f;
 
-	private const float BottomMargin = 8f;
-
 	// Size multiplier on the whole column (shape, hit zone and, when growing, damage). Mini
 	// tornadoes start small; the growing variant raises it as it touches enemies.
 	public float SizeScale { get; private set; } = 1f;
 
+	private sealed class Ring
+	{
+		public Line2D Body;
+		public Line2D Crest;
+		public Line2D[] Streaks;
+	}
+
 	private Vector2 _travel = Vector2.Right;
-	private bool _fire;
+	private DamageElement _element;
 	private bool _growing;
 	private int _baseAttackPower;
 	private float _time;
 	private float _tickTimer;
 	private float _presence;
-	private ShaderMaterial _material;
-	private ColorRect _rect;
+	private Color[] _palette;
+	private Node2D _ringRoot;
+	private readonly List<Ring> _rings = new();
+	private CpuParticles2D _debris;
+	private CpuParticles2D _dust;
 	private Area2D _area;
 	private CollisionShape2D _hitShape;
-	private readonly System.Collections.Generic.HashSet<ulong> _touched = new();
+	private readonly HashSet<ulong> _touched = new();
 
-	public void Setup(float direction, int attackPower, bool fire = false) =>
-		Setup(new Vector2(direction >= 0f ? 1f : -1f, 0f), attackPower, fire);
+	public void Setup(float direction, int attackPower, DamageElement element = DamageElement.Normal) =>
+		Setup(new Vector2(direction >= 0f ? 1f : -1f, 0f), attackPower, element);
 
 	// travel: direction of motion (normalized; non-horizontal for airborne mini tornadoes).
 	// sizeScale < 1 = mini. growing = Tornado creciente (grows + hits harder per enemy touched).
-	public void Setup(Vector2 travel, int attackPower, bool fire = false, float sizeScale = 1f, bool growing = false)
+	public void Setup(Vector2 travel, int attackPower, DamageElement element = DamageElement.Normal, float sizeScale = 1f, bool growing = false)
 	{
 		_travel = travel.LengthSquared() > 0f ? travel.Normalized() : Vector2.Right;
 		AttackPower = attackPower;
 		_baseAttackPower = attackPower;
-		_fire = fire;
+		_element = element;
 		SizeScale = sizeScale;
 		_growing = growing;
 		// A growing tornado starts weak and earns its damage back as it grows (see DamageEnemies).
@@ -99,20 +110,86 @@ public partial class Tornado : Node2D
 
 	public override void _Ready()
 	{
-		_material = new ShaderMaterial { Shader = GD.Load<Shader>(ShaderPath) };
-		_material.SetShaderParameter("bottom_margin", BottomMargin);
-		_material.SetShaderParameter("cone_power", ConePower);
-		_material.SetShaderParameter("band_count", BandCount);
-		_material.SetShaderParameter("flatten", Flatten);
-		_material.SetShaderParameter("rise_speed", RiseSpeed);
-		_material.SetShaderParameter("spin_speed", SpinSpeed);
-		_material.SetShaderParameter("pix", PixelSize);
-		Color[] palette = _fire ? FireColors : WindColors;
-		for (int i = 0; i < 4; i++)
-			_material.SetShaderParameter($"c{i}", palette[Mathf.Min(i, palette.Length - 1)]);
+		_palette = _element switch
+		{
+			DamageElement.Fire => FireColors,
+			DamageElement.Poison => PoisonColors,
+			DamageElement.Ice => IceColors,
+			DamageElement.Lightning => LightningColors,
+			_ => WindColors,
+		};
+		var additive = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
 
-		_rect = new ColorRect { Material = _material, MouseFilter = Control.MouseFilterEnum.Ignore };
-		AddChild(_rect);
+		_ringRoot = new Node2D();
+		AddChild(_ringRoot);
+		int count = Mathf.Max(1, Mathf.RoundToInt(BandCount));
+		for (int i = 0; i < count; i++)
+		{
+			var ring = new Ring
+			{
+				Body = NewLine(Ends(_palette[2])),
+				Crest = NewLine(Ends(_palette[0])),
+				Streaks = new[] { NewLine(Tail(_palette[1])), NewLine(Tail(_palette[1])) },
+			};
+			ring.Crest.Material = additive;
+			ring.Body.Points = new Vector2[ArcPoints];
+			ring.Crest.Points = new Vector2[ArcPoints];
+			_ringRoot.AddChild(ring.Body);
+			_ringRoot.AddChild(ring.Crest);
+			foreach (Line2D streak in ring.Streaks)
+				_ringRoot.AddChild(streak);
+			_rings.Add(ring);
+		}
+
+		var soft = GD.Load<Texture2D>("res://resources/particles/SoftDotGradient.tres");
+		var shrink = new Curve();
+		shrink.AddPoint(new Vector2(0f, 1f));
+		shrink.AddPoint(new Vector2(1f, 0.2f));
+
+		// Debris: rises up the funnel while orbiting its axis.
+		_debris = new CpuParticles2D
+		{
+			Amount = 40,
+			Lifetime = 1.1f,
+			Texture = soft,
+			EmissionShape = CpuParticles2D.EmissionShapeEnum.Rectangle,
+			Direction = Vector2.Up,
+			Spread = 12f,
+			Gravity = new Vector2(0f, -120f),
+			InitialVelocityMin = 90f,
+			InitialVelocityMax = 150f,
+			OrbitVelocityMin = 0.6f,
+			OrbitVelocityMax = 1.1f,
+			RadialAccelMin = 30f,
+			RadialAccelMax = 60f,
+			ScaleAmountMin = 0.05f,
+			ScaleAmountMax = 0.1f,
+			ScaleAmountCurve = shrink,
+			Color = _element == DamageElement.Normal ? DebrisColor : _palette[1],
+			LocalCoords = true,
+		};
+		AddChild(_debris);
+
+		// Dust puffing out at the base — only for tornadoes standing on the ground.
+		_dust = new CpuParticles2D
+		{
+			Amount = 18,
+			Lifetime = 0.8f,
+			Texture = soft,
+			EmissionShape = CpuParticles2D.EmissionShapeEnum.Rectangle,
+			Direction = Vector2.Up,
+			Spread = 80f,
+			Gravity = new Vector2(0f, 20f),
+			InitialVelocityMin = 30f,
+			InitialVelocityMax = 70f,
+			ScaleAmountMin = 0.25f,
+			ScaleAmountMax = 0.45f,
+			ScaleAmountCurve = shrink,
+			Color = _palette[1] with { A = 0.35f },
+			LocalCoords = false,
+			Emitting = Mathf.IsZeroApprox(_travel.Y),
+		};
+		AddChild(_dust);
 
 		_area = new Area2D { CollisionLayer = 0, CollisionMask = TargetMask, Monitorable = false };
 		_hitShape = new CollisionShape2D { Shape = new RectangleShape2D() };
@@ -120,31 +197,48 @@ public partial class Tornado : Node2D
 		AddChild(_area);
 
 		ApplySize();
-		UpdateShader();
+		UpdateRings();
 	}
 
-	// Scales the column's geometry (not the node, so the effect's pixel size stays constant).
+	private static Line2D NewLine(Gradient gradient) => new()
+	{
+		JointMode = Line2D.LineJointMode.Round,
+		BeginCapMode = Line2D.LineCapMode.Round,
+		EndCapMode = Line2D.LineCapMode.Round,
+		Gradient = gradient,
+		DefaultColor = Colors.White,
+	};
+
+	// Faint at both ends of the arc, strongest in the middle (the front of the ring).
+	private static Gradient Ends(Color c)
+	{
+		var gradient = new Gradient();
+		gradient.SetColor(0, c with { A = 0f });
+		gradient.SetColor(1, c with { A = 0f });
+		gradient.AddPoint(0.5f, c);
+		return gradient;
+	}
+
+	// Solid where it leaves the ring, gone at its far tip.
+	private static Gradient Tail(Color c)
+	{
+		var gradient = new Gradient();
+		gradient.SetColor(0, c);
+		gradient.SetColor(1, c with { A = 0f });
+		return gradient;
+	}
+
+	// Sizes the hit zone and the particles to the (scaled) column.
 	private void ApplySize()
 	{
 		float s = SizeScale;
 		float height = Height * s;
-		float topRadius = TopRadius * s;
-		float sway = SwayAmplitude * s;
-		// Ribbon streaks can overshoot the top radius by up to 70%, plus sway.
-		var size = new Vector2(Mathf.Ceil(topRadius * 2f * 1.7f + sway * 2f + 16f), Mathf.Ceil(height + BottomMargin * 2f));
-
-		_material.SetShaderParameter("rect_size", size);
-		_material.SetShaderParameter("column_height", height);
-		_material.SetShaderParameter("tip_radius", TipRadius * Mathf.Max(s, 0.6f));
-		_material.SetShaderParameter("top_radius", topRadius);
-		_material.SetShaderParameter("thickness_bottom", ThicknessBottom * Mathf.Max(s, 0.6f));
-		_material.SetShaderParameter("thickness_top", ThicknessTop * s);
-		_material.SetShaderParameter("sway", sway);
-		_rect.Size = size;
-		_rect.Position = new Vector2(-size.X / 2f, -(size.Y - BottomMargin));
-
 		((RectangleShape2D)_hitShape.Shape).Size = new Vector2(HitHalfWidth * 2f * s, height);
 		_hitShape.Position = new Vector2(0f, -height / 2f);
+		_debris.EmissionRectExtents = new Vector2(Mathf.Max(TipRadius * s, 4f), 4f);
+		_debris.ScaleAmountMin = 0.05f * Mathf.Max(s, 0.5f);
+		_debris.ScaleAmountMax = 0.1f * Mathf.Max(s, 0.5f);
+		_dust.EmissionRectExtents = new Vector2(Mathf.Max(TipRadius * s, 6f) * 1.5f + 6f, 2f);
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -164,7 +258,7 @@ public partial class Tornado : Node2D
 		}
 
 		Position += _travel * Speed * dt;
-		UpdateShader();
+		UpdateRings();
 
 		_tickTimer -= dt;
 		if (_tickTimer <= 0f)
@@ -174,12 +268,70 @@ public partial class Tornado : Node2D
 		}
 	}
 
-	private void UpdateShader()
+	private static float Hash(float a) => Mathf.PosMod(Mathf.Sin(a * 127.1f) * 43758.5453f, 1f);
+
+	private void UpdateRings()
 	{
-		// Grows bottom-up while appearing; stays full height while fading (alpha handles that).
+		float s = SizeScale;
+		float height = Height * s;
+		float tip = TipRadius * Mathf.Max(s, 0.6f);
+		float top = TopRadius * s;
+		float sway = SwayAmplitude * s;
+		// Grows bottom-up while appearing.
 		float grown = _time < GrowTime ? _time / GrowTime : 1f;
-		_material.SetShaderParameter("presence", grown);
-		_material.SetShaderParameter("t_time", _time);
+		float arc = Mathf.DegToRad(RingArcDegrees);
+		int count = _rings.Count;
+
+		for (int k = 0; k < count; k++)
+		{
+			Ring ring = _rings[k];
+			// Each ring climbs the column and wraps back to the point; `generation` re-rolls its
+			// random look every lap so the column never visibly repeats.
+			float cycle = (k + _time * RiseSpeed) / count;
+			float u = Mathf.PosMod(cycle, 1f);
+			float seed = k * 31f + Mathf.Floor(cycle) * 7f;
+			float fade = Mathf.SmoothStep(0f, 0.08f, u) * (1f - Mathf.SmoothStep(0.82f, 1f, u));
+			if (u > grown)
+				fade = 0f;
+
+			float y = -height * Mathf.Pow(u, 0.85f);
+			float rx = Mathf.Lerp(tip, top, Mathf.Pow(u, ConePower));
+			float ry = Mathf.Max(1.5f, rx * Flatten);
+			float x0 = sway * u * Mathf.Sin(_time * 2.3f + u * 4f);
+			float width = Mathf.Lerp(ThicknessBottom, ThicknessTop, u) * Mathf.Max(s, 0.5f);
+			// Lower rings spin faster, like a real funnel.
+			float a0 = Hash(seed) * Mathf.Tau + _time * SpinSpeed * (1.3f - 0.6f * u);
+
+			Vector2[] points = ring.Body.Points;
+			for (int p = 0; p < ArcPoints; p++)
+			{
+				float a = a0 + arc * p / (ArcPoints - 1);
+				points[p] = new Vector2(x0 + Mathf.Cos(a) * rx, y + Mathf.Sin(a) * ry);
+			}
+
+			ring.Body.Points = points;
+			ring.Body.Width = width;
+			ring.Body.SelfModulate = new Color(1f, 1f, 1f, 0.75f * fade);
+			// The crest rides on the upper edge of the body, thinner and additive.
+			ring.Crest.Points = points;
+			ring.Crest.Width = width * 0.38f;
+			ring.Crest.Position = new Vector2(0f, -width * 0.22f);
+			ring.Crest.SelfModulate = new Color(1f, 1f, 1f, 0.95f * fade);
+
+			// Streaks flung roughly horizontally off both ends of the arc.
+			for (int e = 0; e < 2; e++)
+			{
+				Vector2 end = e == 0 ? points[0] : points[ArcPoints - 1];
+				float side = Mathf.Sign(end.X - x0);
+				if (side == 0f)
+					side = 1f;
+				float length = rx * (0.25f + 0.6f * Hash(seed + 3f + e));
+				Line2D streak = ring.Streaks[e];
+				streak.Points = new[] { end, end + new Vector2(side * length, -2f - 4f * Hash(seed + e)) };
+				streak.Width = (1f + 1.8f * Hash(seed + 9f + e)) * Mathf.Max(s, 0.6f);
+				streak.SelfModulate = new Color(1f, 1f, 1f, 0.8f * fade);
+			}
+		}
 	}
 
 	private void DamageEnemies()
@@ -189,7 +341,7 @@ public partial class Tornado : Node2D
 		{
 			if (body is not Enemy enemy || enemy.Stats is null)
 				continue;
-			enemy.Stats.TakeDamage(AttackPower, ignoreInvulnerability: true, armInvulnerability: false);
+			enemy.Stats.TakeDamage(AttackPower, element: _element, ignoreInvulnerability: true, armInvulnerability: false);
 			if (_growing && _touched.Add(enemy.GetInstanceId()) && SizeScale < MaxSizeScale)
 			{
 				SizeScale = Mathf.Min(MaxSizeScale, SizeScale + GrowPerEnemy);

@@ -17,8 +17,8 @@ public partial class Player : CharacterBody2D
 	[Export] public bool AirControl = true;
 	[Export] public float JumpVelocity = -400f;
 	[Export] public float Gravity = 900f;
-	[Export] public float AttackHitboxDelay = 0.12f;
-	[Export] public float AttackDuration = 0.22f;
+	[Export] public float AttackHitboxDelay = 0.15f;
+	[Export] public float AttackDuration = 0.27f;
 	[Export] public float AttackHitboxReach = 50.6f;
 	// Was -12 (well above the player's own body center) — shorter enemies (rats, slimes) whose
 	// collision center sits much lower than the player's often ended up entirely below the
@@ -38,8 +38,8 @@ public partial class Player : CharacterBody2D
 	[Export] public float HitStopFreezeScale = 0.02f;
 	[Export] public float HitStopFreezeDuration = 0.07f;
 	[Export] public float HitStopGapDuration = 0.03f;
-	[Export] public float AttackAnimDuration = 0.5f;
-	[Export] public float ComboResetWindow = 0.6f;
+	[Export] public float AttackAnimDuration = 0.62f;
+	[Export] public float ComboResetWindow = 0.7f;
 	// DS1 doesn't publish per-weapon stamina costs anywhere accessible (unlike DS3, where the
 	// community datamined exact numbers). 15% is the midpoint of DS3's straight sword R1 cost
 	// (~19.5 stamina out of a 91-160 bar depending on Endurance, i.e. ~12-21%) — the closest real
@@ -106,6 +106,28 @@ public partial class Player : CharacterBody2D
 	// Fire imbue look that keeps the same character: when set, entering fire swaps only the
 	// sprite's material (e.g. a palette with a burning blade) and FireSpriteFrames is ignored.
 	[Export] public Material FireMaterial;
+	// Identity layer over the bought sheet (see CharacterFlair): cape, element-coloured eye glow and
+	// element aura, placed with the per-frame neck/eye table measured on the sheet.
+	[Export] public string BodyPointsPath = "res://resources/sprites/MainCharBodyPoints.json";
+	[Export] public bool CapeEnabled = true;
+	[Export] public bool EyeGlowEnabled = true;
+	[Export] public bool ElementAuraEnabled = true;
+	[Export] public Color CapeColor = new(0.141f, 0.149f, 0.18f);
+	[Export] public Color CapeShadeColor = new(0.086f, 0.09f, 0.11f);
+	[Export] public Color CapeOutlineColor = new(0.04f, 0.04f, 0.05f);
+	// Poison/ice looks are built from FireMaterial at runtime with the blade's three swapped
+	// colours (its last three palette entries) replaced by these, brightest first.
+	[Export] public Color[] PoisonBladeColors = { new(0.914f, 1f, 0.69f), new(0.561f, 0.878f, 0.29f), new(0.243f, 0.541f, 0.173f) };
+	[Export] public Color[] IceBladeColors = { new(0.95f, 0.99f, 1f), new(0.62f, 0.9f, 1f), new(0.29f, 0.56f, 0.82f) };
+	// Neon tint of trails/afterimages per element (normal and fire use DashGhostColor/DashGhostFireColor).
+	[Export] public Color PoisonElementTint = new(0.45f, 1f, 0.35f, 1f);
+	[Export] public Color IceElementTint = new(0.62f, 0.93f, 1f, 1f);
+	[Export] public Color LightningElementTint = new(1f, 0.9f, 0.2f, 1f);
+	[Export] public Color[] LightningBladeColors = { new(1f, 1f, 0.85f), new(1f, 0.9f, 0.3f), new(0.85f, 0.6f, 0.1f) };
+	// Fire/ice/lightning trails throw this many times more sparks than normal (see PrepareTrailSparks).
+	[Export] public float ElementSparkMultiplier = 2.5f;
+	// Lightning imbue: seconds between the little bolts crackling off a running trail.
+	[Export] public float LightningBoltInterval = 0.045f;
 	[Export] public float TransformationInDuration = 1.5f;
 	[Export] public float TransformationOutDuration = 0.9f;
 	[Export] public float ChargedAttackDuration = 2f;
@@ -128,12 +150,15 @@ public partial class Player : CharacterBody2D
 	[Export] public Vector2[] AirAttack3TrailPath = System.Array.Empty<Vector2>();
 	// x = delay before drawing, y = draw time (seconds), per air hit.
 	[Export] public Vector2 AirAttack1TrailTiming = new(0f, 0.1f);
-	[Export] public Vector2 AirAttack2TrailTiming = new(0f, 0.15f);
-	[Export] public Vector2 AirAttack3TrailTiming = new(0.04f, 0.15f);
+	[Export] public Vector2 AirAttack2TrailTiming = new(0f, 0.18f);
+	[Export] public Vector2 AirAttack3TrailTiming = new(0.08f, 0.16f);
 	// Same for the ground combo's third hit ("attack3" clip); timing counted from the attack's start.
 	// Empty path = the procedural thrust trail.
 	[Export] public Vector2[] Attack3TrailPath = System.Array.Empty<Vector2>();
 	[Export] public Vector2 Attack3TrailTiming = new(0.1f, 0.08f);
+	// The combo's 4th hit (rising slash, "attack4" clip) — measured on the MainCharacter pack.
+	[Export] public Vector2[] Attack4TrailPath = { new(118, 58), new(123, 44), new(124, 28), new(110, 10), new(90, 2), new(74, 4) };
+	[Export] public Vector2 Attack4TrailTiming = new(0.16f, 0.09f);
 	// Down-attack (pound) trails, measured on the MainCharacter pack: the blade point the falling
 	// line follows (in the "down_attack_loop" frame's pixel space), and the slam crescent drawn on
 	// touchdown ("down_attack_landing" clip, path + delay/draw time).
@@ -148,7 +173,7 @@ public partial class Player : CharacterBody2D
 	// Default measured on the MainCharacter pack's MainChar_RunAttack sheet (kept here rather than
 	// in Player.tscn to avoid another on-disk scene edit while the editor has it open).
 	[Export] public Vector2[] RunAttackTrailPath = { new(72, 14), new(98, 38), new(126, 54), new(143, 63), new(126, 70), new(96, 72), new(72, 67) };
-	[Export] public Vector2 RunAttackTrailTiming = new(0.13f, 0.07f);
+	[Export] public Vector2 RunAttackTrailTiming = new(0.17f, 0.08f);
 	// attack3's thrust shakes the sprite back and forth while the blade is out (reads as a burst
 	// of stabs over its 3 damage pulses). Starts when the hitbox opens.
 	[Export] public float ThrustVibrationAmplitude = 2.5f;
@@ -244,6 +269,13 @@ public partial class Player : CharacterBody2D
 	[Export] public float ShadowSummonReach = 50f;
 	[Export] public float ShadowSummonIntensity = 1.6f;
 	[Export] public Color ShadowSummonColor = new(0.55f, 0.35f, 1f, 1f);
+	// Flying sword (see ThrowFlyingSword): release moment into the throw clip, how far it flies
+	// before boomeranging back, and the height (from the player's centre) it travels/is caught at.
+	[Export] public int FlyingSwordStaminaCost = 15;
+	[Export] public float FlyingSwordReleaseDelay = 0.2f;
+	[Export] public float FlyingSwordRange = 240f;
+	[Export] public float FlyingSwordHeight = -14f;
+	[Export] public float FlyingSwordDamageMultiplier = 0.8f;
 	[Export] public float BowAnimDuration = 0.5f;
 	[Export] public float BowReleaseDelay = 0.35f;
 	[Export] public float ArrowSpeed = 420f;
@@ -399,11 +431,28 @@ public partial class Player : CharacterBody2D
 	private PointLight2D _swordFireLight;
 	private bool _torchEquipped;
 	private bool _equipTorchKeyReleased = true;
-	private const int ComboHitCount = 3;
+	private const int ComboHitCount = 4;
 
-	// The third combo hit (the multi-pulse thrust finisher) is gated behind an ability — until
-	// unlocked, the combo just cycles attack1/attack2 and never reaches "attack3" at all.
-	private int EffectiveComboHitCount => _abilities.Has(PlayerAbilities.ComboFinisher) ? ComboHitCount : ComboHitCount - 1;
+	// Combo length is unlocked hit by hit (Maestro de Espadas: ComboFinisher = 3rd, ComboFourth =
+	// 4th), and capped to the attackN clips the sheet actually has.
+	private int EffectiveComboHitCount
+	{
+		get
+		{
+			int available = 1;
+			while (available < ComboHitCount && _sprite.SpriteFrames.HasAnimation($"attack{available + 1}"))
+				available++;
+			// Two hits are always there; ComboFinisher adds the 3rd, ComboFourth the 4th on top of it.
+			int unlocked = 2;
+			if (_abilities.Has(PlayerAbilities.ComboFinisher))
+			{
+				unlocked = 3;
+				if (_abilities.Has(PlayerAbilities.ComboFourth))
+					unlocked = 4;
+			}
+			return Mathf.Max(1, Mathf.Min(available, unlocked));
+		}
+	}
 
 	private bool _facingRight = true;
 	private bool _attacking;
@@ -434,6 +483,9 @@ public partial class Player : CharacterBody2D
 	private float _runThrustDirection;
 	private bool _canUpAttack = true;
 	private bool _isShooting;
+	// Which clip the shooting state plays (flying sword phases); null = the bow's "shoot_bow".
+	private string _shootAnimation;
+	private bool _swordOut;
 	private bool _isCastingSpell;
 	// Engine time (seconds) when spell 1 can be cast again — a timestamp, so it keeps counting down
 	// through states whose physics branch returns early (ledge hang, pound...).
@@ -461,11 +513,19 @@ public partial class Player : CharacterBody2D
 	private bool _isFireImbued;
 	private bool _isTransforming;
 	private bool _fireImbueKeyReleased = true;
-	// The attack element cycles Normal -> Fire -> Ice -> Poison -> Lightning -> Normal. Fire is
-	// the only one with a full alternate spriteframes transformation right now (see
-	// ToggleFireImbue/_isFireImbued); the other elements just tag outgoing hits for the
-	// Stats weakness multiplier until they get their own art.
+	// The attack element (F) cycles Normal -> Fire -> Poison -> Ice -> Lightning -> Normal. Each one
+	// recolors the blade (palette material) and every neon effect (ElementTint/ElementGhostColor);
+	// _isFireImbued stays true only for fire (torch/sword-fire light/fire sprite trails).
 	private DamageElement _currentElement = DamageElement.Normal;
+	private ShaderMaterial _poisonMaterial;
+	private ShaderMaterial _iceMaterial;
+	private ShaderMaterial _lightningMaterial;
+	private ParticleProcessMaterial _baseSparkProcess;
+	private ParticleProcessMaterial _fireSparkProcess;
+	private ParticleProcessMaterial _iceSparkProcess;
+	private ParticleProcessMaterial _lightningSparkProcess;
+	private float _baseSparkLifetime;
+	private float _lightningBoltTimer;
 	private bool _isCharging;
 	private bool _isPounding;
 	private bool _poundHitLanded;
@@ -523,6 +583,7 @@ public partial class Player : CharacterBody2D
 		_swordArcGlow = GetNode<Line2D>("Visual/SwordArcGlow");
 		_swordArcCore = GetNode<Line2D>("Visual/SwordArcCore");
 		_swordArcSparks = GetNode<GpuParticles2D>("Visual/SwordArcSparks");
+		BuildElementSparkProcesses();
 		var swordArcWidthTaper = new Curve();
 		swordArcWidthTaper.AddPoint(new Vector2(0f, 0.2f));
 		swordArcWidthTaper.AddPoint(new Vector2(1f, 1f));
@@ -553,6 +614,22 @@ public partial class Player : CharacterBody2D
 		_standHalfHeight = ((RectangleShape2D)_standCollision.Shape).Size.Y / 2f;
 		_camera = GetNode<Camera2D>("Camera2D");
 		_sprite = GetNode<AnimatedSprite2D>("Visual/CharacterSprite");
+		var bodyPoints = CharacterFlair.LoadPoints(BodyPointsPath);
+		if (bodyPoints.Count > 0)
+		{
+			var flair = new CharacterFlair
+			{
+				Name = "CharacterFlair",
+				CapeEnabled = CapeEnabled,
+				EyeGlowEnabled = EyeGlowEnabled,
+				AuraEnabled = ElementAuraEnabled,
+				CapeColor = CapeColor,
+				CapeShadeColor = CapeShadeColor,
+				CapeOutlineColor = CapeOutlineColor,
+			};
+			flair.Setup(_sprite, _visual, this, bodyPoints, () => _currentElement, ElementGhostColor);
+			AddChild(flair);
+		}
 		_debugFlashlight = GetNode<PointLight2D>("DebugFlashlight");
 		if (!OS.HasFeature("debug"))
 		{
@@ -563,6 +640,9 @@ public partial class Player : CharacterBody2D
 		_swordFireLight = GetNode<PointLight2D>("Visual/SwordFireLight");
 		_normalSpriteFrames = _sprite.SpriteFrames;
 		_normalMaterial = _sprite.Material;
+		_poisonMaterial = BuildBladeVariant(PoisonBladeColors, 0.22f);
+		_iceMaterial = BuildBladeVariant(IceBladeColors, 0.08f);
+		_lightningMaterial = BuildBladeVariant(LightningBladeColors, 0.35f);
 		_stats.Died += OnDied;
 		_stats.IncomingHitInterceptor = TryBlockIncomingHit;
 
@@ -577,14 +657,11 @@ public partial class Player : CharacterBody2D
 		if (SaveManager.Instance.SessionElement.HasValue)
 		{
 			_currentElement = SaveManager.Instance.SessionElement.Value;
-			if (_currentElement == DamageElement.Fire)
-			{
-				// Restoring straight into the post-transform state, not replaying CycleElement's
-				// transform-in animation — that's only meant to play once, at the moment the
-				// player actually presses the button, not every time a scene loads.
-				ApplyFireLook(true);
-				_isFireImbued = true;
-			}
+			// Restoring straight into the post-transform state, not replaying CycleElement's
+			// transform-in animation — that's only meant to play once, at the moment the
+			// player actually presses the button, not every time a scene loads.
+			ApplyElementLook(_currentElement);
+			_isFireImbued = _currentElement == DamageElement.Fire;
 		}
 		if (SaveManager.Instance.SessionTorchEquipped.HasValue)
 			_torchEquipped = SaveManager.Instance.SessionTorchEquipped.Value;
@@ -1005,6 +1082,7 @@ public partial class Player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		UpdateLightningBolts((float)delta);
 		if (_isDead)
 			return;
 
@@ -1485,7 +1563,8 @@ public partial class Player : CharacterBody2D
 		UpdateBlock(delta);
 
 		float rawDirection = Input.GetAxis("move_left", "move_right");
-		if (rawDirection != 0)
+		// Facing stays put while throwing the sword, so the catch pose faces where it was thrown.
+		if (rawDirection != 0 && !_isShooting)
 			_facingRight = rawDirection > 0;
 
 		float direction = (_attacking || _healing || _crouching || _isBlocking || _isTransforming || _isShooting
@@ -1539,12 +1618,21 @@ public partial class Player : CharacterBody2D
 			StartCharging();
 		}
 
-		if (Input.IsActionJustPressed("shoot_bow") && _abilities.Has(PlayerAbilities.Bow) && !_isShooting
+		if (Input.IsActionJustPressed("shoot_bow") && !_isShooting
 			&& !_attacking && !_healing && !_isBlocking && !_isTransforming && !_crouching
 			&& !_isDashing && !_isRolling && !_isRunThrusting && !_isCharging
 			&& !_isCastingSpell && !_isCastingSpell2)
 		{
-			ShootBow();
+			// Sheets with the flying sword clips throw the sword (its own unlock); others keep the bow.
+			if (_sprite.SpriteFrames.HasAnimation("flying_sword_start"))
+			{
+				if (_abilities.Has(PlayerAbilities.FlyingSword))
+					ThrowFlyingSword();
+			}
+			else if (_abilities.Has(PlayerAbilities.Bow))
+			{
+				ShootBow();
+			}
 		}
 
 		if (Input.IsActionJustPressed("spell") && _abilities.Has(PlayerAbilities.Spell) && !_isCastingSpell
@@ -1696,8 +1784,9 @@ public partial class Player : CharacterBody2D
 
 		if (_isShooting)
 		{
-			if (_sprite.Animation != "shoot_bow")
-				_sprite.Play("shoot_bow");
+			string shootAnim = _shootAnimation ?? "shoot_bow";
+			if (_sprite.Animation != shootAnim)
+				_sprite.Play(shootAnim);
 			return;
 		}
 
@@ -2140,7 +2229,7 @@ public partial class Player : CharacterBody2D
 		if (frame is null || GetTree().CurrentScene is not Node scene)
 			return;
 
-		Color tint = _isFireImbued ? DashGhostFireColor : DashGhostColor;
+		Color tint = ElementGhostColor();
 		// Solid neon silhouette (the frame's alpha filled with the tint, additive) — tinting the
 		// sprite's own colours instead left the mostly dark character nearly invisible.
 		var material = NeonSilhouette.CreateMaterial(tint, intensity);
@@ -2284,7 +2373,7 @@ public partial class Player : CharacterBody2D
 			return;
 
 		int runId = ++_swordArcRunId;
-		Color tint = _isFireImbued ? DashGhostFireColor : DashGhostColor;
+		Color tint = ElementGhostColor();
 		Vector2 frameSize = _sprite.SpriteFrames.GetFrameTexture("down_attack_loop", 0).GetSize();
 		Vector2 bladeLocal = _sprite.Position + (PoundTrailBladePixel - frameSize / 2f + _sprite.Offset) * _sprite.Scale;
 		Vector2 startGlobal = _visual.ToGlobal(bladeLocal);
@@ -2293,8 +2382,7 @@ public partial class Player : CharacterBody2D
 		_swordArcGlow.Modulate = tint;
 		_swordArcCore.Width = _swordArcBaseCoreWidth * 1.8f;
 		_swordArcGlow.Width = _swordArcBaseGlowWidth * 1.8f;
-		_swordArcSparks.Modulate = tint;
-		_swordArcSparks.Amount = 16;
+		PrepareTrailSparks(16, tint);
 		_swordArcSparks.Emitting = true;
 
 		float ghostTimer = 0f;
@@ -2443,6 +2531,55 @@ public partial class Player : CharacterBody2D
 		_canUpAttack = true;
 	}
 
+	// Flying sword (G, replaces the bow on sheets that have the clips): throw (flying_sword_start),
+	// kneel concentrating while it's out (flying_sword_loop), catch (flying_sword_end). The sword
+	// itself is a FlyingSword boomerang that hits on the way out and back.
+	private async void ThrowFlyingSword()
+	{
+		if (_swordOut || !_stats.TrySpendStamina(FlyingSwordStaminaCost))
+			return;
+
+		_isShooting = true;
+		_shootAnimation = "flying_sword_start";
+		bool facingRight = _facingRight;
+
+		await ToSignal(GetTree().CreateTimer(FlyingSwordReleaseDelay), SceneTreeTimer.SignalName.Timeout);
+		if (!IsInstanceValid(this) || _isDead || GetTree().CurrentScene is not Node scene)
+		{
+			_shootAnimation = null;
+			_isShooting = false;
+			return;
+		}
+
+		var sword = new FlyingSword();
+		Vector2 catchOffset = new(0f, FlyingSwordHeight);
+		sword.Setup(this, catchOffset, facingRight ? 1f : -1f,
+			Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * FlyingSwordDamageMultiplier)), _currentElement, ElementGhostColor());
+		sword.MaxDistance = FlyingSwordRange;
+		_swordOut = true;
+		sword.Returned += () => _swordOut = false;
+		scene.AddChild(sword);
+		sword.GlobalPosition = GlobalPosition + new Vector2(facingRight ? 24f : -24f, FlyingSwordHeight);
+		Sfx.Play(this, "Combat/Sword", "Sword Attack");
+
+		_shootAnimation = "flying_sword_loop";
+		while (_swordOut && IsInstanceValid(sword))
+		{
+			await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+			if (!IsInstanceValid(this))
+				return;
+		}
+		_swordOut = false;
+
+		_shootAnimation = "flying_sword_end";
+		float catchTime = _sprite.SpriteFrames.GetFrameCount("flying_sword_end") / (float)_sprite.SpriteFrames.GetAnimationSpeed("flying_sword_end");
+		await ToSignal(GetTree().CreateTimer(catchTime), SceneTreeTimer.SignalName.Timeout);
+		if (!IsInstanceValid(this))
+			return;
+		_shootAnimation = null;
+		_isShooting = false;
+	}
+
 	private async void ShootBow()
 	{
 		_isShooting = true;
@@ -2498,7 +2635,7 @@ public partial class Player : CharacterBody2D
 
 		var clone = new ShadowClone();
 		clone.Setup(_sprite.SpriteFrames, "attack1", _facingRight, _sprite.Position, _sprite.Offset, _sprite.Scale, _stats,
-			_isFireImbued ? DashGhostFireColor : DashGhostColor, ShadowCloneIntensity, ShadowCloneAlpha,
+			ElementGhostColor(), ShadowCloneIntensity, ShadowCloneAlpha,
 			_hitboxBaseSize, AttackHitboxReach, AttackHitboxYOffset, AttackHitboxDelay, AttackDuration,
 			ShadowCloneFadeIn, ShadowCloneFadeOut);
 		clone.ZIndex = ZIndex;
@@ -2555,7 +2692,7 @@ public partial class Player : CharacterBody2D
 		Metroidvania.World.Tornado Spawn(Vector2 travel, Vector2 at, int power, float size = 1f, bool growing = false, float lifetime = -1f)
 		{
 			var tornado = new Metroidvania.World.Tornado();
-			tornado.Setup(travel, power, _isFireImbued, size, growing);
+			tornado.Setup(travel, power, _currentElement, size, growing);
 			if (lifetime > 0f)
 				tornado.Lifetime = lifetime;
 			scene.AddChild(tornado);
@@ -2621,7 +2758,7 @@ public partial class Player : CharacterBody2D
 			TickInterval = 0.25f,
 			ZIndex = 1,
 		};
-		shield.Setup(Vector2.Right, Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * WindShieldDamageMultiplier)), _isFireImbued);
+		shield.Setup(Vector2.Right, Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * WindShieldDamageMultiplier)), _currentElement);
 		AddChild(shield);
 		shield.Position = new Vector2(0f, BodyHalfHeight());
 
@@ -2641,7 +2778,7 @@ public partial class Player : CharacterBody2D
 		_stats.SpendStaminaClamped(_stats.MaxStamina);
 		_hurricaneReadyAt = now + HurricaneCooldown;
 		_isCastingSpell = true;
-		bool fire = _isFireImbued;
+		DamageElement element = _currentElement;
 
 		await ToSignal(GetTree().CreateTimer(TornadoCastDelay), SceneTreeTimer.SignalName.Timeout);
 		if (!IsInstanceValid(this) || _isDead || GetTree().CurrentScene is not Node scene)
@@ -2659,10 +2796,11 @@ public partial class Player : CharacterBody2D
 			TopRadius = view.X * 0.43f,
 			ConePower = 0.35f,
 			BandCount = Mathf.Round(height / 30f),
-			ThicknessBottom = 16f,
-			ThicknessTop = 70f,
-			// Big columns need flat ribbons: at this radius a normal curve would sink far below each band.
-			Flatten = 0.12f,
+			ThicknessBottom = 14f,
+			ThicknessTop = 46f,
+			// Rounder, thinner rings than the default proportions: very thick lines on very flat
+			// ellipses fold over themselves at the ring ends (wedge artifacts).
+			Flatten = 0.24f,
 			SwayAmplitude = 12f,
 			HitHalfWidth = view.X * 0.5f,
 			Speed = 0f,
@@ -2672,7 +2810,7 @@ public partial class Player : CharacterBody2D
 			TickInterval = HurricaneTickInterval,
 			ZIndex = 2,
 		};
-		hurricane.Setup(Vector2.Right, Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * HurricaneDamageMultiplier)), fire);
+		hurricane.Setup(Vector2.Right, Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * HurricaneDamageMultiplier)), element);
 		scene.AddChild(hurricane);
 		hurricane.GlobalPosition = screenCenter + new Vector2(0f, view.Y * 0.5f);
 
@@ -2815,7 +2953,7 @@ public partial class Player : CharacterBody2D
 	// normal material comes back when the clip finishes (see the AnimationFinished hook in _Ready).
 	private async void RunThrustEffects(float duration)
 	{
-		Color tint = _isFireImbued ? DashGhostFireColor : DashGhostColor;
+		Color tint = ElementGhostColor();
 		_weaponTrail.Material = NeonSilhouette.CreateMaterial(tint, RunThrustNeonIntensity);
 		_weaponTrail.Rotation = 0f;
 		_weaponTrail.Scale = WeaponTrailScale("thrust_05");
@@ -2890,6 +3028,7 @@ public partial class Player : CharacterBody2D
 			"air_attack2" => (AirAttack2TrailPath, AirAttack2TrailTiming),
 			"air_attack3" => (AirAttack3TrailPath, AirAttack3TrailTiming),
 			"attack3" => (Attack3TrailPath, Attack3TrailTiming),
+			"attack4" => (Attack4TrailPath, Attack4TrailTiming),
 			"run_attack" => (RunAttackTrailPath, RunAttackTrailTiming),
 			_ => (null, Vector2.Zero),
 		};
@@ -2925,6 +3064,7 @@ public partial class Player : CharacterBody2D
 		{
 			"attack2" => 2,
 			"attack3" => 3,
+			"attack4" => 4,
 			_ => 1,
 		};
 
@@ -3084,7 +3224,7 @@ public partial class Player : CharacterBody2D
 			if (!IsInstanceValid(this) || runId != _swordArcRunId)
 				return;
 		}
-		Color tint = _isFireImbued ? new Color(1f, 0.55f, 0.2f, 1f) : new Color(0.15f, 0.65f, 1f, 1f);
+		Color tint = ElementTint();
 
 		// Sheet pixel -> Visual-local (the lines live under Visual, so facing flips for free).
 		Vector2 frameSize = _sprite.SpriteFrames.GetFrameTexture(animation, 0).GetSize();
@@ -3110,8 +3250,7 @@ public partial class Player : CharacterBody2D
 		_swordArcGlow.Modulate = tint;
 		_swordArcCore.Width = _swordArcBaseCoreWidth * widthMul;
 		_swordArcGlow.Width = _swordArcBaseGlowWidth * widthMul;
-		_swordArcSparks.Modulate = tint;
-		_swordArcSparks.Amount = sparkAmount;
+		PrepareTrailSparks(sparkAmount, tint);
 		_swordArcSparks.Emitting = true;
 
 		float elapsed = 0f;
@@ -3149,7 +3288,7 @@ public partial class Player : CharacterBody2D
 	private async void RunSwordArcTrail(float duration)
 	{
 		int runId = ++_swordArcRunId;
-		Color tint = _isFireImbued ? new Color(1f, 0.55f, 0.2f, 1f) : new Color(0.15f, 0.65f, 1f, 1f);
+		Color tint = ElementTint();
 
 		_swordArcPoints.Clear();
 		_swordArcCore.Points = System.Array.Empty<Vector2>();
@@ -3158,8 +3297,7 @@ public partial class Player : CharacterBody2D
 		_swordArcGlow.Modulate = tint;
 		_swordArcCore.Width = _swordArcBaseCoreWidth * 1.5f;
 		_swordArcGlow.Width = _swordArcBaseGlowWidth * 1.5f;
-		_swordArcSparks.Modulate = tint;
-		_swordArcSparks.Amount = 14;
+		PrepareTrailSparks(14, tint);
 		_swordArcSparks.Emitting = true;
 
 		float elapsed = 0f;
@@ -3199,7 +3337,7 @@ public partial class Player : CharacterBody2D
 	// than duplicating the loop.
 	private async void RunSwordSpinTrail()
 	{
-		Color tint = _isFireImbued ? new Color(1f, 0.55f, 0.2f, 1f) : new Color(0.15f, 0.65f, 1f, 1f);
+		Color tint = ElementTint();
 		await RunSwordCrescentTrail(SwordSpinRadius, SwordSpinDegrees, SwordSpinDuration, tint, widthMul: 1.5f, sparkAmount: 20);
 	}
 
@@ -3211,7 +3349,7 @@ public partial class Player : CharacterBody2D
 	// the swing tween itself, including restoring it to WeaponRestAngle afterward.
 	private async void RunCrouchArcTrail()
 	{
-		Color tint = _isFireImbued ? new Color(1f, 0.55f, 0.2f, 1f) : new Color(0.15f, 0.65f, 1f, 1f);
+		Color tint = ElementTint();
 
 		_weaponPivot.RotationDegrees = CrouchSwingStartAngle;
 		Tween swingTween = GetTree().CreateTween();
@@ -3225,8 +3363,7 @@ public partial class Player : CharacterBody2D
 		_swordArcGlow.Modulate = tint;
 		_swordArcCore.Width = _swordArcBaseCoreWidth;
 		_swordArcGlow.Width = _swordArcBaseGlowWidth;
-		_swordArcSparks.Modulate = tint;
-		_swordArcSparks.Amount = 12;
+		PrepareTrailSparks(12, tint);
 		_swordArcSparks.Emitting = true;
 
 		Vector2 center = _weaponPivot.Position + new Vector2(0f, CrouchWeaponTrailYOffset);
@@ -3274,8 +3411,7 @@ public partial class Player : CharacterBody2D
 		_swordArcGlow.Modulate = tint;
 		_swordArcCore.Width = _swordArcBaseCoreWidth * widthMul;
 		_swordArcGlow.Width = _swordArcBaseGlowWidth * widthMul;
-		_swordArcSparks.Modulate = tint;
-		_swordArcSparks.Amount = sparkAmount;
+		PrepareTrailSparks(sparkAmount, tint);
 		_swordArcSparks.Emitting = true;
 
 		// No _facingRight branch needed: Visual's own scale flip already mirrors these
@@ -3317,7 +3453,7 @@ public partial class Player : CharacterBody2D
 	private async void RunSwordThrustTrail()
 	{
 		int runId = ++_swordArcRunId;
-		Color tint = _isFireImbued ? new Color(1f, 0.55f, 0.2f, 1f) : new Color(0.15f, 0.65f, 1f, 1f);
+		Color tint = ElementTint();
 
 		_swordArcCore.Modulate = tint;
 		_swordArcGlow.Modulate = tint;
@@ -3343,7 +3479,7 @@ public partial class Player : CharacterBody2D
 			elapsed += (float)GetPhysicsProcessDeltaTime();
 		}
 
-		_swordArcSparks.Amount = 18;
+		PrepareTrailSparks(18, tint);
 		_swordArcSparks.Emitting = true;
 
 		await ToSignal(GetTree().CreateTimer(SwordThrustHoldDuration), SceneTreeTimer.SignalName.Timeout);
@@ -3464,48 +3600,182 @@ public partial class Player : CharacterBody2D
 		_currentElement = previous switch
 		{
 			DamageElement.Normal => DamageElement.Fire,
-			DamageElement.Fire => DamageElement.Ice,
-			DamageElement.Ice => DamageElement.Poison,
-			DamageElement.Poison => DamageElement.Lightning,
+			DamageElement.Fire => DamageElement.Poison,
+			DamageElement.Poison => DamageElement.Ice,
+			DamageElement.Ice => DamageElement.Lightning,
 			_ => DamageElement.Normal,
 		};
 		SaveManager.Instance.SessionElement = _currentElement;
 
-		// Fire is the only element with a full alternate spriteframes transformation today —
-		// entering/leaving it plays that transformation. The other elements just update the
-		// tag used by outgoing hits (see Stats.Weakness) until they get their own art.
+		// Every switch plays the transformation; the new look lands when it ends.
 		if (_currentElement == DamageElement.Fire)
 		{
 			_torchEquipped = false;
 			SaveManager.Instance.SessionTorchEquipped = false;
-			_isTransforming = true;
-			await ToSignal(GetTree().CreateTimer(TransformationInDuration), SceneTreeTimer.SignalName.Timeout);
-			ApplyFireLook(true);
-			// The node was still holding "transformation" (only valid in the normal set) the
-			// instant SpriteFrames swapped out from under it — reset to a name that exists in
-			// both sets immediately, instead of leaving it dangling until the next animation update.
-			_sprite.Play("idle");
-			_isFireImbued = true;
-			_isTransforming = false;
 		}
-		else if (previous == DamageElement.Fire)
+		_isTransforming = true;
+		float duration = _currentElement == DamageElement.Normal ? TransformationOutDuration : TransformationInDuration;
+		await ToSignal(GetTree().CreateTimer(duration), SceneTreeTimer.SignalName.Timeout);
+		if (!IsInstanceValid(this))
+			return;
+		ApplyElementLook(_currentElement);
+		// Sheets that swap SpriteFrames (FireSpriteFrames fallback) can leave the node on a clip the
+		// new set lacks — reset to a name every set has.
+		_sprite.Play("idle");
+		_isFireImbued = _currentElement == DamageElement.Fire;
+		_isTransforming = false;
+	}
+
+	private void ApplyElementLook(DamageElement element)
+	{
+		if (FireMaterial != null)
 		{
-			_isTransforming = true;
-			await ToSignal(GetTree().CreateTimer(TransformationOutDuration), SceneTreeTimer.SignalName.Timeout);
-			ApplyFireLook(false);
-			_sprite.Play("idle");
-			_isFireImbued = false;
-			_isTransforming = false;
+			_sprite.Material = element switch
+			{
+				DamageElement.Fire => FireMaterial,
+				DamageElement.Poison => _poisonMaterial ?? _normalMaterial,
+				DamageElement.Ice => _iceMaterial ?? _normalMaterial,
+				DamageElement.Lightning => _lightningMaterial ?? _normalMaterial,
+				_ => _normalMaterial,
+			};
+		}
+		else if (FireSpriteFrames != null)
+		{
+			_sprite.SpriteFrames = element == DamageElement.Fire ? FireSpriteFrames : _normalSpriteFrames;
 		}
 	}
 
-	private void ApplyFireLook(bool fire)
+	// A copy of FireMaterial (same palette + flicker shader) with its blade colours — the last three
+	// target colours — swapped for `blade`. Null when FireMaterial isn't a palette ShaderMaterial.
+	private ShaderMaterial BuildBladeVariant(Color[] blade, float flicker)
 	{
-		if (FireMaterial != null)
-			_sprite.Material = fire ? FireMaterial : _normalMaterial;
-		else if (FireSpriteFrames != null)
-			_sprite.SpriteFrames = fire ? FireSpriteFrames : _normalSpriteFrames;
+		if (FireMaterial is not ShaderMaterial fire || blade is null || blade.Length < 3)
+			return null;
+		var material = (ShaderMaterial)fire.Duplicate();
+		Color[] targets = material.GetShaderParameter("target_colors").AsColorArray();
+		if (targets.Length < 3)
+			return null;
+		for (int i = 0; i < 3; i++)
+			targets[targets.Length - 3 + i] = blade[i];
+		material.SetShaderParameter("target_colors", targets);
+		material.SetShaderParameter("flicker_strength", flicker);
+		return material;
 	}
+
+	// Per-element behaviour of the shared trail sparks (SwordArcSparks): fire = more embers drifting
+	// up, ice = more fine frost slowly falling, lightning = fast short crackle (plus the bolts spawned
+	// in UpdateLightningBolts); normal/poison keep the scene's original sparks.
+	private void BuildElementSparkProcesses()
+	{
+		_baseSparkProcess = _swordArcSparks.ProcessMaterial as ParticleProcessMaterial;
+		_baseSparkLifetime = (float)_swordArcSparks.Lifetime;
+		if (_baseSparkProcess is null)
+			return;
+
+		_fireSparkProcess = (ParticleProcessMaterial)_baseSparkProcess.Duplicate();
+		_fireSparkProcess.Gravity = new Vector3(0f, -150f, 0f);
+		_fireSparkProcess.InitialVelocityMin = 30f;
+		_fireSparkProcess.InitialVelocityMax = 130f;
+		_fireSparkProcess.DampingMin = 10f;
+		_fireSparkProcess.DampingMax = 30f;
+		_fireSparkProcess.ScaleMin = 0.18f;
+		_fireSparkProcess.ScaleMax = 0.5f;
+
+		_iceSparkProcess = (ParticleProcessMaterial)_baseSparkProcess.Duplicate();
+		_iceSparkProcess.Gravity = new Vector3(0f, 70f, 0f);
+		_iceSparkProcess.InitialVelocityMin = 20f;
+		_iceSparkProcess.InitialVelocityMax = 90f;
+		_iceSparkProcess.DampingMin = 30f;
+		_iceSparkProcess.DampingMax = 60f;
+		_iceSparkProcess.ScaleMin = 0.08f;
+		_iceSparkProcess.ScaleMax = 0.26f;
+
+		_lightningSparkProcess = (ParticleProcessMaterial)_baseSparkProcess.Duplicate();
+		_lightningSparkProcess.Gravity = Vector3.Zero;
+		_lightningSparkProcess.InitialVelocityMin = 160f;
+		_lightningSparkProcess.InitialVelocityMax = 340f;
+		_lightningSparkProcess.ScaleMin = 0.1f;
+		_lightningSparkProcess.ScaleMax = 0.3f;
+	}
+
+	private void PrepareTrailSparks(int baseAmount, Color tint)
+	{
+		_swordArcSparks.Modulate = tint;
+		(ParticleProcessMaterial process, float lifetime, float multiplier) = _currentElement switch
+		{
+			DamageElement.Fire => (_fireSparkProcess, 0.6f, ElementSparkMultiplier),
+			DamageElement.Ice => (_iceSparkProcess, 0.75f, ElementSparkMultiplier),
+			DamageElement.Lightning => (_lightningSparkProcess, 0.18f, ElementSparkMultiplier),
+			_ => (_baseSparkProcess, _baseSparkLifetime, 1f),
+		};
+		if (process is not null)
+		{
+			_swordArcSparks.ProcessMaterial = process;
+			_swordArcSparks.Lifetime = lifetime;
+		}
+		_swordArcSparks.Amount = Mathf.Max(1, Mathf.RoundToInt(baseAmount * multiplier));
+	}
+
+	// Lightning imbue: while any trail's sparks are running, little jagged bolts crackle off the
+	// spark point every LightningBoltInterval — short-lived additive zigzags in the trail's tint.
+	private void UpdateLightningBolts(float delta)
+	{
+		if (_currentElement != DamageElement.Lightning || !_swordArcSparks.Emitting)
+			return;
+		_lightningBoltTimer -= delta;
+		if (_lightningBoltTimer > 0f)
+			return;
+		_lightningBoltTimer = LightningBoltInterval;
+		SpawnLightningBolt(_swordArcSparks.Position);
+	}
+
+	private void SpawnLightningBolt(Vector2 at)
+	{
+		var rng = new RandomNumberGenerator();
+		rng.Randomize();
+		Vector2 dir = Vector2.Right.Rotated(rng.RandfRange(0f, Mathf.Tau));
+		Vector2 normal = new(-dir.Y, dir.X);
+		float length = rng.RandfRange(10f, 24f);
+		const int segments = 5;
+		var points = new Vector2[segments + 1];
+		for (int i = 0; i <= segments; i++)
+		{
+			float t = (float)i / segments;
+			float jitter = i == 0 || i == segments ? 0f : rng.RandfRange(-4f, 4f);
+			points[i] = at + dir * length * t + normal * jitter;
+		}
+
+		var bolt = new Line2D
+		{
+			Points = points,
+			Width = rng.RandfRange(1.2f, 2.2f),
+			DefaultColor = LightningElementTint.Lightened(0.35f),
+			Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add },
+			JointMode = Line2D.LineJointMode.Sharp,
+		};
+		_visual.AddChild(bolt);
+		Tween fade = bolt.CreateTween();
+		fade.TweenProperty(bolt, "modulate:a", 0f, 0.1f).SetDelay(0.03f);
+		fade.TweenCallback(Callable.From(bolt.QueueFree));
+	}
+
+	private Color ElementTint() => _currentElement switch
+	{
+		DamageElement.Fire => new Color(1f, 0.55f, 0.2f, 1f),
+		DamageElement.Poison => PoisonElementTint,
+		DamageElement.Ice => IceElementTint,
+		DamageElement.Lightning => LightningElementTint,
+		_ => new Color(0.15f, 0.65f, 1f, 1f),
+	};
+
+	private Color ElementGhostColor() => _currentElement switch
+	{
+		DamageElement.Fire => DashGhostFireColor,
+		DamageElement.Poison => PoisonElementTint,
+		DamageElement.Ice => IceElementTint,
+		DamageElement.Lightning => LightningElementTint,
+		_ => DashGhostColor,
+	};
 
 	private void OnDied()
 	{
