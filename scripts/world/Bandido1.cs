@@ -29,30 +29,44 @@ public partial class Bandido1 : MeleeEnemy
 	[Export] public float RepositionDuration = 0.3f;
 	[Export] public float RepositionCooldown = 1.5f;
 
-	// attack1's neon-red slash trail, drawn by EnemySlashTrail (attack2 overrides the shape below):
-	// a vertical top-to-bottom cut in front of the assassin. Angles: 0° = front, -90° = up, +90° = down.
-	// Same geometry as the player's attack2 crescent: centered 12px in front of the body (the
-	// player's WeaponPivot) with radius 56 (Player.SwordSpinRadius), so both slashes reach equally
-	// far. The attack hitbox in Bandido1.tscn is sized to cover this same arc.
-	[Export] public Vector2 SlashTrailCenter = new(12f, 0f);
-	[Export] public float SlashTrailRadius = 56f;
-	[Export] public float SlashTrailStartAngle = -115f;
-	[Export] public float SlashTrailEndAngle = 85f;
-	[Export] public float SlashTrailDuration = 0.2f;
-	[Export] public float SlashTrailCoreWidth = 3f;
-	[Export] public float SlashTrailGlowWidth = 9f;
-	[Export] public Color SlashTrailGlowColor = new(1f, 0.05f, 0.12f, 1f);
-	[Export] public Color SlashTrailCoreColor = new(1f, 0.55f, 0.6f, 1f);
-	[Export] public float MinSlashTrailPointSpacing = 1.5f;
-	// attack2 (the drawn-back dagger slash) gets the player's attack1 arc instead, same numbers
-	// and orientation: Player.RunSwordArcTrail traces the tip at -WeaponPivot.Rotation while the
-	// pivot tweens -70° -> 60° (WeaponSwingStartAngle/EndAngle) over AttackHitboxDelay +
-	// AttackDuration (0.12 + 0.22), radius SwordArcTrailRadius 52 — so on screen the arc rises
-	// from low-front (+70°) to high-front (-60°).
-	[Export] public float Attack2TrailRadius = 52f;
-	[Export] public float Attack2TrailStartAngle = 70f;
-	[Export] public float Attack2TrailEndAngle = -60f;
-	[Export] public float Attack2TrailDuration = 0.34f;
+	// ── Assassin trails (its own look, not the shared bandit crescent) ──
+	// Thinner "razor" streaks than Bandido2/3: a crimson glow around an almost-white core.
+	// Both are traced over the white smear the sheet already bakes into the swing, measured from
+	// the sheet's pixels (frame center 55,40, sprite scale 1.5556, AttackSpriteYOffset -4), and
+	// start on the sprite frame where that smear first shows (TrailFrame) instead of on a timer.
+	// Angles: 0° = front, -90° = up, +90° = down.
+	[ExportGroup("Trails")]
+	[Export] public int TrailFrame = 3;
+	[Export] public Color TrailGlowColor = new(0.9f, 0.02f, 0.15f, 1f);
+	[Export] public Color TrailCoreColor = new(1f, 0.85f, 0.88f, 1f);
+	[Export] public float MinTrailPointSpacing = 1.5f;
+	// attack1: overhead blade coming down in front — the sheet's crescent runs from high-front to
+	// just below horizontal around frame px (50,45), radius ~43 frame px.
+	[Export] public Vector2 CutTrailCenter = new(-7.8f, 3.8f);
+	[Export] public float CutTrailRadius = 67f;
+	[Export] public float CutTrailStartAngle = -60f;
+	[Export] public float CutTrailEndAngle = 15f;
+	[Export] public float CutTrailDuration = 0.11f;
+	[Export] public float CutTrailCoreWidth = 1.5f;
+	[Export] public float CutTrailGlowWidth = 5f;
+	[Export] public float CutFlashSize = 0.7f;
+	// attack2: a short off-hand flick rising at shoulder height (the sheet's small hook smear),
+	// so a tight little arc, not a full slash.
+	[Export] public Vector2 FlickTrailCenter = new(17f, -21f);
+	[Export] public float FlickTrailRadius = 25f;
+	[Export] public float FlickTrailStartAngle = 75f;
+	[Export] public float FlickTrailEndAngle = -15f;
+	[Export] public float FlickTrailDuration = 0.08f;
+	[Export] public float FlickTrailCoreWidth = 1.2f;
+	[Export] public float FlickTrailGlowWidth = 4f;
+	[Export] public float FlickFlashSize = 0.45f;
+	// Crimson neon ghosts left behind while it lunges in or repositions (same afterimage recipe as
+	// GhostWarrior2) — the assassin's signature, it reads as a blur when it closes the gap.
+	[Export] public float AfterimageInterval = 0.035f;
+	[Export] public float AfterimageLifetime = 0.22f;
+	[Export] public float AfterimageAlpha = 0.6f;
+	[Export] public float AfterimageIntensity = 1.6f;
+	[Export] public Color AfterimageColor = new(1f, 0.08f, 0.2f, 1f);
 
 	// ── Smart-duelist AI (same "read the player" approach as the elves) ──
 	// Evade: when the player starts a swing close in front of it, sometimes hops back out of reach
@@ -72,7 +86,10 @@ public partial class Bandido1 : MeleeEnemy
 	[Export] public float FlankAfterBlockTime = 0.7f;
 	[Export] public Vector2 VaultHop = new(270f, -390f);
 
-	private EnemySlashTrail _slashTrail;
+	private EnemySlashTrail _cutTrail;
+	private EnemySlashTrail _flickTrail;
+	private bool _trailPending;
+	private float _afterimageTimer;
 	private bool _lunging;
 	private float _lungeTimer;
 	private bool _counterPending;
@@ -97,15 +114,107 @@ public partial class Bandido1 : MeleeEnemy
 		if (IsQueuedForRemoval)
 			return;
 
-		_slashTrail = new EnemySlashTrail
+		_cutTrail = MakeTrail(CutTrailCoreWidth, CutTrailGlowWidth);
+		_flickTrail = MakeTrail(FlickTrailCoreWidth, FlickTrailGlowWidth);
+		Sprite.FrameChanged += OnSpriteFrameChanged;
+	}
+
+	private EnemySlashTrail MakeTrail(float coreWidth, float glowWidth)
+	{
+		var trail = new EnemySlashTrail
 		{
-			CoreWidth = SlashTrailCoreWidth,
-			GlowWidth = SlashTrailGlowWidth,
-			GlowColor = SlashTrailGlowColor,
-			CoreColor = SlashTrailCoreColor,
-			MinPointSpacing = MinSlashTrailPointSpacing,
+			CoreWidth = coreWidth,
+			GlowWidth = glowWidth,
+			GlowColor = TrailGlowColor,
+			CoreColor = TrailCoreColor,
+			MinPointSpacing = MinTrailPointSpacing,
+			SparkAmount = 8,
+			SparkLifetime = 0.25,
 		};
-		Visual.AddChild(_slashTrail);
+		Visual.AddChild(trail);
+		return trail;
+	}
+
+	// Fires the swing's trail on the exact frame the sheet's own smear appears, so the neon sits
+	// on top of the drawn blade path instead of running ahead of it.
+	private void OnSpriteFrameChanged()
+	{
+		if (!_trailPending || !Attacking || Sprite.Animation != _currentAttackAnimation || Sprite.Frame != TrailFrame)
+			return;
+		_trailPending = false;
+
+		if (_currentAttackAnimation == "attack2")
+			PlayTrail(_flickTrail, FlickTrailCenter, FlickTrailRadius, FlickTrailStartAngle, FlickTrailEndAngle, FlickTrailDuration, FlickFlashSize);
+		else
+			PlayTrail(_cutTrail, CutTrailCenter, CutTrailRadius, CutTrailStartAngle, CutTrailEndAngle, CutTrailDuration, CutFlashSize);
+	}
+
+	private async void PlayTrail(EnemySlashTrail trail, Vector2 center, float radius, float startAngle, float endAngle, float duration, float flashSize)
+	{
+		trail.Play(center, radius, startAngle, endAngle, duration);
+		await ToSignal(GetTree().CreateTimer(duration), SceneTreeTimer.SignalName.Timeout);
+		if (!IsInstanceValid(this) || IsQueuedForRemoval)
+			return;
+		SpawnTipFlash(center + Vector2.Right.Rotated(Mathf.DegToRad(endAngle)) * radius, flashSize);
+	}
+
+	// Small additive glint where the blade's path ends — the "tick" of a razor cut.
+	private void SpawnTipFlash(Vector2 localPosition, float size)
+	{
+		var flash = new Sprite2D
+		{
+			Texture = GD.Load<Texture2D>("res://resources/particles/SoftDotGradient.tres"),
+			Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add },
+			Modulate = TrailCoreColor,
+			Position = localPosition,
+			Scale = Vector2.One * size * 0.3f,
+		};
+		Visual.AddChild(flash);
+
+		Tween tween = flash.CreateTween();
+		tween.TweenProperty(flash, "scale", Vector2.One * size, 0.08f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Quad);
+		tween.Parallel().TweenProperty(flash, "modulate", new Color(TrailGlowColor, 0f), 0.14f);
+		tween.TweenCallback(Callable.From(flash.QueueFree));
+	}
+
+	private void UpdateAfterimages(float dt)
+	{
+		bool blurring = _isRepositioning || (_lunging && !Attacking && Mathf.Abs(Velocity.X) > 5f);
+		if (!blurring)
+		{
+			_afterimageTimer = 0f;
+			return;
+		}
+
+		_afterimageTimer -= dt;
+		if (_afterimageTimer > 0f)
+			return;
+		_afterimageTimer = AfterimageInterval;
+		SpawnAfterimage();
+	}
+
+	private void SpawnAfterimage()
+	{
+		Texture2D frame = Sprite?.SpriteFrames?.GetFrameTexture(Sprite.Animation, Sprite.Frame);
+		if (frame is null || GetTree().CurrentScene is not Node scene)
+			return;
+
+		var ghost = new Sprite2D
+		{
+			Texture = frame,
+			Centered = Sprite.Centered,
+			Offset = Sprite.Offset,
+			FlipH = Sprite.FlipH,
+			Material = Metroidvania.Player.NeonSilhouette.CreateMaterial(AfterimageColor, AfterimageIntensity),
+			Modulate = new Color(1f, 1f, 1f, AfterimageAlpha),
+			ZIndex = ZIndex - 1,
+		};
+		scene.AddChild(ghost);
+		ghost.GlobalTransform = Sprite.GlobalTransform;
+
+		Tween fade = ghost.CreateTween();
+		fade.TweenProperty(ghost, "modulate:a", 0f, AfterimageLifetime).SetEase(Tween.EaseType.In).SetTrans(Tween.TransitionType.Quad);
+		fade.TweenCallback(Callable.From(ghost.QueueFree));
 	}
 	public override void _PhysicsProcess(double delta)
 	{
@@ -120,6 +229,7 @@ public partial class Bandido1 : MeleeEnemy
 			Velocity = velocity;
 			MoveAndSlide();
 
+			UpdateAfterimages((float)delta);
 			if (Sprite is not null && Sprite.Animation != "run")
 				Sprite.Play("run");
 			return;
@@ -130,6 +240,7 @@ public partial class Bandido1 : MeleeEnemy
 			return;
 
 		CheckPlayerDashCross();
+		UpdateAfterimages((float)delta);
 		Think((float)delta);
 	}
 
@@ -286,11 +397,8 @@ public partial class Bandido1 : MeleeEnemy
 		if (!IsInstanceValid(this) || IsQueuedForRemoval)
 			return;
 
+		_trailPending = true;
 		Sprite.Play(_currentAttackAnimation);
-		if (useSecondAttack)
-			_slashTrail.Play(SlashTrailCenter, Attack2TrailRadius, Attack2TrailStartAngle, Attack2TrailEndAngle, Attack2TrailDuration);
-		else
-			_slashTrail.Play(SlashTrailCenter, SlashTrailRadius, SlashTrailStartAngle, SlashTrailEndAngle, SlashTrailDuration);
 		await ToSignal(GetTree().CreateTimer(HitFrameDelay), SceneTreeTimer.SignalName.Timeout);
 		if (!IsInstanceValid(this) || IsQueuedForRemoval)
 			return;

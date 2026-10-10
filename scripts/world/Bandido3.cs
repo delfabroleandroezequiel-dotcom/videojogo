@@ -19,14 +19,20 @@ public partial class Bandido3 : MeleeEnemy
 	// where the hit actually connects.
 	[Export] public float HitFrameDelay = 4f / 14f;
 
-	// Same neon-red rising slash as Bandido1's attack2 (drawn by EnemySlashTrail), which itself copies
-	// the player's attack1 arc: center 12px in front, radius 52, from low-front (+70°) up to
-	// high-front (-60°) over 0.34s. Angles: 0° = front, -90° = up, +90° = down.
-	[Export] public Vector2 SlashTrailCenter = new(12f, 0f);
-	[Export] public float SlashTrailRadius = 52f;
-	[Export] public float SlashTrailStartAngle = 70f;
-	[Export] public float SlashTrailEndAngle = -60f;
-	[Export] public float SlashTrailDuration = 0.34f;
+	// Neon-red streak swept OUT AHEAD of the blade, not on top of it: it rides the sheet's own swing
+	// (over the head, down the front — top-down, starts on TrailFrame, the frame the baked smear first
+	// shows) but on a much wider oval, so it shows the attack's real reach. The front of the oval
+	// (center.x + radius = 81) lines up with the far edge of the AttackHitbox in Bandido3.tscn
+	// (50.6 + 67/2 = 84) and its height with the hitbox's, while the blade's own smear only reaches
+	// ~43px. Angles: 0° = front, -90° = up, +90° = down.
+	[ExportGroup("Trail")]
+	[Export] public int TrailFrame = 4;
+	[Export] public Vector2 SlashTrailCenter = new(9f, -10f);
+	[Export] public float SlashTrailRadius = 72f;
+	[Export] public float SlashTrailRadiusY = 45f;
+	[Export] public float SlashTrailStartAngle = -120f;
+	[Export] public float SlashTrailEndAngle = 95f;
+	[Export] public float SlashTrailDuration = 0.12f;
 	[Export] public float SlashTrailCoreWidth = 3f;
 	[Export] public float SlashTrailGlowWidth = 9f;
 	[Export] public Color SlashTrailGlowColor = new(1f, 0.05f, 0.12f, 1f);
@@ -34,8 +40,8 @@ public partial class Bandido3 : MeleeEnemy
 	[Export] public float MinSlashTrailPointSpacing = 1.5f;
 
 	// ── Anti-air duelist AI ──
-	// Its swing rises from low-front to high-front, so it's the one bandit that punishes jumping:
-	// a player dropping onto it from above gets met with a fast rising slash. Plays hit-and-run —
+	// Its swing starts by going over its head, so it's the one bandit that punishes jumping:
+	// a player dropping onto it from above gets met with a fast overhead cut. Plays hit-and-run —
 	// often hops back after a swing (only onto ground) — and lunges at whiffs/dash endings.
 	[ExportGroup("AI")]
 	[Export] public float AntiAirRange = 80f;
@@ -51,6 +57,7 @@ public partial class Bandido3 : MeleeEnemy
 	private bool _lunging;
 	private float _lungeTimer;
 	private bool _wasAttacking;
+	private bool _trailPending;
 	public override void _Ready()
 	{
 		base._Ready();
@@ -66,6 +73,7 @@ public partial class Bandido3 : MeleeEnemy
 			MinPointSpacing = MinSlashTrailPointSpacing,
 		};
 		Visual.AddChild(_slashTrail);
+		Sprite.FrameChanged += OnSpriteFrameChanged;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -143,6 +151,15 @@ public partial class Bandido3 : MeleeEnemy
 		Rng.Randomize();
 	}
 
+	// Fires the trail on the exact frame the sheet's own smear appears, so it sits on the drawn blade path.
+	private void OnSpriteFrameChanged()
+	{
+		if (!_trailPending || !Attacking || Sprite.Animation != "attack" || Sprite.Frame != TrailFrame)
+			return;
+		_trailPending = false;
+		_slashTrail.Play(SlashTrailCenter, SlashTrailRadius, SlashTrailStartAngle, SlashTrailEndAngle, SlashTrailDuration, SlashTrailRadiusY);
+	}
+
 	protected override async Task Attack()
 	{
 		Attacking = true;
@@ -155,8 +172,8 @@ public partial class Bandido3 : MeleeEnemy
 		if (!IsInstanceValid(this) || IsQueuedForRemoval)
 			return;
 
+		_trailPending = true;
 		Sprite.Play("attack");
-		_slashTrail.Play(SlashTrailCenter, SlashTrailRadius, SlashTrailStartAngle, SlashTrailEndAngle, SlashTrailDuration);
 		await ToSignal(GetTree().CreateTimer(HitFrameDelay), SceneTreeTimer.SignalName.Timeout);
 		if (!IsInstanceValid(this) || IsQueuedForRemoval)
 			return;

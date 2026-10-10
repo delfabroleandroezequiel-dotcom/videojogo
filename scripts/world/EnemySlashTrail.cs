@@ -74,7 +74,9 @@ public partial class EnemySlashTrail : Node2D
 		AddChild(_sparks);
 	}
 
-	public async void Play(Vector2 center, float radius, float startAngle, float endAngle, float duration)
+	// radiusY (optional) makes the arc an ellipse: radius is then the horizontal radius and radiusY the
+	// vertical one, for swings the sheet draws wider than tall. Omitted = a plain circle.
+	public async void Play(Vector2 center, float radius, float startAngle, float endAngle, float duration, float radiusY = -1f)
 	{
 		int runId = ++_runId;
 		_points.Clear();
@@ -89,7 +91,7 @@ public partial class EnemySlashTrail : Node2D
 		{
 			float t = Mathf.Clamp(elapsed / duration, 0f, 1f);
 			float angleRad = Mathf.DegToRad(Mathf.Lerp(startAngle, endAngle, t));
-			Vector2 tip = center + Vector2.Right.Rotated(angleRad) * radius;
+			Vector2 tip = center + new Vector2(Mathf.Cos(angleRad) * radius, Mathf.Sin(angleRad) * (radiusY > 0f ? radiusY : radius));
 			if (_points.Count == 0 || _points[^1].DistanceSquaredTo(tip) > MinPointSpacing * MinPointSpacing)
 			{
 				_points.Add(tip);

@@ -171,6 +171,17 @@ public partial class MeleeEnemy : Enemy
 		return true;
 	}
 
+	// Same as TryHop, for hops that ARE the attack (a leap/pounce started from inside Attack-style
+	// coroutines that already set Attacking = true) — TryHop refuses while Attacking.
+	protected bool TryAttackHop(Vector2 launchVelocity, float maxDrop = 40f)
+	{
+		if (Hopping || !IsOnFloor() || !LandsSafely(launchVelocity, maxDrop))
+			return false;
+		Velocity = launchVelocity;
+		Hopping = true;
+		return true;
+	}
+
 	// Ledge-safe spacing: walk up to stopDistance, back off when closer than 	ooClose, never
 	// off a ledge or into a wall.
 	protected float SpacingMoveX(float distanceX, float currentVelocityX, float stopDistance, float tooClose, float speedMultiplier = 1f)
