@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://dj876utg0ll2j"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/Mapas/MontaniaExtraniaBase.tscn" id="1_base"]
+[ext_resource type="Texture2D" uid="uid://dj2keb1g7vo0p" path="res://assets/backgrounds/MontaniaExtrania3.png" id="2_bg"]
+[ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="3_transition"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_txw8k"]
+size = Vector2(615, 129)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_otqw0"]
+size = Vector2(278, 249)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dujaa"]
+size = Vector2(289, 224)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h7j82"]
+size = Vector2(173, 221)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_or6ki"]
+size = Vector2(318.75, 236)
+
+[node name="MontaniaExtrania3" unique_id=1452206203 instance=ExtResource("1_base")]
+ScenePath = "res://scenes/world/Mapas/MontaniaExtrania3.tscn"
+
+[node name="BgTile1" parent="Background" index="0"]
+texture = ExtResource("2_bg")
+
+[node name="Player" parent="." index="7"]
+position = Vector2(498.1054, 289.87872)
+
+[node name="ToMontaniaExtrania2" parent="." index="8" unique_id=399400925 instance=ExtResource("3_transition")]
+position = Vector2(24, 0)
+TargetScenePath = "res://scenes/world/Mapas/MontaniaExtrania2.tscn"
+TargetSpawnPosition = Vector2(1660, -139)
+Height = 1000.0
+
+[node name="ToMontaniaExtrania4" parent="." index="9" unique_id=653835920 instance=ExtResource("3_transition")]
+position = Vector2(1750, 0)
+TargetScenePath = "res://scenes/world/Mapas/MontaniaExtrania4.tscn"
+TargetSpawnPosition = Vector2(114, 331)
+Height = 1000.0
+
+[node name="Floor2" type="StaticBody2D" parent="." index="10" unique_id=1110268334]
+position = Vector2(0, 350)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor2" index="0" unique_id=1798774272]
+position = Vector2(730, 63.5)
+shape = SubResource("RectangleShape2D_txw8k")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Floor2" index="1" unique_id=489093565]
+position = Vector2(898, 44.5)
+shape = SubResource("RectangleShape2D_otqw0")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Floor2" index="2" unique_id=277680276]
+position = Vector2(1372, -116)
+shape = SubResource("RectangleShape2D_dujaa")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Floor2" index="3" unique_id=82088422]
+position = Vector2(1522.5, -210.5)
+shape = SubResource("RectangleShape2D_h7j82")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="Floor2" index="4" unique_id=1176689466]
+position = Vector2(1758, -301)
+shape = SubResource("RectangleShape2D_or6ki")

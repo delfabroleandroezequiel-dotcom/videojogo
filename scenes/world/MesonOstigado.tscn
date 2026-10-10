@@ -13,6 +13,7 @@
 [ext_resource type="SpriteFrames" uid="uid://bvkqlsyfqh51m" path="res://resources/sprites/TavernBartenderSpriteFrames.tres" id="8_isvp4"]
 [ext_resource type="Texture2D" uid="uid://bnxhpt62p5fd2" path="res://scenes/world/MesonOstigadobarra.png" id="9_o0uk4"]
 [ext_resource type="Resource" path="res://resources/quests/rescue_gransin.tres" id="10_gransinquest"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Merchant.tscn" id="14_bfv42"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(816.4462, 24.48)
@@ -118,3 +119,7 @@ CustomSpriteYOffset = -5.4
 
 [node name="Player" parent="." unique_id=695195560 instance=ExtResource("1_player")]
 position = Vector2(-263, -5)
+
+[node name="Merchant" parent="." unique_id=1530698171 instance=ExtResource("14_bfv42")]
+position = Vector2(54, 79)
+ShopId = ""

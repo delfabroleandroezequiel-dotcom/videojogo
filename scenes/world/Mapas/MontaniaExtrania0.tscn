@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://ck7vo1uj0c4ev"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/Mapas/MontaniaExtraniaBase.tscn" id="1_base"]
+[ext_resource type="Texture2D" uid="uid://65edj5ogfvp2" path="res://assets/backgrounds/MontaniaExtrania0.png" id="2_bg"]
+[ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="3_transition"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/RangerArcher.tscn" id="4_vk7xl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1w6wg"]
+size = Vector2(3690, 60)
+
+[node name="MontaniaExtrania0" unique_id=1506725930 instance=ExtResource("1_base")]
+ScenePath = "res://scenes/world/Mapas/MontaniaExtrania0.tscn"
+ZoneName = "MONTAÑA EXTRAÑA"
+
+[node name="BgTile1" parent="Background" index="0"]
+texture = ExtResource("2_bg")
+
+[node name="Floor" type="StaticBody2D" parent="." index="7" unique_id=1161947520]
+position = Vector2(0, 350)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" index="0" unique_id=435046395]
+position = Vector2(1045, -27)
+shape = SubResource("RectangleShape2D_1w6wg")
+
+[node name="Player" parent="." index="8"]
+position = Vector2(110, 251.5)
+
+[node name="ToMontaniaExtrania1" parent="." index="9" unique_id=514910754 instance=ExtResource("3_transition")]
+position = Vector2(1750, 0)
+TargetScenePath = "res://scenes/world/Mapas/MontaniaExtrania1.tscn"
+TargetSpawnPosition = Vector2(224, 342)
+Height = 1000.0
+
+[node name="RangerArcher" parent="." index="10" unique_id=818994035 instance=ExtResource("4_vk7xl")]
+position = Vector2(973, 238)

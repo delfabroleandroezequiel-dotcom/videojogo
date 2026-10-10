@@ -207,6 +207,10 @@ public partial class LevelBootstrap : Node
 		data.PlayedCutscenes.AddRange(SaveManager.Instance.GetPlayedCutscenes());
 		data.OpenedGates.AddRange(SaveManager.Instance.GetOpenedGates());
 		data.BrokenWalls.AddRange(SaveManager.Instance.GetBrokenWalls());
+		foreach (System.Collections.Generic.KeyValuePair<string, int> entry in SaveManager.Instance.GetItemCounts())
+			data.ItemCounts[entry.Key] = entry.Value;
+		foreach (System.Collections.Generic.KeyValuePair<string, int> entry in SaveManager.Instance.GetShopPurchases())
+			data.ShopPurchases[entry.Key] = entry.Value;
 		data.CompanionRecruited = SaveManager.Instance.CompanionRecruited;
 		data.ActiveQuests.AddRange(QuestManager.Instance.GetActiveQuestIds());
 		data.CompletedQuests.AddRange(QuestManager.Instance.GetCompletedQuestIds());

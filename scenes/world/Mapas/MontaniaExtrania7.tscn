@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://dft30c8bcbppk"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/Mapas/MontaniaExtraniaBase.tscn" id="1_base"]
+[ext_resource type="Texture2D" uid="uid://c8oypg7jk4i5c" path="res://assets/backgrounds/MontaniaExtrania7.png" id="2_bg"]
+[ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="3_transition"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniRampa.tscn" id="4_1put5"]
+[ext_resource type="Texture2D" uid="uid://227j4es63vsq" path="res://scenes/world/Mapas/monticuloroca.png" id="4_tfbrh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ipgq"]
+size = Vector2(615, 114)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1put5"]
+size = Vector2(371.5, 190)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tfbrh"]
+size = Vector2(168.00003, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ypdpi"]
+size = Vector2(67.375, 312.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r3wy2"]
+size = Vector2(148.6875, 312.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ebjl2"]
+size = Vector2(55.75, 216)
+
+[node name="MontaniaExtrania7" unique_id=1650185290 instance=ExtResource("1_base")]
+ScenePath = "res://scenes/world/Mapas/MontaniaExtrania7.tscn"
+
+[node name="WeatherOverlay" parent="." index="4"]
+ForceWeatherIndex = 1
+
+[node name="BgTile1" parent="Background" index="0"]
+texture = ExtResource("2_bg")
+
+[node name="Player" parent="." index="7"]
+position = Vector2(110, 316.5)
+
+[node name="ToMontaniaExtrania6" parent="." index="8" unique_id=399270246 instance=ExtResource("3_transition")]
+position = Vector2(24, 0)
+TargetScenePath = "res://scenes/world/Mapas/MontaniaExtrania6.tscn"
+TargetSpawnPosition = Vector2(1660, -15)
+Height = 1000.0
+
+[node name="Monticuloroca3" type="Sprite2D" parent="." index="9" unique_id=1419931597]
+visible = false
+position = Vector2(1647.0001, 295)
+scale = Vector2(0.44537774, 0.46905303)
+texture = ExtResource("4_tfbrh")
+
+[node name="Floor2" type="StaticBody2D" parent="." index="10" unique_id=898665933]
+position = Vector2(0, 350)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor2" index="0" unique_id=1260481892]
+position = Vector2(371, 59)
+shape = SubResource("RectangleShape2D_3ipgq")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Floor2" index="1" unique_id=890703872]
+position = Vector2(-114, 121)
+shape = SubResource("RectangleShape2D_3ipgq")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Floor2" index="2" unique_id=1177912025]
+position = Vector2(721, 17)
+shape = SubResource("RectangleShape2D_1put5")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Floor2" index="3" unique_id=1449503651]
+position = Vector2(517, -128.5)
+shape = SubResource("RectangleShape2D_tfbrh")
+one_way_collision = true
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Floor2" index="4" unique_id=770394671]
+position = Vector2(836.3125, 21)
+shape = SubResource("RectangleShape2D_ypdpi")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Floor2" index="5" unique_id=1863508323]
+position = Vector2(943.65625, -5)
+shape = SubResource("RectangleShape2D_r3wy2")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Floor2" index="6" unique_id=1106373957]
+position = Vector2(1037.125, -83)
+shape = SubResource("RectangleShape2D_ebjl2")
+
+[node name="MiniRampa" parent="Floor2" index="7" unique_id=778437216 instance=ExtResource("4_1put5")]
+position = Vector2(2024, 29)
+Length = 1000.0
+AngleDegrees = -10.0
+FacingLeft = true
+
+[node name="ToMontaniaExtrania8" parent="." index="11" unique_id=341290992 instance=ExtResource("3_transition")]
+position = Vector2(1750, 0)
+TargetScenePath = "res://scenes/world/Mapas/MontaniaExtrania8.tscn"
+TargetSpawnPosition = Vector2(114, -15)
+Height = 1000.0

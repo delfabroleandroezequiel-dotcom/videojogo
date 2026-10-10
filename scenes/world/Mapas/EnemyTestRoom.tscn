@@ -3,7 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://b56iyefxyhuy5" path="res://scripts/world/EnemyTestRoomHealthBuff.cs" id="3_healthbuff"]
 [ext_resource type="Texture2D" uid="uid://b37c5fqvueq8p" path="res://assets/backgrounds/caminodesierto.png" id="4_mv8r7"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemys/Bandido2.tscn" id="4_ttgj4"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/ViejoProta.tscn" id="5_ttgj4"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido7.tscn" id="6_6pb37"]
+[ext_resource type="Texture2D" uid="uid://caiex2pkvq11t" path="res://assets/sprites/deco/FondoOjo.png" id="6_fondoojo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1400, 60)
@@ -6121,5 +6123,18 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Bandido2" parent="." unique_id=1712822582 instance=ExtResource("4_ttgj4")]
-position = Vector2(977, 384)
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=429050677]
+color = Color(0.62, 0.62, 0.7, 1)
+
+[node name="FondoOjo" type="Sprite2D" parent="." unique_id=2045105299]
+visible = false
+modulate = Color(0.7, 0.7, 0.7, 1)
+z_index = -20
+position = Vector2(650, -52)
+texture = ExtResource("6_fondoojo")
+
+[node name="ViejoProta" parent="." unique_id=1405426504 instance=ExtResource("5_ttgj4")]
+position = Vector2(900, 378)
+
+[node name="Bandido7" parent="." unique_id=362110573 instance=ExtResource("6_6pb37")]
+position = Vector2(811, 385)
