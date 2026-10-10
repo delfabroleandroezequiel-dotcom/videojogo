@@ -174,7 +174,7 @@ public partial class Npc : CharacterBody2D
 		_interactPrompt.Visible = false;
 	}
 
-	private void Interact()
+	protected virtual void Interact()
 	{
 		if (!string.IsNullOrEmpty(BossAliveDialogueBossId) && BossAliveDialogueLines.Length > 0
 			&& !SaveManager.Instance.IsBossDefeated(BossAliveDialogueBossId))

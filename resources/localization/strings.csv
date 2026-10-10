@@ -36,6 +36,7 @@ UI_INVENTORY_TAG_ABILITY,[Habilidad],[Ability],[Habilidade]
 UI_INVENTORY_TAG_RING,[Anillo],[Ring],[Anel]
 UI_INVENTORY_TAG_QUEST,[Misión],[Quest],[Missão]
 UI_INVENTORY_TAG_LORE,[Lore],[Lore],[Lore]
+UI_INVENTORY_TAG_KEY,[Llave],[Key],[Chave]
 UI_INVENTORY_UNEQUIP,Quitar,Unequip,Remover
 UI_INVENTORY_EMPTY,Todavía no llevás objetos,No items yet,Nenhum item ainda
 UI_INVENTORY_EQUIP,Equipar,Equip,Equipar
@@ -274,3 +275,16 @@ NPC_PARROQUIANO3_NAME,Parroquiano,Tavern Regular,Frequentador
 NPC_PARROQUIANO3_L1,Escuché que hay un dragón cerca. O era un perro grande. Ya no me acuerdo.,I heard there's a dragon nearby. Or maybe it was a big dog. I don't remember anymore.,Ouvi dizer que tem um dragão por perto. Ou era um cachorro grande. Já não me lembro.
 NPC_VENDEDORA_NAME,Vendedora,Vendor,Vendedora
 NPC_VENDEDORA_L1,Fruta fresca, buen precio, y ni una palabra sobre dónde la conseguí.,Fresh fruit, good price, and not a word about where I got it.,Frutas frescas, bom preço, e nem uma palavra sobre onde as consegui.
+ITEM_KEY_TEST_NAME,Llave de barrera,Barrier Key,Chave de barreira
+ITEM_KEY_TEST_DESC,Abre una barrera de energía sellada. Se gasta al usarla.,Opens a sealed energy barrier. Used up on use.,Abre uma barreira de energia selada. É gasta ao usar.
+UI_SHOP_GOLD,Oro: {0},Gold: {0},Ouro: {0}
+UI_SHOP_PRICE,{0} de oro,{0} gold,{0} de ouro
+UI_SHOP_HELD,Tenés: {0},You have: {0},Você tem: {0}
+UI_SHOP_HINT,[Clic / Enter] comprar     [E / Esc] cerrar,[Click / Enter] buy     [E / Esc] close,[Clique / Enter] comprar     [E / Esc] fechar
+UI_SHOP_BOUGHT,Compraste: {0},You bought: {0},Você comprou: {0}
+UI_SHOP_NO_GOLD,No te alcanza el oro,Not enough gold,Ouro insuficiente
+UI_SHOP_SOLD_OUT,No queda más,Sold out,Esgotado
+UI_SHOP_SOLD_OUT_TAG,Agotado,Sold out,Esgotado
+UI_SHOP_ALREADY_OWNED,Ya lo tenés,You already have it,Você já tem
+NPC_MERCADER_NAME,Mercader,Merchant,Mercador
+NPC_MERCADER_L1,"Llaves, chucherías, cosas que no vas a encontrar en otro lado. Mirá tranquilo.","Keys, trinkets, things you won't find anywhere else. Take your time.","Chaves, bugigangas, coisas que você não vai achar em outro lugar. Fique à vontade."

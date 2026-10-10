@@ -34,7 +34,17 @@ public partial class PlayerInventory : Node
 
 	public void CollectItem(Item item)
 	{
-		if (item is null || string.IsNullOrEmpty(item.Id) || SaveManager.Instance.HasItem(item.Id))
+		if (item is null || string.IsNullOrEmpty(item.Id))
+			return;
+
+		if (item.Stackable)
+		{
+			SaveManager.Instance.AddItemCount(item.Id, 1);
+			EmitSignal(SignalName.ItemCollected, item.Id);
+			return;
+		}
+
+		if (SaveManager.Instance.HasItem(item.Id))
 			return;
 
 		SaveManager.Instance.CollectItem(item.Id);

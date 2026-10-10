@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://merchant_main"]
+
+[ext_resource type="PackedScene" uid="uid://d8tq20x6upcu" path="res://scenes/world/Npc.tscn" id="1_npc"]
+[ext_resource type="Script" path="res://scripts/world/MerchantNpc.cs" id="2_script"]
+[ext_resource type="SpriteFrames" path="res://assets/external/gandalfhardcore/Male Pixel Art characters/DwarfNpcSpriteFrames.tres" id="3_frames"]
+[ext_resource type="Script" path="res://scripts/items/ShopEntry.cs" id="4_entry"]
+[ext_resource type="Resource" path="res://resources/items/key_test.tres" id="5_key"]
+
+[sub_resource type="Resource" id="ShopEntry_key"]
+script = ExtResource("4_entry")
+Item = ExtResource("5_key")
+Price = 25
+Stock = 4
+
+[node name="Merchant" instance=ExtResource("1_npc")]
+script = ExtResource("2_script")
+Stock = [SubResource("ShopEntry_key")]
+GreetingLines = PackedStringArray("NPC_MERCADER_L1")
+NpcName = "NPC_MERCADER_NAME"
+CustomSpriteFrames = ExtResource("3_frames")
+CustomSpriteYOffset = -5.4

@@ -24,6 +24,10 @@ public class SaveData
 	public List<string> OpenedGates { get; set; } = new();
 	// Additive: saves written before this field existed simply deserialize to an empty list.
 	public List<string> BrokenWalls { get; set; } = new();
+	// Additive, same as BrokenWalls: stackable item id → how many are held, and
+	// "shopId|itemId" → how many of a limited shop stock have been bought.
+	public Dictionary<string, int> ItemCounts { get; set; } = new();
+	public Dictionary<string, int> ShopPurchases { get; set; } = new();
 	public bool CompanionRecruited { get; set; }
 	public int MaxHealCharges { get; set; } = 1;
 	public int StoryStage { get; set; }

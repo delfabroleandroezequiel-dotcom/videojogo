@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://6qjjt7tn5syy"]
+
+[ext_resource type="Script" uid="uid://c7k8nu6e2htri" path="res://scripts/items/Item.cs" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://c6dggb5ecswum" path="res://assets/external/VixMix/FreeMix/icon/key_gold.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_script")
+Id = "item_key_test"
+ItemName = "ITEM_KEY_TEST_NAME"
+Description = "ITEM_KEY_TEST_DESC"
+Type = 5
+Icon = ExtResource("2_icon")
+Stackable = true

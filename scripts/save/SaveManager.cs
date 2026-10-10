@@ -54,6 +54,8 @@ public partial class SaveManager : Node
 	private readonly HashSet<string> _openedGates = new();
 	private readonly HashSet<string> _brokenWalls = new();
 	private readonly List<string> _equippedRings = new();
+	private readonly Dictionary<string, int> _itemCounts = new();
+	private readonly Dictionary<string, int> _shopPurchases = new();
 
 	[Signal] public delegate void GoldChangedEventHandler(int gold);
 
@@ -223,8 +225,37 @@ public partial class SaveManager : Node
 
 	public const int MaxEquippedRings = 2;
 
-	public bool HasItem(string id) => _collectedItems.Contains(id);
+	public bool HasItem(string id) => _collectedItems.Contains(id) || GetItemCount(id) > 0;
 	public IReadOnlyCollection<string> GetCollectedItems() => _collectedItems;
+
+	// Stackable items (Item.Stackable) — counted instead of collected once.
+	public int GetItemCount(string id) => _itemCounts.GetValueOrDefault(id);
+	public IReadOnlyDictionary<string, int> GetItemCounts() => _itemCounts;
+
+	public void AddItemCount(string id, int amount)
+	{
+		_itemCounts[id] = GetItemCount(id) + amount;
+		GameConfig.Instance.Achievements.CheckTriggers();
+	}
+
+	// Uses up one of a stackable item; false (and nothing changes) when none are held.
+	public bool ConsumeItem(string id)
+	{
+		int count = GetItemCount(id);
+		if (count <= 0)
+			return false;
+
+		if (count == 1)
+			_itemCounts.Remove(id);
+		else
+			_itemCounts[id] = count - 1;
+		return true;
+	}
+
+	// How many of a shop's limited stock of an item have already been bought.
+	public int GetShopPurchased(string shopId, string itemId) => _shopPurchases.GetValueOrDefault($"{shopId}|{itemId}");
+	public void AddShopPurchase(string shopId, string itemId) => _shopPurchases[$"{shopId}|{itemId}"] = GetShopPurchased(shopId, itemId) + 1;
+	public IReadOnlyDictionary<string, int> GetShopPurchases() => _shopPurchases;
 
 	public void CollectItem(string id)
 	{
@@ -268,6 +299,8 @@ public partial class SaveManager : Node
 		_playedCutscenes.Clear();
 		_openedGates.Clear();
 		_brokenWalls.Clear();
+		_itemCounts.Clear();
+		_shopPurchases.Clear();
 		_shadowUses.Clear();
 		_shadowSlotOrder.Clear();
 		_maxHealCharges = 1;
@@ -370,6 +403,16 @@ public partial class SaveManager : Node
 		_brokenWalls.Clear();
 		foreach (string wallId in PendingLoad.BrokenWalls)
 			_brokenWalls.Add(wallId);
+
+		_itemCounts.Clear();
+		if (PendingLoad.ItemCounts is not null)
+			foreach (KeyValuePair<string, int> entry in PendingLoad.ItemCounts)
+				_itemCounts[entry.Key] = entry.Value;
+
+		_shopPurchases.Clear();
+		if (PendingLoad.ShopPurchases is not null)
+			foreach (KeyValuePair<string, int> entry in PendingLoad.ShopPurchases)
+				_shopPurchases[entry.Key] = entry.Value;
 
 		_unlockedAbilities.Clear();
 		foreach (string abilityId in PendingLoad.UnlockedAbilities)

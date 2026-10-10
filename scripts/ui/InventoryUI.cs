@@ -94,11 +94,20 @@ public partial class InventoryUI : CanvasLayer
 			_itemList.AddChild(BuildItemRow(item, inventory));
 			anyItem = true;
 		}
+		foreach (System.Collections.Generic.KeyValuePair<string, int> entry in SaveManager.Instance.GetItemCounts())
+		{
+			Item item = ItemDatabase.Instance.Get(entry.Key);
+			if (item is null || entry.Value <= 0)
+				continue;
+
+			_itemList.AddChild(BuildItemRow(item, inventory, entry.Value));
+			anyItem = true;
+		}
 		if (!anyItem)
 			_itemList.AddChild(new Label { Text = "UI_INVENTORY_EMPTY", Modulate = new Color(0.7f, 0.7f, 0.7f) });
 	}
 
-	private Control BuildItemRow(Item item, PlayerInventory inventory)
+	private Control BuildItemRow(Item item, PlayerInventory inventory, int count = 0)
 	{
 		HBoxContainer row = new();
 
@@ -107,9 +116,12 @@ public partial class InventoryUI : CanvasLayer
 			ItemType.Ability => "UI_INVENTORY_TAG_ABILITY",
 			ItemType.Ring => "UI_INVENTORY_TAG_RING",
 			ItemType.Quest => "UI_INVENTORY_TAG_QUEST",
+			ItemType.Key => "UI_INVENTORY_TAG_KEY",
 			_ => "UI_INVENTORY_TAG_LORE",
 		});
 		string itemName = TranslationServer.Translate(item.ItemName);
+		if (count > 0)
+			itemName += $" x{count}";
 		string description = TranslationServer.Translate(item.Description);
 
 		Label label = new()
