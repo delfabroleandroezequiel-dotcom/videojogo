@@ -36,7 +36,7 @@
 [ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="33_lightgrad"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CobwebDecoration.tscn" id="35_f18cp"]
 [ext_resource type="PackedScene" path="res://scenes/world/iluminacion/CuevaLantern.tscn" id="36_80ojl"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/DrippingWater.tscn" id="36_cbs4y"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Gota.tscn" id="36_cbs4y"]
 [ext_resource type="PackedScene" path="res://scenes/world/iluminacion/CuevaSkullSignpost.tscn" id="37_5a5bg"]
 [ext_resource type="Texture2D" uid="uid://db8rqpeh5ubi2" path="res://assets/external/parallax/backgroundcave/1.png" id="40_cavebg1"]
 [ext_resource type="Texture2D" uid="uid://dew812ty4ikk0" path="res://assets/external/parallax/backgroundcave/2.png" id="40_cavebg2"]

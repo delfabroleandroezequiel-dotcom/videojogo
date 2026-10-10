@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://524kpvop7d8i"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BatEnemy.tscn" id="1_base"]
+[ext_resource type="Resource" path="res://resources/balance/enemies/bat_small.tres" id="2_profile"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_small"]
+size = Vector2(20, 14)
+
+[node name="BatEnemySmall" unique_id=685681292 instance=ExtResource("1_base")]
+Profile = ExtResource("2_profile")
+ExplosionScale = 0.3
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_small")
+
+[node name="CollisionShape2D" parent="ContactArea" index="0"]
+shape = SubResource("RectangleShape2D_small")
+
+[node name="CharacterSprite" parent="Visual" index="0"]
+scale = Vector2(0.55, 0.55)
+
+[node name="HealthBar" parent="." index="4"]
+position = Vector2(0, 20)
+
+[node name="StaminaBar" parent="." index="5"]
+position = Vector2(0, 26)
