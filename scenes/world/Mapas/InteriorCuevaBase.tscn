@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://7s7bgxw2nndu"]
+
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_out3d"]
+[ext_resource type="Texture2D" uid="uid://cku6awb3vjdax" path="res://assets/backgrounds/ChatGPT Image 12 jul 2026, 18_51_06.png" id="2_gpwgv"]
+[ext_resource type="PackedScene" path="res://scenes/world/iluminacion/CuevaLantern.tscn" id="3_n7xjf"]
+[ext_resource type="TileSet" uid="uid://sj6r3rvvphxk" path="res://resources/tilesets/CuevaBosqueLobo1_TileMapLayer2.tres" id="4_5r2nv"]
+[ext_resource type="TileSet" uid="uid://tw62db3nswn7" path="res://resources/tilesets/CuevaBosqueLobo1_TileRocas.tres" id="5_ljosw"]
+[ext_resource type="TileSet" uid="uid://cfhxpf4vpw5d1" path="res://resources/tilesets/CuevaBosqueLobo1_PiedrasPiso.tres" id="6_mnfvc"]
+[ext_resource type="TileSet" uid="uid://bee3so5mtyl1f" path="res://resources/tilesets/CuevaBosqueLobo1_Telaranas.tres" id="7_5fmtf"]
+[ext_resource type="TileSet" uid="uid://cbfh0m5dt4xf7" path="res://resources/tilesets/CuevaBosqueLobo1_Calaveras.tres" id="8_ceran"]
+[ext_resource type="TileSet" uid="uid://ciq0ue7okuf2n" path="res://resources/tilesets/CuevaBosqueLobo1_Barriles.tres" id="9_i63wf"]
+[ext_resource type="TileSet" uid="uid://coh0qtqpqfovy" path="res://resources/tilesets/CuevaBosqueLobo1_TileAntorchas.tres" id="10_2jjm1"]
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="11_24lfi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(1600, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(64, 1200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ceiling"]
+size = Vector2(1600, 64)
+
+[node name="InteriorCueva1" type="Node2D" unique_id=654504821]
+script = ExtResource("1_out3d")
+ScenePath = "res://scenes/world/Mapas/InteriorCueva1.tscn"
+CameraLimitLeft = 0
+CameraLimitRight = 1536
+CameraLimitTop = 0
+CameraLimitBottom = 1024
+
+[node name="Fondos" type="Node2D" parent="." unique_id=562820694]
+
+[node name="Background" type="Node2D" parent="Fondos" unique_id=436563625]
+z_index = -10
+
+[node name="BgTile1" type="Sprite2D" parent="Fondos/Background" unique_id=1770664378]
+texture = ExtResource("2_gpwgv")
+centered = false
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Fondos" unique_id=1987144399]
+visible = false
+color = Color(0.05, 0.05, 0.08, 1)
+
+[node name="Iluminacion" type="Node2D" parent="." unique_id=1225592405]
+
+[node name="CuevaLantern1" parent="Iluminacion" unique_id=632577015 instance=ExtResource("3_n7xjf")]
+position = Vector2(320, 900)
+LightRange = 1.0
+
+[node name="CuevaLantern2" parent="Iluminacion" unique_id=1406654995 instance=ExtResource("3_n7xjf")]
+position = Vector2(768, 900)
+LightRange = 1.0
+
+[node name="CuevaLantern3" parent="Iluminacion" unique_id=1305228027 instance=ExtResource("3_n7xjf")]
+position = Vector2(1216, 900)
+LightRange = 1.0
+
+[node name="Colision" type="Node2D" parent="." unique_id=414674395]
+
+[node name="Floor" type="StaticBody2D" parent="Colision" unique_id=450330467]
+position = Vector2(768, 960)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colision/Floor" unique_id=2072581277]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="LeftWall" type="StaticBody2D" parent="Colision" unique_id=1550698371]
+position = Vector2(-32, 512)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colision/LeftWall" unique_id=1547093071]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="RightWall" type="StaticBody2D" parent="Colision" unique_id=1713248746]
+position = Vector2(1568, 512)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colision/RightWall" unique_id=565722439]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="Ceiling" type="StaticBody2D" parent="Colision" unique_id=56025836]
+position = Vector2(768, -32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colision/Ceiling" unique_id=1634396658]
+shape = SubResource("RectangleShape2D_ceiling")
+
+[node name="Tiles" type="Node2D" parent="." unique_id=42655516]
+
+[node name="Paredes" type="TileMapLayer" parent="Tiles" unique_id=762117641]
+z_index = -1
+tile_set = ExtResource("4_5r2nv")
+
+[node name="Rocas" type="TileMapLayer" parent="Tiles" unique_id=806711778]
+tile_set = ExtResource("5_ljosw")
+
+[node name="PiedrasPiso" type="TileMapLayer" parent="Tiles" unique_id=545673555]
+tile_set = ExtResource("6_mnfvc")
+
+[node name="Telaranas" type="TileMapLayer" parent="Tiles" unique_id=704818355]
+tile_set = ExtResource("7_5fmtf")
+
+[node name="Calaveras" type="TileMapLayer" parent="Tiles" unique_id=2052810882]
+tile_set = ExtResource("8_ceran")
+
+[node name="Barriles" type="TileMapLayer" parent="Tiles" unique_id=1132002881]
+scale = Vector2(0.5, 0.5)
+tile_set = ExtResource("9_i63wf")
+
+[node name="Antorchas" type="TileMapLayer" parent="Tiles" unique_id=1263747989]
+tile_set = ExtResource("10_2jjm1")
+
+[node name="Player" parent="." unique_id=832783395 instance=ExtResource("11_24lfi")]
+position = Vector2(200, 880)

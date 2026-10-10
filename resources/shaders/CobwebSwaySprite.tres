@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+
+[ext_resource type="Shader" path="res://resources/shaders/CobwebSway.gdshader" id="1_shader"]
+
+[resource]
+shader = ExtResource("1_shader")
+shader_parameter/amplitude = 3.0
+shader_parameter/speed = 1.2
+shader_parameter/wave_scale = 0.015
+shader_parameter/anchor_top = 1.0
