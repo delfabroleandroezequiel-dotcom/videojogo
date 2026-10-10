@@ -1,0 +1,66 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/FondoVideo3.png" id="2_bg"]
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="3_player"]
+[ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="4_transition"]
+[ext_resource type="Resource" path="res://resources/camera/VideoMapCamera.tres" id="5_camera"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(1672, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(64, 1200)
+
+[node name="MapaVideo3" type="Node2D"]
+script = ExtResource("1_bootstrap")
+ScenePath = "res://scenes/world/Mapas/MapaVideo3.tscn"
+CameraProfile = ExtResource("5_camera")
+CameraLimitLeft = 0
+CameraLimitRight = 1672
+CameraLimitTop = 0
+CameraLimitBottom = 941
+
+[node name="Fondos" type="Node2D" parent="."]
+
+[node name="Background" type="Node2D" parent="Fondos"]
+z_index = -10
+
+[node name="BgTile1" type="Sprite2D" parent="Fondos/Background"]
+texture = ExtResource("2_bg")
+centered = false
+
+[node name="Colision" type="Node2D" parent="."]
+
+[node name="Floor" type="StaticBody2D" parent="Colision"]
+position = Vector2(836, 789)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colision/Floor"]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="LeftWall" type="StaticBody2D" parent="Colision"]
+position = Vector2(-32, 470)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colision/LeftWall"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="RightWall" type="StaticBody2D" parent="Colision"]
+position = Vector2(1704, 470)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colision/RightWall"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+position = Vector2(150, 709)
+
+[node name="ToMapaVideo2" parent="." instance=ExtResource("4_transition")]
+position = Vector2(24, 757)
+TargetScenePath = "res://scenes/world/Mapas/MapaVideo2.tscn"
+TargetSpawnPosition = Vector2(1560, 692)
+Height = 300.0
+
+[node name="ToMapaVideo4" parent="." instance=ExtResource("4_transition")]
+position = Vector2(1648, 757)
+TargetScenePath = "res://scenes/world/Mapas/MapaVideo4.tscn"
+TargetSpawnPosition = Vector2(110, 727)
+Height = 300.0
