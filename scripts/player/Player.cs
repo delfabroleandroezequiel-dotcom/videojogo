@@ -260,13 +260,20 @@ public partial class Player : CharacterBody2D
 	[Export] public float FireballCastDelay = 0.25f;
 	[Export] public float FireballDamageMultiplier = 1.4f;
 	[Export] public float FireballSpawnYOffset = -12f;
-	// Bastón summons: 4 cycles the selected slot, 5 summons it (one shadow attack on the nearest
-	// enemy, costs 1 use + stamina), 6 discards the selected slot (asks which).
+	// Bastón summons: 4 cycles the selected slot, 5 summons it (costs 1 use + stamina) and hands
+	// control to the shadow while the player stands still and vulnerable, 6 discards the selected
+	// slot (asks which). See ShadowSummon for what ends the control.
 	[Export] public int ShadowSummonStaminaCost = 10;
 	[Export] public float ShadowSummonCooldown = 0.6f;
 	[Export] public float ShadowSummonDamageMultiplier = 1f;
-	[Export] public float ShadowSummonSearchRadius = 380f;
 	[Export] public float ShadowSummonReach = 50f;
+	// How many swings one summon gets before it vanishes (the upgrade path: 1 → 2).
+	[Export] public int ShadowSummonHits = 2;
+	[Export] public float ShadowSummonDuration = 10f;
+	[Export] public float ShadowSummonMoveSpeed = 110f;
+	// Pulse on the player's body while a summon is being steered (it's standing there exposed).
+	[Export] public Color SummonVulnerableTint = new(1f, 0.45f, 0.45f, 1f);
+	[Export] public float SummonVulnerablePulseSpeed = 6f;
 	[Export] public float ShadowSummonIntensity = 1.6f;
 	[Export] public Color ShadowSummonColor = new(0.55f, 0.35f, 1f, 1f);
 	// Flying sword (see ThrowFlyingSword): release moment into the throw clip, how far it flies
@@ -286,6 +293,8 @@ public partial class Player : CharacterBody2D
 	[Export] public float LookSmoothSpeed = 4f;
 	[Export] public float BaseCameraOffsetY = -60f;
 	public float ProfileCameraOffsetY { get; set; }
+	// Ground kept visible under the player's feet when the camera framing would hide them.
+	[Export] public float PlayerBottomMargin = 24f;
 	public float ProfileZoom { get; set; } = 1.78f;
 
 	// Read-only combat state for enemy AI to react to (see EnemyCombatCoordinator) — an enemy
@@ -500,6 +509,8 @@ public partial class Player : CharacterBody2D
 	private double _fireballReadyAt;
 	private double _summonReadyAt;
 	private string _selectedSummon;
+	// Non-null while the player is steering a summon (their own body stands still).
+	private ShadowSummon _controlledSummon;
 	private Metroidvania.UI.ShadowSlotsHud _summonHud;
 	private GoldHud _goldHud;
 	private bool _isCastingSpell2;
@@ -546,6 +557,11 @@ public partial class Player : CharacterBody2D
 	// that point in the swing; you're only blocked from THIS rope, and only until you've actually
 	// left its grab zone once, so aiming for a neighboring rope is never held up by it.
 	private Rope _lastReleasedRope;
+	private HangRope _hangRopeInZone;
+	private bool _isHanging;
+	// Dropped off with down: not re-grabbed until the player has left its zone once (same idea as
+	// _lastReleasedRope), since falling clear of a tall grab zone can outlast any short lockout.
+	private HangRope _droppedHangRope;
 	private bool _isWallClimbing;
 	private float _wallJumpLockout;
 	private ShapeCast2D _ledgeWallCheck;
@@ -705,6 +721,8 @@ public partial class Player : CharacterBody2D
 		staminaBar.SetRatio((float)_stats.CurrentStamina / _stats.MaxStamina);
 		_stats.HitTaken += (isProjectile) => FlashHit(_visual, new Color(1f, 0.2f, 0.2f));
 		_stats.HitTaken += (isProjectile) => Sfx.Play(this, "Voice/Player", "Damage Grunt (Male)");
+		// Getting hit while steering a summon snaps control back to the body.
+		_stats.HitTaken += (isProjectile) => EndSummonControl();
 		_hitbox.HitDealt += () => FlashHit(_visual, new Color(1f, 1f, 0.2f));
 		_hitbox.HitDealt += () => Sfx.Play(this, "Combat/Sword", "Sword Impact Hit");
 		_healFlask.ChargesChanged += (current, max) => UpdateHealChargesLabel(current, max);
@@ -827,10 +845,39 @@ public partial class Player : CharacterBody2D
 		_summonReadyAt = now + ShadowSummonCooldown;
 
 		var summon = new ShadowSummon();
-		summon.Setup(_selectedSummon, _stats, Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * ShadowSummonDamageMultiplier)),
-			_facingRight, ShadowSummonSearchRadius, ShadowSummonReach, ShadowSummonColor, ShadowSummonIntensity);
+		summon.Setup(_selectedSummon, Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * ShadowSummonDamageMultiplier)),
+			_facingRight, ShadowSummonReach, ShadowSummonHits, ShadowSummonDuration, ShadowSummonMoveSpeed, Gravity,
+			ShadowSummonColor, ShadowSummonIntensity);
 		scene.AddChild(summon);
-		summon.GlobalPosition = GlobalPosition + new Vector2(_facingRight ? 30f : -30f, 0f);
+		summon.PlaceOnFloor(GlobalPosition + new Vector2(_facingRight ? 30f : -30f, 0f));
+		_controlledSummon = summon;
+		summon.Finished += EndSummonControl;
+		// Same kneel-and-concentrate pose as steering the flying sword.
+		_sprite.Play(_sprite.SpriteFrames.HasAnimation("flying_sword_loop") ? "flying_sword_loop" : TorchAnim("idle"));
+	}
+
+	// Freezes the body in place and keeps the camera on the shadow; the summon reads the input itself.
+	private void UpdateSummonControl(float delta)
+	{
+		Velocity = new Vector2(0f, IsOnFloor() ? 0f : Velocity.Y + Gravity * delta);
+		MoveAndSlide();
+		_camera.GlobalPosition = _controlledSummon.GlobalPosition;
+		// Soft red pulse on the body: it's exposed while the shadow is out. _sprite.Modulate is free —
+		// FlashHit drives _visual.Modulate and poison drives _sprite.SelfModulate.
+		float pulse = 0.5f + 0.5f * Mathf.Sin(Time.GetTicksMsec() / 1000f * SummonVulnerablePulseSpeed);
+		_sprite.Modulate = Colors.White.Lerp(SummonVulnerableTint, pulse);
+	}
+
+	private void EndSummonControl()
+	{
+		if (_controlledSummon is null)
+			return;
+		ShadowSummon summon = _controlledSummon;
+		_controlledSummon = null;
+		_camera.Position = Vector2.Zero;
+		_sprite.Modulate = Colors.White;
+		if (IsInstanceValid(summon))
+			summon.Finish();
 	}
 
 	private void UpdateSummonLabel()
@@ -1080,6 +1127,21 @@ public partial class Player : CharacterBody2D
 			_lastReleasedRope = null;
 	}
 
+	public void EnterHangRope(HangRope rope)
+	{
+		_hangRopeInZone = rope;
+	}
+
+	public void ExitHangRope(HangRope rope)
+	{
+		if (_hangRopeInZone != rope)
+			return;
+
+		_hangRopeInZone = null;
+		_isHanging = false;
+		_droppedHangRope = null;
+	}
+
 	public override void _PhysicsProcess(double delta)
 	{
 		UpdateLightningBolts((float)delta);
@@ -1103,6 +1165,16 @@ public partial class Player : CharacterBody2D
 			return;
 		}
 
+		if (_controlledSummon is not null)
+		{
+			if (IsInstanceValid(_controlledSummon))
+			{
+				UpdateSummonControl((float)delta);
+				return;
+			}
+			EndSummonControl();
+		}
+
 		// Water has no solid collision — anything that moves the player fast enough (dash, pound,
 		// roll, run-thrust) can carry them below the float line before the state machine ever
 		// reaches the swim block further down to catch it. Rather than chase every individual
@@ -1116,7 +1188,7 @@ public partial class Player : CharacterBody2D
 				GlobalPosition = new Vector2(GlobalPosition.X, floatY);
 		}
 
-		bool isGroundedOrClimbing = IsOnFloor() || _isClimbing || _isWallClimbing || _isLedgeHanging || _isLedgeClimbing || _isSwinging || _isSwimming;
+		bool isGroundedOrClimbing = IsOnFloor() || _isClimbing || _isWallClimbing || _isLedgeHanging || _isLedgeClimbing || _isSwinging || _isHanging || _isSwimming;
 		_airborneTimer = isGroundedOrClimbing ? 0f : _airborneTimer + (float)delta;
 		if (_airborneTimer > MaxAirborneTime && !SceneFader.IsChangingScene)
 		{
@@ -1310,6 +1382,48 @@ public partial class Player : CharacterBody2D
 			Velocity = velocity;
 			MoveAndSlide();
 			UpdateAnimation(delta, false, velocity.X, _isClimbing);
+			return;
+		}
+
+		// Horizontal HangRope: the ladder turned sideways. Up grabs it, or just jumping/falling into
+		// its zone does (it's overhead, so you usually arrive airborne); Y stays locked to the rope
+		// and left/right shimmies along it. Shares the ladder's grab lockout and climb animation.
+		if (_hangRopeInZone != null && _hangRopeInZone != _droppedHangRope && !_isHanging && _ladderGrabLockout <= 0f
+			&& (Input.IsActionPressed("move_up") || !IsOnFloor()) && !Input.IsActionPressed("move_down"))
+		{
+			_isHanging = true;
+		}
+
+		if (_isHanging)
+		{
+			HangRope hangRope = _hangRopeInZone;
+			float shimmyDirection = Input.GetAxis("move_left", "move_right");
+			if (shimmyDirection != 0)
+				_facingRight = shimmyDirection > 0;
+
+			float newX = Mathf.Clamp(GlobalPosition.X + shimmyDirection * hangRope.ShimmySpeed * (float)delta, hangRope.LeftX, hangRope.RightX);
+			GlobalPosition = new Vector2(newX, hangRope.RopeYAt(newX) + hangRope.HangOffsetY);
+			// Only read by UpdateAnimation's ladder branch, to advance the climb cycle while moving.
+			Velocity = new Vector2(newX == hangRope.LeftX || newX == hangRope.RightX ? 0f : shimmyDirection * hangRope.ShimmySpeed, 0f);
+
+			_visual.Scale = new Vector2(_facingRight ? 1 : -1, 1f);
+			_visual.Position = Vector2.Zero;
+
+			if (Input.IsActionJustPressed("move_down"))
+			{
+				_isHanging = false;
+				_droppedHangRope = hangRope;
+				Velocity = Vector2.Zero;
+			}
+			else if (Input.IsActionJustPressed("jump"))
+			{
+				_isHanging = false;
+				_ladderGrabLockout = LadderJumpLockoutDuration;
+				Velocity = new Vector2(0f, JumpVelocity);
+				_jumpCount = 1;
+			}
+
+			UpdateAnimation(delta, false, Velocity.X, true);
 			return;
 		}
 
@@ -2033,12 +2147,50 @@ public partial class Player : CharacterBody2D
 		// frame without that jitter itself getting lerped-toward next frame (which would just
 		// smooth the shake away to nothing).
 		_lookOffset = _lookOffset.Lerp(targetOffset, (float)delta * LookSmoothSpeed);
-		_camera.Offset = _lookOffset + GetShakeOffset(delta);
+		_camera.Offset = ClampOffsetToLimits(_lookOffset + GetShakeOffset(delta));
 
 		float targetHeadAngle = lookingUp ? HeadLookUpAngle : 0f;
 		_head.RotationDegrees = Mathf.Lerp(_head.RotationDegrees, targetHeadAngle, (float)delta * LookSmoothSpeed);
 
 		UpdateBossZoom(delta);
+	}
+
+	// Camera2D applies Offset AFTER clamping to its Limit*, so looking up/down or a shake near a map
+	// edge used to show past the background. Keeps the offsetted view inside the limits. The
+	// smoothed (pre-offset) view still moves a bit between here and the render, but always somewhere
+	// between where it is now and its limited target — so the offset is clamped to the room that's
+	// left at BOTH ends, which covers any point in between.
+	private Vector2 ClampOffsetToLimits(Vector2 offset)
+	{
+		Vector2 halfView = GetViewportRect().Size / _camera.Zoom / 2f;
+		Vector2 currentCenter = _camera.GetScreenCenterPosition() - _camera.Offset;
+		Vector2 targetCenter = _camera.GlobalPosition;
+
+		// The upward framing (BaseCameraOffsetY, looking up) must never push the player off the bottom
+		// of the screen — e.g. a floor painted right at the bottom of the background, where the limit
+		// stops the camera from going lower. Keep the feet plus some ground in view.
+		float feetY = GlobalPosition.Y + _standHalfHeight + PlayerBottomMargin;
+
+		static float ClampAxis(float value, float current, float target, float half, int min, int max, float mustShowBelow = float.NegativeInfinity)
+		{
+			// Where the limited view centre can be at all (the limits clamp it into this range).
+			float lowCenter = min + half;
+			float highCenter = max - half;
+			if (lowCenter > highCenter)
+				return 0f;
+			current = Mathf.Clamp(current, lowCenter, highCenter);
+			target = Mathf.Clamp(target, lowCenter, highCenter);
+
+			float low = lowCenter - Mathf.Min(current, target);
+			low = Mathf.Max(low, mustShowBelow - half - Mathf.Min(current, target));
+			float high = highCenter - Mathf.Max(current, target);
+			// If both can't hold, the limits win: never show past the background.
+			return Mathf.Min(Mathf.Max(value, low), high);
+		}
+
+		return new Vector2(
+			ClampAxis(offset.X, currentCenter.X, targetCenter.X, halfView.X, _camera.LimitLeft, _camera.LimitRight),
+			ClampAxis(offset.Y, currentCenter.Y, targetCenter.Y, halfView.Y, _camera.LimitTop, _camera.LimitBottom, feetY));
 	}
 
 	// strength is in pixels; the shake decays linearly to 0 over duration.
