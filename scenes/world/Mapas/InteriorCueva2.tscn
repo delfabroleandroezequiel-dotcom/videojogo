@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BatEnemy.tscn" id="15_hyohp"]
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="15_v1v1b"]
 [ext_resource type="PackedScene" uid="uid://wp6ytyqu0ihp" path="res://scenes/world/Enemigos/Bandido5.tscn" id="16_ijk3y"]
+[ext_resource type="Texture2D" uid="uid://bxg6o7k8acwgm" path="res://scenes/world/Mapas/estalagtita2.png" id="17_qogv6"]
 [ext_resource type="PackedScene" uid="uid://drser5bfbd5kp" path="res://scenes/world/Enemys/Perrito1.tscn" id="17_w0nta"]
 [ext_resource type="PackedScene" path="res://scenes/world/MushroomEnemy.tscn" id="18_vcubd"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniCorridor.tscn" id="19_hyohp"]
@@ -26,6 +27,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SecretWall.tscn" id="23_j8h8l"]
 [ext_resource type="Material" path="res://resources/shaders/CobwebSway.tres" id="cobweb_sway"]
 [ext_resource type="Material" path="res://resources/shaders/CobwebSwaySprite.tres" id="cobweb_sway_sprite"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ParallaxCueva.tscn" id="90_parallaxcueva"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vcubd"]
 texture = ExtResource("12_dnep3")
@@ -9162,6 +9164,7 @@ CameraLimitBottom = 705
 [node name="Fondos" type="Node2D" parent="." unique_id=1546356138]
 
 [node name="Background" type="Node2D" parent="Fondos" unique_id=2145902914]
+visible = false
 z_index = -10
 
 [node name="BgTile1" type="Sprite2D" parent="Fondos/Background" unique_id=275435457]
@@ -9174,6 +9177,8 @@ z_index = 3
 material = ExtResource("cobweb_sway_sprite")
 position = Vector2(701, 262)
 texture = ExtResource("20_ijk3y")
+
+[node name="ParallaxCueva" parent="Fondos" instance=ExtResource("90_parallaxcueva")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Fondos" unique_id=222791140]
 color = Color(0.05, 0.05, 0.08, 1)
@@ -9284,6 +9289,17 @@ tile_set = ExtResource("10_vcubd")
 
 [node name="Player" parent="." unique_id=951203625 instance=ExtResource("11_j8h8l")]
 position = Vector2(983.51965, 436.5063)
+
+[node name="Estalagtita3" type="Sprite2D" parent="." unique_id=1386473630]
+z_index = 10
+position = Vector2(-120, 704)
+rotation = -3.1415925
+texture = ExtResource("17_qogv6")
+
+[node name="Estalagtita2" type="Sprite2D" parent="." unique_id=605244535]
+z_index = 10
+position = Vector2(568, -96)
+texture = ExtResource("17_qogv6")
 
 [node name="LevelTransition" parent="." unique_id=2116574566 instance=ExtResource("15_v1v1b")]
 position = Vector2(984, 808)

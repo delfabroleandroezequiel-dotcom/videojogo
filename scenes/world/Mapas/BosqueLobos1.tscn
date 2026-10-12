@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://qpeeme8h315i" path="res://scenes/world/Rehusables/MiniCorridorBosque.tscn" id="24_v2wi5"]
 [ext_resource type="Script" uid="uid://dmc84bj2qiwao" path="res://scripts/shared/LoopingAudioPlayer.cs" id="90_looping_audio"]
 [ext_resource type="AudioStream" uid="uid://dbg5k12n40k7g" path="res://assets/audio/Sonidos/Ambience/ForestDay/Forest Day.wav" id="91_forest_ambience"]
+[ext_resource type="Script" path="res://scripts/world/ParallaxFollow.cs" id="91_parallaxfollow"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h48re"]
 load_path = "res://.godot/imported/ChatGPT_Image_12_jul_2026__17_14_53-removebg-preview.png-d59d64ce255041962d0d7588581fe35a.ctex"
@@ -12814,6 +12815,10 @@ ForceWeatherIndex = -1
 
 [node name="Background" type="Node2D" parent="." unique_id=-1194967294]
 z_index = -10
+position = Vector2(-139, 0)
+script = ExtResource("91_parallaxfollow")
+ParallaxFactor = Vector2(0.15, 0)
+FollowCamera = true
 
 [node name="BgTile1" type="Sprite2D" parent="Background" unique_id=-1194967293]
 position = Vector2(887, 0)

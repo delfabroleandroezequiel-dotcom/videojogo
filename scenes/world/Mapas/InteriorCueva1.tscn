@@ -20,7 +20,9 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CookingArea.tscn" id="15_7mwba"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BatEnemy.tscn" id="18_oc8l3"]
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="20_mgbo8"]
+[ext_resource type="Texture2D" uid="uid://bxg6o7k8acwgm" path="res://scenes/world/Mapas/estalagtita2.png" id="22_qw7n5"]
 [ext_resource type="Material" path="res://resources/shaders/CobwebSway.tres" id="cobweb_sway"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ParallaxCueva.tscn" id="90_parallaxcueva"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1600, 64)
@@ -4219,11 +4221,14 @@ CameraLimitBottom = 1024
 [node name="Fondos" type="Node2D" parent="." unique_id=1546356138]
 
 [node name="Background" type="Node2D" parent="Fondos" unique_id=2145902914]
+visible = false
 z_index = -10
 
 [node name="BgTile1" type="Sprite2D" parent="Fondos/Background" unique_id=275435457]
 texture = ExtResource("3_bg")
 centered = false
+
+[node name="ParallaxCueva" parent="Fondos" instance=ExtResource("90_parallaxcueva")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Fondos" unique_id=222791140]
 color = Color(0.05, 0.05, 0.08, 1)
@@ -4398,3 +4403,14 @@ TargetScenePath = "res://scenes/world/Mapas/BosqueLobos1.tscn"
 TargetSpawnPosition = Vector2(1464, 263)
 Width = 354.0
 Height = 273.0
+
+[node name="Estalagtita3" type="Sprite2D" parent="." unique_id=298763330]
+z_index = 10
+position = Vector2(944, 1056)
+rotation = 3.1415927
+texture = ExtResource("22_qw7n5")
+
+[node name="Estalagtita2" type="Sprite2D" parent="." unique_id=1823791382]
+z_index = 10
+position = Vector2(912, 576)
+texture = ExtResource("22_qw7n5")

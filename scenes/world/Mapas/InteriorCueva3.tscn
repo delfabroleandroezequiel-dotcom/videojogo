@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="23_rqv1j"]
 [ext_resource type="Material" path="res://resources/shaders/CobwebSway.tres" id="cobweb_sway"]
 [ext_resource type="Material" path="res://resources/shaders/CobwebSwaySprite.tres" id="cobweb_sway_sprite"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ParallaxCueva.tscn" id="90_parallaxcueva"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vcubd"]
 texture = ExtResource("5_1bypt")
@@ -6680,6 +6681,7 @@ CameraLimitBottom = 705
 [node name="Fondos" type="Node2D" parent="." unique_id=1546356138]
 
 [node name="Background" type="Node2D" parent="Fondos" unique_id=2145902914]
+visible = false
 z_index = -10
 
 [node name="BgTile1" type="Sprite2D" parent="Fondos/Background" unique_id=275435457]
@@ -6692,6 +6694,8 @@ z_index = 3
 material = ExtResource("cobweb_sway_sprite")
 position = Vector2(701, 262)
 texture = ExtResource("3_phktx")
+
+[node name="ParallaxCueva" parent="Fondos" instance=ExtResource("90_parallaxcueva")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Fondos" unique_id=222791140]
 color = Color(0.05, 0.05, 0.08, 1)

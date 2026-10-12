@@ -100,6 +100,7 @@
 [ext_resource type="SpriteFrames" uid="uid://c6d1ldkskwlfp" path="res://resources/sprites/NecropolisWarriorSpriteFrames.tres" id="112_necropolisguerrero"]
 [ext_resource type="Script" uid="uid://c66cvo06t25i2" path="res://scripts/world/AtmosphereHaze.cs" id="113_haze"]
 [ext_resource type="Script" uid="uid://bgg0sgbr3un2" path="res://scripts/world/FogWisps.cs" id="114_fog"]
+[ext_resource type="Script" path="res://scripts/world/ParallaxFollow.cs" id="91_parallaxfollow"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn06r"]
 size = Vector2(67, 11.360123)
@@ -15087,18 +15088,38 @@ one_way_collision = true
 [node name="BgSprite1" type="Sprite2D" parent="Background" unique_id=1518031984]
 position = Vector2(-806, 176)
 texture = ExtResource("2_mcnla")
+script = ExtResource("91_parallaxfollow")
+ParallaxFactor = Vector2(0.15, 0)
+FollowCamera = true
+ShiftOffsetOnly = true
+OffsetAnchor = Vector2(-480, 0)
 
 [node name="BgSprite2" type="Sprite2D" parent="Background" unique_id=1247882408]
 position = Vector2(894.5, 153)
 texture = ExtResource("2_35fdj")
+script = ExtResource("91_parallaxfollow")
+ParallaxFactor = Vector2(0.15, 0)
+FollowCamera = true
+ShiftOffsetOnly = true
+OffsetAnchor = Vector2(-480, 0)
 
 [node name="BgSprite3" type="Sprite2D" parent="Background" unique_id=1961999723]
 position = Vector2(2668.5, 153)
 texture = ExtResource("2_35fdj")
+script = ExtResource("91_parallaxfollow")
+ParallaxFactor = Vector2(0.15, 0)
+FollowCamera = true
+ShiftOffsetOnly = true
+OffsetAnchor = Vector2(-480, 0)
 
 [node name="BgSprite4" type="Sprite2D" parent="Background" unique_id=1648915825]
 position = Vector2(4442.5, 153)
 texture = ExtResource("2_35fdj")
+script = ExtResource("91_parallaxfollow")
+ParallaxFactor = Vector2(0.15, 0)
+FollowCamera = true
+ShiftOffsetOnly = true
+OffsetAnchor = Vector2(-480, 0)
 
 [node name="AtmosphereHaze" type="Node2D" parent="Background/BgSprite4" unique_id=87279919]
 visible = false
@@ -15268,16 +15289,25 @@ position = Vector2(1059, 222.00002)
 position = Vector2(0, 100)
 scale = Vector2(4, 4)
 texture = ExtResource("14_cloud1")
+script = ExtResource("91_parallaxfollow")
+ParallaxFactor = Vector2(0.25, 0)
+FollowCamera = true
 
 [node name="Cloud2" type="Sprite2D" parent="." unique_id=1160256227]
-position = Vector2(1800, 80)
+position = Vector2(1350, 80)
 scale = Vector2(5, 5)
 texture = ExtResource("14_cloud1")
+script = ExtResource("91_parallaxfollow")
+ParallaxFactor = Vector2(0.25, 0)
+FollowCamera = true
 
 [node name="Cloud3" type="Sprite2D" parent="." unique_id=1658408541]
-position = Vector2(3600, 110)
+position = Vector2(2700, 110)
 scale = Vector2(4, 4)
 texture = ExtResource("14_cloud1")
+script = ExtResource("91_parallaxfollow")
+ParallaxFactor = Vector2(0.25, 0)
+FollowCamera = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2127247056]
 position = Vector2(5030, 295)

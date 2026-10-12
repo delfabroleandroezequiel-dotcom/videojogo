@@ -20,8 +20,10 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BatEnemy.tscn" id="20_yw1i0"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido6.tscn" id="21_1mskj"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Gota.tscn" id="22_c625d"]
+[ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="23_m1lew"]
 [ext_resource type="Material" path="res://resources/shaders/CobwebSway.tres" id="cobweb_sway"]
 [ext_resource type="Material" path="res://resources/shaders/CobwebSwaySprite.tres" id="cobweb_sway_sprite"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ParallaxCueva.tscn" id="90_parallaxcueva"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(398, 490)
@@ -2506,6 +2508,7 @@ CameraLimitBottom = 1024
 [node name="Fondos" type="Node2D" parent="." unique_id=562820694]
 
 [node name="Background" type="Node2D" parent="Fondos" unique_id=436563625]
+visible = false
 z_index = -10
 
 [node name="BgTile1" type="Sprite2D" parent="Fondos/Background" unique_id=1770664378]
@@ -2518,6 +2521,8 @@ z_index = 3
 material = ExtResource("cobweb_sway_sprite")
 position = Vector2(765, 317)
 texture = ExtResource("3_pk224")
+
+[node name="ParallaxCueva" parent="Fondos" instance=ExtResource("90_parallaxcueva")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Fondos" unique_id=1987144399]
 color = Color(0.05, 0.05, 0.08, 1)
@@ -2596,6 +2601,34 @@ tile_set = ExtResource("10_yw1i0")
 [node name="Player" parent="." unique_id=832783395 instance=ExtResource("11_1mskj")]
 position = Vector2(177.07239, 537.3933)
 
+[node name="EnderLiliesWaterTest5" type="Node2D" parent="." unique_id=877791774]
+z_index = -10
+position = Vector2(611.5228, 175.97723)
+script = ExtResource("14_fg6cl")
+Width = 350
+Height = 488
+WaveSpeed = 7.0
+WaveFrequency = 15.0
+PixelBlockSize = 14.0
+ColorSteps = 2
+Pixelated = false
+CausticFrequency = 2.0
+CausticSpeed = 0.3
+CausticThreshold = 0.72
+CausticStrength = 0.4
+CausticColor = Color(0.6, 0.85, 0.75, 1)
+ShallowColor = Color(0.25, 0.55, 0.6, 1)
+DeepColor = Color(0.02, 0.1, 0.18, 1)
+HasBaseFoam = true
+BaseFoamThickness = 1.0
+BaseFoamTurbulence = 40.0
+HasOrganicEdges = true
+EdgeJitterAmplitude = 15.0
+EdgeJitterFrequency = 1.0
+EdgeJitterSpeed = 2.0
+Harmless = true
+InstantKill = false
+
 [node name="Puente" parent="." unique_id=1376325853 instance=ExtResource("12_744n2")]
 position = Vector2(290.52313, 623.38324)
 collision_mask = 0
@@ -2665,3 +2698,10 @@ FallDistance = 181.0
 [node name="Gota2" parent="." unique_id=1024767658 instance=ExtResource("22_c625d")]
 position = Vector2(1178.7391, 418.51096)
 FallDistance = 191.0
+
+[node name="LevelTransition2" parent="." unique_id=2116574566 instance=ExtResource("23_m1lew")]
+position = Vector2(-36.67212, 494.8206)
+TargetScenePath = "res://scenes/world/Mapas/InteriorCueva4.tscn"
+TargetSpawnPosition = Vector2(1367.97, 277.468)
+Width = 354.0
+Height = 273.0

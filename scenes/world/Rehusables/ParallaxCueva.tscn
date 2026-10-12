@@ -1,0 +1,109 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/ParallaxFollow.cs" id="1_follow"]
+[ext_resource type="Texture2D" path="res://assets/Parallax/Cave/7.png" id="capa_7"]
+[ext_resource type="Texture2D" path="res://assets/Parallax/Cave/6.png" id="capa_6"]
+[ext_resource type="Texture2D" path="res://assets/Parallax/Cave/5.png" id="capa_5"]
+[ext_resource type="Texture2D" path="res://assets/Parallax/Cave/4.png" id="capa_4"]
+[ext_resource type="Texture2D" path="res://assets/Parallax/Cave/3.png" id="capa_3"]
+[ext_resource type="Texture2D" path="res://assets/Parallax/Cave/2.png" id="capa_2"]
+[ext_resource type="Texture2D" path="res://assets/Parallax/Cave/1.png" id="capa_1"]
+
+[node name="ParallaxCueva" type="Node2D"]
+
+[node name="Capa7" type="Node2D" parent="."]
+z_index = -20
+script = ExtResource("1_follow")
+FollowCamera = true
+FitViewHeightSource = 216.0
+FitOverscan = 1.08
+
+[node name="Sprite" type="Sprite2D" parent="Capa7"]
+texture_repeat = 2
+texture = ExtResource("capa_7")
+region_enabled = true
+region_rect = Rect2(-19200, -2160, 38400, 4536)
+
+[node name="Capa6" type="Node2D" parent="."]
+z_index = -19
+script = ExtResource("1_follow")
+ParallaxFactor = Vector2(0.9, 1)
+FollowCamera = true
+FitViewHeightSource = 216.0
+FitOverscan = 1.08
+
+[node name="Sprite" type="Sprite2D" parent="Capa6"]
+texture_repeat = 2
+texture = ExtResource("capa_6")
+region_enabled = true
+region_rect = Rect2(-19200, 0, 38400, 216)
+
+[node name="Capa5" type="Node2D" parent="."]
+z_index = -18
+script = ExtResource("1_follow")
+ParallaxFactor = Vector2(0.8, 1)
+FollowCamera = true
+FitViewHeightSource = 216.0
+FitOverscan = 1.08
+
+[node name="Sprite" type="Sprite2D" parent="Capa5"]
+texture_repeat = 2
+texture = ExtResource("capa_5")
+region_enabled = true
+region_rect = Rect2(-19200, 0, 38400, 216)
+
+[node name="Capa4" type="Node2D" parent="."]
+z_index = -17
+script = ExtResource("1_follow")
+ParallaxFactor = Vector2(0.7, 1)
+FollowCamera = true
+FitViewHeightSource = 216.0
+FitOverscan = 1.08
+
+[node name="Sprite" type="Sprite2D" parent="Capa4"]
+texture_repeat = 2
+texture = ExtResource("capa_4")
+region_enabled = true
+region_rect = Rect2(-19200, 0, 38400, 216)
+
+[node name="Capa3" type="Node2D" parent="."]
+z_index = -16
+script = ExtResource("1_follow")
+ParallaxFactor = Vector2(0.55, 1)
+FollowCamera = true
+FitViewHeightSource = 216.0
+FitOverscan = 1.08
+
+[node name="Sprite" type="Sprite2D" parent="Capa3"]
+texture_repeat = 2
+texture = ExtResource("capa_3")
+region_enabled = true
+region_rect = Rect2(-19200, 0, 38400, 216)
+
+[node name="Capa2" type="Node2D" parent="."]
+z_index = -15
+script = ExtResource("1_follow")
+ParallaxFactor = Vector2(0.4, 1)
+FollowCamera = true
+FitViewHeightSource = 216.0
+FitOverscan = 1.08
+
+[node name="Sprite" type="Sprite2D" parent="Capa2"]
+texture_repeat = 2
+texture = ExtResource("capa_2")
+region_enabled = true
+region_rect = Rect2(-19200, 0, 38400, 216)
+
+[node name="Capa1" type="Node2D" parent="."]
+z_index = -14
+script = ExtResource("1_follow")
+ParallaxFactor = Vector2(0.25, 1)
+FollowCamera = true
+FitViewHeightSource = 216.0
+FitOverscan = 1.08
+
+[node name="Sprite" type="Sprite2D" parent="Capa1"]
+texture_repeat = 2
+texture = ExtResource("capa_1")
+region_enabled = true
+region_rect = Rect2(-19200, 0, 38400, 216)

@@ -18,8 +18,11 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniCorridor.tscn" id="16_jpdu7"]
 [ext_resource type="Script" uid="uid://4ch6askhtulp" path="res://scripts/world/ProceduralWater.cs" id="18_8tgb5"]
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="18_flaol"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemy.tscn" id="21_8rr4n"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemyDark.tscn" id="22_260t3"]
 [ext_resource type="Material" path="res://resources/shaders/CobwebSway.tres" id="cobweb_sway"]
 [ext_resource type="Material" path="res://resources/shaders/CobwebSwaySprite.tres" id="cobweb_sway_sprite"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ParallaxCueva.tscn" id="90_parallaxcueva"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vcubd"]
 texture = ExtResource("5_g6xdc")
@@ -6681,6 +6684,7 @@ CameraLimitBottom = 705
 [node name="Fondos" type="Node2D" parent="." unique_id=1546356138]
 
 [node name="Background" type="Node2D" parent="Fondos" unique_id=2145902914]
+visible = false
 z_index = -10
 
 [node name="BgTile1" type="Sprite2D" parent="Fondos/Background" unique_id=275435457]
@@ -6693,6 +6697,8 @@ z_index = 3
 material = ExtResource("cobweb_sway_sprite")
 position = Vector2(701, 262)
 texture = ExtResource("3_jihxl")
+
+[node name="ParallaxCueva" parent="Fondos" instance=ExtResource("90_parallaxcueva")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Fondos" unique_id=222791140]
 color = Color(0.05, 0.05, 0.08, 1)
@@ -6777,7 +6783,7 @@ tile_set = ExtResource("12_er7le")
 tile_set = ExtResource("13_bwra0")
 
 [node name="Player" parent="." unique_id=951203625 instance=ExtResource("14_miplj")]
-position = Vector2(120, -288)
+position = Vector2(1367.9697, 277.46814)
 
 [node name="BosqueAntorchaPilarAzul10" parent="." unique_id=662800003 instance=ExtResource("15_11ki5")]
 position = Vector2(224, 632)
@@ -6890,8 +6896,17 @@ Harmless = true
 InstantKill = false
 
 [node name="LevelTransition2" parent="." unique_id=2116574566 instance=ExtResource("18_flaol")]
-position = Vector2(112, -432)
-TargetScenePath = "res://scenes/world/Mapas/InteriorCueva3.tscn"
-TargetSpawnPosition = Vector2(973.806, 440.896)
+position = Vector2(1600, 248)
+TargetScenePath = "res://scenes/world/Mapas/InteriorCueva5.tscn"
+TargetSpawnPosition = Vector2(177.072, 537)
 Width = 354.0
 Height = 273.0
+
+[node name="SpiderEnemy" parent="." unique_id=1938173086 instance=ExtResource("21_8rr4n")]
+position = Vector2(1152, 304)
+
+[node name="SpiderEnemyDark" parent="." unique_id=971003365 instance=ExtResource("22_260t3")]
+position = Vector2(520, 616)
+
+[node name="SpiderEnemy2" parent="." unique_id=909979468 instance=ExtResource("21_8rr4n")]
+position = Vector2(1288, 296)
