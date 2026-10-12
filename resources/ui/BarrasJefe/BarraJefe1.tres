@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BossBarStyle" format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/BossBarStyle.cs" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ui/BarrasJefe/BarraJefe1_Marco.png" id="2_frame"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ui/BarrasJefe/BarraJefe1_Relleno.png" id="3_fill"]
+
+[resource]
+script = ExtResource("1_script")
+Frame = ExtResource("2_frame")
+Fill = ExtResource("3_fill")
+FillOffset = Vector2(67.2, 35.7)

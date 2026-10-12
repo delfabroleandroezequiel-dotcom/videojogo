@@ -303,6 +303,7 @@ public partial class Player : CharacterBody2D
 	public bool IsBlocking => _isBlocking;
 	public bool IsAttacking => _attacking;
 	public bool IsDashing => _isDashing;
+	public bool IsRolling => _isRolling;
 	// Drinking the heal flask (read by enemies that punish healing, e.g. MushroomBoss).
 	public bool IsHealing => _healing;
 	public bool IsFacingRight => _facingRight;
@@ -313,6 +314,8 @@ public partial class Player : CharacterBody2D
 	[Export] public float BossFramingThreshold = 120f;
 	[Export] public float BossFramingMargin = 90f;
 	[Export] public float BossFramingMinZoom = 0.8f;
+	// How long the boss bar stays up (at zero) after the boss dies before fading out.
+	[Export] public float BossBarCloseDelay = 1.2f;
 	private float _bossFramingOffsetY;
 	[Export] public float HeadLookUpAngle = -25f;
 	[Export] public float WeaponRestAngle = -20f;
@@ -431,7 +434,7 @@ public partial class Player : CharacterBody2D
 	private float _shakeDuration;
 	private float _shakeStrength;
 	private AnimatedSprite2D _sprite;
-	private HudBar _bossHealthBar;
+	private BossHealthBar _bossHealthBar;
 	private Node2D _trackedBoss;
 	private Enemy _trackedBossEnemy;
 	private bool _bossEncounterActive;
@@ -684,7 +687,7 @@ public partial class Player : CharacterBody2D
 
 		HudBar healthBar = GetNode<HudBar>("HUD/VBox/HealthBar");
 		HudBar staminaBar = GetNode<HudBar>("HUD/VBox/StaminaBar");
-		_bossHealthBar = GetNode<HudBar>("HUD/BossHealthBar");
+		_bossHealthBar = GetNode<BossHealthBar>("HUD/BossHealthBar");
 		_healChargesLabel = GetNode<Label>("HUD/VBox/HealChargesLabel");
 		_goldLabel = GetNode<Label>("HUD/VBox/GoldLabel");
 		_stats.HealthChanged += (current, max) => healthBar.SetRatio((float)current / max);
@@ -1599,51 +1602,54 @@ public partial class Player : CharacterBody2D
 			return;
 		}
 
-		bool wasWallClimbing = _isWallClimbing;
-		bool touchingClimbableWall = IsTouchingClimbableWall(out float climbableWallNormalX);
-		if (_abilities.Has(PlayerAbilities.WallClimb) && _wallJumpLockout <= 0f && touchingClimbableWall && !IsOnFloor())
-		{
-			float wallInputDir = Input.GetAxis("move_left", "move_right");
-			bool pressingIntoWall = wallInputDir != 0f && Mathf.Sign(wallInputDir) == -Mathf.Sign(climbableWallNormalX);
+		// Wall cling + slide disabled for now (2026-10-12): no sliding down walls. Falling past a
+		// climbable edge now just drops into the ledge grab above. The wall jump lived in here too.
+		_isWallClimbing = false;
+		// bool wasWallClimbing = _isWallClimbing;
+		// bool touchingClimbableWall = IsTouchingClimbableWall(out float climbableWallNormalX);
+		// if (_abilities.Has(PlayerAbilities.WallClimb) && _wallJumpLockout <= 0f && touchingClimbableWall && !IsOnFloor())
+		// {
+		// 	float wallInputDir = Input.GetAxis("move_left", "move_right");
+		// 	bool pressingIntoWall = wallInputDir != 0f && Mathf.Sign(wallInputDir) == -Mathf.Sign(climbableWallNormalX);
 
-			if (pressingIntoWall)
-				_isWallClimbing = true;
-		}
-		else
-		{
-			_isWallClimbing = false;
-		}
+		// 	if (pressingIntoWall)
+		// 		_isWallClimbing = true;
+		// }
+		// else
+		// {
+		// 	_isWallClimbing = false;
+		// }
 
-		// Kill any leftover jump momentum right at the grab instant — otherwise the character
-		// keeps rising for a moment before the slide-down eases in, instead of catching in place.
-		if (_isWallClimbing && !wasWallClimbing)
-			velocity.Y = 0f;
+		// // Kill any leftover jump momentum right at the grab instant — otherwise the character
+		// // keeps rising for a moment before the slide-down eases in, instead of catching in place.
+		// if (_isWallClimbing && !wasWallClimbing)
+		// 	velocity.Y = 0f;
 
-		if (_isWallClimbing)
-		{
-			float wallNormalX = climbableWallNormalX;
-			// No climbing art exists for this pack — only the wall-hang (grab) pose reads
-			// correctly, so this is a wall-cling + controlled slide, not free vertical movement.
-			velocity.Y = Mathf.MoveToward(velocity.Y, WallSlideSpeed, WallClimbSpeed * (float)delta);
-			velocity.X = 0f;
+		// if (_isWallClimbing)
+		// {
+		// 	float wallNormalX = climbableWallNormalX;
+		// 	// No climbing art exists for this pack — only the wall-hang (grab) pose reads
+		// 	// correctly, so this is a wall-cling + controlled slide, not free vertical movement.
+		// 	velocity.Y = Mathf.MoveToward(velocity.Y, WallSlideSpeed, WallClimbSpeed * (float)delta);
+		// 	velocity.X = 0f;
 
-			_facingRight = wallNormalX < 0f;
-			_visual.Scale = new Vector2(_facingRight ? 1 : -1, 1f);
+		// 	_facingRight = wallNormalX < 0f;
+		// 	_visual.Scale = new Vector2(_facingRight ? 1 : -1, 1f);
 
-			if (Input.IsActionJustPressed("jump"))
-			{
-				_isWallClimbing = false;
-				_wallJumpLockout = WallJumpLockoutDuration;
-				velocity.X = wallNormalX * WallJumpVelocityX;
-				velocity.Y = WallJumpVelocityY;
-				_jumpCount = 1;
-			}
+		// 	if (Input.IsActionJustPressed("jump"))
+		// 	{
+		// 		_isWallClimbing = false;
+		// 		_wallJumpLockout = WallJumpLockoutDuration;
+		// 		velocity.X = wallNormalX * WallJumpVelocityX;
+		// 		velocity.Y = WallJumpVelocityY;
+		// 		_jumpCount = 1;
+		// 	}
 
-			Velocity = velocity;
-			MoveAndSlide();
-			UpdateAnimation(delta, false, velocity.X, false, _isWallClimbing);
-			return;
-		}
+		// 	Velocity = velocity;
+		// 	MoveAndSlide();
+		// 	UpdateAnimation(delta, false, velocity.X, false, _isWallClimbing);
+		// 	return;
+		// }
 
 		if (!IsOnFloor())
 			velocity.Y += Gravity * (float)delta;
@@ -2269,19 +2275,22 @@ public partial class Player : CharacterBody2D
 	private void TrackBoss(Node2D boss)
 	{
 		_trackedBoss = boss;
-		_bossHealthBar.Visible = boss is not null;
-		if (boss is null)
-			return;
-
-		Stats bossStats = boss.GetNodeOrNull<Stats>("Stats");
+		Stats bossStats = boss?.GetNodeOrNull<Stats>("Stats");
 		if (bossStats is null)
+		{
+			_bossHealthBar.Close();
 			return;
+		}
 
-		_bossHealthBar.SetRatio((float)bossStats.CurrentHealth / bossStats.MaxHealth);
+		var bossEnemy = boss as Enemy;
+		_bossHealthBar.Open(bossEnemy?.BossBarStyle, bossEnemy?.BossNameKey, (float)bossStats.CurrentHealth / bossStats.MaxHealth);
 		bossStats.HealthChanged += (current, max) =>
 		{
-			if (_trackedBoss == boss)
-				_bossHealthBar.SetRatio((float)current / max);
+			if (_trackedBoss != boss)
+				return;
+			_bossHealthBar.SetRatio((float)current / max);
+			if (current <= 0)
+				_bossHealthBar.Close(BossBarCloseDelay);
 		};
 	}
 

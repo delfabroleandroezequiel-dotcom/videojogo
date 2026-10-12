@@ -58,6 +58,12 @@ public partial class Enemy : CharacterBody2D
 	[Export] public float LedgeCheckAheadX = 14f;
 	[Export] public float LedgeCheckDownY = 28f;
 
+	// Bosses only (anything in the "boss" group): the look of its HUD health bar (one of
+	// resources/ui/BarrasJefe; empty = the bar's default) and the translation key of the name shown
+	// above it (empty = no name).
+	[Export] public BossBarStyle BossBarStyle;
+	[Export] public string BossNameKey = "";
+
 	private RayCast2D _ledgeCheck;
 
 	public Stats Stats { get; private set; }
