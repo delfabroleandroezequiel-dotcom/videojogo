@@ -1,0 +1,155 @@
+[gd_resource type="SpriteFrames" load_steps=23 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/Chars/SkeletonEnemyPack/Arbalist_Skeleton/Arrow/Flying.png" id="1_flying"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/SkeletonEnemyPack/Arbalist_Skeleton/Arrow/HitGround.png" id="2_hit_ground"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/SkeletonEnemyPack/Arbalist_Skeleton/Arrow/HitWall.png" id="3_hit_wall"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/SkeletonEnemyPack/Arbalist_Skeleton/Arrow/HitShield.png" id="4_hit_shield"]
+
+[sub_resource type="AtlasTexture" id="AT_flying_0"]
+atlas = ExtResource("1_flying")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_flying_1"]
+atlas = ExtResource("1_flying")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_flying_2"]
+atlas = ExtResource("1_flying")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_flying_3"]
+atlas = ExtResource("1_flying")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_hit_ground_0"]
+atlas = ExtResource("2_hit_ground")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_hit_ground_1"]
+atlas = ExtResource("2_hit_ground")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_hit_ground_2"]
+atlas = ExtResource("2_hit_ground")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_hit_ground_3"]
+atlas = ExtResource("2_hit_ground")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_hit_wall_0"]
+atlas = ExtResource("3_hit_wall")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_hit_wall_1"]
+atlas = ExtResource("3_hit_wall")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_hit_wall_2"]
+atlas = ExtResource("3_hit_wall")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_hit_wall_3"]
+atlas = ExtResource("3_hit_wall")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_hit_shield_0"]
+atlas = ExtResource("4_hit_shield")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_hit_shield_1"]
+atlas = ExtResource("4_hit_shield")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_hit_shield_2"]
+atlas = ExtResource("4_hit_shield")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_hit_shield_3"]
+atlas = ExtResource("4_hit_shield")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_hit_shield_4"]
+atlas = ExtResource("4_hit_shield")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_hit_shield_5"]
+atlas = ExtResource("4_hit_shield")
+region = Rect2(320, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AT_flying_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_flying_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_flying_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_flying_3")
+}],
+"loop": true,
+"name": &"flying",
+"speed": 14
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AT_hit_ground_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_hit_ground_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_hit_ground_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_hit_ground_3")
+}],
+"loop": false,
+"name": &"hit_ground",
+"speed": 14
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AT_hit_wall_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_hit_wall_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_hit_wall_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_hit_wall_3")
+}],
+"loop": false,
+"name": &"hit_wall",
+"speed": 14
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AT_hit_shield_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_hit_shield_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_hit_shield_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_hit_shield_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_hit_shield_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_hit_shield_5")
+}],
+"loop": false,
+"name": &"hit_shield",
+"speed": 14
+}]
