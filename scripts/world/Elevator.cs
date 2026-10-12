@@ -107,6 +107,10 @@ public partial class Elevator : AnimatableBody2D
 	// picking the smaller of the two candidate Y values keeps the math correct in both orientations.
 	private float _anchorY;
 
+	// Same parent-space Y as Position — lets a procedural visual (AscensorNeonVisual) reach the
+	// shaft's fixed anchor the same way RopeExtend does.
+	public float AnchorY => _anchorY;
+
 	// Guards RefreshTravelPoints against the TravelDistance setter firing while Godot is still
 	// restoring this node's saved values (before _Ready runs), when _bottomPosition isn't set yet —
 	// same reentrancy gotcha the other [Tool] pieces (RopeAccordion, MovingPlatformAccordion) guard
@@ -121,8 +125,9 @@ public partial class Elevator : AnimatableBody2D
 		_target = _bottomPosition;
 		_initialized = true;
 
-		_platformSprite = GetNode<Sprite2D>("Platform");
-		_ropeExtend = GetNode<Sprite2D>("RopeExtend");
+		// Optional: a procedural variant (AscensorNeon.tscn) draws itself via AscensorNeonVisual instead.
+		_platformSprite = GetNodeOrNull<Sprite2D>("Platform");
+		_ropeExtend = GetNodeOrNull<Sprite2D>("RopeExtend");
 		UpdateRopeExtend();
 		QueueRedraw();
 
@@ -224,6 +229,9 @@ public partial class Elevator : AnimatableBody2D
 	// seam against Platform's own rope never shows a jump no matter how tall the region grows.
 	private void UpdateRopeExtend()
 	{
+		if (_platformSprite is null || _ropeExtend is null)
+			return;
+
 		float scale = _platformSprite.Scale.Y;
 		float gameHeight = Position.Y - _anchorY;
 

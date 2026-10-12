@@ -1,10 +1,12 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://ch1aough8jpvh"]
 
 [ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
-[ext_resource type="Texture2D" path="res://assets/backgrounds/FondoVideo3.png" id="2_bg"]
+[ext_resource type="Texture2D" uid="uid://da61h7ut8vvgy" path="res://assets/backgrounds/FondoVideo3.png" id="2_bg"]
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="3_player"]
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="4_transition"]
 [ext_resource type="Resource" path="res://resources/camera/VideoMapCamera.tres" id="5_camera"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/AscensorNeon.tscn" id="6_83qbs"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Hornet.tscn" id="7_hot2b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1672, 64)
@@ -12,7 +14,7 @@ size = Vector2(1672, 64)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
 size = Vector2(64, 1200)
 
-[node name="MapaVideo3" type="Node2D"]
+[node name="MapaVideo3" type="Node2D" unique_id=1102108319]
 script = ExtResource("1_bootstrap")
 ScenePath = "res://scenes/world/Mapas/MapaVideo3.tscn"
 CameraProfile = ExtResource("5_camera")
@@ -21,46 +23,52 @@ CameraLimitRight = 1672
 CameraLimitTop = 0
 CameraLimitBottom = 941
 
-[node name="Fondos" type="Node2D" parent="."]
+[node name="Fondos" type="Node2D" parent="." unique_id=2106769562]
 
-[node name="Background" type="Node2D" parent="Fondos"]
+[node name="Background" type="Node2D" parent="Fondos" unique_id=1519557507]
 z_index = -10
 
-[node name="BgTile1" type="Sprite2D" parent="Fondos/Background"]
+[node name="BgTile1" type="Sprite2D" parent="Fondos/Background" unique_id=1621753528]
 texture = ExtResource("2_bg")
 centered = false
 
-[node name="Colision" type="Node2D" parent="."]
+[node name="Colision" type="Node2D" parent="." unique_id=845937526]
 
-[node name="Floor" type="StaticBody2D" parent="Colision"]
+[node name="Floor" type="StaticBody2D" parent="Colision" unique_id=614937319]
 position = Vector2(836, 789)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Colision/Floor"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colision/Floor" unique_id=513658574]
 shape = SubResource("RectangleShape2D_floor")
 
-[node name="LeftWall" type="StaticBody2D" parent="Colision"]
+[node name="LeftWall" type="StaticBody2D" parent="Colision" unique_id=1712546357]
 position = Vector2(-32, 470)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Colision/LeftWall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colision/LeftWall" unique_id=2105748853]
 shape = SubResource("RectangleShape2D_wall")
 
-[node name="RightWall" type="StaticBody2D" parent="Colision"]
+[node name="RightWall" type="StaticBody2D" parent="Colision" unique_id=1574857634]
 position = Vector2(1704, 470)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Colision/RightWall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colision/RightWall" unique_id=1161691818]
 shape = SubResource("RectangleShape2D_wall")
 
-[node name="Player" parent="." instance=ExtResource("3_player")]
+[node name="Player" parent="." unique_id=2031085667 instance=ExtResource("3_player")]
 position = Vector2(150, 709)
 
-[node name="ToMapaVideo2" parent="." instance=ExtResource("4_transition")]
+[node name="ToMapaVideo2" parent="." unique_id=653959493 instance=ExtResource("4_transition")]
 position = Vector2(24, 757)
 TargetScenePath = "res://scenes/world/Mapas/MapaVideo2.tscn"
 TargetSpawnPosition = Vector2(1560, 692)
 Height = 300.0
 
-[node name="ToMapaVideo4" parent="." instance=ExtResource("4_transition")]
+[node name="ToMapaVideo4" parent="." unique_id=1350099900 instance=ExtResource("4_transition")]
 position = Vector2(1648, 757)
 TargetScenePath = "res://scenes/world/Mapas/MapaVideo4.tscn"
 TargetSpawnPosition = Vector2(110, 727)
 Height = 300.0
+
+[node name="AscensorNeon" parent="." unique_id=1132015157 instance=ExtResource("6_83qbs")]
+position = Vector2(498, 729)
+
+[node name="Hornet" parent="." unique_id=1474765946 instance=ExtResource("7_hot2b")]
+position = Vector2(639, 704)

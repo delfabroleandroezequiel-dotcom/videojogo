@@ -20,7 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://dq3mb122eef3v" path="res://scenes/world/Explosion.tscn" id="13_explosion"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
-size = Vector2(1400, 60)
+size = Vector2(1615, 60)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
 size = Vector2(60, 594)
@@ -2549,6 +2549,7 @@ color = Color(0.05, 0.05, 0.08, 1)
 position = Vector2(0, 432)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1135479620]
+position = Vector2(107.5, 0)
 shape = SubResource("RectangleShape2D_floor")
 
 [node name="FloorTiles" type="Node2D" parent="." unique_id=2068977381]
@@ -2655,7 +2656,7 @@ texture = ExtResource("10_eusf1")
 shape = SubResource("RectangleShape2D_pedrasboss")
 
 [node name="ToHabitacionRecompensaSpider" parent="." unique_id=475770767 instance=ExtResource("9_disgq")]
-position = Vector2(802, 286)
+position = Vector2(876.431, 285.092)
 TargetScenePath = "res://scenes/world/Mapas/HabitacionRecompensaSpider.tscn"
 TargetSpawnPosition = Vector2(-508.526, 308)
 RememberOriginForReturn = true

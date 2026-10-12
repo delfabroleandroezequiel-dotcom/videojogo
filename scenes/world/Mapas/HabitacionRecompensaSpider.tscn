@@ -2588,6 +2588,10 @@ shape = SubResource("RectangleShape2D_abjh4")
 position = Vector2(79.127716, -349.22623)
 shape = SubResource("RectangleShape2D_vwvpb")
 
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="Floor" unique_id=948769871]
+position = Vector2(-607.0454, -162.66995)
+shape = SubResource("RectangleShape2D_vwvpb")
+
 [node name="FloorTiles" type="Node2D" parent="." unique_id=2068977381]
 
 [node name="WallLeft" type="StaticBody2D" parent="." unique_id=1154701553]
