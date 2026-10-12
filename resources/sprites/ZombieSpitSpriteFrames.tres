@@ -1,0 +1,53 @@
+[gd_resource type="SpriteFrames" load_steps=8 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Zombies/SpittingZombie/SpittingZombie - Projectile.png" id="1_fly"]
+
+[sub_resource type="AtlasTexture" id="AT_fly_0"]
+atlas = ExtResource("1_fly")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_fly_1"]
+atlas = ExtResource("1_fly")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_fly_2"]
+atlas = ExtResource("1_fly")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_fly_3"]
+atlas = ExtResource("1_fly")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_fly_4"]
+atlas = ExtResource("1_fly")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AT_fly_5"]
+atlas = ExtResource("1_fly")
+region = Rect2(320, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AT_fly_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_fly_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_fly_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_fly_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_fly_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_fly_5")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 14
+}]
