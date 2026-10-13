@@ -70,16 +70,14 @@ public partial class Player : CharacterBody2D
 	// has it; 0 or no clip = instant jump).
 	[Export] public float JumpSquatDuration = 0.07f;
 	// 25% of a 100 MaxStamina bar — matches Dark Souls 1's actual roll cost (community-measured: a
-	// full bar gets you about 4 rolls, i.e. ~25% each). Dash is the one with i-frames (see
-	// DashIframeDuration below), so it's the real analog to DS1's roll, not Roll itself (see its own
-	// comment — Roll has no i-frames, it's a slower non-invincible alternative, a different move).
+	// full bar gets you about 4 rolls, i.e. ~25% each).
 	[Export] public int DashStaminaCost = 25;
-	// Slower than Dash but travels almost as far (~105px vs Dash's ~112px) and ground-only — a
-	// slower, no-iframe alternative to Dash rather than a quicker one. RollDuration also has to
-	// leave the "roll" clip (7 frames at speed 12) enough time to actually read as a roll instead
-	// of getting cut after a frame or two.
+	// Slower than Dash but travels almost as far (~105px vs Dash's ~112px) and ground-only, with
+	// the same i-frame window as Dash. RollDuration also has to leave the "roll" clip (7 frames at
+	// speed 12) enough time to actually read as a roll instead of getting cut after a frame or two.
 	[Export] public float RollSpeed = 300f;
 	[Export] public float RollDuration = 0.35f;
+	[Export] public float RollIframeDuration = 0.28f;
 	[Export] public float RollCooldown = 0.35f;
 	[Export] public int RollStaminaCost = 10;
 	[Export] public float RunThrustSpeed = 420f;
@@ -490,6 +488,8 @@ public partial class Player : CharacterBody2D
 	private bool _isRolling;
 	private bool _canRoll = true;
 	private float _rollDirection;
+	private int _dodgeIframeRunId;
+	private bool _dodgeIframesActive;
 	private bool _isRunThrusting;
 	private bool _canRunThrust = true;
 	private float _runThrustDirection;
@@ -2302,7 +2302,7 @@ public partial class Player : CharacterBody2D
 		_isDashing = true;
 		_canDash = false;
 		_dashDirection = _facingRight ? 1f : -1f;
-		_stats.ExternalInvulnerable = true;
+		GrantDodgeIframes(DashIframeDuration);
 		RunDashGhosts();
 
 		await ToSignal(GetTree().CreateTimer(DashDuration), SceneTreeTimer.SignalName.Timeout);
@@ -2311,8 +2311,6 @@ public partial class Player : CharacterBody2D
 		float remainingIframeTime = Mathf.Max(0f, DashIframeDuration - DashDuration);
 		if (remainingIframeTime > 0f)
 			await ToSignal(GetTree().CreateTimer(remainingIframeTime), SceneTreeTimer.SignalName.Timeout);
-		// The wind shield keeps its own invulnerability going if it was raised mid-dash.
-		_stats.ExternalInvulnerable = _windShieldActive;
 
 		await ToSignal(GetTree().CreateTimer(DashCooldown), SceneTreeTimer.SignalName.Timeout);
 		_canDash = true;
@@ -2421,12 +2419,29 @@ public partial class Player : CharacterBody2D
 		_isRolling = true;
 		_canRoll = false;
 		_rollDirection = _facingRight ? 1f : -1f;
+		GrantDodgeIframes(RollIframeDuration);
 
 		await ToSignal(GetTree().CreateTimer(RollDuration), SceneTreeTimer.SignalName.Timeout);
 		_isRolling = false;
 
 		await ToSignal(GetTree().CreateTimer(RollCooldown), SceneTreeTimer.SignalName.Timeout);
 		_canRoll = true;
+	}
+
+	// Shared dash/roll invulnerability window. The run id stops an earlier window from ending a
+	// later one early (e.g. a roll started during the dash's trailing i-frames).
+	private async void GrantDodgeIframes(float duration)
+	{
+		int runId = ++_dodgeIframeRunId;
+		_dodgeIframesActive = true;
+		_stats.ExternalInvulnerable = true;
+
+		await ToSignal(GetTree().CreateTimer(duration), SceneTreeTimer.SignalName.Timeout);
+		if (!IsInstanceValid(this) || runId != _dodgeIframeRunId)
+			return;
+		_dodgeIframesActive = false;
+		// The wind shield keeps its own invulnerability going if it was raised mid-dodge.
+		_stats.ExternalInvulnerable = _windShieldActive;
 	}
 
 	private async void StartCharging()
@@ -2927,7 +2942,7 @@ public partial class Player : CharacterBody2D
 		if (!IsInstanceValid(this))
 			return;
 		_windShieldActive = false;
-		_stats.ExternalInvulnerable = _isDashing;
+		_stats.ExternalInvulnerable = _dodgeIframesActive;
 	}
 
 	private async void CastHurricane()
