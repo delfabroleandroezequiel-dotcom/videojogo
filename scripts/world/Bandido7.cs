@@ -479,8 +479,8 @@ public partial class Bandido7 : Enemy
 			int before = stats.CurrentHealth;
 			stats.TakeDamage(Mathf.Max(1, Mathf.RoundToInt(Stats.AttackPower * damageMultiplier)));
 			bool landed = stats.CurrentHealth < before;
-			if ((landed || shoveThroughBlock) && body.HasMethod("ApplyKnockback"))
-				body.Call("ApplyKnockback", new Vector2(Mathf.Sign(body.GlobalPosition.X - GlobalPosition.X), -0.25f).Normalized(), knockback);
+			if ((landed || shoveThroughBlock) && body.HasMethod("ApplyKnockbackThroughBlock"))
+				body.Call(shoveThroughBlock ? "ApplyKnockbackThroughBlock" : "ApplyKnockback", new Vector2(Mathf.Sign(body.GlobalPosition.X - GlobalPosition.X), -0.25f).Normalized(), knockback);
 			if (landed)
 				BloodEffect.SpawnAt(this, body.GlobalPosition);
 			return true;

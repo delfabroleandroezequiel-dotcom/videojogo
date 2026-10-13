@@ -519,6 +519,7 @@ public partial class Player : CharacterBody2D
 	private bool _isCastingSpell2;
 	private bool _isBlocking;
 	private float _parryWindowTimer;
+	private ulong _blockedHitFrame = ulong.MaxValue;
 	private AnimatedSprite2D _parryFlash;
 	private Sprite2D _parryBubble;
 	private Tween _parryBubbleTween;
@@ -922,6 +923,16 @@ public partial class Player : CharacterBody2D
 	}
 
 	public void ApplyKnockback(Vector2 direction, float force)
+	{
+		// A blocked or parried hit holds the player's ground: attackers call this right after
+		// TakeDamage, in the same physics frame the block intercepted it.
+		if (_blockedHitFrame == Engine.GetPhysicsFrames())
+			return;
+		ApplyKnockbackThroughBlock(direction, force);
+	}
+
+	// For moves designed to shove the player even through a guard (e.g. Bandido7's charged cleave).
+	public void ApplyKnockbackThroughBlock(Vector2 direction, float force)
 	{
 		// Inside the wind shield nothing reaches the player — not even the shove.
 		if (_windShieldActive)
@@ -2112,6 +2123,7 @@ public partial class Player : CharacterBody2D
 		if (!_isBlocking)
 			return false;
 
+		_blockedHitFrame = Engine.GetPhysicsFrames();
 		if (_parryWindowTimer > 0f)
 		{
 			_parryFlash.Visible = true;
