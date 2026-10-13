@@ -209,7 +209,7 @@ public partial class SpiderEnemy : MeleeEnemy
 			float dx = player.GlobalPosition.X - GlobalPosition.X;
 			var launch = new Vector2(Mathf.Clamp(dx / airTime, -PounceMaxSpeedX, PounceMaxSpeedX), PounceVelocityY);
 			// No safe landing (pit/ledge) → the pounce just fizzles; cooldowns below still run.
-			if (TryHop(launch))
+			if (TryAttackHop(launch))
 			{
 				Sprite.Play("lunge");
 				AttackHitbox.Position = new Vector2(FacingRight ? AttackHitboxReach * 0.6f : -AttackHitboxReach * 0.6f, 0);
