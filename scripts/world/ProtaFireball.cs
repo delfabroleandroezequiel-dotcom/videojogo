@@ -18,7 +18,9 @@ public partial class ProtaFireball : Area2D
 
 	private float _age;
 	private bool _done;
+	private bool _reflected;
 	private Sprite2D _glow;
+	private ParticleProcessMaterial _embers;
 
 	public override void _Ready()
 	{
@@ -38,6 +40,17 @@ public partial class ProtaFireball : Area2D
 		var ramp = new Gradient();
 		ramp.Offsets = new[] { 0f, 0.4f, 1f };
 		ramp.Colors = new[] { new Color(1f, 0.9f, 0.6f, 1f), new Color(1f, 0.45f, 0.08f, 0.85f), new Color(0.5f, 0.05f, 0f, 0f) };
+		_embers = new ParticleProcessMaterial
+		{
+			Direction = new Vector3(-Direction.X, -Direction.Y, 0f),
+			Spread = 25f,
+			InitialVelocityMin = 20f,
+			InitialVelocityMax = 70f,
+			Gravity = new Vector3(0f, -40f, 0f),
+			ScaleMin = 0.08f,
+			ScaleMax = 0.18f,
+			ColorRamp = new GradientTexture1D { Gradient = ramp },
+		};
 		AddChild(new GpuParticles2D
 		{
 			Amount = 26,
@@ -45,17 +58,7 @@ public partial class ProtaFireball : Area2D
 			LocalCoords = false,
 			Material = additive,
 			Texture = dot,
-			ProcessMaterial = new ParticleProcessMaterial
-			{
-				Direction = new Vector3(-Direction.X, -Direction.Y, 0f),
-				Spread = 25f,
-				InitialVelocityMin = 20f,
-				InitialVelocityMax = 70f,
-				Gravity = new Vector3(0f, -40f, 0f),
-				ScaleMin = 0.08f,
-				ScaleMax = 0.18f,
-				ColorRamp = new GradientTexture1D { Gradient = ramp },
-			},
+			ProcessMaterial = _embers,
 		});
 		AddChild(new PointLight2D
 		{
@@ -90,12 +93,30 @@ public partial class ProtaFireball : Area2D
 
 	private void OnBodyEntered(Node2D body)
 	{
-		if (_done || !body.IsInGroup("player"))
+		if (_done)
 			return;
+		int damage = Mathf.Max(1, Mathf.RoundToInt((ThrowerStats?.AttackPower ?? 10) * DamageMultiplier));
+		if (_reflected)
+		{
+			if (ProjectileReflect.TryHitEnemy(body, damage, Direction, KnockbackForce, DamageElement.Fire))
+				Burst(false);
+			return;
+		}
+		if (!body.IsInGroup("player"))
+			return;
+		if (ProjectileReflect.TryParry(body))
+		{
+			// Mirror back; a fresh Lifetime for the return trip.
+			_reflected = true;
+			Direction = -Direction;
+			_embers.Direction = new Vector3(-Direction.X, -Direction.Y, 0f);
+			_age = 0f;
+			ProjectileReflect.Retarget(this);
+			return;
+		}
 		Stats stats = body.GetNodeOrNull<Stats>("Stats");
 		if (stats is null || stats.IsInvulnerable)
 			return;
-		int damage = Mathf.Max(1, Mathf.RoundToInt((ThrowerStats?.AttackPower ?? 10) * DamageMultiplier));
 		stats.TakeDamage(damage, isProjectile: true, element: DamageElement.Fire);
 		if (body.HasMethod("ApplyKnockback"))
 			body.Call("ApplyKnockback", Direction, KnockbackForce);

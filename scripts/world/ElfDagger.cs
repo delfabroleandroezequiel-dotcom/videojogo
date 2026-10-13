@@ -28,6 +28,8 @@ public partial class ElfDagger : Area2D
 	private readonly System.Collections.Generic.List<Vector2> _points = new();
 	private float _age;
 	private bool _done;
+	private bool _reflected;
+	private int _reflectedDamage;
 
 	public override void _Ready()
 	{
@@ -91,13 +93,41 @@ public partial class ElfDagger : Area2D
 
 	private void OnBodyEntered(Node2D body)
 	{
-		if (_done || !body.IsInGroup("player"))
+		if (_done)
 			return;
+		if (_reflected)
+		{
+			if (ProjectileReflect.TryHitEnemy(body, _reflectedDamage, Direction, 0f, DamageElement.Poison))
+			{
+				if (body.HasMethod("ApplyPoison"))
+					body.Call("ApplyPoison", PoisonTickDamage, PoisonTickInterval, PoisonDuration);
+				ImpactEffect.SpawnAt(this, GlobalPosition);
+				Finish(false);
+			}
+			return;
+		}
+		if (!body.IsInGroup("player"))
+			return;
+
+		int damage = Mathf.Max(1, Mathf.RoundToInt((ThrowerStats?.AttackPower ?? 10) * DamageMultiplier));
+		if (ProjectileReflect.TryParry(body))
+		{
+			// Mirror back, poison and all; a fresh Lifetime for the return trip.
+			_reflected = true;
+			_reflectedDamage = damage;
+			Direction = -Direction;
+			_sprite.FlipH = Direction.X < 0f;
+			_age = 0f;
+			Resolved?.Invoke(false);
+			Resolved = null;
+			ProjectileReflect.Retarget(this);
+			return;
+		}
+
 		Stats stats = body.GetNodeOrNull<Stats>("Stats");
 		if (stats is null || stats.IsInvulnerable)
 			return;
 
-		int damage = Mathf.Max(1, Mathf.RoundToInt((ThrowerStats?.AttackPower ?? 10) * DamageMultiplier));
 		int healthBefore = stats.CurrentHealth;
 		stats.TakeDamage(damage, isProjectile: true, element: DamageElement.Poison);
 		// Only poisons if the hit actually went through (a block stops the blade and its poison).

@@ -34,6 +34,8 @@ public partial class ElfArrow : Area2D
 	private readonly List<Vector2> _trailPoints = new();
 	private bool _done;
 	private float _age;
+	private bool _reflected;
+	private int _reflectedDamage;
 
 	public override void _Ready()
 	{
@@ -98,14 +100,39 @@ public partial class ElfArrow : Area2D
 
 	private void OnBodyEntered(Node2D body)
 	{
-		if (_done || !body.IsInGroup("player"))
+		if (_done)
 			return;
+		if (_reflected)
+		{
+			if (ProjectileReflect.TryHitEnemy(body, _reflectedDamage, _direction, KnockbackForce))
+			{
+				ImpactEffect.SpawnAt(this, GlobalPosition);
+				Finish(hitPlayer: false);
+			}
+			return;
+		}
+		if (!body.IsInGroup("player"))
+			return;
+
+		int damage = Mathf.Max(1, Mathf.RoundToInt((_shooterStats?.AttackPower ?? 10) * DamageMultiplier));
+		if (ProjectileReflect.TryParry(body))
+		{
+			// Mirror back with the damage it would have dealt; a fresh Lifetime for the return trip.
+			_reflected = true;
+			_reflectedDamage = damage;
+			_direction = -_direction;
+			Rotation = _direction.Angle();
+			_age = 0f;
+			Resolved?.Invoke(false);
+			Resolved = null;
+			ProjectileReflect.Retarget(this);
+			return;
+		}
 
 		Stats targetStats = body.GetNodeOrNull<Stats>("Stats");
 		if (targetStats is null || targetStats.IsInvulnerable)
 			return;
 
-		int damage = Mathf.Max(1, Mathf.RoundToInt((_shooterStats?.AttackPower ?? 10) * DamageMultiplier));
 		targetStats.TakeDamage(damage, isProjectile: true);
 		if (body.HasMethod("ApplyKnockback"))
 			body.Call("ApplyKnockback", _direction, KnockbackForce);

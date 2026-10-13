@@ -2125,17 +2125,28 @@ public partial class Player : CharacterBody2D
 
 		_blockedHitFrame = Engine.GetPhysicsFrames();
 		if (_parryWindowTimer > 0f)
-		{
-			_parryFlash.Visible = true;
-			_parryFlash.Play("parry_flash");
-			ShowParryBubble();
-		}
+			PlayParryFx();
 		else
-		{
 			_stats.SpendStaminaClamped(Mathf.RoundToInt(_stats.MaxStamina * BlockStaminaCostFraction));
-		}
 
 		return true;
+	}
+
+	// Asked by enemy projectiles on contact (see ProjectileReflect): true inside the parry window,
+	// in which case the projectile mirrors back instead of hitting.
+	public bool TryParryProjectile()
+	{
+		if (!_isBlocking || _parryWindowTimer <= 0f)
+			return false;
+		PlayParryFx();
+		return true;
+	}
+
+	private void PlayParryFx()
+	{
+		_parryFlash.Visible = true;
+		_parryFlash.Play("parry_flash");
+		ShowParryBubble();
 	}
 
 	// Blooms in, holds, then fades out — a lingering energy shield rather than a single-frame

@@ -17,6 +17,8 @@ public partial class Projectile : Area2D
 	private Vector2 _direction = Vector2.Right;
 	private Stats _shooterStats;
 	private bool _resolved;
+	private bool _reflected;
+	private int _reflectedDamage;
 
 	public override void _Ready()
 	{
@@ -45,6 +47,21 @@ public partial class Projectile : Area2D
 	private void OnBodyEntered(Node2D body)
 	{
 		Stats targetStats = body.GetNodeOrNull<Stats>("Stats");
+		if (_reflected)
+		{
+			if (ProjectileReflect.TryHitEnemy(body, _reflectedDamage, _direction, KnockbackForce))
+			{
+				ImpactEffect.SpawnAt(this, GlobalPosition);
+				QueueFree();
+				return;
+			}
+		}
+		else if (targetStats is not null && targetStats != _shooterStats && ProjectileReflect.TryParry(body))
+		{
+			Reflect(targetStats);
+			return;
+		}
+
 		if (targetStats is not null && targetStats != _shooterStats && !targetStats.IsInvulnerable)
 		{
 			targetStats.TakeDamage(_shooterStats.AttackPower, isProjectile: true);
@@ -65,6 +82,18 @@ public partial class Projectile : Area2D
 			Resolve(false);
 			QueueFree();
 		}
+	}
+
+	// Parried: mirror back, now owned by the player (so it ignores them) with the shooter's damage.
+	private void Reflect(Stats parrierStats)
+	{
+		_reflected = true;
+		_reflectedDamage = _shooterStats?.AttackPower ?? 10;
+		_shooterStats = parrierStats;
+		_direction = -_direction;
+		Rotation = _direction.Angle();
+		Resolve(false);
+		ProjectileReflect.Retarget(this);
 	}
 
 	private void Resolve(bool hit)

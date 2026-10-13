@@ -41,6 +41,8 @@ public partial class RangerArrow : Area2D
 	private float _lostTimer;
 	private bool _hitOnce;
 	private bool _done;
+	private bool _reflected;
+	private int _reflectedDamage;
 
 	public override void _Ready()
 	{
@@ -182,13 +184,43 @@ public partial class RangerArrow : Area2D
 
 	private void OnBodyEntered(Node2D body)
 	{
-		if (_done || _hitOnce || !body.IsInGroup("player"))
+		if (_done)
 			return;
+		if (_reflected)
+		{
+			if (ProjectileReflect.TryHitEnemy(body, _reflectedDamage, Direction, KnockbackForce))
+			{
+				ImpactEffect.SpawnAt(this, GlobalPosition);
+				// The piercing shot keeps flying through on the way back too.
+				if (FlightMode != Mode.Piercing)
+					Finish(hit: false);
+			}
+			return;
+		}
+		if (_hitOnce || !body.IsInGroup("player"))
+			return;
+
+		int damage = Mathf.Max(1, Mathf.RoundToInt((ShooterStats?.AttackPower ?? 10) * DamageMultiplier));
+		if (ProjectileReflect.TryParry(body))
+		{
+			// Mirror back with the damage it would have dealt; a homing arrow stops steering.
+			_reflected = true;
+			_reflectedDamage = damage;
+			if (FlightMode == Mode.Homing)
+				FlightMode = Mode.Straight;
+			Direction = -Direction;
+			Rotation = Direction.Angle();
+			_age = 0f;
+			Resolved?.Invoke(false);
+			Resolved = null;
+			ProjectileReflect.Retarget(this);
+			return;
+		}
+
 		Stats stats = body.GetNodeOrNull<Stats>("Stats");
 		if (stats is null || stats.IsInvulnerable)
 			return;
 
-		int damage = Mathf.Max(1, Mathf.RoundToInt((ShooterStats?.AttackPower ?? 10) * DamageMultiplier));
 		stats.TakeDamage(damage, isProjectile: true);
 		if (body.HasMethod("ApplyKnockback"))
 			body.Call("ApplyKnockback", Direction, KnockbackForce);

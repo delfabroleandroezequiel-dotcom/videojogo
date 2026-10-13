@@ -22,6 +22,7 @@ public partial class ArrowProjectile : Area2D
 
 	private Vector2 _direction = Vector2.Right;
 	private bool _hit;
+	private bool _reflected;
 
 	public override void _Ready()
 	{
@@ -52,7 +53,25 @@ public partial class ArrowProjectile : Area2D
 		if (_hit)
 			return;
 
-		if (body.IsInGroup("player"))
+		if (_reflected)
+		{
+			if (ProjectileReflect.TryHitEnemy(body, Damage, _direction, KnockbackForce))
+			{
+				Impact();
+				return;
+			}
+		}
+		else if (body.IsInGroup("player") && ProjectileReflect.TryParry(body))
+		{
+			// Parried: mirror back at whatever stands in front of the trap.
+			_reflected = true;
+			_direction = -_direction;
+			Rotation = _direction.Angle();
+			ProjectileReflect.Retarget(this);
+			return;
+		}
+
+		if (!_reflected && body.IsInGroup("player"))
 		{
 			Stats stats = body.GetNodeOrNull<Stats>("Stats");
 			if (stats is not null && !stats.IsInvulnerable)

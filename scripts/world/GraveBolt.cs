@@ -25,6 +25,8 @@ public partial class GraveBolt : Area2D
 	private Vector2 _lastTrailPoint;
 	private float _age;
 	private bool _done;
+	private bool _reflected;
+	private int _reflectedDamage;
 
 	public override void _Ready()
 	{
@@ -75,6 +77,27 @@ public partial class GraveBolt : Area2D
 	{
 		if (_done)
 			return;
+		if (_reflected && body.IsInGroup("enemy"))
+		{
+			if (ProjectileReflect.TryHitEnemy(body, _reflectedDamage, new Vector2(Mathf.Sign(Direction.X), -0.2f).Normalized(), KnockbackForce))
+			{
+				BloodEffect.SpawnAt(this, body.GlobalPosition);
+				End("", 0f);
+			}
+			return;
+		}
+		if (body is Metroidvania.Player.Player && ProjectileReflect.TryParry(body))
+		{
+			// Mirror back with the damage it would have dealt; a fresh Lifetime for the return trip.
+			_reflected = true;
+			_reflectedDamage = Mathf.Max(1, Mathf.RoundToInt((ShooterStats?.AttackPower ?? 10) * DamageMultiplier));
+			Direction = -Direction;
+			Rotation = Direction.Angle();
+			_age = 0f;
+			_trail.ClearPoints();
+			ProjectileReflect.Retarget(this);
+			return;
+		}
 		if (body is Metroidvania.Player.Player player)
 		{
 			if (player.GetNodeOrNull<Stats>("Stats") is not { } stats || stats.IsInvulnerable)
