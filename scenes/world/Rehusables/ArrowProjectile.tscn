@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/world/ArrowProjectile.cs" id="1_script"]
-[ext_resource type="Texture2D" path="res://assets/external/gandalfhardcore/archer/arrow.png" id="2_arrow_tex"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Arrow/Arrow1.png" id="2_arrow_tex"]
 [ext_resource type="PackedScene" path="res://scenes/world/Explosion.tscn" id="3_explosion"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_arrow"]
@@ -17,4 +17,5 @@ ExplosionScene = ExtResource("3_explosion")
 shape = SubResource("CircleShape2D_arrow")
 
 [node name="Visual" type="Sprite2D" parent="."]
+scale = Vector2(1.4, 1.4)
 texture = ExtResource("2_arrow_tex")

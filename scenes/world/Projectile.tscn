@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cuhg0wrlo6of"]
 
 [ext_resource type="Script" path="res://scripts/world/Projectile.cs" id="1_script"]
-[ext_resource type="Texture2D" path="res://assets/external/gandalfhardcore/archer/arrow.png" id="2_arrow_tex"]
+[ext_resource type="Texture2D" path="res://assets/external/CharacterPacks/Elves_Pack/Elf_Archer/Arrow/Arrow1.png" id="2_arrow_tex"]
 [ext_resource type="Texture2D" path="res://resources/particles/SoftDotGradient.tres" id="3_trail_tex"]
 [ext_resource type="ParticleProcessMaterial" path="res://resources/particles/ArrowTrailProcess.tres" id="4_trail_process"]
 
@@ -17,6 +17,7 @@ script = ExtResource("1_script")
 shape = SubResource("CircleShape2D_projectile")
 
 [node name="Visual" type="Sprite2D" parent="."]
+scale = Vector2(1.4, 1.4)
 texture = ExtResource("2_arrow_tex")
 
 [node name="Trail" type="GPUParticles2D" parent="."]
