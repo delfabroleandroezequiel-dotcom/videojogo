@@ -232,9 +232,9 @@ public partial class SkeletonWarrior : Enemy
 		_decisionTimer = DecisionInterval * Rng.RandfRange(0.8f, 1.3f);
 
 		// Turtling players get bashed more often.
-		bool turtling = PlayerReads.IsBlockingToward(player, GlobalPosition.X);
+		bool exposed = PlayerReads.WhiffedParryToward(player, GlobalPosition.X);
 		if (absDistance >= BashMinDistance && absDistance <= BashMaxDistance && _bashCooldownTimer <= 0f
-			&& Rng.Randf() < BashChance + (turtling ? 0.35f : 0f))
+			&& Rng.Randf() < BashChance + (exposed ? 0.35f : 0f))
 			_ = ShieldBash(Mathf.Sign(distanceX));
 	}
 

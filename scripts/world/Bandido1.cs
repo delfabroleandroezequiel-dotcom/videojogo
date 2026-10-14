@@ -81,9 +81,8 @@ public partial class Bandido1 : MeleeEnemy
 	[Export] public float LungeSpeed = 330f;
 	[Export] public float LungeMaxTime = 0.5f;
 	[Export] public float PunishWindupScale = 0.35f;
-	// Flank: the player turtles behind their block toward it this long → vault over them and stab
-	// from behind (the player's block only covers the front).
-	[Export] public float FlankAfterBlockTime = 0.7f;
+	// Flank: the player whiffs a parry toward it → vault over them during the recovery and stab
+	// from behind.
 	[Export] public Vector2 VaultHop = new(270f, -390f);
 
 	private EnemySlashTrail _cutTrail;
@@ -94,7 +93,6 @@ public partial class Bandido1 : MeleeEnemy
 	private float _lungeTimer;
 	private bool _counterPending;
 	private float _evadeCooldownTimer;
-	private float _playerBlockTimer;
 	private string _currentAttackAnimation = "attack1";
 	private bool _isRepositioning;
 	private bool _canReposition = true;
@@ -279,13 +277,9 @@ public partial class Bandido1 : MeleeEnemy
 				StartLunge();
 			}
 
-			_playerBlockTimer = PlayerReads.IsBlockingToward(player, GlobalPosition.X) && absDistance <= 110f
-				? _playerBlockTimer + dt : 0f;
-			if (_playerBlockTimer > FlankAfterBlockTime && TryHop(new Vector2(toward * VaultHop.X, VaultHop.Y)))
-			{
-				_playerBlockTimer = 0f;
+			if (PlayerReads.WhiffedParryToward(player, GlobalPosition.X) && absDistance <= 110f
+				&& TryHop(new Vector2(toward * VaultHop.X, VaultHop.Y)))
 				_counterPending = true;
-			}
 		}
 
 		if (_lunging)

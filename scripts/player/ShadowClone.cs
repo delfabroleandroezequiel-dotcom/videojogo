@@ -5,9 +5,10 @@ using Metroidvania.World;
 
 namespace Metroidvania.Player;
 
-// Spell 1's shadow clone: a neon silhouette of the player that pops in beside them, throws one
-// normal attack1 (same hitbox size/reach/timing and the caster's own AttackPower), traces its own
-// neon slash streak, then fades away. Built entirely in code by Player.CastSpell — see Setup().
+// Spell 1's shadow clone (Clon básico): a neon silhouette of the player that pops in beside them,
+// swings through the given combo clips one after another (same hitbox size/reach/timing and the
+// caster's own AttackPower per swing), traces a neon slash streak per swing, then fades away. How
+// many swings comes from Player.ShadowCloneLevel. Built entirely in code — see Setup().
 public partial class ShadowClone : Node2D
 {
 	private AnimatedSprite2D _sprite;
@@ -20,9 +21,9 @@ public partial class ShadowClone : Node2D
 	private float _hitDuration;
 	private float _fadeIn;
 	private float _fadeOut;
-	private string _attackAnimation;
+	private string[] _attackAnimations;
 
-	public void Setup(SpriteFrames frames, string attackAnimation, bool facingRight, Vector2 spritePosition, Vector2 spriteDrawOffset, Vector2 spriteScale,
+	public void Setup(SpriteFrames frames, string[] attackAnimations, bool facingRight, Vector2 spritePosition, Vector2 spriteDrawOffset, Vector2 spriteScale,
 		Stats casterStats, Color tint, float intensity, float alpha, Vector2 hitboxSize, float hitboxReach, float hitboxYOffset,
 		float hitDelay, float hitDuration, float fadeIn, float fadeOut)
 	{
@@ -33,7 +34,7 @@ public partial class ShadowClone : Node2D
 		_hitDuration = hitDuration;
 		_fadeIn = fadeIn;
 		_fadeOut = fadeOut;
-		_attackAnimation = attackAnimation;
+		_attackAnimations = attackAnimations;
 
 		var visual = new Node2D { Scale = new Vector2(facingRight ? 1 : -1, 1) };
 		AddChild(visual);
@@ -63,27 +64,36 @@ public partial class ShadowClone : Node2D
 
 	private async Task Run()
 	{
-		_sprite.Play(_attackAnimation);
 		Tween appear = CreateTween();
 		appear.TweenProperty(_sprite, "modulate:a", _alpha, _fadeIn);
-		_trail.Play(new Vector2(12f, 0f), 52f, 70f, -60f, _hitDelay + _hitDuration);
 
-		await ToSignal(GetTree().CreateTimer(_hitDelay), SceneTreeTimer.SignalName.Timeout);
-		if (!IsInstanceValid(this))
-			return;
-		_hitbox.Activate(_casterStats);
+		for (int i = 0; i < _attackAnimations.Length; i++)
+		{
+			string animation = _attackAnimations[i];
+			_sprite.Play(animation);
+			// Alternate the streak's sweep so a chain reads as separate cuts (up, down, up...).
+			if (i % 2 == 0)
+				_trail.Play(new Vector2(12f, 0f), 52f, 70f, -60f, _hitDelay + _hitDuration);
+			else
+				_trail.Play(new Vector2(12f, 0f), 52f, -60f, 70f, _hitDelay + _hitDuration);
 
-		await ToSignal(GetTree().CreateTimer(_hitDuration), SceneTreeTimer.SignalName.Timeout);
-		if (!IsInstanceValid(this))
-			return;
-		_hitbox.Deactivate();
+			await ToSignal(GetTree().CreateTimer(_hitDelay), SceneTreeTimer.SignalName.Timeout);
+			if (!IsInstanceValid(this))
+				return;
+			_hitbox.Activate(_casterStats);
 
-		// Let the rest of the swing play, then vanish.
-		float remaining = RemainingAnimationTime();
-		if (remaining > 0f)
-			await ToSignal(GetTree().CreateTimer(remaining), SceneTreeTimer.SignalName.Timeout);
-		if (!IsInstanceValid(this))
-			return;
+			await ToSignal(GetTree().CreateTimer(_hitDuration), SceneTreeTimer.SignalName.Timeout);
+			if (!IsInstanceValid(this))
+				return;
+			_hitbox.Deactivate();
+
+			// Let the rest of the swing play before the next one (or the fade).
+			float remaining = RemainingAnimationTime(animation);
+			if (remaining > 0f)
+				await ToSignal(GetTree().CreateTimer(remaining), SceneTreeTimer.SignalName.Timeout);
+			if (!IsInstanceValid(this))
+				return;
+		}
 
 		Tween vanish = CreateTween();
 		vanish.TweenProperty(_sprite, "modulate:a", 0f, _fadeOut).SetEase(Tween.EaseType.In).SetTrans(Tween.TransitionType.Quad);
@@ -93,13 +103,13 @@ public partial class ShadowClone : Node2D
 			QueueFree();
 	}
 
-	private float RemainingAnimationTime()
+	private float RemainingAnimationTime(string animation)
 	{
 		SpriteFrames frames = _sprite.SpriteFrames;
-		double speed = frames.GetAnimationSpeed(_attackAnimation);
+		double speed = frames.GetAnimationSpeed(animation);
 		if (speed <= 0)
 			return 0f;
-		float total = frames.GetFrameCount(_attackAnimation) / (float)speed;
+		float total = frames.GetFrameCount(animation) / (float)speed;
 		return Mathf.Max(0f, total - _hitDelay - _hitDuration);
 	}
 }

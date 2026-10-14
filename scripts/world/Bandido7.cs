@@ -186,9 +186,9 @@ public partial class Bandido7 : Enemy
 			return;
 		_decisionTimer = DecisionInterval * Rng.RandfRange(0.8f, 1.3f);
 
-		bool turtling = PlayerReads.IsBlockingToward(player, GlobalPosition.X);
+		bool exposed = PlayerReads.WhiffedParryToward(player, GlobalPosition.X);
 		if (absDistance >= ChargeMinDistance && absDistance <= ChargeMaxDistance && _chargeCooldownTimer <= 0f
-			&& Rng.Randf() < ChargeChance + (turtling ? 0.3f : 0f))
+			&& Rng.Randf() < ChargeChance + (exposed ? 0.3f : 0f))
 		{
 			_ = Charge(toward);
 			return;

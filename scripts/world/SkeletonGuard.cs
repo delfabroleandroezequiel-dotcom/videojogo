@@ -21,7 +21,7 @@ namespace Metroidvania.World;
 //   Axe flurry — two sweeps; the second swings low across both sides (don't stand behind it either).
 //   Heavy chop — a slow overhead that buries the axe in the floor and throws up a short shockwave
 //     on both sides — jump it.
-//   Shield bash — a player turtling against its shield gets shoved back hard.
+//   Shield bash — a player who whiffs a parry against its shield gets shoved back hard.
 // Telegraphs: body flashes white before every attack; pale-green neon trails.
 public partial class SkeletonGuard : Enemy
 {
@@ -47,7 +47,6 @@ public partial class SkeletonGuard : Enemy
 	[Export] public float ShockwaveDamageMultiplier = 0.6f;
 
 	[ExportGroup("Shield")]
-	[Export] public float BashTurtleTime = 0.6f;
 	[Export] public float BashKnockback = 400f;
 	[Export] public float BashCooldown = 3f;
 
@@ -63,7 +62,6 @@ public partial class SkeletonGuard : Enemy
 	private bool _shieldDown;
 	private float _attackCooldownTimer;
 	private float _bashCooldownTimer;
-	private float _turtleTimer;
 
 	static SkeletonGuard()
 	{
@@ -126,9 +124,8 @@ public partial class SkeletonGuard : Enemy
 			return;
 
 		float absDistance = Mathf.Abs(player.GlobalPosition.X - GlobalPosition.X);
-		bool turtling = PlayerReads.IsBlockingToward(player, GlobalPosition.X) && absDistance <= FlurryRange + 10f;
-		_turtleTimer = turtling ? _turtleTimer + dt : 0f;
-		if (_turtleTimer >= BashTurtleTime && _bashCooldownTimer <= 0f)
+		bool exposed = PlayerReads.WhiffedParryToward(player, GlobalPosition.X) && absDistance <= FlurryRange + 10f;
+		if (exposed && _bashCooldownTimer <= 0f)
 		{
 			_ = ShieldBash();
 			return;
@@ -256,7 +253,6 @@ public partial class SkeletonGuard : Enemy
 		if (!Begin())
 			return;
 		_bashCooldownTimer = BashCooldown;
-		_turtleTimer = 0f;
 		try
 		{
 			Sprite.Play("shield_block");

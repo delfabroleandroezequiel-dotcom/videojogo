@@ -288,3 +288,7 @@ UI_SHOP_SOLD_OUT_TAG,Agotado,Sold out,Esgotado
 UI_SHOP_ALREADY_OWNED,Ya lo tenés,You already have it,Você já tem
 NPC_MERCADER_NAME,Mercader,Merchant,Mercador
 NPC_MERCADER_L1,"Llaves, chucherías, cosas que no vas a encontrar en otro lado. Mirá tranquilo.","Keys, trinkets, things you won't find anywhere else. Take your time.","Chaves, bugigangas, coisas que você não vai achar em outro lugar. Fique à vontade."
+UI_CLONE_BASIC,"Básico","Basic","Básico"
+UI_CLONE_DECOY,"Señuelo","Decoy","Isca"
+UI_CLONE_ECHO,"Eco","Echo","Eco"
+UI_CLONE_PUPPET,"Manipulable","Puppet","Marionete"

@@ -50,6 +50,8 @@ public partial class Hitbox : Area2D
 
 	public void Deactivate() => _shape.Disabled = true;
 
+	public bool IsActive => _shape is { Disabled: false };
+
 	private void OnBodyEntered(Node2D body)
 	{
 		Stats targetStats = body.GetNodeOrNull<Stats>("Stats");

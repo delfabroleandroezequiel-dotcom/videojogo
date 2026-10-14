@@ -52,7 +52,6 @@ public partial class ViejoProta : Enemy
 	[Export] public float RollSpeed = 300f;
 	[Export] public float RollCooldown = 2.5f;
 	[Export] public float PunishTelegraph = 0.12f;
-	[Export] public float TurtleTimeBeforeRoll = 0.6f;
 	[Export] public float JumpSlashCooldown = 3.5f;
 	[Export] public Vector2 JumpSlashHop = new(150f, -380f);
 
@@ -100,7 +99,6 @@ public partial class ViejoProta : Enemy
 	private float _rollCooldownTimer;
 	private float _jumpCooldownTimer;
 	private float _fireballCooldownTimer;
-	private float _turtleTimer;
 
 	private EnemySlashTrail Trail => _phaseTwo ? _fireTrail : _steelTrail;
 	private float DamageScale => _phaseTwo ? PhaseTwoDamageMultiplier : 1f;
@@ -241,11 +239,9 @@ public partial class ViejoProta : Enemy
 			}
 		}
 
-		// Turtling behind a block → roll through to their back and hit from there.
-		_turtleTimer = PlayerReads.IsBlockingToward(player, GlobalPosition.X) && absDistance <= 100f ? _turtleTimer + dt : 0f;
-		if (_turtleTimer >= TurtleTimeBeforeRoll && _rollCooldownTimer <= 0f)
+		// A whiffed parry → roll through to their back during the recovery and hit from there.
+		if (PlayerReads.WhiffedParryToward(player, GlobalPosition.X) && absDistance <= 100f && _rollCooldownTimer <= 0f)
 		{
-			_turtleTimer = 0f;
 			_ = Roll(toward, attackAfter: true);
 			return;
 		}

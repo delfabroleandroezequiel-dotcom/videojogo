@@ -175,7 +175,7 @@ public partial class ShieldKnight : Enemy
 
 		float distanceX = player.GlobalPosition.X - GlobalPosition.X;
 		float absDistance = Mathf.Abs(distanceX);
-		bool turtling = PlayerReads.IsBlockingToward(player, GlobalPosition.X);
+		bool exposed = PlayerReads.WhiffedParryToward(player, GlobalPosition.X);
 
 		if (_whiff.PlayerStartedSwing && PlayerInFront(player) && absDistance <= GuardRange)
 		{
@@ -190,7 +190,7 @@ public partial class ShieldKnight : Enemy
 				return;
 			}
 		}
-		if (turtling && absDistance <= RollTrigger && _rollCooldownTimer <= 0f)
+		if (exposed && absDistance <= RollTrigger && _rollCooldownTimer <= 0f)
 		{
 			_ = RollPast(Mathf.Sign(distanceX));
 			return;

@@ -60,7 +60,6 @@ public partial class ElfAssassin : Enemy
 	[Export] public float PounceMaxSpeedX = 330f;
 	[Export] public float VaultSpeedX = 260f;
 	[Export] public float VaultVelocityY = -420f;
-	[Export] public float TurtleTimeBeforeVault = 0.6f;
 	[Export] public float MaxSafeHopDrop = 40f;
 
 	[ExportGroup("Dagger")]
@@ -108,7 +107,6 @@ public partial class ElfAssassin : Enemy
 	private float _camoCooldownTimer;
 	private float _pounceCooldownTimer;
 	private float _evadeCooldownTimer;
-	private float _turtleTimer;
 	private bool _camoAfterLanding;
 
 	static ElfAssassin()
@@ -224,11 +222,9 @@ public partial class ElfAssassin : Enemy
 			_rushWindup = 0.5f;
 		}
 
-		// Turtling behind a block toward it → vault over and spin from behind.
-		_turtleTimer = PlayerReads.IsBlockingToward(player, GlobalPosition.X) && absDistance <= 110f ? _turtleTimer + dt : 0f;
-		if (_turtleTimer >= TurtleTimeBeforeVault)
+		// A whiffed parry toward it → vault over during the recovery and spin from behind.
+		if (PlayerReads.WhiffedParryToward(player, GlobalPosition.X) && absDistance <= 110f)
 		{
-			_turtleTimer = 0f;
 			if (TryStartBusyHop(new Vector2(toward * VaultSpeedX, VaultVelocityY), out _))
 			{
 				_ = AerialSpin(player, spinOnLanding: true);

@@ -82,8 +82,7 @@ public partial class Perrito1 : MeleeEnemy
 	// Hit and run: after a bite, sometimes hops back out of reach.
 	[Export] public float HitAndRunChance = 0.5f;
 	[Export] public Vector2 RetreatHop = new(200f, -220f);
-	// Flank: the player turtles behind their block toward it this long → vault over and bite from behind.
-	[Export] public float FlankAfterBlockTime = 0.8f;
+	// Flank: the player whiffs a parry toward it → vault over during the recovery and bite from behind.
 	[Export] public Vector2 VaultHop = new(240f, -360f);
 
 	// Rightmost (mouth) pixel of each attack1 frame on the 110x64 sheet cell, measured from the
@@ -111,7 +110,6 @@ public partial class Perrito1 : MeleeEnemy
 	private float _rushTimer;
 	private float _rushWindupScale = 1f;
 	private bool _counterPending;
-	private float _playerBlockTimer;
 	private bool _wasAttacking;
 
 	private Tween _telegraphTween;
@@ -253,12 +251,10 @@ public partial class Perrito1 : MeleeEnemy
 			StartRush(PunishWindupScale);
 		}
 
-		// Flank a turtling player.
-		_playerBlockTimer = PlayerReads.IsBlockingToward(player, GlobalPosition.X) && absDistance <= 110f
-			? _playerBlockTimer + dt : 0f;
-		if (_playerBlockTimer > FlankAfterBlockTime && TryHop(new Vector2(toward * VaultHop.X, VaultHop.Y)))
+		// Flank a player who just whiffed a parry.
+		if (PlayerReads.WhiffedParryToward(player, GlobalPosition.X) && absDistance <= 110f
+			&& TryHop(new Vector2(toward * VaultHop.X, VaultHop.Y)))
 		{
-			_playerBlockTimer = 0f;
 			_rushing = false;
 			_counterPending = true;
 			return;

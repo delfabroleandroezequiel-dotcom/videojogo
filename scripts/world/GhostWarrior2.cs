@@ -67,7 +67,6 @@ public partial class GhostWarrior2 : MeleeEnemy
 	[Export] public float EvadeCooldown = 1.8f;
 	[Export] public float EvadeDuration = 0.16f;
 	[Export] public float PunishRange = 230f;
-	[Export] public float FlankAfterBlockTime = 0.5f;
 	[Export] public float HurtDuration = 0.3f;
 	// Below this speed it glides (walk clip), above it sprints (run clip).
 	[Export] public float RunAnimSpeed = 130f;
@@ -85,7 +84,6 @@ public partial class GhostWarrior2 : MeleeEnemy
 	private float _stepCooldownTimer;
 	private float _evadeCooldownTimer;
 	private float _decisionTimer;
-	private float _blockTimer;
 	private float _hurtTimer;
 	private bool _counterAfterEvade;
 	private bool _hasDashSide;
@@ -217,11 +215,9 @@ public partial class GhostWarrior2 : MeleeEnemy
 			return;
 		}
 
-		// Turtling behind the block → step through them and swing from behind.
-		_blockTimer = PlayerReads.IsBlockingToward(player, GlobalPosition.X) && absDistance <= 140f ? _blockTimer + dt : 0f;
-		if (_blockTimer > FlankAfterBlockTime && CanStepTo(toward))
+		// A whiffed parry toward it → step through them and swing from behind during the recovery.
+		if (PlayerReads.WhiffedParryToward(player, GlobalPosition.X) && absDistance <= 140f && CanStepTo(toward))
 		{
-			_blockTimer = 0f;
 			_stepTargetX = player.GlobalPosition.X + toward * FlankOvershoot;
 			StartStep(StepMode.Flank, toward);
 			return;

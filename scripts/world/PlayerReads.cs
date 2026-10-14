@@ -29,9 +29,15 @@ public static class PlayerReads
 		return (predicted - origin).Normalized();
 	}
 
-	// Player is blocking and facing the shooter at `fromX` (a shot now would just get blocked).
+	// Player's parry window is open facing `fromX` (a shot or swing now would just get parried).
 	public static bool IsBlockingToward(Metroidvania.Player.Player player, float fromX) =>
 		player.IsBlocking && player.IsFacingRight == (fromX > player.GlobalPosition.X);
+
+	// Player just whiffed a parry facing `fromX` and is in its recovery (Player.ParryMissRecovery):
+	// their opening. Since there's no held guard any more, the old anti-turtle answers (flanks,
+	// bashes, charges) key off this instead.
+	public static bool WhiffedParryToward(Metroidvania.Player.Player player, float fromX) =>
+		player.IsParryRecovering && player.IsFacingRight == (fromX > player.GlobalPosition.X);
 
 	// Player is closing the distance toward `fromX` faster than `minSpeed`.
 	public static bool IsClosingIn(Metroidvania.Player.Player player, float fromX, float minSpeed = 60f) =>

@@ -64,7 +64,30 @@ public partial class Enemy : CharacterBody2D
 	[Export] public BossBarStyle BossBarStyle;
 	[Export] public string BossNameKey = "";
 
+	// Regular enemies only, opt-in: the player can execute it from behind (see Player.TryBackstab).
+	// Ignored on bosses.
+	[Export] public bool Backstabbable;
+
+	// Parry stun: this many melee parries in a row (each within ParryChainWindow of the last) leave
+	// it dazed for StunDuration — frozen in its idle with stars over its head, open to an execution
+	// from any side. 0 = can't be stunned. Bosses never are.
+	[Export] public int ParriesToStun = 2;
+	[Export] public float ParryChainWindow = 2.5f;
+	[Export] public float StunDuration = 2f;
+	[Export] public Color StunStarColor = new(1f, 0.85f, 0.3f, 1f);
+
 	private RayCast2D _ledgeCheck;
+	private int _freezeCount;
+	private ProcessModeEnum _processModeBeforeFreeze;
+	private int _parryCount;
+	private ulong _lastParryMsec;
+	// Clon señuelo: how close counts as "arrived" at the decoy, and how long a hit keeps this enemy
+	// from being lured again (it's onto the player now).
+	private const float LureArriveDistance = 20f;
+	private const ulong LureImmunityMsec = 5000;
+	private ulong _lureImmuneUntilMsec;
+	private int _stunRunId;
+	private Node2D _stunStars;
 
 	public Stats Stats { get; private set; }
 	protected Node2D Visual;
@@ -73,6 +96,117 @@ public partial class Enemy : CharacterBody2D
 
 	protected bool IsQueuedForRemoval;
 	public string PersistenceId { get; private set; }
+
+	public bool IsFacingRight => FacingRight;
+	public bool IsStunned { get; private set; }
+	public bool CanBeExecuted => !IsInGroup("boss") && !IsQueuedForRemoval && Stats is { CurrentHealth: > 0 };
+	public bool CanBeBackstabbed => Backstabbable && CanBeExecuted;
+	// True while ApplyContactDamage is hurting the player, so a block that catches mere body contact
+	// isn't mistaken for parrying an attack (see Player.ReportMeleeParry).
+	public static bool DealingContactDamage { get; private set; }
+
+	// Freezes the enemy in place (AI, attacks, contact damage, animation) while the player's
+	// execution plays out on it, and lets it go again.
+	public void HoldForExecution(bool hold)
+	{
+		if (hold)
+			Freeze();
+		else
+			Unfreeze();
+	}
+
+	// Counted, so a stun and an execution can overlap and the enemy only wakes once both let go.
+	private void Freeze()
+	{
+		if (_freezeCount++ > 0)
+			return;
+		_processModeBeforeFreeze = ProcessMode;
+		Velocity = Vector2.Zero;
+		ProcessMode = ProcessModeEnum.Disabled;
+		GetNodeOrNull<Metroidvania.Player.Hitbox>("AttackHitbox")?.Deactivate();
+	}
+
+	private void Unfreeze()
+	{
+		if (_freezeCount == 0 || --_freezeCount > 0)
+			return;
+		ProcessMode = _processModeBeforeFreeze;
+	}
+
+	public void RegisterParried()
+	{
+		if (ParriesToStun <= 0 || IsStunned || !CanBeExecuted)
+			return;
+		ulong now = Time.GetTicksMsec();
+		if (now - _lastParryMsec > (ulong)(ParryChainWindow * 1000f))
+			_parryCount = 0;
+		_lastParryMsec = now;
+		if (++_parryCount < ParriesToStun)
+			return;
+		_parryCount = 0;
+		Stun();
+	}
+
+	private async void Stun()
+	{
+		int runId = ++_stunRunId;
+		IsStunned = true;
+		Freeze();
+		// The idle keeps playing under the freeze, so it reads as dazed rather than paused.
+		if (Sprite is not null)
+		{
+			Sprite.ProcessMode = ProcessModeEnum.Always;
+			if (Sprite.SpriteFrames?.HasAnimation("idle") == true)
+				Sprite.Play("idle");
+		}
+		ShowStunStars();
+		await ToSignal(GetTree().CreateTimer(StunDuration), SceneTreeTimer.SignalName.Timeout);
+		if (IsInstanceValid(this) && runId == _stunRunId)
+			EndStun();
+	}
+
+	public void EndStun()
+	{
+		if (!IsStunned)
+			return;
+		IsStunned = false;
+		_stunRunId++;
+		if (Sprite is not null)
+			Sprite.ProcessMode = ProcessModeEnum.Inherit;
+		_stunStars?.QueueFree();
+		_stunStars = null;
+		Unfreeze();
+	}
+
+	// Three neon dots circling flat above the head (a ring spun inside a vertically squashed
+	// parent reads as an orbit seen from the side). Runs while the enemy itself is frozen.
+	private void ShowStunStars()
+	{
+		_stunStars = new Node2D
+		{
+			ProcessMode = ProcessModeEnum.Always,
+			Position = new Vector2(0f, BodyTop - 8f),
+			Scale = new Vector2(1f, 0.4f),
+		};
+		var ring = new Node2D();
+		_stunStars.AddChild(ring);
+		var additive = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
+		var dot = GD.Load<Texture2D>("res://resources/particles/SoftDotGradient.tres");
+		for (int i = 0; i < 3; i++)
+		{
+			ring.AddChild(new Sprite2D
+			{
+				Texture = dot,
+				Material = additive,
+				Modulate = StunStarColor,
+				Scale = Vector2.One * 0.12f,
+				Position = Vector2.Right.Rotated(Mathf.Tau * i / 3f) * 13f,
+			});
+		}
+		AddChild(_stunStars);
+		Tween spin = ring.CreateTween().SetLoops();
+		spin.TweenProperty(ring, "rotation", Mathf.Tau, 0.8f).From(0f);
+	}
 
 	// True while the player is within DetectionRange — updated every physics frame alongside the
 	// existing chase check below, so it's free (no extra distance query) for anything that wants
@@ -117,6 +251,14 @@ public partial class Enemy : CharacterBody2D
 		_ledgeCheck = GetNodeOrNull<RayCast2D>("LedgeCheck");
 		CacheBodyExtents();
 		Stats.Died += OnDefeated;
+		Stats.HitTaken += _ => _lureImmuneUntilMsec = Time.GetTicksMsec() + LureImmunityMsec;
+		// Killed while frozen (stunned, mid-execution): wake up so the death plays out.
+		Stats.Died += () =>
+		{
+			EndStun();
+			while (_freezeCount > 0)
+				Unfreeze();
+		};
 
 		StatBar healthBar = GetNode<StatBar>("HealthBar");
 		StatBar staminaBar = GetNode<StatBar>("StaminaBar");
@@ -412,6 +554,28 @@ public partial class Enemy : CharacterBody2D
 		if (!IsOnFloor())
 			velocity.Y += Gravity * (float)delta;
 
+		// Clon señuelo: a lured enemy walks over to the decoy and ignores the player (PlayerDetected
+		// off, which most subclasses' own AI also gates on) until the lure ends or something hurts it.
+		if (!IsInGroup("boss") && Time.GetTicksMsec() >= _lureImmuneUntilMsec
+			&& Metroidvania.Player.ShadowDecoy.TryGetLure(GlobalPosition, out Vector2 lure))
+		{
+			PlayerDetected = false;
+			_isHoldingDistance = false;
+			float dx = lure.X - GlobalPosition.X;
+			float sign = Mathf.Sign(dx);
+			if (Mathf.Abs(dx) > LureArriveDistance)
+			{
+				FacingRight = dx > 0f;
+				Visual.Scale = new Vector2(FacingRight ? 1 : -1, 1);
+			}
+			velocity.X = Mathf.Abs(dx) > LureArriveDistance && CanStepTo(sign) ? sign * MoveSpeed : Mathf.MoveToward(velocity.X, 0, MoveSpeed);
+			Velocity = velocity;
+			MoveAndSlide();
+			UpdateAnimation(Velocity);
+			UpdateFootsteps(Velocity, delta);
+			return;
+		}
+
 		Node2D player = GetTree().GetFirstNodeInGroup("player") as Node2D;
 		if (player is not null)
 		{
@@ -492,6 +656,7 @@ public partial class Enemy : CharacterBody2D
 	// CollisionShape2D so helpers don't need a hand-measured offset per enemy.
 	protected float BodyHalfWidth { get; private set; } = 16f;
 	protected float BodyBottom { get; private set; } = 30f;
+	protected float BodyTop { get; private set; } = -30f;
 
 	private void CacheBodyExtents()
 	{
@@ -501,10 +666,12 @@ public partial class Enemy : CharacterBody2D
 			case RectangleShape2D rect:
 				BodyHalfWidth = rect.Size.X * 0.5f;
 				BodyBottom = body.Position.Y + rect.Size.Y * 0.5f;
+				BodyTop = body.Position.Y - rect.Size.Y * 0.5f;
 				break;
 			case CapsuleShape2D capsule:
 				BodyHalfWidth = capsule.Radius;
 				BodyBottom = body.Position.Y + capsule.Height * 0.5f;
+				BodyTop = body.Position.Y - capsule.Height * 0.5f;
 				break;
 		}
 	}
@@ -645,7 +812,9 @@ public partial class Enemy : CharacterBody2D
 			if (targetStats is null)
 				continue;
 
+			DealingContactDamage = true;
 			targetStats.TakeDamage(Mathf.RoundToInt(Stats.AttackPower * ContactDamageMultiplier));
+			DealingContactDamage = false;
 		}
 	}
 }

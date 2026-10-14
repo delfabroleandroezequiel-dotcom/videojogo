@@ -29,6 +29,12 @@ public partial class PlayerAbilities : Node
 	public const string Swim = "swim";
 	public const string Bow = "bow";
 	public const string Torch = "torch";
+	// Elemental spells, parked 2026-10-13: they made the player too strong at range and didn't fit
+	// the Shadow-centred kit. Code kept so a relic/consumable can grant them later.
+	public const string TornadoSpell = "tornado_spell";
+	public const string PoisonSpell = "poison_spell";
+	public const string FireballSpell = "fireball_spell";
+	public const string WindShield = "wind_shield";
 
 	[Export] public bool StartWithDoubleJump;
 	[Export] public bool StartWithDash;
@@ -52,6 +58,10 @@ public partial class PlayerAbilities : Node
 	// them — untick on the Abilities node to test them locked.
 	[Export] public bool StartWithComboFourth = true;
 	[Export] public bool StartWithFlyingSword = true;
+	[Export] public bool StartWithTornadoSpell;
+	[Export] public bool StartWithPoisonSpell;
+	[Export] public bool StartWithFireballSpell;
+	[Export] public bool StartWithWindShield;
 
 	private readonly HashSet<string> _unlocked = new();
 
@@ -99,6 +109,14 @@ public partial class PlayerAbilities : Node
 			Unlock(FlyingSword);
 		if (StartWithTorch)
 			Unlock(Torch);
+		if (StartWithTornadoSpell)
+			Unlock(TornadoSpell);
+		if (StartWithPoisonSpell)
+			Unlock(PoisonSpell);
+		if (StartWithFireballSpell)
+			Unlock(FireballSpell);
+		if (StartWithWindShield)
+			Unlock(WindShield);
 
 		foreach (string abilityId in SaveManager.Instance.GetUnlockedAbilities())
 			Unlock(abilityId);

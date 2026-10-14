@@ -48,7 +48,7 @@ public partial class Player : CharacterBody2D
 	[Export] public float CrouchWeaponTrailYOffset = 30f;
 	[Export] public float HealAnimDuration = 0.8f;
 	[Export] public float DashSpeed = 560f;
-	[Export] public float DashDuration = 0.2f;
+	[Export] public float DashDuration = 0.26f;
 	[Export] public float DashIframeDuration = 0.28f;
 	[Export] public float DashCooldown = 0.5f;
 	// Neon afterimages left behind while dashing (see RunDashGhosts). Colours match the sword trails.
@@ -72,12 +72,33 @@ public partial class Player : CharacterBody2D
 	// 25% of a 100 MaxStamina bar — matches Dark Souls 1's actual roll cost (community-measured: a
 	// full bar gets you about 4 rolls, i.e. ~25% each).
 	[Export] public int DashStaminaCost = 25;
-	// Slower than Dash but travels almost as far (~105px vs Dash's ~112px) and ground-only, with
+	// Slower than Dash but travels almost as far (~105px vs Dash's ~146px) and ground-only, with
 	// the same i-frame window as Dash. RollDuration also has to leave the "roll" clip (7 frames at
 	// speed 12) enough time to actually read as a roll instead of getting cut after a frame or two.
 	[Export] public float RollSpeed = 300f;
 	[Export] public float RollDuration = 0.35f;
 	[Export] public float RollIframeDuration = 0.28f;
+	// Rolling through an enemy: how much longer the roll may carry on to clear it, and the i-frame
+	// slice re-granted each frame while still overlapping (see StartRoll).
+	[Export] public float RollPassThroughMaxExtra = 0.3f;
+	[Export] public float RollPassThroughIframeTopUp = 0.1f;
+	// Backstab: attacking an enemy with Enemy.Backstabbable from behind (it faces away, close,
+	// both grounded) plays the ExecuteDirect execution instead of the combo. BackstabRange is the
+	// max centre-to-centre distance; the player snaps to BackstabStandOff behind it for the stab.
+	[Export] public Texture2D BackstabSheet;
+	[Export] public int BackstabFrameWidth = 192;
+	[Export] public float BackstabFps = 16f;
+	[Export] public int BackstabStabFrame = 6;
+	[Export] public float BackstabRange = 60f;
+	[Export] public float BackstabMaxHeightDiff = 24f;
+	[Export] public float BackstabStandOff = 30f;
+	[Export] public float BackstabDamageMultiplier = 5f;
+	// Riposte: the same execution on an enemy stunned by parries (see Enemy.ParriesToStun), from
+	// any side, with the ExecuteGround downward stab. Damage/range/fps shared with the backstab.
+	[Export] public Texture2D RiposteSheet;
+	[Export] public int RiposteStabFrame = 5;
+	// How close an enemy must be for a parried melee hit to be credited to it (see ReportMeleeParry).
+	[Export] public float ParryStunAttributionRange = 110f;
 	[Export] public float RollCooldown = 0.35f;
 	[Export] public int RollStaminaCost = 10;
 	[Export] public float RunThrustSpeed = 420f;
@@ -94,12 +115,11 @@ public partial class Player : CharacterBody2D
 	[Export] public float RunThrustNeonIntensity = 1.5f;
 	[Export] public float CrouchSpeedMultiplier = 0.5f;
 	[Export] public float ParryWindowDuration = 0.2f;
+	// Lockout after a parry window that caught nothing (see UpdateBlock).
+	[Export] public float ParryMissRecovery = 0.35f;
 	[Export] public float ParryBubbleFadeIn = 0.08f;
 	[Export] public float ParryBubbleHold = 0.15f;
 	[Export] public float ParryBubbleFadeOut = 0.3f;
-	[Export] public float BlockStaminaCostFraction = 0.7f;
-	// Dark Souls reduces (doesn't stop) stamina recovery by 80% while guard is up — same idea here.
-	[Export] public float BlockStaminaRegenMultiplier = 0.2f;
 	[Export] public SpriteFrames FireSpriteFrames;
 	// Fire imbue look that keeps the same character: when set, entering fire swaps only the
 	// sprite's material (e.g. a palette with a burning blade) and FireSpriteFrames is ignored.
@@ -201,8 +221,17 @@ public partial class Player : CharacterBody2D
 	// "spell"/"spell2" clips playable; actual spell effects get attached to these slots later.
 	// Duration matches each clip's frame_count / speed (see FireWarriorSpriteFrames.tres).
 	[Export] public float SpellAnimDuration = 0.9f;
-	[Export] public float Spell2AnimDuration = 1.7f;
 	// Spell 1 = shadow clone (see CastSpell / ShadowClone).
+	// Clon básico tier, 0-3: the clone swings 1, 2, 3 or the whole combo (attack1..attack4). Set by
+	// hand until the skill tree grants the upgrades.
+	[Export(PropertyHint.Range, "0,3")] public int ShadowCloneLevel;
+	// Casting the Clon básico hops the player back (MainChar_BackDash, facing kept) while the clone
+	// takes their spot and swings — buys distance in the same motion. Slides for
+	// BackDashMoveDuration; the rest of the clip is the recovery.
+	[Export] public Texture2D BackDashSheet;
+	[Export] public float BackDashFps = 24f;
+	[Export] public float BackDashSpeed = 360f;
+	[Export] public float BackDashMoveDuration = 0.25f;
 	[Export] public int ShadowCloneStaminaCost = 20;
 	[Export] public float ShadowCloneCooldown = 1.2f;
 	[Export] public float ShadowCloneSpawnDelay = 0.3f;
@@ -211,6 +240,32 @@ public partial class Player : CharacterBody2D
 	[Export] public float ShadowCloneIntensity = 1.6f;
 	[Export] public float ShadowCloneFadeIn = 0.08f;
 	[Export] public float ShadowCloneFadeOut = 0.2f;
+	// The four shadow clones share spell 1 (Q casts the selected one, C cycles; see CastSpell and
+	// CycleShadowSpell) and its stamina cost/cooldown. Levels are set by hand until the skill tree.
+	// Clon señuelo (DS1 lure skull): thrown on an arc; enemies within ShadowDecoyLureRadius walk to it
+	// for ShadowDecoyDuration. +1 bursts at the end, +2 a bigger, harder burst.
+	[Export(PropertyHint.Range, "0,2")] public int ShadowDecoyLevel;
+	[Export] public Vector2 ShadowDecoyThrowVelocity = new(260f, -260f);
+	[Export] public float ShadowDecoyDuration = 4f;
+	[Export] public float ShadowDecoyLureRadius = 280f;
+	[Export] public float ShadowDecoyBurstRadius = 70f;
+	[Export] public float ShadowDecoyBurstDamageMultiplier = 1.5f;
+	[Export] public float ShadowDecoyBigBurstRadius = 120f;
+	[Export] public float ShadowDecoyBigBurstDamageMultiplier = 2.5f;
+	// Clon eco: appears with the player and copies them live, ShadowEchoDelay seconds behind, for
+	// ShadowEchoDuration (ShadowEchoLongDuration from +1). +2 is meant to echo parries too (not built
+	// yet); +3 adds a second echo at twice the delay.
+	[Export(PropertyHint.Range, "0,3")] public int ShadowEchoLevel;
+	[Export] public float ShadowEchoDelay = 0.35f;
+	[Export] public float ShadowEchoDuration = 4f;
+	[Export] public float ShadowEchoLongDuration = 8f;
+	// Clon manipulable: steered for ShadowPuppetDuration (ShadowPuppetLongDuration from +1, which also
+	// unlocks its combo). +2 is meant to parry (not built yet); +3 bursts when it ends.
+	[Export(PropertyHint.Range, "0,3")] public int ShadowPuppetLevel;
+	[Export] public float ShadowPuppetDuration = 5f;
+	[Export] public float ShadowPuppetLongDuration = 9f;
+	[Export] public float ShadowPuppetBurstRadius = 90f;
+	[Export] public float ShadowPuppetBurstDamageMultiplier = 2f;
 	// Tornado spell (key 1, "spell_tornado"): a procedural Tornado that travels forward, hitting every
 	// enemy inside it each tick for AttackPower × TornadoDamageMultiplier (it never moves them).
 	[Export] public int TornadoStaminaCost = 30;
@@ -299,6 +354,8 @@ public partial class Player : CharacterBody2D
 	// that can tell whether the player is blocking, mid-swing, or dashing can make an actual
 	// tactical choice instead of just swinging whenever it's in range.
 	public bool IsBlocking => _isBlocking;
+	// A parry window just closed on nothing: the lockout (ParryMissRecovery) enemies punish.
+	public bool IsParryRecovering => _parryRecoveryTimer > 0f;
 	public bool IsAttacking => _attacking;
 	public bool IsDashing => _isDashing;
 	public bool IsRolling => _isRolling;
@@ -488,6 +545,16 @@ public partial class Player : CharacterBody2D
 	private bool _isRolling;
 	private bool _canRoll = true;
 	private float _rollDirection;
+	private bool _isBackstabbing;
+	private const string BackstabAnimation = "execute_direct";
+	private const string DefaultBackstabSheetPath = "res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v3)/MainChar_ExecuteDirect.png";
+	private const string RiposteAnimation = "execute_ground";
+	private const string BackDashAnimation = "back_dash";
+	private const string DefaultBackDashSheetPath = "res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v3)/MainChar_BackDash.png";
+	private bool _isBackDashing;
+	private bool _backDashMoving;
+	private float _backDashDirection;
+	private const string DefaultRiposteSheetPath = "res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v3)/MainChar_ExecuteGround.png";
 	private int _dodgeIframeRunId;
 	private bool _dodgeIframesActive;
 	private bool _isRunThrusting;
@@ -514,10 +581,20 @@ public partial class Player : CharacterBody2D
 	private string _selectedSummon;
 	// Non-null while the player is steering a summon (their own body stands still).
 	private ShadowSummon _controlledSummon;
+	private ShadowPuppet _controlledPuppet;
+	private enum ShadowSpell { Basic, Decoy, Echo, Puppet }
+	private static readonly string[] ShadowSpellNameKeys = { "UI_CLONE_BASIC", "UI_CLONE_DECOY", "UI_CLONE_ECHO", "UI_CLONE_PUPPET" };
+	private ShadowSpell _shadowSpell;
+	private Metroidvania.UI.TornadoVariantsHud _shadowSpellHud;
+	// Clon eco's source: the player's recent frames, one per physics frame, long enough for the
+	// longest echo delay.
+	private readonly List<EchoFrame> _echoHistory = new();
 	private Metroidvania.UI.ShadowSlotsHud _summonHud;
 	private GoldHud _goldHud;
 	private bool _isCastingSpell2;
 	private bool _isBlocking;
+	private float _parryRecoveryTimer;
+	private bool _parryLanded;
 	private float _parryWindowTimer;
 	private ulong _blockedHitFrame = ulong.MaxValue;
 	private AnimatedSprite2D _parryFlash;
@@ -659,6 +736,15 @@ public partial class Player : CharacterBody2D
 		_torchLight = GetNode<PointLight2D>("Visual/TorchLight");
 		_swordFireLight = GetNode<PointLight2D>("Visual/SwordFireLight");
 		_normalSpriteFrames = _sprite.SpriteFrames;
+		BackstabSheet ??= GD.Load<Texture2D>(DefaultBackstabSheetPath);
+		RiposteSheet ??= GD.Load<Texture2D>(DefaultRiposteSheetPath);
+		BackDashSheet ??= GD.Load<Texture2D>(DefaultBackDashSheetPath);
+		foreach (SpriteFrames frames in new[] { _normalSpriteFrames, FireSpriteFrames })
+		{
+			AddSheetAnimation(frames, BackstabAnimation, BackstabSheet, BackstabFps);
+			AddSheetAnimation(frames, RiposteAnimation, RiposteSheet, BackstabFps);
+			AddSheetAnimation(frames, BackDashAnimation, BackDashSheet, BackDashFps);
+		}
 		_normalMaterial = _sprite.Material;
 		_poisonMaterial = BuildBladeVariant(PoisonBladeColors, 0.22f);
 		_iceMaterial = BuildBladeVariant(IceBladeColors, 0.08f);
@@ -727,6 +813,7 @@ public partial class Player : CharacterBody2D
 		_stats.HitTaken += (isProjectile) => Sfx.Play(this, "Voice/Player", "Damage Grunt (Male)");
 		// Getting hit while steering a summon snaps control back to the body.
 		_stats.HitTaken += (isProjectile) => EndSummonControl();
+		_stats.HitTaken += (isProjectile) => EndPuppetControl();
 		_hitbox.HitDealt += () => FlashHit(_visual, new Color(1f, 1f, 0.2f));
 		_hitbox.HitDealt += () => Sfx.Play(this, "Combat/Sword", "Sword Impact Hit");
 		_healFlask.ChargesChanged += (current, max) => UpdateHealChargesLabel(current, max);
@@ -758,6 +845,19 @@ public partial class Player : CharacterBody2D
 		LocaleManager.Instance.LocaleChanged += _ => UpdateSummonLabel();
 		UpdateSummonLabel();
 
+		// Shadow clone picker (Q casts, C cycles), just above the Bastón row — where the tornado picker
+		// sits, which only shows while the (parked) tornado spell is unlocked.
+		_shadowSpellHud = new Metroidvania.UI.TornadoVariantsHud { Name = "ShadowSpellHud" };
+		GetNode("HUD").AddChild(_shadowSpellHud);
+		_shadowSpellHud.Build(ShadowSpellNameKeys);
+		_shadowSpellHud.Refresh((int)_shadowSpell);
+		_shadowSpellHud.Visible = _abilities.Has(PlayerAbilities.Spell);
+		LocaleManager.Instance.LocaleChanged += _ =>
+		{
+			if (IsInstanceValid(_shadowSpellHud))
+				_shadowSpellHud.Refresh((int)_shadowSpell);
+		};
+
 		// Tornado variant picker, just above the Bastón row.
 		if (SaveManager.Instance.SessionTornadoVariant is int savedVariant
 			&& savedVariant >= 0 && savedVariant < TornadoVariantNameKeys.Length)
@@ -766,6 +866,7 @@ public partial class Player : CharacterBody2D
 		GetNode("HUD").AddChild(_tornadoHud);
 		_tornadoHud.Build(TornadoVariantNameKeys);
 		_tornadoHud.Refresh((int)_tornadoVariant);
+		_tornadoHud.Visible = _abilities.Has(PlayerAbilities.TornadoSpell);
 		LocaleManager.Instance.LocaleChanged += _ =>
 		{
 			if (IsInstanceValid(_tornadoHud))
@@ -861,15 +962,27 @@ public partial class Player : CharacterBody2D
 	}
 
 	// Freezes the body in place and keeps the camera on the shadow; the summon reads the input itself.
-	private void UpdateSummonControl(float delta)
+	private void UpdateRemoteControl(Node2D target, float delta)
 	{
 		Velocity = new Vector2(0f, IsOnFloor() ? 0f : Velocity.Y + Gravity * delta);
 		MoveAndSlide();
-		_camera.GlobalPosition = _controlledSummon.GlobalPosition;
+		_camera.GlobalPosition = target.GlobalPosition;
 		// Soft red pulse on the body: it's exposed while the shadow is out. _sprite.Modulate is free —
 		// FlashHit drives _visual.Modulate and poison drives _sprite.SelfModulate.
 		float pulse = 0.5f + 0.5f * Mathf.Sin(Time.GetTicksMsec() / 1000f * SummonVulnerablePulseSpeed);
 		_sprite.Modulate = Colors.White.Lerp(SummonVulnerableTint, pulse);
+	}
+
+	private void EndPuppetControl()
+	{
+		if (_controlledPuppet is null)
+			return;
+		ShadowPuppet puppet = _controlledPuppet;
+		_controlledPuppet = null;
+		_camera.Position = Vector2.Zero;
+		_sprite.Modulate = Colors.White;
+		if (IsInstanceValid(puppet))
+			puppet.Finish();
 	}
 
 	private void EndSummonControl()
@@ -1179,14 +1292,25 @@ public partial class Player : CharacterBody2D
 			return;
 		}
 
+		RecordEchoFrame();
+
 		if (_controlledSummon is not null)
 		{
 			if (IsInstanceValid(_controlledSummon))
 			{
-				UpdateSummonControl((float)delta);
+				UpdateRemoteControl(_controlledSummon, (float)delta);
 				return;
 			}
 			EndSummonControl();
+		}
+		if (_controlledPuppet is not null)
+		{
+			if (IsInstanceValid(_controlledPuppet))
+			{
+				UpdateRemoteControl(_controlledPuppet, (float)delta);
+				return;
+			}
+			EndPuppetControl();
 		}
 
 		// Water has no solid collision — anything that moves the player fast enough (dash, pound,
@@ -1258,6 +1382,16 @@ public partial class Player : CharacterBody2D
 		// same idea as the pound-vs-water cancel a few lines down.
 		if (_isDashing && _water != null)
 			_isDashing = false;
+
+		if (_isBackDashing)
+		{
+			velocity.X = _backDashMoving ? _backDashDirection * BackDashSpeed : 0f;
+			velocity.Y = IsOnFloor() ? 0f : velocity.Y + Gravity * (float)delta;
+			Velocity = velocity;
+			MoveAndSlide();
+			UpdateAnimation(delta, false);
+			return;
+		}
 
 		if (_isDashing)
 		{
@@ -1674,7 +1808,7 @@ public partial class Player : CharacterBody2D
 		bool droppedThrough = Input.IsActionPressed("move_down") && Input.IsActionJustPressed("jump")
 			&& IsOnFloor() && TryDropThroughOneWayPlatform();
 
-		bool jumpPressed = !droppedThrough && Input.IsActionJustPressed("jump") && _jumpSquatTimer <= 0f
+		bool jumpPressed = !droppedThrough && !_isBackstabbing && Input.IsActionJustPressed("jump") && _jumpSquatTimer <= 0f
 			&& (IsOnFloor() || _infiniteJumpDebug || _jumpCount < maxJumps);
 		// Ground jumps crouch for JumpSquatDuration on the floor before lifting off (a short
 		// anticipation beat, like a fighting game's jump squat); air jumps launch at once.
@@ -1698,7 +1832,8 @@ public partial class Player : CharacterBody2D
 		if (rawDirection != 0 && !_isShooting)
 			_facingRight = rawDirection > 0;
 
-		float direction = (_attacking || _healing || _crouching || _isBlocking || _isTransforming || _isShooting
+		// An air parry keeps the jump's momentum; only a ground parry plants the feet.
+		float direction = (_attacking || _healing || _crouching || (_isBlocking && IsOnFloor()) || _isTransforming || _isShooting
 			|| _isCastingSpell || _isCastingSpell2) ? 0f : rawDirection;
 		bool sprinting = !_attacking && !_healing && _abilities.Has(PlayerAbilities.Sprint) && Input.IsActionPressed("sprint")
 			&& !_crouching && direction != 0;
@@ -1710,14 +1845,14 @@ public partial class Player : CharacterBody2D
 
 		UpdateCameraLook(delta);
 
-		if (_dashBufferTimer > 0f && _abilities.Has(PlayerAbilities.Dash) && _canDash && !_healing && !_isRolling)
+		if (_dashBufferTimer > 0f && _abilities.Has(PlayerAbilities.Dash) && _canDash && !_healing && !_isRolling && !_isBackstabbing)
 		{
 			_dashBufferTimer = 0f;
 			StartDash();
 		}
 
 		if (_rollBufferTimer > 0f && _abilities.Has(PlayerAbilities.Roll) && _canRoll && !_healing && !_isDashing
-			&& IsOnFloor())
+			&& !_isBackstabbing && IsOnFloor())
 		{
 			_rollBufferTimer = 0f;
 			StartRoll();
@@ -1738,7 +1873,7 @@ public partial class Player : CharacterBody2D
 				UpAttack();
 			else if (_crouching)
 				CrouchAttack();
-			else
+			else if (!TryBackstab())
 				Attack();
 		}
 
@@ -1773,38 +1908,34 @@ public partial class Player : CharacterBody2D
 			CastSpell();
 		}
 
-		if (Input.IsActionJustPressed("spell2") && _abilities.Has(PlayerAbilities.Spell2) && !_isCastingSpell2
-			&& !_isCastingSpell && !_attacking && !_healing && !_isBlocking && !_isTransforming && !_crouching
-			&& !_isDashing && !_isRolling && !_isRunThrusting && !_isCharging && !_isShooting)
-		{
-			CastSpell2();
-		}
+		if (Input.IsActionJustPressed("spell2") && _abilities.Has(PlayerAbilities.Spell))
+			CycleShadowSpell();
 
-		if (Input.IsActionJustPressed("spell_tornado") && !_isCastingSpell
+		if (Input.IsActionJustPressed("spell_tornado") && _abilities.Has(PlayerAbilities.TornadoSpell) && !_isCastingSpell
 			&& !_isCastingSpell2 && !_attacking && !_healing && !_isBlocking && !_isTransforming && !_crouching
 			&& !_isDashing && !_isRolling && !_isRunThrusting && !_isCharging && !_isShooting)
 		{
 			CastTornado();
 		}
 
-		if (Input.IsActionJustPressed("spell_poison") && !_isCastingSpell
+		if (Input.IsActionJustPressed("spell_poison") && _abilities.Has(PlayerAbilities.PoisonSpell) && !_isCastingSpell
 			&& !_isCastingSpell2 && !_attacking && !_healing && !_isBlocking && !_isTransforming && !_crouching
 			&& !_isDashing && !_isRolling && !_isRunThrusting && !_isCharging && !_isShooting)
 		{
 			CastPoisonSpit();
 		}
 
-		if (Input.IsActionJustPressed("spell_fireball") && !_isCastingSpell
+		if (Input.IsActionJustPressed("spell_fireball") && _abilities.Has(PlayerAbilities.FireballSpell) && !_isCastingSpell
 			&& !_isCastingSpell2 && !_attacking && !_healing && !_isBlocking && !_isTransforming && !_crouching
 			&& !_isDashing && !_isRolling && !_isRunThrusting && !_isCharging && !_isShooting)
 		{
 			CastFireball();
 		}
 
-		if (Input.IsActionJustPressed("tornado_cycle"))
+		if (Input.IsActionJustPressed("tornado_cycle") && _abilities.Has(PlayerAbilities.TornadoSpell))
 			CycleTornadoVariant();
 
-		if (Input.IsActionJustPressed("wind_shield") && !_windShieldActive && !_isCastingSpell
+		if (Input.IsActionJustPressed("wind_shield") && _abilities.Has(PlayerAbilities.WindShield) && !_windShieldActive && !_isCastingSpell
 			&& !_isCastingSpell2 && !_attacking && !_healing && !_isTransforming
 			&& !_isDashing && !_isRolling && !_isRunThrusting && !_isCharging && !_isShooting)
 		{
@@ -1921,6 +2052,13 @@ public partial class Player : CharacterBody2D
 			return;
 		}
 
+		if (_isBackDashing)
+		{
+			if (_sprite.Animation != BackDashAnimation)
+				_sprite.Play(BackDashAnimation);
+			return;
+		}
+
 		if (_isCastingSpell)
 		{
 			if (_sprite.Animation != "spell")
@@ -1994,6 +2132,13 @@ public partial class Player : CharacterBody2D
 		{
 			if (_sprite.Animation != "jump_squat")
 				_sprite.Play("jump_squat");
+			return;
+		}
+		else if (!onFloor && _isBlocking)
+		{
+			// Air parry: the guard pose flashes for the parry window, then back to the air clips.
+			if (_sprite.Animation != "idle_block")
+				_sprite.Play("idle_block");
 			return;
 		}
 		else if (!onFloor)
@@ -2103,19 +2248,32 @@ public partial class Player : CharacterBody2D
 		_crouchCollision.Disabled = !_crouching;
 	}
 
+	// No held guard (decided 2026-10-13): the block button is a parry. A press opens a
+	// ParryWindowDuration window, on the ground or in the air; holding it does nothing more. A
+	// window that ends without parrying anything locks the button for ParryMissRecovery (so it
+	// can't be mashed into a permanent guard); a successful parry can be re-pressed at once, to
+	// chain the parries that stun (see Enemy.ParriesToStun). _isBlocking = window open.
 	private void UpdateBlock(double delta)
 	{
-		bool holdingBlock = _abilities.Has(PlayerAbilities.Block) && Input.IsActionPressed("block")
-			&& !_attacking && !_healing && !_isDashing && !_isRolling && !_isRunThrusting;
+		float dt = (float)delta;
+		if (_parryRecoveryTimer > 0f)
+			_parryRecoveryTimer -= dt;
 
-		if (holdingBlock && !_isBlocking)
+		bool canParry = _abilities.Has(PlayerAbilities.Block) && !_attacking && !_healing && !_isDashing && !_isRolling
+			&& !_isRunThrusting && _parryRecoveryTimer <= 0f && (_parryWindowTimer <= 0f || _parryLanded);
+		if (canParry && Input.IsActionJustPressed("block"))
+		{
 			_parryWindowTimer = ParryWindowDuration;
-
-		_isBlocking = holdingBlock;
-		_stats.RegenRateMultiplier = holdingBlock ? BlockStaminaRegenMultiplier : 1f;
+			_parryLanded = false;
+		}
 
 		if (_parryWindowTimer > 0f)
-			_parryWindowTimer -= (float)delta;
+		{
+			_parryWindowTimer -= dt;
+			if (_parryWindowTimer <= 0f && !_parryLanded)
+				_parryRecoveryTimer = ParryMissRecovery;
+		}
+		_isBlocking = _parryWindowTimer > 0f;
 	}
 
 	private bool TryBlockIncomingHit()
@@ -2124,11 +2282,9 @@ public partial class Player : CharacterBody2D
 			return false;
 
 		_blockedHitFrame = Engine.GetPhysicsFrames();
-		if (_parryWindowTimer > 0f)
-			PlayParryFx();
-		else
-			_stats.SpendStaminaClamped(Mathf.RoundToInt(_stats.MaxStamina * BlockStaminaCostFraction));
-
+		_parryLanded = true;
+		PlayParryFx();
+		ReportMeleeParry();
 		return true;
 	}
 
@@ -2136,8 +2292,9 @@ public partial class Player : CharacterBody2D
 	// in which case the projectile mirrors back instead of hitting.
 	public bool TryParryProjectile()
 	{
-		if (!_isBlocking || _parryWindowTimer <= 0f)
+		if (!_isBlocking)
 			return false;
+		_parryLanded = true;
 		PlayParryFx();
 		return true;
 	}
@@ -2444,11 +2601,149 @@ public partial class Player : CharacterBody2D
 		_rollDirection = _facingRight ? 1f : -1f;
 		GrantDodgeIframes(RollIframeDuration);
 
-		await ToSignal(GetTree().CreateTimer(RollDuration), SceneTreeTimer.SignalName.Timeout);
+		// Rolling through an enemy always lands behind it: while overlapping one near the end of
+		// the i-frames, they're topped up, and the roll carries on past RollDuration until clear
+		// (capped by RollPassThroughMaxExtra) instead of stopping inside its contact damage.
+		float elapsed = 0f;
+		while (IsInstanceValid(this))
+		{
+			bool overlapping = OverlapsEnemyContact();
+			if (elapsed >= RollDuration && (!overlapping || elapsed >= RollDuration + RollPassThroughMaxExtra))
+				break;
+			if (overlapping && elapsed + RollPassThroughIframeTopUp > RollIframeDuration)
+				GrantDodgeIframes(RollPassThroughIframeTopUp);
+			await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+			elapsed += (float)GetPhysicsProcessDeltaTime();
+		}
 		_isRolling = false;
 
 		await ToSignal(GetTree().CreateTimer(RollCooldown), SceneTreeTimer.SignalName.Timeout);
 		_canRoll = true;
+	}
+
+	// Built in code from a one-row sheet of BackstabFrameWidth-wide cells, so it also lands in the
+	// fire-imbued frames without hand-editing both SpriteFrames resources.
+	private void AddSheetAnimation(SpriteFrames frames, string animation, Texture2D sheet, float fps)
+	{
+		if (frames is null || sheet is null || frames.HasAnimation(animation))
+			return;
+		frames.AddAnimation(animation);
+		frames.SetAnimationLoop(animation, false);
+		frames.SetAnimationSpeed(animation, fps);
+		int height = sheet.GetHeight();
+		for (int x = 0; x + BackstabFrameWidth <= sheet.GetWidth(); x += BackstabFrameWidth)
+			frames.AddFrame(animation, new AtlasTexture { Atlas = sheet, Region = new Rect2(x, 0, BackstabFrameWidth, height) });
+	}
+
+	// The closest enemy right in front of the player that can be executed: a stunned one from any
+	// side (ExecuteGround), or a Backstabbable one facing away (ExecuteDirect). False = no target,
+	// the normal attack goes ahead.
+	private bool TryBackstab()
+	{
+		if (!IsOnFloor())
+			return false;
+		float facing = _facingRight ? 1f : -1f;
+		Metroidvania.World.Enemy target = null;
+		float closest = BackstabRange;
+		foreach (Node node in GetTree().GetNodesInGroup("enemy"))
+		{
+			if (node is not Metroidvania.World.Enemy enemy)
+				continue;
+			bool executable = enemy.IsStunned
+				? enemy.CanBeExecuted
+				: enemy.CanBeBackstabbed && enemy.IsFacingRight == _facingRight;
+			if (!executable)
+				continue;
+			float ahead = (enemy.GlobalPosition.X - GlobalPosition.X) * facing;
+			if (ahead <= 0f || ahead > closest || Mathf.Abs(enemy.GlobalPosition.Y - GlobalPosition.Y) > BackstabMaxHeightDiff)
+				continue;
+			target = enemy;
+			closest = ahead;
+		}
+		if (target is null)
+			return false;
+		bool riposte = target.IsStunned;
+		string animation = riposte ? RiposteAnimation : BackstabAnimation;
+		if (!_sprite.SpriteFrames.HasAnimation(animation))
+			return false;
+		Execute(target, animation, riposte ? RiposteStabFrame : BackstabStabFrame);
+		return true;
+	}
+
+	private async void Execute(Metroidvania.World.Enemy enemy, string animation, int stabFrame)
+	{
+		_isBackstabbing = true;
+		_attacking = true;
+		_currentAttackAnimation = animation;
+		float facing = _facingRight ? 1f : -1f;
+		GlobalPosition = new Vector2(enemy.GlobalPosition.X - facing * BackstabStandOff, GlobalPosition.Y);
+		Velocity = Vector2.Zero;
+		enemy.HoldForExecution(true);
+		bool holding = true;
+		int frameCount = _sprite.SpriteFrames.GetFrameCount(animation);
+		GrantDodgeIframes(frameCount / BackstabFps + 0.1f);
+		_sprite.Play(animation);
+
+		// Held until the blade goes in; released (and un-stunned) for the hit itself so a kill
+		// runs the enemy's normal death, held again for the rest of the clip if it survives.
+		while (IsInstanceValid(this) && !_isDead && _sprite.Animation == animation && _sprite.Frame < stabFrame)
+			await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+		if (IsInstanceValid(enemy))
+		{
+			enemy.EndStun();
+			enemy.HoldForExecution(false);
+			holding = false;
+			enemy.Stats.TakeDamage(Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * BackstabDamageMultiplier)), ignoreInvulnerability: true);
+			BloodEffect.SpawnAt(this, enemy.GlobalPosition);
+			ShakeCamera(3f, 0.15f);
+			if (enemy.Stats.CurrentHealth > 0)
+			{
+				enemy.HoldForExecution(true);
+				holding = true;
+			}
+		}
+
+		while (IsInstanceValid(this) && !_isDead && _sprite.Animation == animation && _sprite.IsPlaying())
+			await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+		if (holding && IsInstanceValid(enemy))
+			enemy.HoldForExecution(false);
+		if (!IsInstanceValid(this))
+			return;
+		_isBackstabbing = false;
+		_attacking = false;
+	}
+
+	// A parried melee hit counts toward stunning whoever threw it. The block doesn't know the
+	// attacker (most enemies deal damage from their own code, not a shared Hitbox), so it's
+	// credited to the closest enemy within melee reach — the one swinging at you up close.
+	private void ReportMeleeParry()
+	{
+		if (Metroidvania.World.Enemy.DealingContactDamage)
+			return;
+		Metroidvania.World.Enemy attacker = null;
+		float closest = ParryStunAttributionRange;
+		foreach (Node node in GetTree().GetNodesInGroup("enemy"))
+		{
+			if (node is not Metroidvania.World.Enemy enemy || !enemy.CanBeExecuted)
+				continue;
+			float distance = enemy.GlobalPosition.DistanceTo(GlobalPosition);
+			if (distance < closest)
+			{
+				attacker = enemy;
+				closest = distance;
+			}
+		}
+		attacker?.RegisterParried();
+	}
+
+	private bool OverlapsEnemyContact()
+	{
+		foreach (Node node in GetTree().GetNodesInGroup("enemy"))
+		{
+			if (node.GetNodeOrNull<Area2D>("ContactArea") is { Monitoring: true } contact && contact.OverlapsBody(this))
+				return true;
+		}
+		return false;
 	}
 
 	// Shared dash/roll invulnerability window. The run id stops an earlier window from ending a
@@ -2816,30 +3111,174 @@ public partial class Player : CharacterBody2D
 
 		_isCastingSpell = true;
 		_shadowCloneReadyAt = now + ShadowCloneCooldown;
+		ShadowSpell spell = _shadowSpell;
+		bool facingRight = _facingRight;
+
+		// Clon básico: no cast pose — the clone takes the player's spot at once while they hop back.
+		if (spell == ShadowSpell.Basic && _sprite.SpriteFrames.HasAnimation(BackDashAnimation))
+		{
+			SpawnShadowClone(GlobalPosition);
+			await BackDash();
+			if (IsInstanceValid(this))
+				_isCastingSpell = false;
+			return;
+		}
 
 		await ToSignal(GetTree().CreateTimer(ShadowCloneSpawnDelay), SceneTreeTimer.SignalName.Timeout);
 		if (!IsInstanceValid(this) || _isDead)
 			return;
-		SpawnShadowClone();
+		switch (spell)
+		{
+			case ShadowSpell.Basic:
+				SpawnShadowClone(GlobalPosition + new Vector2(_facingRight ? ShadowCloneOffsetX : -ShadowCloneOffsetX, 0f));
+				break;
+			case ShadowSpell.Decoy:
+				SpawnShadowDecoy(facingRight);
+				break;
+			case ShadowSpell.Echo:
+				SpawnShadowEchoes();
+				break;
+			case ShadowSpell.Puppet:
+				_isCastingSpell = false;
+				SpawnShadowPuppet(facingRight);
+				return;
+		}
 
 		await ToSignal(GetTree().CreateTimer(Mathf.Max(0f, SpellAnimDuration - ShadowCloneSpawnDelay)), SceneTreeTimer.SignalName.Timeout);
 		if (IsInstanceValid(this))
 			_isCastingSpell = false;
 	}
 
-	private void SpawnShadowClone()
+	private void CycleShadowSpell()
+	{
+		_shadowSpell = (ShadowSpell)(((int)_shadowSpell + 1) % ShadowSpellNameKeys.Length);
+		_shadowSpellHud?.Refresh((int)_shadowSpell);
+	}
+
+	// One entry per physics frame, kept just long enough for the +3 echo's doubled delay.
+	private void RecordEchoFrame()
+	{
+		int capacity = Mathf.CeilToInt(ShadowEchoDelay * 2f * Engine.PhysicsTicksPerSecond) + 2;
+		if (_echoHistory.Count >= capacity)
+			_echoHistory.RemoveRange(0, _echoHistory.Count - capacity + 1);
+		bool hitboxActive = _hitbox.IsActive;
+		_echoHistory.Add(new EchoFrame(GlobalPosition, _facingRight, _sprite.Animation, _sprite.Frame,
+			hitboxActive, _hitbox.GlobalPosition, hitboxActive ? _hitboxShape.Size : Vector2.Zero));
+	}
+
+	// The frame recorded framesAgo physics ticks back (the oldest one while the history is still
+	// shorter than that); null once this player is gone.
+	private EchoFrame? EchoFrameAgo(int framesAgo)
+	{
+		if (!IsInstanceValid(this) || _echoHistory.Count == 0)
+			return null;
+		return _echoHistory[Mathf.Max(0, _echoHistory.Count - 1 - framesAgo)];
+	}
+
+	private void SpawnShadowEchoes()
+	{
+		if (GetTree().CurrentScene is not Node scene)
+			return;
+		int delayFrames = Mathf.RoundToInt(ShadowEchoDelay * Engine.PhysicsTicksPerSecond);
+		float lifetime = ShadowEchoLevel >= 1 ? ShadowEchoLongDuration : ShadowEchoDuration;
+		SpawnShadowEcho(scene, delayFrames, lifetime);
+		// +3: a second echo trailing at twice the delay.
+		if (ShadowEchoLevel >= 3)
+			SpawnShadowEcho(scene, delayFrames * 2, lifetime);
+	}
+
+	private void SpawnShadowEcho(Node scene, int delayFrames, float lifetime)
+	{
+		var echo = new ShadowEcho();
+		echo.Setup(EchoFrameAgo, delayFrames, lifetime, _sprite.SpriteFrames, _sprite.Position, _sprite.Offset, _sprite.Scale, _stats,
+			ElementGhostColor(), ShadowCloneIntensity, ShadowCloneAlpha, ShadowCloneFadeOut);
+		echo.ZIndex = ZIndex;
+		scene.AddChild(echo);
+	}
+
+	private void SpawnShadowDecoy(bool facingRight)
+	{
+		if (GetTree().CurrentScene is not Node scene)
+			return;
+		bool burst = ShadowDecoyLevel >= 1;
+		bool bigBurst = ShadowDecoyLevel >= 2;
+		float burstMultiplier = bigBurst ? ShadowDecoyBigBurstDamageMultiplier : ShadowDecoyBurstDamageMultiplier;
+		var decoy = new ShadowDecoy { FeetOffset = BodyHalfHeight() };
+		decoy.Setup(_sprite.SpriteFrames, TorchAnim("idle"), facingRight, _sprite.Position, _sprite.Offset, _sprite.Scale,
+			ElementGhostColor(), ShadowCloneIntensity, ShadowCloneAlpha,
+			new Vector2(facingRight ? ShadowDecoyThrowVelocity.X : -ShadowDecoyThrowVelocity.X, ShadowDecoyThrowVelocity.Y),
+			Gravity, ShadowDecoyDuration, ShadowDecoyLureRadius,
+			!burst ? 0f : bigBurst ? ShadowDecoyBigBurstRadius : ShadowDecoyBurstRadius,
+			Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * burstMultiplier)));
+		decoy.ZIndex = ZIndex;
+		scene.AddChild(decoy);
+		decoy.GlobalPosition = GlobalPosition + new Vector2(facingRight ? 16f : -16f, -10f);
+	}
+
+	private void SpawnShadowPuppet(bool facingRight)
+	{
+		if (GetTree().CurrentScene is not Node scene)
+			return;
+		var combo = new List<string> { "attack1" };
+		if (ShadowPuppetLevel >= 1)
+			combo.AddRange(new[] { "attack2", "attack3", "attack4" });
+		var puppet = new ShadowPuppet();
+		puppet.Setup(_sprite.SpriteFrames, _sprite.Position, _sprite.Offset, _sprite.Scale,
+			((RectangleShape2D)_standCollision.Shape).Size, CollisionMask, facingRight, _stats,
+			ElementGhostColor(), ShadowCloneIntensity, ShadowCloneAlpha, Speed, JumpVelocity, Gravity,
+			ShadowPuppetLevel >= 1 ? ShadowPuppetLongDuration : ShadowPuppetDuration, combo.ToArray(),
+			_hitboxBaseSize, AttackHitboxReach, AttackHitboxYOffset, AttackHitboxDelay, AttackDuration,
+			ShadowPuppetLevel >= 3 ? ShadowPuppetBurstRadius : 0f,
+			Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * ShadowPuppetBurstDamageMultiplier)));
+		puppet.ZIndex = ZIndex;
+		scene.AddChild(puppet);
+		puppet.GlobalPosition = GlobalPosition + new Vector2(facingRight ? ShadowCloneOffsetX : -ShadowCloneOffsetX, 0f);
+		_controlledPuppet = puppet;
+		puppet.Finished += EndPuppetControl;
+		// Same kneel-and-concentrate pose as steering a summon or the flying sword.
+		_sprite.Play(_sprite.SpriteFrames.HasAnimation("flying_sword_loop") ? "flying_sword_loop" : TorchAnim("idle"));
+	}
+
+	// Slides back (keeping the facing) for BackDashMoveDuration, then waits out the clip's recovery.
+	private async Task BackDash()
+	{
+		_isBackDashing = true;
+		_backDashMoving = true;
+		_backDashDirection = _facingRight ? -1f : 1f;
+		_sprite.Play(BackDashAnimation);
+		await ToSignal(GetTree().CreateTimer(BackDashMoveDuration), SceneTreeTimer.SignalName.Timeout);
+		if (!IsInstanceValid(this))
+			return;
+		_backDashMoving = false;
+		float clip = _sprite.SpriteFrames.GetFrameCount(BackDashAnimation) / BackDashFps;
+		if (clip > BackDashMoveDuration)
+			await ToSignal(GetTree().CreateTimer(clip - BackDashMoveDuration), SceneTreeTimer.SignalName.Timeout);
+		if (IsInstanceValid(this))
+			_isBackDashing = false;
+	}
+
+	private void SpawnShadowClone(Vector2 at)
 	{
 		if (GetTree().CurrentScene is not Node scene)
 			return;
 
+		var swings = new System.Collections.Generic.List<string>();
+		for (int i = 1; i <= Mathf.Clamp(ShadowCloneLevel, 0, 3) + 1; i++)
+		{
+			if (_sprite.SpriteFrames.HasAnimation($"attack{i}"))
+				swings.Add($"attack{i}");
+		}
+		if (swings.Count == 0)
+			swings.Add("attack1");
+
 		var clone = new ShadowClone();
-		clone.Setup(_sprite.SpriteFrames, "attack1", _facingRight, _sprite.Position, _sprite.Offset, _sprite.Scale, _stats,
+		clone.Setup(_sprite.SpriteFrames, swings.ToArray(), _facingRight, _sprite.Position, _sprite.Offset, _sprite.Scale, _stats,
 			ElementGhostColor(), ShadowCloneIntensity, ShadowCloneAlpha,
 			_hitboxBaseSize, AttackHitboxReach, AttackHitboxYOffset, AttackHitboxDelay, AttackDuration,
 			ShadowCloneFadeIn, ShadowCloneFadeOut);
 		clone.ZIndex = ZIndex;
 		scene.AddChild(clone);
-		clone.GlobalPosition = GlobalPosition + new Vector2(_facingRight ? ShadowCloneOffsetX : -ShadowCloneOffsetX, 0f);
+		clone.GlobalPosition = at;
 	}
 
 	// Plays the "spell" clip and releases a Tornado in front of the player, heading the way they face.
@@ -3080,14 +3519,6 @@ public partial class Player : CharacterBody2D
 		GetNodeOrNull<CollisionShape2D>("CollisionShape2D")?.Shape is RectangleShape2D rect ? rect.Size.Y / 2f
 		: GetNodeOrNull<CollisionShape2D>("CollisionShape2D")?.Shape is CapsuleShape2D capsule ? capsule.Height / 2f
 		: 30f;
-
-	private async void CastSpell2()
-	{
-		_isCastingSpell2 = true;
-		await ToSignal(GetTree().CreateTimer(Spell2AnimDuration), SceneTreeTimer.SignalName.Timeout);
-		if (IsInstanceValid(this))
-			_isCastingSpell2 = false;
-	}
 
 	private async void RunThrust()
 	{
