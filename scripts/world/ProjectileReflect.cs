@@ -26,6 +26,35 @@ public static class ProjectileReflect
 		projectile.Modulate = ReflectedModulate;
 	}
 
+	// For distance-checked projectiles (plain Node2Ds that look the player up each frame instead of
+	// using an Area2D): the closest living enemy within radius of from, or null.
+	public static Node2D FindEnemyNear(Node2D from, float radius)
+	{
+		Node2D closest = null;
+		float closestDistance = radius;
+		foreach (Node node in from.GetTree().GetNodesInGroup("enemy"))
+		{
+			if (node is not Node2D enemy || enemy.GetNodeOrNull<Stats>("Stats") is not { CurrentHealth: > 0 })
+				continue;
+			float distance = enemy.GlobalPosition.DistanceTo(from.GlobalPosition);
+			if (distance < closestDistance)
+			{
+				closest = enemy;
+				closestDistance = distance;
+			}
+		}
+		return closest;
+	}
+
+	// A puddle left by a returned glob hurts enemies instead of the player.
+	public static void RetargetPuddle(Node puddle)
+	{
+		if (puddle is not PoisonPuddle poisonPuddle)
+			return;
+		poisonPuddle.TargetGroup = "enemy";
+		poisonPuddle.CollisionMask = EnemyLayer;
+	}
+
 	// Contact check for a returned projectile: damages and shoves an enemy body. False when body
 	// isn't a (vulnerable) enemy.
 	public static bool TryHitEnemy(Node2D body, int damage, Vector2 direction, float knockback, DamageElement element = DamageElement.Normal)

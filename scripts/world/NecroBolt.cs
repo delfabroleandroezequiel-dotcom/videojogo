@@ -27,6 +27,10 @@ public partial class NecroBolt : Node2D
 	private readonly List<Vector2> _points = new();
 	private float _age;
 	private bool _done;
+	private bool _reflected;
+	// Who a returned bolt hunts: the thrower, or the nearest enemy once the thrower is gone.
+	private Node2D _reflectTarget;
+	private const float ReflectSearchRadius = 400f;
 
 	public override void _Ready()
 	{
@@ -70,16 +74,36 @@ public partial class NecroBolt : Node2D
 			return;
 		}
 
-		// Bend toward the player, limited by the turn rate.
-		if (PlayerReads.Find(this) is { } player)
+		if (_reflected)
 		{
-			Vector2 want = (player.GlobalPosition + new Vector2(0f, -6f) - GlobalPosition).Normalized();
-			float angle = Direction.AngleTo(want);
-			float maxTurn = Mathf.DegToRad(TurnRateDegrees) * dt;
-			Direction = Direction.Rotated(Mathf.Clamp(angle, -maxTurn, maxTurn));
+			if (!IsInstanceValid(_reflectTarget) || !_reflectTarget.IsInsideTree()
+				|| _reflectTarget.GetNodeOrNull<Stats>("Stats") is not { CurrentHealth: > 0 })
+				_reflectTarget = ProjectileReflect.FindEnemyNear(this, ReflectSearchRadius);
+			if (_reflectTarget is not null)
+				SteerToward(_reflectTarget.GlobalPosition + new Vector2(0f, -6f), dt);
+			if (ProjectileReflect.FindEnemyNear(this, HitRadius + 14f) is { } enemy)
+			{
+				HitEnemy(enemy);
+				return;
+			}
+		}
+		// Bend toward the player, limited by the turn rate.
+		else if (PlayerReads.Find(this) is { } player)
+		{
+			SteerToward(player.GlobalPosition + new Vector2(0f, -6f), dt);
 
 			if (GlobalPosition.DistanceTo(player.GlobalPosition + new Vector2(0f, -6f)) < HitRadius + 14f)
 			{
+				if (ProjectileReflect.TryParry(player))
+				{
+					// Mirror back and hunt the necromancer that cast it.
+					_reflected = true;
+					_reflectTarget = ThrowerStats?.GetParent() as Node2D;
+					Direction = -Direction;
+					_age = 0f;
+					Modulate = ProjectileReflect.ReflectedModulate;
+					return;
+				}
 				HitPlayer(player);
 				return;
 			}
@@ -97,6 +121,23 @@ public partial class NecroBolt : Node2D
 		if (_points.Count > 14)
 			_points.RemoveAt(0);
 		_trail.Points = _points.ToArray();
+	}
+
+	private void SteerToward(Vector2 target, float dt)
+	{
+		Vector2 want = (target - GlobalPosition).Normalized();
+		float angle = Direction.AngleTo(want);
+		float maxTurn = Mathf.DegToRad(TurnRateDegrees) * dt;
+		Direction = Direction.Rotated(Mathf.Clamp(angle, -maxTurn, maxTurn));
+	}
+
+	private void HitEnemy(Node2D enemy)
+	{
+		int damage = Mathf.Max(1, Mathf.RoundToInt((ThrowerStats?.AttackPower ?? 10) * DamageMultiplier));
+		if (ProjectileReflect.TryHitEnemy(enemy, damage, Direction, 0f, DamageElement.Poison)
+			&& PoisonDuration > 0f && enemy.HasMethod("ApplyPoison"))
+			enemy.Call("ApplyPoison", PoisonTickDamage, PoisonTickInterval, PoisonDuration);
+		End(true);
 	}
 
 	private void HitPlayer(Metroidvania.Player.Player player)

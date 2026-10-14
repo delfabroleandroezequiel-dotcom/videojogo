@@ -16,6 +16,7 @@ public partial class CactusNeedle : Node2D
 
 	private float _age;
 	private bool _done;
+	private bool _reflected;
 
 	public override void _Ready()
 	{
@@ -57,10 +58,30 @@ public partial class CactusNeedle : Node2D
 		Rotation = Velocity.Angle();
 
 		// DamageMultiplier 0 = cosmetic spine (the thorny-hide burst).
-		if (DamageMultiplier > 0f && PlayerReads.Find(this) is { } player && GlobalPosition.DistanceTo(player.GlobalPosition) < 18f)
+		if (DamageMultiplier <= 0f)
+			return;
+		int damage = Mathf.Max(1, Mathf.RoundToInt((ThrowerStats?.AttackPower ?? 10) * DamageMultiplier));
+		if (_reflected)
 		{
+			if (ProjectileReflect.FindEnemyNear(this, 18f) is { } enemy
+				&& ProjectileReflect.TryHitEnemy(enemy, damage, Velocity.Normalized(), 0f))
+				QueueFree();
+			return;
+		}
+		if (PlayerReads.Find(this) is { } player && GlobalPosition.DistanceTo(player.GlobalPosition) < 18f)
+		{
+			if (ProjectileReflect.TryParry(player))
+			{
+				// Reversing the velocity retraces the same arc back to the thrower.
+				_reflected = true;
+				Velocity = -Velocity;
+				Rotation = Velocity.Angle();
+				_age = 0f;
+				Modulate = ProjectileReflect.ReflectedModulate;
+				return;
+			}
 			if (player.GetNodeOrNull<Stats>("Stats") is { } stats && !stats.IsInvulnerable)
-				stats.TakeDamage(Mathf.Max(1, Mathf.RoundToInt((ThrowerStats?.AttackPower ?? 10) * DamageMultiplier)), isProjectile: true);
+				stats.TakeDamage(damage, isProjectile: true);
 			QueueFree();
 		}
 	}

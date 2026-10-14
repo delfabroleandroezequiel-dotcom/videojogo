@@ -24,6 +24,7 @@ public partial class PoisonSpit : Area2D
 	private Vector2 _velocity;
 	private Stats _shooterStats;
 	private bool _splattered;
+	private bool _reflected;
 
 	public override void _Ready()
 	{
@@ -49,6 +50,18 @@ public partial class PoisonSpit : Area2D
 	private void OnBodyEntered(Node2D body)
 	{
 		Stats targetStats = body.GetNodeOrNull<Stats>("Stats");
+		if (!_reflected && targetStats is not null && targetStats != _shooterStats && ProjectileReflect.TryParry(body))
+		{
+			// Parried: reversing the velocity retraces the same arc back to the shooter. Now the
+			// player's spit, so it (and its puddle) hits enemies instead.
+			_reflected = true;
+			_velocity = -_velocity;
+			_shooterStats = targetStats;
+			PuddleTargetGroup = "enemy";
+			PuddleCollisionMask = ProjectileReflect.EnemyLayer;
+			ProjectileReflect.Retarget(this);
+			return;
+		}
 		if (targetStats is not null && targetStats != _shooterStats && !targetStats.IsInvulnerable)
 		{
 			targetStats.TakeDamage(ContactDamage, isProjectile: true, element: DamageElement.Poison);

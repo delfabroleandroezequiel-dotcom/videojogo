@@ -53,6 +53,7 @@ public partial class AssassinBlade : Area2D
 	private float _outSpeed;
 	private Vector2 _outDirection;
 	private float _hitCooldown;
+	private bool _reflected;
 
 	public override void _Ready()
 	{
@@ -182,6 +183,15 @@ public partial class AssassinBlade : Area2D
 		if (oneWay && !floor)
 			return false; // one-way platforms only catch things coming down onto them
 
+		if (_reflected)
+		{
+			// A returned blade doesn't leave a caltrop the player could step on: it just breaks.
+			_stuck = true;
+			GlobalPosition = point;
+			Finish(false, fade: 0.2f);
+			return true;
+		}
+
 		if (FlightMode == Mode.Boomerang)
 		{
 			// A wall on the way out just turns it back early.
@@ -266,19 +276,49 @@ public partial class AssassinBlade : Area2D
 
 	private void OnBodyEntered(Node2D body)
 	{
-		if (_stuck || _hitCooldown > 0f || !body.IsInGroup("player"))
+		if (_stuck || _hitCooldown > 0f)
 			return;
-		Stats stats = body.GetNodeOrNull<Stats>("Stats");
-		if (stats is null || stats.IsInvulnerable)
+		Vector2 direction = Velocity.LengthSquared() > 1f ? Velocity.Normalized() : Vector2.Right;
+		int damage = Mathf.Max(1, Mathf.RoundToInt((ThrowerStats?.AttackPower ?? 10) * DamageMultiplier));
+		if (_reflected)
+		{
+			if (ProjectileReflect.TryHitEnemy(body, damage, direction, KnockbackForce))
+			{
+				ImpactEffect.SpawnAt(this, GlobalPosition);
+				Finish(false, fade: 0.05f);
+			}
+			return;
+		}
+		if (!body.IsInGroup("player"))
 			return;
 
-		Vector2 direction = Velocity.LengthSquared() > 1f ? Velocity.Normalized() : Vector2.Right;
 		var player = body as Metroidvania.Player.Player;
 		// Coming from behind the player: the block (omnidirectional in Player) doesn't save them.
 		bool fromBehind = player is not null && (player.IsFacingRight ? direction.X > 0.2f : direction.X < -0.2f);
+		if (!fromBehind && ProjectileReflect.TryParry(body))
+		{
+			// Mirror back (a lob retraces its arc; a boomerang stops homing on its thrower and just
+			// flies straight back). A fresh Lifetime for the return trip.
+			_reflected = true;
+			Velocity = -Velocity;
+			if (FlightMode == Mode.Boomerang)
+			{
+				// It may be parried near its turnaround, almost stopped: send it back at full speed.
+				FlightMode = Mode.Straight;
+				Velocity = Velocity.Normalized() * Mathf.Max(Velocity.Length(), ReturnSpeed);
+			}
+			_sprite.FlipH = Velocity.X < 0f;
+			_age = 0f;
+			ReportResolved(false);
+			ProjectileReflect.Retarget(this);
+			return;
+		}
+
+		Stats stats = body.GetNodeOrNull<Stats>("Stats");
+		if (stats is null || stats.IsInvulnerable)
+			return;
 		bool blocked = player is not null && player.IsBlocking && !fromBehind;
 
-		int damage = Mathf.Max(1, Mathf.RoundToInt((ThrowerStats?.AttackPower ?? 10) * DamageMultiplier));
 		if (fromBehind && player is not null && player.IsBlocking)
 		{
 			Func<bool> interceptor = stats.IncomingHitInterceptor;

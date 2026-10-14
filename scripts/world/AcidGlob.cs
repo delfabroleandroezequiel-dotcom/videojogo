@@ -16,6 +16,7 @@ public partial class AcidGlob : Node2D
 	public Color GlowColor = new(0.55f, 1f, 0.25f, 1f);
 
 	private float _age;
+	private bool _reflected;
 
 	public override void _Ready()
 	{
@@ -44,6 +45,8 @@ public partial class AcidGlob : Node2D
 			if (((Vector2)hit["normal"]).Y < -0.7f && PuddleScene is not null && GetTree().CurrentScene is Node scene)
 			{
 				Node2D puddle = PuddleScene.Instantiate<Node2D>();
+				if (_reflected)
+					ProjectileReflect.RetargetPuddle(puddle);
 				scene.AddChild(puddle);
 				puddle.GlobalPosition = (Vector2)hit["position"];
 			}
@@ -52,11 +55,27 @@ public partial class AcidGlob : Node2D
 		}
 		GlobalPosition = next;
 
+		int damage = Mathf.Max(1, Mathf.RoundToInt((ThrowerStats?.AttackPower ?? 10) * DamageMultiplier));
+		if (_reflected)
+		{
+			if (ProjectileReflect.FindEnemyNear(this, 20f) is { } enemy
+				&& ProjectileReflect.TryHitEnemy(enemy, damage, Velocity.Normalized(), 0f, DamageElement.Poison))
+				QueueFree();
+			return;
+		}
 		if (PlayerReads.Find(this) is { } player && GlobalPosition.DistanceTo(player.GlobalPosition) < 20f)
 		{
+			if (ProjectileReflect.TryParry(player))
+			{
+				// Reversing the velocity retraces the same arc back to the slime.
+				_reflected = true;
+				Velocity = -Velocity;
+				_age = 0f;
+				Modulate = ProjectileReflect.ReflectedModulate;
+				return;
+			}
 			if (player.GetNodeOrNull<Stats>("Stats") is { } stats && !stats.IsInvulnerable)
-				stats.TakeDamage(Mathf.Max(1, Mathf.RoundToInt((ThrowerStats?.AttackPower ?? 10) * DamageMultiplier)),
-					isProjectile: true, element: DamageElement.Poison);
+				stats.TakeDamage(damage, isProjectile: true, element: DamageElement.Poison);
 			QueueFree();
 		}
 	}

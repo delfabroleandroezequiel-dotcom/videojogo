@@ -19,13 +19,15 @@ public partial class ZombieSpit : Node2D
 	public Color GlowColor = new(0.45f, 1f, 0.55f, 1f);
 
 	private float _age;
+	private bool _reflected;
+	private AnimatedSprite2D _sprite;
 
 	public override void _Ready()
 	{
 		var additive = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
 		var dot = GD.Load<Texture2D>("res://resources/particles/SoftDotGradient.tres");
 		AddChild(new Sprite2D { Texture = dot, Material = additive, Modulate = new Color(GlowColor, 0.6f), Scale = Vector2.One * 0.2f });
-		var sprite = new AnimatedSprite2D
+		_sprite = new AnimatedSprite2D
 		{
 			SpriteFrames = GD.Load<SpriteFrames>(FramesPath),
 			Scale = new Vector2(VisualScale, VisualScale),
@@ -33,8 +35,8 @@ public partial class ZombieSpit : Node2D
 			Position = new Vector2(1.5f * VisualScale, 1f * VisualScale),
 			FlipH = Velocity.X < 0f,
 		};
-		AddChild(sprite);
-		sprite.Play("fly");
+		AddChild(_sprite);
+		_sprite.Play("fly");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -64,6 +66,8 @@ public partial class ZombieSpit : Node2D
 			if (((Vector2)hit["normal"]).Y < -0.7f && PuddleScene is not null && GetTree().CurrentScene is Node scene)
 			{
 				Node2D puddle = PuddleScene.Instantiate<Node2D>();
+				if (_reflected)
+					ProjectileReflect.RetargetPuddle(puddle);
 				scene.AddChild(puddle);
 				puddle.GlobalPosition = at;
 			}
@@ -73,11 +77,28 @@ public partial class ZombieSpit : Node2D
 		GlobalPosition = next;
 		Rotation = Velocity.X < 0f ? Velocity.Angle() - Mathf.Pi : Velocity.Angle();
 
+		int damage = Mathf.Max(1, Mathf.RoundToInt((ThrowerStats?.AttackPower ?? 10) * DamageMultiplier));
+		if (_reflected)
+		{
+			if (ProjectileReflect.FindEnemyNear(this, 20f) is { } enemy
+				&& ProjectileReflect.TryHitEnemy(enemy, damage, Velocity.Normalized(), 0f, DamageElement.Poison))
+				QueueFree();
+			return;
+		}
 		if (PlayerReads.Find(this) is { } player && GlobalPosition.DistanceTo(player.GlobalPosition) < 20f)
 		{
+			if (ProjectileReflect.TryParry(player))
+			{
+				// Reversing the velocity retraces the same arc back to the thrower.
+				_reflected = true;
+				Velocity = -Velocity;
+				_sprite.FlipH = Velocity.X < 0f;
+				_age = 0f;
+				Modulate = ProjectileReflect.ReflectedModulate;
+				return;
+			}
 			if (player.GetNodeOrNull<Stats>("Stats") is { } stats && !stats.IsInvulnerable)
-				stats.TakeDamage(Mathf.Max(1, Mathf.RoundToInt((ThrowerStats?.AttackPower ?? 10) * DamageMultiplier)),
-					isProjectile: true, element: DamageElement.Poison);
+				stats.TakeDamage(damage, isProjectile: true, element: DamageElement.Poison);
 			QueueFree();
 		}
 	}
