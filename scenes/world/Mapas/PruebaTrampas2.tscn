@@ -1,0 +1,215 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_camera"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniCorridor.tscn" id="4_corridor"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SpikeAccordion.tscn" id="6_spikes"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CrushingPlatform.tscn" id="7_crusher"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PendulumTrap.tscn" id="8_pendulum"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ArrowTrap.tscn" id="10_arrowtrap"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MovingPlatform.tscn" id="11_moving"]
+[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="12_transition"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido4.tscn" id="13_bandido4"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido5.tscn" id="14_bandido5"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido6.tscn" id="15_bandido6"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido7.tscn" id="16_bandido7"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BatEnemy.tscn" id="17_bat"]
+
+[node name="PruebaTrampas2" type="Node2D"]
+script = ExtResource("1_bootstrap")
+ScenePath = "res://scenes/world/Mapas/PruebaTrampas2.tscn"
+ZoneName = ""
+CameraProfile = ExtResource("2_camera")
+CameraLimitLeft = -100
+CameraLimitRight = 2800
+CameraLimitTop = -520
+CameraLimitBottom = 260
+
+[node name="Fondo" type="ColorRect" parent="."]
+z_index = -50
+offset_left = -400.0
+offset_top = -800.0
+offset_right = 3200.0
+offset_bottom = 600.0
+color = Color(0.09, 0.1, 0.13, 1)
+
+[node name="Greybox" type="Node2D" parent="."]
+
+[node name="ParedIzquierda" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(-10, -420)
+Orientation = 1
+Length = 460.0
+Thickness = 20.0
+
+[node name="SueloA" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(-20, 0)
+Length = 1840.0
+Thickness = 40.0
+
+[node name="Repisa" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(900, -80)
+Length = 300.0
+Thickness = 80.0
+
+[node name="PozoParedIzquierda" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(1830, 0)
+Orientation = 1
+Length = 140.0
+Thickness = 20.0
+
+[node name="PozoFondo" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(1820, 130)
+Length = 230.0
+Thickness = 30.0
+
+[node name="PozoParedDerecha" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(2040, 0)
+Orientation = 1
+Length = 140.0
+Thickness = 20.0
+
+[node name="SueloB" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(2030, 0)
+Length = 690.0
+Thickness = 40.0
+
+[node name="ParedDerecha" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(2710, -420)
+Orientation = 1
+Length = 460.0
+Thickness = 20.0
+
+[node name="Visible" type="Node2D" parent="."]
+z_index = -5
+
+[node name="ParedIzquierda" type="ColorRect" parent="Visible"]
+offset_left = -20.0
+offset_top = -420.0
+offset_right = 0.0
+offset_bottom = 40.0
+color = Color(0.42, 0.43, 0.48, 1)
+
+[node name="SueloA" type="ColorRect" parent="Visible"]
+offset_left = -20.0
+offset_right = 1820.0
+offset_bottom = 40.0
+color = Color(0.42, 0.43, 0.48, 1)
+
+[node name="Repisa" type="ColorRect" parent="Visible"]
+offset_left = 900.0
+offset_top = -80.0
+offset_right = 1200.0
+offset_bottom = 0.0
+color = Color(0.48, 0.49, 0.54, 1)
+
+[node name="PozoParedIzquierda" type="ColorRect" parent="Visible"]
+offset_left = 1820.0
+offset_right = 1840.0
+offset_bottom = 140.0
+color = Color(0.42, 0.43, 0.48, 1)
+
+[node name="PozoFondo" type="ColorRect" parent="Visible"]
+offset_left = 1820.0
+offset_top = 130.0
+offset_right = 2050.0
+offset_bottom = 160.0
+color = Color(0.42, 0.43, 0.48, 1)
+
+[node name="PozoParedDerecha" type="ColorRect" parent="Visible"]
+offset_left = 2030.0
+offset_right = 2050.0
+offset_bottom = 140.0
+color = Color(0.42, 0.43, 0.48, 1)
+
+[node name="SueloB" type="ColorRect" parent="Visible"]
+offset_left = 2030.0
+offset_right = 2720.0
+offset_bottom = 40.0
+color = Color(0.42, 0.43, 0.48, 1)
+
+[node name="ParedDerecha" type="ColorRect" parent="Visible"]
+offset_left = 2700.0
+offset_top = -420.0
+offset_right = 2720.0
+offset_bottom = 40.0
+color = Color(0.42, 0.43, 0.48, 1)
+
+[node name="Trampas" type="Node2D" parent="."]
+
+[node name="PinchosRepisa" parent="Trampas" instance=ExtResource("6_spikes")]
+position = Vector2(600, 0)
+Count = 3
+Spacing = 100.0
+StaggerStep = 0.6
+
+[node name="PenduloArena" parent="Trampas" instance=ExtResource("8_pendulum")]
+position = Vector2(1520, -330)
+ChainLength = 240.0
+MaxAngleDegrees = 40.0
+SwingPeriod = 2.8
+
+[node name="PlataformaPozo" parent="Trampas" instance=ExtResource("11_moving")]
+position = Vector2(1880, -10)
+PointBOffset = Vector2(110, 0)
+Speed = 60.0
+WaitTimeAtPoints = 0.4
+
+[node name="PinchosPozo" parent="Trampas" instance=ExtResource("6_spikes")]
+position = Vector2(1880, 130)
+Count = 2
+Spacing = 110.0
+StaggerStep = 0.0
+
+[node name="AplastadorEmboscada" parent="Trampas" instance=ExtResource("7_crusher")]
+position = Vector2(2160, -170)
+Size = Vector2(96, 96)
+InstantKill = false
+Damage = 40
+
+[node name="Bloque" type="ColorRect" parent="Trampas/AplastadorEmboscada/Skin"]
+offset_left = -48.0
+offset_top = -48.0
+offset_right = 48.0
+offset_bottom = 48.0
+color = Color(0.55, 0.32, 0.3, 1)
+
+[node name="FlechaFinal" parent="Trampas" instance=ExtResource("10_arrowtrap")]
+position = Vector2(2690, -24)
+Direction = Vector2(-1, 0)
+FireInterval = 2.6
+MaxDistance = 560.0
+
+[node name="Enemigos" type="Node2D" parent="."]
+
+[node name="BandidoRaso" parent="Enemigos" instance=ExtResource("13_bandido4")]
+position = Vector2(470, -60)
+
+[node name="Asesina" parent="Enemigos" instance=ExtResource("15_bandido6")]
+position = Vector2(1100, -140)
+
+[node name="Salvaje" parent="Enemigos" instance=ExtResource("14_bandido5")]
+position = Vector2(1650, -60)
+
+[node name="Murcielago" parent="Enemigos" instance=ExtResource("17_bat")]
+position = Vector2(2350, -220)
+
+[node name="Pesado" parent="Enemigos" instance=ExtResource("16_bandido7")]
+position = Vector2(2480, -60)
+
+[node name="VolverATrampas1" parent="." instance=ExtResource("12_transition")]
+position = Vector2(20, -200)
+TargetScenePath = "res://scenes/world/Mapas/PruebaTrampas1.tscn"
+TargetSpawnPosition = Vector2(2560, -40)
+Width = 30.0
+Height = 400.0
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+position = Vector2(120, -40)
+
+[node name="IrATrampas3" parent="." instance=ExtResource("12_transition")]
+position = Vector2(2675, -200)
+TargetScenePath = "res://scenes/world/Mapas/PruebaTrampas3.tscn"
+TargetSpawnPosition = Vector2(120, -40)
+Width = 30.0
+Height = 400.0

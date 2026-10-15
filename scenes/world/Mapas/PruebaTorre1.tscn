@@ -1,0 +1,202 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_camera"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniCorridor.tscn" id="4_corridor"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniPlataforma.tscn" id="5_plataforma"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SpikeAccordion.tscn" id="6_spikes"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/AscensorNeon.tscn" id="7_ascensor"]
+[ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="8_ladder"]
+[ext_resource type="PackedScene" path="res://scenes/world/Lever.tscn" id="9_lever"]
+[ext_resource type="PackedScene" path="res://scenes/world/SavePoint.tscn" id="11_savepoint"]
+[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="12_transition"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido4.tscn" id="13_bandido4"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido6.tscn" id="14_bandido6"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido7.tscn" id="15_bandido7"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemy.tscn" id="16_spider"]
+
+[node name="PruebaTorre1" type="Node2D"]
+script = ExtResource("1_bootstrap")
+ScenePath = "res://scenes/world/Mapas/PruebaTorre1.tscn"
+ZoneName = ""
+CameraProfile = ExtResource("2_camera")
+CameraLimitLeft = -100
+CameraLimitRight = 2150
+CameraLimitTop = -1040
+CameraLimitBottom = 160
+
+[node name="Fondo" type="ColorRect" parent="."]
+z_index = -50
+offset_left = -400.0
+offset_top = -1400.0
+offset_right = 2600.0
+offset_bottom = 600.0
+color = Color(0.09, 0.1, 0.13, 1)
+
+[node name="Greybox" type="Node2D" parent="."]
+
+[node name="ParedIzquierda" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(-10, -940)
+Orientation = 1
+Length = 980.0
+Thickness = 20.0
+
+[node name="Piso0Suelo" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(-20, 0)
+Length = 730.0
+Thickness = 40.0
+
+[node name="Piso0ParedDerecha" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(700, -260)
+Orientation = 1
+Length = 280.0
+Thickness = 20.0
+
+[node name="Piso1Suelo" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(570, -300)
+Length = 1490.0
+Thickness = 40.0
+
+[node name="Piso1Entrepiso" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(1750, -480)
+Length = 300.0
+Thickness = 20.0
+
+[node name="Piso1ParedDerecha" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(2050, -600)
+Orientation = 1
+Length = 340.0
+Thickness = 20.0
+
+[node name="Piso2SueloIzquierdo" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(300, -600)
+Length = 400.0
+Thickness = 40.0
+
+[node name="Piso2SueloDerecho" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(800, -600)
+Length = 1260.0
+Thickness = 40.0
+
+[node name="Trampilla" parent="Greybox" instance=ExtResource("5_plataforma")]
+position = Vector2(0, -600)
+Length = 300.0
+Thickness = 16.0
+OneWay = true
+
+[node name="Piso2Techo" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(-20, -940)
+Length = 1390.0
+Thickness = 40.0
+
+[node name="Piso2ParedDerecha" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(1360, -900)
+Orientation = 1
+Length = 300.0
+Thickness = 20.0
+
+[node name="Visible" type="Node2D" parent="."]
+z_index = -5
+
+[node name="ParedIzquierda" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(-20.0, -940.0, 0.0, -940.0, 0.0, 40.0, -20.0, 40.0)
+
+[node name="Piso0Suelo" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(-20.0, 0.0, 710.0, 0.0, 710.0, 40.0, -20.0, 40.0)
+
+[node name="Piso0ParedDerecha" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(690.0, -260.0, 710.0, -260.0, 710.0, 20.0, 690.0, 20.0)
+
+[node name="Piso1Suelo" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(570.0, -300.0, 2060.0, -300.0, 2060.0, -260.0, 570.0, -260.0)
+
+[node name="Piso1Entrepiso" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(1750.0, -480.0, 2050.0, -480.0, 2050.0, -460.0, 1750.0, -460.0)
+
+[node name="Piso1ParedDerecha" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(2040.0, -600.0, 2060.0, -600.0, 2060.0, -260.0, 2040.0, -260.0)
+
+[node name="Piso2SueloIzquierdo" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(300.0, -600.0, 700.0, -600.0, 700.0, -560.0, 300.0, -560.0)
+
+[node name="Piso2SueloDerecho" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(800.0, -600.0, 2060.0, -600.0, 2060.0, -560.0, 800.0, -560.0)
+
+[node name="Trampilla" type="Polygon2D" parent="Visible"]
+color = Color(0.6, 0.6, 0.66, 1)
+polygon = PackedVector2Array(0.0, -600.0, 300.0, -600.0, 300.0, -584.0, 0.0, -584.0)
+
+[node name="Piso2Techo" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(-20.0, -940.0, 1370.0, -940.0, 1370.0, -900.0, -20.0, -900.0)
+
+[node name="Piso2ParedDerecha" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(1350.0, -900.0, 1370.0, -900.0, 1370.0, -600.0, 1350.0, -600.0)
+
+[node name="Santuario" parent="." instance=ExtResource("11_savepoint")]
+position = Vector2(150, 0)
+
+[node name="Ascensores" type="Node2D" parent="."]
+
+[node name="ElevadorA" parent="Ascensores" instance=ExtResource("7_ascensor")]
+position = Vector2(520, 6)
+TravelDistance = 300.0
+PointStart = 0.0
+Speed = 90.0
+
+[node name="ElevadorB" parent="Ascensores" instance=ExtResource("7_ascensor")]
+position = Vector2(750, -594)
+TravelDistance = -300.0
+PointStart = 0.0
+Speed = 90.0
+
+[node name="EscaleraEntrepiso" parent="." instance=ExtResource("8_ladder")]
+position = Vector2(1720, -410)
+Length = 220.0
+
+[node name="PalancaElevadorB" parent="." instance=ExtResource("9_lever")]
+position = Vector2(1960, -496)
+ElevatorPath = NodePath("../Ascensores/ElevadorB")
+CallsToTop = true
+
+[node name="Trampas" type="Node2D" parent="."]
+
+[node name="PinchosAla" parent="Trampas" instance=ExtResource("6_spikes")]
+position = Vector2(1300, -300)
+Count = 2
+Spacing = 100.0
+StaggerStep = 0.6
+
+[node name="Enemigos" type="Node2D" parent="."]
+
+[node name="AraniaInicio" parent="Enemigos" instance=ExtResource("16_spider")]
+position = Vector2(380, -40)
+
+[node name="BandidoAla" parent="Enemigos" instance=ExtResource("13_bandido4")]
+position = Vector2(1050, -360)
+
+[node name="AsesinaEntrepiso" parent="Enemigos" instance=ExtResource("14_bandido6")]
+position = Vector2(1880, -540)
+
+[node name="PesadoSalida" parent="Enemigos" instance=ExtResource("15_bandido7")]
+position = Vector2(1150, -660)
+
+[node name="SalidaADiagonal" parent="." instance=ExtResource("12_transition")]
+position = Vector2(1330, -750)
+TargetScenePath = "res://scenes/world/Mapas/PruebaDiagonal1.tscn"
+TargetSpawnPosition = Vector2(60, -40)
+Width = 30.0
+Height = 300.0
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+position = Vector2(80, -40)
