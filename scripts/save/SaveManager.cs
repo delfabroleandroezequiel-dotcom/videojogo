@@ -38,8 +38,10 @@ public partial class SaveManager : Node
 
 	// Same idea, for the fire transformation and the torch — both are pure Player-instance
 	// state today (no signal to piggyback on like Health/HealCharges), so Player writes
-	// these directly wherever CycleElement/the torch toggle mutate them.
+	// these directly wherever SetElement/the torch toggle mutate them.
 	public DamageElement? SessionElement { get; set; }
+	// Seconds left on the resin behind SessionElement (Player counts it down while unpaused).
+	public float SessionImbueTimeLeft { get; set; }
 	public bool? SessionTorchEquipped { get; set; }
 	// Selected tornado variant (Player.TornadoVariant as int), so the choice survives map changes.
 	public int? SessionTornadoVariant { get; set; }
@@ -89,6 +91,133 @@ public partial class SaveManager : Node
 		Gold -= amount;
 		EmitSignal(SignalName.GoldChanged, Gold);
 		return true;
+	}
+
+	// Ecos: earned by killing enemies, spent at lit save points on stat levels (LevelUpUI). Dying
+	// drops all of them where the player last stood on the floor; reaching that spot recovers them,
+	// dying again first loses them for good (souls-style). Persisted at checkpoints like Gold.
+	[Signal] public delegate void EcosChangedEventHandler(int ecos);
+
+	public int Ecos { get; private set; }
+	public int DroppedEcos { get; private set; }
+	public string DroppedEcosScene { get; private set; } = "";
+	public Vector2 DroppedEcosPosition { get; private set; }
+	private readonly Dictionary<string, int> _statLevels = new();
+
+	public void AddEcos(int amount)
+	{
+		if (amount <= 0)
+			return;
+		Ecos += amount;
+		EmitSignal(SignalName.EcosChanged, Ecos);
+	}
+
+	public bool SpendEcos(int amount)
+	{
+		if (amount <= 0 || Ecos < amount)
+			return false;
+		Ecos -= amount;
+		EmitSignal(SignalName.EcosChanged, Ecos);
+		return true;
+	}
+
+	// Replaces any earlier unrecovered drop (that one is lost).
+	public void DropEcosOnDeath(string scenePath, Vector2 position)
+	{
+		DroppedEcos = Ecos;
+		DroppedEcosScene = Ecos > 0 ? scenePath : "";
+		DroppedEcosPosition = position;
+		Ecos = 0;
+		EmitSignal(SignalName.EcosChanged, Ecos);
+	}
+
+	public void RecoverDroppedEcos()
+	{
+		int amount = DroppedEcos;
+		DroppedEcos = 0;
+		DroppedEcosScene = "";
+		AddEcos(amount);
+	}
+
+	public int GetStatLevel(string statId) => _statLevels.GetValueOrDefault(statId);
+	public IReadOnlyDictionary<string, int> GetStatLevels() => _statLevels;
+
+	public int TotalStatLevel
+	{
+		get
+		{
+			int total = 0;
+			foreach (int level in _statLevels.Values)
+				total += level;
+			return total;
+		}
+	}
+
+	// Pays for one level of statId at the current price; false when short of Ecos.
+	public bool BuyStatLevel(string statId)
+	{
+		if (!SpendEcos(LevelingConfig.Get().CostForTotalLevel(TotalStatLevel)))
+			return false;
+		_statLevels[statId] = GetStatLevel(statId) + 1;
+		return true;
+	}
+
+	// Quick bar: QuickSlotCount slots the player fills from the inventory with consumables (resins
+	// and later others); one is selected, the quick-use key uses it, the quick-cycle key moves the
+	// selection to the next filled slot (see Player.UseQuickSlot / QuickSlotHud).
+	public const int QuickSlotCount = 4;
+	private readonly string[] _quickSlots = { "", "", "", "" };
+	public int SelectedQuickSlot { get; private set; }
+	[Signal] public delegate void QuickSlotsChangedEventHandler();
+
+	public string GetQuickSlot(int index) => index >= 0 && index < QuickSlotCount ? _quickSlots[index] : "";
+	public int FindQuickSlot(string itemId) => System.Array.IndexOf(_quickSlots, itemId);
+	public string SelectedQuickItem => _quickSlots[SelectedQuickSlot];
+
+	// Into the first empty slot (selected if nothing was); false when the bar is full or it's already in.
+	public bool AssignQuickSlot(string itemId)
+	{
+		if (FindQuickSlot(itemId) >= 0)
+			return false;
+		int free = System.Array.IndexOf(_quickSlots, "");
+		if (free < 0)
+			return false;
+		_quickSlots[free] = itemId;
+		if (SelectedQuickItem == "")
+			SelectedQuickSlot = free;
+		EmitSignal(SignalName.QuickSlotsChanged);
+		return true;
+	}
+
+	public void ClearQuickSlot(string itemId)
+	{
+		int index = FindQuickSlot(itemId);
+		if (index < 0)
+			return;
+		_quickSlots[index] = "";
+		EmitSignal(SignalName.QuickSlotsChanged);
+	}
+
+	public void CycleQuickSlot()
+	{
+		for (int step = 1; step <= QuickSlotCount; step++)
+		{
+			int index = (SelectedQuickSlot + step) % QuickSlotCount;
+			if (_quickSlots[index] != "")
+			{
+				SelectedQuickSlot = index;
+				break;
+			}
+		}
+		EmitSignal(SignalName.QuickSlotsChanged);
+	}
+
+	private void RestoreQuickSlots(List<string> slots, int selected)
+	{
+		for (int i = 0; i < QuickSlotCount; i++)
+			_quickSlots[i] = slots is not null && i < slots.Count ? slots[i] ?? "" : "";
+		SelectedQuickSlot = Mathf.Clamp(selected, 0, QuickSlotCount - 1);
+		EmitSignal(SignalName.QuickSlotsChanged);
 	}
 
 	public bool IsPickupCollected(string id) => _collectedPickups.Contains(id);
@@ -306,6 +435,11 @@ public partial class SaveManager : Node
 		_maxHealCharges = 1;
 		StoryStage = 0;
 		Gold = 0;
+		Ecos = 0;
+		DroppedEcos = 0;
+		DroppedEcosScene = "";
+		_statLevels.Clear();
+		RestoreQuickSlots(null, 0);
 		Reputation = 0;
 		CompanionRecruited = false;
 		SessionCurrentHealth = null;
@@ -446,6 +580,16 @@ public partial class SaveManager : Node
 		Reputation = PendingLoad.Reputation;
 		CompanionRecruited = PendingLoad.CompanionRecruited;
 		EmitSignal(SignalName.GoldChanged, Gold);
+		Ecos = PendingLoad.Ecos;
+		DroppedEcos = PendingLoad.DroppedEcos;
+		DroppedEcosScene = PendingLoad.DroppedEcosScene ?? "";
+		DroppedEcosPosition = new Vector2(PendingLoad.DroppedEcosX, PendingLoad.DroppedEcosY);
+		_statLevels.Clear();
+		if (PendingLoad.StatLevels is not null)
+			foreach (KeyValuePair<string, int> entry in PendingLoad.StatLevels)
+				_statLevels[entry.Key] = entry.Value;
+		EmitSignal(SignalName.EcosChanged, Ecos);
+		RestoreQuickSlots(PendingLoad.QuickSlots, PendingLoad.SelectedQuickSlot);
 		EnemyRandomizerEnabled = PendingLoad.EnemyRandomizerEnabled;
 		RandomizerSeed = PendingLoad.RandomizerSeed;
 

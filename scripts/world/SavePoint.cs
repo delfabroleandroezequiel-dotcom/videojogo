@@ -71,7 +71,7 @@ public partial class SavePoint : Area2D
 		if (!_isLit)
 			ConfirmPrompt.Instance.Show("SAVEPOINT_LIGHT_CONFIRM", OnLightConfirmed);
 		else
-			ConfirmPrompt.Instance.Show("SAVEPOINT_REST_CONFIRM", Rest);
+			LevelUpUI.Open(this, Rest);
 	}
 
 	private void OnLightConfirmed()

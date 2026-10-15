@@ -1,4 +1,5 @@
 using Godot;
+using Metroidvania.Shared;
 
 namespace Metroidvania.Items;
 
@@ -9,7 +10,10 @@ public enum ItemType
 	Quest,
 	Lore,
 	HealUpgrade,
-	Key
+	Key,
+	// Used up from the quick slots or the inventory (see Player.UseConsumable); what it does comes
+	// from its fields below (e.g. ImbueElement for the resins).
+	Consumable
 }
 
 [GlobalClass]
@@ -31,4 +35,8 @@ public partial class Item : Resource
 	[Export] public int StaminaBonus;
 	[Export] public int AttackBonus;
 	[Export] public int DefenseBonus;
+
+	// Consumable resins: coats the sword in this element for ImbueDuration seconds (Normal = not a resin).
+	[Export] public DamageElement ImbueElement = DamageElement.Normal;
+	[Export] public float ImbueDuration = 60f;
 }

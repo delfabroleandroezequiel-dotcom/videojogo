@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Item" format=3]
+
+[ext_resource type="Script" uid="uid://c7k8nu6e2htri" path="res://scripts/items/Item.cs" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+Id = "item_resin_fire"
+ItemName = "ITEM_RESIN_FIRE_NAME"
+Description = "ITEM_RESIN_FIRE_DESC"
+Type = 6
+Stackable = true
+ImbueElement = 1
+ImbueDuration = 60.0

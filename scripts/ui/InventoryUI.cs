@@ -117,6 +117,7 @@ public partial class InventoryUI : CanvasLayer
 			ItemType.Ring => "UI_INVENTORY_TAG_RING",
 			ItemType.Quest => "UI_INVENTORY_TAG_QUEST",
 			ItemType.Key => "UI_INVENTORY_TAG_KEY",
+			ItemType.Consumable => "UI_INVENTORY_TAG_CONSUMABLE",
 			_ => "UI_INVENTORY_TAG_LORE",
 		});
 		string itemName = TranslationServer.Translate(item.ItemName);
@@ -155,6 +156,37 @@ public partial class InventoryUI : CanvasLayer
 			row.AddChild(button);
 		}
 
+		if (item.Type == ItemType.Consumable)
+		{
+			Button use = SmallButton("UI_INVENTORY_USE");
+			use.Pressed += () =>
+			{
+				if (GetTree().GetFirstNodeInGroup("player") is Metroidvania.Player.Player player && player.UseConsumable(item))
+					Refresh();
+			};
+			row.AddChild(use);
+
+			bool inBar = SaveManager.Instance.FindQuickSlot(item.Id) >= 0;
+			Button bar = SmallButton(inBar ? "UI_INVENTORY_UNASSIGN" : "UI_INVENTORY_ASSIGN");
+			bar.Pressed += () =>
+			{
+				if (inBar)
+					SaveManager.Instance.ClearQuickSlot(item.Id);
+				else
+					SaveManager.Instance.AssignQuickSlot(item.Id);
+				Refresh();
+			};
+			row.AddChild(bar);
+		}
+
 		return row;
 	}
+
+	private static Button SmallButton(string textKey) => new()
+	{
+		Text = textKey,
+		ThemeTypeVariation = "SmallButton",
+		CustomMinimumSize = new Vector2(120, 0),
+		SizeFlagsVertical = Control.SizeFlags.ShrinkCenter,
+	};
 }

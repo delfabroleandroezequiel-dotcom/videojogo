@@ -251,6 +251,7 @@ public partial class Enemy : CharacterBody2D
 		_ledgeCheck = GetNodeOrNull<RayCast2D>("LedgeCheck");
 		CacheBodyExtents();
 		Stats.Died += OnDefeated;
+		Stats.Died += GrantEcos;
 		Stats.HitTaken += _ => _lureImmuneUntilMsec = Time.GetTicksMsec() + LureImmunityMsec;
 		// Killed while frozen (stunned, mid-execution): wake up so the death plays out.
 		Stats.Died += () =>
@@ -310,6 +311,23 @@ public partial class Enemy : CharacterBody2D
 	// staying stuck until the next level load) — dying always frees a held slot immediately
 	// instead of leaving every other enemy waiting on one that's never coming back.
 	protected bool HoldingAttackSlot;
+
+	// Ecos for the kill, straight into the player's count. < 0 = derived from max health (see
+	// LevelingConfig.EcosPerEnemyHealth). Summoners clear GrantsEcos on what they raise, so an
+	// endless summon can't be farmed.
+	[Export] public int EcosReward = -1;
+	public bool GrantsEcos { get; set; } = true;
+
+	private void GrantEcos()
+	{
+		if (!GrantsEcos)
+			return;
+		LevelingConfig config = LevelingConfig.Get();
+		int reward = EcosReward >= 0
+			? EcosReward
+			: Mathf.Max(config.MinEcosReward, Mathf.RoundToInt(Stats.MaxHealth * config.EcosPerEnemyHealth));
+		SaveManager.Instance.AddEcos(reward);
+	}
 
 	protected virtual bool IsDefeated() => SaveManager.Instance.IsCommonEnemyDefeated(PersistenceId);
 

@@ -152,6 +152,8 @@ public partial class SpiderBossArena : SpiderBoss
 	private void SpawnFallingSpider(int slot)
 	{
 		Node instance = FallingSpiderScene.Instantiate();
+		if (instance is Enemy summoned)
+			summoned.GrantsEcos = false;
 		GetTree().CurrentScene.AddChild(instance);
 		if (instance is not Node2D spider2D)
 			return;

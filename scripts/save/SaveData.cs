@@ -35,6 +35,17 @@ public class SaveData
 	// Bastón: summon slots (max 5) — enemy scene path → stored uses (unlimited, farmable).
 	public Dictionary<string, int> ShadowUses { get; set; } = new();
 	public int Reputation { get; set; }
+	// Additive (older saves load as 0 / empty). Ecos = the stat-leveling currency; StatLevels =
+	// StatIds → levels bought. DroppedEcos* = what the last death left behind, if not picked up yet.
+	public int Ecos { get; set; }
+	public Dictionary<string, int> StatLevels { get; set; } = new();
+	public int DroppedEcos { get; set; }
+	public string DroppedEcosScene { get; set; } = "";
+	public float DroppedEcosX { get; set; }
+	public float DroppedEcosY { get; set; }
+	// Additive: the quick bar's item ids, one per slot ("" = empty), and which slot is selected.
+	public List<string> QuickSlots { get; set; } = new();
+	public int SelectedQuickSlot { get; set; }
 
 	// Decided once at New Game creation and never changed mid-save — see SaveManager.
 	public bool EnemyRandomizerEnabled { get; set; }

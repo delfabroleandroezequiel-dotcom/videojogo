@@ -111,6 +111,7 @@ public partial class GraveTombstone : Node2D
 			|| MinionScene.Instantiate() is not GraveSwordsman skeleton)
 			return;
 		skeleton.Summoned = true;
+		skeleton.GrantsEcos = false;
 		skeleton.CustomPersistenceId = GraveSwordsman.SummonPersistenceId;
 		scene.AddChild(skeleton);
 		float halfHeight = skeleton.GetNodeOrNull<CollisionShape2D>("CollisionShape2D")?.Shape is RectangleShape2D rect ? rect.Size.Y * 0.5f : 28f;

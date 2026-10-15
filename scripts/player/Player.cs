@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
+using Metroidvania.Items;
 using Metroidvania.Save;
 using Metroidvania.Shared;
 using Metroidvania.UI;
@@ -151,6 +152,12 @@ public partial class Player : CharacterBody2D
 	[Export] public float ChargedAttackDuration = 2f;
 	[Export] public Vector2 ChargedAttackHitboxSize = new(90f, 50f);
 	[Export] public float ChargedAttackReach = 60f;
+	// Sō Ryū Sen (Kenshin's twin dragon flash): when the charged draw hits nothing, a wider spin
+	// (attack2) follows SoRyuSenDelay later. Set by hand until the skill tree grants it.
+	[Export] public bool SoRyuSenEnabled = true;
+	[Export] public float SoRyuSenDelay = 0.08f;
+	[Export] public Vector2 SoRyuSenHitboxSize = new(110f, 56f);
+	[Export] public float SoRyuSenReach = 40f;
 	// Blink tint shown once the charge is full (the only charge feedback).
 	[Export] public Color ChargedReadyBlinkColor = new(1f, 0.25f, 0.25f, 1f);
 	// Sword-tip path for the charged attack's neon trail, in the "charged_attack" sprite frame's
@@ -253,12 +260,14 @@ public partial class Player : CharacterBody2D
 	[Export] public float ShadowDecoyBigBurstRadius = 120f;
 	[Export] public float ShadowDecoyBigBurstDamageMultiplier = 2.5f;
 	// Clon eco: appears with the player and copies them live, ShadowEchoDelay seconds behind, for
-	// ShadowEchoDuration (ShadowEchoLongDuration from +1). +2 is meant to echo parries too (not built
-	// yet); +3 adds a second echo at twice the delay.
+	// ShadowEchoDuration (ShadowEchoLongDuration from +1). +2 echoes parries too (a hit on the player
+	// within ShadowEchoParryRadius of an echo replaying a parry is parried); +3 adds a second echo at
+	// twice the delay.
 	[Export(PropertyHint.Range, "0,3")] public int ShadowEchoLevel;
 	[Export] public float ShadowEchoDelay = 0.35f;
 	[Export] public float ShadowEchoDuration = 4f;
 	[Export] public float ShadowEchoLongDuration = 8f;
+	[Export] public float ShadowEchoParryRadius = 110f;
 	// Clon manipulable: steered for ShadowPuppetDuration (ShadowPuppetLongDuration from +1, which also
 	// unlocks its combo). +2 is meant to parry (not built yet); +3 bursts when it ends.
 	[Export(PropertyHint.Range, "0,3")] public int ShadowPuppetLevel;
@@ -266,6 +275,22 @@ public partial class Player : CharacterBody2D
 	[Export] public float ShadowPuppetLongDuration = 9f;
 	[Export] public float ShadowPuppetBurstRadius = 90f;
 	[Export] public float ShadowPuppetBurstDamageMultiplier = 2f;
+	// Clon embestida: shoots forward ShadowRushDistance at ShadowRushSpeed, cutting everything it
+	// passes (stops on walls). +1 = Meteoros de Pegaso: it stops on the first enemy it touches and
+	// lands ShadowRushMeteorHits hits of AttackPower × ShadowRushMeteorDamageMultiplier on it.
+	[Export(PropertyHint.Range, "0,1")] public int ShadowRushLevel;
+	[Export] public float ShadowRushSpeed = 620f;
+	[Export] public float ShadowRushDistance = 260f;
+	[Export] public int ShadowRushMeteorHits = 10;
+	[Export] public float ShadowRushMeteorDuration = 0.6f;
+	[Export] public float ShadowRushMeteorDamageMultiplier = 0.3f;
+	[Export] public float ShadowRushMeteorRange = 70f;
+	// Clon centinela: planted where cast for ShadowSentinelDuration; the first hit that would land on
+	// the player within ShadowSentinelGuardRadius of it is parried by it instead, then it counters
+	// the nearest enemy within ShadowSentinelCounterRange with one swing.
+	[Export] public float ShadowSentinelDuration = 6f;
+	[Export] public float ShadowSentinelGuardRadius = 110f;
+	[Export] public float ShadowSentinelCounterRange = 160f;
 	// Tornado spell (key 1, "spell_tornado"): a procedural Tornado that travels forward, hitting every
 	// enemy inside it each tick for AttackPower × TornadoDamageMultiplier (it never moves them).
 	[Export] public int TornadoStaminaCost = 30;
@@ -535,8 +560,6 @@ public partial class Player : CharacterBody2D
 	private string _currentAttackAnimation = "attack1";
 	private int _jumpCount;
 	private bool _isDoubleJumping;
-	private bool _lowStaminaWarned;
-	private const float LowStaminaRatio = 0.15f;
 	private bool _infiniteJumpDebug;
 	private bool _isDashing;
 	private bool _canDash = true;
@@ -582,8 +605,8 @@ public partial class Player : CharacterBody2D
 	// Non-null while the player is steering a summon (their own body stands still).
 	private ShadowSummon _controlledSummon;
 	private ShadowPuppet _controlledPuppet;
-	private enum ShadowSpell { Basic, Decoy, Echo, Puppet }
-	private static readonly string[] ShadowSpellNameKeys = { "UI_CLONE_BASIC", "UI_CLONE_DECOY", "UI_CLONE_ECHO", "UI_CLONE_PUPPET" };
+	private enum ShadowSpell { Basic, Decoy, Echo, Puppet, Rush, Sentinel }
+	private static readonly string[] ShadowSpellNameKeys = { "UI_CLONE_BASIC", "UI_CLONE_DECOY", "UI_CLONE_ECHO", "UI_CLONE_PUPPET", "UI_CLONE_RUSH", "UI_CLONE_SENTINEL" };
 	private ShadowSpell _shadowSpell;
 	private Metroidvania.UI.TornadoVariantsHud _shadowSpellHud;
 	// Clon eco's source: the player's recent frames, one per physics frame, long enough for the
@@ -591,6 +614,15 @@ public partial class Player : CharacterBody2D
 	private readonly List<EchoFrame> _echoHistory = new();
 	private Metroidvania.UI.ShadowSlotsHud _summonHud;
 	private GoldHud _goldHud;
+	private EcosHud _ecosHud;
+	// What the Ecos stat levels currently add to _stats (see ApplyStatLevels), so a re-apply only
+	// adds the difference on top of equipment bonuses.
+	private int _levelHealthBonus;
+	private int _levelStaminaBonus;
+	private int _levelAttackBonus;
+	// Last spot the player stood on the floor: where a death drops its Ecos (a pit or a fall would
+	// leave them out of reach).
+	private Vector2? _lastFloorPosition;
 	private bool _isCastingSpell2;
 	private bool _isBlocking;
 	private float _parryRecoveryTimer;
@@ -604,11 +636,14 @@ public partial class Player : CharacterBody2D
 	private Material _normalMaterial;
 	private bool _isFireImbued;
 	private bool _isTransforming;
-	private bool _fireImbueKeyReleased = true;
-	// The attack element (F) cycles Normal -> Fire -> Poison -> Ice -> Lightning -> Normal. Each one
-	// recolors the blade (palette material) and every neon effect (ElementTint/ElementGhostColor);
-	// _isFireImbued stays true only for fire (torch/sword-fire light/fire sprite trails).
+	private bool _quickUseKeyReleased = true;
+	// The attack element comes from a resin (UseConsumable → StartImbue) and lasts _imbueTimeLeft
+	// seconds. Each one recolors the blade (palette material) and every neon effect
+	// (ElementTint/ElementGhostColor); _isFireImbued stays true only for fire (torch/sword-fire
+	// light/fire sprite trails).
+	private float _imbueTimeLeft;
 	private DamageElement _currentElement = DamageElement.Normal;
+	public DamageElement CurrentElement => _currentElement;
 	private ShaderMaterial _poisonMaterial;
 	private ShaderMaterial _iceMaterial;
 	private ShaderMaterial _lightningMaterial;
@@ -751,6 +786,7 @@ public partial class Player : CharacterBody2D
 		_lightningMaterial = BuildBladeVariant(LightningBladeColors, 0.35f);
 		_stats.Died += OnDied;
 		_stats.IncomingHitInterceptor = TryBlockIncomingHit;
+		ApplyStatLevels();
 
 		if (SaveManager.Instance.SessionCurrentHealth.HasValue)
 			_stats.SetCurrentHealth(SaveManager.Instance.SessionCurrentHealth.Value);
@@ -760,12 +796,15 @@ public partial class Player : CharacterBody2D
 		_stats.HealthChanged += (current, max) => SaveManager.Instance.SessionCurrentHealth = current;
 		_healFlask.ChargesChanged += (current, max) => SaveManager.Instance.SessionHealCharges = current;
 
-		if (SaveManager.Instance.SessionElement.HasValue)
+		// A resin still running from the previous map carries on with what's left of it.
+		if (SaveManager.Instance.SessionElement is { } sessionElement && sessionElement != DamageElement.Normal
+			&& SaveManager.Instance.SessionImbueTimeLeft > 0f)
 		{
-			_currentElement = SaveManager.Instance.SessionElement.Value;
-			// Restoring straight into the post-transform state, not replaying CycleElement's
-			// transform-in animation — that's only meant to play once, at the moment the
-			// player actually presses the button, not every time a scene loads.
+			_currentElement = sessionElement;
+			_imbueTimeLeft = SaveManager.Instance.SessionImbueTimeLeft;
+			// Restoring straight into the post-transform state, not replaying SetElement's
+			// transform-in animation — that's only meant to play once, when the resin is used,
+			// not every time a scene loads.
 			ApplyElementLook(_currentElement);
 			_isFireImbued = _currentElement == DamageElement.Fire;
 		}
@@ -797,16 +836,6 @@ public partial class Player : CharacterBody2D
 		_stats.StaminaChanged += (current, max) => statusBars.SetStaminaRatio((float)current / max);
 		statusBars.SetHealthRatio((float)_stats.CurrentHealth / _stats.MaxHealth);
 		statusBars.SetStaminaRatio((float)_stats.CurrentStamina / _stats.MaxStamina);
-		// Edge-triggered on crossing INTO the low band (not every frame while under it) — plays
-		// once per drop, resets once stamina climbs back above the threshold so it can fire again
-		// next time it runs low.
-		_stats.StaminaChanged += (current, max) =>
-		{
-			bool isLow = (float)current / max <= LowStaminaRatio;
-			if (isLow && !_lowStaminaWarned)
-				Sfx.Play(this, "Voice/Player", "EstaminaInsuficiente");
-			_lowStaminaWarned = isLow;
-		};
 		healthBar.SetRatio((float)_stats.CurrentHealth / _stats.MaxHealth);
 		staminaBar.SetRatio((float)_stats.CurrentStamina / _stats.MaxStamina);
 		_stats.HitTaken += (isProjectile) => FlashHit(_visual, new Color(1f, 0.2f, 0.2f));
@@ -835,6 +864,11 @@ public partial class Player : CharacterBody2D
 		_goldHud = new GoldHud { Name = "GoldHud" };
 		GetNode("HUD").AddChild(_goldHud);
 		_goldHud.SetGold(SaveManager.Instance.Gold);
+		_ecosHud = new EcosHud { Name = "EcosHud" };
+		GetNode("HUD").AddChild(_ecosHud);
+		_ecosHud.SetEcos(SaveManager.Instance.Ecos);
+		SaveManager.Instance.EcosChanged += OnEcosChanged;
+		GetNode("HUD").AddChild(new QuickSlotHud { Name = "QuickSlotHud" });
 		_goldLabel.Visible = false;
 		LocaleManager.Instance.LocaleChanged += _ => UpdateGoldLabel(SaveManager.Instance.Gold);
 
@@ -878,7 +912,10 @@ public partial class Player : CharacterBody2D
 	{
 		// SaveManager is an autoload that outlives this player.
 		if (SaveManager.Instance is not null)
+		{
 			SaveManager.Instance.ShadowUsesChanged -= UpdateSummonLabel;
+			SaveManager.Instance.EcosChanged -= OnEcosChanged;
+		}
 	}
 
 	// ── Bastón summons ──
@@ -1293,6 +1330,9 @@ public partial class Player : CharacterBody2D
 		}
 
 		RecordEchoFrame();
+		TickImbue((float)delta);
+		if (IsOnFloor())
+			_lastFloorPosition = GlobalPosition;
 
 		if (_controlledSummon is not null)
 		{
@@ -1959,18 +1999,22 @@ public partial class Player : CharacterBody2D
 		if (Input.IsActionJustPressed("heal") && !_attacking && !_healing && !_isDashing && !_isRolling)
 			UseHealFlask();
 
-		// Debounced on release rather than IsActionJustPressed: OS key-repeat while the
-		// button is held sends repeated keydown events that Godot treats as fresh presses,
-		// which used to re-trigger the toggle mid-transform and corrupt the sprite state.
-		bool fireImbuePressed = Input.IsActionPressed("fire_imbue");
-		if (!fireImbuePressed)
-			_fireImbueKeyReleased = true;
+		if (Input.IsActionJustPressed("quick_cycle"))
+			SaveManager.Instance.CycleQuickSlot();
 
-		if (fireImbuePressed && _fireImbueKeyReleased && !_attacking && !_healing && !_isDashing && !_isRolling
+		// Debounced on release rather than IsActionJustPressed: OS key-repeat while the button is
+		// held sends repeated keydown events that Godot treats as fresh presses, which used to
+		// re-trigger an element change mid-transform and corrupt the sprite state.
+		bool quickUsePressed = Input.IsActionPressed("quick_use");
+		if (!quickUsePressed)
+			_quickUseKeyReleased = true;
+
+		if (quickUsePressed && _quickUseKeyReleased && !_attacking && !_healing && !_isDashing && !_isRolling
 			&& !_isRunThrusting && !_isTransforming)
 		{
-			_fireImbueKeyReleased = false;
-			CycleElement();
+			_quickUseKeyReleased = false;
+			if (ItemDatabase.Instance.Get(SaveManager.Instance.SelectedQuickItem) is { } quickItem)
+				UseConsumable(quickItem);
 		}
 
 		bool equipTorchPressed = Input.IsActionPressed("equip_torch");
@@ -2279,7 +2323,12 @@ public partial class Player : CharacterBody2D
 	private bool TryBlockIncomingHit()
 	{
 		if (!_isBlocking)
-			return false;
+		{
+			if (!TryShadowGuard())
+				return false;
+			ReportMeleeParry();
+			return true;
+		}
 
 		_blockedHitFrame = Engine.GetPhysicsFrames();
 		_parryLanded = true;
@@ -2293,7 +2342,7 @@ public partial class Player : CharacterBody2D
 	public bool TryParryProjectile()
 	{
 		if (!_isBlocking)
-			return false;
+			return TryShadowGuard();
 		_parryLanded = true;
 		PlayParryFx();
 		return true;
@@ -2819,6 +2868,19 @@ public partial class Player : CharacterBody2D
 		if (!hitLanded)
 			Sfx.Play(this, "Combat/Sword", "Sword Attack");
 
+		// Sō Ryū Sen: the draw missed (whiffed or dodged) → a second, wider spin follows at once and
+		// catches whoever slipped the first one. Replaces the charged clip's recovery.
+		if (!hitLanded && SoRyuSenEnabled && _sprite.SpriteFrames.HasAnimation("attack2") && !_isDead)
+		{
+			await ToSignal(GetTree().CreateTimer(SoRyuSenDelay), SceneTreeTimer.SignalName.Timeout);
+			if (!IsInstanceValid(this) || _isDead)
+				return;
+			await SoRyuSenFollowUp();
+			_isCharging = false;
+			_attacking = false;
+			return;
+		}
+
 		// Let the full lunge + recover play out when the sheet has it, never shorter than the old
 		// fixed 0.2s tail.
 		float tail = 0.2f;
@@ -2830,6 +2892,28 @@ public partial class Player : CharacterBody2D
 		await ToSignal(GetTree().CreateTimer(tail), SceneTreeTimer.SignalName.Timeout);
 		_isCharging = false;
 		_attacking = false;
+	}
+
+	private async Task SoRyuSenFollowUp()
+	{
+		_currentAttackAnimation = "attack2";
+		RunSwordSpinTrail();
+		if (AttackHitboxDelay > 0f)
+			await ToSignal(GetTree().CreateTimer(AttackHitboxDelay), SceneTreeTimer.SignalName.Timeout);
+		if (!IsInstanceValid(this))
+			return;
+		_hitboxShape.Size = SoRyuSenHitboxSize;
+		_hitbox.Position = new Vector2(_facingRight ? SoRyuSenReach : -SoRyuSenReach, 0f);
+		_hitbox.Activate(_stats, element: _currentElement, customImpactEffect: SpawnComboImpact);
+		await ToSignal(GetTree().CreateTimer(AttackDuration), SceneTreeTimer.SignalName.Timeout);
+		if (!IsInstanceValid(this))
+			return;
+		_hitbox.Deactivate();
+		SpriteFrames frames = _sprite.SpriteFrames;
+		float clip = frames.GetFrameCount("attack2") / (float)frames.GetAnimationSpeed("attack2");
+		float rest = clip - AttackHitboxDelay - AttackDuration;
+		if (rest > 0f)
+			await ToSignal(GetTree().CreateTimer(rest), SceneTreeTimer.SignalName.Timeout);
 	}
 
 	private void StartPound()
@@ -3117,7 +3201,7 @@ public partial class Player : CharacterBody2D
 		// Clon básico: no cast pose — the clone takes the player's spot at once while they hop back.
 		if (spell == ShadowSpell.Basic && _sprite.SpriteFrames.HasAnimation(BackDashAnimation))
 		{
-			SpawnShadowClone(GlobalPosition);
+			SpawnShadowClone(GlobalPosition, facingRight, ShadowCloneLevel + 1);
 			await BackDash();
 			if (IsInstanceValid(this))
 				_isCastingSpell = false;
@@ -3130,7 +3214,7 @@ public partial class Player : CharacterBody2D
 		switch (spell)
 		{
 			case ShadowSpell.Basic:
-				SpawnShadowClone(GlobalPosition + new Vector2(_facingRight ? ShadowCloneOffsetX : -ShadowCloneOffsetX, 0f));
+				SpawnShadowClone(GlobalPosition + new Vector2(_facingRight ? ShadowCloneOffsetX : -ShadowCloneOffsetX, 0f), _facingRight, ShadowCloneLevel + 1);
 				break;
 			case ShadowSpell.Decoy:
 				SpawnShadowDecoy(facingRight);
@@ -3142,6 +3226,12 @@ public partial class Player : CharacterBody2D
 				_isCastingSpell = false;
 				SpawnShadowPuppet(facingRight);
 				return;
+			case ShadowSpell.Rush:
+				SpawnShadowRush(facingRight);
+				break;
+			case ShadowSpell.Sentinel:
+				SpawnShadowSentinel(facingRight);
+				break;
 		}
 
 		await ToSignal(GetTree().CreateTimer(Mathf.Max(0f, SpellAnimDuration - ShadowCloneSpawnDelay)), SceneTreeTimer.SignalName.Timeout);
@@ -3163,7 +3253,7 @@ public partial class Player : CharacterBody2D
 			_echoHistory.RemoveRange(0, _echoHistory.Count - capacity + 1);
 		bool hitboxActive = _hitbox.IsActive;
 		_echoHistory.Add(new EchoFrame(GlobalPosition, _facingRight, _sprite.Animation, _sprite.Frame,
-			hitboxActive, _hitbox.GlobalPosition, hitboxActive ? _hitboxShape.Size : Vector2.Zero));
+			hitboxActive, _hitbox.GlobalPosition, hitboxActive ? _hitboxShape.Size : Vector2.Zero, _isBlocking));
 	}
 
 	// The frame recorded framesAgo physics ticks back (the oldest one while the history is still
@@ -3191,7 +3281,7 @@ public partial class Player : CharacterBody2D
 	{
 		var echo = new ShadowEcho();
 		echo.Setup(EchoFrameAgo, delayFrames, lifetime, _sprite.SpriteFrames, _sprite.Position, _sprite.Offset, _sprite.Scale, _stats,
-			ElementGhostColor(), ShadowCloneIntensity, ShadowCloneAlpha, ShadowCloneFadeOut);
+			ElementGhostColor(), ShadowCloneIntensity, ShadowCloneAlpha, ShadowCloneFadeOut, ShadowEchoLevel >= 2 ? ShadowEchoParryRadius : 0f);
 		echo.ZIndex = ZIndex;
 		scene.AddChild(echo);
 	}
@@ -3239,6 +3329,47 @@ public partial class Player : CharacterBody2D
 		_sprite.Play(_sprite.SpriteFrames.HasAnimation("flying_sword_loop") ? "flying_sword_loop" : TorchAnim("idle"));
 	}
 
+	private void SpawnShadowSentinel(bool facingRight)
+	{
+		if (GetTree().CurrentScene is not Node scene)
+			return;
+		var sentinel = new ShadowSentinel();
+		sentinel.Setup(_sprite.SpriteFrames, "idle_block", facingRight, _sprite.Position, _sprite.Offset, _sprite.Scale,
+			ElementGhostColor(), ShadowCloneIntensity, ShadowCloneAlpha, ShadowSentinelDuration, ShadowSentinelGuardRadius,
+			ShadowSentinelCounterRange,
+			(target, faceRight) => SpawnShadowClone(target - new Vector2(faceRight ? AttackHitboxReach : -AttackHitboxReach, 0f), faceRight, 1));
+		sentinel.ZIndex = ZIndex;
+		scene.AddChild(sentinel);
+		sentinel.GlobalPosition = GlobalPosition + new Vector2(facingRight ? ShadowCloneOffsetX : -ShadowCloneOffsetX, 0f);
+	}
+
+	// Shadow cover: a hit that would land on the player is parried by a sentinel guarding them or an
+	// Eco +2 replaying a parry next to them. Body contact doesn't spend it (same as ReportMeleeParry not
+	// crediting it).
+	private bool TryShadowGuard()
+	{
+		if (Metroidvania.World.Enemy.DealingContactDamage
+			|| !(ShadowSentinel.TryGuard(GlobalPosition) || ShadowEcho.TryParryFor(GlobalPosition)))
+			return false;
+		ShowParryBubble();
+		return true;
+	}
+
+	private void SpawnShadowRush(bool facingRight)
+	{
+		if (GetTree().CurrentScene is not Node scene)
+			return;
+		var rush = new ShadowRush();
+		rush.Setup(_sprite.SpriteFrames, facingRight, _sprite.Position, _sprite.Offset, _sprite.Scale, _stats,
+			ElementGhostColor(), ShadowCloneIntensity, ShadowCloneAlpha, _hitboxBaseSize, ShadowRushSpeed, ShadowRushDistance,
+			ShadowCloneFadeIn, ShadowCloneFadeOut,
+			ShadowRushLevel >= 1 ? ShadowRushMeteorHits : 0, ShadowRushMeteorDuration,
+			Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * ShadowRushMeteorDamageMultiplier)), ShadowRushMeteorRange);
+		rush.ZIndex = ZIndex;
+		scene.AddChild(rush);
+		rush.GlobalPosition = GlobalPosition;
+	}
+
 	// Slides back (keeping the facing) for BackDashMoveDuration, then waits out the clip's recovery.
 	private async Task BackDash()
 	{
@@ -3257,13 +3388,14 @@ public partial class Player : CharacterBody2D
 			_isBackDashing = false;
 	}
 
-	private void SpawnShadowClone(Vector2 at)
+	// swingCount: how many of attack1..attack4 it chains (Clon básico: its level + 1; a sentinel counter: 1).
+	private void SpawnShadowClone(Vector2 at, bool facingRight, int swingCount)
 	{
 		if (GetTree().CurrentScene is not Node scene)
 			return;
 
 		var swings = new System.Collections.Generic.List<string>();
-		for (int i = 1; i <= Mathf.Clamp(ShadowCloneLevel, 0, 3) + 1; i++)
+		for (int i = 1; i <= Mathf.Clamp(swingCount, 1, 4); i++)
 		{
 			if (_sprite.SpriteFrames.HasAnimation($"attack{i}"))
 				swings.Add($"attack{i}");
@@ -3272,7 +3404,7 @@ public partial class Player : CharacterBody2D
 			swings.Add("attack1");
 
 		var clone = new ShadowClone();
-		clone.Setup(_sprite.SpriteFrames, swings.ToArray(), _facingRight, _sprite.Position, _sprite.Offset, _sprite.Scale, _stats,
+		clone.Setup(_sprite.SpriteFrames, swings.ToArray(), facingRight, _sprite.Position, _sprite.Offset, _sprite.Scale, _stats,
 			ElementGhostColor(), ShadowCloneIntensity, ShadowCloneAlpha,
 			_hitboxBaseSize, AttackHitboxReach, AttackHitboxYOffset, AttackHitboxDelay, AttackDuration,
 			ShadowCloneFadeIn, ShadowCloneFadeOut);
@@ -4221,20 +4353,48 @@ public partial class Player : CharacterBody2D
 		_healing = false;
 	}
 
-	private async void CycleElement()
+	// Uses one of a consumable (quick bar or inventory). False — and nothing is spent — when none is
+	// held or it can't be used right now (e.g. mid-transformation).
+	public bool UseConsumable(Item item)
+	{
+		if (item is null || item.Type != ItemType.Consumable || _isTransforming || _isDead
+			|| SaveManager.Instance.GetItemCount(item.Id) <= 0)
+			return false;
+		if (item.ImbueElement == DamageElement.Normal)
+			return false;
+		SaveManager.Instance.ConsumeItem(item.Id);
+		StartImbue(item.ImbueElement, item.ImbueDuration);
+		return true;
+	}
+
+	// Resin: coats the blade in `element` for `duration` seconds (a fresh resin restarts the timer;
+	// another element swaps over). Counted down in TickImbue; resting or dying clears it.
+	private void StartImbue(DamageElement element, float duration)
+	{
+		_imbueTimeLeft = duration;
+		SaveManager.Instance.SessionImbueTimeLeft = duration;
+		if (element != _currentElement)
+			SetElement(element);
+	}
+
+	private void TickImbue(float dt)
+	{
+		if (_imbueTimeLeft <= 0f || _currentElement == DamageElement.Normal)
+			return;
+		_imbueTimeLeft -= dt;
+		SaveManager.Instance.SessionImbueTimeLeft = Mathf.Max(0f, _imbueTimeLeft);
+		if (_imbueTimeLeft <= 0f && !_isTransforming)
+			SetElement(DamageElement.Normal);
+		else if (_imbueTimeLeft <= 0f)
+			_imbueTimeLeft = 0.1f;
+	}
+
+	private async void SetElement(DamageElement element)
 	{
 		if (_isTransforming)
 			return;
 
-		DamageElement previous = _currentElement;
-		_currentElement = previous switch
-		{
-			DamageElement.Normal => DamageElement.Fire,
-			DamageElement.Fire => DamageElement.Poison,
-			DamageElement.Poison => DamageElement.Ice,
-			DamageElement.Ice => DamageElement.Lightning,
-			_ => DamageElement.Normal,
-		};
+		_currentElement = element;
 		SaveManager.Instance.SessionElement = _currentElement;
 
 		// Every switch plays the transformation; the new look lands when it ends.
@@ -4425,6 +4585,26 @@ public partial class Player : CharacterBody2D
 		_sprite.Play("death");
 		// Only this player's own level may drive the respawn — never a scene that already replaced it.
 		if (GetTree().CurrentScene is LevelBootstrap level && level.IsAncestorOf(this))
+		{
+			SaveManager.Instance.DropEcosOnDeath(level.ScenePath, _lastFloorPosition ?? GlobalPosition);
 			DeathScreen.Instance.Show(level.RespawnPlayer);
+		}
 	}
+
+	// Brings _stats in line with the Ecos stat levels bought so far. Safe to call again after a
+	// level-up (LevelUpUI): only the change since the last call is applied.
+	public void ApplyStatLevels()
+	{
+		LevelingConfig config = LevelingConfig.Get();
+		SaveManager save = SaveManager.Instance;
+		int health = config.BonusFor(save.GetStatLevel(StatIds.Vitality), config.HealthPerLevel);
+		int stamina = config.BonusFor(save.GetStatLevel(StatIds.Endurance), config.StaminaPerLevel);
+		int attack = config.BonusFor(save.GetStatLevel(StatIds.Strength), config.AttackPerLevel);
+		_stats.ApplyBonus(health - _levelHealthBonus, stamina - _levelStaminaBonus, attack - _levelAttackBonus, 0);
+		_levelHealthBonus = health;
+		_levelStaminaBonus = stamina;
+		_levelAttackBonus = attack;
+	}
+
+	private void OnEcosChanged(int ecos) => _ecosHud?.SetEcos(ecos);
 }

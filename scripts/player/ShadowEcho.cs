@@ -6,14 +6,19 @@ namespace Metroidvania.Player;
 
 // One physics frame of the player, as recorded for Clon eco (see Player.RecordEchoFrame).
 public readonly record struct EchoFrame(Vector2 Position, bool FacingRight, StringName Animation, int Frame,
-	bool HitboxActive, Vector2 HitboxPosition, Vector2 HitboxSize);
+	bool HitboxActive, Vector2 HitboxPosition, Vector2 HitboxSize, bool ParryWindow);
 
 // Clon eco: a neon silhouette that appears with the player and shadows them live, a fixed delay
 // behind — every physics tick it copies the player's frame from DelayFrames ago (position, facing,
 // animation frame) and swings a real hitbox wherever the player's sword hitbox was live. So for its
-// lifetime every move and combo lands twice. Built in code — see Setup().
+// lifetime every move and combo lands twice. With parryRadius > 0 (+2) it echoes parries too: while
+// its replayed frame is inside the player's parry window, a hit on the player within parryRadius of
+// it is parried (once per window) — an early parry still gets a second chance one delay later.
+// Built in code — see Setup().
 public partial class ShadowEcho : Node2D
 {
+	private static readonly System.Collections.Generic.List<ShadowEcho> Active = new();
+
 	// framesAgo → that recorded frame, or null once it isn't available (player gone).
 	private Func<int, EchoFrame?> _source;
 	private int _delayFrames;
@@ -28,11 +33,15 @@ public partial class ShadowEcho : Node2D
 	private RectangleShape2D _hitboxShape;
 	private bool _hitboxLive;
 	private bool _finished;
+	private float _parryRadius;
+	private bool _inParryWindow;
+	private bool _parriedThisWindow;
 
 	public void Setup(Func<int, EchoFrame?> source, int delayFrames, float lifetime, SpriteFrames spriteFrames,
 		Vector2 spritePosition, Vector2 spriteOffset, Vector2 spriteScale, Stats casterStats, Color tint, float intensity,
-		float alpha, float fadeOut)
+		float alpha, float fadeOut, float parryRadius = 0f)
 	{
+		_parryRadius = parryRadius;
 		_source = source;
 		_delayFrames = delayFrames;
 		_timeLeft = lifetime;
@@ -59,8 +68,30 @@ public partial class ShadowEcho : Node2D
 		AddChild(_hitbox);
 	}
 
+	// An echo replaying a parry within reach of `playerPosition` takes the hit for them (see the
+	// class comment). False = none is.
+	public static bool TryParryFor(Vector2 playerPosition)
+	{
+		foreach (ShadowEcho echo in Active)
+		{
+			if (!IsInstanceValid(echo) || echo._finished || !echo._inParryWindow || echo._parriedThisWindow
+				|| echo.GlobalPosition.DistanceTo(playerPosition) > echo._parryRadius)
+				continue;
+			echo._parriedThisWindow = true;
+			Tween flash = echo.CreateTween();
+			flash.TweenProperty(echo._sprite, "modulate:a", 1f, 0.04f);
+			flash.TweenProperty(echo._sprite, "modulate:a", echo._alpha, 0.2f);
+			return true;
+		}
+		return false;
+	}
+
+	public override void _ExitTree() => Active.Remove(this);
+
 	public override void _Ready()
 	{
+		if (_parryRadius > 0f)
+			Active.Add(this);
 		if (_source(_delayFrames) is EchoFrame first)
 			ApplyFrame(first);
 		Tween appear = CreateTween();
@@ -103,6 +134,10 @@ public partial class ShadowEcho : Node2D
 			_hitbox.Deactivate();
 		}
 		_hitboxLive = frame.HitboxActive;
+
+		if (!frame.ParryWindow)
+			_parriedThisWindow = false;
+		_inParryWindow = frame.ParryWindow;
 	}
 
 	private void Finish()

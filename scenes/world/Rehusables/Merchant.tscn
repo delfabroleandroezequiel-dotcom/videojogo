@@ -5,6 +5,10 @@
 [ext_resource type="SpriteFrames" path="res://assets/external/gandalfhardcore/Male Pixel Art characters/DwarfNpcSpriteFrames.tres" id="3_frames"]
 [ext_resource type="Script" path="res://scripts/items/ShopEntry.cs" id="4_entry"]
 [ext_resource type="Resource" path="res://resources/items/key_test.tres" id="5_key"]
+[ext_resource type="Resource" path="res://resources/items/resina_fuego.tres" id="6_resin_fire"]
+[ext_resource type="Resource" path="res://resources/items/resina_hielo.tres" id="7_resin_ice"]
+[ext_resource type="Resource" path="res://resources/items/resina_veneno.tres" id="8_resin_poison"]
+[ext_resource type="Resource" path="res://resources/items/resina_rayo.tres" id="9_resin_lightning"]
 
 [sub_resource type="Resource" id="ShopEntry_key"]
 script = ExtResource("4_entry")
@@ -12,9 +16,33 @@ Item = ExtResource("5_key")
 Price = 25
 Stock = 4
 
+[sub_resource type="Resource" id="ShopEntry_resin_fire"]
+script = ExtResource("4_entry")
+Item = ExtResource("6_resin_fire")
+Price = 1
+Stock = 0
+
+[sub_resource type="Resource" id="ShopEntry_resin_ice"]
+script = ExtResource("4_entry")
+Item = ExtResource("7_resin_ice")
+Price = 1
+Stock = 0
+
+[sub_resource type="Resource" id="ShopEntry_resin_poison"]
+script = ExtResource("4_entry")
+Item = ExtResource("8_resin_poison")
+Price = 1
+Stock = 0
+
+[sub_resource type="Resource" id="ShopEntry_resin_lightning"]
+script = ExtResource("4_entry")
+Item = ExtResource("9_resin_lightning")
+Price = 1
+Stock = 0
+
 [node name="Merchant" instance=ExtResource("1_npc")]
 script = ExtResource("2_script")
-Stock = [SubResource("ShopEntry_key")]
+Stock = [SubResource("ShopEntry_key"), SubResource("ShopEntry_resin_fire"), SubResource("ShopEntry_resin_ice"), SubResource("ShopEntry_resin_poison"), SubResource("ShopEntry_resin_lightning")]
 GreetingLines = PackedStringArray("NPC_MERCADER_L1")
 NpcName = "NPC_MERCADER_NAME"
 CustomSpriteFrames = ExtResource("3_frames")

@@ -61,7 +61,19 @@ public partial class LevelBootstrap : Node
 		}
 
 		SpawnCompanionIfRecruited();
+		SpawnEcosRemnant();
 		RandomizeEnemies();
+	}
+
+	// The Ecos the last death left in this map, waiting where the player last stood.
+	private void SpawnEcosRemnant()
+	{
+		SaveManager save = SaveManager.Instance;
+		if (save.DroppedEcos <= 0 || save.DroppedEcosScene != ScenePath)
+			return;
+		var remnant = new EcosRemnant { Name = "EcosRemnant" };
+		AddChild(remnant);
+		remnant.GlobalPosition = save.DroppedEcosPosition;
 	}
 
 	// Enemy randomizer: maps place their enemies directly (nobody authors EnemySpawnPoints), so the
@@ -221,6 +233,16 @@ public partial class LevelBootstrap : Node
 		data.CollectedPickups.AddRange(SaveManager.Instance.GetCollectedPickups());
 		data.MaxHealCharges = SaveManager.Instance.GetMaxHealCharges();
 		data.Gold = SaveManager.Instance.Gold;
+		data.Ecos = SaveManager.Instance.Ecos;
+		foreach (System.Collections.Generic.KeyValuePair<string, int> entry in SaveManager.Instance.GetStatLevels())
+			data.StatLevels[entry.Key] = entry.Value;
+		data.DroppedEcos = SaveManager.Instance.DroppedEcos;
+		data.DroppedEcosScene = SaveManager.Instance.DroppedEcosScene;
+		data.DroppedEcosX = SaveManager.Instance.DroppedEcosPosition.X;
+		data.DroppedEcosY = SaveManager.Instance.DroppedEcosPosition.Y;
+		for (int i = 0; i < SaveManager.QuickSlotCount; i++)
+			data.QuickSlots.Add(SaveManager.Instance.GetQuickSlot(i));
+		data.SelectedQuickSlot = SaveManager.Instance.SelectedQuickSlot;
 		// In slot order, so each type keeps its HUD square after loading.
 		foreach (string shadowKey in SaveManager.Instance.GetShadowSlotKeys())
 			data.ShadowUses[shadowKey] = SaveManager.Instance.GetShadowUses(shadowKey);

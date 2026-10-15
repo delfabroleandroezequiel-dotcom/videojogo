@@ -2348,6 +2348,7 @@ public partial class MushroomBoss : Enemy
 	private void SpawnSprout(Node scene, Vector2 groundPoint)
 	{
 		var sprout = SproutScene.Instantiate<Enemy>();
+		sprout.GrantsEcos = false;
 		// Unique id so a killed sprout doesn't mark some unrelated saved path as defeated.
 		sprout.CustomPersistenceId = $"mushroom_boss_sprout_{GetInstanceId()}_{Time.GetTicksUsec()}";
 		scene.AddChild(sprout);

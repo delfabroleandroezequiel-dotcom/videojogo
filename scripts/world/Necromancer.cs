@@ -258,6 +258,7 @@ public partial class Necromancer : Enemy
 		if (hit.Count == 0 || SummonScene.Instantiate() is not SkeletonWarrior skeleton)
 			return;
 		skeleton.Summoned = true;
+		skeleton.GrantsEcos = false;
 		skeleton.CustomPersistenceId = SkeletonWarrior.SummonPersistenceId;
 		scene.AddChild(skeleton);
 		// The collision box is 60 tall and centred, so its feet sit 30 below its origin.

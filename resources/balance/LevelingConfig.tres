@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="LevelingConfig" format=3]
+
+[ext_resource type="Script" path="res://scripts/shared/LevelingConfig.cs" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+HealthPerLevel = 8.0
+StaminaPerLevel = 6.0
+AttackPerLevel = 1.0
+SoftCapLevel = 10
+SoftCapFactor = 0.5
+BaseCost = 100
+CostGrowth = 0.12
+EcosPerEnemyHealth = 0.5
+MinEcosReward = 5

@@ -163,6 +163,8 @@ public partial class SpiderBoss : Boss
 		for (int i = 0; i < SpiderlingsPerSummon; i++)
 		{
 			Node spiderling = SpiderlingScene.Instantiate();
+			if (spiderling is Enemy summoned)
+				summoned.GrantsEcos = false;
 			GetTree().CurrentScene.AddChild(spiderling);
 
 			if (spiderling is Node2D spiderling2D)
