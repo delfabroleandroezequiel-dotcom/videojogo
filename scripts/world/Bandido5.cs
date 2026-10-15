@@ -746,7 +746,7 @@ public partial class Bandido5 : MeleeEnemy
 		if (shake)
 			ShakePlayerCamera(SlamShake, 0.12f);
 
-		Hazard hazard = Hazard.CreateArea((Node2D)GetTree().CurrentScene, instantKill: false, damage: SlamDamage, knockbackForce: 260f);
+		Hazard hazard = Hazard.CreateArea(GetTree().CurrentScene, instantKill: false, damage: SlamDamage, knockbackForce: 260f);
 		hazard.GlobalPosition = ground - new Vector2(0f, SlamHitboxSize.Y * 0.5f);
 		hazard.AddChild(new CollisionShape2D { Shape = new RectangleShape2D { Size = SlamHitboxSize } });
 

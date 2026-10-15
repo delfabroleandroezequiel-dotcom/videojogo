@@ -18,7 +18,7 @@ public partial class Hazard : Area2D
 	// Runtime-built pieces (LavaFall/LavaFloor/ProceduralWater, etc.) all want this same
 	// InstantKill/Damage/KnockbackForce Area2D — build it here once instead of each kit
 	// hand-rolling its own copy.
-	public static Hazard CreateArea(Node2D parent, bool instantKill, int damage, float knockbackForce)
+	public static Hazard CreateArea(Node parent, bool instantKill, int damage, float knockbackForce)
 	{
 		var hazard = new Hazard
 		{

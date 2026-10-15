@@ -150,8 +150,10 @@ public partial class SecretWall : StaticBody2D
 	{
 		SaveManager.Instance.MarkWallBroken(_persistenceId);
 
+		// Deferred: Break runs from Stats.Died inside the sword hitbox's body_entered, while physics
+		// is still flushing queries.
 		if (GetNodeOrNull<CollisionShape2D>("CollisionShape2D") is CollisionShape2D collision)
-			collision.Disabled = true;
+			collision.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 
 		Visible = false;
 

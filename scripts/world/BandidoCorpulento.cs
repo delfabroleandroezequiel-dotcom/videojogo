@@ -329,7 +329,7 @@ public partial class BandidoCorpulento : MeleeEnemy
 	{
 		Node scene = GetTree().CurrentScene;
 		var fissure = GroundSlamFx.BeginFissure(this, Palette);
-		Hazard hazard = Hazard.CreateArea((Node2D)scene, instantKill: false, damage: FissureDamage, knockbackForce: 200f);
+		Hazard hazard = Hazard.CreateArea(scene, instantKill: false, damage: FissureDamage, knockbackForce: 200f);
 		hazard.AddChild(new CollisionShape2D { Shape = new RectangleShape2D { Size = FissureHitboxSize } });
 		hazard.GlobalPosition = start - new Vector2(0f, FissureHitboxSize.Y * 0.5f);
 		fissure?.AddPoint(start);
@@ -394,7 +394,7 @@ public partial class BandidoCorpulento : MeleeEnemy
 		if (IsInstanceValid(this) && !IsQueuedForRemoval)
 			ShakePlayerCamera(EruptionShake, 0.18f);
 
-		Hazard eruption = Hazard.CreateArea((Node2D)scene, instantKill: false, damage: EruptionDamage, knockbackForce: 280f);
+		Hazard eruption = Hazard.CreateArea(scene, instantKill: false, damage: EruptionDamage, knockbackForce: 280f);
 		eruption.AddChild(new CollisionShape2D { Shape = new RectangleShape2D { Size = EruptionSize } });
 		eruption.GlobalPosition = front - new Vector2(0f, EruptionSize.Y * 0.5f);
 		await eruption.ToSignal(tree.CreateTimer(0.25f), SceneTreeTimer.SignalName.Timeout);
