@@ -39,68 +39,28 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Helecho.tscn" id="48_ml2dl"]
 [ext_resource type="PackedScene" path="res://scenes/world/BanderinOndeante.tscn" id="49_llmny"]
 [ext_resource type="PackedScene" path="res://scenes/world/GaviotaVoladora.tscn" id="50_bnuq0"]
-[ext_resource type="SpriteFrames" uid="uid://sg3io3vxjfil" path="res://resources/sprites/EvilWizard3SpriteFrames.tres" id="51_hechicero"]
-[ext_resource type="SpriteFrames" uid="uid://bjt3xxl87i1mn" path="res://resources/sprites/WizardSpriteFrames.tres" id="52_magocamino"]
-[ext_resource type="SpriteFrames" uid="uid://dtd8dymti34pr" path="res://resources/sprites/FantasyWarriorSpriteFrames.tres" id="53_mercenario2"]
 [ext_resource type="SpriteFrames" uid="uid://dtlw2ll86ngrs" path="res://resources/sprites/MedievalWarrior2SpriteFrames.tres" id="54_guardianix"]
-[ext_resource type="SpriteFrames" uid="uid://cacyycs8amuq" path="res://resources/sprites/MedievalWarrior3SpriteFrames.tres" id="55_campesinoarmado"]
-[ext_resource type="SpriteFrames" uid="uid://204gcy5qjpy3" path="res://resources/sprites/EvilWizardSpriteFrames.tres" id="56_brujosolitario"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/BigShip2.tscn" id="57_476li"]
-[ext_resource type="SpriteFrames" uid="uid://cohg6prdhymh7" path="res://resources/sprites/HuntressSpriteFrames.tres" id="57_arquera"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CargoCrane2.tscn" id="58_5u8xx"]
-[ext_resource type="SpriteFrames" uid="uid://dvbhwpifoiwad" path="res://resources/sprites/Huntress2SpriteFrames.tres" id="58_cazadora"]
-[ext_resource type="SpriteFrames" uid="uid://gg5s1il443br" path="res://resources/sprites/MartialHeroSpriteFrames.tres" id="59_monjeguerrero"]
-[ext_resource type="SpriteFrames" uid="uid://bmjd4fpyu28p5" path="res://resources/sprites/HeroKnightSpriteFrames.tres" id="60_caballeroerrante"]
-[ext_resource type="SpriteFrames" uid="uid://d0tjxrnu13r2n" path="res://resources/sprites/HeroKnight2SpriteFrames.tres" id="61_caballeroguardia"]
-[ext_resource type="SpriteFrames" uid="uid://dj57ipe57egyq" path="res://resources/sprites/MedievalWarriorSpriteFrames.tres" id="62_soldadoveterano"]
-[ext_resource type="SpriteFrames" uid="uid://cp1a3pyhrc580" path="res://resources/sprites/MedievalKingSpriteFrames.tres" id="63_nobleviajero"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CatOrange.tscn" id="64_cat"]
-[ext_resource type="SpriteFrames" uid="uid://b28et50i8481u" path="res://resources/sprites/WomanWarriorSpriteFrames.tres" id="65_womanwarrior"]
-[ext_resource type="SpriteFrames" uid="uid://cdagqy4o47dm4" path="res://resources/sprites/SpearwomanSpriteFrames.tres" id="66_spearwoman"]
-[ext_resource type="SpriteFrames" uid="uid://d1nmra24q4ooc" path="res://resources/sprites/NinjaSpriteFrames.tres" id="68_ninja"]
-[ext_resource type="SpriteFrames" uid="uid://dqugr06wo4237" path="res://resources/sprites/EvilWizard2SpriteFrames.tres" id="69_evilwizard2"]
-[ext_resource type="SpriteFrames" uid="uid://dsrhkmaloa7wr" path="res://resources/sprites/HeavyBanditSpriteFrames.tres" id="70_heavybandit"]
-[ext_resource type="SpriteFrames" uid="uid://sv2oonats8vh" path="res://resources/sprites/LightBanditSpriteFrames.tres" id="71_lightbandit"]
-[ext_resource type="SpriteFrames" uid="uid://dh182olvq6hci" path="res://resources/sprites/HeroKnightSvenSpriteFrames.tres" id="72_heroknightsven"]
-[ext_resource type="SpriteFrames" uid="uid://bi6065140glyf" path="res://resources/sprites/AssassinSpriteFrames.tres" id="73_assassin"]
-[ext_resource type="SpriteFrames" uid="uid://bx8s65nrjqmcu" path="res://resources/sprites/HoundSpriteFrames.tres" id="74_hound"]
-[ext_resource type="SpriteFrames" uid="uid://moxcuv0ckiq2" path="res://resources/sprites/RaiderSpriteFrames.tres" id="75_raider"]
-[ext_resource type="SpriteFrames" uid="uid://dyo3cbh846dgd" path="res://resources/sprites/RiflemanSpriteFrames.tres" id="76_rifleman"]
-[ext_resource type="SpriteFrames" uid="uid://cye6vs5ciuuw6" path="res://resources/sprites/ThugSpriteFrames.tres" id="77_thug"]
-[ext_resource type="SpriteFrames" uid="uid://btt5wtvy3gjfl" path="res://resources/sprites/NecromancerSpriteFrames.tres" id="78_necromancer"]
-[ext_resource type="SpriteFrames" uid="uid://x1h77pom5177" path="res://resources/sprites/AdventurerSpriteFrames.tres" id="80_adventurer"]
 [ext_resource type="Texture2D" uid="uid://74874siup48v" path="res://assets/external/Fondos/village/_PNG/MainLevBuild.png" id="80_on71r"]
-[ext_resource type="SpriteFrames" uid="uid://ccyascnpjwmsd" path="res://resources/sprites/NightborneSpriteFrames.tres" id="81_nightborne"]
 [ext_resource type="PackedScene" path="res://scenes/world/TrainingDummy.tscn" id="82_trainingdummy"]
-[ext_resource type="SpriteFrames" uid="uid://ny7talqn81iy" path="res://resources/sprites/ArchDemonSpriteFrames.tres" id="83_archdemon"]
-[ext_resource type="SpriteFrames" uid="uid://dyifqgwkfjoko" path="res://resources/sprites/SkeletonWarriorSpriteFrames.tres" id="84_skeletonwarrior"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CookingArea.tscn" id="84_uawx8"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Furnace.tscn" id="85_5r7fk"]
-[ext_resource type="SpriteFrames" uid="uid://b1ic00oqnlcp4" path="res://resources/sprites/SkeletonGuardSpriteFrames.tres" id="85_skeletonguard"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Sawmill.tscn" id="86_2cv5s"]
-[ext_resource type="SpriteFrames" uid="uid://cldajfwtly8mp" path="res://resources/sprites/ShadowUrchinSpriteFrames.tres" id="86_shadowurchin"]
-[ext_resource type="SpriteFrames" uid="uid://c7edvrd176qwl" path="res://resources/sprites/ArmoredKnightSpriteFrames.tres" id="87_armoredknight"]
-[ext_resource type="SpriteFrames" uid="uid://mbkmufpjh1j" path="res://resources/sprites/HoodedArcherSpriteFrames.tres" id="88_hoodedarcher"]
-[ext_resource type="SpriteFrames" uid="uid://8pvhxild82lb" path="res://resources/sprites/HeroSpriteFrames.tres" id="89_hero"]
-[ext_resource type="SpriteFrames" uid="uid://bsn1smcu554j0" path="res://resources/sprites/HoodedKnightSpriteFrames.tres" id="90_hoodedknight"]
 [ext_resource type="Texture2D" uid="uid://c8p41flfyppjd" path="res://assets/sprites/misprite/muelle_2.png" id="91_muelle"]
+[ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="91_parallaxfollow"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/GoldenRetriever.tscn" id="92_goldenretriever"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Akita.tscn" id="93_akita"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/GreatDane.tscn" id="94_greatdane"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Schnauzer.tscn" id="95_schnauzer"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SaintBernard.tscn" id="96_saintbernard"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SiberianHusky.tscn" id="97_siberianhusky"]
 [ext_resource type="SpriteFrames" uid="uid://d1kuonjejlaa3" path="res://resources/sprites/BlacksmithNpcSSWSpriteFrames.tres" id="98_herrero"]
 [ext_resource type="Texture2D" uid="uid://cev0cpkd5k600" path="res://scenes/world/Mapas/SecoyaSalida.png" id="98_on71r"]
 [ext_resource type="SpriteFrames" uid="uid://bxsagfbelmifi" path="res://resources/sprites/MeatVendorSpriteFrames.tres" id="99_carnicero"]
-[ext_resource type="SpriteFrames" uid="uid://cab7wakhrjesx" path="res://resources/sprites/AssassinBandit3SpriteFrames.tres" id="108_banditasesino3"]
-[ext_resource type="SpriteFrames" uid="uid://x5pvny8mpyc7" path="res://resources/sprites/HeavyBandit3SpriteFrames.tres" id="109_banditcorpulento"]
-[ext_resource type="SpriteFrames" uid="uid://b3hs72kwpa6eg" path="res://resources/sprites/TorcherBanditSpriteFrames.tres" id="110_banditincendiario"]
-[ext_resource type="SpriteFrames" uid="uid://cf2xmdmu3m58h" path="res://resources/sprites/WildBanditSpriteFrames.tres" id="111_banditsalvaje"]
-[ext_resource type="SpriteFrames" uid="uid://c6d1ldkskwlfp" path="res://resources/sprites/NecropolisWarriorSpriteFrames.tres" id="112_necropolisguerrero"]
 [ext_resource type="Script" uid="uid://c66cvo06t25i2" path="res://scripts/world/AtmosphereHaze.cs" id="113_haze"]
 [ext_resource type="Script" uid="uid://bgg0sgbr3un2" path="res://scripts/world/FogWisps.cs" id="114_fog"]
-[ext_resource type="Script" path="res://scripts/world/ParallaxFollow.cs" id="91_parallaxfollow"]
+[ext_resource type="Texture2D" uid="uid://cv75eoysrwmj2" path="res://assets/sprites/deco/CapaArboles.png" id="190_capaarboles"]
+[ext_resource type="Texture2D" path="res://assets/sprites/CapaCasasTira.png" id="191_capacasas"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn06r"]
 size = Vector2(67, 11.360123)
@@ -15355,7 +15315,7 @@ position = Vector2(2850, 420)
 position = Vector2(1155, 430)
 
 [node name="TrainingDummy" parent="." unique_id=1832157128 instance=ExtResource("82_trainingdummy")]
-position = Vector2(1946.5, 430)
+position = Vector2(1513, 430)
 
 [node name="ToBosqueLobos1Transition" parent="." unique_id=1816556202 instance=ExtResource("17_transition")]
 position = Vector2(5254, 461)
@@ -15562,14 +15522,8 @@ position = Vector2(-1300, 430)
 [node name="Akita" parent="." unique_id=974902604 instance=ExtResource("93_akita")]
 position = Vector2(885, 448)
 
-[node name="GreatDane" parent="." unique_id=1723050895 instance=ExtResource("94_greatdane")]
-position = Vector2(1700, 430)
-
 [node name="Schnauzer" parent="." unique_id=180524163 instance=ExtResource("95_schnauzer")]
 position = Vector2(-265, 444)
-
-[node name="SaintBernard" parent="." unique_id=130872596 instance=ExtResource("96_saintbernard")]
-position = Vector2(4655, 433)
 
 [node name="SiberianHusky" parent="." unique_id=2101496355 instance=ExtResource("97_siberianhusky")]
 position = Vector2(-1400, 351)
@@ -15604,3 +15558,30 @@ z_index = -1
 position = Vector2(-501, 149)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("98_on71r")
+
+[node name="CapaArbolesFrente" type="Node2D" parent="." unique_id=1838201105]
+z_index = 20
+position = Vector2(-2050, 305)
+script = ExtResource("91_parallaxfollow")
+ParallaxFactor = Vector2(-0.3, 0)
+FollowCamera = true
+
+[node name="Arboles" type="Sprite2D" parent="CapaArbolesFrente" unique_id=1838201106]
+modulate = Color(0.45, 0.45, 0.45, 1)
+texture_repeat = 2
+texture = ExtResource("190_capaarboles")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 8900, 724)
+
+[node name="CapaCasasFrente" type="Node2D" parent="." unique_id=1838201107]
+z_index = 19
+position = Vector2(-1850, 377)
+script = ExtResource("91_parallaxfollow")
+ParallaxFactor = Vector2(-0.15, 0)
+FollowCamera = true
+
+[node name="Casas" type="Sprite2D" parent="CapaCasasFrente" unique_id=1838201108]
+modulate = Color(0.35, 0.4, 0.5, 1)
+texture = ExtResource("191_capacasas")
+centered = false
