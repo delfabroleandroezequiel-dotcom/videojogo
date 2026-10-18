@@ -1,0 +1,272 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_camera"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniCorridor.tscn" id="4_corridor"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniPlataforma.tscn" id="5_plataforma"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniRampa.tscn" id="5_rampa"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SpikeAccordion.tscn" id="6_spikes"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SpikeTrap.tscn" id="6_spike"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CrushingPlatform.tscn" id="7_crusher"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CrumbleFloor.tscn" id="7_crumble"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PendulumTrap.tscn" id="8_pendulum"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SawTrap.tscn" id="9_saw"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ArrowTrap.tscn" id="10_arrowtrap"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MovingPlatform.tscn" id="10_moving"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/EnergyBarrier.tscn" id="10_barrier"]
+[ext_resource type="PackedScene" path="res://scenes/world/SavePoint.tscn" id="11_savepoint"]
+[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="12_transition"]
+[ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="12_ladder"]
+[ext_resource type="PackedScene" path="res://scenes/world/ItemPickup.tscn" id="12_pickup"]
+[ext_resource type="Script" path="res://scripts/world/SealLock.cs" id="12_seallock"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido4.tscn" id="13_bandido4"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido5.tscn" id="13_bandido5"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido6.tscn" id="13_bandido6"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido7.tscn" id="13_bandido7"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemy.tscn" id="14_spider"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemyDark.tscn" id="14_spiderdark"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BatEnemy.tscn" id="14_bat"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/MurcielagoChico.tscn" id="14_batsmall"]
+[ext_resource type="Resource" path="res://resources/items/llave_sello_rojo.tres" id="15_keyred"]
+[ext_resource type="Resource" path="res://resources/items/llave_sello_verde.tres" id="15_keygreen"]
+[ext_resource type="Resource" path="res://resources/items/llave_sello_violeta.tres" id="15_keyviolet"]
+
+
+[node name="PruebaCruce1" type="Node2D"]
+script = ExtResource("1_bootstrap")
+ScenePath = "res://scenes/world/Mapas/PruebaCruce1.tscn"
+ZoneName = ""
+CameraProfile = ExtResource("2_camera")
+CameraLimitLeft = -100
+CameraLimitRight = 1700
+CameraLimitTop = -560
+CameraLimitBottom = 200
+
+[node name="Fondo" type="ColorRect" parent="."]
+z_index = -50
+offset_left = -700.0
+offset_top = -1160.0
+offset_right = 2300.0
+offset_bottom = 800.0
+color = Color(0.09, 0.1, 0.13, 1)
+
+[node name="Greybox" type="Node2D" parent="."]
+
+[node name="Trampas" type="Node2D" parent="."]
+
+[node name="Enemigos" type="Node2D" parent="."]
+
+[node name="Objetos" type="Node2D" parent="."]
+
+[node name="SueloA" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(-20, 0)
+Length = 460
+Thickness = 40
+
+[node name="SueloB" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(520, 0)
+Length = 60
+Thickness = 40
+
+[node name="SueloC" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(660, 0)
+Length = 60
+Thickness = 40
+
+[node name="SueloD" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(880, 0)
+Length = 60
+Thickness = 40
+
+[node name="SueloE" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(1020, 0)
+Length = 600
+Thickness = 40
+
+[node name="BolsilloRojo" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(440, 40)
+Length = 80
+Thickness = 20
+
+[node name="BolsilloVioleta" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(580, 40)
+Length = 80
+Thickness = 20
+
+[node name="BolsilloVerde" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(940, 40)
+Length = 80
+Thickness = 20
+
+[node name="PozoParedIzq" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(710, 40)
+Orientation = 1
+Length = 380
+Thickness = 20
+
+[node name="PozoParedDer" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(890, 40)
+Orientation = 1
+Length = 380
+Thickness = 20
+
+[node name="PozoFondo" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(700, 420)
+Length = 200
+Thickness = 30
+
+[node name="TechoA" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(-20, -520)
+Length = 1280
+Thickness = 40
+
+[node name="TechoB" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(1340, -520)
+Length = 280
+Thickness = 40
+
+[node name="ParedIzquierda" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(-10, -520)
+Orientation = 1
+Length = 320
+Thickness = 20
+
+[node name="ParedDerecha" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(1610, -520)
+Orientation = 1
+Length = 320
+Thickness = 20
+
+[node name="SelloRojo" parent="." instance=ExtResource("10_barrier")]
+position = Vector2(480, 8)
+Width = 80
+Horizontal = true
+NeonColor = 2
+RequiredKeyItemId = "item_key_seal_red"
+
+[node name="SelloVioleta" parent="." instance=ExtResource("10_barrier")]
+position = Vector2(620, 8)
+Width = 80
+Horizontal = true
+NeonColor = 3
+RequiredKeyItemId = "item_key_seal_violet"
+
+[node name="SelloVerde" parent="." instance=ExtResource("10_barrier")]
+position = Vector2(980, 8)
+Width = 80
+Horizontal = true
+NeonColor = 1
+RequiredKeyItemId = "item_key_seal_green"
+
+[node name="GranSello" parent="." instance=ExtResource("10_barrier")]
+position = Vector2(800, 8)
+Width = 160
+Horizontal = true
+NeonColor = 5
+
+[node name="CerraduraDeSellos" type="Node" parent="."]
+script = ExtResource("12_seallock")
+Seals = [NodePath("../SelloRojo"), NodePath("../SelloVioleta"), NodePath("../SelloVerde")]
+Target = NodePath("../GranSello")
+
+[node name="EscaleraArriba" parent="." instance=ExtResource("12_ladder")]
+position = Vector2(1300, -280)
+Length = 560
+
+[node name="Visible" type="Node2D" parent="."]
+z_index = -5
+
+[node name="SueloA" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(-20.0, 0.0, 440.0, 0.0, 440.0, 40.0, -20.0, 40.0)
+
+[node name="SueloB" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(520.0, 0.0, 580.0, 0.0, 580.0, 40.0, 520.0, 40.0)
+
+[node name="SueloC" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(660.0, 0.0, 720.0, 0.0, 720.0, 40.0, 660.0, 40.0)
+
+[node name="SueloD" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(880.0, 0.0, 940.0, 0.0, 940.0, 40.0, 880.0, 40.0)
+
+[node name="SueloE" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(1020.0, 0.0, 1620.0, 0.0, 1620.0, 40.0, 1020.0, 40.0)
+
+[node name="BolsilloRojo" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(440.0, 40.0, 520.0, 40.0, 520.0, 60.0, 440.0, 60.0)
+
+[node name="BolsilloVioleta" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(580.0, 40.0, 660.0, 40.0, 660.0, 60.0, 580.0, 60.0)
+
+[node name="BolsilloVerde" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(940.0, 40.0, 1020.0, 40.0, 1020.0, 60.0, 940.0, 60.0)
+
+[node name="PozoParedIzq" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(700.0, 40.0, 720.0, 40.0, 720.0, 420.0, 700.0, 420.0)
+
+[node name="PozoParedDer" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(880.0, 40.0, 900.0, 40.0, 900.0, 420.0, 880.0, 420.0)
+
+[node name="PozoFondo" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(700.0, 420.0, 900.0, 420.0, 900.0, 450.0, 700.0, 450.0)
+
+[node name="TechoA" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(-20.0, -520.0, 1260.0, -520.0, 1260.0, -480.0, -20.0, -480.0)
+
+[node name="TechoB" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(1340.0, -520.0, 1620.0, -520.0, 1620.0, -480.0, 1340.0, -480.0)
+
+[node name="ParedIzquierda" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(-20.0, -520.0, 0.0, -520.0, 0.0, -200.0, -20.0, -200.0)
+
+[node name="ParedDerecha" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(1600.0, -520.0, 1620.0, -520.0, 1620.0, -200.0, 1600.0, -200.0)
+
+[node name="Santuario" parent="." instance=ExtResource("11_savepoint")]
+position = Vector2(200, 0)
+
+[node name="HaciaRoja" parent="." instance=ExtResource("12_transition")]
+position = Vector2(15, -100)
+TargetScenePath = "res://scenes/world/Mapas/PruebaDiagRoja.tscn"
+TargetSpawnPosition = Vector2(-160, -40)
+Width = 30
+Height = 200
+
+[node name="HaciaVerde" parent="." instance=ExtResource("12_transition")]
+position = Vector2(1585, -100)
+TargetScenePath = "res://scenes/world/Mapas/PruebaDiagVerde.tscn"
+TargetSpawnPosition = Vector2(160, -40)
+Width = 30
+Height = 200
+
+[node name="HaciaVioleta" parent="." instance=ExtResource("12_transition")]
+position = Vector2(1300, -575)
+TargetScenePath = "res://scenes/world/Mapas/PruebaDiagVioleta.tscn"
+TargetSpawnPosition = Vector2(250, -40)
+Width = 80
+Height = 30
+
+[node name="HaciaAbajo" parent="." instance=ExtResource("12_transition")]
+position = Vector2(800, 395)
+TargetScenePath = "res://scenes/world/Mapas/PruebaDescenso1.tscn"
+TargetSpawnPosition = Vector2(60, -40)
+Width = 160
+Height = 30
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+position = Vector2(200, -40)

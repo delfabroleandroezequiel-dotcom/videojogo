@@ -22,6 +22,15 @@ public partial class Door : Node2D
 	// instead of narrow/tall for the horizontal variant.
 	[Export] public bool Horizontal;
 
+	// Set it to remember the door as open for this save once it opens (shortcut doors: opened once
+	// from the far side, open forever after) — same OpenedGates record Gate and CrumbleFloor use.
+	// Empty (default) = not remembered, closed again every time the scene loads.
+	[Export] public string PersistenceId = "";
+
+	// Starts slid open (passable); Close() brings it down. CloseSpeed is the slam, faster than opening.
+	[Export] public bool StartsOpen;
+	[Export] public float CloseSpeed = 700f;
+
 	private float _width = 200f;
 
 	// The span across the passage the door blocks (200 matches the original hardcoded shapes,
@@ -63,6 +72,20 @@ public partial class Door : Node2D
 			return;
 
 		_detector.BodyEntered += OnBodyEntered;
+
+		if (StartsOpen)
+		{
+			_isOpen = true;
+			_collision.Disabled = true;
+			_body.Position += Horizontal ? new Vector2(SlideDistance, 0f) : new Vector2(0f, -SlideDistance);
+		}
+		else if (!string.IsNullOrEmpty(PersistenceId) && Metroidvania.Save.SaveManager.Instance.IsGateOpened(PersistenceId))
+		{
+			// Already opened earlier in this save: start open, no slide.
+			_isOpen = true;
+			_collision.Disabled = true;
+			_body.Position += Horizontal ? new Vector2(SlideDistance, 0f) : new Vector2(0f, -SlideDistance);
+		}
 	}
 
 	// New RectangleShape2D/polygon instances every call, never mutating the existing Shape2D in
@@ -107,12 +130,40 @@ public partial class Door : Node2D
 		Open();
 	}
 
+	// Mechanism hook (PressurePlate's default TargetMethod): toggles — slams an open door, opens a closed one.
+	public void Activate()
+	{
+		if (_isOpen)
+			Close();
+		else
+			Open();
+	}
+
+	// Slams shut (an ambush: a pressure plate closing the way back). Starts open with StartsOpen.
+	// The collision comes back once the slide has finished, so it never closes onto the player.
+	public async void Close()
+	{
+		if (!_isOpen)
+			return;
+		_isOpen = false;
+		string axis = Horizontal ? "position:x" : "position:y";
+		float target = Horizontal ? _body.Position.X - SlideDistance : _body.Position.Y + SlideDistance;
+		Metroidvania.Shared.Sfx.PlayAt(this, "World/Doors", "Portcullis Gate");
+		Tween tween = GetTree().CreateTween();
+		tween.TweenProperty(_body, axis, target, SlideDistance / CloseSpeed).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.In);
+		await ToSignal(tween, Tween.SignalName.Finished);
+		if (IsInstanceValid(this))
+			_collision.SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
+	}
+
 	public async void Open()
 	{
 		if (_isOpen)
 			return;
 
 		_isOpen = true;
+		if (!string.IsNullOrEmpty(PersistenceId))
+			Metroidvania.Save.SaveManager.Instance.MarkGateOpened(PersistenceId);
 		_collision.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 
 		string axis = Horizontal ? "position:x" : "position:y";
