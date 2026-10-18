@@ -1,0 +1,237 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_camera"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniCorridor.tscn" id="4_corridor"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SpikeAccordion.tscn" id="6_spikes"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CrumbleFloor.tscn" id="7_crumble"]
+[ext_resource type="PackedScene" path="res://scenes/world/SavePoint.tscn" id="11_savepoint"]
+[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="12_transition"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido4.tscn" id="13_bandido4"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemy.tscn" id="16_spider"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BatEnemy.tscn" id="17_bat"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/MurcielagoChico.tscn" id="18_batsmall"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_frag1"]
+size = Vector2(80, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_frag2"]
+size = Vector2(80, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_frag3"]
+size = Vector2(80, 30)
+
+[node name="PruebaDescenso1" type="Node2D"]
+script = ExtResource("1_bootstrap")
+ScenePath = "res://scenes/world/Mapas/PruebaDescenso1.tscn"
+ZoneName = ""
+CameraProfile = ExtResource("2_camera")
+CameraLimitLeft = -104
+CameraLimitRight = 664
+CameraLimitTop = -300
+CameraLimitBottom = 1860
+
+[node name="Fondo" type="ColorRect" parent="."]
+z_index = -50
+offset_left = -500.0
+offset_top = -600.0
+offset_right = 1100.0
+offset_bottom = 2300.0
+color = Color(0.09, 0.1, 0.13, 1)
+
+[node name="Greybox" type="Node2D" parent="."]
+
+[node name="ParedIzquierda" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(-10, -300)
+Orientation = 1
+Length = 2140.0
+Thickness = 20.0
+
+[node name="ParedDerecha" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(560, -300)
+Orientation = 1
+Length = 2140.0
+Thickness = 20.0
+
+[node name="Techo" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(-20, -300)
+Length = 600.0
+Thickness = 40.0
+
+[node name="Repisa0" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(0, 0)
+Length = 330.0
+Thickness = 30.0
+
+[node name="Repisa1" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(230, 220)
+Length = 330.0
+Thickness = 30.0
+
+[node name="Piso3" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(0, 660)
+Length = 400.0
+Thickness = 30.0
+
+[node name="PilarChimenea" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(390, 690)
+Orientation = 1
+Length = 520.0
+Thickness = 20.0
+
+[node name="Piso5" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(140, 1300)
+Length = 420.0
+Thickness = 30.0
+
+[node name="Piso6" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(0, 1520)
+Length = 360.0
+Thickness = 30.0
+
+[node name="Fondo7" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(0, 1800)
+Length = 560.0
+Thickness = 40.0
+
+[node name="Visible" type="Node2D" parent="."]
+z_index = -5
+
+[node name="ParedIzquierda" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(-20.0, -300.0, 0.0, -300.0, 0.0, 1840.0, -20.0, 1840.0)
+
+[node name="ParedDerecha" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(550.0, -300.0, 570.0, -300.0, 570.0, 1840.0, 550.0, 1840.0)
+
+[node name="Techo" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(-20.0, -300.0, 580.0, -300.0, 580.0, -260.0, -20.0, -260.0)
+
+[node name="Repisa0" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(0.0, 0.0, 330.0, 0.0, 330.0, 30.0, 0.0, 30.0)
+
+[node name="Repisa1" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(230.0, 220.0, 560.0, 220.0, 560.0, 250.0, 230.0, 250.0)
+
+[node name="Piso3" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(0.0, 660.0, 400.0, 660.0, 400.0, 690.0, 0.0, 690.0)
+
+[node name="PilarChimenea" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(380.0, 690.0, 400.0, 690.0, 400.0, 1210.0, 380.0, 1210.0)
+
+[node name="Piso5" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(140.0, 1300.0, 560.0, 1300.0, 560.0, 1330.0, 140.0, 1330.0)
+
+[node name="Piso6" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(0.0, 1520.0, 360.0, 1520.0, 360.0, 1550.0, 0.0, 1550.0)
+
+[node name="Fondo7" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(0.0, 1800.0, 560.0, 1800.0, 560.0, 1840.0, 0.0, 1840.0)
+
+[node name="Santuario" parent="." instance=ExtResource("11_savepoint")]
+position = Vector2(110, 0)
+
+[node name="SuelosFragiles" type="Node2D" parent="."]
+
+[node name="Frag1Cuerpo" type="StaticBody2D" parent="SuelosFragiles"]
+position = Vector2(130, 455)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SuelosFragiles/Frag1Cuerpo"]
+shape = SubResource("RectangleShape2D_frag1")
+
+[node name="Frag1" parent="SuelosFragiles" node_paths=PackedStringArray("AttachedCollision") instance=ExtResource("7_crumble")]
+position = Vector2(130, 453)
+Width = 80.0
+Height = 34.0
+AttachedCollision = NodePath("../Frag1Cuerpo/CollisionShape2D")
+TriggerDelay = 0.65
+RespawnDelay = 4.0
+Persistent = false
+FillColor = Color(0.55, 0.45, 0.35, 1)
+ShowFill = true
+
+[node name="Frag2Cuerpo" type="StaticBody2D" parent="SuelosFragiles"]
+position = Vector2(210, 455)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SuelosFragiles/Frag2Cuerpo"]
+shape = SubResource("RectangleShape2D_frag2")
+
+[node name="Frag2" parent="SuelosFragiles" node_paths=PackedStringArray("AttachedCollision") instance=ExtResource("7_crumble")]
+position = Vector2(210, 453)
+Width = 80.0
+Height = 34.0
+AttachedCollision = NodePath("../Frag2Cuerpo/CollisionShape2D")
+TriggerDelay = 0.65
+RespawnDelay = 4.0
+Persistent = false
+FillColor = Color(0.55, 0.45, 0.35, 1)
+ShowFill = true
+
+[node name="Frag3Cuerpo" type="StaticBody2D" parent="SuelosFragiles"]
+position = Vector2(290, 455)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SuelosFragiles/Frag3Cuerpo"]
+shape = SubResource("RectangleShape2D_frag3")
+
+[node name="Frag3" parent="SuelosFragiles" node_paths=PackedStringArray("AttachedCollision") instance=ExtResource("7_crumble")]
+position = Vector2(290, 453)
+Width = 80.0
+Height = 34.0
+AttachedCollision = NodePath("../Frag3Cuerpo/CollisionShape2D")
+TriggerDelay = 0.65
+RespawnDelay = 4.0
+Persistent = false
+FillColor = Color(0.55, 0.45, 0.35, 1)
+ShowFill = true
+
+[node name="Trampas" type="Node2D" parent="."]
+
+[node name="PinchosBajoFragil" parent="Trampas" instance=ExtResource("6_spikes")]
+position = Vector2(200, 660)
+Count = 2
+Spacing = 100.0
+StaggerStep = 0.8
+
+[node name="PinchosChimenea" parent="Trampas" instance=ExtResource("6_spikes")]
+position = Vector2(550, 1180)
+rotation = -1.5708
+Count = 4
+Spacing = 110.0
+StaggerStep = 0.5
+
+[node name="Enemigos" type="Node2D" parent="."]
+
+[node name="AraniaRepisa" parent="Enemigos" instance=ExtResource("16_spider")]
+position = Vector2(470, 180)
+
+[node name="BandidoDescanso" parent="Enemigos" instance=ExtResource("13_bandido4")]
+position = Vector2(330, 1240)
+
+[node name="MurcielagoBajo1" parent="Enemigos" instance=ExtResource("17_bat")]
+position = Vector2(150, 1440)
+
+[node name="MurcielagoBajo2" parent="Enemigos" instance=ExtResource("17_bat")]
+position = Vector2(470, 1650)
+
+[node name="MurcielagoChicoFondo" parent="Enemigos" instance=ExtResource("18_batsmall")]
+position = Vector2(300, 1700)
+
+[node name="SalidaFondo" parent="." instance=ExtResource("12_transition")]
+position = Vector2(20, 1700)
+TargetScenePath = "res://scenes/world/Mapas/PruebaTorre1.tscn"
+TargetSpawnPosition = Vector2(80, -40)
+Width = 30.0
+Height = 200.0
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+position = Vector2(60, -40)

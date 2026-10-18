@@ -122,6 +122,9 @@ public partial class Enemy : CharacterBody2D
 			return;
 		_processModeBeforeFreeze = ProcessMode;
 		Velocity = Vector2.Zero;
+		// KeepActive: the default DisableMode (Remove) pulls a disabled body out of the physics
+		// space, so a stunned enemy couldn't be hit by normal attacks, hazards or blasts.
+		DisableMode = DisableModeEnum.KeepActive;
 		ProcessMode = ProcessModeEnum.Disabled;
 		GetNodeOrNull<Metroidvania.Player.Hitbox>("AttackHitbox")?.Deactivate();
 	}
@@ -212,6 +215,13 @@ public partial class Enemy : CharacterBody2D
 	// existing chase check below, so it's free (no extra distance query) for anything that wants
 	// to react to "this enemy has spotted the player" (e.g. CaveCollapseOverlay).
 	public bool PlayerDetected { get; protected set; }
+
+	// Alerted by a noise (a sprung bear trap, an alarm...): for a while it notices the player from
+	// AlertRange away instead of DetectionRange, so a whole camp comes running.
+	[Export] public float AlertRange = 900f;
+	private ulong _alertUntilMsec;
+	public void Alert(float seconds) =>
+		_alertUntilMsec = System.Math.Max(_alertUntilMsec, Time.GetTicksMsec() + (ulong)(seconds * 1000f));
 
 	protected Area2D ContactArea;
 	private bool _isHoldingDistance;
@@ -599,7 +609,7 @@ public partial class Enemy : CharacterBody2D
 		{
 			float distanceX = player.GlobalPosition.X - GlobalPosition.X;
 			float absDistance = Mathf.Abs(distanceX);
-			PlayerDetected = absDistance <= DetectionRange;
+			PlayerDetected = absDistance <= DetectionRange || (Time.GetTicksMsec() < _alertUntilMsec && absDistance <= AlertRange);
 			if (PlayerDetected)
 			{
 				bool desiredFacingRight = DesiredFacingRight(player, distanceX);

@@ -9,6 +9,8 @@ public enum CrusherTrigger
 	PlayerBelow,
 	// Falls on its own every IdleDuration seconds — a pure read-the-rhythm trap.
 	Timed,
+	// Only falls when something calls Activate() (a pressure plate, a lever...).
+	Manual,
 }
 
 // Solid block that hangs at its placed position, shakes as a warning, drops until it meets the
@@ -187,7 +189,7 @@ public partial class CrushingPlatform : AnimatableBody2D
 		{
 			case State.Idle:
 				_stateTimer -= dt;
-				if (_stateTimer <= 0f && (Trigger == CrusherTrigger.Timed || PlayerIsBelow()))
+				if (_stateTimer <= 0f && (Trigger == CrusherTrigger.Timed || (Trigger == CrusherTrigger.PlayerBelow && PlayerIsBelow())))
 					StartTelegraph();
 				break;
 
@@ -240,6 +242,13 @@ public partial class CrushingPlatform : AnimatableBody2D
 		}
 
 		return false;
+	}
+
+	// Drops it now (telegraph first) if it's hanging idle — for pressure plates, levers, signals.
+	public void Activate()
+	{
+		if (_state == State.Idle)
+			StartTelegraph();
 	}
 
 	private void StartTelegraph()

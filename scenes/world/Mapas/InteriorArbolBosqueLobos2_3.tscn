@@ -14072,7 +14072,7 @@ position = Vector2(14, -98.5)
 shape = SubResource("RectangleShape2D_iqfpv")
 
 [node name="Player" parent="." unique_id=1042001012 instance=ExtResource("3_player")]
-position = Vector2(-824, 439)
+position = Vector2(-844.56226, -427.13263)
 
 [node name="LevelTransition2" parent="." unique_id=2116574566 instance=ExtResource("4_transition")]
 position = Vector2(-1114, -399)

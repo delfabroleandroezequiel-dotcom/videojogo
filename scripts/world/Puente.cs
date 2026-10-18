@@ -13,9 +13,16 @@ namespace Metroidvania.World;
 // player, so everything settles to the idle sag curve) — the plank alignment against the collision
 // needed several rounds of guessing before this existed; tune it live instead of round-tripping
 // through Play every time.
+// Flammable (off by default): the bridge burns like a WoodenScaffold — a barrel blast, a bandit's
+// ember, Activate() (lights the first plank) or a neighbouring fire catches a plank, fire creeps
+// plank to plank, each plank chars and drops out after BurnTime, and the collision is rebuilt as
+// runs of the planks still standing, so a burnt plank is a real gap you fall through.
 [Tool]
-public partial class Puente : AnimatableBody2D
+public partial class Puente : AnimatableBody2D, IFlammable
 {
+	[Signal] public delegate void IgnitedEventHandler();
+	[Signal] public delegate void BurnedOutEventHandler();
+
 	private int _count = 6;
 
 	// How many plank sprites tile across the bridge — also drives the total Width (Count *
@@ -80,6 +87,22 @@ public partial class Puente : AnimatableBody2D
 	[Export] public float PlankSpringDamping = 13f;
 	[Export] public float MaxPlankSag = 26f;
 
+	// The whole collision dips with the deepest plank, even with the player at an end — so walking
+	// off onto level ground meets a lip as tall as the dip (the Player has no step-up) and gets
+	// stuck. On, the dip (RestDip included) fades to 0 near either end, so the ends meet the
+	// ground flush. Off by default to keep existing bridges exactly as they were tuned.
+	[Export] public bool EaseDipAtEnds;
+
+	[ExportGroup("Fire")]
+	[Export] public bool Flammable;
+	[Export] public float SpreadDelay = 0.2f;
+	[Export] public float BurnTime = 1.4f;
+	[Export] public int BurnDamage = 6;
+	[Export] public float BurnTickInterval = 0.5f;
+	// How far fire jumps from a plank to another flammable, or to a barrel.
+	[Export] public float SpreadReach = 22f;
+	[ExportGroup("")]
+
 	private Texture2D _plankTexture;
 
 	[Export]
@@ -139,6 +162,9 @@ public partial class Puente : AnimatableBody2D
 		_basePosition = Position;
 
 		Rebuild();
+
+		if (Flammable && !Engine.IsEditorHint())
+			SetUpFire();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -167,13 +193,20 @@ public partial class Puente : AnimatableBody2D
 		// their feet instead of drifting away from it as they walk across. With no player around
 		// (including in the editor, where this is what [Tool] previews), this settles to the idle
 		// parabola's own peak.
-		float target = RestDip + deepestPlankSag;
+		float target = (RestDip + deepestPlankSag) * EndEase();
 
 		// Explicit-Euler damped spring toward target — unconditionally well-behaved at this
 		// stiffness/damping and a 60Hz-ish physics tick.
 		float accel = SpringStiffness * (target - _dip) - SpringDamping * _dipVelocity;
 		_dipVelocity += accel * dt;
 		_dip += _dipVelocity * dt;
+		// Near an end the eased target is a hard ceiling, not just where the spring heads: waiting
+		// for the spring left a lip the player stalled against for most of a second.
+		if (EaseDipAtEnds && _dip > target && target < RestDip + deepestPlankSag)
+		{
+			_dip = target;
+			_dipVelocity = Mathf.Min(_dipVelocity, 0f);
+		}
 
 		// No rotation on the collision body at all — two different attempts at clamping/pivoting
 		// it (capping the angle, capping how fast it could change, pivoting around the player
@@ -182,6 +215,9 @@ public partial class Puente : AnimatableBody2D
 		// gently it's done; the visual curve (plain Sprite2D per-plank offsets, no physics) never
 		// had this problem and stays exactly as it was. The collision now only ever translates.
 		Position = _basePosition + new Vector2(0f, _dip);
+
+		if (_fires is not null)
+			UpdateFire(dt);
 	}
 
 	private float UpdatePlankSag(float dt)
@@ -237,6 +273,188 @@ public partial class Puente : AnimatableBody2D
 		return deepest;
 	}
 
+	private const float EndFlatZone = 30f;
+
+	private float EndEase()
+	{
+		if (!EaseDipAtEnds || !IsPlayerOnBridge())
+			return 1f;
+		float localX = _player.GlobalPosition.X - GlobalPosition.X;
+		float toEnd = Mathf.Min(localX, Width - localX);
+		// Flat for the last EndFlatZone px, easing back to the full dip over PlankInfluenceRadius.
+		return Mathf.Clamp((toEnd - EndFlatZone) / PlankInfluenceRadius, 0f, 1f);
+	}
+
+	// ── Fire ────────────────────────────────────────────────────────────────────────────────────
+
+	private enum PlankState { Intact, Burning, Gone }
+
+	private const float FlameHeight = 26f;
+	private PlankState[] _plankState;
+	private float[] _burnTimer;
+	private bool[] _hasSpread;
+	private Node2D[] _fires;
+	private readonly System.Collections.Generic.Dictionary<ulong, ulong> _nextBurnTick = new();
+	private readonly RandomNumberGenerator _fireRng = new();
+	private bool _burning;
+	private float _fireTime;
+
+	private void SetUpFire()
+	{
+		AddToGroup(PlankFire.FlammableGroup);
+		_fireRng.Randomize();
+		_plankState = new PlankState[Count];
+		_burnTimer = new float[Count];
+		_hasSpread = new bool[Count];
+		_fires = new Node2D[Count];
+		var seeded = new RandomNumberGenerator { Seed = 9157 };
+		for (int i = 0; i < Count; i++)
+		{
+			_fires[i] = PlankFire.Build(PlankRect(i, 0f), false, FlameHeight, seeded);
+			AddChild(_fires[i]);
+		}
+	}
+
+	// Plate / lever hook: lights the first (left) plank.
+	public void Activate() => IgnitePlank(0);
+
+	public void IgniteAt(Vector2 globalPoint, float radius)
+	{
+		if (_fires is null)
+			return;
+		Vector2 local = ToLocal(globalPoint);
+		for (int i = 0; i < _fires.Length; i++)
+		{
+			if (PlankFire.DistanceToRect(local, PlankRect(i, SagOf(i) + ArtShift)) <= radius)
+				IgnitePlank(i);
+		}
+	}
+
+	private void IgnitePlank(int i)
+	{
+		if (_fires is null || i < 0 || i >= _fires.Length || _plankState[i] != PlankState.Intact)
+			return;
+		_plankState[i] = PlankState.Burning;
+		_burnTimer[i] = 0f;
+		PlankFire.SetLit(_fires[i], true);
+		if (!_burning)
+		{
+			_burning = true;
+			EmitSignal(SignalName.Ignited);
+			Metroidvania.Shared.Sfx.PlayAt(this, "Magic", "Fireball");
+		}
+	}
+
+	private void UpdateFire(float dt)
+	{
+		PlankFire.CatchGroundFire(GetTree(), this);
+		if (!_burning)
+			return;
+		_fireTime += dt;
+		bool anyLeft = false;
+		bool collapsed = false;
+		for (int i = 0; i < _fires.Length; i++)
+		{
+			if (_plankState[i] != PlankState.Burning)
+			{
+				anyLeft |= _plankState[i] == PlankState.Intact;
+				continue;
+			}
+			anyLeft = true;
+			_burnTimer[i] += dt;
+			float t = Mathf.Clamp(_burnTimer[i] / BurnTime, 0f, 1f);
+			// Fire rides the plank's own sag; the board chars as it burns.
+			_fires[i].Position = new Vector2(0f, SagOf(i) + ArtShift);
+			PlankFire.Animate(_fires[i], _fireTime, Mathf.Clamp(_burnTimer[i] / 0.25f, 0f, 1f), i * 1.7f);
+			if (_plankSprites is not null && i < _plankSprites.Length && IsInstanceValid(_plankSprites[i]))
+				_plankSprites[i].Modulate = TintColor.Lerp(PlankFire.Char, t);
+			Rect2 global = new(ToGlobal(PlankRect(i, SagOf(i) + ArtShift).Position), PlankRect(i, 0f).Size);
+			if (!_hasSpread[i] && _burnTimer[i] >= SpreadDelay)
+			{
+				_hasSpread[i] = true;
+				IgnitePlank(i - 1);
+				IgnitePlank(i + 1);
+				PlankFire.SpreadFrom(this, global.Grow(SpreadReach));
+			}
+			if (_burnTimer[i] >= 0.2f)
+				PlankFire.HurtBodies(GetTree(), PlankFire.FlameArea(global, false, FlameHeight), BurnDamage, BurnTickInterval, _nextBurnTick);
+			if (_burnTimer[i] >= BurnTime)
+			{
+				CollapsePlank(i, global);
+				collapsed = true;
+			}
+		}
+		if (collapsed)
+			CallDeferred(MethodName.RebuildCollisionRuns);
+		if (!anyLeft)
+		{
+			_burning = false;
+			EmitSignal(SignalName.BurnedOut);
+		}
+	}
+
+	private void CollapsePlank(int i, Rect2 global)
+	{
+		_plankState[i] = PlankState.Gone;
+		PlankFire.SetLit(_fires[i], false);
+		Metroidvania.Shared.Sfx.PlayAt(this, "World/Mining", "mine");
+		PlankFire.Sparks(this, global.GetCenter());
+		if (_plankSprites is null || i >= _plankSprites.Length || !IsInstanceValid(_plankSprites[i]))
+			return;
+		// A charred copy of the plank tumbles away; the real sprite just hides.
+		Sprite2D sprite = _plankSprites[i];
+		if (GetTree().CurrentScene is Node scene)
+		{
+			var falling = new Sprite2D { Texture = sprite.Texture, Scale = sprite.GlobalScale, Modulate = PlankFire.Char.Lightened(0.15f), ZIndex = 2 };
+			scene.AddChild(falling);
+			falling.GlobalPosition = sprite.GlobalPosition;
+			PlankFire.Tumble(falling, _fireRng);
+		}
+		sprite.Visible = false;
+	}
+
+	// One collision shape per run of planks still standing — a single shape across the whole span
+	// while intact (same as before), split around every burnt-out gap.
+	private void RebuildCollisionRuns()
+	{
+		foreach (Node child in GetChildren())
+		{
+			if (child is CollisionShape2D old)
+			{
+				old.Disabled = true;
+				old.QueueFree();
+			}
+		}
+		int start = -1;
+		for (int i = 0; i <= _plankState.Length; i++)
+		{
+			bool standing = i < _plankState.Length && _plankState[i] != PlankState.Gone;
+			if (standing && start < 0)
+				start = i;
+			else if (!standing && start >= 0)
+			{
+				float from = start * PlankSpacing;
+				float to = i * PlankSpacing;
+				AddChild(new CollisionShape2D
+				{
+					Position = new Vector2((from + to) / 2f, 0f),
+					Shape = new RectangleShape2D { Size = new Vector2(to - from, Thickness) },
+				});
+				start = -1;
+			}
+		}
+	}
+
+	// Plank i's slice of the collision box, local, lowered by its visual sag.
+	private Rect2 PlankRect(int i, float sag) => new(i * PlankSpacing, -Thickness / 2f + sag, PlankSpacing, Thickness);
+
+	private float SagOf(int i) => _plankSag is not null && i < _plankSag.Length ? _plankSag[i] : 0f;
+
+	// Fire follows the DRAWN wood, not the collision: VisualOffset lifts the planks above the
+	// walkable line (tuned per map, e.g. InteriorCueva5), and tabla.png's wood band sits ~3 px below
+	// the sprite centre, so the wood top lines up with the collision top at VisualOffset.Y = -3.
+	private float ArtShift => VisualOffset.Y + 3f;
+
 	// Falls off linearly to 0 past PlankInfluenceRadius, so only planks genuinely near the
 	// player's feet get extra sag.
 	private float PlankPlayerSagAt(float worldX)
@@ -282,6 +500,7 @@ public partial class Puente : AnimatableBody2D
 		AddChild(collision);
 		collision.Owner = this;
 
+		_fires = null;
 		_plankSag = new float[Count];
 		_plankSagVelocity = new float[Count];
 

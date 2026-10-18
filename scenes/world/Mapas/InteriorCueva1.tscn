@@ -23,6 +23,8 @@
 [ext_resource type="Texture2D" uid="uid://bxg6o7k8acwgm" path="res://scenes/world/Mapas/estalagtita2.png" id="22_qw7n5"]
 [ext_resource type="Material" path="res://resources/shaders/CobwebSway.tres" id="cobweb_sway"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ParallaxCueva.tscn" id="90_parallaxcueva"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SpikeAccordion.tscn" id="900_spikes"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ArrowTrap.tscn" id="900_arrow"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1600, 64)
@@ -4414,3 +4416,17 @@ texture = ExtResource("22_qw7n5")
 z_index = 10
 position = Vector2(912, 576)
 texture = ExtResource("22_qw7n5")
+
+[node name="TrampasNuevas" type="Node2D" parent="."]
+
+[node name="PinchosAntesDelCampamento" parent="TrampasNuevas" instance=ExtResource("900_spikes")]
+position = Vector2(580, 928)
+Count = 3
+Spacing = 100.0
+StaggerStep = 0.5
+
+[node name="FlechaDefensaCampamento" parent="TrampasNuevas" instance=ExtResource("900_arrow")]
+position = Vector2(1515, 904)
+Direction = Vector2(-1, 0)
+FireInterval = 2.2
+MaxDistance = 760.0

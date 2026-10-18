@@ -24,6 +24,7 @@
 [ext_resource type="Material" path="res://resources/shaders/CobwebSway.tres" id="cobweb_sway"]
 [ext_resource type="Material" path="res://resources/shaders/CobwebSwaySprite.tres" id="cobweb_sway_sprite"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ParallaxCueva.tscn" id="90_parallaxcueva"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PendulumTrap.tscn" id="900_pendulum"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(398, 490)
@@ -2705,3 +2706,18 @@ TargetScenePath = "res://scenes/world/Mapas/InteriorCueva4.tscn"
 TargetSpawnPosition = Vector2(1367.97, 277.468)
 Width = 354.0
 Height = 273.0
+
+[node name="TrampasNuevas" type="Node2D" parent="."]
+
+[node name="PenduloPuente1" parent="TrampasNuevas" instance=ExtResource("900_pendulum")]
+position = Vector2(620, 0)
+ChainLength = 560.0
+MaxAngleDegrees = 22.0
+SwingPeriod = 4.2
+
+[node name="PenduloPuente2" parent="TrampasNuevas" instance=ExtResource("900_pendulum")]
+position = Vector2(920, 0)
+ChainLength = 560.0
+MaxAngleDegrees = 22.0
+SwingPeriod = 4.2
+StartPhase = 0.5

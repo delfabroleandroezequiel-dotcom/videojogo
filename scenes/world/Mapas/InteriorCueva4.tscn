@@ -23,6 +23,7 @@
 [ext_resource type="Material" path="res://resources/shaders/CobwebSway.tres" id="cobweb_sway"]
 [ext_resource type="Material" path="res://resources/shaders/CobwebSwaySprite.tres" id="cobweb_sway_sprite"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ParallaxCueva.tscn" id="90_parallaxcueva"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ArrowTrap.tscn" id="900_arrow"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vcubd"]
 texture = ExtResource("5_g6xdc")
@@ -6910,3 +6911,11 @@ position = Vector2(520, 616)
 
 [node name="SpiderEnemy2" parent="." unique_id=909979468 instance=ExtResource("21_8rr4n")]
 position = Vector2(1288, 296)
+
+[node name="TrampasNuevas" type="Node2D" parent="."]
+
+[node name="FlechaSubeLaEscalera" parent="TrampasNuevas" instance=ExtResource("900_arrow")]
+position = Vector2(119, 610)
+Direction = Vector2(0, -1)
+FireInterval = 2.4
+MaxDistance = 820.0

@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/world/SpikeTrap.cs" id="1_script"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/SpikeTrapSpriteFrames.tres" id="2_frames"]
+[ext_resource type="Script" path="res://scripts/world/PinchosFila.cs" id="2_pinchos"]
 [ext_resource type="Script" path="res://scripts/world/Hazard.cs" id="3_hazard"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
@@ -17,11 +17,12 @@ script = ExtResource("1_script")
 position = Vector2(0, 5.6)
 shape = SubResource("RectangleShape2D_floor")
 
-[node name="Visual" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -6.3)
-scale = Vector2(0.7, 0.7)
-sprite_frames = ExtResource("2_frames")
-animation = &"extend"
+[node name="Visual" type="Node2D" parent="."]
+position = Vector2(0, 8)
+script = ExtResource("2_pinchos")
+Width = 98.0
+Height = 58.0
+SpikeInset = 10.0
 
 [node name="HazardArea" type="Area2D" parent="."]
 collision_layer = 0

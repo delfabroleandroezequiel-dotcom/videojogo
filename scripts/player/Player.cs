@@ -383,6 +383,15 @@ public partial class Player : CharacterBody2D
 	public bool IsParryRecovering => _parryRecoveryTimer > 0f;
 	public bool IsAttacking => _attacking;
 	public bool IsDashing => _isDashing;
+	// Snared (a bear trap clamped on the feet): no walking, jumping, dashing or rolling until it runs
+	// out — turning, attacking and parrying still work, so the answer is to fight from the spot.
+	public bool IsSnared => _snareTimer > 0f;
+	public void Snare(float duration)
+	{
+		_snareTimer = Mathf.Max(_snareTimer, duration);
+		_dashBufferTimer = 0f;
+		_rollBufferTimer = 0f;
+	}
 	public bool IsRolling => _isRolling;
 	// Drinking the heal flask (read by enemies that punish healing, e.g. MushroomBoss).
 	public bool IsHealing => _healing;
@@ -657,6 +666,7 @@ public partial class Player : CharacterBody2D
 	private bool _isPounding;
 	private bool _poundHitLanded;
 	private float _knockbackTimer;
+	private float _snareTimer;
 	private Vector2 _knockbackVelocity;
 	private bool _isDead;
 	private float _airborneTimer;
@@ -1391,6 +1401,7 @@ public partial class Player : CharacterBody2D
 		_attackBufferTimer = Mathf.Max(0f, _attackBufferTimer - (float)delta);
 		_dashBufferTimer = Mathf.Max(0f, _dashBufferTimer - (float)delta);
 		_rollBufferTimer = Mathf.Max(0f, _rollBufferTimer - (float)delta);
+		_snareTimer = Mathf.Max(0f, _snareTimer - (float)delta);
 		if (Input.IsActionJustPressed("attack"))
 			_attackBufferTimer = InputBufferWindow;
 		if (Input.IsActionJustPressed("dash"))
@@ -1845,10 +1856,10 @@ public partial class Player : CharacterBody2D
 		}
 
 		int maxJumps = _abilities.Has(PlayerAbilities.DoubleJump) ? 2 : 1;
-		bool droppedThrough = Input.IsActionPressed("move_down") && Input.IsActionJustPressed("jump")
+		bool droppedThrough = !IsSnared && Input.IsActionPressed("move_down") && Input.IsActionJustPressed("jump")
 			&& IsOnFloor() && TryDropThroughOneWayPlatform();
 
-		bool jumpPressed = !droppedThrough && !_isBackstabbing && Input.IsActionJustPressed("jump") && _jumpSquatTimer <= 0f
+		bool jumpPressed = !droppedThrough && !_isBackstabbing && !IsSnared && Input.IsActionJustPressed("jump") && _jumpSquatTimer <= 0f
 			&& (IsOnFloor() || _infiniteJumpDebug || _jumpCount < maxJumps);
 		// Ground jumps crouch for JumpSquatDuration on the floor before lifting off (a short
 		// anticipation beat, like a fighting game's jump squat); air jumps launch at once.
@@ -1874,7 +1885,7 @@ public partial class Player : CharacterBody2D
 
 		// An air parry keeps the jump's momentum; only a ground parry plants the feet.
 		float direction = (_attacking || _healing || _crouching || (_isBlocking && IsOnFloor()) || _isTransforming || _isShooting
-			|| _isCastingSpell || _isCastingSpell2) ? 0f : rawDirection;
+			|| _isCastingSpell || _isCastingSpell2 || IsSnared) ? 0f : rawDirection;
 		bool sprinting = !_attacking && !_healing && _abilities.Has(PlayerAbilities.Sprint) && Input.IsActionPressed("sprint")
 			&& !_crouching && direction != 0;
 		float speed = _crouching ? Speed * CrouchSpeedMultiplier : sprinting ? Speed * SprintSpeedMultiplier : Speed;
@@ -1885,13 +1896,13 @@ public partial class Player : CharacterBody2D
 
 		UpdateCameraLook(delta);
 
-		if (_dashBufferTimer > 0f && _abilities.Has(PlayerAbilities.Dash) && _canDash && !_healing && !_isRolling && !_isBackstabbing)
+		if (_dashBufferTimer > 0f && _abilities.Has(PlayerAbilities.Dash) && _canDash && !_healing && !_isRolling && !_isBackstabbing && !IsSnared)
 		{
 			_dashBufferTimer = 0f;
 			StartDash();
 		}
 
-		if (_rollBufferTimer > 0f && _abilities.Has(PlayerAbilities.Roll) && _canRoll && !_healing && !_isDashing
+		if (_rollBufferTimer > 0f && _abilities.Has(PlayerAbilities.Roll) && _canRoll && !_healing && !_isDashing && !IsSnared
 			&& !_isBackstabbing && IsOnFloor())
 		{
 			_rollBufferTimer = 0f;

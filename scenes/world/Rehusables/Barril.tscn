@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/ExplosiveBarrel.cs" id="1_script"]
+[ext_resource type="Script" path="res://scripts/shared/Stats.cs" id="2_stats"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+resource_local_to_scene = true
+size = Vector2(28, 38)
+
+[node name="Barril" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -19)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("2_stats")
+MaxHealth = 1
+InvulnerabilityDuration = 0.0

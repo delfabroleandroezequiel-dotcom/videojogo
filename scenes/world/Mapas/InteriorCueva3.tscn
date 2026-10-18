@@ -26,6 +26,7 @@
 [ext_resource type="Material" path="res://resources/shaders/CobwebSway.tres" id="cobweb_sway"]
 [ext_resource type="Material" path="res://resources/shaders/CobwebSwaySprite.tres" id="cobweb_sway_sprite"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ParallaxCueva.tscn" id="90_parallaxcueva"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SawTrap.tscn" id="900_saw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vcubd"]
 texture = ExtResource("5_1bypt")
@@ -6874,3 +6875,16 @@ TargetScenePath = "res://scenes/world/Mapas/InteriorCueva4.tscn"
 TargetSpawnPosition = Vector2(120, -288)
 Width = 354.0
 Height = 273.0
+
+[node name="TrampasNuevas" type="Node2D" parent="."]
+
+[node name="SierraPiso256" parent="TrampasNuevas" instance=ExtResource("900_saw")]
+position = Vector2(895, 232)
+TravelOffset = Vector2(160, 0)
+TravelSpeed = 110.0
+
+[node name="SierraPisoMenos64" parent="TrampasNuevas" instance=ExtResource("900_saw")]
+position = Vector2(1055, -88)
+TravelOffset = Vector2(-160, 0)
+TravelSpeed = 110.0
+StartProgress = 0.5

@@ -1,0 +1,178 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_camera"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniCorridor.tscn" id="4_corridor"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SpikeTrap.tscn" id="6_spike"]
+[ext_resource type="PackedScene" path="res://scenes/world/SavePoint.tscn" id="11_savepoint"]
+[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="12_transition"]
+
+[node name="PruebaChimenea1" type="Node2D"]
+script = ExtResource("1_bootstrap")
+ScenePath = "res://scenes/world/Mapas/PruebaChimenea1.tscn"
+ZoneName = ""
+CameraProfile = ExtResource("2_camera")
+CameraLimitLeft = -234
+CameraLimitRight = 534
+CameraLimitTop = -340
+CameraLimitBottom = 1680
+
+[node name="Fondo" type="ColorRect" parent="."]
+z_index = -50
+offset_left = -600.0
+offset_top = -700.0
+offset_right = 900.0
+offset_bottom = 2100.0
+color = Color(0.09, 0.1, 0.13, 1)
+
+[node name="Greybox" type="Node2D" parent="."]
+
+[node name="ParedIzquierda" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(0, -340)
+Orientation = 1
+Length = 2020
+Thickness = 20
+
+[node name="ParedDerecha" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(300, -340)
+Orientation = 1
+Length = 2020
+Thickness = 20
+
+[node name="Techo" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(-10, -340)
+Length = 320
+Thickness = 40
+
+[node name="Repisa0" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(10, 0)
+Length = 200
+Thickness = 24
+
+[node name="Repisa1" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(10, 320)
+Length = 200
+Thickness = 24
+
+[node name="Repisa2" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(10, 640)
+Length = 200
+Thickness = 24
+
+[node name="Repisa3" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(90, 960)
+Length = 200
+Thickness = 24
+
+[node name="Repisa4" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(90, 1280)
+Length = 200
+Thickness = 24
+
+[node name="Fondo" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(10, 1600)
+Length = 280
+Thickness = 40
+
+[node name="Visible" type="Node2D" parent="."]
+z_index = -5
+
+[node name="ParedIzquierda" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(-10.0, -340.0, 10.0, -340.0, 10.0, 1680.0, -10.0, 1680.0)
+
+[node name="ParedDerecha" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(290.0, -340.0, 310.0, -340.0, 310.0, 1680.0, 290.0, 1680.0)
+
+[node name="Techo" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(-10.0, -340.0, 310.0, -340.0, 310.0, -300.0, -10.0, -300.0)
+
+[node name="Repisa0" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(10.0, 0.0, 210.0, 0.0, 210.0, 24.0, 10.0, 24.0)
+
+[node name="Repisa1" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(10.0, 320.0, 210.0, 320.0, 210.0, 344.0, 10.0, 344.0)
+
+[node name="Repisa2" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(10.0, 640.0, 210.0, 640.0, 210.0, 664.0, 10.0, 664.0)
+
+[node name="Repisa3" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(90.0, 960.0, 290.0, 960.0, 290.0, 984.0, 90.0, 984.0)
+
+[node name="Repisa4" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(90.0, 1280.0, 290.0, 1280.0, 290.0, 1304.0, 90.0, 1304.0)
+
+[node name="Fondo" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(10.0, 1600.0, 290.0, 1600.0, 290.0, 1640.0, 10.0, 1640.0)
+
+[node name="Santuario" parent="." instance=ExtResource("11_savepoint")]
+position = Vector2(70, 0)
+
+[node name="PinchosPared" type="Node2D" parent="."]
+
+[node name="Tramo1Derecha" parent="PinchosPared" instance=ExtResource("6_spike")]
+position = Vector2(290, 200)
+rotation = -1.5708
+RetractedDuration = 0.0
+ExtendDuration = 0.01
+ExtendedDuration = 1e+09
+HasFloorCollision = false
+
+[node name="Tramo2Derecha" parent="PinchosPared" instance=ExtResource("6_spike")]
+position = Vector2(290, 520)
+rotation = -1.5708
+RetractedDuration = 0.0
+ExtendDuration = 0.01
+ExtendedDuration = 1e+09
+HasFloorCollision = false
+
+[node name="Tramo3Derecha" parent="PinchosPared" instance=ExtResource("6_spike")]
+position = Vector2(290, 840)
+rotation = -1.5708
+RetractedDuration = 0.0
+ExtendDuration = 0.01
+ExtendedDuration = 1e+09
+HasFloorCollision = false
+
+[node name="Tramo4Izquierda" parent="PinchosPared" instance=ExtResource("6_spike")]
+position = Vector2(10, 1160)
+rotation = 1.5708
+RetractedDuration = 0.0
+ExtendDuration = 0.01
+ExtendedDuration = 1e+09
+HasFloorCollision = false
+
+[node name="Tramo5Izquierda" parent="PinchosPared" instance=ExtResource("6_spike")]
+position = Vector2(10, 1480)
+rotation = 1.5708
+RetractedDuration = 0.0
+ExtendDuration = 0.01
+ExtendedDuration = 1e+09
+HasFloorCollision = false
+
+[node name="Tramo5Derecha" parent="PinchosPared" instance=ExtResource("6_spike")]
+position = Vector2(290, 1480)
+rotation = -1.5708
+RetractedDuration = 0.0
+ExtendDuration = 0.01
+ExtendedDuration = 1e+09
+HasFloorCollision = false
+
+[node name="SalidaFondo" parent="." instance=ExtResource("12_transition")]
+position = Vector2(25, 1540)
+TargetScenePath = "res://scenes/world/Mapas/PruebaHub1.tscn"
+TargetSpawnPosition = Vector2(150, -40)
+Width = 20.0
+Height = 100.0
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+position = Vector2(40, -40)

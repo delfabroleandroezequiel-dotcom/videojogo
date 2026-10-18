@@ -18,19 +18,26 @@ public partial class SpikeTrap : StaticBody2D
 	// that catches the player when walking sideways into it.
 	[Export] public bool HasFloorCollision = true;
 
-	private AnimatedSprite2D _sprite;
+	// Last stretch of the retracted phase where the tips poke out of the slots as a warning.
+	[Export] public float WarningDuration = 0.3f;
+	[Export(PropertyHint.Range, "0,0.5,0.01")] public float WarningExtension = 0.12f;
+
+	private PinchosFila _visual;
 	private CollisionShape2D _hazardShape;
 	private SpikeState _state = SpikeState.Retracted;
 	private float _stateTime;
 
 	public override void _Ready()
 	{
-		_sprite = GetNode<AnimatedSprite2D>("Visual");
+		_visual = GetNode<PinchosFila>("Visual");
 		_hazardShape = GetNode<CollisionShape2D>("HazardArea/CollisionShape2D");
 		_hazardShape.Disabled = true;
 		GetNode<CollisionShape2D>("CollisionShape2D").Disabled = !HasFloorCollision;
 		_stateTime = -StartOffset;
-		_sprite.Frame = 0;
+		// Every trap in a row shares the scene's Seed; derive one from the position so neighbours
+		// don't look like copies of each other.
+		_visual.Seed = (int)GD.Hash(GlobalPosition.Round());
+		_visual.Extension = 0f;
 	}
 
 	public override void _Process(double delta)
@@ -46,7 +53,7 @@ public partial class SpikeTrap : StaticBody2D
 		}
 
 		float progress = duration <= 0f ? 1f : Mathf.Clamp(_stateTime / duration, 0f, 1f);
-		_sprite.Frame = GetFrame(progress);
+		_visual.Extension = GetExtension(progress, duration);
 	}
 
 	private float GetStateDuration(SpikeState state) => state switch
@@ -68,15 +75,28 @@ public partial class SpikeTrap : StaticBody2D
 		};
 
 		// Only deadly once the spikes are fully out — matches the read-and-time trap pattern
-		// (frame 3 is the only pose where the sprite silhouette actually blocks the safe path).
+		// (full extension is the only pose where the silhouette actually blocks the safe path).
 		_hazardShape.Disabled = _state != SpikeState.Extended;
 	}
 
-	private int GetFrame(float progress) => _state switch
+	private float GetExtension(float progress, float duration)
 	{
-		SpikeState.Retracted => 0,
-		SpikeState.Extending => Mathf.RoundToInt(progress * 3f),
-		SpikeState.Extended => 3,
-		_ => Mathf.RoundToInt((1f - progress) * 3f),
-	};
+		switch (_state)
+		{
+			case SpikeState.Retracted:
+				float warnStart = duration - WarningDuration;
+				if (WarningDuration <= 0f || _stateTime < warnStart)
+					return 0f;
+				// Tips poke out and jitter slightly: the "about to fire" tell.
+				float warn = Mathf.Clamp((_stateTime - warnStart) / WarningDuration, 0f, 1f);
+				return WarningExtension * Mathf.Min(1f, warn * 3f) * (0.85f + 0.15f * Mathf.Sin(_stateTime * 60f));
+			case SpikeState.Extending:
+				// Ease-out: snaps up fast and settles, so it reads as a strike rather than a slide.
+				return Mathf.Lerp(WarningExtension, 1f, 1f - Mathf.Pow(1f - progress, 3f));
+			case SpikeState.Extended:
+				return 1f;
+			default:
+				return 1f - progress * progress;
+		}
+	}
 }

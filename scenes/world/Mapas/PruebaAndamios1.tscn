@@ -1,0 +1,189 @@
+[gd_scene format=3 uid="uid://cs6vd1yqh2n47"]
+
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_camera"]
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniCorridor.tscn" id="4_corridor"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SpikeAccordion.tscn" id="6_spikes"]
+[ext_resource type="PackedScene" uid="uid://br5nbtx6hhf2v" path="res://scenes/world/SavePoint.tscn" id="11_savepoint"]
+[ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="12_ladder"]
+[ext_resource type="PackedScene" uid="uid://h2wn6f1r0jji" path="res://scenes/world/Enemigos/Bandido4.tscn" id="13_bandido4"]
+[ext_resource type="PackedScene" uid="uid://wp6ytyqu0ihp" path="res://scenes/world/Enemigos/Bandido5.tscn" id="13_bandido5"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Barril.tscn" id="21_barril"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PlacaDePresion.tscn" id="23_placa"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Andamio.tscn" id="24_andamio"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Puente.tscn" id="25_puente"]
+
+[node name="PruebaAndamios1" type="Node2D" unique_id=844254960]
+script = ExtResource("1_bootstrap")
+ScenePath = "res://scenes/world/Mapas/PruebaAndamios1.tscn"
+CameraProfile = ExtResource("2_camera")
+CameraLimitLeft = -20
+CameraLimitRight = 3420
+CameraLimitTop = -700
+CameraLimitBottom = 330
+
+[node name="Fondo" type="ColorRect" parent="." unique_id=2000967595]
+z_index = -50
+offset_left = -620.0
+offset_top = -1300.0
+offset_right = 4020.0
+offset_bottom = 930.0
+color = Color(0.09, 0.1, 0.13, 1)
+
+[node name="Greybox" type="Node2D" parent="." unique_id=1819320852]
+
+[node name="Suelo1" parent="Greybox" unique_id=1878727248 instance=ExtResource("4_corridor")]
+position = Vector2(-20, 0)
+Length = 320.0
+Thickness = 320.0
+
+[node name="Fosa1" parent="Greybox" unique_id=1854370717 instance=ExtResource("4_corridor")]
+position = Vector2(300, 260)
+Length = 460.0
+Thickness = 60.0
+
+[node name="Suelo2" parent="Greybox" unique_id=352822629 instance=ExtResource("4_corridor")]
+position = Vector2(760, 0)
+Length = 1340.0
+Thickness = 320.0
+
+[node name="ParedIzquierda" parent="Greybox" unique_id=2136177775 instance=ExtResource("4_corridor")]
+position = Vector2(-20, -700)
+Orientation = 1
+Length = 760.0
+Thickness = 40.0
+
+[node name="Techo2" parent="Greybox" unique_id=1370910410 instance=ExtResource("4_corridor")]
+position = Vector2(1600, -260)
+Length = 500.0
+Thickness = 60.0
+
+[node name="Fosa3" parent="Greybox" unique_id=807063954 instance=ExtResource("4_corridor")]
+position = Vector2(2100, 260)
+Length = 900.0
+Thickness = 60.0
+
+[node name="Suelo4" parent="Greybox" unique_id=1441864136 instance=ExtResource("4_corridor")]
+position = Vector2(3000, 0)
+Length = 400.0
+Thickness = 320.0
+
+[node name="ParedDerecha" parent="Greybox" unique_id=492870305 instance=ExtResource("4_corridor")]
+position = Vector2(3420, -700)
+Orientation = 1
+Length = 760.0
+Thickness = 40.0
+
+[node name="Trampas" type="Node2D" parent="." unique_id=1847331927]
+
+[node name="PinchosFosa1" parent="Trampas" unique_id=1642717834 instance=ExtResource("6_spikes")]
+position = Vector2(420, 260)
+Count = 7
+Spacing = 32.0
+StaggerStep = 0.0
+
+[node name="Puente1" parent="Trampas" unique_id=854236567 instance=ExtResource("25_puente")]
+position = Vector2(305, 34.4)
+collision_mask = 0
+Count = 18
+PlankSpacing = 25.0
+Flammable = true
+
+[node name="BarrilPuente" parent="Trampas" unique_id=330945872 instance=ExtResource("21_barril")]
+position = Vector2(535, 0)
+
+[node name="Mecha" parent="Trampas" unique_id=517005566 instance=ExtResource("24_andamio")]
+position = Vector2(1690, -90)
+Length = 150.0
+LegLength = 90.0
+
+[node name="BarrilMecha" parent="Trampas" unique_id=571332612 instance=ExtResource("21_barril")]
+position = Vector2(1660, 0)
+
+[node name="Barricada" parent="Trampas" unique_id=1117847575 instance=ExtResource("24_andamio")]
+position = Vector2(1850, -200)
+Length = 200.0
+Vertical = true
+LegLength = 0.0
+
+[node name="PinchosFosa3" parent="Trampas" unique_id=1889175014 instance=ExtResource("6_spikes")]
+position = Vector2(2180, 260)
+Count = 22
+Spacing = 32.0
+StaggerStep = 0.0
+
+[node name="Carrera1" parent="Trampas" unique_id=786663142 instance=ExtResource("24_andamio")]
+position = Vector2(2100, 0)
+Length = 600.0
+
+[node name="Carrera2" parent="Trampas" unique_id=271523262 instance=ExtResource("24_andamio")]
+position = Vector2(2720, 0)
+Length = 280.0
+
+[node name="BarrilCarrera" parent="Trampas" unique_id=1351474643 instance=ExtResource("21_barril")]
+position = Vector2(2520, 0)
+
+[node name="PlacaCarrera" parent="Trampas" unique_id=1269077463 instance=ExtResource("23_placa")]
+position = Vector2(2172, 0)
+Targets = [NodePath("../Carrera1")]
+Delay = 0.2
+Hidden = true
+StoneColor = Color(0.5, 0.34, 0.2, 1)
+
+[node name="Enemigos" type="Node2D" parent="." unique_id=1493715496]
+
+[node name="BandidoBrasas" parent="Enemigos" unique_id=878509566 instance=ExtResource("13_bandido4")]
+position = Vector2(930, -40)
+
+[node name="BandidoTras" parent="Enemigos" unique_id=1516799959 instance=ExtResource("13_bandido5")]
+position = Vector2(2000, -40)
+
+[node name="Objetos" type="Node2D" parent="." unique_id=964525248]
+
+[node name="EscaleraFosa1" parent="." unique_id=1467024880 instance=ExtResource("12_ladder")]
+position = Vector2(318, 125)
+
+[node name="EscaleraFosa3" parent="." unique_id=4961414 instance=ExtResource("12_ladder")]
+position = Vector2(2118, 125)
+
+[node name="Santuario" parent="." unique_id=341266415 instance=ExtResource("11_savepoint")]
+position = Vector2(160, 0)
+
+[node name="Player" parent="." unique_id=1057644815 instance=ExtResource("3_player")]
+position = Vector2(90, -40)
+
+[node name="Visible" type="Node2D" parent="." unique_id=8584390]
+z_index = -5
+
+[node name="Suelo1" type="Polygon2D" parent="Visible" unique_id=527629492]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(-20, 0, 300, 0, 300, 320, -20, 320)
+
+[node name="Fosa1" type="Polygon2D" parent="Visible" unique_id=391741900]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(300, 260, 760, 260, 760, 320, 300, 320)
+
+[node name="Suelo2" type="Polygon2D" parent="Visible" unique_id=67434888]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(760, 0, 2100, 0, 2100, 320, 760, 320)
+
+[node name="ParedIzquierda" type="Polygon2D" parent="Visible" unique_id=1851803605]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(-40, -700, 0, -700, 0, 60, -40, 60)
+
+[node name="Techo2" type="Polygon2D" parent="Visible" unique_id=395628430]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(1600, -260, 2100, -260, 2100, -200, 1600, -200)
+
+[node name="Fosa3" type="Polygon2D" parent="Visible" unique_id=340261299]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(2100, 260, 3000, 260, 3000, 320, 2100, 320)
+
+[node name="Suelo4" type="Polygon2D" parent="Visible" unique_id=1113164659]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(3000, 0, 3400, 0, 3400, 320, 3000, 320)
+
+[node name="ParedDerecha" type="Polygon2D" parent="Visible" unique_id=636580761]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(3400, -700, 3440, -700, 3440, 60, 3400, 60)

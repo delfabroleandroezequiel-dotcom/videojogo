@@ -15,6 +15,11 @@ public partial class ArrowTrap : Node2D
 	[Export] public Vector2 Direction = Vector2.Right;
 	[Export] public float FireInterval = 1.8f;
 	[Export] public float StartOffset;
+	// Silent until Activate() (a pressure plate, a lever...), which looses a volley of VolleyCount
+	// arrows VolleySpacing apart. Off = the usual endless FireInterval rhythm.
+	[Export] public bool OnlyWhenActivated;
+	[Export] public int VolleyCount = 3;
+	[Export] public float VolleySpacing = 0.15f;
 	[Export] public float ProjectileSpeed = 380f;
 	// How far the arrow flies (px) before it disappears. 0 = leave ArrowProjectile's own Lifetime
 	// alone (Speed * Lifetime, i.e. 950px at the defaults). Converted to a lifetime from
@@ -32,12 +37,26 @@ public partial class ArrowTrap : Node2D
 
 	public override void _Process(double delta)
 	{
+		if (OnlyWhenActivated)
+			return;
 		_timer += (float)delta;
 		if (_timer < FireInterval)
 			return;
 
 		_timer -= FireInterval;
 		Fire();
+	}
+
+	public async void Activate()
+	{
+		for (int i = 0; i < Mathf.Max(1, VolleyCount); i++)
+		{
+			if (i > 0)
+				await ToSignal(GetTree().CreateTimer(VolleySpacing), SceneTreeTimer.SignalName.Timeout);
+			if (!IsInstanceValid(this))
+				return;
+			Fire();
+		}
 	}
 
 	private void Fire()

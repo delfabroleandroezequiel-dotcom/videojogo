@@ -1,0 +1,240 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_camera"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniCorridor.tscn" id="4_corridor"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SpikeAccordion.tscn" id="6_spikes"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CrushingPlatform.tscn" id="7_crusher"]
+[ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="8_ladder"]
+[ext_resource type="PackedScene" path="res://scenes/world/Lever.tscn" id="9_lever"]
+[ext_resource type="PackedScene" path="res://scenes/world/Door.tscn" id="10_door"]
+[ext_resource type="PackedScene" path="res://scenes/world/SavePoint.tscn" id="11_savepoint"]
+[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="12_transition"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido4.tscn" id="13_bandido4"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido6.tscn" id="14_bandido6"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemy.tscn" id="15_spider"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemyDark.tscn" id="16_spiderdark"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BatEnemy.tscn" id="17_bat"]
+
+[node name="PruebaHub1" type="Node2D"]
+script = ExtResource("1_bootstrap")
+ScenePath = "res://scenes/world/Mapas/PruebaHub1.tscn"
+ZoneName = ""
+CameraProfile = ExtResource("2_camera")
+CameraLimitLeft = -1000
+CameraLimitRight = 1800
+CameraLimitTop = -860
+CameraLimitBottom = 500
+
+[node name="Fondo" type="ColorRect" parent="."]
+z_index = -50
+offset_left = -1400.0
+offset_top = -1200.0
+offset_right = 2200.0
+offset_bottom = 900.0
+color = Color(0.09, 0.1, 0.13, 1)
+
+[node name="Greybox" type="Node2D" parent="."]
+
+[node name="ParedOeste" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(-910, -800)
+Orientation = 1
+Length = 1240.0
+Thickness = 20.0
+
+[node name="ParedEste" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(1710, -460)
+Orientation = 1
+Length = 900.0
+Thickness = 20.0
+
+[node name="SueloSotano" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(-920, 400)
+Length = 2640.0
+Thickness = 40.0
+
+[node name="SueloPrincipal" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(-750, 0)
+Length = 2300.0
+Thickness = 40.0
+
+[node name="HubParedOeste" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(0, -420)
+Orientation = 1
+Length = 220.0
+Thickness = 20.0
+
+[node name="HubParedEste" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(800, -420)
+Orientation = 1
+Length = 220.0
+Thickness = 20.0
+
+[node name="LosaArribaOeste" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(-900, -460)
+Length = 150.0
+Thickness = 40.0
+
+[node name="LosaArribaCentro" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(-650, -460)
+Length = 1010.0
+Thickness = 40.0
+
+[node name="LosaArribaEste" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(460, -460)
+Length = 1260.0
+Thickness = 40.0
+
+[node name="TechoArriba" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(-920, -800)
+Length = 1740.0
+Thickness = 40.0
+
+[node name="ParedArribaEste" parent="Greybox" instance=ExtResource("4_corridor")]
+position = Vector2(810, -760)
+Orientation = 1
+Length = 300.0
+Thickness = 20.0
+
+[node name="Visible" type="Node2D" parent="."]
+z_index = -5
+
+[node name="ParedOeste" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(-920.0, -800.0, -900.0, -800.0, -900.0, 440.0, -920.0, 440.0)
+
+[node name="ParedEste" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(1700.0, -460.0, 1720.0, -460.0, 1720.0, 440.0, 1700.0, 440.0)
+
+[node name="SueloSotano" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(-920.0, 400.0, 1720.0, 400.0, 1720.0, 440.0, -920.0, 440.0)
+
+[node name="SueloPrincipal" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(-750.0, 0.0, 1550.0, 0.0, 1550.0, 40.0, -750.0, 40.0)
+
+[node name="HubParedOeste" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(-10.0, -420.0, 10.0, -420.0, 10.0, -200.0, -10.0, -200.0)
+
+[node name="HubParedEste" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(790.0, -420.0, 810.0, -420.0, 810.0, -200.0, 790.0, -200.0)
+
+[node name="LosaArribaOeste" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(-900.0, -460.0, -750.0, -460.0, -750.0, -420.0, -900.0, -420.0)
+
+[node name="LosaArribaCentro" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(-650.0, -460.0, 360.0, -460.0, 360.0, -420.0, -650.0, -420.0)
+
+[node name="LosaArribaEste" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(460.0, -460.0, 1720.0, -460.0, 1720.0, -420.0, 460.0, -420.0)
+
+[node name="TechoArriba" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(-920.0, -800.0, 820.0, -800.0, 820.0, -760.0, -920.0, -760.0)
+
+[node name="ParedArribaEste" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(800.0, -760.0, 820.0, -760.0, 820.0, -460.0, 800.0, -460.0)
+
+[node name="Santuario" parent="." instance=ExtResource("11_savepoint")]
+position = Vector2(230, 0)
+
+[node name="Puertas" type="Node2D" parent="."]
+
+[node name="PuertaA" parent="Puertas" instance=ExtResource("10_door")]
+position = Vector2(0, -100)
+RequiresLever = true
+PersistenceId = "prueba_hub1_puerta_a"
+
+[node name="PalancaA" parent="Puertas" instance=ExtResource("9_lever")]
+position = Vector2(-60, -16)
+SingleUse = true
+
+[node name="EscotillaB" parent="Puertas" instance=ExtResource("10_door")]
+position = Vector2(410, -440)
+RequiresLever = true
+Horizontal = true
+Width = 100.0
+PersistenceId = "prueba_hub1_escotilla_b"
+
+[node name="PalancaB" parent="Puertas" instance=ExtResource("9_lever")]
+position = Vector2(530, -476)
+SingleUse = true
+
+[node name="Escaleras" type="Node2D" parent="."]
+
+[node name="EscaleraSotano" parent="Escaleras" instance=ExtResource("8_ladder")]
+position = Vector2(-825, 180)
+Length = 440.0
+
+[node name="EscaleraOesteArriba" parent="Escaleras" instance=ExtResource("8_ladder")]
+position = Vector2(-700, -250)
+Length = 500.0
+
+[node name="EscaleraHubEscotilla" parent="Escaleras" instance=ExtResource("8_ladder")]
+position = Vector2(410, -250)
+Length = 500.0
+
+[node name="Trampas" type="Node2D" parent="."]
+
+[node name="PinchosEste" parent="Trampas" instance=ExtResource("6_spikes")]
+position = Vector2(1300, 0)
+Count = 2
+Spacing = 100.0
+StaggerStep = 0.7
+
+[node name="AplastadorSotano" parent="Trampas" instance=ExtResource("7_crusher")]
+position = Vector2(500, 100)
+Size = Vector2(96, 96)
+Trigger = 1
+IdleDuration = 1.5
+InstantKill = false
+Damage = 40
+
+[node name="Bloque" type="ColorRect" parent="Trampas/AplastadorSotano/Skin"]
+offset_left = -48.0
+offset_top = -48.0
+offset_right = 48.0
+offset_bottom = 48.0
+color = Color(0.55, 0.32, 0.3, 1)
+
+[node name="Enemigos" type="Node2D" parent="."]
+
+[node name="BandidoEste" parent="Enemigos" instance=ExtResource("13_bandido4")]
+position = Vector2(1100, -60)
+
+[node name="AraniaSotano" parent="Enemigos" instance=ExtResource("15_spider")]
+position = Vector2(1200, 360)
+
+[node name="MurcielagoSotano" parent="Enemigos" instance=ExtResource("17_bat")]
+position = Vector2(-150, 250)
+
+[node name="AraniaOscuraSotano" parent="Enemigos" instance=ExtResource("16_spiderdark")]
+position = Vector2(-450, 360)
+
+[node name="AsesinaArriba" parent="Enemigos" instance=ExtResource("14_bandido6")]
+position = Vector2(-250, -520)
+
+[node name="MurcielagoArriba" parent="Enemigos" instance=ExtResource("17_bat")]
+position = Vector2(150, -650)
+
+[node name="SalidaArriba" parent="." instance=ExtResource("12_transition")]
+position = Vector2(780, -610)
+TargetScenePath = "res://scenes/world/Mapas/PruebaAscensor1.tscn"
+TargetSpawnPosition = Vector2(60, -40)
+Width = 30.0
+Height = 280.0
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+position = Vector2(150, -40)
+
+[connection signal="Activated" from="Puertas/PalancaA" to="Puertas/PuertaA" method="Open"]
+[connection signal="Activated" from="Puertas/PalancaB" to="Puertas/EscotillaB" method="Open"]
