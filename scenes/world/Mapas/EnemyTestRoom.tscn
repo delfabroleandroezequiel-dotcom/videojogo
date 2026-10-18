@@ -3,12 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://b56iyefxyhuy5" path="res://scripts/world/EnemyTestRoomHealthBuff.cs" id="3_healthbuff"]
 [ext_resource type="Texture2D" uid="uid://b37c5fqvueq8p" path="res://assets/backgrounds/caminodesierto.png" id="4_mv8r7"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/ZombiComun.tscn" id="5_jyewd"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/ZombiGordo.tscn" id="6_3psto"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/OscuraHechicera.tscn" id="5_hpw0a"]
 [ext_resource type="Texture2D" uid="uid://caiex2pkvq11t" path="res://assets/sprites/deco/FondoOjo.png" id="6_fondoojo"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/ZombiReptante.tscn" id="7_78d5y"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/ZombiBrazoLargo.tscn" id="8_h6xtm"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/ZombiEscupidor.tscn" id="9_kc203"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/OscuroCampeon.tscn" id="6_xctif"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/OscuroSegador.tscn" id="7_jyewd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1400, 60)
@@ -6136,17 +6134,11 @@ z_index = -20
 position = Vector2(650, -52)
 texture = ExtResource("6_fondoojo")
 
-[node name="ZombiComun" parent="." unique_id=1570121040 instance=ExtResource("5_jyewd")]
-position = Vector2(722, 385)
+[node name="OscuraHechicera" parent="." unique_id=1685527934 instance=ExtResource("5_hpw0a")]
+position = Vector2(240, 384)
 
-[node name="ZombiGordo" parent="." unique_id=493944722 instance=ExtResource("6_3psto")]
-position = Vector2(313, 379)
+[node name="OscuroCampeon" parent="." unique_id=1777014823 instance=ExtResource("6_xctif")]
+position = Vector2(896, 374)
 
-[node name="ZombiReptante" parent="." unique_id=1612158469 instance=ExtResource("7_78d5y")]
-position = Vector2(204, 407)
-
-[node name="ZombiBrazoLargo" parent="." unique_id=1158341077 instance=ExtResource("8_h6xtm")]
-position = Vector2(928, 372)
-
-[node name="ZombiEscupidor" parent="." unique_id=2115983865 instance=ExtResource("9_kc203")]
-position = Vector2(1146, 393)
+[node name="OscuroSegador" parent="." unique_id=1026927442 instance=ExtResource("7_jyewd")]
+position = Vector2(129, 386)
