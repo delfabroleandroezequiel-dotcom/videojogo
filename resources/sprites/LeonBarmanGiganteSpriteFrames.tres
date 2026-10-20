@@ -1,0 +1,45 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://ct1e46af5wuji"]
+
+[ext_resource type="Texture2D" uid="uid://0y8dag886f8c" path="res://assets/external/Chars/LeonBarmanGigante.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AT_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 543, 724)
+
+[sub_resource type="AtlasTexture" id="AT_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(543, 0, 543, 724)
+
+[sub_resource type="AtlasTexture" id="AT_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1086, 0, 543, 724)
+
+[sub_resource type="AtlasTexture" id="AT_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1629, 0, 543, 724)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 24.0,
+"texture": SubResource("AT_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_1")
+}, {
+"duration": 1.5,
+"texture": SubResource("AT_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AT_1")
+}, {
+"duration": 14.0,
+"texture": SubResource("AT_0")
+}, {
+"duration": 6.0,
+"texture": SubResource("AT_3")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 8.0
+}]

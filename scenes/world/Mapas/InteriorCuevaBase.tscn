@@ -23,7 +23,7 @@ size = Vector2(1600, 64)
 
 [node name="InteriorCueva1" type="Node2D" unique_id=654504821]
 script = ExtResource("1_out3d")
-ScenePath = "res://scenes/world/Mapas/InteriorCueva1.tscn"
+ScenePath = "res://scenes/world/Mapas/Cueva1/InteriorCueva1.tscn"
 CameraLimitLeft = 0
 CameraLimitRight = 1536
 CameraLimitTop = 0

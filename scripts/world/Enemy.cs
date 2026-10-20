@@ -76,6 +76,16 @@ public partial class Enemy : CharacterBody2D
 	[Export] public float StunDuration = 2f;
 	[Export] public Color StunStarColor = new(1f, 0.85f, 0.3f, 1f);
 
+	// Poise (postura): each player hit chips it by that move's poise damage (see Hitbox.PoiseDamage);
+	// at 0 the guard breaks into the same daze a parry chain causes (Stun), open to an execution. It
+	// refills in full once PoiseRegenDelay passes without a hit, so breaking it takes sustained
+	// pressure, not scattered pokes. 0 = no poise (never breaks). Bosses never break, like parry stuns.
+	[Export] public float MaxPoise = 40f;
+	[Export] public float PoiseRegenDelay = 1.5f;
+	// How long a hit that doesn't break poise leaves the enemy reeling, when it reacts at all (see
+	// OnPoiseHit — the base enemy shrugs hits off; MeleeEnemy flinches out of its swing).
+	[Export] public float FlinchDuration = 0.25f;
+
 	private RayCast2D _ledgeCheck;
 	private int _freezeCount;
 	private ProcessModeEnum _processModeBeforeFreeze;
@@ -88,6 +98,9 @@ public partial class Enemy : CharacterBody2D
 	private ulong _lureImmuneUntilMsec;
 	private int _stunRunId;
 	private Node2D _stunStars;
+	private float _poise;
+	private ulong _lastPoiseHitMsec;
+	private float _flinchTimer;
 
 	public Stats Stats { get; private set; }
 	protected Node2D Visual;
@@ -148,6 +161,49 @@ public partial class Enemy : CharacterBody2D
 			return;
 		_parryCount = 0;
 		Stun();
+	}
+
+	public bool IsFlinching => _flinchTimer > 0f;
+
+	// Returns true when this hit broke the guard (the caller adds the heavier hit-stop for it).
+	public bool TakePoiseDamage(float amount)
+	{
+		if (MaxPoise <= 0f || amount <= 0f || IsStunned || !CanBeExecuted)
+			return false;
+		ulong now = Time.GetTicksMsec();
+		if (now - _lastPoiseHitMsec > (ulong)(PoiseRegenDelay * 1000f))
+			_poise = MaxPoise;
+		_lastPoiseHitMsec = now;
+
+		_poise -= amount;
+		if (_poise > 0f)
+		{
+			OnPoiseHit();
+			return false;
+		}
+		_poise = MaxPoise;
+		_parryCount = 0;
+		_flinchTimer = 0f;
+		Stun();
+		return true;
+	}
+
+	// A hit that chipped poise without breaking it. Default: no reaction (the enemy keeps doing
+	// whatever its own attack coroutine is doing — interrupting that safely is per enemy type).
+	protected virtual void OnPoiseHit() { }
+
+	// Reels for FlinchDuration: no AI movement, attacks or turning (see _PhysicsProcess), playing
+	// the sheet's hurt/hit animation when it has one.
+	protected void Flinch()
+	{
+		_flinchTimer = FlinchDuration;
+		Velocity = new Vector2(0f, Velocity.Y);
+		if (Sprite?.SpriteFrames is { } frames)
+		{
+			string anim = frames.HasAnimation("hurt") ? "hurt" : frames.HasAnimation("hit") ? "hit" : null;
+			if (anim is not null)
+				Sprite.Play(anim);
+		}
 	}
 
 	private async void Stun()
@@ -254,12 +310,14 @@ public partial class Enemy : CharacterBody2D
 
 		Stats = GetNode<Stats>("Stats");
 		ApplyProfile();
+		_poise = MaxPoise;
 		Visual = GetNode<Node2D>("Visual");
 		_baseModulate = Visual.Modulate;
 		Sprite = Visual.GetNodeOrNull<AnimatedSprite2D>("CharacterSprite");
 		ContactArea = GetNode<Area2D>("ContactArea");
 		_ledgeCheck = GetNodeOrNull<RayCast2D>("LedgeCheck");
 		CacheBodyExtents();
+		AddChild(new ContactShadow { Width = BodyHalfWidth * 2.4f, FeetOffset = BodyBottom });
 		Stats.Died += OnDefeated;
 		Stats.Died += GrantEcos;
 		Stats.HitTaken += _ => _lureImmuneUntilMsec = Time.GetTicksMsec() + LureImmunityMsec;
@@ -301,6 +359,8 @@ public partial class Enemy : CharacterBody2D
 		KnockbackEnabled = Profile.KnockbackEnabled;
 		KnockbackDuration = Profile.KnockbackDuration;
 		ContactDamageMultiplier = Profile.ContactDamageMultiplier;
+		if (Profile.MaxPoise >= 0f)
+			MaxPoise = Profile.MaxPoise;
 		LootTable = Profile.LootTable;
 	}
 
@@ -574,6 +634,16 @@ public partial class Enemy : CharacterBody2D
 			velocity.X = _knockbackVelocity.X;
 			// Only pin to the floor when not moving up (a Launch lift starts on the floor).
 			velocity.Y = IsOnFloor() && velocity.Y >= 0f ? 0 : velocity.Y + Gravity * (float)delta;
+			Velocity = velocity;
+			MoveAndSlide();
+			return;
+		}
+
+		if (_flinchTimer > 0f)
+		{
+			_flinchTimer -= (float)delta;
+			velocity.X = Mathf.MoveToward(velocity.X, 0f, MoveSpeed);
+			velocity.Y = IsOnFloor() && velocity.Y >= 0f ? 0f : velocity.Y + Gravity * (float)delta;
 			Velocity = velocity;
 			MoveAndSlide();
 			return;

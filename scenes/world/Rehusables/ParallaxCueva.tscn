@@ -12,6 +12,7 @@
 [node name="ParallaxCueva" type="Node2D"]
 
 [node name="Capa7" type="Node2D" parent="."]
+modulate = Color(0.4, 0.42, 0.5, 1)
 z_index = -20
 script = ExtResource("1_follow")
 FollowCamera = true
@@ -25,6 +26,7 @@ region_enabled = true
 region_rect = Rect2(-19200, -2160, 38400, 4536)
 
 [node name="Capa6" type="Node2D" parent="."]
+modulate = Color(0.5, 0.52, 0.6, 1)
 z_index = -19
 script = ExtResource("1_follow")
 ParallaxFactor = Vector2(0.9, 1)
@@ -39,6 +41,7 @@ region_enabled = true
 region_rect = Rect2(-19200, 0, 38400, 216)
 
 [node name="Capa5" type="Node2D" parent="."]
+modulate = Color(0.7, 0.72, 0.78, 1)
 z_index = -18
 script = ExtResource("1_follow")
 ParallaxFactor = Vector2(0.8, 1)

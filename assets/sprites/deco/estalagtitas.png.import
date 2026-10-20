@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdmbu2xlrhcnb"
-path="res://.godot/imported/estelaArma.png-e30e6a46bcf44ed65e261352311c6242.ctex"
+uid="uid://fv01uors0c75"
+path="res://.godot/imported/estalagtitas.png-684a023e6d63e4d59cfa595528f1e036.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/misprite/estelaArma.png"
-dest_files=["res://.godot/imported/estelaArma.png-e30e6a46bcf44ed65e261352311c6242.ctex"]
+source_file="res://assets/sprites/deco/estalagtitas.png"
+dest_files=["res://.godot/imported/estalagtitas.png-684a023e6d63e4d59cfa595528f1e036.ctex"]
 
 [params]
 

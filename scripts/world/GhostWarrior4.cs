@@ -72,6 +72,13 @@ public partial class GhostWarrior4 : MeleeEnemy
 		Rng.Randomize();
 	}
 
+	// The champion is a heavy: tanks hits through its own swings and takes a long string to break.
+	public GhostWarrior4()
+	{
+		HyperArmorWhileAttacking = true;
+		MaxPoise = 80f;
+	}
+
 	public override void _Ready()
 	{
 		base._Ready();

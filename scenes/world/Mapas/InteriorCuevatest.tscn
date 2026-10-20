@@ -4199,7 +4199,7 @@ sources/1 = SubResource("TileSetAtlasSource_em5w4")
 
 [node name="InteriorCueva1" type="Node2D" unique_id=2074547145]
 script = ExtResource("1_lwbhx")
-ScenePath = "res://scenes/world/Mapas/InteriorCueva1.tscn"
+ScenePath = "res://scenes/world/Mapas/Cueva1/InteriorCueva1.tscn"
 CameraLimitLeft = 0
 CameraLimitRight = 1536
 CameraLimitTop = 0

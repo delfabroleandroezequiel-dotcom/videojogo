@@ -1,0 +1,35 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://domb4qg7hmlji"]
+
+[ext_resource type="Texture2D" uid="uid://oxt7ansaaqxq" path="res://assets/external/Chars/MujerCaraGitante.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="AT_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 724, 724)
+
+[sub_resource type="AtlasTexture" id="AT_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(724, 0, 724, 724)
+
+[sub_resource type="AtlasTexture" id="AT_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1448, 0, 724, 724)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 28.0,
+"texture": SubResource("AT_0")
+}, {
+"duration": 2.0,
+"texture": SubResource("AT_1")
+}, {
+"duration": 22.0,
+"texture": SubResource("AT_2")
+}, {
+"duration": 2.0,
+"texture": SubResource("AT_1")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 8.0
+}]

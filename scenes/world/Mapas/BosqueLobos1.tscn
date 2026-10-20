@@ -12866,7 +12866,7 @@ Height = 1000.0
 
 [node name="CaveEntranceTrigger" parent="." unique_id=-1194967283 instance=ExtResource("12_itfpo")]
 position = Vector2(1500, 290)
-TargetScenePath = "res://scenes/world/Mapas/InteriorCueva1.tscn"
+TargetScenePath = "res://scenes/world/Mapas/Cueva1/InteriorCueva1.tscn"
 TargetSpawnPosition = Vector2(146, 882)
 RequireInteract = true
 RememberOriginForReturn = true

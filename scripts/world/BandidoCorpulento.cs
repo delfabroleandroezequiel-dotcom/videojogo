@@ -115,6 +115,13 @@ public partial class BandidoCorpulento : MeleeEnemy
 		Rng.Randomize();
 	}
 
+	// A heavy: tanks hits through its own swings and takes a long string of them to break.
+	public BandidoCorpulento()
+	{
+		HyperArmorWhileAttacking = true;
+		MaxPoise = 90f;
+	}
+
 	public override void _Ready()
 	{
 		base._Ready();

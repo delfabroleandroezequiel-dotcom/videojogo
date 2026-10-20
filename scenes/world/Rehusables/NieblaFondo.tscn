@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[sub_resource type="Gradient" id="Gradient_niebla"]
+offsets = PackedFloat32Array(0, 0.45, 0.85, 1)
+colors = PackedColorArray(0.04, 0.06, 0.11, 0.3, 0.04, 0.06, 0.11, 0.55, 0.04, 0.06, 0.11, 0.6, 0.04, 0.06, 0.11, 0.45)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_niebla"]
+gradient = SubResource("Gradient_niebla")
+width = 64
+height = 256
+fill_from = Vector2(0, 0)
+fill_to = Vector2(0, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sinluz"]
+light_mode = 1
+
+[node name="NieblaFondo" type="Sprite2D"]
+z_index = 1
+material = SubResource("CanvasItemMaterial_sinluz")
+scale = Vector2(24, 4)
+texture = SubResource("GradientTexture2D_niebla")
+centered = false

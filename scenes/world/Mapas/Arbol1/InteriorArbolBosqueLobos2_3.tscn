@@ -13979,7 +13979,7 @@ size = Vector2(1079, 52.107056)
 
 [node name="InteriorArbolBosqueLobos2_3" type="Node2D" unique_id=1042001001]
 script = ExtResource("1_bootstrap")
-ScenePath = "res://scenes/world/Mapas/InteriorArbolBosqueLobos2_3.tscn"
+ScenePath = "res://scenes/world/Mapas/Arbol1/InteriorArbolBosqueLobos2_3.tscn"
 CameraProfile = ExtResource("5_camera_profile")
 CameraLimitLeft = -821
 CameraLimitRight = 721
@@ -14076,14 +14076,14 @@ position = Vector2(-844.56226, -427.13263)
 
 [node name="LevelTransition2" parent="." unique_id=2116574566 instance=ExtResource("4_transition")]
 position = Vector2(-1114, -399)
-TargetScenePath = "res://scenes/world/Mapas/InteriorArbolBosqueLobos2.tscn"
+TargetScenePath = "res://scenes/world/Mapas/Arbol1/InteriorArbolBosqueLobos2.tscn"
 TargetSpawnPosition = Vector2(665.216, -556.786)
 Width = 500.0
 Height = 200.0
 
 [node name="LevelTransition3" parent="." unique_id=1378739391 instance=ExtResource("4_transition")]
 position = Vector2(-1106, 462)
-TargetScenePath = "res://scenes/world/Mapas/InteriorArbolBosqueLobos2_9.tscn"
+TargetScenePath = "res://scenes/world/Mapas/Arbol1/InteriorArbolBosqueLobos2_9.tscn"
 TargetSpawnPosition = Vector2(630, 265)
 Width = 500.0
 Height = 200.0

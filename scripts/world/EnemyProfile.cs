@@ -30,5 +30,9 @@ public partial class EnemyProfile : Resource
 	[Export] public float KnockbackDuration = 0.2f;
 	[Export] public float ContactDamageMultiplier = 0.3f;
 
+	// Poise (see Enemy.MaxPoise). < 0 = keep the enemy script/scene's own value, so a type whose
+	// class already sets a heavier default (e.g. BandidoCorpulento) isn't flattened back to 40.
+	[Export] public float MaxPoise = -1f;
+
 	[Export] public LootEntry[] LootTable = System.Array.Empty<LootEntry>();
 }

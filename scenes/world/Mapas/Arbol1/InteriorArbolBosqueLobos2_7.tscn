@@ -6657,7 +6657,7 @@ sources/0 = SubResource("TileSetAtlasSource_60mjd")
 
 [node name="InteriorArbolBosqueLobos2_5" type="Node2D" unique_id=1042001001]
 script = ExtResource("1_rjvc0")
-ScenePath = "res://scenes/world/Mapas/InteriorArbolBosqueLobos2_5.tscn"
+ScenePath = "res://scenes/world/Mapas/Arbol1/InteriorArbolBosqueLobos2_7.tscn"
 CameraProfile = ExtResource("2_cexwh")
 CameraLimitLeft = -1112
 CameraLimitRight = 956
@@ -6723,7 +6723,7 @@ position = Vector2(-480, -808)
 
 [node name="LevelTransition" parent="." unique_id=2116574566 instance=ExtResource("6_fhj5p")]
 position = Vector2(497, 50)
-TargetScenePath = "res://scenes/world/Mapas/InteriorArbolBosqueLobos2_7.tscn"
+TargetScenePath = "res://scenes/world/Mapas/Arbol1/InteriorArbolBosqueLobos2_7.tscn"
 TargetSpawnPosition = Vector2(-480, -824)
 Width = 500.0
 
@@ -6736,8 +6736,8 @@ Height = 100.0
 
 [node name="LevelTransition3" parent="." unique_id=281766969 instance=ExtResource("6_fhj5p")]
 position = Vector2(-1352, -344)
-TargetScenePath = "res://scenes/world/Mapas/InteriorCuevaBosqueLobos2.tscn"
-TargetSpawnPosition = Vector2(3162, -374)
+TargetScenePath = "res://scenes/world/Mapas/Cueva1/InteriorCueva9.tscn"
+TargetSpawnPosition = Vector2(2700, -690)
 Width = 500.0
 Height = 500.0
 

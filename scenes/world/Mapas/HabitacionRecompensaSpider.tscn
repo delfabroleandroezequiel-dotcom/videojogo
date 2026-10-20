@@ -2646,7 +2646,7 @@ Height = 350.0
 
 [node name="ToNixTest" parent="." unique_id=475770790 instance=ExtResource("9_disgq")]
 position = Vector2(621, -440)
-TargetScenePath = "res://scenes/world/Mapas/InteriorArbolBosqueLobos2_7.tscn"
+TargetScenePath = "res://scenes/world/Mapas/Arbol1/InteriorArbolBosqueLobos2_7.tscn"
 TargetSpawnPosition = Vector2(-661.376, -408)
 Width = 287.0
 Height = 300.0

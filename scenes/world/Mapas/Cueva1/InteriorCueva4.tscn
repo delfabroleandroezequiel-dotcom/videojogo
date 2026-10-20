@@ -20,10 +20,10 @@
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="18_flaol"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemy.tscn" id="21_8rr4n"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemyDark.tscn" id="22_260t3"]
-[ext_resource type="Material" path="res://resources/shaders/CobwebSway.tres" id="cobweb_sway"]
-[ext_resource type="Material" path="res://resources/shaders/CobwebSwaySprite.tres" id="cobweb_sway_sprite"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ParallaxCueva.tscn" id="90_parallaxcueva"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ArrowTrap.tscn" id="900_arrow"]
+[ext_resource type="Material" path="res://resources/shaders/CobwebSway.tres" id="cobweb_sway"]
+[ext_resource type="Material" path="res://resources/shaders/CobwebSwaySprite.tres" id="cobweb_sway_sprite"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vcubd"]
 texture = ExtResource("5_g6xdc")
@@ -6676,7 +6676,7 @@ size = Vector2(64, 1200)
 
 [node name="InteriorCueva1" type="Node2D" unique_id=2074547145]
 script = ExtResource("1_8rr4n")
-ScenePath = "res://scenes/world/Mapas/InteriorCueva1.tscn"
+ScenePath = "res://scenes/world/Mapas/Cueva1/InteriorCueva4.tscn"
 CameraLimitLeft = -25
 CameraLimitRight = 1511
 CameraLimitTop = -319
@@ -6699,7 +6699,7 @@ material = ExtResource("cobweb_sway_sprite")
 position = Vector2(701, 262)
 texture = ExtResource("3_jihxl")
 
-[node name="ParallaxCueva" parent="Fondos" instance=ExtResource("90_parallaxcueva")]
+[node name="ParallaxCueva" parent="Fondos" unique_id=488565565 instance=ExtResource("90_parallaxcueva")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Fondos" unique_id=222791140]
 color = Color(0.05, 0.05, 0.08, 1)
@@ -6707,7 +6707,7 @@ color = Color(0.05, 0.05, 0.08, 1)
 [node name="Iluminacion" type="Node2D" parent="." unique_id=1959472875]
 
 [node name="TileMapLayer2" type="TileMapLayer" parent="." unique_id=402750970]
-tile_map_data = PackedByteArray("AAD///D/AAAZAA8AAAD///H/AAAZABAAAAD///L/AAAZABEAAAD///P/AAAKABIAAAD///T/AAAKABMAAAD///X/AAAKABQAAAD///b/AAAKABUAAAAAAPD/AAAaAA8AAAAAAPH/AAAaABAAAAAAAPL/AAAaABEAAAAAAPP/AAALABIAAAAAAPT/AAALABMAAAAAAPX/AAALABQAAAAAAPb/AAALABUAAAABAPD/AAAbAA8AAAABAPH/AAAbABAAAAABAPL/AAAbABEAAAABAPP/AAAMABIAAAABAPT/AAAMABMAAAABAPX/AAAMABQAAAABAPb/AAAMABUAAAACAPD/AAAcAA8AAAACAPH/AAAcABAAAAACAPL/AAAcABEAAAACAPP/AAANABIAAAACAPT/AAANABMAAAACAPX/AAANABQAAAADAPD/AAAdAA8AAAADAPH/AAAdABAAAAADAPL/AAAdABEAAAADAPP/AAAOABIAAAADAPT/AAAOABMAAAADAPX/AAAOABQAAAADAPb/AAAOABUAAAAEAPD/AAAZAA8AAAAEAPH/AAAZABAAAAAEAPL/AAAZABEAAAAEAPP/AAAPABIAAAAEAPT/AAAPABMAAAAEAPX/AAAPABQAAAAEAPb/AAAPABUAAAAFAPD/AAAaAA8AAAAFAPH/AAAaABAAAAAFAPL/AAAaABEAAAAFAPP/AAAQABIAAAAFAPT/AAAQABMAAAAFAPX/AAAQABQAAAAGAPD/AAAbAA8AAAAGAPH/AAAbABAAAAAGAPL/AAAbABEAAAAGAPP/AAAKABIAAAAGAPT/AAAKABMAAAAGAPX/AAAKABQAAAAGAPb/AAAKABUAAAAHAPD/AAAcAA8AAAAHAPH/AAAcABAAAAAHAPL/AAAcABEAAAAHAPP/AAALABIAAAAHAPT/AAALABMAAAAHAPX/AAALABQAAAAHAPb/AAALABUAAAAIAPD/AAAdAA8AAAAIAPH/AAAdABAAAAAIAPL/AAAdABEAAAAIAPP/AAAMABIAAAAIAPT/AAAMABMAAAAIAPX/AAAMABQAAAAIAPb/AAAMABUAAAAJAPD/AAAZAA8AAAAJAPH/AAAZABAAAAAJAPL/AAAZABEAAAAJAPP/AAANABIAAAAJAPT/AAANABMAAAAJAPX/AAANABQAAAAKAPD/AAAaAA8AAAAKAPH/AAAaABAAAAAKAPL/AAAaABEAAAAKAPP/AAAOABIAAAAKAPT/AAAOABMAAAAKAPX/AAAOABQAAAAKAPb/AAAOABUAAAALAPD/AAAbAA8AAAALAPH/AAAbABAAAAALAPL/AAAbABEAAAALAPP/AAAPABIAAAALAPT/AAAPABMAAAALAPX/AAAPABQAAAALAPb/AAAPABUAAAAMAPD/AAAcAA8AAAAMAPH/AAAcABAAAAAMAPL/AAAcABEAAAAMAPP/AAAQABIAAAAMAPT/AAAQABMAAAAMAPX/AAAQABQAAAANAPD/AAAdAA8AAAANAPH/AAAdABAAAAANAPL/AAAdABEAAAANAPP/AAARABIAAAANAPT/AAARABMAAAANAPX/AAARABQAAAANAPb/AAARABUAAAAOAPD/AAAeAA8AAAAOAPH/AAAeABAAAAAOAPL/AAAeABEAAAAPAPD/AAAfAA8AAAAPAPH/AAAfABAAAAAPAPL/AAAfABEAAAAQAPD/AAAgAA8AAAAQAPH/AAAgABAAAAAQAPL/AAAgABEAAAA=")
+tile_map_data = PackedByteArray("AAD+//D/AAAxACgAAAD+//H/AAAyACkAACD///D/AAAyACgAAAD///H/AAAzACkAACAAAPD/AAAzACgAAAAAAPH/AAA0ACkAACABAPD/AAA0ACgAAAABAPH/AAA1ACkAACACAPD/AAA1ACgAAAACAPH/AAA2ACkAACADAPD/AAA2ACgAAAADAPH/AAA3ACkAACAEAPD/AAA3ACgAAAAEAPH/AAA4ACkAACAFAPD/AAAxACgAAAAFAPH/AAA1ACkAACAGAPD/AAAyACgAAAAGAPH/AAA2ACkAACAHAPD/AAAzACgAAAAHAPH/AAA3ACkAACAIAPD/AAA0ACgAAAAIAPH/AAA4ACkAACAJAPD/AAAxACgAAAAJAPH/AAAxACkAACAKAPD/AAAyACgAAAAKAPH/AAAyACkAACALAPD/AAAzACgAAAALAPH/AAAzACkAACAMAPD/AAA0ACgAAAAMAPH/AAA0ACkAACANAPD/AAA1ACgAAAANAPH/AAA1ACkAACAOAPD/AAA2ACgAAAAOAPH/AAA2ACkAACAPAPD/AAA3ACgAAAAPAPH/AAA3ACkAACAQAPD/AAA4ACgAAAAQAPH/AAA4ACkAACAJAPL/AAAxACgAACAKAPL/AAAyACgAACALAPL/AAAzACgAACAMAPL/AAA0ACgAACANAPL/AAA1ACgAACAOAPL/AAA2ACgAACAPAPL/AAA3ACgAACAQAPL/AAA4ACgAACABAPL/AAA1ACgAACACAPL/AAA2ACgAACADAPL/AAA3ACgAACAEAPL/AAA4ACgAACAFAPL/AAA1ACgAACAGAPL/AAA2ACgAACAHAPL/AAA3ACgAACAIAPL/AAA4ACgAACD9//L/AAAxACgAACD+//L/AAAyACgAACD///L/AAAzACgAACAAAPL/AAA0ACgAACD9//H/AAAxACkAACA=")
 tile_set = SubResource("TileSet_yvfok")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1751556308]
@@ -6784,7 +6784,7 @@ tile_set = ExtResource("12_er7le")
 tile_set = ExtResource("13_bwra0")
 
 [node name="Player" parent="." unique_id=951203625 instance=ExtResource("14_miplj")]
-position = Vector2(1367.9697, 277.46814)
+position = Vector2(50.0727, -283.32877)
 
 [node name="BosqueAntorchaPilarAzul10" parent="." unique_id=662800003 instance=ExtResource("15_11ki5")]
 position = Vector2(224, 632)
@@ -6807,7 +6807,7 @@ position = Vector2(24, -248)
 LightRange = 2.0
 
 [node name="MiniCorridor3" parent="." unique_id=124704096 instance=ExtResource("16_jpdu7")]
-position = Vector2(-8, -240)
+position = Vector2(-10.0324745, -249.05392)
 Length = 238.0
 Climbable = true
 OneWay = true
@@ -6898,7 +6898,7 @@ InstantKill = false
 
 [node name="LevelTransition2" parent="." unique_id=2116574566 instance=ExtResource("18_flaol")]
 position = Vector2(1600, 248)
-TargetScenePath = "res://scenes/world/Mapas/InteriorCueva5.tscn"
+TargetScenePath = "res://scenes/world/Mapas/Cueva1/InteriorCueva5.tscn"
 TargetSpawnPosition = Vector2(177.072, 537)
 Width = 354.0
 Height = 273.0
@@ -6912,9 +6912,9 @@ position = Vector2(520, 616)
 [node name="SpiderEnemy2" parent="." unique_id=909979468 instance=ExtResource("21_8rr4n")]
 position = Vector2(1288, 296)
 
-[node name="TrampasNuevas" type="Node2D" parent="."]
+[node name="TrampasNuevas" type="Node2D" parent="." unique_id=346329575]
 
-[node name="FlechaSubeLaEscalera" parent="TrampasNuevas" instance=ExtResource("900_arrow")]
+[node name="FlechaSubeLaEscalera" parent="TrampasNuevas" unique_id=605375510 instance=ExtResource("900_arrow")]
 position = Vector2(119, 610)
 Direction = Vector2(0, -1)
 FireInterval = 2.4

@@ -3803,7 +3803,7 @@ texture = ExtResource("12_ldpml")
 
 [node name="EntradaArbolTransition" parent="." unique_id=1042002001 instance=ExtResource("11_transition")]
 position = Vector2(1042, 290)
-TargetScenePath = "res://scenes/world/Mapas/InteriorArbolBosqueLobos2.tscn"
+TargetScenePath = "res://scenes/world/Mapas/Arbol1/InteriorArbolBosqueLobos2.tscn"
 TargetSpawnPosition = Vector2(0, 280)
 RequireInteract = true
 RememberOriginForReturn = true

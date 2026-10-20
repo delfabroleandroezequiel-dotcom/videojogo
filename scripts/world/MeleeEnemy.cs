@@ -36,6 +36,15 @@ public partial class MeleeEnemy : Enemy
 	[Export] public float DenialStandoffMultiplier = 1.6f;
 	[Export] public float DenialRetryDelay = 0.45f;
 
+	// Poise reaction (see Enemy.TakePoiseDamage): light melee enemies get knocked out of their swing
+	// by any hit; heavies (HyperArmorWhileAttacking) shrug hits off while committed to an attack and
+	// only flinch between swings. A cancelled swing's hitbox stays dead for InterruptedAttackLockout
+	// — the attack coroutine (and any subclass windup wrapped around it) keeps running on its own
+	// timers and would otherwise land the cancelled hit late — and the next attack waits
+	// FlinchDuration + InterruptedAttackLockout before it can start.
+	[Export] public bool HyperArmorWhileAttacking;
+	[Export] public float InterruptedAttackLockout = 0.7f;
+
 	// Exposed protected (not private) so a per-enemy-type subclass (e.g. OrcEnemy) can layer its
 	// own commit conditions/telegraph on top of Attack() without duplicating the hitbox/cooldown
 	// plumbing every melee enemy shares — see ReadyToCommitAttack and Attack below.
@@ -43,6 +52,10 @@ public partial class MeleeEnemy : Enemy
 	protected bool Attacking;
 	protected bool CanAttack = true;
 	private float _yieldTimer;
+	// Bumped by InterruptAttack; an attack started under an older value was cancelled.
+	private int _attackEpoch;
+	private int _runningAttackEpoch;
+	private int _interruptRunId;
 
 	// Opt-in "smart enemy" toolkit for subclasses that want it (the bandits): player reads updated
 	// every frame, a safe evasive hop, a way to attack on demand (punishes, anti-air) with a
@@ -99,7 +112,7 @@ public partial class MeleeEnemy : Enemy
 		if (Hopping && IsOnFloor() && Velocity.Y >= 0f)
 			Hopping = false;
 
-		if (Attacking || !CanAttack || _yieldTimer > 0f || Hopping)
+		if (Attacking || !CanAttack || _yieldTimer > 0f || Hopping || IsFlinching)
 			return;
 
 		Node2D playerNode = GetTree().GetFirstNodeInGroup("player") as Node2D;
@@ -135,6 +148,7 @@ public partial class MeleeEnemy : Enemy
 		}
 
 		HoldingAttackSlot = true;
+		_runningAttackEpoch = _attackEpoch;
 		_ = Attack();
 	}
 
@@ -150,13 +164,14 @@ public partial class MeleeEnemy : Enemy
 	// checks but still respecting the cooldown and the shared attack slot.
 	protected bool TryAttackNow(float windupScale = 1f)
 	{
-		if (Attacking || !CanAttack || Hopping || !IsOnFloor())
+		if (Attacking || !CanAttack || Hopping || !IsOnFloor() || IsFlinching)
 			return false;
 		if (!EnemyCombatCoordinator.TryAcquireAttackSlot())
 			return false;
 
 		HoldingAttackSlot = true;
 		WindupScale = windupScale;
+		_runningAttackEpoch = _attackEpoch;
 		_ = Attack();
 		return true;
 	}
@@ -164,11 +179,41 @@ public partial class MeleeEnemy : Enemy
 	// Jumps with launchVelocity only if the arc lands on ground (never into a pit).
 	protected bool TryHop(Vector2 launchVelocity, float maxDrop = 40f)
 	{
-		if (Hopping || Attacking || !IsOnFloor() || !LandsSafely(launchVelocity, maxDrop))
+		if (Hopping || Attacking || IsFlinching || !IsOnFloor() || !LandsSafely(launchVelocity, maxDrop))
 			return false;
 		Velocity = launchVelocity;
 		Hopping = true;
 		return true;
+	}
+
+	protected bool AttackWasInterrupted => _runningAttackEpoch != _attackEpoch;
+
+	protected override void OnPoiseHit()
+	{
+		if (Attacking && HyperArmorWhileAttacking)
+			return;
+		if (Attacking)
+			InterruptAttack();
+		Flinch();
+	}
+
+	private async void InterruptAttack()
+	{
+		_attackEpoch++;
+		Attacking = false;
+		CanAttack = false;
+		AttackHitbox.Suppress(FlinchDuration + InterruptedAttackLockout);
+		Sprite.Position = new Vector2(Sprite.Position.X, 0f);
+		if (HoldingAttackSlot)
+		{
+			EnemyCombatCoordinator.ReleaseAttackSlot();
+			HoldingAttackSlot = false;
+		}
+
+		int runId = ++_interruptRunId;
+		await ToSignal(GetTree().CreateTimer(FlinchDuration + InterruptedAttackLockout), SceneTreeTimer.SignalName.Timeout);
+		if (IsInstanceValid(this) && runId == _interruptRunId)
+			CanAttack = true;
 	}
 
 	// Same as TryHop, for hops that ARE the attack (a leap/pounce started from inside Attack-style
@@ -255,6 +300,10 @@ public partial class MeleeEnemy : Enemy
 	// still await the real swing instead of firing both concurrently — see OrcEnemy.Attack.
 	protected virtual async Task Attack()
 	{
+		// A subclass windup that was flinched out of still resumes into here on its own timer.
+		if (AttackWasInterrupted)
+			return;
+		int epoch = _attackEpoch;
 		Attacking = true;
 		CanAttack = false;
 		Sprite.Position = new Vector2(Sprite.Position.X, AttackSpriteYOffset);
@@ -272,18 +321,26 @@ public partial class MeleeEnemy : Enemy
 			await ToSignal(GetTree().CreateTimer(remainingAnimTime), SceneTreeTimer.SignalName.Timeout);
 			if (!IsInstanceValid(this) || IsQueuedForRemoval)
 				return;
-			Attacking = false;
-			Sprite.Position = new Vector2(Sprite.Position.X, 0f);
+			if (epoch == _attackEpoch)
+			{
+				Attacking = false;
+				Sprite.Position = new Vector2(Sprite.Position.X, 0f);
+			}
 		}
 		finally
 		{
-			EnemyCombatCoordinator.ReleaseAttackSlot();
-			HoldingAttackSlot = false;
+			// After an interrupt the slot was already released (and a later attack may hold one now).
+			if (epoch == _attackEpoch)
+			{
+				EnemyCombatCoordinator.ReleaseAttackSlot();
+				HoldingAttackSlot = false;
+			}
 		}
 
 		float jitter = 1f + JitterRng.RandfRange(-AttackCooldownJitter, AttackCooldownJitter);
 		await ToSignal(GetTree().CreateTimer(AttackCooldown * jitter), SceneTreeTimer.SignalName.Timeout);
-		if (IsInstanceValid(this))
+		// After an interrupt, InterruptAttack's own lockout gives CanAttack back instead.
+		if (IsInstanceValid(this) && epoch == _attackEpoch)
 			CanAttack = true;
 	}
 }
