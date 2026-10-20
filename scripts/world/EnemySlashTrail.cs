@@ -101,6 +101,9 @@ public partial class EnemySlashTrail : Node2D
 			}
 			_sparks.Position = tip;
 
+			// Out of the tree (scene reload mid-swing, e.g. the player died) → GetTree() is null.
+			if (!IsInsideTree())
+				return;
 			await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
 			if (!IsInstanceValid(this) || runId != _runId)
 				return;
@@ -132,6 +135,9 @@ public partial class EnemySlashTrail : Node2D
 			_core.Points = points;
 			_sparks.Position = tip;
 
+			// Out of the tree (scene reload mid-swing, e.g. the player died) → GetTree() is null.
+			if (!IsInsideTree())
+				return;
 			await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
 			if (!IsInstanceValid(this) || runId != _runId)
 				return;

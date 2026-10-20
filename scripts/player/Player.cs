@@ -39,6 +39,39 @@ public partial class Player : CharacterBody2D
 	[Export] public float HitStopFreezeScale = 0.02f;
 	[Export] public float HitStopFreezeDuration = 0.07f;
 	[Export] public float HitStopGapDuration = 0.03f;
+	// Every other landed hit gets its own hit-stop too, scaled by the move's poise damage (heavier
+	// move = longer freeze, from LightHitStopDuration up to HeavyHitStopDuration); breaking an
+	// enemy's poise, a parry and taking a hit each get their own, longer beat.
+	[Export] public float LightHitStopDuration = 0.045f;
+	[Export] public float HeavyHitStopDuration = 0.11f;
+	[Export] public float PoiseBreakHitStopDuration = 0.16f;
+	[Export] public float ParryHitStopDuration = 0.12f;
+	[Export] public float DamageTakenHitStopDuration = 0.09f;
+	// Poise damage per move against enemies (see Enemy.MaxPoise), keyed by the attack animation out
+	// when the hit lands; multi-pulse combo hits deal it per pulse. Unlisted moves deal
+	// DefaultPoiseDamage; the down-attack pound deals PoundPoiseDamage.
+	[Export] public Godot.Collections.Dictionary<string, float> PoiseDamageByAttack = new()
+	{
+		{ "attack1", 10f },
+		{ "attack2", 7f },
+		{ "attack3", 7f },
+		{ "attack4", 6f },
+		{ "air_attack1", 8f },
+		{ "air_attack2", 8f },
+		{ "air_attack3", 12f },
+		{ "run_attack", 15f },
+		{ "charged_attack", 35f },
+		{ "crouch_attack", 10f },
+		{ "ladder_attack", 8f },
+		{ "run_thrust", 18f },
+		{ "air_thrust", 15f },
+	};
+	[Export] public float DefaultPoiseDamage = 10f;
+	[Export] public float PoundPoiseDamage = 20f;
+	// Landing a horizontal hit nudges the player back a few pixels (Hollow Knight's recoil), so a
+	// string of hits keeps its own spacing instead of walking into the enemy.
+	[Export] public float HitRecoilSpeed = 150f;
+	[Export] public float HitRecoilDuration = 0.08f;
 	[Export] public float AttackAnimDuration = 0.62f;
 	[Export] public float ComboResetWindow = 0.7f;
 	// DS1 doesn't publish per-weapon stamina costs anywhere accessible (unlike DS3, where the
@@ -149,7 +182,8 @@ public partial class Player : CharacterBody2D
 	[Export] public float LightningBoltInterval = 0.045f;
 	[Export] public float TransformationInDuration = 1.5f;
 	[Export] public float TransformationOutDuration = 0.9f;
-	[Export] public float ChargedAttackDuration = 2f;
+	[Export] public int BaseMaxStamina = 200;
+	[Export] public float ChargedAttackDuration = 1f;
 	[Export] public Vector2 ChargedAttackHitboxSize = new(90f, 50f);
 	[Export] public float ChargedAttackReach = 60f;
 	// Sō Ryū Sen (Kenshin's twin dragon flash): when the charged draw hits nothing, a wider spin
@@ -370,6 +404,16 @@ public partial class Player : CharacterBody2D
 	[Export] public float LookDownOffset = 60f;
 	[Export] public float LookSmoothSpeed = 4f;
 	[Export] public float BaseCameraOffsetY = -60f;
+	// A soft light around the player in dark maps only (SceneDarkness), Hollow Knight-style, so the
+	// character reads against the cave backdrops without lighting the room.
+	[Export] public bool AuraEnabled = true;
+	[Export] public Color AuraColor = new(0.8f, 0.88f, 1f, 1f);
+	[Export] public float AuraEnergy = 0.9f;
+	[Export] public float AuraTextureScale = 2.4f;
+	// Bottom HUD rows (clone picker, Bastón slots, quick bar) fade to this alpha while the player is
+	// behind them, since low floors sit right under them.
+	[Export] public float HudBehindAlpha = 0.3f;
+	[Export] public float HudFadeSpeed = 8f;
 	public float ProfileCameraOffsetY { get; set; }
 	// Ground kept visible under the player's feet when the camera framing would hide them.
 	[Export] public float PlayerBottomMargin = 24f;
@@ -481,6 +525,11 @@ public partial class Player : CharacterBody2D
 	// LedgeGrabOffsetX away so its collider never overlaps the wall.
 	[Export] public float LedgeHangVisualShiftX;
 	[Export] public float LedgeGrabLockoutDuration = 0.3f;
+	// What the player has to hold for a ledge to catch them: grabbing every edge brushed in the air
+	// felt like the character hanging on its own. HoldUp = only while holding up; TowardWallOrUp =
+	// up, or pushing into the wall (Blasphemous-style); Automatic = any edge (the old behaviour).
+	public enum LedgeGrabInputMode { HoldUp, TowardWallOrUp, Automatic }
+	[Export] public LedgeGrabInputMode LedgeGrabInput = LedgeGrabInputMode.HoldUp;
 	[Export] public float LedgeAutoClimbDelay = 0.15f;
 	[Export] public float DropThroughDuration = 0.3f;
 	[Export] public float DropThroughLedgeLockoutDuration = 0.5f;
@@ -622,6 +671,8 @@ public partial class Player : CharacterBody2D
 	// longest echo delay.
 	private readonly List<EchoFrame> _echoHistory = new();
 	private Metroidvania.UI.ShadowSlotsHud _summonHud;
+	private QuickSlotHud _quickSlotHud;
+	private PointLight2D _aura;
 	private GoldHud _goldHud;
 	private EcosHud _ecosHud;
 	// What the Ecos stat levels currently add to _stats (see ApplyStatLevels), so a re-apply only
@@ -666,6 +717,11 @@ public partial class Player : CharacterBody2D
 	private bool _isPounding;
 	private bool _poundHitLanded;
 	private float _knockbackTimer;
+	private float _hitRecoilTimer;
+	private float _hitRecoilDirection;
+	private int _hitStopDepth;
+	private bool _inComboMultiHit;
+	private bool _isUpAttacking;
 	private float _snareTimer;
 	private Vector2 _knockbackVelocity;
 	private bool _isDead;
@@ -710,6 +766,10 @@ public partial class Player : CharacterBody2D
 		_hitboxShape = GetNode<CollisionShape2D>("AttackHitbox/CollisionShape2D").Shape as RectangleShape2D;
 		_hitboxBaseSize = _hitboxShape.Size;
 		_stats = GetNode<Stats>("Stats");
+		// The player's own stamina pool (Stats.MaxStamina's 100 default is shared with everything else);
+		// Endurance levels are added on top of it in ApplyStatLevels.
+		if (BaseMaxStamina != _stats.MaxStamina)
+			_stats.ApplyBonus(0, BaseMaxStamina - _stats.MaxStamina, 0, 0);
 		_abilities = GetNode<PlayerAbilities>("Abilities");
 		_healFlask = GetNode<HealFlask>("HealFlask");
 		_visual = GetNode<Node2D>("Visual");
@@ -754,6 +814,7 @@ public partial class Player : CharacterBody2D
 		_crouchCollision = GetNode<CollisionShape2D>("CrouchCollisionShape2D");
 		_ledgeWallCheck = GetNode<ShapeCast2D>("LedgeWallCheck");
 		_standHalfHeight = ((RectangleShape2D)_standCollision.Shape).Size.Y / 2f;
+		AddChild(new Metroidvania.World.ContactShadow { Width = ((RectangleShape2D)_standCollision.Shape).Size.X * 1.3f, FeetOffset = _standHalfHeight });
 		_camera = GetNode<Camera2D>("Camera2D");
 		_sprite = GetNode<AnimatedSprite2D>("Visual/CharacterSprite");
 		var bodyPoints = CharacterFlair.LoadPoints(BodyPointsPath);
@@ -849,12 +910,29 @@ public partial class Player : CharacterBody2D
 		healthBar.SetRatio((float)_stats.CurrentHealth / _stats.MaxHealth);
 		staminaBar.SetRatio((float)_stats.CurrentStamina / _stats.MaxStamina);
 		_stats.HitTaken += (isProjectile) => FlashHit(_visual, new Color(1f, 0.2f, 0.2f));
-		_stats.HitTaken += (isProjectile) => Sfx.Play(this, "Voice/Player", "Damage Grunt (Male)");
+		// Throttled: rapid damage ticks (burn streams) would otherwise grunt on every tick.
+		_stats.HitTaken += (isProjectile) =>
+		{
+			ulong now = Time.GetTicksMsec();
+			if (now - _lastGruntMsec < GruntMinIntervalMsec)
+				return;
+			_lastGruntMsec = now;
+			Sfx.Play(this, "Voice/Player", "Damage Grunt (Male)");
+		};
 		// Getting hit while steering a summon snaps control back to the body.
 		_stats.HitTaken += (isProjectile) => EndSummonControl();
 		_stats.HitTaken += (isProjectile) => EndPuppetControl();
 		_hitbox.HitDealt += () => FlashHit(_visual, new Color(1f, 1f, 0.2f));
 		_hitbox.HitDealt += () => Sfx.Play(this, "Combat/Sword", "Sword Impact Hit");
+		_hitbox.PoiseDamage = CurrentPoiseDamage;
+		_hitbox.HitDealt += OnSwordHitLanded;
+		_hitbox.PoiseBroken += OnPoiseBroken;
+		// Poison/fire ticks don't arm the post-hit i-frames, so this skips them: only real hits stop time.
+		_stats.HitTaken += isProjectile =>
+		{
+			if (_stats.IsInvulnerable)
+				_ = HitStop(DamageTakenHitStopDuration);
+		};
 		_healFlask.ChargesChanged += (current, max) => UpdateHealChargesLabel(current, max);
 		UpdateHealChargesLabel(_healFlask.CurrentCharges, _healFlask.MaxCharges);
 		// Heal charges as the Jekyria red potion bar (one pip per charge) under the status bars; the old
@@ -878,7 +956,9 @@ public partial class Player : CharacterBody2D
 		GetNode("HUD").AddChild(_ecosHud);
 		_ecosHud.SetEcos(SaveManager.Instance.Ecos);
 		SaveManager.Instance.EcosChanged += OnEcosChanged;
-		GetNode("HUD").AddChild(new QuickSlotHud { Name = "QuickSlotHud" });
+		_quickSlotHud = new QuickSlotHud { Name = "QuickSlotHud" };
+		GetNode("HUD").AddChild(_quickSlotHud);
+		CreateAura();
 		_goldLabel.Visible = false;
 		LocaleManager.Instance.LocaleChanged += _ => UpdateGoldLabel(SaveManager.Instance.Gold);
 
@@ -916,6 +996,47 @@ public partial class Player : CharacterBody2D
 			if (IsInstanceValid(_tornadoHud))
 				_tornadoHud.Refresh((int)_tornadoVariant);
 		};
+	}
+
+	private void CreateAura()
+	{
+		_aura = new PointLight2D
+		{
+			Name = "Aura",
+			Texture = GD.Load<Texture2D>("res://resources/lighting/PointLightGradient.tres"),
+			Color = AuraColor,
+			Energy = AuraEnergy,
+			TextureScale = AuraTextureScale,
+			Position = new Vector2(0f, -20f),
+			Visible = false,
+		};
+		AddChild(_aura);
+		// Deferred: the map's CanvasModulate may come after the player in the tree.
+		Callable.From(() =>
+		{
+			if (IsInstanceValid(_aura))
+				_aura.Visible = AuraEnabled && SceneDarkness.IsDark(this);
+		}).CallDeferred();
+	}
+
+	public override void _Process(double delta)
+	{
+		UpdateHudFade((float)delta);
+		TickBurnTint((float)delta);
+	}
+
+	// Fades the bottom HUD rows while the player's body is on screen behind them.
+	private void UpdateHudFade(float delta)
+	{
+		Vector2 feet = GetGlobalTransformWithCanvas().Origin;
+		var body = new Rect2(feet + new Vector2(-30f, -110f), new Vector2(60f, 120f));
+		foreach (Control hud in new Control[] { _summonHud, _shadowSpellHud, _quickSlotHud })
+		{
+			if (!IsInstanceValid(hud) || !hud.Visible)
+				continue;
+			float target = hud.GetGlobalRect().Grow(12f).Intersects(body) ? HudBehindAlpha : 1f;
+			hud.Modulate = hud.Modulate with { A = Mathf.MoveToward(hud.Modulate.A, target, HudFadeSpeed * delta) };
+		}
 	}
 
 	public override void _ExitTree()
@@ -1118,12 +1239,91 @@ public partial class Player : CharacterBody2D
 	// Tint on the character while poisoned, so being poisoned reads at a glance.
 	[Export] public Color PoisonTint = new(0.7f, 1.25f, 0.6f, 1f);
 
+	// Burn (dragon breath and other fire streams): the source deals its own ticks and calls this on
+	// each one; the sprite flickers BurnTint while it keeps coming, fading out `linger` seconds after
+	// the last tick. Shares _sprite.SelfModulate with poison, so it hands back to the poison tint.
+	[Export] public Color BurnTint = new(1.6f, 0.45f, 0.3f, 1f);
+	[Export] public float BurnFlickerSpeed = 22f;
+	private float _burnTimer;
+	private float _burnLinger = 0.6f;
+	private ulong _lastGruntMsec;
+	private const ulong GruntMinIntervalMsec = 400;
+	private bool _poisonTinted;
+
+	// Mini-cinematic lock (e.g. a boss waking up and roaring): no input, idle pose, gravity still
+	// applies and the camera keeps updating (shake, boss zoom). CutscenePush slides the player
+	// horizontally while held, decaying to a stop — a roar's shove without the knockback hop.
+	[Export] public float CutscenePushDeceleration = 900f;
+	private bool _cutsceneHold;
+	private float _cutscenePushX;
+
+	public void HoldForCutscene(bool hold)
+	{
+		_cutsceneHold = hold;
+		_cutscenePushX = 0f;
+		if (!hold)
+			_cutsceneFocus = null;
+		if (hold)
+		{
+			Velocity = new Vector2(0f, Velocity.Y);
+			_sprite.Play(TorchAnim("idle"));
+		}
+	}
+
+	public void CutscenePush(float velocityX) => _cutscenePushX = velocityX;
+
+	// A horizontal shove with no hop (e.g. a boss roar's blast of air): rides the knockback slot.
+	public void Shove(float velocityX, float duration)
+	{
+		if (_windShieldActive)
+			return;
+		_knockbackVelocity = new Vector2(velocityX, 0f);
+		_knockbackTimer = duration;
+	}
+
+	// While held, the camera pans CutsceneFocusWeight of the way toward this world point (null = off).
+	[Export] public float CutsceneFocusWeight = 0.5f;
+	private Vector2? _cutsceneFocus;
+	public void FocusCameraDuringCutscene(Vector2? worldPoint) => _cutsceneFocus = worldPoint;
+
+	private void UpdateCutsceneHold(double delta)
+	{
+		float dt = (float)delta;
+		_cutscenePushX = Mathf.MoveToward(_cutscenePushX, 0f, CutscenePushDeceleration * dt);
+		Velocity = new Vector2(_cutscenePushX, IsOnFloor() ? 0f : Velocity.Y + Gravity * dt);
+		MoveAndSlide();
+		UpdateCameraLook(delta);
+	}
+
+	public void ApplyBurn(float linger)
+	{
+		_burnLinger = Mathf.Max(0.05f, linger);
+		_burnTimer = _burnLinger;
+	}
+
+	private void TickBurnTint(float dt)
+	{
+		if (_burnTimer <= 0f)
+			return;
+		_burnTimer -= dt;
+		if (_burnTimer <= 0f)
+		{
+			_sprite.SelfModulate = _poisonTinted ? PoisonTint : Colors.White;
+			return;
+		}
+		float flicker = 0.75f + 0.25f * Mathf.Sin(Time.GetTicksMsec() / 1000f * BurnFlickerSpeed);
+		float fade = Mathf.Min(1f, _burnTimer / (_burnLinger * 0.5f));
+		Color rest = _poisonTinted ? PoisonTint : Colors.White;
+		_sprite.SelfModulate = rest.Lerp(BurnTint, flicker * fade);
+	}
+
 	public async void ApplyPoison(int tickDamage, float tickInterval, float duration)
 	{
 		if (_windShieldActive)
 			return;
 		int mySequence = ++_poisonSequence;
 		float elapsed = 0f;
+		_poisonTinted = true;
 		_sprite.SelfModulate = PoisonTint;
 
 		while (elapsed < duration)
@@ -1139,7 +1339,11 @@ public partial class Player : CharacterBody2D
 		}
 
 		if (IsInstanceValid(this) && mySequence == _poisonSequence)
-			_sprite.SelfModulate = Colors.White;
+		{
+			_poisonTinted = false;
+			if (_burnTimer <= 0f)
+				_sprite.SelfModulate = Colors.White;
+		}
 	}
 
 	private bool IsTouchingClimbableWall(out float wallNormalX)
@@ -1178,16 +1382,7 @@ public partial class Player : CharacterBody2D
 			if (normal.Y > -0.5f)
 				continue; // not standing on top of it
 
-			if (body is not Node bodyNode)
-				continue;
-
-			foreach (Node child in bodyNode.GetChildren())
-			{
-				if (child is CollisionShape2D shape)
-					DisableShapeTemporarily(shape);
-				else if (child is CollisionPolygon2D polygon)
-					DisablePolygonTemporarily(polygon);
-			}
+			IgnorePlatformTemporarily(body);
 
 			// The same platform is often tagged both OneWayPlatforms and ClimbableWalls (cave
 			// floors double as ledges), so without this the auto ledge-grab/wall-climb would just
@@ -1201,24 +1396,15 @@ public partial class Player : CharacterBody2D
 		return false;
 	}
 
-	private async void DisableShapeTemporarily(CollisionShape2D shape)
+	// Only the player stops colliding with the platform (a collision exception between the two
+	// bodies), so enemies and anything else standing on it stay put. Works the same for shape- and
+	// polygon-based platforms (MiniRampa), since it's per body, not per shape.
+	private async void IgnorePlatformTemporarily(CollisionObject2D platform)
 	{
-		shape.Disabled = true;
+		AddCollisionExceptionWith(platform);
 		await ToSignal(GetTree().CreateTimer(DropThroughDuration), SceneTreeTimer.SignalName.Timeout);
-		if (IsInstanceValid(shape))
-			shape.Disabled = false;
-	}
-
-	// MiniRampa (and anything else built on CollisionPolygon2D instead of CollisionShape2D, e.g.
-	// so the polygon can be rewritten live — see MiniRampa.cs) needs its own disable path: the two
-	// node types don't share a common base with a Disabled property, so TryDropThroughOneWayPlatform
-	// can't just handle CollisionShape2D and expect polygon-based platforms to drop-through too.
-	private async void DisablePolygonTemporarily(CollisionPolygon2D polygon)
-	{
-		polygon.Disabled = true;
-		await ToSignal(GetTree().CreateTimer(DropThroughDuration), SceneTreeTimer.SignalName.Timeout);
-		if (IsInstanceValid(polygon))
-			polygon.Disabled = false;
+		if (IsInstanceValid(this) && IsInstanceValid(platform))
+			RemoveCollisionExceptionWith(platform);
 	}
 
 	// Ledge detection is two steps rather than a fixed two-raycast band: first find ANY wall in
@@ -1228,6 +1414,19 @@ public partial class Player : CharacterBody2D
 	// ledge's actual top surface. Using the real surface height (instead of just keeping the
 	// player's current Y) is what makes the grab position — and therefore the climb-up target —
 	// land correctly on top.
+	// The input gate from LedgeGrabInput. The ledge is always looked for on the facing side, so
+	// "toward the wall" means holding the direction the player faces.
+	private bool WantsLedgeGrab()
+	{
+		bool holdingUp = Input.IsActionPressed("move_up");
+		return LedgeGrabInput switch
+		{
+			LedgeGrabInputMode.HoldUp => holdingUp,
+			LedgeGrabInputMode.TowardWallOrUp => holdingUp || Input.GetAxis("move_left", "move_right") * (_facingRight ? 1f : -1f) > 0.5f,
+			_ => true,
+		};
+	}
+
 	private bool TryDetectLedge(out Vector2 grabPosition)
 	{
 		float dir = _facingRight ? 1f : -1f;
@@ -1361,6 +1560,12 @@ public partial class Player : CharacterBody2D
 				return;
 			}
 			EndPuppetControl();
+		}
+
+		if (_cutsceneHold)
+		{
+			UpdateCutsceneHold(delta);
+			return;
 		}
 
 		// Water has no solid collision — anything that moves the player fast enough (dash, pound,
@@ -1785,7 +1990,7 @@ public partial class Player : CharacterBody2D
 		if (_wallJumpLockout > 0f)
 			_wallJumpLockout -= (float)delta;
 
-		if (_abilities.Has(PlayerAbilities.LedgeGrab) && _ledgeGrabLockout <= 0f && !IsOnFloor()
+		if (_abilities.Has(PlayerAbilities.LedgeGrab) && _ledgeGrabLockout <= 0f && !IsOnFloor() && WantsLedgeGrab()
 			&& TryDetectLedge(out Vector2 ledgeGrabPosition))
 		{
 			_isLedgeHanging = true;
@@ -1891,6 +2096,11 @@ public partial class Player : CharacterBody2D
 		float speed = _crouching ? Speed * CrouchSpeedMultiplier : sprinting ? Speed * SprintSpeedMultiplier : Speed;
 		if (AirControl || IsOnFloor())
 			velocity.X = direction != 0 ? direction * speed : Mathf.MoveToward(velocity.X, 0, speed);
+		if (_hitRecoilTimer > 0f)
+		{
+			_hitRecoilTimer -= (float)delta;
+			velocity.X += _hitRecoilDirection * HitRecoilSpeed;
+		}
 
 		_visual.Scale = new Vector2(_facingRight ? 1 : -1, 1f);
 
@@ -2024,7 +2234,9 @@ public partial class Player : CharacterBody2D
 			&& !_isRunThrusting && !_isTransforming)
 		{
 			_quickUseKeyReleased = false;
-			if (ItemDatabase.Instance.Get(SaveManager.Instance.SelectedQuickItem) is { } quickItem)
+			if (FreeElementCycle)
+				CycleElementFree();
+			else if (ItemDatabase.Instance.Get(SaveManager.Instance.SelectedQuickItem) is { } quickItem)
 				UseConsumable(quickItem);
 		}
 
@@ -2344,6 +2556,7 @@ public partial class Player : CharacterBody2D
 		_blockedHitFrame = Engine.GetPhysicsFrames();
 		_parryLanded = true;
 		PlayParryFx();
+		_ = HitStop(ParryHitStopDuration);
 		ReportMeleeParry();
 		return true;
 	}
@@ -2389,6 +2602,9 @@ public partial class Player : CharacterBody2D
 		float targetY = BaseCameraOffsetY + ProfileCameraOffsetY + (lookingUp ? LookUpOffset : _crouching ? LookDownOffset : 0f);
 
 		Vector2 targetOffset = new Vector2(0, targetY + _bossFramingOffsetY);
+		// Cutscene framing: pan part of the way toward the focus point so both stay in shot.
+		if (_cutsceneHold && _cutsceneFocus is Vector2 focus)
+			targetOffset += (focus - GlobalPosition) * CutsceneFocusWeight;
 		// Tracked separately from _camera.Offset so Shake() can add a jitter on top of it each
 		// frame without that jitter itself getting lerped-toward next frame (which would just
 		// smooth the shake away to nothing).
@@ -3093,6 +3309,7 @@ public partial class Player : CharacterBody2D
 
 		_hitboxShape.Size = UpAttackHitboxSize;
 		_hitbox.Position = new Vector2(0, -UpAttackHitboxReach);
+		_isUpAttacking = true;
 		_hitbox.Activate(_stats, element: _currentElement);
 
 		if (!sheetUpSlash)
@@ -3106,6 +3323,7 @@ public partial class Player : CharacterBody2D
 
 		await ToSignal(GetTree().CreateTimer(AttackDuration), SceneTreeTimer.SignalName.Timeout);
 		_hitbox.Deactivate();
+		_isUpAttacking = false;
 		_hitbox.HitDealt -= OnHitLanded;
 		if (!hitLanded)
 			Sfx.Play(this, "Combat/Sword", "Sword Attack");
@@ -4291,6 +4509,7 @@ public partial class Player : CharacterBody2D
 	// flurry instead of a single hit.
 	private async Task ComboMultiHit(int pulseCount)
 	{
+		_inComboMultiHit = true;
 		try
 		{
 			for (int i = 0; i < pulseCount; i++)
@@ -4312,9 +4531,7 @@ public partial class Player : CharacterBody2D
 				// earns its freeze.
 				if (pulseHitLanded)
 				{
-					Engine.TimeScale = HitStopFreezeScale;
-					await ToSignal(GetTree().CreateTimer(HitStopFreezeDuration, true, false, true), SceneTreeTimer.SignalName.Timeout);
-					Engine.TimeScale = 1.0;
+					await HitStop(HitStopFreezeDuration);
 					if (!IsInstanceValid(this))
 						return;
 				}
@@ -4332,10 +4549,60 @@ public partial class Player : CharacterBody2D
 		}
 		finally
 		{
-			Engine.TimeScale = 1.0;
+			_inComboMultiHit = false;
 			if (IsInstanceValid(this))
 				_hitbox.Deactivate();
 		}
+	}
+
+	// Near-freezes the whole game for `duration` real seconds (the timer ignores TimeScale, or it
+	// would be slowed by the freeze it's producing). Overlapping calls nest: time only resumes once
+	// the last one ends, so a parry landing mid combo-freeze can't cut either short.
+	private async Task HitStop(float duration)
+	{
+		if (duration <= 0f)
+			return;
+		_hitStopDepth++;
+		Engine.TimeScale = HitStopFreezeScale;
+		try
+		{
+			await ToSignal(GetTree().CreateTimer(duration, true, false, true), SceneTreeTimer.SignalName.Timeout);
+		}
+		finally
+		{
+			if (--_hitStopDepth == 0)
+				Engine.TimeScale = 1.0;
+		}
+	}
+
+	private float CurrentPoiseDamage()
+	{
+		if (_isPounding)
+			return PoundPoiseDamage;
+		return PoiseDamageByAttack.TryGetValue(_currentAttackAnimation, out float poise) ? poise : DefaultPoiseDamage;
+	}
+
+	// Every landed sword hit: a hit-stop weighted by the move (combo pulses run their own), and a
+	// small recoil away from a horizontal hit.
+	private void OnSwordHitLanded()
+	{
+		float poise = CurrentPoiseDamage();
+		if (!_inComboMultiHit)
+		{
+			float weight = Mathf.Clamp(poise / DefaultPoiseDamage, 1f, HeavyHitStopDuration / LightHitStopDuration);
+			_ = HitStop(LightHitStopDuration * weight);
+		}
+		if (!_isPounding && !_isUpAttacking)
+		{
+			_hitRecoilDirection = _facingRight ? -1f : 1f;
+			_hitRecoilTimer = HitRecoilDuration;
+		}
+	}
+
+	private void OnPoiseBroken()
+	{
+		_ = HitStop(PoiseBreakHitStopDuration);
+		ShakeCamera(4f, 0.2f);
 	}
 
 	// Homemade replacement for the old bought impact_medium/impact_big sprite sheets: attack1 is
@@ -4386,6 +4653,28 @@ public partial class Player : CharacterBody2D
 		SaveManager.Instance.SessionImbueTimeLeft = duration;
 		if (element != _currentElement)
 			SetElement(element);
+	}
+
+	// Set per map by LevelBootstrap.FreeElementCycle: F (quick_use) cycles the element instead of
+	// using the quick-bar item.
+	public bool FreeElementCycle { get; set; }
+
+	// The pre-resin F cycle (Normal → Fire → Poison → Ice → Lightning → Normal), free and untimed:
+	// _imbueTimeLeft stays 0 so TickImbue never expires it and the next map doesn't carry it over.
+	private void CycleElementFree()
+	{
+		if (_isTransforming)
+			return;
+		_imbueTimeLeft = 0f;
+		SaveManager.Instance.SessionImbueTimeLeft = 0f;
+		SetElement(_currentElement switch
+		{
+			DamageElement.Normal => DamageElement.Fire,
+			DamageElement.Fire => DamageElement.Poison,
+			DamageElement.Poison => DamageElement.Ice,
+			DamageElement.Ice => DamageElement.Lightning,
+			_ => DamageElement.Normal,
+		});
 	}
 
 	private void TickImbue(float dt)

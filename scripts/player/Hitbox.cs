@@ -18,6 +18,7 @@ public partial class Hitbox : Area2D
 	private bool _ignorePostHitInvulnerability;
 	private Color? _impactModulate;
 	private System.Action<Vector2> _customImpactEffect;
+	private ulong _suppressedUntilMsec;
 
 	public override void _Ready()
 	{
@@ -38,6 +39,8 @@ public partial class Hitbox : Area2D
 	// player who got caught, while a well-timed dash still dodges each hit (MushroomBoss's dance).
 	public void Activate(Stats attackerStats, string impactFramesPath = null, DamageElement element = DamageElement.Normal, bool ignoreTargetInvulnerability = false, Color? impactModulate = null, System.Action<Vector2> customImpactEffect = null, bool ignorePostHitInvulnerability = false)
 	{
+		if (Time.GetTicksMsec() < _suppressedUntilMsec)
+			return;
 		_attackerStats = attackerStats;
 		_ignorePostHitInvulnerability = ignorePostHitInvulnerability;
 		_impactFramesPath = impactFramesPath;
@@ -49,6 +52,22 @@ public partial class Hitbox : Area2D
 	}
 
 	public void Deactivate() => _shape.Disabled = true;
+
+	// Kills the hitbox now and turns Activate into a no-op for `seconds` — for a swing that got
+	// interrupted (MeleeEnemy flinch) while its attack coroutine is still running on its own timers.
+	public void Suppress(float seconds)
+	{
+		Deactivate();
+		_suppressedUntilMsec = Time.GetTicksMsec() + (ulong)(seconds * 1000f);
+	}
+
+	// Poise damage each hit deals to an Enemy (see Enemy.TakePoiseDamage). Read at the moment of the
+	// hit, so the owner can make it depend on which move is out (Player sets it per attack). Unset =
+	// no poise damage, which is every enemy-owned hitbox.
+	public System.Func<float> PoiseDamage;
+
+	// Fired after HitDealt when this hit broke the target's poise.
+	[Signal] public delegate void PoiseBrokenEventHandler();
 
 	public bool IsActive => _shape is { Disabled: false };
 
@@ -70,13 +89,17 @@ public partial class Hitbox : Area2D
 		{
 			_customImpactEffect(impactPoint);
 		}
-		else
+		// No generic star spark on the player getting hit (user call: it read as clutter) — only on
+		// what the player hits. A custom effect or impact sheet passed by the attacker still shows.
+		else if (_impactFramesPath is not null || !body.IsInGroup("player"))
 		{
 			string framesPath = _impactFramesPath ?? "res://resources/sprites/HitSparkSpriteFrames.tres";
 			string animation = _impactFramesPath is null ? "spark" : "impact";
 			VfxSpawner.SpawnAt(this, impactPoint, framesPath, animation, new Vector2(0f, 10f), modulate: _impactModulate);
 		}
 		EmitSignal(SignalName.HitDealt);
+		if (PoiseDamage is not null && body is Enemy enemy && enemy.TakePoiseDamage(PoiseDamage()))
+			EmitSignal(SignalName.PoiseBroken);
 
 		if (body.HasMethod("ApplyKnockback"))
 		{

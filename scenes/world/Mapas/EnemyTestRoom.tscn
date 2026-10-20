@@ -3,10 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://b56iyefxyhuy5" path="res://scripts/world/EnemyTestRoomHealthBuff.cs" id="3_healthbuff"]
 [ext_resource type="Texture2D" uid="uid://b37c5fqvueq8p" path="res://assets/backgrounds/caminodesierto.png" id="4_mv8r7"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/OscuraHechicera.tscn" id="5_hpw0a"]
 [ext_resource type="Texture2D" uid="uid://caiex2pkvq11t" path="res://assets/sprites/deco/FondoOjo.png" id="6_fondoojo"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/OscuroCampeon.tscn" id="6_xctif"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/OscuroSegador.tscn" id="7_jyewd"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Lugia.tscn" id="8_lugia"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1400, 60)
@@ -6134,11 +6132,5 @@ z_index = -20
 position = Vector2(650, -52)
 texture = ExtResource("6_fondoojo")
 
-[node name="OscuraHechicera" parent="." unique_id=1685527934 instance=ExtResource("5_hpw0a")]
-position = Vector2(240, 384)
-
-[node name="OscuroCampeon" parent="." unique_id=1777014823 instance=ExtResource("6_xctif")]
-position = Vector2(896, 374)
-
-[node name="OscuroSegador" parent="." unique_id=1026927442 instance=ExtResource("7_jyewd")]
-position = Vector2(129, 386)
+[node name="Lugia" parent="." unique_id=1416602537 instance=ExtResource("8_lugia")]
+position = Vector2(665, 385)

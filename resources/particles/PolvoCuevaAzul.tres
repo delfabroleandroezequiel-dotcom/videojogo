@@ -1,0 +1,20 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://dyscjj6pn2yrt"]
+
+[sub_resource type="Gradient" id="Gradient_polvoazul"]
+offsets = PackedFloat32Array(0, 0.15, 0.85, 1)
+colors = PackedColorArray(0.75, 0.88, 1, 0, 0.75, 0.88, 1, 0.45, 0.75, 0.88, 1, 0.45, 0.75, 0.88, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_polvoazul"]
+gradient = SubResource("Gradient_polvoazul")
+
+[resource]
+emission_shape = 3
+emission_box_extents = Vector3(1086, 300, 1)
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 6.0
+initial_velocity_max = 16.0
+gravity = Vector3(0, -2, 0)
+scale_min = 0.12
+scale_max = 0.3
+color_ramp = SubResource("GradientTexture1D_polvoazul")

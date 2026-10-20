@@ -1,0 +1,668 @@
+{ "frames": {
+   "lugia 0.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 1.aseprite": {
+    "frame": { "x": 208, "y": 0, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 2.aseprite": {
+    "frame": { "x": 416, "y": 0, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 3.aseprite": {
+    "frame": { "x": 624, "y": 0, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 4.aseprite": {
+    "frame": { "x": 832, "y": 0, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 5.aseprite": {
+    "frame": { "x": 1040, "y": 0, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 6.aseprite": {
+    "frame": { "x": 1248, "y": 0, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 7.aseprite": {
+    "frame": { "x": 1456, "y": 0, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 8.aseprite": {
+    "frame": { "x": 1664, "y": 0, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 9.aseprite": {
+    "frame": { "x": 0, "y": 208, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 10.aseprite": {
+    "frame": { "x": 208, "y": 208, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 11.aseprite": {
+    "frame": { "x": 416, "y": 208, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 12.aseprite": {
+    "frame": { "x": 624, "y": 208, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 13.aseprite": {
+    "frame": { "x": 832, "y": 208, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 14.aseprite": {
+    "frame": { "x": 1040, "y": 208, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 15.aseprite": {
+    "frame": { "x": 1248, "y": 208, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 16.aseprite": {
+    "frame": { "x": 1456, "y": 208, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 17.aseprite": {
+    "frame": { "x": 1664, "y": 208, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 18.aseprite": {
+    "frame": { "x": 0, "y": 416, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 19.aseprite": {
+    "frame": { "x": 208, "y": 416, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 20.aseprite": {
+    "frame": { "x": 416, "y": 416, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 21.aseprite": {
+    "frame": { "x": 624, "y": 416, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 22.aseprite": {
+    "frame": { "x": 832, "y": 416, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 23.aseprite": {
+    "frame": { "x": 1040, "y": 416, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 24.aseprite": {
+    "frame": { "x": 1248, "y": 416, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 25.aseprite": {
+    "frame": { "x": 1456, "y": 416, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 26.aseprite": {
+    "frame": { "x": 1664, "y": 416, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 27.aseprite": {
+    "frame": { "x": 0, "y": 624, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 28.aseprite": {
+    "frame": { "x": 208, "y": 624, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 29.aseprite": {
+    "frame": { "x": 416, "y": 624, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 30.aseprite": {
+    "frame": { "x": 624, "y": 624, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 31.aseprite": {
+    "frame": { "x": 832, "y": 624, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 32.aseprite": {
+    "frame": { "x": 1040, "y": 624, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 33.aseprite": {
+    "frame": { "x": 1248, "y": 624, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 34.aseprite": {
+    "frame": { "x": 1456, "y": 624, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 35.aseprite": {
+    "frame": { "x": 1664, "y": 624, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 36.aseprite": {
+    "frame": { "x": 0, "y": 832, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 37.aseprite": {
+    "frame": { "x": 208, "y": 832, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 38.aseprite": {
+    "frame": { "x": 416, "y": 832, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 39.aseprite": {
+    "frame": { "x": 624, "y": 832, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 40.aseprite": {
+    "frame": { "x": 832, "y": 832, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 41.aseprite": {
+    "frame": { "x": 1040, "y": 832, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 42.aseprite": {
+    "frame": { "x": 1248, "y": 832, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 43.aseprite": {
+    "frame": { "x": 1456, "y": 832, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 44.aseprite": {
+    "frame": { "x": 1664, "y": 832, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 45.aseprite": {
+    "frame": { "x": 0, "y": 1040, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 46.aseprite": {
+    "frame": { "x": 208, "y": 1040, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 47.aseprite": {
+    "frame": { "x": 416, "y": 1040, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 48.aseprite": {
+    "frame": { "x": 624, "y": 1040, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 49.aseprite": {
+    "frame": { "x": 832, "y": 1040, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 50.aseprite": {
+    "frame": { "x": 1040, "y": 1040, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 51.aseprite": {
+    "frame": { "x": 1248, "y": 1040, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 52.aseprite": {
+    "frame": { "x": 1456, "y": 1040, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 53.aseprite": {
+    "frame": { "x": 1664, "y": 1040, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 54.aseprite": {
+    "frame": { "x": 0, "y": 1248, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 55.aseprite": {
+    "frame": { "x": 208, "y": 1248, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 56.aseprite": {
+    "frame": { "x": 416, "y": 1248, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 57.aseprite": {
+    "frame": { "x": 624, "y": 1248, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 58.aseprite": {
+    "frame": { "x": 832, "y": 1248, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 59.aseprite": {
+    "frame": { "x": 1040, "y": 1248, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 60.aseprite": {
+    "frame": { "x": 1248, "y": 1248, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 61.aseprite": {
+    "frame": { "x": 1456, "y": 1248, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 62.aseprite": {
+    "frame": { "x": 1664, "y": 1248, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 63.aseprite": {
+    "frame": { "x": 0, "y": 1456, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 64.aseprite": {
+    "frame": { "x": 208, "y": 1456, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 65.aseprite": {
+    "frame": { "x": 416, "y": 1456, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 66.aseprite": {
+    "frame": { "x": 624, "y": 1456, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 67.aseprite": {
+    "frame": { "x": 832, "y": 1456, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 68.aseprite": {
+    "frame": { "x": 208, "y": 0, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 69.aseprite": {
+    "frame": { "x": 1040, "y": 1456, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 150
+   },
+   "lugia 70.aseprite": {
+    "frame": { "x": 1248, "y": 1456, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 71.aseprite": {
+    "frame": { "x": 832, "y": 832, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 72.aseprite": {
+    "frame": { "x": 1456, "y": 1456, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 150
+   },
+   "lugia 73.aseprite": {
+    "frame": { "x": 1664, "y": 1456, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 74.aseprite": {
+    "frame": { "x": 0, "y": 1664, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 75.aseprite": {
+    "frame": { "x": 208, "y": 1664, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 76.aseprite": {
+    "frame": { "x": 416, "y": 1664, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 77.aseprite": {
+    "frame": { "x": 624, "y": 1664, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 78.aseprite": {
+    "frame": { "x": 832, "y": 1664, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 100
+   },
+   "lugia 79.aseprite": {
+    "frame": { "x": 1040, "y": 1664, "w": 208, "h": 208 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 208 },
+    "sourceSize": { "w": 208, "h": 208 },
+    "duration": 500
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.17.2-x64",
+  "image": "lugia.png",
+  "format": "RGBA8888",
+  "size": { "w": 1872, "h": 1872 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "idle", "from": 1, "to": 4, "direction": "forward", "color": "#33b967ff" },
+   { "name": "attack_1", "from": 5, "to": 13, "direction": "forward", "color": "#fe5b59ff" },
+   { "name": "idle<->run", "from": 14, "to": 14, "direction": "forward", "color": "#f3ce52ff" },
+   { "name": "fire_attack", "from": 15, "to": 24, "direction": "forward", "color": "#f7a547ff" },
+   { "name": "run", "from": 25, "to": 32, "direction": "forward", "color": "#57b9f2ff" },
+   { "name": "floor<->fly", "from": 33, "to": 34, "direction": "forward", "color": "#f3ce52ff" },
+   { "name": "fly_idle", "from": 35, "to": 40, "direction": "forward", "color": "#1ecd5bff" },
+   { "name": "fly_idle<->flying", "from": 41, "to": 41, "direction": "forward", "color": "#f3ce52ff" },
+   { "name": "flying", "from": 42, "to": 47, "direction": "forward", "color": "#fe5b59ff" },
+   { "name": "fire_attack_flying", "from": 48, "to": 57, "direction": "forward", "color": "#57b9f2ff" },
+   { "name": "flying_direction_change", "from": 58, "to": 59, "direction": "forward", "color": "#f3ce52ff" },
+   { "name": "attack_1_jump", "from": 60, "to": 67, "direction": "forward", "color": "#57b9f2ff" },
+   { "name": "hurt_floor", "from": 68, "to": 70, "direction": "forward", "color": "#fe5b59ff" },
+   { "name": "hurt_flying", "from": 71, "to": 73, "direction": "forward", "color": "#39d281ff" },
+   { "name": "death", "from": 74, "to": 79, "direction": "forward", "color": "#000000ff" }
+  ]
+ }
+}

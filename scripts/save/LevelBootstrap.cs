@@ -25,6 +25,11 @@ public partial class LevelBootstrap : Node
 	// existing manual override still wins whenever it's already deeper than this margin.
 	[Export] public float FallDeathMargin = 300f;
 
+	// Video/showcase maps (e.g. MidirArena): hide the player's whole HUD layer, and let F cycle the
+	// blade's element for free (no resins, no timer) the way it worked before the quick bar.
+	[Export] public bool HideHud;
+	[Export] public bool FreeElementCycle;
+
 	private Player.Player _player;
 
 	public override void _Ready()
@@ -37,6 +42,8 @@ public partial class LevelBootstrap : Node
 
 		_player = GetNode<Player.Player>("Player");
 		ApplyCameraConfig();
+		_player.GetNode<CanvasLayer>("HUD").Visible = !HideHud;
+		_player.FreeElementCycle = FreeElementCycle;
 
 		if (!string.IsNullOrEmpty(ZoneName))
 			ZoneTitle.Instance.Show(ZoneName);

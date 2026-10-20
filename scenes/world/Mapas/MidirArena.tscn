@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://dlqcia7855wfv"]
+
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
+[ext_resource type="Texture2D" uid="uid://b8esqrdhi6lwx" path="res://assets/backgrounds/MidirArena.png" id="2_fondo"]
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Lugia.tscn" id="4_lugia"]
+[ext_resource type="Resource" path="res://resources/camera/ArenaMidirCamera.tres" id="5_camara"]
+[ext_resource type="Texture2D" uid="uid://cb8gyivleynt" path="res://resources/particles/SoftDotGradient.tres" id="6_punto"]
+[ext_resource type="Material" uid="uid://dyscjj6pn2yrt" path="res://resources/particles/PolvoCuevaAzul.tres" id="7_polvo"]
+[ext_resource type="Script" uid="uid://dgfme40ce5n06" path="res://scripts/world/GroundFog.cs" id="8_niebla"]
+[ext_resource type="Texture2D" uid="uid://c8u136yyw3rtd" path="res://resources/vfx/FogBlobGradient.tres" id="9_blob"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_piso"]
+size = Vector2(2172, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pared"]
+size = Vector2(60, 1200)
+
+[node name="MidirArena" type="Node2D" unique_id=445733483]
+script = ExtResource("1_bootstrap")
+ScenePath = "res://scenes/world/Mapas/MidirArena.tscn"
+CameraProfile = ExtResource("5_camara")
+CameraLimitLeft = -1086
+CameraLimitRight = 1086
+CameraLimitTop = -362
+CameraLimitBottom = 362
+HideHud = true
+FreeElementCycle = true
+
+[node name="Fondo" type="Sprite2D" parent="." unique_id=869775709]
+z_index = -10
+texture = ExtResource("2_fondo")
+
+[node name="Piso" type="StaticBody2D" parent="." unique_id=503600859]
+position = Vector2(1.4097748, 294.36615)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Piso" unique_id=323099784]
+shape = SubResource("RectangleShape2D_piso")
+
+[node name="ParedIzquierda" type="StaticBody2D" parent="." unique_id=1721218195]
+position = Vector2(-1116, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedIzquierda" unique_id=1677243784]
+shape = SubResource("RectangleShape2D_pared")
+
+[node name="ParedDerecha" type="StaticBody2D" parent="." unique_id=628546725]
+position = Vector2(1116, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedDerecha" unique_id=2119198146]
+shape = SubResource("RectangleShape2D_pared")
+
+[node name="Player" parent="." unique_id=1350121751 instance=ExtResource("3_player")]
+position = Vector2(-700, 220)
+
+[node name="Lugia" parent="." unique_id=315867378 instance=ExtResource("4_lugia")]
+position = Vector2(600, 200)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1378193809]
+color = Color(0.62, 0.65, 0.76, 1)
+
+[node name="PolvoFlotante" type="GPUParticles2D" parent="." unique_id=1582020620]
+position = Vector2(0, -40)
+amount = 45
+texture = ExtResource("6_punto")
+lifetime = 8.0
+preprocess = 8.0
+randomness = 0.5
+process_material = ExtResource("7_polvo")
+
+[node name="NieblaAgua" type="Node2D" parent="." unique_id=721698464]
+z_index = -1
+position = Vector2(0, 205)
+script = ExtResource("8_niebla")
+BlobTexture = ExtResource("9_blob")
+BlobCount = 8
+AreaWidth = 2172.0
+AreaHeight = 110.0
+TintColor = Color(0.45, 0.65, 0.95, 0.35)
