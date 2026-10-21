@@ -169,6 +169,18 @@ public partial class Player : CharacterBody2D
 	[Export] public float BackstabMaxHeightDiff = 24f;
 	[Export] public float BackstabStandOff = 30f;
 	[Export] public float BackstabDamageMultiplier = 5f;
+	// Execution weight (backstab and riposte): the camera pushes in for the whole clip, and the
+	// blade going in lands a long freeze, a white pop, heavy sparks and a big shake; a kill then
+	// trails into slow motion. All heavier than an ordinary killing blow on purpose.
+	[Export] public float ExecutionZoomMultiplier = 1.2f;
+	[Export] public float ExecutionHitStopDuration = 0.26f;
+	[Export] public float ExecutionFlashAlpha = 0.35f;
+	[Export] public float ExecutionFlashDuration = 0.14f;
+	[Export] public float ExecutionShake = 8f;
+	[Export] public float ExecutionShakeDuration = 0.35f;
+	[Export] public float ExecutionSparkIntensity = 3.2f;
+	[Export] public float ExecutionSlowMoScale = 0.25f;
+	[Export] public float ExecutionSlowMoDuration = 0.45f;
 	// Riposte: the same execution on an enemy stunned by parries (see Enemy.ParriesToStun), from
 	// any side, with the ExecuteGround downward stab. Damage/range/fps shared with the backstab.
 	[Export] public Texture2D RiposteSheet;
@@ -213,10 +225,23 @@ public partial class Player : CharacterBody2D
 	[Export] public float ParryInputBuffer = 0.12f;
 	// Shadow essence: the shadow spells' mana. Only parries fill it; shadow spells spend it.
 	[Export] public float MaxShadowEssence = 100f;
+	// Testing aid: the essence bar stays full and shadow spells cost nothing. Turn off for real play.
+	[Export] public bool InfiniteShadowEssence = true;
 	[Export] public float ParryEssenceGain = 12f;
 	[Export] public float PerfectParryEssenceGain = 30f;
 	[Export] public float ShadowCloneEssenceCost = 35f;
 	[Export] public float ShadowSummonEssenceCost = 50f;
+	// Shadow marks (stacked on enemies by every shadow hit, see Enemy.AddShadowMark) are cashed in
+	// by the next sword hit: extra damage per mark, and a freeze/shake/ink burst that grows with it.
+	[Export] public float DetonationDamagePerMark = 1.2f;
+	[Export] public float DetonationHitStopBase = 0.08f;
+	[Export] public float DetonationHitStopPerMark = 0.05f;
+	[Export] public float DetonationShakePerMark = 2.5f;
+	// Calling on the shadow drains the world of colour for a moment (ShadowCastVeil.gdshader).
+	[Export] public float ShadowVeilStrength = 0.65f;
+	[Export] public float ShadowVeilIn = 0.06f;
+	[Export] public float ShadowVeilHold = 0.12f;
+	[Export] public float ShadowVeilOut = 0.4f;
 	[Export] public SpriteFrames FireSpriteFrames;
 	// Fire imbue look that keeps the same character: when set, entering fire swaps only the
 	// sprite's material (e.g. a palette with a burning blade) and FireSpriteFrames is ignored.
@@ -382,6 +407,41 @@ public partial class Player : CharacterBody2D
 	// unlocks its combo). +2 is meant to parry (not built yet); +3 bursts when it ends.
 	[Export(PropertyHint.Range, "0,3")] public int ShadowPuppetLevel;
 	[Export] public float ShadowPuppetDuration = 5f;
+	// Sombra berserker: the steered shadow at full fury. Faster than the body, hits
+	// BerserkerDamageMultiplier times harder with a heavy freeze/shake, stacks BerserkerMarksPerHit
+	// marks, never flinches. Its life is the shadow essence: it burns BerserkerEssenceDrainPerSecond
+	// and each point of damage it takes costs BerserkerEssencePerDamage. When the essence runs out it
+	// shatters and the body eats BerserkerBacklashMultiplier times the blow that broke it.
+	[Export] public float BerserkerDuration = 10f;
+	[Export] public float BerserkerSpeedMultiplier = 1.3f;
+	[Export] public float BerserkerDamageMultiplier = 3f;
+	[Export] public int BerserkerMarksPerHit = 2;
+	[Export] public float BerserkerEssenceDrainPerSecond = 6f;
+	[Export] public float BerserkerEssencePerDamage = 1.5f;
+	[Export] public float BerserkerBacklashMultiplier = 2f;
+	[Export] public float BerserkerHitStopDuration = 0.2f;
+	[Export] public float BerserkerShake = 6f;
+	[Export] public Color BerserkerColor = new(1f, 0.1f, 0.15f, 1f);
+	// Robo de sombra: a yellow chain finds the nearest enemy in sight (favouring the one in front),
+	// tears its shadow out — the enemy stands hollow, stunned — and the player steers that shadow,
+	// with that enemy's own look and attack. Costs StealEssenceCost once; while steering it drains
+	// StealLifeDrainPerSecond of max health per second (never below 1 HP — at 1 it throws you back).
+	// Bosses can be hooked (marked) but their shadow can't be taken.
+	// Coraza de sombra: wrapped in ink for CarapaceDuration. Its next CarapaceHits hits land at
+	// CarapaceDamageFraction, with no knockback, and mark whoever struck; when it breaks or runs out it
+	// bursts and detonates the marks on everyone who hit it. Expensive on purpose.
+	[Export] public float CarapaceEssenceCost = 70f;
+	[Export] public float CarapaceDuration = 4f;
+	[Export] public int CarapaceHits = 3;
+	[Export] public float CarapaceDamageFraction = 0.5f;
+	// The trade: wearing it, the player's own blows land softer (scales AttackPower while it lasts).
+	[Export] public float CarapaceDamageDealtMultiplier = 0.75f;
+	[Export] public float StealEssenceCost = 40f;
+	[Export] public float StealRange = 300f;
+	[Export] public float StealLifeDrainPerSecond = 0.03f;
+	[Export] public float StealMaxDuration = 8f;
+	[Export] public float StealDamageMultiplier = 1.5f;
+	[Export] public Color StealColor = new(1f, 0.85f, 0.1f, 1f);
 	[Export] public float ShadowPuppetLongDuration = 9f;
 	[Export] public float ShadowPuppetBurstRadius = 90f;
 	[Export] public float ShadowPuppetBurstDamageMultiplier = 2f;
@@ -590,23 +650,6 @@ public partial class Player : CharacterBody2D
 	// (or just before landing) chains instead of getting swallowed.
 	[Export] public float RollBufferWindow = 0.35f;
 
-	// Hazard respawn (Hollow Knight's spikes/pits, but harsher): a platforming hazard or a fall off
-	// the map sends the player back to the last safe ground they stood on, losing this fraction of
-	// max HP (or the hazard's own Damage if higher) — which still kills if it takes the last HP.
-	public const string UnsafeGroundGroup = "unsafe_ground";
-	[Export] public float HazardDamageFraction = 0.3f;
-	[Export] public float HazardFadeOutDuration = 0.2f;
-	[Export] public float HazardFadeHoldDuration = 0.2f;
-	[Export] public float HazardFadeInDuration = 0.3f;
-	// Planted after reappearing, input ignored — the respawn itself costs time, not just HP.
-	[Export] public float HazardRespawnLockout = 0.4f;
-	// Ground only counts as safe after standing on it this long, fully supported (both edges of the
-	// body over solid floor), on static ground — not moving platforms or crumbling floors.
-	[Export] public float SafeGroundTime = 0.15f;
-	[Export] public float SafeGroundEdgeMargin = 24f;
-	// The respawn spot is the newest safe-ground sample at least this far from where the hazard got
-	// the player — otherwise walking straight into spikes would respawn them touching the spikes.
-	[Export] public float SafeRespawnMinDistance = 64f;
 	[Export] public float WallClimbSpeed = 110f;
 	[Export] public float WallSlideSpeed = 60f;
 	[Export] public float WallJumpVelocityX = 260f;
@@ -771,8 +814,20 @@ public partial class Player : CharacterBody2D
 	// Non-null while the player is steering a summon (their own body stands still).
 	private ShadowSummon _controlledSummon;
 	private ShadowPuppet _controlledPuppet;
-	private enum ShadowSpell { Basic, Decoy, Echo, Puppet, Rush, Sentinel }
-	private static readonly string[] ShadowSpellNameKeys = { "UI_CLONE_BASIC", "UI_CLONE_DECOY", "UI_CLONE_ECHO", "UI_CLONE_PUPPET", "UI_CLONE_RUSH", "UI_CLONE_SENTINEL" };
+	private BerserkerVeil _berserkerVeil;
+	private bool _stolenShadowActive;
+	private int _carapaceHitsLeft;
+	private float _carapaceTimer;
+	private ShadowCarapace _carapace;
+	private ShadowInk _carapaceInk;
+	private readonly HashSet<Metroidvania.World.Enemy> _carapaceStrikers = new();
+	// AttackPower taken off while the carapace is on — an offset, not a stored value, so stat changes
+	// made meanwhile (levels, gear) survive the restore.
+	private int _carapacePowerPenalty;
+	private float _stealDrainAccumulator;
+	private int _berserkerLastHit;
+	private enum ShadowSpell { Basic, Decoy, Echo, Puppet, Rush, Sentinel, Berserker, Steal, Carapace }
+	private static readonly string[] ShadowSpellNameKeys = { "UI_CLONE_BASIC", "UI_CLONE_DECOY", "UI_CLONE_ECHO", "UI_CLONE_PUPPET", "UI_CLONE_RUSH", "UI_CLONE_SENTINEL", "UI_CLONE_BERSERKER", "UI_CLONE_ROBO", "UI_CLONE_CORAZA" };
 	private ShadowSpell _shadowSpell;
 	private Metroidvania.UI.TornadoVariantsHud _shadowSpellHud;
 	// Clon eco's source: the player's recent frames, one per physics frame, long enough for the
@@ -874,14 +929,6 @@ public partial class Player : CharacterBody2D
 	private float _rollBufferTimer;
 	private float _jumpBufferTimer;
 	private float _coyoteTimer;
-	// Newest last; sampled every SafeGroundSampleInterval while on safe ground.
-	private readonly System.Collections.Generic.List<Vector2> _safeGroundHistory = new();
-	private const int SafeGroundHistorySize = 40;
-	private const float SafeGroundSampleInterval = 0.1f;
-	private float _safeGroundSampleTimer;
-	private bool _hasSafeGround => _safeGroundHistory.Count > 0;
-	private float _safeGroundTimer;
-	private bool _hazardRespawning;
 
 	public override void _Ready()
 	{
@@ -1004,7 +1051,8 @@ public partial class Player : CharacterBody2D
 		}
 		if (SaveManager.Instance.SessionTorchEquipped.HasValue)
 			_torchEquipped = SaveManager.Instance.SessionTorchEquipped.Value;
-		_shadowEssence = Mathf.Clamp(SaveManager.Instance.SessionShadowEssence ?? 0f, 0f, MaxShadowEssence);
+		_shadowEssence = InfiniteShadowEssence ? MaxShadowEssence
+			: Mathf.Clamp(SaveManager.Instance.SessionShadowEssence ?? 0f, 0f, MaxShadowEssence);
 
 		HudBar healthBar = GetNode<HudBar>("HUD/VBox/HealthBar");
 		HudBar staminaBar = GetNode<HudBar>("HUD/VBox/StaminaBar");
@@ -1053,6 +1101,7 @@ public partial class Player : CharacterBody2D
 		// No self-flash on hits dealt anymore — the impact reads on the enemy (white flash, sparks).
 		_hitbox.HitDealt += () => Sfx.Play(this, "Combat/Sword", "Sword Impact Hit");
 		_hitbox.KilledTarget += OnKillingBlow;
+		_hitbox.HitTarget += DetonateShadowMarks;
 		_hitbox.PoiseDamage = CurrentPoiseDamage;
 		_hitbox.HitDealt += OnSwordHitLanded;
 		_hitbox.PoiseBroken += OnPoiseBroken;
@@ -1167,6 +1216,7 @@ public partial class Player : CharacterBody2D
 		UpdateHudFade((float)delta);
 		TickBurnTint((float)delta);
 		TickHitBlink();
+		TickCarapace((float)delta);
 	}
 
 	// Alpha on _sprite.Modulate: FlashHit owns _visual.Modulate and burn/poison own SelfModulate,
@@ -1277,12 +1327,14 @@ public partial class Player : CharacterBody2D
 			return;
 		SaveManager.Instance.SpendShadowUse(_selectedSummon);
 		_summonReadyAt = now + ShadowSummonCooldown;
+		PulseShadowVeil();
 
 		var summon = new ShadowSummon();
 		summon.Setup(_selectedSummon, Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * ShadowSummonDamageMultiplier)),
 			_facingRight, ShadowSummonReach, ShadowSummonHits, ShadowSummonDuration, ShadowSummonMoveSpeed, Gravity,
 			ShadowSummonColor, ShadowSummonIntensity);
 		scene.AddChild(summon);
+		ShadowInk.Attach(summon);
 		summon.PlaceOnFloor(GlobalPosition + new Vector2(_facingRight ? 30f : -30f, 0f));
 		_controlledSummon = summon;
 		summon.Finished += EndSummonControl;
@@ -1308,6 +1360,7 @@ public partial class Player : CharacterBody2D
 			return;
 		ShadowPuppet puppet = _controlledPuppet;
 		_controlledPuppet = null;
+		ReleaseEnemyTargeting(puppet);
 		_camera.Position = Vector2.Zero;
 		_sprite.Modulate = Colors.White;
 		if (IsInstanceValid(puppet))
@@ -1320,6 +1373,7 @@ public partial class Player : CharacterBody2D
 			return;
 		ShadowSummon summon = _controlledSummon;
 		_controlledSummon = null;
+		ReleaseEnemyTargeting(summon);
 		_camera.Position = Vector2.Zero;
 		_sprite.Modulate = Colors.White;
 		if (IsInstanceValid(summon))
@@ -1730,11 +1784,6 @@ public partial class Player : CharacterBody2D
 		UpdateLightningBolts((float)delta);
 		if (_isDead)
 			return;
-		if (_hazardRespawning)
-		{
-			Velocity = Vector2.Zero;
-			return;
-		}
 
 		if (_debugFlashlight != null && Input.IsActionJustPressed("debug_flashlight"))
 			_debugFlashlight.Enabled = !_debugFlashlight.Enabled;
@@ -1749,11 +1798,7 @@ public partial class Player : CharacterBody2D
 		// a pit exit — that fall must not count as a death (see SceneFader.IsChangingScene).
 		if (GlobalPosition.Y > FallDeathY && !SceneFader.IsChangingScene)
 		{
-			// Falling off the map is a hazard like any other once there's ground to go back to.
-			if (_hasSafeGround)
-				HazardRespawn(0);
-			else
-				_stats.Kill();
+			_stats.Kill();
 			return;
 		}
 
@@ -1766,6 +1811,11 @@ public partial class Player : CharacterBody2D
 		{
 			if (IsInstanceValid(_controlledSummon))
 			{
+				if (_stolenShadowActive && DrainForStolenShadow((float)delta))
+				{
+					EndSummonControl();
+					return;
+				}
 				UpdateRemoteControl(_controlledSummon, (float)delta);
 				return;
 			}
@@ -1775,6 +1825,12 @@ public partial class Player : CharacterBody2D
 		{
 			if (IsInstanceValid(_controlledPuppet))
 			{
+				if (_controlledPuppet is ShadowBerserker && !InfiniteShadowEssence)
+				{
+					AddShadowEssence(-BerserkerEssenceDrainPerSecond * (float)delta);
+					if (_shadowEssence <= 0f)
+						ShatterBerserker();
+				}
 				UpdateRemoteControl(_controlledPuppet, (float)delta);
 				return;
 			}
@@ -2519,7 +2575,6 @@ public partial class Player : CharacterBody2D
 		velocity.X += BodyPushX((float)delta);
 		Velocity = velocity;
 		MoveAndSlide();
-		UpdateSafeGround((float)delta);
 		UpdateAnimation(delta, sprinting, velocity.X);
 	}
 
@@ -2827,6 +2882,17 @@ public partial class Player : CharacterBody2D
 
 	private bool TryBlockIncomingHit()
 	{
+		// Body contact is never parried: it lands every physics frame while touching, so each frame
+		// would count as a parry — re-freezing time and re-extending the window forever (a fly
+		// resting on the player locked the game). It goes through as the light contact hit instead.
+		if (Metroidvania.World.Enemy.DealingContactDamage)
+			return false;
+		// The parry window wins over the carapace: a perfect deflect is still worth more.
+		if (!_isBlocking && _carapaceHitsLeft > 0)
+		{
+			AbsorbWithCarapace();
+			return true;
+		}
 		if (!_isBlocking)
 		{
 			if (!TryShadowGuard())
@@ -2868,6 +2934,11 @@ public partial class Player : CharacterBody2D
 
 	private bool TrySpendShadowEssence(float amount)
 	{
+		if (InfiniteShadowEssence)
+		{
+			AddShadowEssence(MaxShadowEssence);
+			return true;
+		}
 		if (_shadowEssence < amount)
 			return false;
 		AddShadowEssence(-amount);
@@ -3045,6 +3116,8 @@ public partial class Player : CharacterBody2D
 			targetZoom = ProfileZoom * _cutsceneZoom;
 			_bossFramingOffsetY = Mathf.Lerp(_bossFramingOffsetY, 0f, (float)delta * ZoomSmoothSpeed);
 		}
+		if (_isBackstabbing)
+			targetZoom *= ExecutionZoomMultiplier;
 		float newZoom = Mathf.Lerp(_camera.Zoom.X, targetZoom, (float)delta * ZoomSmoothSpeed);
 		_camera.Zoom = new Vector2(newZoom, newZoom);
 	}
@@ -3139,136 +3212,6 @@ public partial class Player : CharacterBody2D
 		}
 		RunJumpGhosts();
 		_jumpRising = true;
-	}
-
-	// Remembers where to send the player back to after a hazard. Only static, fully-supporting
-	// ground that held them for SafeGroundTime counts, so a respawn never lands on a ledge lip, a
-	// moving platform or a floor that's about to crumble.
-	private void UpdateSafeGround(float delta)
-	{
-		if (!IsOnFloor() || _knockbackTimer > 0f || _isRolling || _isDashing || !IsOnSafeFloor())
-		{
-			_safeGroundTimer = 0f;
-			return;
-		}
-		_safeGroundTimer += delta;
-		if (_safeGroundTimer < SafeGroundTime)
-			return;
-		_safeGroundSampleTimer -= delta;
-		if (_safeGroundSampleTimer > 0f && _safeGroundHistory.Count > 0)
-			return;
-		_safeGroundSampleTimer = SafeGroundSampleInterval;
-		_safeGroundHistory.Add(GlobalPosition);
-		if (_safeGroundHistory.Count > SafeGroundHistorySize)
-			_safeGroundHistory.RemoveAt(0);
-	}
-
-	private Vector2 PickSafeRespawn(Vector2 hazardPosition)
-	{
-		for (int i = _safeGroundHistory.Count - 1; i >= 0; i--)
-		{
-			if (_safeGroundHistory[i].DistanceTo(hazardPosition) >= SafeRespawnMinDistance)
-				return _safeGroundHistory[i];
-		}
-		return _safeGroundHistory[0];
-	}
-
-	private bool IsOnSafeFloor()
-	{
-		bool onStatic = false;
-		for (int i = 0; i < GetSlideCollisionCount(); i++)
-		{
-			KinematicCollision2D collision = GetSlideCollision(i);
-			if (collision.GetNormal().Y > -0.7f)
-				continue;
-			GodotObject collider = collision.GetCollider();
-			if (collider is Node node && node.IsInGroup(UnsafeGroundGroup))
-				return false;
-			if (collider is AnimatableBody2D)
-				return false;
-			if (collider is StaticBody2D or TileMapLayer)
-				onStatic = true;
-		}
-		if (!onStatic)
-			return false;
-
-		PhysicsDirectSpaceState2D space = GetWorld2D().DirectSpaceState;
-		float feetY = GlobalPosition.Y + _standHalfHeight;
-		foreach (float side in new[] { -1f, 1f })
-		{
-			float x = GlobalPosition.X + side * SafeGroundEdgeMargin;
-			var query = PhysicsRayQueryParameters2D.Create(new Vector2(x, feetY - 4f), new Vector2(x, feetY + 10f), CollisionMask);
-			query.Exclude = new Godot.Collections.Array<Rid> { GetRid() };
-			if (space.IntersectRay(query).Count == 0)
-				return false;
-		}
-		return true;
-	}
-
-	// Called by Hazard (duck-typed, like ApplyKnockback) and by the fall-off-the-map check. Takes the
-	// hit first; if that kills, the normal death runs instead. Otherwise: fade to black, put the
-	// player back on the last safe ground, fade in, and hold them planted for a beat.
-	public async void HazardRespawn(int damage)
-	{
-		if (_hazardRespawning || _isDead || !_hasSafeGround)
-		{
-			if (!_hasSafeGround && !_hazardRespawning && !_isDead)
-				_stats.Kill();
-			return;
-		}
-
-		_hazardRespawning = true;
-		Vector2 respawnPosition = PickSafeRespawn(GlobalPosition);
-		int hit = Mathf.Max(damage, Mathf.CeilToInt(_stats.MaxHealth * HazardDamageFraction));
-		_stats.TakeDamage(hit, ignoreInvulnerability: true, armInvulnerability: true);
-		if (_stats.CurrentHealth <= 0)
-		{
-			_hazardRespawning = false;
-			return;
-		}
-
-		Velocity = Vector2.Zero;
-		_knockbackTimer = 0f;
-		_hitRecoilTimer = 0f;
-		_jumpBufferTimer = 0f;
-		_rollBufferTimer = 0f;
-		_dashBufferTimer = 0f;
-
-		SceneTree tree = GetTree();
-		var overlay = new CanvasLayer { Layer = 19 };
-		var fade = new ColorRect { Color = new Color(0f, 0f, 0f, 0f), MouseFilter = Control.MouseFilterEnum.Ignore };
-		fade.SetAnchorsPreset(Control.LayoutPreset.FullRect);
-		overlay.AddChild(fade);
-		// Under the current scene, not the root: if a scene change frees the player mid-respawn, the
-		// black overlay goes with the old scene instead of being stranded on screen.
-		(tree.CurrentScene ?? tree.Root).AddChild(overlay);
-
-		// Real-time tweens: the hit-stop the damage just triggered must not stretch the fade.
-		Tween fadeOut = tree.CreateTween().SetIgnoreTimeScale();
-		fadeOut.TweenProperty(fade, "color:a", 1f, HazardFadeOutDuration);
-		await ToSignal(fadeOut, Tween.SignalName.Finished);
-
-		if (IsInstanceValid(this) && !_isDead)
-		{
-			_isClimbing = false;
-			_isLedgeHanging = false;
-			_isLedgeClimbing = false;
-			_visual.Position = Vector2.Zero;
-			GlobalPosition = respawnPosition;
-			// The ground right before the hazard is now suspect; start the trail over from here.
-			_safeGroundHistory.Clear();
-			_safeGroundHistory.Add(respawnPosition);
-			Velocity = Vector2.Zero;
-			_camera.ResetSmoothing();
-		}
-		await ToSignal(tree.CreateTimer(HazardFadeHoldDuration, true, false, true), SceneTreeTimer.SignalName.Timeout);
-
-		Tween fadeIn = tree.CreateTween().SetIgnoreTimeScale();
-		fadeIn.TweenProperty(fade, "color:a", 0f, HazardFadeInDuration);
-		await ToSignal(tree.CreateTimer(HazardRespawnLockout, true, false, true), SceneTreeTimer.SignalName.Timeout);
-		_hazardRespawning = false;
-		await ToSignal(fadeIn, Tween.SignalName.Finished);
-		overlay.QueueFree();
 	}
 
 	private void HeavyLanding()
@@ -3435,13 +3378,13 @@ public partial class Player : CharacterBody2D
 			enemy.HoldForExecution(false);
 			holding = false;
 			enemy.Stats.TakeDamage(Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * BackstabDamageMultiplier)), ignoreInvulnerability: true);
-			BloodEffect.SpawnAt(this, enemy.GlobalPosition);
-			ShakeCamera(3f, 0.15f);
-			if (enemy.Stats.CurrentHealth > 0)
+			bool killed = enemy.Stats.CurrentHealth <= 0;
+			if (!killed)
 			{
 				enemy.HoldForExecution(true);
 				holding = true;
 			}
+			ExecutionImpact(enemy.GlobalPosition, new Vector2(facing, 0f), killed);
 		}
 
 		while (IsInstanceValid(this) && !_isDead && _sprite.Animation == animation && _sprite.IsPlaying())
@@ -3452,6 +3395,25 @@ public partial class Player : CharacterBody2D
 			return;
 		_isBackstabbing = false;
 		_attacking = false;
+	}
+
+	// The moment the blade goes in: everything at once (sound, blood, sparks, white pop, shake),
+	// then a long freeze, and on a kill a slow-motion tail like OnKillingBlow's, only deeper.
+	private async void ExecutionImpact(Vector2 point, Vector2 direction, bool killed)
+	{
+		Sfx.PlayAt(this, "Combat/Sword", "Sword Impact Hit");
+		BloodEffect.SpawnAt(this, point);
+		HitImpactBurst.SpawnAt(this, point, HitImpactBurst.ImpactTier.Heavy);
+		HitSparks.SpawnAt(this, point, direction, ExecutionSparkIntensity);
+		FlashScreen(ExecutionFlashAlpha, ExecutionFlashDuration);
+		ShakeCamera(ExecutionShake, ExecutionShakeDuration);
+		await HitStop(ExecutionHitStopDuration);
+		if (!killed || _hitStopDepth > 0 || ExecutionSlowMoDuration <= 0f || !IsInstanceValid(this))
+			return;
+		Engine.TimeScale = ExecutionSlowMoScale;
+		await ToSignal(GetTree().CreateTimer(ExecutionSlowMoDuration, true, false, true), SceneTreeTimer.SignalName.Timeout);
+		if (_hitStopDepth == 0 && Mathf.IsEqualApprox(Engine.TimeScale, ExecutionSlowMoScale))
+			Engine.TimeScale = 1.0;
 	}
 
 	// A parried melee hit counts toward stunning whoever threw it. The block doesn't know the
@@ -3618,6 +3580,43 @@ public partial class Player : CharacterBody2D
 		await ToSignal(GetTree().CreateTimer(tail), SceneTreeTimer.SignalName.Timeout);
 		_isCharging = false;
 		_attacking = false;
+	}
+
+	// Any sword hit on a shadow-marked enemy detonates every mark on it at once. The charged draw
+	// gets this too, on top of its own impact.
+	private void DetonateShadowMarks(Node2D target)
+	{
+		if (target is not Metroidvania.World.Enemy enemy || enemy.ShadowMarks <= 0
+			|| enemy.GetNodeOrNull<Stats>("Stats") is not { } targetStats)
+			return;
+		int marks = enemy.ConsumeShadowMarks();
+		targetStats.TakeDamage(Mathf.RoundToInt(_stats.AttackPower * DetonationDamagePerMark * marks),
+			ignoreInvulnerability: true, armInvulnerability: false);
+		Vector2 at = enemy.GlobalPosition + new Vector2(0f, -16f);
+		ShadowImpact.SpawnAt(this, at, 1.2f + 0.6f * marks);
+		_ = HitStop(DetonationHitStopBase + DetonationHitStopPerMark * marks);
+		ShakeCamera(DetonationShakePerMark * marks, 0.25f);
+	}
+
+	// The world goes grey and dark for a beat when a shadow is called — on real time.
+	private void PulseShadowVeil()
+	{
+		if (ShadowVeilStrength <= 0f || GetTree().CurrentScene is not Node scene)
+			return;
+		var layer = new CanvasLayer { Layer = 1 };
+		var material = new ShaderMaterial { Shader = GD.Load<Shader>("res://resources/shaders/ShadowCastVeil.gdshader") };
+		var rect = new ColorRect { Material = material, MouseFilter = Control.MouseFilterEnum.Ignore };
+		rect.SetAnchorsPreset(Control.LayoutPreset.FullRect);
+		layer.AddChild(rect);
+		scene.AddChild(layer);
+		// TweenMethod + SetShaderParameter rather than tweening "shader_parameter/strength": that
+		// property only exists once the shader compiles, which never happens without a renderer.
+		var setStrength = Callable.From<float>(s => material.SetShaderParameter("strength", s));
+		Tween veil = layer.CreateTween().SetIgnoreTimeScale();
+		veil.TweenMethod(setStrength, 0f, ShadowVeilStrength, ShadowVeilIn);
+		veil.TweenInterval(ShadowVeilHold);
+		veil.TweenMethod(setStrength, ShadowVeilStrength, 0f, ShadowVeilOut);
+		veil.TweenCallback(Callable.From(layer.QueueFree));
 	}
 
 	// Per target: the burst at the contact point.
@@ -3960,10 +3959,22 @@ public partial class Player : CharacterBody2D
 	// cooldown on top of the cast animation.
 	private async void CastSpell()
 	{
+		// Robo de sombra pays its own cost, and only once it has found a target.
+		if (_shadowSpell == ShadowSpell.Steal)
+		{
+			TryShadowSteal();
+			return;
+		}
+		if (_shadowSpell == ShadowSpell.Carapace)
+		{
+			TryShadowCarapace();
+			return;
+		}
 		double now = Time.GetTicksMsec() / 1000.0;
 		// Shadow spells run on shadow essence (filled by parrying), not stamina.
 		if (now < _shadowCloneReadyAt || !TrySpendShadowEssence(ShadowCloneEssenceCost))
 			return;
+		PulseShadowVeil();
 
 		_isCastingSpell = true;
 		_shadowCloneReadyAt = now + ShadowCloneCooldown;
@@ -4004,6 +4015,10 @@ public partial class Player : CharacterBody2D
 			case ShadowSpell.Sentinel:
 				SpawnShadowSentinel(facingRight);
 				break;
+			case ShadowSpell.Berserker:
+				_isCastingSpell = false;
+				SpawnShadowBerserker(facingRight);
+				return;
 		}
 
 		await ToSignal(GetTree().CreateTimer(Mathf.Max(0f, SpellAnimDuration - ShadowCloneSpawnDelay)), SceneTreeTimer.SignalName.Timeout);
@@ -4056,6 +4071,7 @@ public partial class Player : CharacterBody2D
 			ElementGhostColor(), ShadowCloneIntensity, ShadowCloneAlpha, ShadowCloneFadeOut, ShadowEchoLevel >= 2 ? ShadowEchoParryRadius : 0f);
 		echo.ZIndex = ZIndex;
 		scene.AddChild(echo);
+		ShadowInk.Attach(echo);
 	}
 
 	private void SpawnShadowDecoy(bool facingRight)
@@ -4074,6 +4090,7 @@ public partial class Player : CharacterBody2D
 			Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * burstMultiplier)));
 		decoy.ZIndex = ZIndex;
 		scene.AddChild(decoy);
+		ShadowInk.Attach(decoy);
 		decoy.GlobalPosition = GlobalPosition + new Vector2(facingRight ? 16f : -16f, -10f);
 	}
 
@@ -4094,11 +4111,365 @@ public partial class Player : CharacterBody2D
 			Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * ShadowPuppetBurstDamageMultiplier)));
 		puppet.ZIndex = ZIndex;
 		scene.AddChild(puppet);
+		ShadowInk.Attach(puppet);
 		puppet.GlobalPosition = GlobalPosition + new Vector2(facingRight ? ShadowCloneOffsetX : -ShadowCloneOffsetX, 0f);
 		_controlledPuppet = puppet;
 		puppet.Finished += EndPuppetControl;
 		// Same kneel-and-concentrate pose as steering a summon or the flying sword.
 		_sprite.Play(_sprite.SpriteFrames.HasAnimation("flying_sword_loop") ? "flying_sword_loop" : TorchAnim("idle"));
+	}
+
+	private void SpawnShadowBerserker(bool facingRight)
+	{
+		if (GetTree().CurrentScene is not Node scene)
+			return;
+		var berserker = new ShadowBerserker
+		{
+			DamageMultiplier = BerserkerDamageMultiplier,
+			MarksPerHit = BerserkerMarksPerHit,
+			Moves = BuildBerserkerMoveset(),
+		};
+		berserker.Setup(_sprite.SpriteFrames, _sprite.Position, _sprite.Offset, _sprite.Scale,
+			((RectangleShape2D)_standCollision.Shape).Size, CollisionMask, facingRight, _stats,
+			BerserkerColor, ShadowCloneIntensity * 1.6f, 1f, Speed * BerserkerSpeedMultiplier, JumpVelocity, Gravity,
+			BerserkerDuration, new[] { "attack1", "attack2", "attack3", "attack4" },
+			_hitboxBaseSize, AttackHitboxReach, AttackHitboxYOffset, AttackHitboxDelay, AttackDuration, 0f, 0);
+		berserker.ZIndex = ZIndex;
+		berserker.HitLanded = OnBerserkerHit;
+		berserker.DamageTaken = OnBerserkerDamaged;
+		berserker.ShakeOnSwing = () => ShakeCamera(2.5f, 0.1f);
+		scene.AddChild(berserker);
+		ShadowInk ink = ShadowInk.Attach(berserker);
+		ink.Rate = 55f;
+		ink.Spread = 18f;
+		ink.EmberColor = BerserkerColor;
+		berserker.GlobalPosition = GlobalPosition + new Vector2(facingRight ? ShadowCloneOffsetX : -ShadowCloneOffsetX, 0f);
+		_controlledPuppet = berserker;
+		EnemyTargeting.ControlledShadow = berserker;
+		_berserkerLastHit = 0;
+		berserker.Finished += EndPuppetControl;
+		berserker.Finished += ReleaseBerserkerVeil;
+		_berserkerVeil = new BerserkerVeil { Name = "VeloBerserker" };
+		scene.AddChild(_berserkerVeil);
+		_sprite.Play(_sprite.SpriteFrames.HasAnimation("flying_sword_loop") ? "flying_sword_loop" : TorchAnim("idle"));
+	}
+
+	private void TryShadowCarapace()
+	{
+		if (_carapaceHitsLeft > 0 || !TrySpendShadowEssence(CarapaceEssenceCost))
+			return;
+		PulseShadowVeil();
+		_carapaceHitsLeft = CarapaceHits;
+		_carapaceTimer = CarapaceDuration;
+		_carapaceStrikers.Clear();
+		_carapace = new ShadowCarapace { Name = "CorazaSombra", Source = _sprite, Charges = CarapaceHits, MaxCharges = CarapaceHits };
+		_visual.AddChild(_carapace);
+		_carapaceInk = ShadowInk.Attach(this);
+		_carapaceInk.Rate = 30f;
+		_carapacePowerPenalty = _stats.AttackPower - Mathf.RoundToInt(_stats.AttackPower * CarapaceDamageDealtMultiplier);
+		_stats.AttackPower -= _carapacePowerPenalty;
+		ShadowImpact.SpawnAt(this, GlobalPosition + new Vector2(0f, -16f), 1.2f);
+	}
+
+	// A hit soaked by the carapace: half damage (Stats' chip path — no i-frames, no flinch, never
+	// lethal), no shove, the striker marked; the last charge breaks it.
+	private void AbsorbWithCarapace()
+	{
+		_stats.PendingChipFraction = CarapaceDamageFraction;
+		_blockedHitFrame = Engine.GetPhysicsFrames();
+		Metroidvania.World.Enemy striker = NearestEnemyWithin(ParryStunAttributionRange * 1.6f);
+		if (striker is not null)
+		{
+			striker.AddShadowMark(1);
+			_carapaceStrikers.Add(striker);
+		}
+		_carapaceHitsLeft--;
+		_carapace?.Hit(_carapaceHitsLeft);
+		ShakeCamera(3f, 0.12f);
+		_ = HitStop(0.06f);
+		if (_carapaceHitsLeft <= 0)
+			CallDeferred(MethodName.BreakCarapace);
+	}
+
+	private void TickCarapace(float delta)
+	{
+		if (_carapace is null)
+			return;
+		_carapaceTimer -= delta;
+		if (_carapaceTimer <= 0f)
+			BreakCarapace();
+	}
+
+	// The shell bursts: everyone who struck it has their marks detonated at once.
+	private void BreakCarapace()
+	{
+		if (_carapace is null)
+			return;
+		_carapaceHitsLeft = 0;
+		// Full strength back first, so the burst's detonations hit at the normal power.
+		_stats.AttackPower += _carapacePowerPenalty;
+		_carapacePowerPenalty = 0;
+		ShadowImpact.SpawnAt(this, GlobalPosition + new Vector2(0f, -16f), 2.4f);
+		ShakeCamera(5f, 0.25f);
+		_carapace.QueueFree();
+		_carapace = null;
+		if (IsInstanceValid(_carapaceInk))
+			_carapaceInk.QueueFree();
+		_carapaceInk = null;
+		foreach (Metroidvania.World.Enemy striker in _carapaceStrikers)
+		{
+			if (IsInstanceValid(striker) && !striker.IsQueuedForDeletion())
+				DetonateShadowMarks(striker);
+		}
+		_carapaceStrikers.Clear();
+	}
+
+	private Metroidvania.World.Enemy NearestEnemyWithin(float range)
+	{
+		Metroidvania.World.Enemy best = null;
+		float closest = range;
+		foreach (Node node in GetTree().GetNodesInGroup("enemy"))
+		{
+			if (node is not Metroidvania.World.Enemy enemy || enemy.IsQueuedForDeletion())
+				continue;
+			float d = enemy.GlobalPosition.DistanceTo(GlobalPosition);
+			if (d < closest)
+			{
+				closest = d;
+				best = enemy;
+			}
+		}
+		return best;
+	}
+
+	// Nearest enemy in sight within StealRange; one behind the player counts as 30% farther.
+	private Metroidvania.World.Enemy FindStealTarget()
+	{
+		Metroidvania.World.Enemy best = null;
+		float bestScore = float.MaxValue;
+		Vector2 eye = GlobalPosition + new Vector2(0f, -16f);
+		PhysicsDirectSpaceState2D space = GetWorld2D().DirectSpaceState;
+		foreach (Node node in GetTree().GetNodesInGroup("enemy"))
+		{
+			if (node is not Metroidvania.World.Enemy enemy || enemy.IsQueuedForDeletion()
+				|| enemy.GetNodeOrNull<Stats>("Stats") is not { CurrentHealth: > 0 })
+				continue;
+			Vector2 at = enemy.GlobalPosition + new Vector2(0f, -16f);
+			float distance = eye.DistanceTo(at);
+			if (distance > StealRange)
+				continue;
+			var ray = PhysicsRayQueryParameters2D.Create(eye, at, 1u);
+			if (space.IntersectRay(ray).Count > 0)
+				continue;
+			bool inFront = (at.X - eye.X) * (_facingRight ? 1f : -1f) >= 0f;
+			float score = distance * (inFront ? 1f : 1.3f);
+			if (score < bestScore)
+			{
+				bestScore = score;
+				best = enemy;
+			}
+		}
+		return best;
+	}
+
+	private void TryShadowSteal()
+	{
+		if (_controlledSummon is not null || GetTree().CurrentScene is not Node scene)
+			return;
+		Metroidvania.World.Enemy target = FindStealTarget();
+		if (target is null || !TrySpendShadowEssence(StealEssenceCost))
+			return;
+		PulseShadowVeil();
+		_isCastingSpell = true;
+		_facingRight = target.GlobalPosition.X >= GlobalPosition.X;
+
+		// Tell which one it's going for: a quick yellow flash on the target.
+		if (target.GetNodeOrNull<CanvasItem>("Visual") is CanvasItem targetVisual)
+		{
+			Color before = targetVisual.Modulate;
+			targetVisual.Modulate = StealColor * 2f;
+			targetVisual.CreateTween().TweenProperty(targetVisual, "modulate", before, 0.2f);
+		}
+
+		var sprite = target.GetNodeOrNull<AnimatedSprite2D>("Visual/CharacterSprite");
+		bool hollowable = target.CanBeHollowed && !string.IsNullOrEmpty(target.SceneFilePath);
+		var chain = new ShadowChain
+		{
+			From = this,
+			Target = target,
+			Glow = StealColor,
+			ShadowFrame = hollowable ? sprite?.SpriteFrames?.GetFrameTexture(sprite.Animation, sprite.Frame) : null,
+			ShadowScale = sprite?.GlobalScale ?? Vector2.One,
+			ShadowFlip = sprite?.FlipH ?? false,
+		};
+		chain.OnHooked = () =>
+		{
+			ShakeCamera(4f, 0.18f);
+			if (!IsInstanceValid(target))
+				return;
+			if (hollowable)
+			{
+				target.Hollow(StealMaxDuration + 1.5f);
+				target.AddShadowMark(1);
+			}
+			else
+			{
+				// A boss: hooked and marked, but its shadow stays put.
+				target.AddShadowMark(2);
+			}
+		};
+		chain.OnRipped = () =>
+		{
+			_isCastingSpell = false;
+			if (!hollowable || !IsInstanceValid(this) || _isDead)
+				return;
+			TakeStolenShadow(target.SceneFilePath);
+		};
+		scene.AddChild(chain);
+	}
+
+	private void TakeStolenShadow(string enemyScenePath)
+	{
+		if (GetTree().CurrentScene is not Node scene)
+			return;
+		var summon = new ShadowSummon { CancelAction = "spell", Hittable = true, DamageTaken = OnStolenShadowDamaged };
+		summon.Setup(enemyScenePath, Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * StealDamageMultiplier)),
+			_facingRight, ShadowSummonReach, 999, StealMaxDuration, ShadowSummonMoveSpeed * 1.1f, Gravity,
+			StealColor, ShadowSummonIntensity * 1.4f);
+		scene.AddChild(summon);
+		ShadowInk ink = ShadowInk.Attach(summon);
+		ink.EmberColor = StealColor;
+		summon.PlaceOnFloor(GlobalPosition + new Vector2(_facingRight ? 30f : -30f, 0f));
+		_controlledSummon = summon;
+		_stolenShadowActive = true;
+		EnemyTargeting.ControlledShadow = summon;
+		_stealDrainAccumulator = 0f;
+		summon.Finished += EndSummonControl;
+		summon.Finished += () => _stolenShadowActive = false;
+		_sprite.Play(_sprite.SpriteFrames.HasAnimation("flying_sword_loop") ? "flying_sword_loop" : TorchAnim("idle"));
+	}
+
+	// Enemies go back to hunting the body once the shadow it was steering is gone.
+	private static void ReleaseEnemyTargeting(Node2D shadow)
+	{
+		if (EnemyTargeting.ControlledShadow == shadow)
+			EnemyTargeting.ControlledShadow = null;
+	}
+
+	// A hit on the stolen shadow is paid in the body's health, as is — never lethal: if it would take
+	// the last of it, the shadow breaks and throws the player back at 1 HP.
+	private void OnStolenShadowDamaged(int damage)
+	{
+		ShakeCamera(3f, 0.12f);
+		if (_stats.CurrentHealth - damage <= 1)
+		{
+			_stats.Drain(damage, 1);
+			if (_controlledSummon is { } summon && IsInstanceValid(summon))
+				ShadowImpact.SpawnAt(this, summon.GlobalPosition + new Vector2(0f, -16f), 2f);
+			EndSummonControl();
+			return;
+		}
+		_stats.Drain(damage, 1);
+	}
+
+	// Living in another's shadow costs health every second; true = down to 1 HP, time to go back.
+	private bool DrainForStolenShadow(float delta)
+	{
+		_stealDrainAccumulator += _stats.MaxHealth * StealLifeDrainPerSecond * delta;
+		int whole = Mathf.FloorToInt(_stealDrainAccumulator);
+		if (whole > 0)
+		{
+			_stealDrainAccumulator -= whole;
+			_stats.Drain(whole, 1);
+		}
+		return _stats.CurrentHealth <= 1;
+	}
+
+	// The body's own movement tuning and blade-trail paths, so the berserker moves and cuts like the
+	// player does (just faster and harder — the multipliers live on the berserker side).
+	private BerserkerMoveset BuildBerserkerMoveset()
+	{
+		var moves = new BerserkerMoveset
+		{
+			MaxJumps = _abilities.Has(PlayerAbilities.DoubleJump) ? 2 : 1,
+			JumpCutMultiplier = JumpCutMultiplier,
+			FallGravityMultiplier = FallGravityMultiplier,
+			MaxFallSpeed = MaxFallSpeed,
+			RollSpeed = RollSpeed,
+			RollDuration = RollDuration,
+			DashSpeed = DashSpeed,
+			DashDuration = DashDuration,
+			PoundSpeed = PoundSpeed,
+			PoundHitboxSize = PoundHitboxSize,
+			UpHitboxSize = UpAttackHitboxSize,
+			UpHitboxReach = UpAttackHitboxReach,
+			BaseHitboxSize = _hitboxBaseSize,
+		};
+		void Path(string anim, Vector2[] path, Vector2 timing)
+		{
+			if (path is { Length: >= 2 })
+			{
+				moves.TrailPaths[anim] = path;
+				moves.TrailTimings[anim] = timing;
+			}
+		}
+		Path("attack3", Attack3TrailPath, Attack3TrailTiming);
+		Path("attack4", Attack4TrailPath, Attack4TrailTiming);
+		Path("air_attack1", AirAttack1TrailPath, AirAttack1TrailTiming);
+		Path("air_attack2", AirAttack2TrailPath, AirAttack2TrailTiming);
+		Path("air_attack3", AirAttack3TrailPath, AirAttack3TrailTiming);
+		Path("crouch_attack", CrouchTrailPath, CrouchTrailTiming);
+		Path("down_attack_slam", PoundLandingTrailPath, PoundLandingTrailTiming);
+		return moves;
+	}
+
+	// Each swing that connects: three times the heft of the body's own sword.
+	private void OnBerserkerHit(Node2D target)
+	{
+		_ = HitStop(BerserkerHitStopDuration);
+		ShakeCamera(BerserkerShake, 0.3f);
+		Vector2 at = target.GlobalPosition + new Vector2(0f, -14f);
+		Vector2 dir = new(Mathf.Sign(target.GlobalPosition.X - _controlledPuppet?.GlobalPosition.X ?? 1f), 0f);
+		if (GetTree().CurrentScene is Node scene)
+		{
+			var sparks = new HitSparks { Direction = dir == Vector2.Zero ? Vector2.Right : dir, Intensity = 2.6f, GlowColor = BerserkerColor };
+			scene.AddChild(sparks);
+			sparks.GlobalPosition = at;
+		}
+		HitImpactBurst.SpawnAt(this, at, HitImpactBurst.ImpactTier.Heavy);
+	}
+
+	// Damage on the berserker is paid in essence; running dry shatters it.
+	private void OnBerserkerDamaged(int damage)
+	{
+		_berserkerLastHit = damage;
+		ShakeCamera(3f, 0.12f);
+		if (InfiniteShadowEssence)
+			return;
+		AddShadowEssence(-damage * BerserkerEssencePerDamage);
+		if (_shadowEssence <= 0f)
+			ShatterBerserker();
+	}
+
+	// Out of essence: the shadow breaks apart and the body takes the backlash of the blow that broke
+	// it (doubled). Run out on the drain alone and there's no blow to double — it just collapses.
+	private void ShatterBerserker()
+	{
+		if (_controlledPuppet is not ShadowBerserker berserker)
+			return;
+		Vector2 at = berserker.GlobalPosition + new Vector2(0f, -16f);
+		ShadowImpact.SpawnAt(this, at, 2.5f);
+		berserker.Finish();
+		if (_berserkerLastHit > 0)
+			_stats.TakeDamage(Mathf.RoundToInt(_berserkerLastHit * BerserkerBacklashMultiplier), ignoreInvulnerability: true);
+		_berserkerLastHit = 0;
+	}
+
+	private void ReleaseBerserkerVeil()
+	{
+		if (IsInstanceValid(_berserkerVeil))
+			_berserkerVeil.Release();
+		_berserkerVeil = null;
 	}
 
 	private void SpawnShadowSentinel(bool facingRight)
@@ -4112,6 +4483,7 @@ public partial class Player : CharacterBody2D
 			(target, faceRight) => SpawnShadowClone(target - new Vector2(faceRight ? AttackHitboxReach : -AttackHitboxReach, 0f), faceRight, 1));
 		sentinel.ZIndex = ZIndex;
 		scene.AddChild(sentinel);
+		ShadowInk.Attach(sentinel);
 		sentinel.GlobalPosition = GlobalPosition + new Vector2(facingRight ? ShadowCloneOffsetX : -ShadowCloneOffsetX, 0f);
 	}
 
@@ -4141,6 +4513,7 @@ public partial class Player : CharacterBody2D
 			Mathf.Max(1, Mathf.RoundToInt(_stats.AttackPower * ShadowRushMeteorDamageMultiplier)), ShadowRushMeteorRange);
 		rush.ZIndex = ZIndex;
 		scene.AddChild(rush);
+		ShadowInk.Attach(rush);
 		rush.GlobalPosition = GlobalPosition;
 	}
 
@@ -4184,6 +4557,7 @@ public partial class Player : CharacterBody2D
 			ShadowCloneFadeIn, ShadowCloneFadeOut);
 		clone.ZIndex = ZIndex;
 		scene.AddChild(clone);
+		ShadowInk.Attach(clone);
 		clone.GlobalPosition = at;
 	}
 

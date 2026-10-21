@@ -54,10 +54,6 @@ public partial class OrbitingSkull : AnimatableBody2D
 		_angle = StartAngle;
 		Position = new Vector2(Mathf.Cos(_angle), Mathf.Sin(_angle)) * OrbitRadius;
 
-		// A boss's weapon, not a platforming hazard: a plain hit, never a respawn to safe ground.
-		if (GetNodeOrNull<Hazard>("HazardArea") is Hazard hazard)
-			hazard.RespawnPlayer = false;
-
 		Stats stats = GetNodeOrNull<Stats>("Stats");
 		if (stats is not null)
 			stats.Died += OnKilledByPlayer;
@@ -78,7 +74,7 @@ public partial class OrbitingSkull : AnimatableBody2D
 
 		_isAttacking = true;
 		_missileTimer = MissileLifetime;
-		_player = GetTree().GetFirstNodeInGroup("player") as Node2D;
+		_player = EnemyTargeting.Current(GetTree());
 
 		// Reparent's own keepGlobalTransform wasn't reliable here — every skull after the first
 		// one in a staggered volley landed near the scene root's origin instead of its actual orbit

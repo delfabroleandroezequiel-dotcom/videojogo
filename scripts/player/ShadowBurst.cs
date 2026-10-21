@@ -19,6 +19,7 @@ public static class ShadowBurst
 			if (offset.Length() > radius)
 				continue;
 			stats.TakeDamage(damage);
+			(enemy as Enemy)?.AddShadowMark();
 			if (enemy.HasMethod("ApplyKnockback"))
 				enemy.Call("ApplyKnockback", offset == Vector2.Zero ? Vector2.Up : offset.Normalized(), 220f);
 		}

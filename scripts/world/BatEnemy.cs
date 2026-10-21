@@ -51,7 +51,7 @@ public partial class BatEnemy : FlyingEnemy
 
 		if (_asleep)
 		{
-			if (GetTree().GetFirstNodeInGroup("player") is Node2D target
+			if (EnemyTargeting.Current(GetTree()) is Node2D target
 				&& GlobalPosition.DistanceTo(target.GlobalPosition) <= WakeRadius)
 				Wake();
 			return;

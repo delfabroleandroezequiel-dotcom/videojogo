@@ -242,7 +242,7 @@ public partial class SkeletonKingBoss : Boss
 
 	private async void CastLightningStrike()
 	{
-		Node2D player = GetTree().GetFirstNodeInGroup("player") as Node2D;
+		Node2D player = EnemyTargeting.Current(GetTree());
 		if (player is null)
 			return;
 

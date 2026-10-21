@@ -45,6 +45,18 @@ public partial class Stats : Node
 	// not the full InvulnerabilityDuration that would eat the real attack coming next).
 	public void SetInvulnerability(float seconds) => _invulnerableTimer = seconds;
 
+	// A cost paid in health, not a hit: no i-frames, no HitTaken (so nothing flinches or snaps out of
+	// control), never below floorHealth. Returns how much was actually taken.
+	public int Drain(int amount, int floorHealth = 1)
+	{
+		int taken = Mathf.Clamp(CurrentHealth - floorHealth, 0, amount);
+		if (taken <= 0)
+			return 0;
+		CurrentHealth -= taken;
+		EmitSignal(SignalName.HealthChanged, CurrentHealth, MaxHealth);
+		return taken;
+	}
+
 	// Set by a controller while it wants regen slowed without fully pausing it — Dark Souls reduces
 	// (not stops) stamina recovery by 80% while guarding, so the player sets this to 0.2f while
 	// blocking and back to 1f otherwise. Left at 1f (full rate) by anything that doesn't care.

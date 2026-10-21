@@ -124,7 +124,7 @@ public partial class SpiderBoss : Boss
 		if (_isWebSpitting || _webSpitCooldownTimer > 0f || PoisonSpitScene is null)
 			return;
 
-		Node2D player = GetTree().GetFirstNodeInGroup("player") as Node2D;
+		Node2D player = EnemyTargeting.Current(GetTree());
 		if (player is null)
 			return;
 

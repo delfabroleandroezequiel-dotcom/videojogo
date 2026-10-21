@@ -44,7 +44,7 @@ public partial class RangedEnemy : Enemy
 
 		_cooldown -= delta;
 
-		Node2D playerNode = GetTree().GetFirstNodeInGroup("player") as Node2D;
+		Node2D playerNode = EnemyTargeting.Current(GetTree());
 		if (playerNode is null)
 			return;
 

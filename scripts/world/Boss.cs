@@ -138,7 +138,7 @@ public partial class Boss : Enemy
 
 		float moveSpeed = MoveSpeed * (IsEnraged ? EnrageSpeedMultiplier : 1f);
 
-		Node2D player = GetTree().GetFirstNodeInGroup("player") as Node2D;
+		Node2D player = EnemyTargeting.Current(GetTree());
 		float distanceAbs = player is null ? float.MaxValue : Mathf.Abs(player.GlobalPosition.X - GlobalPosition.X);
 		bool playerInRange = player is not null && distanceAbs <= DetectionRange;
 		PlayerDetected = playerInRange;
@@ -215,7 +215,7 @@ public partial class Boss : Enemy
 		if (_rng.Randf() > retreatChance)
 			return;
 
-		Node2D player = GetTree().GetFirstNodeInGroup("player") as Node2D;
+		Node2D player = EnemyTargeting.Current(GetTree());
 		_retreatDirection = player is not null && player.GlobalPosition.X > GlobalPosition.X ? -1f : 1f;
 
 		if (FleeAndRecharge)
@@ -259,7 +259,7 @@ public partial class Boss : Enemy
 		_isRetreating = false;
 		Stats.ExternalInvulnerable = false;
 
-		Node2D player = GetTree().GetFirstNodeInGroup("player") as Node2D;
+		Node2D player = EnemyTargeting.Current(GetTree());
 		if (player is not null)
 		{
 			FacingRight = player.GlobalPosition.X >= GlobalPosition.X;

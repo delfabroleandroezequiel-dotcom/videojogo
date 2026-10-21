@@ -63,7 +63,7 @@ public partial class ShadowEcho : Node2D
 		_visual.AddChild(_sprite);
 
 		_hitboxShape = new RectangleShape2D();
-		_hitbox = new Hitbox { CollisionLayer = 0, CollisionMask = 5, TopLevel = true };
+		_hitbox = new Hitbox { CollisionLayer = 0, CollisionMask = 5, TopLevel = true, AppliesShadowMark = true };
 		_hitbox.AddChild(new CollisionShape2D { Name = "CollisionShape2D", Shape = _hitboxShape, Disabled = true });
 		AddChild(_hitbox);
 	}

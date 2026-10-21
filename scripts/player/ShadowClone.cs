@@ -55,7 +55,7 @@ public partial class ShadowClone : Node2D
 		_trail = new EnemySlashTrail { GlowColor = tint, CoreColor = tint.Lightened(0.6f), CoreWidth = 3f, GlowWidth = 8f };
 		visual.AddChild(_trail);
 
-		_hitbox = new Hitbox { CollisionLayer = 0, CollisionMask = 5, Position = new Vector2(facingRight ? hitboxReach : -hitboxReach, hitboxYOffset) };
+		_hitbox = new Hitbox { CollisionLayer = 0, CollisionMask = 5, Position = new Vector2(facingRight ? hitboxReach : -hitboxReach, hitboxYOffset), AppliesShadowMark = true };
 		_hitbox.AddChild(new CollisionShape2D { Name = "CollisionShape2D", Shape = new RectangleShape2D { Size = hitboxSize }, Disabled = true });
 		AddChild(_hitbox);
 	}

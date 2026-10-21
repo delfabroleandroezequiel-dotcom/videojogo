@@ -49,6 +49,17 @@ public partial class ShadowSummon : CharacterBody2D
 	// Fired once, whatever ended the summon, so the caster can take control back.
 	public event Action Finished;
 
+	// The button that ends it early: the Bastón summon uses its own cast key, a stolen shadow
+	// (Robo de sombra) the spell key it was cast with.
+	public string CancelAction = "summon_cast";
+
+	// A stolen shadow (Robo de sombra) can be hit: it sits on the player's physics layer with its own
+	// Stats so enemy hitboxes land on it, and every point of damage is reported through DamageTaken
+	// (the Player pays it in health). The Bastón summon stays intangible.
+	public bool Hittable;
+	public Action<int> DamageTaken;
+	private Stats _hurtStats;
+
 	private string _enemyScenePath;
 	private int _damage;
 	private bool _facingRight;
@@ -189,6 +200,28 @@ public partial class ShadowSummon : CharacterBody2D
 
 		if (GetTree().CurrentScene is Node scene)
 			CollectExits(scene);
+
+		if (Hittable)
+		{
+			CollisionLayer = 2u;
+			_hurtStats = new Stats { Name = "Stats", MaxHealth = 100000, InvulnerabilityDuration = 0.25f };
+			AddChild(_hurtStats);
+			_hurtStats.HealthChanged += OnHurt;
+		}
+	}
+
+	// Damage lands on the huge pool; report it, top back up, flash.
+	private void OnHurt(int current, int max)
+	{
+		if (current >= max)
+			return;
+		_hurtStats.ResetToFull();
+		if (_sprite is not null)
+		{
+			_sprite.Modulate = new Color(3f, 3f, 3f, 1f);
+			CreateTween().TweenProperty(_sprite, "modulate", new Color(1f, 1f, 1f, 0.9f), 0.15f);
+		}
+		DamageTaken?.Invoke(max - current);
 	}
 
 	private void CollectExits(Node node)
@@ -221,7 +254,7 @@ public partial class ShadowSummon : CharacterBody2D
 		_age += dt;
 		_timeLeft -= dt;
 
-		if (_timeLeft <= 0f || IsLeavingMap() || (_age > CancelGrace && Input.IsActionJustPressed("summon_cast")))
+		if (_timeLeft <= 0f || IsLeavingMap() || (_age > CancelGrace && Input.IsActionJustPressed(CancelAction)))
 		{
 			Finish();
 			return;
@@ -322,7 +355,10 @@ public partial class ShadowSummon : CharacterBody2D
 				continue;
 			float ahead = (enemy.GlobalPosition.X - GlobalPosition.X) * facing;
 			if (ahead >= -10f && ahead <= _reach * 1.5f && Mathf.Abs(enemy.GlobalPosition.Y - GlobalPosition.Y) <= HitHeightTolerance)
+			{
 				stats.TakeDamage(_damage, ignoreInvulnerability: true);
+				(enemy as Metroidvania.World.Enemy)?.AddShadowMark();
+			}
 		}
 	}
 

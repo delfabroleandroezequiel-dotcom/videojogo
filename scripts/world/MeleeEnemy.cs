@@ -115,7 +115,7 @@ public partial class MeleeEnemy : Enemy
 		if (Attacking || !CanAttack || _yieldTimer > 0f || Hopping || IsFlinching)
 			return;
 
-		Node2D playerNode = GetTree().GetFirstNodeInGroup("player") as Node2D;
+		Node2D playerNode = EnemyTargeting.Current(GetTree());
 		if (playerNode is null)
 			return;
 
@@ -195,6 +195,12 @@ public partial class MeleeEnemy : Enemy
 		if (Attacking)
 			InterruptAttack();
 		Flinch();
+	}
+
+	protected override void OnHollowed()
+	{
+		if (Attacking)
+			InterruptAttack();
 	}
 
 	private async void InterruptAttack()

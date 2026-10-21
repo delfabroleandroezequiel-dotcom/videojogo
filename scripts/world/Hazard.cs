@@ -15,12 +15,6 @@ public partial class Hazard : Area2D
 	// they overlap; off by default so lava/spikes behave exactly as before.
 	[Export] public bool HitWhileOverlapping = false;
 
-	// Hollow Knight-style: touching this sends the player back to the last safe ground they stood
-	// on (Player.HazardRespawn) with a heavy hit, instead of a plain hit + shove — or, for InstantKill
-	// ones (lava, kill pits), instead of dying outright; it still kills if the hit takes the last HP.
-	// Off for hazards that are really fight pieces rather than platforming checks.
-	[Export] public bool RespawnPlayer = true;
-
 	// Runtime-built pieces (LavaFall/LavaFloor/ProceduralWater, etc.) all want this same
 	// InstantKill/Damage/KnockbackForce Area2D — build it here once instead of each kit
 	// hand-rolling its own copy.
@@ -58,18 +52,7 @@ public partial class Hazard : Area2D
 			return;
 
 		Stats stats = body.GetNodeOrNull<Stats>("Stats");
-		if (stats is null)
-			return;
-
-		// Checked before i-frames on purpose: post-hit or roll invulnerability must not let the
-		// player stroll or roll across spikes.
-		if (RespawnPlayer && body.HasMethod("HazardRespawn"))
-		{
-			body.Call("HazardRespawn", Damage);
-			return;
-		}
-
-		if (stats.IsInvulnerable)
+		if (stats is null || stats.IsInvulnerable)
 			return;
 
 		if (InstantKill)

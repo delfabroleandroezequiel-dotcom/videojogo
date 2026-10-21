@@ -21,6 +21,11 @@ public partial class Hitbox : Area2D
 	private ulong _suppressedUntilMsec;
 	private float _damageMultiplier = 1f;
 
+	// Shadow-made hitboxes (clone, echo, puppet) stack a shadow mark on every enemy they hit,
+	// for the player's sword to detonate.
+	public bool AppliesShadowMark;
+	public int ShadowMarksPerHit = 1;
+
 	// Raised last for every body this hitbox damages (after knockback), for owners that need to act
 	// on the target itself — e.g. the charged draw launching what it hit.
 	public event System.Action<Node2D> HitTarget;
@@ -100,6 +105,8 @@ public partial class Hitbox : Area2D
 		targetStats.TakeDamage(Mathf.RoundToInt(_attackerStats.AttackPower * _damageMultiplier), element: _element, ignoreInvulnerability: pierce);
 		Vector2 impactPoint = (GlobalPosition + body.GlobalPosition) / 2f;
 		LastImpactPoint = impactPoint;
+		if (AppliesShadowMark && body is Enemy markedEnemy)
+			markedEnemy.AddShadowMark(ShadowMarksPerHit);
 		BloodEffect.SpawnAt(this, body.GlobalPosition);
 		if (_customImpactEffect is not null)
 		{

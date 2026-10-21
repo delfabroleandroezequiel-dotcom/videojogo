@@ -160,7 +160,7 @@ public partial class SpiderBossArena : SpiderBoss
 
 		// Anchored on the player, not the boss — dropped near the boss's own (fixed) position they'd
 		// often land well outside the player's DetectionRange and just sit there doing nothing.
-		Node2D player = GetTree().GetFirstNodeInGroup("player") as Node2D;
+		Node2D player = EnemyTargeting.Current(GetTree());
 		Vector2 anchor = player?.GlobalPosition ?? GlobalPosition;
 
 		// Alternating side + growing spread per slot so a batch topped up together doesn't all land
@@ -224,7 +224,7 @@ public partial class SpiderBossArena : SpiderBoss
 			if (!PlayerDetected)
 				continue;
 
-			Node2D player = GetTree().GetFirstNodeInGroup("player") as Node2D;
+			Node2D player = EnemyTargeting.Current(GetTree());
 			if (player is null)
 				continue;
 

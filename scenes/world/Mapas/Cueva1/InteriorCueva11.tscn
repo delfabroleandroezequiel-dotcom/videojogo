@@ -1,20 +1,20 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://b6vfu26uwvb61"]
 
-[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
 [ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_camera"]
-[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="3_player"]
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="3_player"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniCorridor.tscn" id="4_corridor"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SpikeAccordion.tscn" id="6_spikes"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CrumbleFloor.tscn" id="7_crumble"]
-[ext_resource type="PackedScene" path="res://scenes/world/SavePoint.tscn" id="11_savepoint"]
-[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="12_transition"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido4.tscn" id="13_bandido4"]
+[ext_resource type="PackedScene" uid="uid://br5nbtx6hhf2v" path="res://scenes/world/SavePoint.tscn" id="11_savepoint"]
+[ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="12_transition"]
+[ext_resource type="PackedScene" uid="uid://h2wn6f1r0jji" path="res://scenes/world/Enemigos/Bandido4.tscn" id="13_bandido4"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemy.tscn" id="16_spider"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BatEnemy.tscn" id="17_bat"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/MurcielagoChico.tscn" id="18_batsmall"]
+[ext_resource type="PackedScene" uid="uid://524kpvop7d8i" path="res://scenes/world/Enemigos/MurcielagoChico.tscn" id="18_batsmall"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ParallaxCueva.tscn" id="90_parallaxcueva"]
 [ext_resource type="PackedScene" path="res://scenes/world/iluminacion/BosqueAntorchaPilarAzul.tscn" id="91_luz"]
-[ext_resource type="Script" path="res://scripts/world/GreyboxVisual.cs" id="92_greyboxvisual"]
+[ext_resource type="Script" uid="uid://dbeg53nir0706" path="res://scripts/world/GreyboxVisual.cs" id="92_greyboxvisual"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_frag1"]
 size = Vector2(80, 30)
@@ -25,44 +25,42 @@ size = Vector2(80, 30)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_frag3"]
 size = Vector2(80, 30)
 
-[node name="InteriorCueva11" type="Node2D"]
+[node name="InteriorCueva11" type="Node2D" unique_id=620795842]
 script = ExtResource("1_bootstrap")
 ScenePath = "res://scenes/world/Mapas/Cueva1/InteriorCueva11.tscn"
-ZoneName = ""
 CameraProfile = ExtResource("2_camera")
 CameraLimitLeft = -104
 CameraLimitRight = 664
 CameraLimitTop = -300
 CameraLimitBottom = 1860
 
-[node name="Fondos" type="Node2D" parent="."]
+[node name="Fondos" type="Node2D" parent="." unique_id=619052653]
 
-[node name="ParallaxCueva" parent="Fondos" instance=ExtResource("90_parallaxcueva")]
+[node name="ParallaxCueva" parent="Fondos" unique_id=187958573 instance=ExtResource("90_parallaxcueva")]
 
-[node name="CanvasModulate" type="CanvasModulate" parent="Fondos"]
+[node name="CanvasModulate" type="CanvasModulate" parent="Fondos" unique_id=702197395]
+visible = false
 color = Color(0.05, 0.05, 0.08, 1)
 
-[node name="Iluminacion" type="Node2D" parent="."]
+[node name="Iluminacion" type="Node2D" parent="." unique_id=660364506]
 
-[node name="AntorchaAzul1" parent="Iluminacion" instance=ExtResource("91_luz")]
+[node name="AntorchaAzul1" parent="Iluminacion" unique_id=1695164897 instance=ExtResource("91_luz")]
 position = Vector2(60, -11)
 LightRange = 2.0
 
-[node name="AntorchaAzul2" parent="Iluminacion" instance=ExtResource("91_luz")]
+[node name="AntorchaAzul2" parent="Iluminacion" unique_id=1109904893 instance=ExtResource("91_luz")]
 position = Vector2(280, 439)
 LightRange = 2.0
 
-[node name="AntorchaAzul3" parent="Iluminacion" instance=ExtResource("91_luz")]
+[node name="AntorchaAzul3" parent="Iluminacion" unique_id=236879618 instance=ExtResource("91_luz")]
 position = Vector2(280, 1299)
 LightRange = 2.0
 
-[node name="AntorchaAzul4" parent="Iluminacion" instance=ExtResource("91_luz")]
+[node name="AntorchaAzul4" parent="Iluminacion" unique_id=1732029937 instance=ExtResource("91_luz")]
 position = Vector2(280, 1519)
 LightRange = 2.0
 
-
-
-[node name="Fondo" type="ColorRect" parent="."]
+[node name="Fondo" type="ColorRect" parent="." unique_id=1760655544]
 z_index = -50
 offset_left = -500.0
 offset_top = -600.0
@@ -70,124 +68,123 @@ offset_right = 1100.0
 offset_bottom = 2300.0
 color = Color(0.09, 0.1, 0.13, 1)
 
-[node name="Greybox" type="Node2D" parent="."]
+[node name="Greybox" type="Node2D" parent="." unique_id=2033239396]
 
-[node name="ParedIzquierda" parent="Greybox" instance=ExtResource("4_corridor")]
+[node name="ParedIzquierda" parent="Greybox" unique_id=1616805967 instance=ExtResource("4_corridor")]
 position = Vector2(-10, -300)
 Orientation = 1
 Length = 2140.0
 Thickness = 20.0
 
-[node name="ParedDerecha" parent="Greybox" instance=ExtResource("4_corridor")]
+[node name="ParedDerecha" parent="Greybox" unique_id=1412079189 instance=ExtResource("4_corridor")]
 position = Vector2(560, -300)
 Orientation = 1
 Length = 1900.0
 Thickness = 20.0
 
-[node name="Techo" parent="Greybox" instance=ExtResource("4_corridor")]
+[node name="Techo" parent="Greybox" unique_id=1990832010 instance=ExtResource("4_corridor")]
 position = Vector2(-20, -300)
 Length = 600.0
 Thickness = 40.0
 
-[node name="Repisa0" parent="Greybox" instance=ExtResource("4_corridor")]
-position = Vector2(0, 0)
+[node name="Repisa0" parent="Greybox" unique_id=1205733969 instance=ExtResource("4_corridor")]
 Length = 330.0
 Thickness = 30.0
 
-[node name="Repisa1" parent="Greybox" instance=ExtResource("4_corridor")]
+[node name="Repisa1" parent="Greybox" unique_id=383091855 instance=ExtResource("4_corridor")]
 position = Vector2(230, 220)
 Length = 330.0
 Thickness = 30.0
 
-[node name="Piso3" parent="Greybox" instance=ExtResource("4_corridor")]
+[node name="Piso3" parent="Greybox" unique_id=1715904448 instance=ExtResource("4_corridor")]
 position = Vector2(0, 660)
 Length = 400.0
 Thickness = 30.0
 
-[node name="PilarChimenea" parent="Greybox" instance=ExtResource("4_corridor")]
+[node name="PilarChimenea" parent="Greybox" unique_id=623408458 instance=ExtResource("4_corridor")]
 position = Vector2(390, 690)
 Orientation = 1
 Length = 520.0
 Thickness = 20.0
 
-[node name="Piso5" parent="Greybox" instance=ExtResource("4_corridor")]
+[node name="Piso5" parent="Greybox" unique_id=1750318419 instance=ExtResource("4_corridor")]
 position = Vector2(140, 1300)
 Length = 420.0
 Thickness = 30.0
 
-[node name="Piso6" parent="Greybox" instance=ExtResource("4_corridor")]
+[node name="Piso6" parent="Greybox" unique_id=1071800869 instance=ExtResource("4_corridor")]
 position = Vector2(0, 1520)
 Length = 360.0
 Thickness = 30.0
 
-[node name="Fondo7" parent="Greybox" instance=ExtResource("4_corridor")]
+[node name="Fondo7" parent="Greybox" unique_id=161155890 instance=ExtResource("4_corridor")]
 position = Vector2(0, 1800)
 Length = 640.0
 Thickness = 40.0
 
-[node name="Visible" type="Node2D" parent="."]
-script = ExtResource("92_greyboxvisual")
+[node name="Visible" type="Node2D" parent="." unique_id=921499668]
 z_index = -5
+script = ExtResource("92_greyboxvisual")
 
-[node name="ParedIzquierda" type="Polygon2D" parent="Visible"]
+[node name="ParedIzquierda" type="Polygon2D" parent="Visible" unique_id=1125788210]
 color = Color(0.42, 0.43, 0.48, 1)
-polygon = PackedVector2Array(-20.0, -300.0, 0.0, -300.0, 0.0, 1840.0, -20.0, 1840.0)
+polygon = PackedVector2Array(-20, -300, 0, -300, 0, 1840, -20, 1840)
 
-[node name="ParedDerecha" type="Polygon2D" parent="Visible"]
+[node name="ParedDerecha" type="Polygon2D" parent="Visible" unique_id=201182699]
 color = Color(0.42, 0.43, 0.48, 1)
-polygon = PackedVector2Array(550.0, -300.0, 570.0, -300.0, 570.0, 1600.0, 550.0, 1600.0)
+polygon = PackedVector2Array(550, -300, 570, -300, 570, 1600, 550, 1600)
 
-[node name="Techo" type="Polygon2D" parent="Visible"]
+[node name="Techo" type="Polygon2D" parent="Visible" unique_id=595184335]
 color = Color(0.42, 0.43, 0.48, 1)
-polygon = PackedVector2Array(-20.0, -300.0, 580.0, -300.0, 580.0, -260.0, -20.0, -260.0)
+polygon = PackedVector2Array(-20, -300, 580, -300, 580, -260, -20, -260)
 
-[node name="Repisa0" type="Polygon2D" parent="Visible"]
+[node name="Repisa0" type="Polygon2D" parent="Visible" unique_id=1282329596]
 color = Color(0.42, 0.43, 0.48, 1)
-polygon = PackedVector2Array(0.0, 0.0, 330.0, 0.0, 330.0, 30.0, 0.0, 30.0)
+polygon = PackedVector2Array(0, 0, 330, 0, 330, 30, 0, 30)
 
-[node name="Repisa1" type="Polygon2D" parent="Visible"]
+[node name="Repisa1" type="Polygon2D" parent="Visible" unique_id=1449436130]
 color = Color(0.42, 0.43, 0.48, 1)
-polygon = PackedVector2Array(230.0, 220.0, 560.0, 220.0, 560.0, 250.0, 230.0, 250.0)
+polygon = PackedVector2Array(230, 220, 560, 220, 560, 250, 230, 250)
 
-[node name="Piso3" type="Polygon2D" parent="Visible"]
+[node name="Piso3" type="Polygon2D" parent="Visible" unique_id=100333934]
 color = Color(0.42, 0.43, 0.48, 1)
-polygon = PackedVector2Array(0.0, 660.0, 400.0, 660.0, 400.0, 690.0, 0.0, 690.0)
+polygon = PackedVector2Array(0, 660, 400, 660, 400, 690, 0, 690)
 
-[node name="PilarChimenea" type="Polygon2D" parent="Visible"]
+[node name="PilarChimenea" type="Polygon2D" parent="Visible" unique_id=580624447]
 color = Color(0.42, 0.43, 0.48, 1)
-polygon = PackedVector2Array(380.0, 690.0, 400.0, 690.0, 400.0, 1210.0, 380.0, 1210.0)
+polygon = PackedVector2Array(380, 690, 400, 690, 400, 1210, 380, 1210)
 
-[node name="Piso5" type="Polygon2D" parent="Visible"]
+[node name="Piso5" type="Polygon2D" parent="Visible" unique_id=1560366615]
 color = Color(0.42, 0.43, 0.48, 1)
-polygon = PackedVector2Array(140.0, 1300.0, 560.0, 1300.0, 560.0, 1330.0, 140.0, 1330.0)
+polygon = PackedVector2Array(140, 1300, 560, 1300, 560, 1330, 140, 1330)
 
-[node name="Piso6" type="Polygon2D" parent="Visible"]
+[node name="Piso6" type="Polygon2D" parent="Visible" unique_id=1170729500]
 color = Color(0.42, 0.43, 0.48, 1)
-polygon = PackedVector2Array(0.0, 1520.0, 360.0, 1520.0, 360.0, 1550.0, 0.0, 1550.0)
+polygon = PackedVector2Array(0, 1520, 360, 1520, 360, 1550, 0, 1550)
 
-[node name="Fondo7" type="Polygon2D" parent="Visible"]
+[node name="Fondo7" type="Polygon2D" parent="Visible" unique_id=904900248]
 color = Color(0.42, 0.43, 0.48, 1)
-polygon = PackedVector2Array(0.0, 1800.0, 640.0, 1800.0, 640.0, 1840.0, 0.0, 1840.0)
+polygon = PackedVector2Array(0, 1800, 640, 1800, 640, 1840, 0, 1840)
 
-[node name="Santuario" parent="." instance=ExtResource("11_savepoint")]
+[node name="Santuario" parent="." unique_id=309216434 instance=ExtResource("11_savepoint")]
 position = Vector2(110, 0)
 
-[node name="HaciaColector" parent="." instance=ExtResource("12_transition")]
+[node name="HaciaColector" parent="." unique_id=1048468242 instance=ExtResource("12_transition")]
 position = Vector2(625, 1700)
 TargetScenePath = "res://scenes/world/Mapas/Quebrada/Quebrada10_Colector.tscn"
 TargetSpawnPosition = Vector2(190, -40)
-Width = 30
-Height = 200
+Width = 30.0
+Height = 200.0
 
-[node name="SuelosFragiles" type="Node2D" parent="."]
+[node name="SuelosFragiles" type="Node2D" parent="." unique_id=234115969]
 
-[node name="Frag1Cuerpo" type="StaticBody2D" parent="SuelosFragiles"]
+[node name="Frag1Cuerpo" type="StaticBody2D" parent="SuelosFragiles" unique_id=1006987415]
 position = Vector2(130, 455)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SuelosFragiles/Frag1Cuerpo"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SuelosFragiles/Frag1Cuerpo" unique_id=11371749]
 shape = SubResource("RectangleShape2D_frag1")
 
-[node name="Frag1" parent="SuelosFragiles" node_paths=PackedStringArray("AttachedCollision") instance=ExtResource("7_crumble")]
+[node name="Frag1" parent="SuelosFragiles" unique_id=2095458644 node_paths=PackedStringArray("AttachedCollision") instance=ExtResource("7_crumble")]
 position = Vector2(130, 453)
 Width = 80.0
 Height = 34.0
@@ -198,13 +195,13 @@ Persistent = false
 FillColor = Color(0.55, 0.45, 0.35, 1)
 ShowFill = true
 
-[node name="Frag2Cuerpo" type="StaticBody2D" parent="SuelosFragiles"]
+[node name="Frag2Cuerpo" type="StaticBody2D" parent="SuelosFragiles" unique_id=219267410]
 position = Vector2(210, 455)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SuelosFragiles/Frag2Cuerpo"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SuelosFragiles/Frag2Cuerpo" unique_id=622980236]
 shape = SubResource("RectangleShape2D_frag2")
 
-[node name="Frag2" parent="SuelosFragiles" node_paths=PackedStringArray("AttachedCollision") instance=ExtResource("7_crumble")]
+[node name="Frag2" parent="SuelosFragiles" unique_id=813634513 node_paths=PackedStringArray("AttachedCollision") instance=ExtResource("7_crumble")]
 position = Vector2(210, 453)
 Width = 80.0
 Height = 34.0
@@ -215,13 +212,13 @@ Persistent = false
 FillColor = Color(0.55, 0.45, 0.35, 1)
 ShowFill = true
 
-[node name="Frag3Cuerpo" type="StaticBody2D" parent="SuelosFragiles"]
+[node name="Frag3Cuerpo" type="StaticBody2D" parent="SuelosFragiles" unique_id=1321976574]
 position = Vector2(290, 455)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SuelosFragiles/Frag3Cuerpo"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SuelosFragiles/Frag3Cuerpo" unique_id=1356154757]
 shape = SubResource("RectangleShape2D_frag3")
 
-[node name="Frag3" parent="SuelosFragiles" node_paths=PackedStringArray("AttachedCollision") instance=ExtResource("7_crumble")]
+[node name="Frag3" parent="SuelosFragiles" unique_id=240185529 node_paths=PackedStringArray("AttachedCollision") instance=ExtResource("7_crumble")]
 position = Vector2(290, 453)
 Width = 80.0
 Height = 34.0
@@ -232,36 +229,37 @@ Persistent = false
 FillColor = Color(0.55, 0.45, 0.35, 1)
 ShowFill = true
 
-[node name="Trampas" type="Node2D" parent="."]
+[node name="Trampas" type="Node2D" parent="." unique_id=253288169]
 
-[node name="PinchosBajoFragil" parent="Trampas" instance=ExtResource("6_spikes")]
+[node name="PinchosBajoFragil" parent="Trampas" unique_id=28888804 instance=ExtResource("6_spikes")]
 position = Vector2(200, 660)
 Count = 2
 Spacing = 100.0
 StaggerStep = 0.8
 
-[node name="PinchosChimenea" parent="Trampas" instance=ExtResource("6_spikes")]
+[node name="PinchosChimenea" parent="Trampas" unique_id=1205247635 instance=ExtResource("6_spikes")]
 position = Vector2(550, 1180)
 rotation = -1.5708
 Count = 4
 Spacing = 110.0
 StaggerStep = 0.5
 
-[node name="Enemigos" type="Node2D" parent="."]
+[node name="Enemigos" type="Node2D" parent="." unique_id=618159862]
 
-[node name="AraniaRepisa" parent="Enemigos" instance=ExtResource("16_spider")]
+[node name="AraniaRepisa" parent="Enemigos" unique_id=45513095 instance=ExtResource("16_spider")]
 position = Vector2(470, 180)
 
-[node name="BandidoDescanso" parent="Enemigos" instance=ExtResource("13_bandido4")]
+[node name="BandidoDescanso" parent="Enemigos" unique_id=147873804 instance=ExtResource("13_bandido4")]
 position = Vector2(330, 1240)
 
-[node name="MurcielagoBajo1" parent="Enemigos" instance=ExtResource("17_bat")]
+[node name="MurcielagoBajo1" parent="Enemigos" unique_id=678905189 instance=ExtResource("17_bat")]
 position = Vector2(150, 1440)
 
-[node name="MurcielagoBajo2" parent="Enemigos" instance=ExtResource("17_bat")]
+[node name="MurcielagoBajo2" parent="Enemigos" unique_id=588262032 instance=ExtResource("17_bat")]
 position = Vector2(470, 1650)
 
-[node name="MurcielagoChicoFondo" parent="Enemigos" instance=ExtResource("18_batsmall")]
+[node name="MurcielagoChicoFondo" parent="Enemigos" unique_id=289743388 instance=ExtResource("18_batsmall")]
 position = Vector2(300, 1700)
-[node name="Player" parent="." instance=ExtResource("3_player")]
+
+[node name="Player" parent="." unique_id=292220630 instance=ExtResource("3_player")]
 position = Vector2(60, -40)

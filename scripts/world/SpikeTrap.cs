@@ -17,6 +17,11 @@ public partial class SpikeTrap : StaticBody2D
 	// floor already provides real ground and this plate would just be a slightly-misaligned lip
 	// that catches the player when walking sideways into it.
 	[Export] public bool HasFloorCollision = true;
+	// What the spikes do on contact, passed to the child HazardArea (same as SawTrap/PendulumTrap),
+	// so each trap is tuned from its own Inspector without "Editable Children". Defaults = the scene's.
+	[Export] public bool InstantKill = false;
+	[Export] public int Damage = 25;
+	[Export] public float KnockbackForce = 260f;
 
 	// Last stretch of the retracted phase where the tips poke out of the slots as a warning.
 	[Export] public float WarningDuration = 0.3f;
@@ -32,6 +37,10 @@ public partial class SpikeTrap : StaticBody2D
 		_visual = GetNode<PinchosFila>("Visual");
 		_hazardShape = GetNode<CollisionShape2D>("HazardArea/CollisionShape2D");
 		_hazardShape.Disabled = true;
+		var hazard = GetNode<Hazard>("HazardArea");
+		hazard.InstantKill = InstantKill;
+		hazard.Damage = Damage;
+		hazard.KnockbackForce = KnockbackForce;
 		GetNode<CollisionShape2D>("CollisionShape2D").Disabled = !HasFloorCollision;
 		_stateTime = -StartOffset;
 		// Every trap in a row shares the scene's Seed; derive one from the position so neighbours

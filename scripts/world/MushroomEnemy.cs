@@ -55,7 +55,7 @@ public partial class MushroomEnemy : Enemy
 		if (_releasing || !_canRelease)
 			return;
 
-		Node2D player = GetTree().GetFirstNodeInGroup("player") as Node2D;
+		Node2D player = EnemyTargeting.Current(GetTree());
 		if (player is null || GlobalPosition.DistanceTo(player.GlobalPosition) > SporeRange)
 			return;
 

@@ -44,7 +44,7 @@ public partial class FlyingEnemy : Enemy
 			return;
 
 		_time += (float)delta;
-		Player = GetTree().GetFirstNodeInGroup("player") as Node2D;
+		Player = EnemyTargeting.Current(GetTree());
 
 		if (OverrideSteering(delta))
 		{

@@ -140,6 +140,7 @@ public partial class ShadowRush : Node2D
 				&& _meteorTarget.GlobalPosition.DistanceTo(GlobalPosition) <= _meteorRange)
 			{
 				stats.TakeDamage(_meteorDamage, ignoreInvulnerability: true, armInvulnerability: false);
+				(_meteorTarget as Metroidvania.World.Enemy)?.AddShadowMark();
 				Vector2 at = _meteorTarget.GlobalPosition + new Vector2((float)GD.RandRange(-10.0, 10.0), (float)GD.RandRange(-22.0, 4.0));
 				SpawnStreak(at);
 				if (i % 3 == 0)

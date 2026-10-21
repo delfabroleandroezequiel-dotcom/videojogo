@@ -69,6 +69,12 @@ public partial class SpikeAccordion : Node2D
 		}
 	}
 
+	// Passed through to every SpikeTrap piece — see SpikeTrap.InstantKill/Damage/KnockbackForce.
+	// Plain exports: they're read when the row is built, no live preview needed.
+	[Export] public bool InstantKill = false;
+	[Export] public int Damage = 25;
+	[Export] public float KnockbackForce = 260f;
+
 	private bool _initialized;
 
 	public override void _Ready()
@@ -96,6 +102,9 @@ public partial class SpikeAccordion : Node2D
 			spike.Position = new Vector2(i * _spacing, 0f);
 			spike.StartOffset = i * _staggerStep;
 			spike.HasFloorCollision = _hasFloorCollision;
+			spike.InstantKill = InstantKill;
+			spike.Damage = Damage;
+			spike.KnockbackForce = KnockbackForce;
 			AddChild(spike);
 			spike.Owner = this;
 		}

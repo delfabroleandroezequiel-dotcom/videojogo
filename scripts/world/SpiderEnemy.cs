@@ -327,7 +327,7 @@ public partial class SpiderEnemy : MeleeEnemy
 		if (PoisonSpitScene is null || !IsInstanceValid(this))
 			return;
 
-		Node2D playerNode = GetTree().GetFirstNodeInGroup("player") as Node2D;
+		Node2D playerNode = EnemyTargeting.Current(GetTree());
 		if (playerNode is null)
 			return;
 

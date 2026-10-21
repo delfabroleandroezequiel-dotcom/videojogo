@@ -91,6 +91,7 @@ public partial class ShadowBolt : Node2D
 			if (Mathf.Abs(offset.X) <= HitHalfWidth && Mathf.Abs(offset.Y) <= HitHalfHeight)
 			{
 				stats.TakeDamage(_damage, isProjectile: true, ignoreInvulnerability: true);
+				(enemy as Metroidvania.World.Enemy)?.AddShadowMark();
 				End(true);
 				return;
 			}

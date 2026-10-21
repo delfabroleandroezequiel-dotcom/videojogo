@@ -17,29 +17,34 @@ public partial class ShadowPuppet : CharacterBody2D
 
 	public event Action Finished;
 
-	private SpriteFrames _frames;
-	private Stats _casterStats;
-	private Color _tint;
-	private float _speed;
-	private float _jumpVelocity;
-	private float _gravity;
-	private float _timeLeft;
-	private string[] _comboAnimations;
-	private float _hitDelay;
-	private float _hitDuration;
-	private float _hitboxReach;
-	private float _hitboxYOffset;
-	private float _explosionRadius;
-	private int _explosionDamage;
+	// Berserker tuning (defaults = the plain puppet): how hard each swing hits relative to the
+	// caster, and how many shadow marks it stacks.
+	public float DamageMultiplier = 1f;
+	public int MarksPerHit = 1;
 
-	private Node2D _visual;
-	private AnimatedSprite2D _sprite;
-	private Hitbox _hitbox;
-	private bool _facingRight;
-	private bool _attacking;
-	private bool _comboQueued;
-	private float _age;
-	private bool _finished;
+	protected SpriteFrames _frames;
+	protected Stats _casterStats;
+	protected Color _tint;
+	protected float _speed;
+	protected float _jumpVelocity;
+	protected float _gravity;
+	protected float _timeLeft;
+	protected string[] _comboAnimations;
+	protected float _hitDelay;
+	protected float _hitDuration;
+	protected float _hitboxReach;
+	protected float _hitboxYOffset;
+	protected float _explosionRadius;
+	protected int _explosionDamage;
+
+	protected Node2D _visual;
+	protected AnimatedSprite2D _sprite;
+	protected Hitbox _hitbox;
+	protected bool _facingRight;
+	protected bool _attacking;
+	protected bool _comboQueued;
+	protected float _age;
+	protected bool _finished;
 
 	public void Setup(SpriteFrames frames, Vector2 spritePosition, Vector2 spriteOffset, Vector2 spriteScale, Vector2 bodySize,
 		uint collisionMask, bool facingRight, Stats casterStats, Color tint, float intensity, float alpha, float speed,
@@ -79,7 +84,7 @@ public partial class ShadowPuppet : CharacterBody2D
 		};
 		_visual.AddChild(_sprite);
 
-		_hitbox = new Hitbox { CollisionLayer = 0, CollisionMask = 5 };
+		_hitbox = new Hitbox { CollisionLayer = 0, CollisionMask = 5, AppliesShadowMark = true };
 		_hitbox.AddChild(new CollisionShape2D { Name = "CollisionShape2D", Shape = new RectangleShape2D { Size = hitboxSize }, Disabled = true });
 		AddChild(_hitbox);
 	}
@@ -136,7 +141,9 @@ public partial class ShadowPuppet : CharacterBody2D
 			await ToSignal(GetTree().CreateTimer(_hitDelay), SceneTreeTimer.SignalName.Timeout);
 			if (!IsInstanceValid(this) || _finished)
 				return;
-			_hitbox.Activate(_casterStats);
+			OnSwing(i, _facingRight);
+			_hitbox.ShadowMarksPerHit = MarksPerHit;
+			_hitbox.Activate(_casterStats, damageMultiplier: DamageMultiplier);
 			await ToSignal(GetTree().CreateTimer(_hitDuration), SceneTreeTimer.SignalName.Timeout);
 			if (!IsInstanceValid(this))
 				return;
@@ -153,12 +160,21 @@ public partial class ShadowPuppet : CharacterBody2D
 			_attacking = false;
 	}
 
+	// The moment a swing's hitbox comes out (comboIndex 0..3) — for subclasses' own swing FX.
+	protected virtual void OnSwing(int comboIndex, bool facingRight)
+	{
+	}
+
+	protected float HitboxReach => _hitboxReach;
+
 	public void Finish()
 	{
 		if (_finished)
 			return;
 		_finished = true;
-		_hitbox.Deactivate();
+		// Deferred (Suppress): Finish often runs from inside a hit's BodyEntered (the body getting
+		// struck ends control), where toggling a shape directly is refused.
+		_hitbox.Suppress(0f);
 		Finished?.Invoke();
 		if (_explosionRadius > 0f)
 		{

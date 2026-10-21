@@ -19,7 +19,7 @@ public partial class HomingProjectile : Projectile
 	{
 		base._Ready();
 		_homingTimer = HomingDuration;
-		_target = GetTree().GetFirstNodeInGroup("player") as Node2D;
+		_target = EnemyTargeting.Current(GetTree());
 	}
 
 	// Launch() (base class, not overridable — see Projectile.cs) sets Rotation to the fired

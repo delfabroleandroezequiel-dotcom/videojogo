@@ -50,7 +50,7 @@ public partial class BurningDamned : Enemy
 
 		base._PhysicsProcess(delta);
 
-		if (GetTree().GetFirstNodeInGroup("player") is Node2D player &&
+		if (EnemyTargeting.Current(GetTree()) is Node2D player &&
 			GlobalPosition.DistanceTo(player.GlobalPosition) <= ExplodeDistance)
 		{
 			_isDetonating = true;
@@ -63,7 +63,7 @@ public partial class BurningDamned : Enemy
 		if (!IsInstanceValid(this) || IsQueuedForRemoval)
 			return;
 
-		if (GetTree().GetFirstNodeInGroup("player") is Node2D player &&
+		if (EnemyTargeting.Current(GetTree()) is Node2D player &&
 			GlobalPosition.DistanceTo(player.GlobalPosition) <= ExplosionRadius)
 		{
 			Stats targetStats = player.GetNodeOrNull<Stats>("Stats");

@@ -110,7 +110,7 @@ public partial class PoisonBurstBarrage : Node2D
 
 	private void SpawnWave()
 	{
-		if (GetTree().GetFirstNodeInGroup("player") is not Node2D player)
+		if (EnemyTargeting.Current(GetTree()) is not Node2D player)
 			return;
 
 		Vector2 origin = player.GlobalPosition;

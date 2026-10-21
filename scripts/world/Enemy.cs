@@ -201,6 +201,8 @@ public partial class Enemy : CharacterBody2D
 	// A hit that chipped poise without breaking it. Default: no reaction (the enemy keeps doing
 	// whatever its own attack coroutine is doing — interrupting that safely is per enemy type).
 	protected virtual void OnPoiseHit() { }
+	// Robo de sombra just tore the shadow out (see Hollow): drop whatever attack was in progress.
+	protected virtual void OnHollowed() { }
 
 	// Reels for FlinchDuration: no AI movement, attacks or turning (see _PhysicsProcess), playing
 	// the sheet's hurt/hit animation when it has one.
@@ -216,7 +218,7 @@ public partial class Enemy : CharacterBody2D
 		}
 	}
 
-	private async void Stun()
+	private async void Stun(float duration = -1f)
 	{
 		int runId = ++_stunRunId;
 		IsStunned = true;
@@ -229,9 +231,29 @@ public partial class Enemy : CharacterBody2D
 				Sprite.Play("idle");
 		}
 		ShowStunStars();
-		await ToSignal(GetTree().CreateTimer(StunDuration), SceneTreeTimer.SignalName.Timeout);
+		await ToSignal(GetTree().CreateTimer(duration > 0f ? duration : StunDuration), SceneTreeTimer.SignalName.Timeout);
 		if (IsInstanceValid(this) && runId == _stunRunId)
 			EndStun();
+	}
+
+	// Robo de sombra: its shadow torn out, the enemy stands hollow — dazed like a stun (open to an
+	// execution) for `duration`, drained grey so it reads as emptied. Bosses can't be hollowed.
+	public bool CanBeHollowed => CanBeExecuted && !GetType().Name.Contains("Boss");
+
+	public async void Hollow(float duration)
+	{
+		if (!CanBeHollowed)
+			return;
+		Stun(duration);
+		// A swing already under way when the chain bit must not land: the stun's freeze turns the
+		// hitbox off once, but the attack coroutine would switch it back on — Suppress blocks that
+		// for the whole hollow.
+		GetNodeOrNull<Metroidvania.Player.Hitbox>("AttackHitbox")?.Suppress(duration);
+		OnHollowed();
+		Visual.Modulate = new Color(0.42f, 0.42f, 0.48f, _baseModulate.A);
+		await ToSignal(GetTree().CreateTimer(duration), SceneTreeTimer.SignalName.Timeout);
+		if (IsInstanceValid(this))
+			CreateTween().TweenProperty(Visual, "modulate", _baseModulate, 0.3f);
 	}
 
 	public void EndStun()
@@ -392,7 +414,7 @@ public partial class Enemy : CharacterBody2D
 	// instead of leaving every other enemy waiting on one that's never coming back.
 	protected bool HoldingAttackSlot;
 
-	// Ecos for the kill, straight into the player's count. < 0 = derived from max health (see
+	// Ecos for the kill, paid out as orbs that fly into the player (EcosBurst). < 0 = derived from max health (see
 	// LevelingConfig.EcosPerEnemyHealth). Summoners clear GrantsEcos on what they raise, so an
 	// endless summon can't be farmed.
 	[Export] public int EcosReward = -1;
@@ -406,7 +428,7 @@ public partial class Enemy : CharacterBody2D
 		int reward = EcosReward >= 0
 			? EcosReward
 			: Mathf.Max(config.MinEcosReward, Mathf.RoundToInt(Stats.MaxHealth * config.EcosPerEnemyHealth));
-		SaveManager.Instance.AddEcos(reward);
+		EcosBurst.Spawn(this, GlobalPosition, reward);
 	}
 
 	protected virtual bool IsDefeated() => SaveManager.Instance.IsCommonEnemyDefeated(PersistenceId);
@@ -691,7 +713,7 @@ public partial class Enemy : CharacterBody2D
 			return;
 		}
 
-		Node2D player = GetTree().GetFirstNodeInGroup("player") as Node2D;
+		Node2D player = EnemyTargeting.Current(GetTree());
 		if (player is not null)
 		{
 			float distanceX = player.GlobalPosition.X - GlobalPosition.X;
@@ -914,6 +936,49 @@ public partial class Enemy : CharacterBody2D
 		string anim = Mathf.Abs(velocity.X) > 5f ? "run" : "idle";
 		if (Sprite.Animation != anim)
 			Sprite.Play(anim);
+	}
+
+	// Shadow marks: every shadow hit stacks one (up to MaxShadowMarks); the player's sword cashes
+	// them all in at once for a detonation (Player.DetonateShadowMarks). They fade if left alone.
+	public const int MaxShadowMarks = 3;
+	[Export] public float ShadowMarkDuration = 6f;
+	public int ShadowMarks { get; private set; }
+	private ShadowMarkVisual _shadowMarkVisual;
+
+	public void AddShadowMark(int count = 1)
+	{
+		if (IsQueuedForRemoval || Stats is not { CurrentHealth: > 0 })
+			return;
+		ShadowMarks = Mathf.Min(MaxShadowMarks, ShadowMarks + count);
+		if (_shadowMarkVisual is null)
+		{
+			// The visual owns the fade-out timer: plenty of subclasses override _PhysicsProcess
+			// without calling base, so the enemy itself can't be trusted to tick it.
+			_shadowMarkVisual = new ShadowMarkVisual { Name = "MarcaSombra" };
+			_shadowMarkVisual.Expired += () => ConsumeShadowMarks();
+			AddChild(_shadowMarkVisual);
+		}
+		_shadowMarkVisual.Position = new Vector2(0f, -MarkHeight());
+		_shadowMarkVisual.SetMarks(ShadowMarks, ShadowMarkDuration);
+		ShadowImpact.SpawnAt(this, GlobalPosition + new Vector2(0f, -MarkHeight() * 0.5f), 0.6f);
+	}
+
+	// Takes every mark off (for the detonation) and returns how many there were.
+	public int ConsumeShadowMarks()
+	{
+		int marks = ShadowMarks;
+		ShadowMarks = 0;
+		_shadowMarkVisual?.SetMarks(0, 0f);
+		return marks;
+	}
+
+	// Roughly the top of the sprite, so the mark pips float over the head.
+	private float MarkHeight()
+	{
+		if (Sprite?.SpriteFrames is { } frames && frames.GetFrameCount(Sprite.Animation) > 0
+			&& frames.GetFrameTexture(Sprite.Animation, 0) is { } tex)
+			return Mathf.Clamp(tex.GetHeight() * Mathf.Abs(Sprite.Scale.Y) * 0.55f, 24f, 140f);
+		return 48f;
 	}
 
 	// Soft body separation from the player (see Player.BodyPushX): moves this enemy sideways when
