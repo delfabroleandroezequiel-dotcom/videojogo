@@ -153,6 +153,10 @@ public partial class LightningBeamTrap : Node2D
 		foreach (ulong id in keys)
 			_rehitTimers[id] -= dt;
 
+		// Monitoring is switched on deferred in SetPhase, so the first On frame can still find it off.
+		if (!_hitArea.Monitoring)
+			return;
+
 		foreach (Node2D body in _hitArea.GetOverlappingBodies())
 		{
 			bool isPlayer = body.IsInGroup("player");

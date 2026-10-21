@@ -9,6 +9,7 @@
 [ext_resource type="Material" uid="uid://dyscjj6pn2yrt" path="res://resources/particles/PolvoCuevaAzul.tres" id="7_polvo"]
 [ext_resource type="Script" uid="uid://dgfme40ce5n06" path="res://scripts/world/GroundFog.cs" id="8_niebla"]
 [ext_resource type="Texture2D" uid="uid://c8u136yyw3rtd" path="res://resources/vfx/FogBlobGradient.tres" id="9_blob"]
+[ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="10_luz"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_piso"]
 size = Vector2(2172, 60)
@@ -54,9 +55,10 @@ position = Vector2(-700, 220)
 
 [node name="Lugia" parent="." unique_id=315867378 instance=ExtResource("4_lugia")]
 position = Vector2(600, 200)
+ShowcaseMode = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1378193809]
-color = Color(0.62, 0.65, 0.76, 1)
+color = Color(0.05, 0.05, 0.08, 1)
 
 [node name="PolvoFlotante" type="GPUParticles2D" parent="." unique_id=1582020620]
 position = Vector2(0, -40)
@@ -68,6 +70,7 @@ randomness = 0.5
 process_material = ExtResource("7_polvo")
 
 [node name="NieblaAgua" type="Node2D" parent="." unique_id=721698464]
+visible = false
 z_index = -1
 position = Vector2(0, 205)
 script = ExtResource("8_niebla")
@@ -76,3 +79,10 @@ BlobCount = 8
 AreaWidth = 2172.0
 AreaHeight = 110.0
 TintColor = Color(0.45, 0.65, 0.95, 0.35)
+
+[node name="LuzLuna" type="PointLight2D" parent="." unique_id=688383033]
+position = Vector2(0, -260)
+color = Color(0.62, 0.72, 1, 1)
+energy = 1.3
+texture = ExtResource("10_luz")
+texture_scale = 9.0

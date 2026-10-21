@@ -101,6 +101,54 @@ public partial class LugiaBoss : Enemy
 	// How long the player keeps the red burn tint after the last tick.
 	[Export] public float BurnTintLinger = 0.6f;
 
+	[ExportGroup("Phase 2")]
+	// At PhaseTwoHealthRatio it channels darkness and explodes (a strong unparryable blast around it,
+	// humanities flung everywhere), then fights on with the same moves plus the humanity orbs.
+	[Export] public float PhaseTwoHealthRatio = 0.5f;
+	[Export] public float PhaseChargeTime = 1.4f;
+	[Export] public float PhaseBlastRadius = 380f;
+	[Export] public float PhaseBlastDamageMultiplier = 2.2f;
+	[Export] public int PhaseScatterOrbs = 12;
+	// Humanity orbs: rise around it, hang, then home in on the player one after another.
+	[Export] public int OrbCount = 6;
+	[Export] public float OrbCooldown = 9f;
+	[Export] public float OrbChance = 0.4f;
+	[Export] public float OrbMinRange = 180f;
+	[Export] public float OrbLaunchInterval = 0.25f;
+	[Export] public float OrbDamageMultiplier = 0.8f;
+	[Export] public float OrbRecovery = 1f;
+	// Near death: the focused beam — DesperationSweeps sweeps in a row, then it collapses, dying,
+	// wide open for DesperationDownTime.
+	[Export] public float DesperationHealthRatio = 0.15f;
+	[Export] public int DesperationSweeps = 6;
+	[Export] public float DesperationSweepTime = 0.55f;
+	[Export] public float DesperationDownTime = 4f;
+
+	[ExportGroup("Showcase (video)")]
+	// For filming: ignores distances/cooldowns and plays every move in a fixed order, looping, with
+	// ShowcasePause between them. Claw moves wait (up to ShowcaseApproachTime) for it to walk into
+	// claw range first. Punish reactions (under-fire) only come as their own step.
+	[Export] public bool ShowcaseMode;
+	[Export] public float ShowcasePause = 1.2f;
+	[Export] public float ShowcaseApproachTime = 3f;
+
+	[ExportGroup("Body chaos")]
+	// Midir must always look unstable, whatever it's doing: the sprite jitters, dark afterimages
+	// shudder out of sync behind it, smoke and embers keep coming off its body. All of it grows as it
+	// loses health and while it's mid-attack; asleep it's still (contrast for the wake-up).
+	// Jitter, in sheet pixels (the sprite is drawn ×3).
+	[Export] public float JitterAmount = 0.7f;
+	[Export] public float JitterInterval = 0.05f;
+	[Export] public int GhostCount = 2;
+	[Export] public float GhostSpread = 13f;
+	[Export] public Color GhostColor = new(0.6f, 0.35f, 1f, 0.6f);
+	[Export] public int SmokeAmount = 34;
+	[Export] public Color SmokeColor = new(0.6f, 0.55f, 0.75f, 0.5f);
+	[Export] public int BodyEmberAmount = 20;
+	// Jitter/ghost spread multiplier at 0 health (1 at full).
+	[Export] public float ChaosAtLowHealth = 2.2f;
+	[Export] public float ChaosWhileAttacking = 1.5f;
+
 	[ExportGroup("Crystal sheen")]
 	// Faint cool light on the body so the silver-lavender scales read in dark (CanvasModulate) arenas —
 	// with HDR 2D the modulate crushes the sprite's darks much harder than the bright backdrop.
@@ -166,6 +214,15 @@ public partial class LugiaBoss : Enemy
 	[Export] public float RushHitWidth = 120f;
 	[Export] public float RushHitHeight = 55f;
 	[Export] public float RushRecovery = 0.9f;
+	// The air assault and the rush are its two "big" moves: the sweep may flow straight into a rush
+	// (RushAfterSweepChance — a good back-to-back), but after either, both are locked for
+	// BigMoveLockout so it doesn't loop them while the player is far away (it walks in instead).
+	[Export] public float RushAfterSweepChance = 0.6f;
+	[Export] public float BigMoveLockout = 12f;
+	// Big moves only from this far out, rolled every BigMoveRollInterval (chances FlightChance / RushChance).
+	[Export] public float BigMoveMinRange = 300f;
+	[Export] public float BigMoveRollInterval = 1.2f;
+	[Export] public float FlightChance = 0.45f;
 
 	[ExportGroup("Air assault")]
 	[Export] public float FlightCooldown = 11f;
@@ -219,6 +276,9 @@ public partial class LugiaBoss : Enemy
 	// Its sight while asleep — shorter than DetectionRange so the player gets to see it lying there
 	// (the camera shows ~460px each side) before it notices them.
 	[Export] public float WakeRange = 400f;
+	// Intro close-up: camera centred on it (plus this offset) at IntroZoom × the map's zoom.
+	[Export] public float IntroZoom = 1.35f;
+	[Export] public Vector2 IntroCameraOffset = new(0f, -20f);
 	// Once awake it's a boss fight: it tracks the player anywhere in the arena (the profile's DetectionRange
 	// is too short — after a rush to the far wall it would lose the player and stand idle).
 	[Export] public float AwakeDetectionRange = 3000f;
@@ -265,6 +325,11 @@ public partial class LugiaBoss : Enemy
 	private float _fireCooldownTimer;
 	private float _flightCooldownTimer;
 	private float _rushCooldownTimer;
+	private bool _chainRush;
+	private bool _phaseTwo;
+	private bool _desperationDone;
+	private float _orbCooldownTimer;
+	private float _bigMoveRollTimer;
 	private float _underFireCooldownTimer;
 	private float _beamCooldownTimer;
 	private bool _beamUnlockedUsed;
@@ -305,6 +370,7 @@ public partial class LugiaBoss : Enemy
 		_clawHitbox = BuildHitbox("ClawHitbox", new CircleShape2D { Radius = ClawRadius });
 		_rushHitbox = BuildHitbox("RushHitbox", new RectangleShape2D { Size = new Vector2(RushHitWidth, RushHitHeight) });
 		BuildBreath();
+		BuildBodyChaos();
 		_clawTrail = new EnemySlashTrail
 		{
 			CoreWidth = 6f,
@@ -392,6 +458,8 @@ public partial class LugiaBoss : Enemy
 		_rushCooldownTimer -= dt;
 		_underFireCooldownTimer -= dt;
 		_beamCooldownTimer -= dt;
+		_bigMoveRollTimer -= dt;
+		_orbCooldownTimer -= dt;
 
 		base._PhysicsProcess(delta);
 		if (_asleep)
@@ -405,7 +473,22 @@ public partial class LugiaBoss : Enemy
 			return;
 		}
 		// Being punished hard → rises and pours fire under itself, even out of its own recovery.
-		if (!IsQueuedForRemoval && IsOnFloor() && (!_busy || _recovering) && PunishedHard())
+		// Phase change and the near-death beam take over as soon as it's free (or recovering).
+		if (!ShowcaseMode && !IsQueuedForRemoval && IsOnFloor() && (!_busy || _recovering))
+		{
+			float hp = (float)Stats.CurrentHealth / Mathf.Max(1, Stats.MaxHealth);
+			if (!_phaseTwo && hp <= PhaseTwoHealthRatio)
+			{
+				_ = PhaseTransition();
+				return;
+			}
+			if (_phaseTwo && !_desperationDone && hp <= DesperationHealthRatio)
+			{
+				_ = DesperationBeam();
+				return;
+			}
+		}
+		if (!ShowcaseMode && !IsQueuedForRemoval && IsOnFloor() && (!_busy || _recovering) && PunishedHard())
 		{
 			_ = UnderFire();
 			return;
@@ -419,19 +502,49 @@ public partial class LugiaBoss : Enemy
 
 		float distance = Mathf.Abs(player.GlobalPosition.X - GlobalPosition.X);
 
-		if (_flightCooldownTimer <= 0f)
-			_ = AirAssault(player);
-		else if (distance <= ClawRange && _clawCooldownTimer <= 0f)
+		if (ShowcaseMode)
+		{
+			RunShowcaseStep(player, distance);
+			return;
+		}
+
+		if (_chainRush)
+		{
+			_chainRush = false;
+			_ = SavageRush(player);
+			return;
+		}
+		// Close → claws. Mid range → fire (or the beam). Far → one of the big moves, rolled now and
+		// then (not every frame) so it also just walks in sometimes.
+		if (distance <= ClawRange && _clawCooldownTimer <= 0f)
 		{
 			if (_rng.Randf() < ClawTripleChance)
 				_ = ClawTripleRoar();
 			else
 				_ = ClawCombo(_rng.Randf() < ClawSpitChance);
+			return;
 		}
-		else if (distance >= RushMinRange && _rushCooldownTimer <= 0f && _rng.Randf() < RushChance)
-			_ = SavageRush(player);
-		else if (distance >= FireMinRange && distance <= FireMaxRange && _fireCooldownTimer <= 0f)
+		if (_phaseTwo && distance >= OrbMinRange && _orbCooldownTimer <= 0f && _bigMoveRollTimer <= 0f)
+		{
+			_bigMoveRollTimer = BigMoveRollInterval;
+			if (_rng.Randf() < OrbChance)
+			{
+				_ = HumanityOrbs(player);
+				return;
+			}
+		}
+		if (distance >= FireMinRange && distance <= FireMaxRange && _fireCooldownTimer <= 0f)
+		{
 			_ = ShouldBeam() ? DarkBeam() : FireBreath();
+			return;
+		}
+		if (distance < BigMoveMinRange || _bigMoveRollTimer > 0f)
+			return;
+		_bigMoveRollTimer = BigMoveRollInterval;
+		if (_flightCooldownTimer <= 0f && _rng.Randf() < FlightChance)
+			_ = AirAssault(player);
+		else if (_rushCooldownTimer <= 0f && _rng.Randf() < RushChance)
+			_ = SavageRush(player);
 	}
 
 	protected override float ComputeMoveX(Node2D player, float distanceX, float currentVelocityX, double delta)
@@ -872,7 +985,8 @@ public partial class LugiaBoss : Enemy
 	private async Task SavageRush(Metroidvania.Player.Player player)
 	{
 		_busy = true;
-		_rushCooldownTimer = RushCooldown;
+		_rushCooldownTimer = Mathf.Max(RushCooldown, BigMoveLockout);
+		_flightCooldownTimer = Mathf.Max(_flightCooldownTimer, BigMoveLockout);
 		Velocity = new Vector2(0f, Velocity.Y);
 		FaceTowards(player.GlobalPosition.X);
 		float dir = FacingRight ? 1f : -1f;
@@ -886,30 +1000,28 @@ public partial class LugiaBoss : Enemy
 		player.ShakeCamera(5f, RushTellDuration);
 		if (!await Wait(RushTellDuration))
 			return;
+		// The glow sits where the mouth is in the breath pose — running, the head is elsewhere and it
+		// would float on the chest. Snuff it as it sets off.
+		_breathTween?.Kill();
+		_mouthGlow.Modulate = BreathFlameColor with { A = 0f };
 
 		// Body hitbox: low, in front of the chest — jumpable.
 		_rushHitbox.Position = new Vector2(dir * RushHitWidth * 0.25f, BodyBottom - RushHitHeight * 0.5f);
-		_breath.Position = GroundMouth;
-		_breath.RotationDegrees = GroundBreathAngle;
-		_embers.Position = GroundMouth;
-		_embers.RotationDegrees = GroundBreathAngle;
 
 		float elapsed = 0f;
 		int swipes = 0;
 		bool reachedEnd = false;
 		while (!reachedEnd && elapsed < RushMaxTime)
 		{
-			// A stretch of running and breathing fire.
+			// A stretch of running (no fire while running — it has no animation for it; the fire comes at
+			// the end, a short spit with the proper breath pose).
 			if (Sprite is not null)
 			{
 				Sprite.SpeedScale = RushRunSpeedScale;
 				Sprite.Play("run");
 			}
 			_rushHitbox.Activate(Stats);
-			_breath.Emitting = true;
-			_embers.Emitting = true;
 			float stretch = 0f;
-			float tickTimer = 0f;
 			while (stretch < RushFireStretch)
 			{
 				if (!CanStepTo(dir))
@@ -919,10 +1031,6 @@ public partial class LugiaBoss : Enemy
 				}
 				float dt = (float)GetPhysicsProcessDeltaTime();
 				Velocity = new Vector2(dir * RushSpeed, Velocity.Y);
-				_breathLight.Energy = BreathLightEnergy * _rng.RandfRange(0.5f, 1f);
-				tickTimer -= dt;
-				if (tickTimer <= 0f && BurnPlayerIfInCone(SpitAreaCenter, SpitAreaSize))
-					tickTimer = BreathTickInterval;
 				if (!await Wait(0f))
 				{
 					EndRush();
@@ -932,9 +1040,6 @@ public partial class LugiaBoss : Enemy
 				elapsed += dt;
 			}
 			_rushHitbox.Deactivate();
-			_breath.Emitting = false;
-			_embers.Emitting = false;
-			_breathLight.Energy = 0f;
 			if (Sprite is not null)
 				Sprite.SpeedScale = 1f;
 			if (reachedEnd || swipes >= RushMaxSwipes)
@@ -947,7 +1052,7 @@ public partial class LugiaBoss : Enemy
 				EndRush();
 				return;
 			}
-			// Fire, swipe, fire, swipe — then it's done (it used to keep charging to the far wall).
+			// Run, swipe, run, swipe — then the closing spit (it used to keep charging to the far wall).
 			if (swipes >= RushMaxSwipes)
 				break;
 			elapsed += 0.5f;
@@ -955,6 +1060,10 @@ public partial class LugiaBoss : Enemy
 
 		EndRush();
 		Velocity = new Vector2(0f, Velocity.Y);
+		// Last word: a short spit of fire with the breath animation.
+		FaceTowardsPlayer();
+		if (!await Breathe("fire_attack", GroundMouth, GroundBreathAngle, SpitAreaCenter, SpitAreaSize, ClawSpitDuration, ClawSpitGatherSpeed))
+			return;
 		// Spent: the punish window.
 		EndMove(RushRecovery);
 	}
@@ -970,7 +1079,8 @@ public partial class LugiaBoss : Enemy
 	private async Task AirAssault(Metroidvania.Player.Player player)
 	{
 		_busy = true;
-		_flightCooldownTimer = FlightCooldown;
+		_flightCooldownTimer = Mathf.Max(FlightCooldown, BigMoveLockout);
+		_rushCooldownTimer = Mathf.Max(_rushCooldownTimer, BigMoveLockout);
 		Velocity = Vector2.Zero;
 
 		// Take off.
@@ -1015,7 +1125,464 @@ public partial class LugiaBoss : Enemy
 		Sprite?.Play("land");
 		if (!await Wait(0.2f))
 			return;
-		EndMove(FlightRecovery);
+		// Sometimes it lands straight into a rush.
+		_chainRush = _rng.Randf() < RushAfterSweepChance;
+		EndMove(_chainRush ? 0.15f : FlightRecovery);
+	}
+
+	// ── Phase 2 ─────────────────────────────────────────────────────────────────────────────
+
+	// Channels darkness (violet motes sucked in, the ground shaking harder and harder), then it all
+	// goes off: a blast around it that can't be parried, the screen flashes, humanities fly everywhere.
+	private async Task PhaseTransition()
+	{
+		_busy = true;
+		_recovering = false;
+		_moveSerial++;
+		_phaseTwo = true;
+		_orbCooldownTimer = 3f;
+		Velocity = new Vector2(0f, Velocity.Y);
+		var player = PlayerReads.Find(this);
+
+		Sprite?.Play("idle_run");
+		GpuParticles2D charge = SpawnBeamCharge();
+		if (charge is not null)
+		{
+			charge.Position = new Vector2(0f, -30f);
+			charge.Amount = 120;
+		}
+		_mouthGlow.Position = new Vector2(0f, -30f);
+		_breathTween?.Kill();
+		_breathTween = CreateTween();
+		_breathTween.TweenProperty(_mouthGlow, "modulate", BeamGlowColor with { A = 1f }, PhaseChargeTime);
+		_breathTween.Parallel().TweenProperty(_mouthGlow, "scale", Vector2.One * 3.5f, PhaseChargeTime);
+		_breathTween.Parallel().TweenProperty(_breathLight, "color", BeamGlowColor, 0.2f);
+		_breathTween.Parallel().TweenProperty(_breathLight, "energy", BreathLightEnergy * 2.5f, PhaseChargeTime);
+		float t = 0f;
+		while (t < PhaseChargeTime)
+		{
+			player?.ShakeCamera(Mathf.Lerp(3f, 14f, t / PhaseChargeTime), 0.15f);
+			if (!await Wait(0.1f))
+			{
+				charge?.QueueFree();
+				EndBeamLook();
+				return;
+			}
+			t += 0.1f;
+		}
+		if (charge is not null)
+			charge.Emitting = false;
+
+		// The blast.
+		Vector2 center = GlobalPosition + new Vector2(0f, -20f);
+		player?.ShakeCamera(28f, 1.2f);
+		ScreenFlash(BeamCoreColor, 0.5f);
+		RoarDust();
+		SpawnShockRing(center, PhaseBlastRadius);
+		for (int i = 0; i < 10; i++)
+			SpawnWindStreak(center, Vector2.Right.Rotated(Mathf.Tau * i / 10f), 1f, PhaseBlastRadius * 1.3f, RoarStreakLength, 15f, BeamWindColor);
+		if (player is not null && player.GlobalPosition.DistanceTo(center) <= PhaseBlastRadius)
+			HitUnparryable(player, PhaseBlastDamageMultiplier, center, BeamKnockback * 1.3f);
+		ScatterHumanities(center, player);
+		EndBeamLook();
+		// Spent from the blast for a moment.
+		EndMove(1.2f);
+	}
+
+	// Humanities flung out of the blast in every direction, which then turn on the player.
+	private void ScatterHumanities(Vector2 center, Metroidvania.Player.Player player)
+	{
+		if (GetTree().CurrentScene is not Node scene)
+			return;
+		for (int i = 0; i < PhaseScatterOrbs; i++)
+		{
+			// Blown out every which way, they slow down, then come for the player.
+			var orb = new HumanityOrb
+			{
+				LaunchVelocity = Vector2.Right.Rotated(_rng.RandfRange(0f, Mathf.Tau)) * _rng.RandfRange(350f, 750f),
+				HangTime = _rng.RandfRange(0.6f, 1.2f),
+				Target = player,
+				OnHitPlayer = at => { if (player is not null) HitUnparryable(player, OrbDamageMultiplier, at, BeamKnockback * 0.5f); },
+			};
+			scene.AddChild(orb);
+			orb.GlobalPosition = center;
+		}
+	}
+
+	// Humanities rise out of the ground around it and come for the player one after another.
+	private async Task HumanityOrbs(Metroidvania.Player.Player player)
+	{
+		_busy = true;
+		_orbCooldownTimer = OrbCooldown;
+		Velocity = new Vector2(0f, Velocity.Y);
+		FaceTowards(player.GlobalPosition.X);
+		Sprite?.Play("idle_run");
+		float floorY = FloorBelow(GlobalPosition) ?? GlobalPosition.Y + BodyBottom;
+		if (GetTree().CurrentScene is not Node scene)
+			return;
+		var orbs = new System.Collections.Generic.List<HumanityOrb>();
+		for (int i = 0; i < OrbCount; i++)
+		{
+			float x = GlobalPosition.X + _rng.RandfRange(-260f, 260f);
+			var orb = new HumanityOrb
+			{
+				Target = player,
+				// Each one waits a little longer before it goes, so they come one after another.
+				HangTime = 0.4f + i * OrbLaunchInterval,
+				OnHitPlayer = at => HitUnparryable(player, OrbDamageMultiplier, at, BeamKnockback * 0.5f),
+			};
+			scene.AddChild(orb);
+			orb.GlobalPosition = new Vector2(x, floorY - 10f);
+			orbs.Add(orb);
+			player.ShakeCamera(3f, 0.1f);
+			if (!await Wait(0.08f))
+				return;
+		}
+		EndMove(OrbRecovery);
+	}
+
+	// The focused beam near death: DesperationSweeps sweeps in a row (floor, then air, alternating,
+	// turning to face the player each time), then it collapses, dying, wide open.
+	private async Task DesperationBeam()
+	{
+		_busy = true;
+		_recovering = false;
+		_moveSerial++;
+		_desperationDone = true;
+		Velocity = new Vector2(0f, Velocity.Y);
+		var player = PlayerReads.Find(this);
+		if (Sprite is null)
+			return;
+
+		// Charge: longer and more violent than the normal beam's.
+		FaceTowardsPlayer();
+		Sprite.Play("fire_attack");
+		while (Sprite.Animation == "fire_attack" && Sprite.IsPlaying() && Sprite.Frame < BreathFrame)
+		{
+			if (!await Wait(0f))
+				return;
+		}
+		Sprite.Pause();
+		_mouthGlow.Position = GroundMouth;
+		GpuParticles2D charge = SpawnBeamCharge();
+		_breathTween?.Kill();
+		_breathTween = CreateTween();
+		_breathTween.TweenProperty(_mouthGlow, "modulate", BeamGlowColor with { A = 1f }, BeamChargeTime * 2f);
+		_breathTween.Parallel().TweenProperty(_breathLight, "color", BeamGlowColor, 0.2f);
+		player?.ShakeCamera(10f, BeamChargeTime * 2f);
+		if (!await Wait(BeamChargeTime * 2f))
+		{
+			charge?.QueueFree();
+			EndBeamLook();
+			return;
+		}
+		if (charge is not null)
+			charge.Emitting = false;
+		RoarDarkenFlash();
+		RoarDust();
+
+		for (int i = 0; i < DesperationSweeps; i++)
+		{
+			FaceTowardsPlayer();
+			float dir = FacingRight ? 1f : -1f;
+			Vector2 mouth = GlobalPosition + new Vector2(dir * GroundMouth.X, GroundMouth.Y);
+			float floorY = FloorBelow(mouth) ?? GlobalPosition.Y + BodyBottom;
+			var beam = new DarkBeamVisual(BeamGlowColor, BeamCoreColor);
+			GetTree().CurrentScene.AddChild(beam);
+			bool ok;
+			if (i % 2 == 0)
+			{
+				// Along the floor, out to its reach.
+				ok = await SweepBeam(beam, mouth, dir, DesperationSweepTime, t =>
+					new Vector2(mouth.X + dir * Mathf.Lerp(90f, BeamReach, t), floorY), markGround: true, null);
+			}
+			else
+			{
+				// Back from high in the air down onto the floor near it.
+				float high = new Vector2(dir, 0f).Rotated(-dir * Mathf.DegToRad(BeamAirAngle)).Angle();
+				float low = (new Vector2(mouth.X + dir * 120f, floorY) - mouth).Angle();
+				ok = await SweepBeam(beam, mouth, dir, DesperationSweepTime, t =>
+					mouth + Vector2.Right.Rotated(Mathf.LerpAngle(high, low, t)) * BeamReach, markGround: false, null);
+			}
+			beam.FadeOut();
+			if (!ok)
+			{
+				EndBeamLook();
+				return;
+			}
+			if (!await Wait(0.12f))
+			{
+				EndBeamLook();
+				return;
+			}
+		}
+		EndBeamLook();
+
+		// Dying: it collapses (the death frames up to lying down), breathes heavily, then hauls
+		// itself back up.
+		Sprite.Play("death");
+		while (Sprite.Animation == "death" && Sprite.Frame < 3)
+		{
+			if (!await Wait(0f))
+				return;
+		}
+		Sprite.Play("sleep");
+		Sprite.Position = _spriteBasePosition - new Vector2(0f, SleepPoseLift);
+		float down = 0f;
+		while (down < DesperationDownTime)
+		{
+			float rise = 0.04f * Mathf.Sin(down * Mathf.Tau / 0.9f);
+			Sprite.Scale = new Vector2(_spriteBaseScale.X, _spriteBaseScale.Y * (1f + rise));
+			if (!await Wait(0f))
+				return;
+			down += (float)GetPhysicsProcessDeltaTime();
+		}
+		Sprite.Scale = _spriteBaseScale;
+		Sprite.Play("wake");
+		while (Sprite.Animation == "wake" && Sprite.IsPlaying())
+		{
+			Sprite.Position = _spriteBasePosition - new Vector2(0f, Sprite.Frame <= 1 ? SleepPoseLift : 0f);
+			if (!await Wait(0f))
+				return;
+		}
+		Sprite.Position = _spriteBasePosition;
+		EndMove(0.4f);
+	}
+
+	private void ScreenFlash(Color color, float duration)
+	{
+		if (GetTree().CurrentScene is not Node scene)
+			return;
+		var layer = new CanvasLayer { Layer = 50 };
+		var flash = new ColorRect { Color = color with { A = 0.85f }, MouseFilter = Control.MouseFilterEnum.Ignore };
+		flash.SetAnchorsPreset(Control.LayoutPreset.FullRect);
+		layer.AddChild(flash);
+		scene.AddChild(layer);
+		Tween tween = flash.CreateTween();
+		tween.TweenProperty(flash, "color:a", 0f, duration);
+		tween.TweenCallback(Callable.From(layer.QueueFree));
+	}
+
+	// A violet shockwave ring racing out to `radius`.
+	private void SpawnShockRing(Vector2 at, float radius)
+	{
+		if (GetTree().CurrentScene is not Node scene)
+			return;
+		var ring = new Line2D
+		{
+			Width = 14f,
+			DefaultColor = BeamGlowColor,
+			Closed = true,
+			Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add },
+			ZIndex = 6,
+		};
+		for (int i = 0; i < 48; i++)
+			ring.AddPoint(Vector2.Right.Rotated(Mathf.Tau * i / 48f) * 40f);
+		scene.AddChild(ring);
+		ring.GlobalPosition = at;
+		Tween tween = ring.CreateTween();
+		tween.TweenProperty(ring, "scale", Vector2.One * (radius / 40f), 0.45f).From(Vector2.One * 0.2f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Cubic);
+		tween.Parallel().TweenProperty(ring, "modulate:a", 0f, 0.6f);
+		tween.Parallel().TweenProperty(ring, "width", 3f, 0.6f);
+		tween.TweenCallback(Callable.From(ring.QueueFree));
+	}
+
+	// ── Showcase (video) ────────────────────────────────────────────────────────────────────
+
+	private int _showcaseStep;
+	private float _showcaseWait;
+	private float _showcaseApproach;
+
+	// Order of the reel: close-range claws, the breath, the big moves, the punish reaction, the beam.
+	private static readonly string[] ShowcaseOrder =
+	{
+		"claws", "claws_spit", "claws_roar", "fire", "rush", "air", "rush", "under_fire", "beam", "phase", "orbs", "desperation",
+	};
+
+	private void RunShowcaseStep(Metroidvania.Player.Player player, float distance)
+	{
+		float dt = (float)GetPhysicsProcessDeltaTime();
+		if (_showcaseWait > 0f)
+		{
+			_showcaseWait -= dt;
+			return;
+		}
+		string step = ShowcaseOrder[_showcaseStep % ShowcaseOrder.Length];
+		bool needsClose = step.StartsWith("claws");
+		if (needsClose && distance > ClawRange && _showcaseApproach < ShowcaseApproachTime)
+		{
+			// Let the normal movement walk it in first.
+			_showcaseApproach += dt;
+			return;
+		}
+		_showcaseApproach = 0f;
+		_showcaseStep++;
+		_showcaseWait = ShowcasePause;
+		GD.Print($"[Midir showcase] {step}");
+		switch (step)
+		{
+			case "claws": _ = ClawCombo(false); break;
+			case "claws_spit": _ = ClawCombo(true); break;
+			case "claws_roar": _ = ClawTripleRoar(); break;
+			case "fire": _ = FireBreath(); break;
+			case "rush": _ = SavageRush(player); break;
+			case "air": _ = AirAssault(player); break;
+			case "under_fire": _ = UnderFire(); break;
+			case "phase": _ = PhaseTransition(); break;
+			case "orbs": _ = HumanityOrbs(player); break;
+			case "desperation": _ = DesperationBeam(); break;
+			default: _ = DarkBeam(); break;
+		}
+	}
+
+	// ── Body chaos ──────────────────────────────────────────────────────────────────────────
+
+	private readonly System.Collections.Generic.List<Sprite2D> _ghosts = new();
+	private readonly System.Collections.Generic.List<Vector2> _ghostOffsets = new();
+	private GpuParticles2D _bodySmoke;
+	private GpuParticles2D _bodyEmbers;
+	private float _jitterTimer;
+
+	private void BuildBodyChaos()
+	{
+		if (Sprite is null)
+			return;
+		for (int i = 0; i < GhostCount; i++)
+		{
+			var ghost = new Sprite2D
+			{
+				Name = $"Fantasma{i}",
+				Modulate = GhostColor,
+				Scale = Sprite.Scale,
+				// Additive: a dark tint would vanish against the dark body and cave.
+				Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add },
+				ShowBehindParent = true,
+				Visible = false,
+			};
+			Visual.AddChild(ghost);
+			Visual.MoveChild(ghost, 0);
+			_ghosts.Add(ghost);
+			_ghostOffsets.Add(Vector2.Zero);
+		}
+
+		var dot = GD.Load<Texture2D>("res://resources/particles/SoftDotGradient.tres");
+		var grow = new Curve { MaxValue = 3f };
+		grow.AddPoint(new Vector2(0f, 0.6f));
+		grow.AddPoint(new Vector2(1f, 2.2f));
+		var smokeRamp = new Gradient
+		{
+			Offsets = new[] { 0f, 0.25f, 1f },
+			Colors = new[] { SmokeColor with { A = 0f }, SmokeColor, SmokeColor with { A = 0f } },
+		};
+		// Off the back and wings, drifting up and churning.
+		_bodySmoke = new GpuParticles2D
+		{
+			Name = "HumoCuerpo",
+			Amount = SmokeAmount,
+			Lifetime = 1.8f,
+			Randomness = 0.5f,
+			LocalCoords = false,
+			Texture = dot,
+			Position = new Vector2(10f, -30f),
+			ProcessMaterial = new ParticleProcessMaterial
+			{
+				EmissionShape = ParticleProcessMaterial.EmissionShapeEnum.Box,
+				EmissionBoxExtents = new Vector3(70f, 35f, 1f),
+				Direction = new Vector3(0f, -1f, 0f),
+				Spread = 35f,
+				InitialVelocityMin = 15f,
+				InitialVelocityMax = 45f,
+				Gravity = new Vector3(0f, -25f, 0f),
+				ScaleMin = 0.35f,
+				ScaleMax = 0.7f,
+				ScaleCurve = new CurveTexture { Curve = grow },
+				ColorRamp = new GradientTexture1D { Gradient = smokeRamp },
+				TurbulenceEnabled = true,
+				TurbulenceNoiseStrength = 4f,
+				TurbulenceNoiseScale = 2f,
+				TurbulenceInfluenceMin = 0.1f,
+				TurbulenceInfluenceMax = 0.3f,
+			},
+		};
+		Visual.AddChild(_bodySmoke);
+		Visual.MoveChild(_bodySmoke, 0);
+
+		var emberRamp = new Gradient
+		{
+			Offsets = new[] { 0f, 0.5f, 1f },
+			Colors = new[] { new Color(1f, 0.8f, 0.5f, 1f), new Color(0.75f, 0.35f, 1f, 1f), new Color(0.5f, 0.2f, 0.9f, 0f) },
+		};
+		_bodyEmbers = new GpuParticles2D
+		{
+			Name = "BrasasCuerpo",
+			Amount = BodyEmberAmount,
+			Lifetime = 1.4f,
+			Randomness = 0.6f,
+			LocalCoords = false,
+			Texture = dot,
+			Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add },
+			Position = new Vector2(10f, -30f),
+			ProcessMaterial = new ParticleProcessMaterial
+			{
+				EmissionShape = ParticleProcessMaterial.EmissionShapeEnum.Box,
+				EmissionBoxExtents = new Vector3(70f, 35f, 1f),
+				Direction = new Vector3(0f, -1f, 0f),
+				Spread = 50f,
+				InitialVelocityMin = 25f,
+				InitialVelocityMax = 80f,
+				Gravity = new Vector3(0f, -20f, 0f),
+				ScaleMin = 0.03f,
+				ScaleMax = 0.07f,
+				ColorRamp = new GradientTexture1D { Gradient = emberRamp },
+				TurbulenceEnabled = true,
+				TurbulenceNoiseStrength = 6f,
+				TurbulenceInfluenceMin = 0.2f,
+				TurbulenceInfluenceMax = 0.5f,
+			},
+		};
+		Visual.AddChild(_bodyEmbers);
+		SetBodyChaosActive(!_asleep);
+	}
+
+	private void SetBodyChaosActive(bool active)
+	{
+		if (_bodySmoke is not null)
+			_bodySmoke.Emitting = active;
+		if (_bodyEmbers is not null)
+			_bodyEmbers.Emitting = active;
+		foreach (Sprite2D ghost in _ghosts)
+			ghost.Visible = active;
+		if (!active && Sprite is not null)
+			Sprite.Offset = Vector2.Zero;
+	}
+
+	public override void _Process(double delta)
+	{
+		if (Sprite is null || (_asleep && !_waking) || IsQueuedForRemoval)
+			return;
+		float health = Stats is null ? 1f : (float)Stats.CurrentHealth / Mathf.Max(1, Stats.MaxHealth);
+		float chaos = Mathf.Lerp(ChaosAtLowHealth, 1f, health) * (_busy ? ChaosWhileAttacking : 1f);
+
+		// Jitter: a fresh random nudge every JitterInterval (not every frame — that just blurs).
+		_jitterTimer -= (float)delta;
+		if (_jitterTimer <= 0f)
+		{
+			_jitterTimer = JitterInterval;
+			Sprite.Offset = new Vector2(_rng.RandfRange(-1f, 1f), _rng.RandfRange(-1f, 1f)) * JitterAmount * chaos;
+			for (int i = 0; i < _ghostOffsets.Count; i++)
+				_ghostOffsets[i] = new Vector2(_rng.RandfRange(-1f, 1f), _rng.RandfRange(-0.6f, 0.6f)) * GhostSpread * chaos;
+		}
+
+		// Afterimages: the current frame, shoved out of sync behind the body.
+		Texture2D frame = Sprite.SpriteFrames?.GetFrameTexture(Sprite.Animation, Sprite.Frame);
+		for (int i = 0; i < _ghosts.Count; i++)
+		{
+			Sprite2D ghost = _ghosts[i];
+			ghost.Texture = frame;
+			ghost.FlipH = Sprite.FlipH;
+			ghost.Scale = Sprite.Scale;
+			ghost.Position = Sprite.Position + _ghostOffsets[i];
+		}
 	}
 
 	// ── Under fire ──────────────────────────────────────────────────────────────────────────
@@ -1264,11 +1831,13 @@ public partial class LugiaBoss : Enemy
 	private async Task WakeAndRoar()
 	{
 		_waking = true;
+		SetBodyChaosActive(true);
 		Sprite.Scale = _spriteBaseScale;
 		Sprite.Position = _spriteBasePosition - new Vector2(0f, SleepPoseLift);
 		var player = PlayerReads.Find(this);
 		player?.HoldForCutscene(true);
-		player?.FocusCameraDuringCutscene(GlobalPosition);
+		// Close-up centred on it, so the cinema bars don't cut it off.
+		player?.FocusCameraDuringCutscene(GlobalPosition + IntroCameraOffset, 1f, IntroZoom);
 		if (player is not null)
 			FaceTowards(player.GlobalPosition.X);
 

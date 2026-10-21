@@ -74,6 +74,13 @@ TargetSpawnPosition = Vector2(2788, 463)
 RequireInteract = true
 UseStoredReturnPosition = true
 
+[node name="EntradaCripta" parent="." instance=ExtResource("4_transition")]
+position = Vector2(-304, 215)
+TargetScenePath = "res://scenes/world/Mapas/Cripta/Cripta1_Escalera.tscn"
+TargetSpawnPosition = Vector2(1100, -40)
+RequireInteract = true
+Width = 48.0
+
 [node name="NpcBishop" parent="." unique_id=2040744673 instance=ExtResource("6_buob0")]
 position = Vector2(225, 134)
 CustomSpriteFrames = ExtResource("7_0c2r8")
