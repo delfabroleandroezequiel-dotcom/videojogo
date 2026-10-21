@@ -69,6 +69,11 @@ public partial class Hitbox : Area2D
 	// Fired after HitDealt when this hit broke the target's poise.
 	[Signal] public delegate void PoiseBrokenEventHandler();
 
+	// Fired after HitDealt when this hit took the target to 0 HP (a multi-life boss held at
+	// MinHealth never fires it). LastImpactPoint is where it landed.
+	[Signal] public delegate void KilledTargetEventHandler();
+	public Vector2 LastImpactPoint { get; private set; }
+
 	public bool IsActive => _shape is { Disabled: false };
 
 	private void OnBodyEntered(Node2D body)
@@ -84,6 +89,7 @@ public partial class Hitbox : Area2D
 
 		targetStats.TakeDamage(_attackerStats.AttackPower, element: _element, ignoreInvulnerability: pierce);
 		Vector2 impactPoint = (GlobalPosition + body.GlobalPosition) / 2f;
+		LastImpactPoint = impactPoint;
 		BloodEffect.SpawnAt(this, body.GlobalPosition);
 		if (_customImpactEffect is not null)
 		{
@@ -98,7 +104,9 @@ public partial class Hitbox : Area2D
 			VfxSpawner.SpawnAt(this, impactPoint, framesPath, animation, new Vector2(0f, 10f), modulate: _impactModulate);
 		}
 		EmitSignal(SignalName.HitDealt);
-		if (PoiseDamage is not null && body is Enemy enemy && enemy.TakePoiseDamage(PoiseDamage()))
+		if (targetStats.CurrentHealth <= 0)
+			EmitSignal(SignalName.KilledTarget);
+		else if (PoiseDamage is not null && body is Enemy enemy && enemy.TakePoiseDamage(PoiseDamage()))
 			EmitSignal(SignalName.PoiseBroken);
 
 		if (body.HasMethod("ApplyKnockback"))

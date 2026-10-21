@@ -37,6 +37,9 @@ public partial class Stats : Node
 	// Lets a controller (e.g. the player's block/parry state) veto an incoming hit before
 	// health/stamina are touched. Returning true fully negates the hit for this call.
 	public System.Func<bool> IncomingHitInterceptor { get; set; }
+	// Set by the interceptor right before it returns true to let this fraction of the hit through
+	// as chip damage (consumed by that same TakeDamage call).
+	public float PendingChipFraction { get; set; }
 
 	// Set by a controller while it wants regen slowed without fully pausing it — Dark Souls reduces
 	// (not stops) stamina recovery by 80% while guarding, so the player sets this to 0.2f while
@@ -100,10 +103,21 @@ public partial class Stats : Node
 		if (IsInvulnerable && !ignoreInvulnerability)
 			return;
 
-		if (IncomingHitInterceptor != null && IncomingHitInterceptor())
-			return;
-
 		float multiplier = element != DamageElement.Normal && element == Weakness ? WeaknessDamageMultiplier : 1f;
+		if (IncomingHitInterceptor != null && IncomingHitInterceptor())
+		{
+			// An imperfect parry: the interceptor stopped the hit but asked for a slice of it to go
+			// through anyway. Never kills, arms no i-frames and is not a HitTaken (no flinch/hit-stop).
+			if (PendingChipFraction > 0f)
+			{
+				int chip = Mathf.Max(1, Mathf.RoundToInt(incomingAttack * multiplier * PendingChipFraction));
+				PendingChipFraction = 0f;
+				CurrentHealth = Mathf.Max(Mathf.Max(MinHealth, 1), CurrentHealth - chip);
+				EmitSignal(SignalName.HealthChanged, CurrentHealth, MaxHealth);
+			}
+			return;
+		}
+
 		int damage = Mathf.Max(1, Mathf.RoundToInt(incomingAttack * multiplier) - Defense);
 		CurrentHealth = Mathf.Max(MinHealth, CurrentHealth - damage);
 		if (armInvulnerability)

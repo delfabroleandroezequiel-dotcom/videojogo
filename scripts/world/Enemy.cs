@@ -34,6 +34,14 @@ public partial class Enemy : CharacterBody2D
 	// overrides every other inline default below whenever a Profile is assigned.
 	[Export] public bool KnockbackEnabled = false;
 	[Export] public float KnockbackDuration = 0.2f;
+	// With full knockback off, every hit still shoves the enemy a few pixels back so the blow reads
+	// as connecting (Silksong-style). Bosses (any class named *Boss) never get shoved; heavy enemies
+	// that override ApplyKnockback without calling base (ZombieBrute, GraveElite) don't either.
+	[Export] public float HitShoveSpeed = 170f;
+	[Export] public float HitShoveDuration = 0.08f;
+	// Hit flash: a short overbright white pop, not a lingering tint.
+	[Export] public Color HitFlashColor = new(3f, 3f, 3f, 1f);
+	[Export] public float HitFlashDuration = 0.12f;
 	[Export] public float ExplosionScale = 1f;
 	[Export] public PackedScene ExplosionScene;
 	// Off = play the sprite's own "death" animation and leave the corpse lying there (it goes away
@@ -149,7 +157,8 @@ public partial class Enemy : CharacterBody2D
 		ProcessMode = _processModeBeforeFreeze;
 	}
 
-	public void RegisterParried()
+	// weight: a perfect parry counts as 2 toward the stun.
+	public void RegisterParried(int weight = 1)
 	{
 		if (ParriesToStun <= 0 || IsStunned || !CanBeExecuted)
 			return;
@@ -157,7 +166,8 @@ public partial class Enemy : CharacterBody2D
 		if (now - _lastParryMsec > (ulong)(ParryChainWindow * 1000f))
 			_parryCount = 0;
 		_lastParryMsec = now;
-		if (++_parryCount < ParriesToStun)
+		_parryCount += weight;
+		if (_parryCount < ParriesToStun)
 			return;
 		_parryCount = 0;
 		Stun();
@@ -367,11 +377,11 @@ public partial class Enemy : CharacterBody2D
 	private void FlashHit()
 	{
 		var tween = CreateTween();
-		Visual.Modulate = new Color(2f, 0.2f, 0.2f);
+		Visual.Modulate = HitFlashColor;
 		// Tweens back to this enemy's own authored tint, not a hardcoded white — a boss/enemy with a
 		// non-default Visual.Modulate (e.g. SpiderBossArena's darker recolor) would otherwise lose
 		// that tint permanently the first time it took a hit.
-		tween.TweenProperty(Visual, "modulate", _baseModulate, 0.25f);
+		tween.TweenProperty(Visual, "modulate", _baseModulate, HitFlashDuration);
 	}
 
 	// Set by a subclass right after EnemyCombatCoordinator.TryAcquireAttackSlot() succeeds, cleared
@@ -576,7 +586,14 @@ public partial class Enemy : CharacterBody2D
 	public virtual void ApplyKnockback(Vector2 direction, float force)
 	{
 		if (!KnockbackEnabled)
+		{
+			if (HitShoveSpeed > 0f && !GetType().Name.Contains("Boss") && direction.X != 0f)
+			{
+				_knockbackVelocity = new Vector2(Mathf.Sign(direction.X) * HitShoveSpeed, 0f);
+				_knockbackTimer = Mathf.Max(_knockbackTimer, HitShoveDuration);
+			}
 			return;
+		}
 
 		_knockbackVelocity = direction * force;
 		_knockbackTimer = KnockbackDuration;

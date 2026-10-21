@@ -18,6 +18,20 @@ public partial class Player : CharacterBody2D
 	[Export] public bool AirControl = true;
 	[Export] public float JumpVelocity = -400f;
 	[Export] public float Gravity = 900f;
+	// Heavier fall: gravity is scaled up once the jump starts coming down, so the rise keeps its
+	// height but the drop lands "like lead" instead of a symmetric floaty arc. 1 = old behavior.
+	[Export] public float FallGravityMultiplier = 1.7f;
+	// Terminal fall speed, so long drops stay readable instead of accelerating forever.
+	[Export] public float MaxFallSpeed = 560f;
+	// Letting go of jump while still rising scales the upward speed by this (short hops on a tap).
+	// 1 = no jump cut.
+	[Export] public float JumpCutMultiplier = 0.5f;
+	// Touching down at or above this fall speed reads as a heavy landing: camera shake + a short
+	// planted beat where horizontal input is ignored. Short hops stay below it.
+	[Export] public float HeavyLandingSpeed = 420f;
+	[Export] public float HeavyLandingShake = 3f;
+	[Export] public float HeavyLandingShakeDuration = 0.12f;
+	[Export] public float HeavyLandingLag = 0.1f;
 	[Export] public float AttackHitboxDelay = 0.15f;
 	[Export] public float AttackDuration = 0.27f;
 	[Export] public float AttackHitboxReach = 50.6f;
@@ -46,7 +60,27 @@ public partial class Player : CharacterBody2D
 	[Export] public float HeavyHitStopDuration = 0.11f;
 	[Export] public float PoiseBreakHitStopDuration = 0.16f;
 	[Export] public float ParryHitStopDuration = 0.12f;
-	[Export] public float DamageTakenHitStopDuration = 0.09f;
+	// Hollow Knight-style: taking a real hit freezes long enough to sting (was 0.09).
+	[Export] public float DamageTakenHitStopDuration = 0.2f;
+	[Export] public float DamageTakenShake = 4f;
+	[Export] public float DamageTakenShakeDuration = 0.25f;
+	// The post-hit i-frames blink the sprite so it's always readable that you can't be hit again.
+	[Export] public float HitBlinkInterval = 0.08f;
+	[Export] public float HitBlinkAlpha = 0.25f;
+	// Every sword hit dealt: a micro shake scaled by the move's weight (same weight as its hit-stop).
+	[Export] public float HitDealtShake = 1.6f;
+	[Export] public float HitDealtShakeDuration = 0.09f;
+	// Spark amount/size per combo hit; the finisher and kills go bigger.
+	[Export] public float HitSparkIntensity = 1f;
+	[Export] public float FinisherSparkIntensity = 1.7f;
+	// The blow that kills: a longer freeze, a heavy shake and a big burst, then a short slow-motion
+	// tail before time snaps back.
+	[Export] public float KillHitStopDuration = 0.2f;
+	[Export] public float KillShake = 6f;
+	[Export] public float KillShakeDuration = 0.3f;
+	[Export] public float KillSparkIntensity = 2.6f;
+	[Export] public float KillSlowMoScale = 0.3f;
+	[Export] public float KillSlowMoDuration = 0.22f;
 	// Poise damage per move against enemies (see Enemy.MaxPoise), keyed by the attack animation out
 	// when the hit lands; multi-pulse combo hits deal it per pulse. Unlisted moves deal
 	// DefaultPoiseDamage; the down-attack pound deals PoundPoiseDamage.
@@ -154,6 +188,27 @@ public partial class Player : CharacterBody2D
 	[Export] public float ParryBubbleFadeIn = 0.08f;
 	[Export] public float ParryBubbleHold = 0.15f;
 	[Export] public float ParryBubbleFadeOut = 0.3f;
+	// Two-tier parry (Nine Sols-style): the first PerfectParryWindow of the window is a perfect parry
+	// — bigger freeze, shake and clash, more shadow essence, and it counts PerfectParryStunWeight
+	// toward the attacker's stun. The rest of the window still deflects, but lets
+	// ImperfectParryChipFraction of the hit through as chip damage (never lethal).
+	[Export] public float PerfectParryWindow = 0.08f;
+	[Export] public float ImperfectParryChipFraction = 0.25f;
+	[Export] public int PerfectParryStunWeight = 2;
+	[Export] public float PerfectParryHitStopDuration = 0.2f;
+	[Export] public float PerfectParryShake = 4f;
+	[Export] public float PerfectParryShakeDuration = 0.2f;
+	// Fast flurries: a landed parry keeps the window open at least this long, so the next hit of a
+	// string can be caught by the press that follows; a press this early before the parry is
+	// available again (end of an attack/roll) is kept and opens the window as soon as it is.
+	[Export] public float ParryChainExtension = 0.12f;
+	[Export] public float ParryInputBuffer = 0.12f;
+	// Shadow essence: the shadow spells' mana. Only parries fill it; shadow spells spend it.
+	[Export] public float MaxShadowEssence = 100f;
+	[Export] public float ParryEssenceGain = 12f;
+	[Export] public float PerfectParryEssenceGain = 30f;
+	[Export] public float ShadowCloneEssenceCost = 35f;
+	[Export] public float ShadowSummonEssenceCost = 50f;
 	[Export] public SpriteFrames FireSpriteFrames;
 	// Fire imbue look that keeps the same character: when set, entering fire swaps only the
 	// sprite's material (e.g. a palette with a burning blade) and FireSpriteFrames is ignored.
@@ -505,6 +560,32 @@ public partial class Player : CharacterBody2D
 	[Export] public float ClimbHorizontalSpeedMultiplier = 0.6f;
 	[Export] public float LadderJumpLockoutDuration = 0.25f;
 	[Export] public float InputBufferWindow = 0.15f;
+	// Jump pressed this long before touching down still jumps on landing.
+	[Export] public float JumpBufferWindow = 0.12f;
+	// Grace after walking off a ledge where the ground jump still works; past it, falling counts as
+	// having spent the ground jump (only a double jump is left, if unlocked).
+	[Export] public float CoyoteTime = 0.1f;
+	// Roll's own buffer, long enough to outlast RollCooldown, so pressing roll at the end of a roll
+	// (or just before landing) chains instead of getting swallowed.
+	[Export] public float RollBufferWindow = 0.35f;
+
+	// Hazard respawn (Hollow Knight's spikes/pits, but harsher): a platforming hazard or a fall off
+	// the map sends the player back to the last safe ground they stood on, losing this fraction of
+	// max HP (or the hazard's own Damage if higher) — which still kills if it takes the last HP.
+	public const string UnsafeGroundGroup = "unsafe_ground";
+	[Export] public float HazardDamageFraction = 0.3f;
+	[Export] public float HazardFadeOutDuration = 0.2f;
+	[Export] public float HazardFadeHoldDuration = 0.2f;
+	[Export] public float HazardFadeInDuration = 0.3f;
+	// Planted after reappearing, input ignored — the respawn itself costs time, not just HP.
+	[Export] public float HazardRespawnLockout = 0.4f;
+	// Ground only counts as safe after standing on it this long, fully supported (both edges of the
+	// body over solid floor), on static ground — not moving platforms or crumbling floors.
+	[Export] public float SafeGroundTime = 0.15f;
+	[Export] public float SafeGroundEdgeMargin = 24f;
+	// The respawn spot is the newest safe-ground sample at least this far from where the hazard got
+	// the player — otherwise walking straight into spikes would respawn them touching the spikes.
+	[Export] public float SafeRespawnMinDistance = 64f;
 	[Export] public float WallClimbSpeed = 110f;
 	[Export] public float WallSlideSpeed = 60f;
 	[Export] public float WallJumpVelocityX = 260f;
@@ -564,6 +645,12 @@ public partial class Player : CharacterBody2D
 	private float _walkPhase;
 	private float _lastStepSin;
 	private bool _wasAirborne;
+	private float _peakFallSpeed;
+	private bool _hitBlinking;
+	private float _landingLagTimer;
+	// True from a jump's launch until it starts falling (or gets cut) — only real jumps can be cut,
+	// not knockback/bounce/up-attack impulses.
+	private bool _jumpRising;
 	private CollisionShape2D _standCollision;
 	private CollisionShape2D _crouchCollision;
 	private Camera2D _camera;
@@ -688,6 +775,11 @@ public partial class Player : CharacterBody2D
 	private float _parryRecoveryTimer;
 	private bool _parryLanded;
 	private float _parryWindowTimer;
+	private float _parryOpenedFor;
+	private float _parryBufferTimer;
+	private float _shadowEssence;
+	private ShadowEssenceBar _essenceBar;
+	public float ShadowEssence => _shadowEssence;
 	private ulong _blockedHitFrame = ulong.MaxValue;
 	private AnimatedSprite2D _parryFlash;
 	private Sprite2D _parryBubble;
@@ -759,6 +851,16 @@ public partial class Player : CharacterBody2D
 	private float _attackBufferTimer;
 	private float _dashBufferTimer;
 	private float _rollBufferTimer;
+	private float _jumpBufferTimer;
+	private float _coyoteTimer;
+	// Newest last; sampled every SafeGroundSampleInterval while on safe ground.
+	private readonly System.Collections.Generic.List<Vector2> _safeGroundHistory = new();
+	private const int SafeGroundHistorySize = 40;
+	private const float SafeGroundSampleInterval = 0.1f;
+	private float _safeGroundSampleTimer;
+	private bool _hasSafeGround => _safeGroundHistory.Count > 0;
+	private float _safeGroundTimer;
+	private bool _hazardRespawning;
 
 	public override void _Ready()
 	{
@@ -881,6 +983,7 @@ public partial class Player : CharacterBody2D
 		}
 		if (SaveManager.Instance.SessionTorchEquipped.HasValue)
 			_torchEquipped = SaveManager.Instance.SessionTorchEquipped.Value;
+		_shadowEssence = Mathf.Clamp(SaveManager.Instance.SessionShadowEssence ?? 0f, 0f, MaxShadowEssence);
 
 		HudBar healthBar = GetNode<HudBar>("HUD/VBox/HealthBar");
 		HudBar staminaBar = GetNode<HudBar>("HUD/VBox/StaminaBar");
@@ -907,6 +1010,10 @@ public partial class Player : CharacterBody2D
 		_stats.StaminaChanged += (current, max) => statusBars.SetStaminaRatio((float)current / max);
 		statusBars.SetHealthRatio((float)_stats.CurrentHealth / _stats.MaxHealth);
 		statusBars.SetStaminaRatio((float)_stats.CurrentStamina / _stats.MaxStamina);
+		_essenceBar = new ShadowEssenceBar { Name = "ShadowEssenceBar" };
+		hudBox.AddChild(_essenceBar);
+		hudBox.MoveChild(_essenceBar, 1);
+		_essenceBar.SetRatio(_shadowEssence / MaxShadowEssence);
 		healthBar.SetRatio((float)_stats.CurrentHealth / _stats.MaxHealth);
 		staminaBar.SetRatio((float)_stats.CurrentStamina / _stats.MaxStamina);
 		_stats.HitTaken += (isProjectile) => FlashHit(_visual, new Color(1f, 0.2f, 0.2f));
@@ -922,8 +1029,9 @@ public partial class Player : CharacterBody2D
 		// Getting hit while steering a summon snaps control back to the body.
 		_stats.HitTaken += (isProjectile) => EndSummonControl();
 		_stats.HitTaken += (isProjectile) => EndPuppetControl();
-		_hitbox.HitDealt += () => FlashHit(_visual, new Color(1f, 1f, 0.2f));
+		// No self-flash on hits dealt anymore — the impact reads on the enemy (white flash, sparks).
 		_hitbox.HitDealt += () => Sfx.Play(this, "Combat/Sword", "Sword Impact Hit");
+		_hitbox.KilledTarget += OnKillingBlow;
 		_hitbox.PoiseDamage = CurrentPoiseDamage;
 		_hitbox.HitDealt += OnSwordHitLanded;
 		_hitbox.PoiseBroken += OnPoiseBroken;
@@ -931,7 +1039,11 @@ public partial class Player : CharacterBody2D
 		_stats.HitTaken += isProjectile =>
 		{
 			if (_stats.IsInvulnerable)
+			{
 				_ = HitStop(DamageTakenHitStopDuration);
+				ShakeCamera(DamageTakenShake, DamageTakenShakeDuration);
+				_hitBlinking = true;
+			}
 		};
 		_healFlask.ChargesChanged += (current, max) => UpdateHealChargesLabel(current, max);
 		UpdateHealChargesLabel(_healFlask.CurrentCharges, _healFlask.MaxCharges);
@@ -940,6 +1052,8 @@ public partial class Player : CharacterBody2D
 		var potionBar = new JekyriaPotionBar { Name = "JekyriaPotionBar" };
 		hudBox.AddChild(potionBar);
 		hudBox.MoveChild(potionBar, 1);
+		// Essence sits right under the status bars, above the potions.
+		hudBox.MoveChild(_essenceBar, 1);
 		_healChargesLabel.Visible = false;
 		_healFlask.ChargesChanged += (current, max) => potionBar.SetCharges(current, max);
 		potionBar.SetCharges(_healFlask.CurrentCharges, _healFlask.MaxCharges);
@@ -1023,6 +1137,24 @@ public partial class Player : CharacterBody2D
 	{
 		UpdateHudFade((float)delta);
 		TickBurnTint((float)delta);
+		TickHitBlink();
+	}
+
+	// Alpha on _sprite.Modulate: FlashHit owns _visual.Modulate and burn/poison own SelfModulate,
+	// and a hit already ends summon control (the other _sprite.Modulate user). Phase runs on real
+	// time so the hit-stop freeze doesn't stall the blink.
+	private void TickHitBlink()
+	{
+		if (!_hitBlinking)
+			return;
+		if (!_stats.IsInvulnerable || _isDead)
+		{
+			_hitBlinking = false;
+			_sprite.Modulate = _sprite.Modulate with { A = 1f };
+			return;
+		}
+		bool dim = (int)(Time.GetTicksMsec() / 1000f / HitBlinkInterval) % 2 == 1;
+		_sprite.Modulate = _sprite.Modulate with { A = dim ? HitBlinkAlpha : 1f };
 	}
 
 	// Fades the bottom HUD rows while the player's body is on screen behind them.
@@ -1112,7 +1244,7 @@ public partial class Player : CharacterBody2D
 		EnsureValidSummonSelection();
 		double now = Time.GetTicksMsec() / 1000.0;
 		if (_selectedSummon is null || now < _summonReadyAt || SaveManager.Instance.GetShadowUses(_selectedSummon) <= 0
-			|| GetTree().CurrentScene is not Node scene || !_stats.TrySpendStamina(ShadowSummonStaminaCost))
+			|| GetTree().CurrentScene is not Node scene || !TrySpendShadowEssence(ShadowSummonEssenceCost))
 			return;
 		SaveManager.Instance.SpendShadowUse(_selectedSummon);
 		_summonReadyAt = now + ShadowSummonCooldown;
@@ -1262,12 +1394,53 @@ public partial class Player : CharacterBody2D
 		_cutsceneHold = hold;
 		_cutscenePushX = 0f;
 		if (!hold)
+		{
 			_cutsceneFocus = null;
+			_cutsceneZoom = 1f;
+		}
 		if (hold)
 		{
 			Velocity = new Vector2(0f, Velocity.Y);
 			_sprite.Play(TorchAnim("idle"));
 		}
+		SetLetterbox(hold);
+	}
+
+	// Cinema bars: black strips sliding in from the top and bottom while a cutscene holds the player.
+	// Own CanvasLayer above everything, so they show even on maps that hide the HUD.
+	[Export] public float LetterboxHeight = 0.12f;
+	[Export] public float LetterboxSlideTime = 0.45f;
+	private CanvasLayer _letterbox;
+	private ColorRect _letterboxTop;
+	private ColorRect _letterboxBottom;
+	private Tween _letterboxTween;
+
+	private void SetLetterbox(bool show)
+	{
+		if (_letterbox is null)
+		{
+			if (!show)
+				return;
+			_letterbox = new CanvasLayer { Name = "FranjasCine", Layer = 90 };
+			_letterboxTop = new ColorRect { Color = Colors.Black, MouseFilter = Control.MouseFilterEnum.Ignore };
+			_letterboxBottom = new ColorRect { Color = Colors.Black, MouseFilter = Control.MouseFilterEnum.Ignore };
+			foreach (ColorRect bar in new[] { _letterboxTop, _letterboxBottom })
+			{
+				bar.AnchorLeft = 0f;
+				bar.AnchorRight = 1f;
+				bar.OffsetLeft = bar.OffsetRight = bar.OffsetTop = bar.OffsetBottom = 0f;
+				_letterbox.AddChild(bar);
+			}
+			_letterboxTop.AnchorTop = 0f;
+			_letterboxTop.AnchorBottom = 0f;
+			_letterboxBottom.AnchorTop = 1f;
+			_letterboxBottom.AnchorBottom = 1f;
+			AddChild(_letterbox);
+		}
+		_letterboxTween?.Kill();
+		_letterboxTween = CreateTween().SetParallel().SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
+		_letterboxTween.TweenProperty(_letterboxTop, "anchor_bottom", show ? LetterboxHeight : 0f, LetterboxSlideTime);
+		_letterboxTween.TweenProperty(_letterboxBottom, "anchor_top", show ? 1f - LetterboxHeight : 1f, LetterboxSlideTime);
 	}
 
 	public void CutscenePush(float velocityX) => _cutscenePushX = velocityX;
@@ -1281,10 +1454,18 @@ public partial class Player : CharacterBody2D
 		_knockbackTimer = duration;
 	}
 
-	// While held, the camera pans CutsceneFocusWeight of the way toward this world point (null = off).
+	// While held, the camera pans `weight` of the way toward this world point (null = off; default
+	// CutsceneFocusWeight, 1 = centred on it) and zooms by `zoom` × the map's zoom.
 	[Export] public float CutsceneFocusWeight = 0.5f;
 	private Vector2? _cutsceneFocus;
-	public void FocusCameraDuringCutscene(Vector2? worldPoint) => _cutsceneFocus = worldPoint;
+	private float _cutsceneFocusWeight = 0.5f;
+	private float _cutsceneZoom = 1f;
+	public void FocusCameraDuringCutscene(Vector2? worldPoint, float weight = -1f, float zoom = 1f)
+	{
+		_cutsceneFocus = worldPoint;
+		_cutsceneFocusWeight = weight < 0f ? CutsceneFocusWeight : weight;
+		_cutsceneZoom = zoom;
+	}
 
 	private void UpdateCutsceneHold(double delta)
 	{
@@ -1520,6 +1701,11 @@ public partial class Player : CharacterBody2D
 		UpdateLightningBolts((float)delta);
 		if (_isDead)
 			return;
+		if (_hazardRespawning)
+		{
+			Velocity = Vector2.Zero;
+			return;
+		}
 
 		if (_debugFlashlight != null && Input.IsActionJustPressed("debug_flashlight"))
 			_debugFlashlight.Enabled = !_debugFlashlight.Enabled;
@@ -1534,7 +1720,11 @@ public partial class Player : CharacterBody2D
 		// a pit exit — that fall must not count as a death (see SceneFader.IsChangingScene).
 		if (GlobalPosition.Y > FallDeathY && !SceneFader.IsChangingScene)
 		{
-			_stats.Kill();
+			// Falling off the map is a hazard like any other once there's ground to go back to.
+			if (_hasSafeGround)
+				HazardRespawn(0);
+			else
+				_stats.Kill();
 			return;
 		}
 
@@ -1606,13 +1796,16 @@ public partial class Player : CharacterBody2D
 		_attackBufferTimer = Mathf.Max(0f, _attackBufferTimer - (float)delta);
 		_dashBufferTimer = Mathf.Max(0f, _dashBufferTimer - (float)delta);
 		_rollBufferTimer = Mathf.Max(0f, _rollBufferTimer - (float)delta);
+		_jumpBufferTimer = Mathf.Max(0f, _jumpBufferTimer - (float)delta);
 		_snareTimer = Mathf.Max(0f, _snareTimer - (float)delta);
 		if (Input.IsActionJustPressed("attack"))
 			_attackBufferTimer = InputBufferWindow;
 		if (Input.IsActionJustPressed("dash"))
 			_dashBufferTimer = InputBufferWindow;
 		if (Input.IsActionJustPressed("roll"))
-			_rollBufferTimer = InputBufferWindow;
+			_rollBufferTimer = RollBufferWindow;
+		if (Input.IsActionJustPressed("jump"))
+			_jumpBufferTimer = JumpBufferWindow;
 
 		Vector2 velocity = Velocity;
 
@@ -1781,6 +1974,7 @@ public partial class Player : CharacterBody2D
 				_ladderGrabLockout = LadderJumpLockoutDuration;
 				velocity.Y = JumpVelocity;
 				_jumpCount = 1;
+				_jumpBufferTimer = 0f;
 			}
 
 			Velocity = velocity;
@@ -1825,6 +2019,7 @@ public partial class Player : CharacterBody2D
 				_ladderGrabLockout = LadderJumpLockoutDuration;
 				Velocity = new Vector2(0f, JumpVelocity);
 				_jumpCount = 1;
+				_jumpBufferTimer = 0f;
 			}
 
 			UpdateAnimation(delta, false, Velocity.X, true);
@@ -1854,6 +2049,7 @@ public partial class Player : CharacterBody2D
 				_water = null;
 				velocity.Y = JumpVelocity;
 				_jumpCount = 1;
+				_jumpBufferTimer = 0f;
 				Velocity = velocity;
 				MoveAndSlide();
 				UpdateAnimation(delta, false, velocity.X);
@@ -1913,6 +2109,7 @@ public partial class Player : CharacterBody2D
 				_lastReleasedRope = _rope;
 				_rope = null;
 				_jumpCount = 1;
+				_jumpBufferTimer = 0f;
 			}
 
 			return;
@@ -2053,19 +2250,39 @@ public partial class Player : CharacterBody2D
 		// }
 
 		if (!IsOnFloor())
-			velocity.Y += Gravity * (float)delta;
+		{
+			float gravity = velocity.Y > 0f ? Gravity * FallGravityMultiplier : Gravity;
+			velocity.Y = Mathf.Min(velocity.Y + gravity * (float)delta, MaxFallSpeed);
+			if (_coyoteTimer > 0f)
+				_coyoteTimer -= (float)delta;
+			else if (_jumpCount == 0 && !_infiniteJumpDebug)
+				_jumpCount = 1;
+		}
 		else
 		{
 			_jumpCount = 0;
 			_isDoubleJumping = false;
+			_coyoteTimer = CoyoteTime;
 		}
 
 		int maxJumps = _abilities.Has(PlayerAbilities.DoubleJump) ? 2 : 1;
 		bool droppedThrough = !IsSnared && Input.IsActionPressed("move_down") && Input.IsActionJustPressed("jump")
 			&& IsOnFloor() && TryDropThroughOneWayPlatform();
+		if (droppedThrough)
+		{
+			// Dropping through spends the press and the ground jump — no coyote hop back up.
+			_jumpBufferTimer = 0f;
+			_coyoteTimer = 0f;
+		}
 
-		bool jumpPressed = !droppedThrough && !_isBackstabbing && !IsSnared && Input.IsActionJustPressed("jump") && _jumpSquatTimer <= 0f
+		bool jumpPressed = !droppedThrough && !_isBackstabbing && !IsSnared
+			&& (_jumpBufferTimer > 0f || Input.IsActionJustPressed("jump")) && _jumpSquatTimer <= 0f
 			&& (IsOnFloor() || _infiniteJumpDebug || _jumpCount < maxJumps);
+		if (jumpPressed)
+		{
+			_jumpBufferTimer = 0f;
+			_coyoteTimer = 0f;
+		}
 		// Ground jumps crouch for JumpSquatDuration on the floor before lifting off (a short
 		// anticipation beat, like a fighting game's jump squat); air jumps launch at once.
 		if (jumpPressed && IsOnFloor() && JumpSquatDuration > 0f && _sprite.SpriteFrames.HasAnimation("jump_squat"))
@@ -2080,6 +2297,17 @@ public partial class Player : CharacterBody2D
 				LaunchJump(ref velocity);
 		}
 
+		if (_jumpRising)
+		{
+			if (velocity.Y >= 0f)
+				_jumpRising = false;
+			else if (!Input.IsActionPressed("jump"))
+			{
+				velocity.Y *= JumpCutMultiplier;
+				_jumpRising = false;
+			}
+		}
+
 		UpdateCrouch();
 		UpdateBlock(delta);
 
@@ -2089,8 +2317,10 @@ public partial class Player : CharacterBody2D
 			_facingRight = rawDirection > 0;
 
 		// An air parry keeps the jump's momentum; only a ground parry plants the feet.
+		if (_landingLagTimer > 0f)
+			_landingLagTimer -= (float)delta;
 		float direction = (_attacking || _healing || _crouching || (_isBlocking && IsOnFloor()) || _isTransforming || _isShooting
-			|| _isCastingSpell || _isCastingSpell2 || IsSnared) ? 0f : rawDirection;
+			|| _isCastingSpell || _isCastingSpell2 || IsSnared || _landingLagTimer > 0f) ? 0f : rawDirection;
 		bool sprinting = !_attacking && !_healing && _abilities.Has(PlayerAbilities.Sprint) && Input.IsActionPressed("sprint")
 			&& !_crouching && direction != 0;
 		float speed = _crouching ? Speed * CrouchSpeedMultiplier : sprinting ? Speed * SprintSpeedMultiplier : Speed;
@@ -2259,6 +2489,7 @@ public partial class Player : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+		UpdateSafeGround((float)delta);
 		UpdateAnimation(delta, sprinting, velocity.X);
 	}
 
@@ -2275,8 +2506,17 @@ public partial class Player : CharacterBody2D
 		bool onFloor = IsOnFloor();
 		bool justLanded = _wasAirborne && onFloor;
 		_wasAirborne = !onFloor;
+		if (!onFloor)
+			_peakFallSpeed = Mathf.Max(_peakFallSpeed, Velocity.Y);
 		if (justLanded)
+		{
 			SpawnDust("land_dust");
+			// The pound attack has its own slam landing; don't stack a second impact on it.
+			if (_peakFallSpeed >= HeavyLandingSpeed && !_isPounding)
+				HeavyLanding();
+		}
+		if (onFloor)
+			_peakFallSpeed = 0f;
 
 		// Surface swimming: treading water when still, stroking when moving, its own hit flinch.
 		// Sheets without swim clips fall through to the regular air animations as before.
@@ -2526,13 +2766,25 @@ public partial class Player : CharacterBody2D
 		if (_parryRecoveryTimer > 0f)
 			_parryRecoveryTimer -= dt;
 
+		_parryBufferTimer = Mathf.Max(0f, _parryBufferTimer - dt);
+		if (Input.IsActionJustPressed("block"))
+			_parryBufferTimer = ParryInputBuffer;
+
+		// The buffer only bridges the player's own busy states (attack, roll, dash...) — a press
+		// during the miss lockout is dropped, not queued, or the lockout would stop meaning anything.
+		if (_parryRecoveryTimer > 0f)
+			_parryBufferTimer = 0f;
 		bool canParry = _abilities.Has(PlayerAbilities.Block) && !_attacking && !_healing && !_isDashing && !_isRolling
 			&& !_isRunThrusting && _parryRecoveryTimer <= 0f && (_parryWindowTimer <= 0f || _parryLanded);
-		if (canParry && Input.IsActionJustPressed("block"))
+		if (canParry && _parryBufferTimer > 0f)
 		{
+			_parryBufferTimer = 0f;
 			_parryWindowTimer = ParryWindowDuration;
+			_parryOpenedFor = 0f;
 			_parryLanded = false;
 		}
+		if (_parryWindowTimer > 0f)
+			_parryOpenedFor += dt;
 
 		if (_parryWindowTimer > 0f)
 		{
@@ -2554,10 +2806,41 @@ public partial class Player : CharacterBody2D
 		}
 
 		_blockedHitFrame = Engine.GetPhysicsFrames();
+		bool perfect = IsPerfectParry();
+		if (!perfect)
+			_stats.PendingChipFraction = ImperfectParryChipFraction;
+		OnParryLanded(perfect);
+		ReportMeleeParry(perfect ? PerfectParryStunWeight : 1);
+		return true;
+	}
+
+	private bool IsPerfectParry() => _parryOpenedFor <= PerfectParryWindow;
+
+	// Shared by melee and projectile parries: essence, the clash, the freeze, and keeping the window
+	// open long enough for the next hit of a fast string.
+	private void OnParryLanded(bool perfect)
+	{
 		_parryLanded = true;
-		PlayParryFx();
-		_ = HitStop(ParryHitStopDuration);
-		ReportMeleeParry();
+		_parryWindowTimer = Mathf.Max(_parryWindowTimer, ParryChainExtension);
+		AddShadowEssence(perfect ? PerfectParryEssenceGain : ParryEssenceGain);
+		PlayParryFx(perfect);
+		_ = HitStop(perfect ? PerfectParryHitStopDuration : ParryHitStopDuration);
+		if (perfect)
+			ShakeCamera(PerfectParryShake, PerfectParryShakeDuration);
+	}
+
+	public void AddShadowEssence(float amount)
+	{
+		_shadowEssence = Mathf.Clamp(_shadowEssence + amount, 0f, MaxShadowEssence);
+		SaveManager.Instance.SessionShadowEssence = _shadowEssence;
+		_essenceBar?.SetRatio(_shadowEssence / MaxShadowEssence);
+	}
+
+	private bool TrySpendShadowEssence(float amount)
+	{
+		if (_shadowEssence < amount)
+			return false;
+		AddShadowEssence(-amount);
 		return true;
 	}
 
@@ -2567,16 +2850,19 @@ public partial class Player : CharacterBody2D
 	{
 		if (!_isBlocking)
 			return TryShadowGuard();
-		_parryLanded = true;
-		PlayParryFx();
+		// A reflected projectile never chips: it's mirrored back whole.
+		OnParryLanded(IsPerfectParry());
 		return true;
 	}
 
-	private void PlayParryFx()
+	// The clash replaces the old ParryFlash sprite + lingering bubble (user call, 2026-10-21): a
+	// procedural burst at the blade, essence motes flying into the player, and sparks out front.
+	private void PlayParryFx(bool perfect)
 	{
-		_parryFlash.Visible = true;
-		_parryFlash.Play("parry_flash");
-		ShowParryBubble();
+		Vector2 facing = _facingRight ? Vector2.Right : Vector2.Left;
+		Vector2 contact = GlobalPosition + new Vector2(facing.X * 18f, -14f);
+		ParryClash.SpawnAt(this, contact, facing, perfect, this);
+		HitSparks.SpawnAt(this, contact, facing, perfect ? 1.8f : 0.8f);
 	}
 
 	// Blooms in, holds, then fades out — a lingering energy shield rather than a single-frame
@@ -2604,7 +2890,9 @@ public partial class Player : CharacterBody2D
 		Vector2 targetOffset = new Vector2(0, targetY + _bossFramingOffsetY);
 		// Cutscene framing: pan part of the way toward the focus point so both stay in shot.
 		if (_cutsceneHold && _cutsceneFocus is Vector2 focus)
-			targetOffset += (focus - GlobalPosition) * CutsceneFocusWeight;
+			targetOffset = _cutsceneFocusWeight >= 1f
+				? focus - _camera.GlobalPosition // fully on the focus (from the camera itself, not the feet)
+				: targetOffset + (focus - GlobalPosition) * _cutsceneFocusWeight;
 		// Tracked separately from _camera.Offset so Shake() can add a jitter on top of it each
 		// frame without that jitter itself getting lerped-toward next frame (which would just
 		// smooth the shake away to nothing).
@@ -2721,6 +3009,12 @@ public partial class Player : CharacterBody2D
 		}
 		_bossFramingOffsetY = Mathf.Lerp(_bossFramingOffsetY, framingOffsetY, (float)delta * ZoomSmoothSpeed);
 
+		// Cutscene close-up (e.g. a boss waking up) overrides the boss framing.
+		if (_cutsceneHold && _cutsceneFocus is not null)
+		{
+			targetZoom = ProfileZoom * _cutsceneZoom;
+			_bossFramingOffsetY = Mathf.Lerp(_bossFramingOffsetY, 0f, (float)delta * ZoomSmoothSpeed);
+		}
 		float newZoom = Mathf.Lerp(_camera.Zoom.X, targetZoom, (float)delta * ZoomSmoothSpeed);
 		_camera.Zoom = new Vector2(newZoom, newZoom);
 	}
@@ -2814,6 +3108,147 @@ public partial class Player : CharacterBody2D
 			_isDoubleJumping = _jumpCount >= 2;
 		}
 		RunJumpGhosts();
+		_jumpRising = true;
+	}
+
+	// Remembers where to send the player back to after a hazard. Only static, fully-supporting
+	// ground that held them for SafeGroundTime counts, so a respawn never lands on a ledge lip, a
+	// moving platform or a floor that's about to crumble.
+	private void UpdateSafeGround(float delta)
+	{
+		if (!IsOnFloor() || _knockbackTimer > 0f || _isRolling || _isDashing || !IsOnSafeFloor())
+		{
+			_safeGroundTimer = 0f;
+			return;
+		}
+		_safeGroundTimer += delta;
+		if (_safeGroundTimer < SafeGroundTime)
+			return;
+		_safeGroundSampleTimer -= delta;
+		if (_safeGroundSampleTimer > 0f && _safeGroundHistory.Count > 0)
+			return;
+		_safeGroundSampleTimer = SafeGroundSampleInterval;
+		_safeGroundHistory.Add(GlobalPosition);
+		if (_safeGroundHistory.Count > SafeGroundHistorySize)
+			_safeGroundHistory.RemoveAt(0);
+	}
+
+	private Vector2 PickSafeRespawn(Vector2 hazardPosition)
+	{
+		for (int i = _safeGroundHistory.Count - 1; i >= 0; i--)
+		{
+			if (_safeGroundHistory[i].DistanceTo(hazardPosition) >= SafeRespawnMinDistance)
+				return _safeGroundHistory[i];
+		}
+		return _safeGroundHistory[0];
+	}
+
+	private bool IsOnSafeFloor()
+	{
+		bool onStatic = false;
+		for (int i = 0; i < GetSlideCollisionCount(); i++)
+		{
+			KinematicCollision2D collision = GetSlideCollision(i);
+			if (collision.GetNormal().Y > -0.7f)
+				continue;
+			GodotObject collider = collision.GetCollider();
+			if (collider is Node node && node.IsInGroup(UnsafeGroundGroup))
+				return false;
+			if (collider is AnimatableBody2D)
+				return false;
+			if (collider is StaticBody2D or TileMapLayer)
+				onStatic = true;
+		}
+		if (!onStatic)
+			return false;
+
+		PhysicsDirectSpaceState2D space = GetWorld2D().DirectSpaceState;
+		float feetY = GlobalPosition.Y + _standHalfHeight;
+		foreach (float side in new[] { -1f, 1f })
+		{
+			float x = GlobalPosition.X + side * SafeGroundEdgeMargin;
+			var query = PhysicsRayQueryParameters2D.Create(new Vector2(x, feetY - 4f), new Vector2(x, feetY + 10f), CollisionMask);
+			query.Exclude = new Godot.Collections.Array<Rid> { GetRid() };
+			if (space.IntersectRay(query).Count == 0)
+				return false;
+		}
+		return true;
+	}
+
+	// Called by Hazard (duck-typed, like ApplyKnockback) and by the fall-off-the-map check. Takes the
+	// hit first; if that kills, the normal death runs instead. Otherwise: fade to black, put the
+	// player back on the last safe ground, fade in, and hold them planted for a beat.
+	public async void HazardRespawn(int damage)
+	{
+		if (_hazardRespawning || _isDead || !_hasSafeGround)
+		{
+			if (!_hasSafeGround && !_hazardRespawning && !_isDead)
+				_stats.Kill();
+			return;
+		}
+
+		_hazardRespawning = true;
+		Vector2 respawnPosition = PickSafeRespawn(GlobalPosition);
+		int hit = Mathf.Max(damage, Mathf.CeilToInt(_stats.MaxHealth * HazardDamageFraction));
+		_stats.TakeDamage(hit, ignoreInvulnerability: true, armInvulnerability: true);
+		if (_stats.CurrentHealth <= 0)
+		{
+			_hazardRespawning = false;
+			return;
+		}
+
+		Velocity = Vector2.Zero;
+		_knockbackTimer = 0f;
+		_hitRecoilTimer = 0f;
+		_jumpBufferTimer = 0f;
+		_rollBufferTimer = 0f;
+		_dashBufferTimer = 0f;
+
+		SceneTree tree = GetTree();
+		var overlay = new CanvasLayer { Layer = 19 };
+		var fade = new ColorRect { Color = new Color(0f, 0f, 0f, 0f), MouseFilter = Control.MouseFilterEnum.Ignore };
+		fade.SetAnchorsPreset(Control.LayoutPreset.FullRect);
+		overlay.AddChild(fade);
+		// Under the current scene, not the root: if a scene change frees the player mid-respawn, the
+		// black overlay goes with the old scene instead of being stranded on screen.
+		(tree.CurrentScene ?? tree.Root).AddChild(overlay);
+
+		// Real-time tweens: the hit-stop the damage just triggered must not stretch the fade.
+		Tween fadeOut = tree.CreateTween().SetIgnoreTimeScale();
+		fadeOut.TweenProperty(fade, "color:a", 1f, HazardFadeOutDuration);
+		await ToSignal(fadeOut, Tween.SignalName.Finished);
+
+		if (IsInstanceValid(this) && !_isDead)
+		{
+			_isClimbing = false;
+			_isLedgeHanging = false;
+			_isLedgeClimbing = false;
+			_visual.Position = Vector2.Zero;
+			GlobalPosition = respawnPosition;
+			// The ground right before the hazard is now suspect; start the trail over from here.
+			_safeGroundHistory.Clear();
+			_safeGroundHistory.Add(respawnPosition);
+			Velocity = Vector2.Zero;
+			_camera.ResetSmoothing();
+		}
+		await ToSignal(tree.CreateTimer(HazardFadeHoldDuration, true, false, true), SceneTreeTimer.SignalName.Timeout);
+
+		Tween fadeIn = tree.CreateTween().SetIgnoreTimeScale();
+		fadeIn.TweenProperty(fade, "color:a", 0f, HazardFadeInDuration);
+		await ToSignal(tree.CreateTimer(HazardRespawnLockout, true, false, true), SceneTreeTimer.SignalName.Timeout);
+		_hazardRespawning = false;
+		await ToSignal(fadeIn, Tween.SignalName.Finished);
+		overlay.QueueFree();
+	}
+
+	private void HeavyLanding()
+	{
+		ShakeCamera(HeavyLandingShake, HeavyLandingShakeDuration);
+		_landingLagTimer = HeavyLandingLag;
+		// The planted beat zeroes input, but this frame's movement already ran — kick the squat
+		// off here so it shows even when touching down mid-run.
+		if (!_attacking && TorchAnim("idle") == "idle" && _sprite.SpriteFrames.HasAnimation("landing"))
+			_sprite.Play("landing");
 	}
 
 	// One-shot dust at the feet, left in the world (not parented to the player) so it stays put
@@ -2992,7 +3427,7 @@ public partial class Player : CharacterBody2D
 	// A parried melee hit counts toward stunning whoever threw it. The block doesn't know the
 	// attacker (most enemies deal damage from their own code, not a shared Hitbox), so it's
 	// credited to the closest enemy within melee reach — the one swinging at you up close.
-	private void ReportMeleeParry()
+	private void ReportMeleeParry(int weight = 1)
 	{
 		if (Metroidvania.World.Enemy.DealingContactDamage)
 			return;
@@ -3009,7 +3444,7 @@ public partial class Player : CharacterBody2D
 				closest = distance;
 			}
 		}
-		attacker?.RegisterParried();
+		attacker?.RegisterParried(weight);
 	}
 
 	private bool OverlapsEnemyContact()
@@ -3419,7 +3854,8 @@ public partial class Player : CharacterBody2D
 	private async void CastSpell()
 	{
 		double now = Time.GetTicksMsec() / 1000.0;
-		if (now < _shadowCloneReadyAt || !_stats.TrySpendStamina(ShadowCloneStaminaCost))
+		// Shadow spells run on shadow essence (filled by parrying), not stamina.
+		if (now < _shadowCloneReadyAt || !TrySpendShadowEssence(ShadowCloneEssenceCost))
 			return;
 
 		_isCastingSpell = true;
@@ -3580,7 +4016,9 @@ public partial class Player : CharacterBody2D
 		if (Metroidvania.World.Enemy.DealingContactDamage
 			|| !(ShadowSentinel.TryGuard(GlobalPosition) || ShadowEcho.TryParryFor(GlobalPosition)))
 			return false;
-		ShowParryBubble();
+		// Same clash as a parry, but no essence: the shadow did the work, not the player.
+		Vector2 facing = _facingRight ? Vector2.Right : Vector2.Left;
+		ParryClash.SpawnAt(this, GlobalPosition + new Vector2(facing.X * 18f, -14f), facing, false, null);
 		return true;
 	}
 
@@ -4591,6 +5029,7 @@ public partial class Player : CharacterBody2D
 		{
 			float weight = Mathf.Clamp(poise / DefaultPoiseDamage, 1f, HeavyHitStopDuration / LightHitStopDuration);
 			_ = HitStop(LightHitStopDuration * weight);
+			ShakeCamera(HitDealtShake * weight, HitDealtShakeDuration);
 		}
 		if (!_isPounding && !_isUpAttacking)
 		{
@@ -4618,6 +5057,34 @@ public partial class Player : CharacterBody2D
 			_ => HitImpactBurst.ImpactTier.Light,
 		};
 		HitImpactBurst.SpawnAt(this, point, tier);
+		float intensity = tier == HitImpactBurst.ImpactTier.Heavy ? FinisherSparkIntensity : HitSparkIntensity;
+		HitSparks.SpawnAt(this, point, SwingDirection(), intensity);
+	}
+
+	// Which way the blade was travelling for the hit that just landed — sparks fly that way.
+	private Vector2 SwingDirection()
+	{
+		if (_isPounding)
+			return Vector2.Down;
+		if (_isUpAttacking)
+			return Vector2.Up;
+		return _facingRight ? Vector2.Right : Vector2.Left;
+	}
+
+	private async void OnKillingBlow()
+	{
+		ShakeCamera(KillShake, KillShakeDuration);
+		HitSparks.SpawnAt(this, _hitbox.LastImpactPoint, SwingDirection(), KillSparkIntensity);
+		HitImpactBurst.SpawnAt(this, _hitbox.LastImpactPoint, HitImpactBurst.ImpactTier.Heavy);
+		await HitStop(KillHitStopDuration);
+		// Slow-motion tail once the freeze ends — skipped if some other hit-stop is still holding
+		// time, and only restored if nothing else changed TimeScale meanwhile.
+		if (_hitStopDepth > 0 || KillSlowMoDuration <= 0f || !IsInstanceValid(this))
+			return;
+		Engine.TimeScale = KillSlowMoScale;
+		await ToSignal(GetTree().CreateTimer(KillSlowMoDuration, true, false, true), SceneTreeTimer.SignalName.Timeout);
+		if (_hitStopDepth == 0 && Mathf.IsEqualApprox(Engine.TimeScale, KillSlowMoScale))
+			Engine.TimeScale = 1.0;
 	}
 
 	private async void UseHealFlask()

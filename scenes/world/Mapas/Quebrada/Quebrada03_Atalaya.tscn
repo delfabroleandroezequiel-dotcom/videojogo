@@ -1,0 +1,248 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="bootstrap"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="camera"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ArrowTrap.tscn" id="arrow"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/EnergyBarrier.tscn" id="barrier"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Barril.tscn" id="barril"]
+[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="transition"]
+[ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="ladder"]
+[ext_resource type="PackedScene" path="res://scenes/world/ItemPickup.tscn" id="pickup"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido4.tscn" id="bandido4"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido6.tscn" id="bandido6"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido7.tscn" id="bandido7"]
+[ext_resource type="Resource" path="res://resources/items/llave_campamento.tres" id="llave_campamento"]
+
+[sub_resource type="RectangleShape2D" id="Rect_1640x40"]
+size = Vector2(1640, 40)
+
+[sub_resource type="RectangleShape2D" id="Rect_20x1080"]
+size = Vector2(20, 1080)
+
+[sub_resource type="RectangleShape2D" id="Rect_600x12"]
+size = Vector2(600, 12)
+
+[sub_resource type="RectangleShape2D" id="Rect_60x20"]
+size = Vector2(60, 20)
+
+[sub_resource type="RectangleShape2D" id="Rect_1240x12"]
+size = Vector2(1240, 12)
+
+[sub_resource type="RectangleShape2D" id="Rect_120x20"]
+size = Vector2(120, 20)
+
+[sub_resource type="RectangleShape2D" id="Rect_60x12"]
+size = Vector2(60, 12)
+
+[sub_resource type="RectangleShape2D" id="Rect_920x20"]
+size = Vector2(920, 20)
+
+[node name="Quebrada03_Atalaya" type="Node2D"]
+script = ExtResource("bootstrap")
+ScenePath = "res://scenes/world/Mapas/Quebrada/Quebrada03_Atalaya.tscn"
+CameraProfile = ExtResource("camera")
+CameraLimitLeft = -20
+CameraLimitRight = 1620
+CameraLimitTop = -1360
+CameraLimitBottom = 40
+
+[node name="Fondo" type="ColorRect" parent="."]
+z_index = -50
+offset_left = -620
+offset_top = -1920
+offset_right = 2220
+offset_bottom = 640
+color = Color(0.14, 0.1, 0.07, 1)
+
+[node name="Colisiones" type="StaticBody2D" parent="."]
+
+[node name="PlataformasOneWay" type="StaticBody2D" parent="."]
+collision_layer = 49
+
+[node name="Trampas" type="Node2D" parent="."]
+
+[node name="Enemigos" type="Node2D" parent="."]
+
+[node name="Objetos" type="Node2D" parent="."]
+
+[node name="Suelo" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(800, 20)
+shape = SubResource("Rect_1640x40")
+
+[node name="ParedOeste" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(-10, -740)
+shape = SubResource("Rect_20x1080")
+
+[node name="ParedEste" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(1610, -740)
+shape = SubResource("Rect_20x1080")
+
+[node name="Techo" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(800, -1300)
+shape = SubResource("Rect_1640x40")
+
+[node name="Piso1" type="CollisionShape2D" parent="PlataformasOneWay"]
+position = Vector2(600, -314)
+shape = SubResource("Rect_600x12")
+one_way_collision = true
+
+[node name="RampaAtalaya" type="CollisionPolygon2D" parent="Colisiones"]
+polygon = PackedVector2Array(900, -320, 1540, -640, 1540, -600, 900, -280)
+
+[node name="RellanoAlto" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(1570, -630)
+shape = SubResource("Rect_60x20")
+
+[node name="Piso2" type="CollisionShape2D" parent="PlataformasOneWay"]
+position = Vector2(920, -634)
+shape = SubResource("Rect_1240x12")
+one_way_collision = true
+
+[node name="CimaA" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(260, -950)
+shape = SubResource("Rect_120x20")
+
+[node name="CimaEscalera" type="CollisionShape2D" parent="PlataformasOneWay"]
+position = Vector2(350, -954)
+shape = SubResource("Rect_60x12")
+one_way_collision = true
+
+[node name="CimaB" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(840, -950)
+shape = SubResource("Rect_920x20")
+
+[node name="Visible" type="Node2D" parent="."]
+z_index = -5
+
+[node name="Escalera1" parent="Objetos" instance=ExtResource("ladder")]
+position = Vector2(400, -170)
+Length = 340
+
+[node name="Escalera2" parent="Objetos" instance=ExtResource("ladder")]
+position = Vector2(350, -810)
+Length = 340
+
+[node name="FlechaPiso1" parent="Trampas" instance=ExtResource("arrow")]
+position = Vector2(10, -344)
+Direction = Vector2(1, 0)
+FireInterval = 2.2
+StartOffset = 0
+MaxDistance = 900
+
+[node name="BandidoAntorchaPiso2" parent="Enemigos" instance=ExtResource("bandido4")]
+position = Vector2(600, -680)
+
+[node name="BandidoPesadoCima" parent="Enemigos" instance=ExtResource("bandido7")]
+position = Vector2(800, -1000)
+
+[node name="BandidaCima" parent="Enemigos" instance=ExtResource("bandido6")]
+position = Vector2(1050, -1000)
+
+[node name="BarrilCima1" parent="Trampas" instance=ExtResource("barril")]
+position = Vector2(650, -960)
+
+[node name="BarrilCima2" parent="Trampas" instance=ExtResource("barril")]
+position = Vector2(682, -960)
+
+[node name="LlaveCampamento" parent="Objetos" instance=ExtResource("pickup")]
+position = Vector2(1220, -990)
+Item = ExtResource("llave_campamento")
+
+[node name="SelloCampamento" parent="." instance=ExtResource("barrier")]
+position = Vector2(1350, -100)
+Width = 200
+NeonColor = 2
+RequiredKeyItemId = "item_key_quebrada_campamento"
+
+[node name="VolverEmpalizada" parent="." instance=ExtResource("transition")]
+position = Vector2(15, -53)
+TargetScenePath = "res://scenes/world/Mapas/Quebrada/Quebrada02_Empalizada.tscn"
+TargetSpawnPosition = Vector2(2620, -360)
+Width = 30
+Height = 200
+
+[node name="HaciaEmboscada" parent="." instance=ExtResource("transition")]
+position = Vector2(1585, -53)
+TargetScenePath = "res://scenes/world/Mapas/Quebrada/Quebrada04_Emboscada.tscn"
+TargetSpawnPosition = Vector2(190, -40)
+Width = 30
+Height = 200
+
+[node name="Suelo" type="ColorRect" parent="Visible"]
+offset_left = -20
+offset_top = 0
+offset_right = 1620
+offset_bottom = 40
+color = Color(0.42, 0.43, 0.48, 1)
+
+[node name="ParedOeste" type="ColorRect" parent="Visible"]
+offset_left = -20
+offset_top = -1280
+offset_right = 0
+offset_bottom = -200
+color = Color(0.42, 0.43, 0.48, 1)
+
+[node name="ParedEste" type="ColorRect" parent="Visible"]
+offset_left = 1600
+offset_top = -1280
+offset_right = 1620
+offset_bottom = -200
+color = Color(0.42, 0.43, 0.48, 1)
+
+[node name="Techo" type="ColorRect" parent="Visible"]
+offset_left = -20
+offset_top = -1320
+offset_right = 1620
+offset_bottom = -1280
+color = Color(0.42, 0.43, 0.48, 1)
+
+[node name="Piso1" type="ColorRect" parent="Visible"]
+offset_left = 300
+offset_top = -320
+offset_right = 900
+offset_bottom = -308
+color = Color(0.55, 0.56, 0.6, 1)
+
+[node name="RampaAtalaya" type="Polygon2D" parent="Visible"]
+color = Color(0.42, 0.43, 0.48, 1)
+polygon = PackedVector2Array(900, -320, 1540, -640, 1540, -600, 900, -280)
+
+[node name="RellanoAlto" type="ColorRect" parent="Visible"]
+offset_left = 1540
+offset_top = -640
+offset_right = 1600
+offset_bottom = -620
+color = Color(0.42, 0.43, 0.48, 1)
+
+[node name="Piso2" type="ColorRect" parent="Visible"]
+offset_left = 300
+offset_top = -640
+offset_right = 1540
+offset_bottom = -628
+color = Color(0.55, 0.56, 0.6, 1)
+
+[node name="CimaA" type="ColorRect" parent="Visible"]
+offset_left = 200
+offset_top = -960
+offset_right = 320
+offset_bottom = -940
+color = Color(0.42, 0.43, 0.48, 1)
+
+[node name="CimaEscalera" type="ColorRect" parent="Visible"]
+offset_left = 320
+offset_top = -960
+offset_right = 380
+offset_bottom = -948
+color = Color(0.55, 0.56, 0.6, 1)
+
+[node name="CimaB" type="ColorRect" parent="Visible"]
+offset_left = 380
+offset_top = -960
+offset_right = 1300
+offset_bottom = -940
+color = Color(0.42, 0.43, 0.48, 1)
+
+[node name="Player" parent="." instance=ExtResource("player")]
+position = Vector2(190, -40)
+

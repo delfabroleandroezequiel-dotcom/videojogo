@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" format=3]
+
+[ext_resource type="Script" uid="uid://c7k8nu6e2htri" path="res://scripts/items/Item.cs" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+Id = "item_key_quebrada_campamento"
+ItemName = "ITEM_KEY_QUEBRADA_CAMPAMENTO_NAME"
+Description = "ITEM_KEY_QUEBRADA_CAMPAMENTO_DESC"
+Type = 5
+Stackable = true

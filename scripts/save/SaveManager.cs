@@ -43,6 +43,8 @@ public partial class SaveManager : Node
 	// Seconds left on the resin behind SessionElement (Player counts it down while unpaused).
 	public float SessionImbueTimeLeft { get; set; }
 	public bool? SessionTorchEquipped { get; set; }
+	// Shadow essence (Player.ShadowEssence) carried across map changes; null = start empty.
+	public float? SessionShadowEssence { get; set; }
 	// Selected tornado variant (Player.TornadoVariant as int), so the choice survives map changes.
 	public int? SessionTornadoVariant { get; set; }
 

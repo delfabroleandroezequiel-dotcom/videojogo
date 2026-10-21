@@ -54,6 +54,10 @@ public partial class OrbitingSkull : AnimatableBody2D
 		_angle = StartAngle;
 		Position = new Vector2(Mathf.Cos(_angle), Mathf.Sin(_angle)) * OrbitRadius;
 
+		// A boss's weapon, not a platforming hazard: a plain hit, never a respawn to safe ground.
+		if (GetNodeOrNull<Hazard>("HazardArea") is Hazard hazard)
+			hazard.RespawnPlayer = false;
+
 		Stats stats = GetNodeOrNull<Stats>("Stats");
 		if (stats is not null)
 			stats.Died += OnKilledByPlayer;

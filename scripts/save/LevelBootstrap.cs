@@ -263,6 +263,7 @@ public partial class LevelBootstrap : Node
 		SaveManager.Instance.SessionHealCharges = null;
 		SaveManager.Instance.SessionElement = null;
 		SaveManager.Instance.SessionTorchEquipped = null;
+		SaveManager.Instance.SessionShadowEssence = null;
 		GetTree().CallDeferred(SceneTree.MethodName.ReloadCurrentScene);
 	}
 
@@ -287,6 +288,7 @@ public partial class LevelBootstrap : Node
 		SaveManager.Instance.SessionHealCharges = null;
 		SaveManager.Instance.SessionElement = null;
 		SaveManager.Instance.SessionTorchEquipped = null;
+		SaveManager.Instance.SessionShadowEssence = null;
 		// A "return to where you came from" LevelTransition (UseStoredReturnPosition) reads this and
 		// never clears it on its own — it stays pointing at wherever the player entered a building
 		// from, indefinitely, across deaths. Dying and respawning should mean starting fresh, not

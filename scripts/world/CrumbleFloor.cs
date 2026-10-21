@@ -83,6 +83,12 @@ public partial class CrumbleFloor : Area2D
 		if (Engine.IsEditorHint())
 			return;
 
+		// Never a hazard-respawn spot: the player must not reappear on a floor that's about to go.
+		if (IsInstanceValid(OverlayLayer))
+			OverlayLayer.AddToGroup(Metroidvania.Player.Player.UnsafeGroundGroup);
+		if (IsInstanceValid(AttachedCollision) && AttachedCollision.GetParent() is Node attachedBody)
+			attachedBody.AddToGroup(Metroidvania.Player.Player.UnsafeGroundGroup);
+
 		_persistenceId = string.IsNullOrEmpty(CustomPersistenceId) ? GetPath().ToString() : CustomPersistenceId;
 		if (IsPersisted && SaveManager.Instance.IsGateOpened(_persistenceId))
 		{
