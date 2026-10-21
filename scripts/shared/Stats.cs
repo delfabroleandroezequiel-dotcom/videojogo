@@ -41,6 +41,10 @@ public partial class Stats : Node
 	// as chip damage (consumed by that same TakeDamage call).
 	public float PendingChipFraction { get; set; }
 
+	// Replaces the post-hit i-frames just armed (e.g. a light body-contact hit wants a short window,
+	// not the full InvulnerabilityDuration that would eat the real attack coming next).
+	public void SetInvulnerability(float seconds) => _invulnerableTimer = seconds;
+
 	// Set by a controller while it wants regen slowed without fully pausing it — Dark Souls reduces
 	// (not stops) stamina recovery by 80% while guarding, so the player sets this to 0.2f while
 	// blocking and back to 1f otherwise. Left at 1f (full rate) by anything that doesn't care.

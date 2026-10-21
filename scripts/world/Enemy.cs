@@ -916,6 +916,17 @@ public partial class Enemy : CharacterBody2D
 			Sprite.Play(anim);
 	}
 
+	// Soft body separation from the player (see Player.BodyPushX): moves this enemy sideways when
+	// the player can't give way (backed against a wall). Bosses and heavies hold their ground.
+	public virtual bool BodyPushable => !IsInGroup("boss") && !GetType().Name.Contains("Boss");
+
+	public void BodyNudge(float dx)
+	{
+		if (!BodyPushable || IsQueuedForRemoval || dx == 0f)
+			return;
+		MoveAndCollide(new Vector2(dx, 0f));
+	}
+
 	protected void ApplyContactDamage()
 	{
 		foreach (Node body in ContactArea.GetOverlappingBodies())

@@ -388,7 +388,9 @@ public partial class GraveElite : Enemy
 			Sprite.SelfModulate = Colors.White;
 	}
 
-	// Too heavy to be shoved around.
+	// Too heavy to be shoved around — not by hits, not by the player's body.
+	public override bool BodyPushable => false;
+
 	public override void ApplyKnockback(Vector2 direction, float force)
 	{
 	}

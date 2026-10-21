@@ -67,6 +67,14 @@ public partial class Player : CharacterBody2D
 	// The post-hit i-frames blink the sprite so it's always readable that you can't be hit again.
 	[Export] public float HitBlinkInterval = 0.08f;
 	[Export] public float HitBlinkAlpha = 0.25f;
+	// Body contact with an enemy (the creatures that still have it): a light hit.
+	[Export] public float ContactInvulnerability = 0.3f;
+	[Export] public float ContactHitStopDuration = 0.05f;
+	[Export] public float ContactShake = 1.5f;
+	// Soft body separation: overlapping an enemy drifts the player sideways out of it (horizontal
+	// only — no standing on heads, no getting wedged). Off while rolling/dashing (they pass through)
+	// and during post-hit i-frames. Against a wall, the enemy gets nudged instead.
+	[Export] public float BodyPushSpeed = 100f;
 	// Every sword hit dealt: a micro shake scaled by the move's weight (same weight as its hit-stop).
 	[Export] public float HitDealtShake = 1.6f;
 	[Export] public float HitDealtShakeDuration = 0.09f;
@@ -241,6 +249,19 @@ public partial class Player : CharacterBody2D
 	[Export] public float ChargedAttackDuration = 1f;
 	[Export] public Vector2 ChargedAttackHitboxSize = new(90f, 50f);
 	[Export] public float ChargedAttackReach = 60f;
+	// The charged draw is the heaviest blow in the kit: it hits ChargedDamageMultiplier times harder,
+	// and on contact the world stops (long freeze, heavy shake, a white screen flash, the biggest
+	// burst), the target is launched away (non-boss, non-heavy), and the player is driven back.
+	[Export] public float ChargedDamageMultiplier = 2.5f;
+	[Export] public float ChargedHitStopDuration = 0.32f;
+	[Export] public float ChargedShake = 9f;
+	[Export] public float ChargedShakeDuration = 0.45f;
+	[Export] public float ChargedSparkIntensity = 3.2f;
+	[Export] public float ChargedScreenFlashAlpha = 0.35f;
+	[Export] public float ChargedScreenFlashDuration = 0.12f;
+	[Export] public Vector2 ChargedLaunchVelocity = new(520f, -240f);
+	[Export] public float ChargedLaunchDuration = 0.28f;
+	[Export] public float ChargedRecoilDuration = 0.2f;
 	// Sō Ryū Sen (Kenshin's twin dragon flash): when the charged draw hits nothing, a wider spin
 	// (attack2) follows SoRyuSenDelay later. Set by hand until the skill tree grants it.
 	[Export] public bool SoRyuSenEnabled = true;
@@ -1038,12 +1059,20 @@ public partial class Player : CharacterBody2D
 		// Poison/fire ticks don't arm the post-hit i-frames, so this skips them: only real hits stop time.
 		_stats.HitTaken += isProjectile =>
 		{
-			if (_stats.IsInvulnerable)
+			if (!_stats.IsInvulnerable)
+				return;
+			_hitBlinking = true;
+			// Bumping an enemy's body is a light hit: a short freeze and only ContactInvulnerability
+			// of i-frames, so a brush can't swallow the real attack that follows.
+			if (Metroidvania.World.Enemy.DealingContactDamage)
 			{
-				_ = HitStop(DamageTakenHitStopDuration);
-				ShakeCamera(DamageTakenShake, DamageTakenShakeDuration);
-				_hitBlinking = true;
+				_stats.SetInvulnerability(ContactInvulnerability);
+				_ = HitStop(ContactHitStopDuration);
+				ShakeCamera(ContactShake, 0.1f);
+				return;
 			}
+			_ = HitStop(DamageTakenHitStopDuration);
+			ShakeCamera(DamageTakenShake, DamageTakenShakeDuration);
 		};
 		_healFlask.ChargesChanged += (current, max) => UpdateHealChargesLabel(current, max);
 		UpdateHealChargesLabel(_healFlask.CurrentCharges, _healFlask.MaxCharges);
@@ -2487,6 +2516,7 @@ public partial class Player : CharacterBody2D
 		_torchLight.Enabled = _torchEquipped && !_isFireImbued;
 		_swordFireLight.Enabled = _isFireImbued;
 
+		velocity.X += BodyPushX((float)delta);
 		Velocity = velocity;
 		MoveAndSlide();
 		UpdateSafeGround((float)delta);
@@ -3447,6 +3477,29 @@ public partial class Player : CharacterBody2D
 		attacker?.RegisterParried(weight);
 	}
 
+	// Horizontal drift out of any enemy body the player overlaps (player and enemies never collide
+	// physically — that would mean standing on heads and getting wedged). Pushed away from each
+	// enemy's center; if a wall blocks that side, the enemy is nudged the other way instead.
+	private float BodyPushX(float delta)
+	{
+		if (BodyPushSpeed <= 0f || _isRolling || _isDashing || _knockbackTimer > 0f || _hitBlinking)
+			return 0f;
+		float push = 0f;
+		foreach (Node node in GetTree().GetNodesInGroup("enemy"))
+		{
+			if (node is not Metroidvania.World.Enemy enemy || !enemy.CanBeExecuted || enemy.IsStunned
+				|| enemy.GetNodeOrNull<Area2D>("ContactArea") is not { Monitoring: true } contact || !contact.OverlapsBody(this))
+				continue;
+			float dx = GlobalPosition.X - enemy.GlobalPosition.X;
+			float side = Mathf.Abs(dx) > 1f ? Mathf.Sign(dx) : (_facingRight ? -1f : 1f);
+			if (TestMove(GlobalTransform, new Vector2(side * 4f, 0f)))
+				enemy.BodyNudge(-side * BodyPushSpeed * delta);
+			else
+				push += side * BodyPushSpeed;
+		}
+		return Mathf.Clamp(push, -BodyPushSpeed, BodyPushSpeed);
+	}
+
 	private bool OverlapsEnemyContact()
 	{
 		foreach (Node node in GetTree().GetNodesInGroup("enemy"))
@@ -3517,16 +3570,27 @@ public partial class Player : CharacterBody2D
 		bool hitLanded = false;
 		void OnHitLanded() => hitLanded = true;
 		_hitbox.HitDealt += OnHitLanded;
+		bool impactPlayed = false;
+		void OnChargedTarget(Node2D target)
+		{
+			LaunchChargedTarget(target);
+			if (impactPlayed)
+				return;
+			impactPlayed = true;
+			PlayChargedImpact();
+		}
+		_hitbox.HitTarget += OnChargedTarget;
 
 		_hitboxShape.Size = ChargedAttackHitboxSize;
 		_hitbox.Position = new Vector2(_facingRight ? ChargedAttackReach : -ChargedAttackReach, 0);
-		_hitbox.Activate(_stats, element: _currentElement);
+		_hitbox.Activate(_stats, element: _currentElement, customImpactEffect: SpawnChargedImpact, damageMultiplier: ChargedDamageMultiplier);
 
 		RunChargedNeonTrail();
 
 		await ToSignal(GetTree().CreateTimer(AttackDuration), SceneTreeTimer.SignalName.Timeout);
 		_hitbox.Deactivate();
 		_hitbox.HitDealt -= OnHitLanded;
+		_hitbox.HitTarget -= OnChargedTarget;
 		if (!hitLanded)
 			Sfx.Play(this, "Combat/Sword", "Sword Attack");
 
@@ -3554,6 +3618,49 @@ public partial class Player : CharacterBody2D
 		await ToSignal(GetTree().CreateTimer(tail), SceneTreeTimer.SignalName.Timeout);
 		_isCharging = false;
 		_attacking = false;
+	}
+
+	// Per target: the burst at the contact point.
+	private void SpawnChargedImpact(Vector2 point)
+	{
+		HitImpactBurst.SpawnAt(this, point, HitImpactBurst.ImpactTier.Heavy);
+		HitSparks.SpawnAt(this, point, _facingRight ? Vector2.Right : Vector2.Left, ChargedSparkIntensity);
+	}
+
+	// Once per swing, on the first contact: the world stops.
+	private void PlayChargedImpact()
+	{
+		_ = HitStop(ChargedHitStopDuration);
+		ShakeCamera(ChargedShake, ChargedShakeDuration);
+		_hitRecoilDirection = _facingRight ? -1f : 1f;
+		_hitRecoilTimer = ChargedRecoilDuration;
+		SpawnDust("land_dust");
+		FlashScreen(ChargedScreenFlashAlpha, ChargedScreenFlashDuration);
+	}
+
+	private void LaunchChargedTarget(Node2D target)
+	{
+		if (target is not Metroidvania.World.Enemy enemy || !enemy.BodyPushable)
+			return;
+		float side = Mathf.Sign(enemy.GlobalPosition.X - GlobalPosition.X);
+		if (side == 0f)
+			side = _facingRight ? 1f : -1f;
+		enemy.Launch(new Vector2(side * ChargedLaunchVelocity.X, ChargedLaunchVelocity.Y), ChargedLaunchDuration);
+	}
+
+	// Brief full-screen white pop, on real time so the hit-stop it lands in doesn't stretch it.
+	private void FlashScreen(float alpha, float duration)
+	{
+		if (alpha <= 0f || GetTree().CurrentScene is not Node scene)
+			return;
+		var layer = new CanvasLayer { Layer = 18 };
+		var rect = new ColorRect { Color = new Color(1f, 1f, 1f, alpha), MouseFilter = Control.MouseFilterEnum.Ignore };
+		rect.SetAnchorsPreset(Control.LayoutPreset.FullRect);
+		layer.AddChild(rect);
+		scene.AddChild(layer);
+		Tween fade = layer.CreateTween().SetIgnoreTimeScale();
+		fade.TweenProperty(rect, "color:a", 0f, duration);
+		fade.TweenCallback(Callable.From(layer.QueueFree));
 	}
 
 	private async Task SoRyuSenFollowUp()

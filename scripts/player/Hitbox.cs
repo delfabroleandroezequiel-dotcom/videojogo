@@ -19,6 +19,11 @@ public partial class Hitbox : Area2D
 	private Color? _impactModulate;
 	private System.Action<Vector2> _customImpactEffect;
 	private ulong _suppressedUntilMsec;
+	private float _damageMultiplier = 1f;
+
+	// Raised last for every body this hitbox damages (after knockback), for owners that need to act
+	// on the target itself — e.g. the charged draw launching what it hit.
+	public event System.Action<Node2D> HitTarget;
 
 	public override void _Ready()
 	{
@@ -37,11 +42,14 @@ public partial class Hitbox : Area2D
 	// ignorePostHitInvulnerability: pierce the target's short post-hit i-frames but still respect
 	// ExternalInvulnerable (dash/roll i-frames) — for multi-hit combos meant to land in full on a
 	// player who got caught, while a well-timed dash still dodges each hit (MushroomBoss's dance).
-	public void Activate(Stats attackerStats, string impactFramesPath = null, DamageElement element = DamageElement.Normal, bool ignoreTargetInvulnerability = false, Color? impactModulate = null, System.Action<Vector2> customImpactEffect = null, bool ignorePostHitInvulnerability = false)
+	// damageMultiplier scales the attacker's AttackPower for this activation only (the player's
+	// charged draw); every other caller leaves it at 1.
+	public void Activate(Stats attackerStats, string impactFramesPath = null, DamageElement element = DamageElement.Normal, bool ignoreTargetInvulnerability = false, Color? impactModulate = null, System.Action<Vector2> customImpactEffect = null, bool ignorePostHitInvulnerability = false, float damageMultiplier = 1f)
 	{
 		if (Time.GetTicksMsec() < _suppressedUntilMsec)
 			return;
 		_attackerStats = attackerStats;
+		_damageMultiplier = damageMultiplier;
 		_ignorePostHitInvulnerability = ignorePostHitInvulnerability;
 		_impactFramesPath = impactFramesPath;
 		_element = element;
@@ -57,7 +65,9 @@ public partial class Hitbox : Area2D
 	// interrupted (MeleeEnemy flinch) while its attack coroutine is still running on its own timers.
 	public void Suppress(float seconds)
 	{
-		Deactivate();
+		// Deferred: Suppress runs from inside another hitbox's BodyEntered (a hit interrupting this
+		// swing), where Godot refuses to toggle a shape directly.
+		_shape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 		_suppressedUntilMsec = Time.GetTicksMsec() + (ulong)(seconds * 1000f);
 	}
 
@@ -87,7 +97,7 @@ public partial class Hitbox : Area2D
 		if (targetStats.IsInvulnerable && !pierce)
 			return;
 
-		targetStats.TakeDamage(_attackerStats.AttackPower, element: _element, ignoreInvulnerability: pierce);
+		targetStats.TakeDamage(Mathf.RoundToInt(_attackerStats.AttackPower * _damageMultiplier), element: _element, ignoreInvulnerability: pierce);
 		Vector2 impactPoint = (GlobalPosition + body.GlobalPosition) / 2f;
 		LastImpactPoint = impactPoint;
 		BloodEffect.SpawnAt(this, body.GlobalPosition);
@@ -115,5 +125,6 @@ public partial class Hitbox : Area2D
 			knockDirection = knockDirection == Vector2.Zero ? Vector2.Right : knockDirection.Normalized();
 			body.Call("ApplyKnockback", knockDirection, KnockbackForce);
 		}
+		HitTarget?.Invoke(body);
 	}
 }
