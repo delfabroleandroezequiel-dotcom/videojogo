@@ -9,12 +9,66 @@
 [ext_resource type="PackedScene" path="res://scenes/world/iluminacion/Vela4.tscn" id="5_s3nk1"]
 [ext_resource type="PackedScene" path="res://scenes/world/iluminacion/Vela9.tscn" id="8_tl7yq"]
 [ext_resource type="PackedScene" path="res://scenes/world/iluminacion/FlickerLight.tscn" id="9_fk51m"]
+[ext_resource type="PackedScene" path="res://scenes/world/others/ArthurNpc.tscn" id="20_arthur"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/Cinematic.cs" id="30_cine"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/StepFade.cs" id="31_fade"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/StepWait.cs" id="32_wait"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/StepCamera.cs" id="33_cam"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/StepMove.cs" id="34_move"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/StepFace.cs" id="35_face"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/StepSay.cs" id="36_say"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(816.4462, 29.750008)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sidewall"]
 size = Vector2(30.6, 459)
+
+[sub_resource type="Resource" id="Paso_negro"]
+script = ExtResource("31_fade")
+ToBlack = true
+Duration = 0.0
+
+[sub_resource type="Resource" id="Paso_espera"]
+script = ExtResource("32_wait")
+Seconds = 0.5
+
+[sub_resource type="Resource" id="Paso_aclarar"]
+script = ExtResource("31_fade")
+ToBlack = false
+Duration = 1.2
+
+[sub_resource type="Resource" id="Paso_camaraArthur"]
+script = ExtResource("33_cam")
+Target = NodePath("../Arthur")
+Weight = 0.6
+Zoom = 1.15
+WaitSeconds = 0.6
+
+[sub_resource type="Resource" id="Paso_arthurVa"]
+script = ExtResource("34_move")
+Actor = NodePath("../Arthur")
+TargetX = -245.0
+Speed = 115.0
+
+[sub_resource type="Resource" id="Paso_arthurMira"]
+script = ExtResource("35_face")
+Actor = NodePath("../Arthur")
+
+[sub_resource type="Resource" id="Paso_camaraVuelve"]
+script = ExtResource("33_cam")
+WaitSeconds = 0.3
+
+[sub_resource type="Resource" id="Paso_dialogo"]
+script = ExtResource("36_say")
+SpeakerKeys = PackedStringArray("NPC_ARTHUR_NAME", "NPC_DELFRAD_NAME", "NPC_ARTHUR_NAME")
+LineKeys = PackedStringArray("CINE_CASA_1", "CINE_CASA_2", "CINE_CASA_3")
+
+[sub_resource type="Resource" id="Paso_arthurVuelve"]
+script = ExtResource("34_move")
+Actor = NodePath("../Arthur")
+TargetX = 120.0
+Speed = 115.0
 
 [node name="Casa1" type="Node2D" unique_id=2000000001]
 script = ExtResource("2_bootstrap")
@@ -91,3 +145,12 @@ position = Vector2(-348, 21)
 
 [node name="FlickerLight2" parent="." unique_id=2056459072 instance=ExtResource("9_fk51m")]
 position = Vector2(351, 14)
+
+[node name="Arthur" parent="." instance=ExtResource("20_arthur")]
+position = Vector2(215, 91)
+
+[node name="CinematicaApertura" type="Node" parent="."]
+script = ExtResource("30_cine")
+Steps = [SubResource("Paso_negro"), SubResource("Paso_espera"), SubResource("Paso_aclarar"), SubResource("Paso_camaraArthur"), SubResource("Paso_arthurVa"), SubResource("Paso_arthurMira"), SubResource("Paso_camaraVuelve"), SubResource("Paso_dialogo"), SubResource("Paso_arthurVuelve")]
+PlayOnStart = true
+PersistenceId = "cine_casa_apertura"

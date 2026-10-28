@@ -1,0 +1,42 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/cinematica/Cinematic.cs" id="1_cine"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/StepWait.cs" id="2_wait"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/StepSay.cs" id="3_say"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/StepChangeScene.cs" id="4_cambio"]
+
+[sub_resource type="Resource" id="Paso_silencio"]
+script = ExtResource("2_wait")
+Seconds = 1.0
+
+[sub_resource type="Resource" id="Paso_narracion"]
+script = ExtResource("3_say")
+SpeakerKeys = PackedStringArray("NPC_DELFRAD_NAME")
+LineKeys = PackedStringArray("NARRA_APERTURA_1", "NARRA_APERTURA_2", "NARRA_APERTURA_3", "NARRA_APERTURA_4")
+
+[sub_resource type="Resource" id="Paso_pausa"]
+script = ExtResource("2_wait")
+Seconds = 0.8
+
+[sub_resource type="Resource" id="Paso_siguiente"]
+script = ExtResource("4_cambio")
+
+[node name="NarracionApertura" type="Node2D"]
+
+[node name="Negro" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="Fondo" type="ColorRect" parent="Negro"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Narracion" type="Node" parent="."]
+script = ExtResource("1_cine")
+Steps = [SubResource("Paso_silencio"), SubResource("Paso_narracion"), SubResource("Paso_pausa"), SubResource("Paso_siguiente")]
+PlayOnStart = true
+PlayOnce = false

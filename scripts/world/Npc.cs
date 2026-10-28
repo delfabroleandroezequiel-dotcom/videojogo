@@ -124,15 +124,21 @@ public partial class Npc : CharacterBody2D
 		}
 		else
 		{
-			velocity.X = 0;
+			velocity.X = CinematicControl ? CinematicVelocityX : 0;
 			velocity.Y = IsOnFloor() ? 0 : velocity.Y + Gravity * (float)delta;
 		}
 
 		Velocity = velocity;
 		MoveAndSlide();
 
-		FacePlayer();
+		if (!CinematicControl)
+			FacePlayer();
 	}
+
+	// A Cinematic drives this NPC: it walks at CinematicVelocityX and faces wherever it's told,
+	// instead of standing still and tracking the player.
+	public bool CinematicControl { get; set; }
+	public float CinematicVelocityX { get; set; }
 
 	private void FacePlayer()
 	{
@@ -146,7 +152,7 @@ public partial class Npc : CharacterBody2D
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		if (_isDead || !_playerInRange || DialogueBox.Instance.IsOpen)
+		if (_isDead || !_playerInRange || DialogueBox.Instance.IsOpen || Cinematic.Playing)
 			return;
 
 		if (@event.IsActionPressed("interact"))

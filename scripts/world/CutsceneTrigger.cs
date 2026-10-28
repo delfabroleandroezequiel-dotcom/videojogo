@@ -40,7 +40,7 @@ public partial class CutsceneTrigger : Area2D
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		if (!RequireInteract || !_playerInRange || DialogueBox.Instance.IsOpen || AlreadyPlayed)
+		if (!RequireInteract || !_playerInRange || DialogueBox.Instance.IsOpen || AlreadyPlayed || Cinematic.Playing)
 			return;
 
 		if (@event.IsActionPressed("interact"))

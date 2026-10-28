@@ -131,6 +131,10 @@ public partial class PlayerAbilities : Node
 		}
 	}
 
+	// Takes an ability away from this player instance only (a scene that wants a reduced kit, like
+	// the young-Delfrad tutorial). Not saved: the next scene's player starts from the save again.
+	public void LockForScene(string abilityId) => _unlocked.Remove(abilityId);
+
 	public bool Has(string abilityId) => _unlocked.Contains(abilityId);
 
 	public IReadOnlyCollection<string> GetUnlocked() => _unlocked;

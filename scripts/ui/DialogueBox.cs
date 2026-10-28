@@ -17,6 +17,7 @@ public partial class DialogueBox : CanvasLayer
 	private int _lineIndex;
 	private Action _onFinished;
 	private bool _isOpen;
+	private bool _pausedWorld;
 
 	public override void _Ready()
 	{
@@ -41,7 +42,9 @@ public partial class DialogueBox : CanvasLayer
 	// Cutscene-style overload: SpeakerKeys can list a different speaker per line (a back-and-forth
 	// between characters), or just one entry to keep speaking as the same character for every
 	// line — same as the single-speaker overload above, which just forwards here.
-	public void Show(string[] speakerNameKeys, string[] lineKeys, Action onFinished = null)
+	// pauseWorld = false is for cinematics: the player is already held (Player.HoldForCutscene), and
+	// the characters keep moving and animating while they talk.
+	public void Show(string[] speakerNameKeys, string[] lineKeys, Action onFinished = null, bool pauseWorld = true)
 	{
 		if (lineKeys is null || lineKeys.Length == 0 || speakerNameKeys is null || speakerNameKeys.Length == 0)
 			return;
@@ -51,9 +54,17 @@ public partial class DialogueBox : CanvasLayer
 		_lineIndex = 0;
 		_onFinished = onFinished;
 		_isOpen = true;
+		_pausedWorld = pauseWorld;
 		_panel.Visible = true;
-		GetTree().Paused = true;
+		if (pauseWorld)
+			GetTree().Paused = true;
 		DisplayCurrentLine();
+	}
+
+	public void AdvanceLine()
+	{
+		if (_isOpen)
+			Advance();
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -93,7 +104,8 @@ public partial class DialogueBox : CanvasLayer
 	{
 		_isOpen = false;
 		_panel.Visible = false;
-		GetTree().Paused = false;
+		if (_pausedWorld)
+			GetTree().Paused = false;
 		Action callback = _onFinished;
 		_onFinished = null;
 		callback?.Invoke();

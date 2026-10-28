@@ -1,0 +1,14 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://d8tq20x6upcu" path="res://scenes/world/Npc.tscn" id="1_npc"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/ArthurViejoSpriteFrames.tres" id="2_frames"]
+
+[node name="ArthurNpc" instance=ExtResource("1_npc")]
+NpcName = "NPC_ARTHUR_NAME"
+DialogueLines = PackedStringArray("ARTHUR_CASA_1", "ARTHUR_CASA_2")
+CustomSpriteFrames = ExtResource("2_frames")
+CustomSpriteScale = Vector2(1.8, 1.8)
+CollisionSize = Vector2(26, 64)
+
+[node name="CharacterSprite" parent="Visual" index="0"]
+position = Vector2(10.8, -16.6)
