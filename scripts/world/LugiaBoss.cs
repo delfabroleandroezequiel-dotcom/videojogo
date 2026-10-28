@@ -131,6 +131,9 @@ public partial class LugiaBoss : Enemy
 	[Export] public bool ShowcaseMode;
 	[Export] public float ShowcasePause = 1.2f;
 	[Export] public float ShowcaseApproachTime = 3f;
+	// For screenshots: awake, standing in idle with its body chaos on, but no AI, no sleep intro and
+	// no boss bar. Overrides ShowcaseMode and StartAsleep.
+	[Export] public bool OnlyIdle;
 
 	[ExportGroup("Body chaos")]
 	// Midir must always look unstable, whatever it's doing: the sprite jitters, dark afterimages
@@ -155,6 +158,10 @@ public partial class LugiaBoss : Enemy
 	[Export] public Color SheenColor = new(0.7f, 0.75f, 1f, 1f);
 	[Export] public float SheenEnergy = 0.9f;
 	[Export] public float SheenScale = 3.2f;
+	[ExportGroup("Effects")]
+	// Size of the particle/light effects (fire blobs, embers, floor flames, body smoke, the phase-2 charge,
+	// humanities). 1 = the full-size dragon; MiniMidir sets it to its SizeScale so the fire shrinks with it.
+	[Export] public float FxScale = 1f;
 	// Cone of fire in front of the mouth (facing right), relative to the body origin. Measured off a render: the
 	// dense flames end ~410px past the mouth (~555px from the origin) — keep the far edge there so you
 	// only burn where you can see fire.
@@ -276,9 +283,11 @@ public partial class LugiaBoss : Enemy
 	// Its sight while asleep — shorter than DetectionRange so the player gets to see it lying there
 	// (the camera shows ~460px each side) before it notices them.
 	[Export] public float WakeRange = 400f;
-	// Intro close-up: camera centred on it (plus this offset) at IntroZoom × the map's zoom.
+	// Intro close-up: camera centred on it (plus this offset) at IntroZoom × the map's zoom. The
+	// default sits low (so the feet aren't clipped) and to its left (so it reads on the right of
+	// the frame); at MidirArena's zoom the view is ~680×385, so 40px ≈ 10% of its height.
 	[Export] public float IntroZoom = 1.35f;
-	[Export] public Vector2 IntroCameraOffset = new(0f, -20f);
+	[Export] public Vector2 IntroCameraOffset = new(-100f, 40f);
 	// Once awake it's a boss fight: it tracks the player anywhere in the arena (the profile's DetectionRange
 	// is too short — after a rush to the far wall it would lose the player and stand idle).
 	[Export] public float AwakeDetectionRange = 3000f;
@@ -351,7 +360,9 @@ public partial class LugiaBoss : Enemy
 
 		// Asleep it isn't in the "boss" group yet: that's what makes the player's boss bar (and boss
 		// zoom) kick in, and those belong after the roar.
-		if (StartAsleep && Sprite is not null)
+		if (OnlyIdle)
+			Sprite?.Play("idle");
+		else if (StartAsleep && Sprite is not null)
 		{
 			_asleep = true;
 			_busy = true;
@@ -451,6 +462,12 @@ public partial class LugiaBoss : Enemy
 			return;
 
 		float dt = (float)delta;
+		if (OnlyIdle)
+		{
+			Velocity = new Vector2(0f, IsOnFloor() ? 0f : Velocity.Y + Gravity * dt);
+			MoveAndSlide();
+			return;
+		}
 		_hurtTimer -= dt;
 		_clawCooldownTimer -= dt;
 		_fireCooldownTimer -= dt;
@@ -755,7 +772,7 @@ public partial class LugiaBoss : Enemy
 		_breathTween?.Kill();
 		_breathTween = CreateTween();
 		_breathTween.TweenProperty(_mouthGlow, "modulate", BeamGlowColor with { A = 1f }, BeamChargeTime);
-		_breathTween.Parallel().TweenProperty(_mouthGlow, "scale", Vector2.One * 1.1f, BeamChargeTime);
+		_breathTween.Parallel().TweenProperty(_mouthGlow, "scale", Vector2.One * 1.1f * FxScale, BeamChargeTime);
 		_breathTween.Parallel().TweenProperty(_breathLight, "color", BeamGlowColor, BeamChargeTime);
 		_breathTween.Parallel().TweenProperty(_breathLight, "energy", BreathLightEnergy * 1.4f, BeamChargeTime);
 		PlayerReads.Find(this)?.ShakeCamera(4f, BeamChargeTime);
@@ -951,12 +968,12 @@ public partial class LugiaBoss : Enemy
 			ProcessMaterial = new ParticleProcessMaterial
 			{
 				EmissionShape = ParticleProcessMaterial.EmissionShapeEnum.SphereSurface,
-				EmissionSphereRadius = 90f,
+				EmissionSphereRadius = 90f * FxScale,
 				Gravity = Vector3.Zero,
-				RadialAccelMin = -700f,
-				RadialAccelMax = -500f,
-				ScaleMin = 0.05f,
-				ScaleMax = 0.12f,
+				RadialAccelMin = -700f * FxScale,
+				RadialAccelMax = -500f * FxScale,
+				ScaleMin = 0.05f * FxScale,
+				ScaleMax = 0.12f * FxScale,
 				ColorRamp = new GradientTexture1D { Gradient = ramp },
 			},
 		};
@@ -971,7 +988,7 @@ public partial class LugiaBoss : Enemy
 	{
 		StopBreath();
 		_mouthGlow.Modulate = BreathFlameColor with { A = 0f };
-		_mouthGlow.Scale = Vector2.One * 0.6f;
+		_mouthGlow.Scale = Vector2.One * 0.6f * FxScale;
 		_breathLight.Color = BreathFlameColor;
 	}
 
@@ -1155,7 +1172,7 @@ public partial class LugiaBoss : Enemy
 		_breathTween?.Kill();
 		_breathTween = CreateTween();
 		_breathTween.TweenProperty(_mouthGlow, "modulate", BeamGlowColor with { A = 1f }, PhaseChargeTime);
-		_breathTween.Parallel().TweenProperty(_mouthGlow, "scale", Vector2.One * 3.5f, PhaseChargeTime);
+		_breathTween.Parallel().TweenProperty(_mouthGlow, "scale", Vector2.One * 3.5f * FxScale, PhaseChargeTime);
 		_breathTween.Parallel().TweenProperty(_breathLight, "color", BeamGlowColor, 0.2f);
 		_breathTween.Parallel().TweenProperty(_breathLight, "energy", BreathLightEnergy * 2.5f, PhaseChargeTime);
 		float t = 0f;
@@ -1199,7 +1216,9 @@ public partial class LugiaBoss : Enemy
 			// Blown out every which way, they slow down, then come for the player.
 			var orb = new HumanityOrb
 			{
-				LaunchVelocity = Vector2.Right.Rotated(_rng.RandfRange(0f, Mathf.Tau)) * _rng.RandfRange(350f, 750f),
+				LaunchVelocity = Vector2.Right.Rotated(_rng.RandfRange(0f, Mathf.Tau)) * _rng.RandfRange(350f, 750f) * FxScale,
+				FigureScale = FxScale,
+				HitRadius = 24f * FxScale,
 				HangTime = _rng.RandfRange(0.6f, 1.2f),
 				Target = player,
 				OnHitPlayer = at => { if (player is not null) HitUnparryable(player, OrbDamageMultiplier, at, BeamKnockback * 0.5f); },
@@ -1223,12 +1242,15 @@ public partial class LugiaBoss : Enemy
 		var orbs = new System.Collections.Generic.List<HumanityOrb>();
 		for (int i = 0; i < OrbCount; i++)
 		{
-			float x = GlobalPosition.X + _rng.RandfRange(-260f, 260f);
+			float x = GlobalPosition.X + _rng.RandfRange(-260f, 260f) * FxScale;
 			var orb = new HumanityOrb
 			{
 				Target = player,
 				// Each one waits a little longer before it goes, so they come one after another.
 				HangTime = 0.4f + i * OrbLaunchInterval,
+				FigureScale = FxScale,
+				HitRadius = 24f * FxScale,
+				RiseSpeed = 90f * FxScale,
 				OnHitPlayer = at => HitUnparryable(player, OrbDamageMultiplier, at, BeamKnockback * 0.5f),
 			};
 			scene.AddChild(orb);
@@ -1483,18 +1505,18 @@ public partial class LugiaBoss : Enemy
 			Randomness = 0.5f,
 			LocalCoords = false,
 			Texture = dot,
-			Position = new Vector2(10f, -30f),
+			Position = new Vector2(10f, -30f) * FxScale,
 			ProcessMaterial = new ParticleProcessMaterial
 			{
 				EmissionShape = ParticleProcessMaterial.EmissionShapeEnum.Box,
-				EmissionBoxExtents = new Vector3(70f, 35f, 1f),
+				EmissionBoxExtents = new Vector3(70f * FxScale, 35f * FxScale, 1f),
 				Direction = new Vector3(0f, -1f, 0f),
 				Spread = 35f,
 				InitialVelocityMin = 15f,
 				InitialVelocityMax = 45f,
 				Gravity = new Vector3(0f, -25f, 0f),
-				ScaleMin = 0.35f,
-				ScaleMax = 0.7f,
+				ScaleMin = 0.35f * FxScale,
+				ScaleMax = 0.7f * FxScale,
 				ScaleCurve = new CurveTexture { Curve = grow },
 				ColorRamp = new GradientTexture1D { Gradient = smokeRamp },
 				TurbulenceEnabled = true,
@@ -1521,18 +1543,18 @@ public partial class LugiaBoss : Enemy
 			LocalCoords = false,
 			Texture = dot,
 			Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add },
-			Position = new Vector2(10f, -30f),
+			Position = new Vector2(10f, -30f) * FxScale,
 			ProcessMaterial = new ParticleProcessMaterial
 			{
 				EmissionShape = ParticleProcessMaterial.EmissionShapeEnum.Box,
-				EmissionBoxExtents = new Vector3(70f, 35f, 1f),
+				EmissionBoxExtents = new Vector3(70f * FxScale, 35f * FxScale, 1f),
 				Direction = new Vector3(0f, -1f, 0f),
 				Spread = 50f,
 				InitialVelocityMin = 25f,
 				InitialVelocityMax = 80f,
 				Gravity = new Vector3(0f, -20f, 0f),
-				ScaleMin = 0.03f,
-				ScaleMax = 0.07f,
+				ScaleMin = 0.03f * FxScale,
+				ScaleMax = 0.07f * FxScale,
 				ColorRamp = new GradientTexture1D { Gradient = emberRamp },
 				TurbulenceEnabled = true,
 				TurbulenceNoiseStrength = 6f,
@@ -1994,16 +2016,16 @@ public partial class LugiaBoss : Enemy
 		var process = new ParticleProcessMaterial
 		{
 			EmissionShape = ParticleProcessMaterial.EmissionShapeEnum.Box,
-			EmissionBoxExtents = new Vector3(140f, 4f, 1f),
+			EmissionBoxExtents = new Vector3(140f * FxScale, 4f, 1f),
 			Direction = new Vector3(dir, -0.35f, 0f),
 			Spread = 18f,
-			InitialVelocityMin = 280f,
-			InitialVelocityMax = 620f,
+			InitialVelocityMin = 280f * FxScale,
+			InitialVelocityMax = 620f * FxScale,
 			Gravity = new Vector3(0f, 420f, 0f),
 			DampingMin = 60f,
 			DampingMax = 140f,
-			ScaleMin = 0.08f,
-			ScaleMax = 0.22f,
+			ScaleMin = 0.08f * FxScale,
+			ScaleMax = 0.22f * FxScale,
 			ColorRamp = new GradientTexture1D { Gradient = ramp },
 		};
 		var spray = new GpuParticles2D
@@ -2017,7 +2039,7 @@ public partial class LugiaBoss : Enemy
 		};
 		scene.AddChild(spray);
 		// Along the ground just in front of the head.
-		spray.GlobalPosition = GlobalPosition + new Vector2(dir * (GroundMouth.X + 140f), BodyBottom - 4f);
+		spray.GlobalPosition = GlobalPosition + new Vector2(dir * (GroundMouth.X + 140f * FxScale), BodyBottom - 4f);
 		spray.Emitting = true;
 		spray.Finished += spray.QueueFree;
 		// Not one-shot: emits for the roar, then Emitting=false lets the last drops finish.
@@ -2115,8 +2137,8 @@ public partial class LugiaBoss : Enemy
 			AngleMax = 360f,
 			AngularVelocityMin = -200f,
 			AngularVelocityMax = 200f,
-			ScaleMin = 0.22f,
-			ScaleMax = 0.75f,
+			ScaleMin = 0.22f * FxScale,
+			ScaleMax = 0.75f * FxScale,
 			ScaleCurve = new CurveTexture { Curve = grow },
 			ColorRamp = new GradientTexture1D { Gradient = ramp },
 			TurbulenceEnabled = true,
@@ -2165,11 +2187,11 @@ public partial class LugiaBoss : Enemy
 				Spread = 38f,
 				InitialVelocityMin = BreathSpeed * 0.35f,
 				InitialVelocityMax = BreathSpeed * 0.9f,
-				Gravity = new Vector3(0f, 320f, 0f),
-				DampingMin = 40f,
-				DampingMax = 120f,
-				ScaleMin = 0.04f,
-				ScaleMax = 0.11f,
+				Gravity = new Vector3(0f, 320f * FxScale, 0f),
+				DampingMin = 40f * FxScale,
+				DampingMax = 120f * FxScale,
+				ScaleMin = 0.04f * FxScale,
+				ScaleMax = 0.11f * FxScale,
 				ColorRamp = new GradientTexture1D { Gradient = emberRamp },
 				TurbulenceEnabled = true,
 				TurbulenceNoiseStrength = BreathTurbulence * 1.5f,
@@ -2185,14 +2207,14 @@ public partial class LugiaBoss : Enemy
 			Texture = dot,
 			Material = additive,
 			Modulate = BreathFlameColor with { A = 0f },
-			Scale = Vector2.One * 0.6f,
+			Scale = Vector2.One * 0.6f * FxScale,
 		};
 		Visual.AddChild(_mouthGlow);
 
 		_breathLight = new PointLight2D
 		{
 			Texture = GD.Load<Texture2D>("res://resources/lighting/PointLightGradient.tres"),
-			TextureScale = 2.2f,
+			TextureScale = 2.2f * FxScale,
 			Color = BreathFlameColor,
 			Energy = 0f,
 		};
@@ -2226,7 +2248,7 @@ public partial class LugiaBoss : Enemy
 		_breath.Position = mouth;
 		_breath.RotationDegrees = angleDegrees;
 		_mouthGlow.Position = mouth;
-		_breathLight.Position = mouth + new Vector2(140f, 0f).Rotated(Mathf.DegToRad(angleDegrees));
+		_breathLight.Position = mouth + new Vector2(140f * FxScale, 0f).Rotated(Mathf.DegToRad(angleDegrees));
 
 		Sprite.SpeedScale = gatherSpeedScale;
 		Sprite.Play(animation);
@@ -2362,11 +2384,11 @@ public partial class LugiaBoss : Enemy
 				EmissionBoxExtents = new Vector3(halfWidth, 4f, 1f),
 				Direction = new Vector3(0f, -1f, 0f),
 				Spread = 25f,
-				InitialVelocityMin = 40f,
-				InitialVelocityMax = 160f,
+				InitialVelocityMin = 40f * FxScale,
+				InitialVelocityMax = 160f * FxScale,
 				Gravity = new Vector3(0f, -90f, 0f),
-				ScaleMin = 0.18f,
-				ScaleMax = 0.55f,
+				ScaleMin = 0.18f * FxScale,
+				ScaleMax = 0.55f * FxScale,
 				ScaleCurve = new CurveTexture { Curve = grow },
 				ColorRamp = new GradientTexture1D { Gradient = ramp },
 				TurbulenceEnabled = true,
@@ -2379,10 +2401,10 @@ public partial class LugiaBoss : Enemy
 		var glow = new PointLight2D
 		{
 			Texture = GD.Load<Texture2D>("res://resources/lighting/PointLightGradient.tres"),
-			TextureScale = 1.6f,
+			TextureScale = 1.6f * FxScale,
 			Color = BreathFlameColor,
 			Energy = BreathLightEnergy * 0.45f,
-			Position = new Vector2(0f, -30f),
+			Position = new Vector2(0f, -30f) * FxScale,
 		};
 		flames.AddChild(glow);
 		scene.AddChild(flames);

@@ -14,6 +14,11 @@ public partial class BossHealthBar : Control
 	[Export] public float NameHeight = 24f;
 	// How far the name dips into the frame's top decoration.
 	[Export] public float NameOverlap = 8f;
+	// The bar sits at the top centre (the bottom one covered the player, whose feet are near the
+	// screen's bottom edge in most rooms); false = the original bottom-centre placement.
+	[Export] public bool AtTop = true;
+	[Export] public float TopMargin = 10f;
+	[Export] public bool ShowName = false;
 
 	private TextureProgressBar _bar;
 	private Label _name;
@@ -27,6 +32,14 @@ public partial class BossHealthBar : Control
 		_bar = GetNode<TextureProgressBar>("Bar");
 		_name = GetNode<Label>("Name");
 		Scale = new Vector2(BarScale, BarScale);
+		if (AtTop)
+		{
+			AnchorTop = 0f;
+			AnchorBottom = 0f;
+			OffsetTop = TopMargin;
+			OffsetBottom = TopMargin;
+		}
+		_name.Visible = ShowName;
 		ApplyStyle(DefaultStyle);
 	}
 
@@ -41,8 +54,9 @@ public partial class BossHealthBar : Control
 		_bar.TextureProgress = style.Fill;
 		_bar.TextureProgressOffset = style.FillOffset;
 		_bar.Size = size;
-		// Centred on this control's anchor point (bottom centre of the screen).
-		_bar.Position = new Vector2(-size.X * 0.5f, -size.Y);
+		// Centred on this control's anchor point (top or bottom centre of the screen), hanging
+		// down from it at the top and sitting on it at the bottom.
+		_bar.Position = new Vector2(-size.X * 0.5f, AtTop ? 0f : -size.Y);
 		_name.Size = new Vector2(size.X, NameHeight);
 		_name.Position = new Vector2(-size.X * 0.5f, -size.Y - NameHeight + NameOverlap);
 	}

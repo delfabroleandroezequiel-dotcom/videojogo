@@ -61,7 +61,19 @@ public partial class Hazard : Area2D
 			return;
 		}
 
-		stats.TakeDamage(Damage);
+		// Traps are never parried: a hazard that keeps touching the player hits every physics frame, and
+		// a parry arms no i-frames and extends the parry window — so every frame would parry again and
+		// the parry looped forever (a pendulum resting on a blocking player). Same fix as body contact.
+		System.Func<bool> interceptor = stats.IncomingHitInterceptor;
+		stats.IncomingHitInterceptor = null;
+		try
+		{
+			stats.TakeDamage(Damage);
+		}
+		finally
+		{
+			stats.IncomingHitInterceptor = interceptor;
+		}
 
 		if (body.HasMethod("ApplyKnockback"))
 		{

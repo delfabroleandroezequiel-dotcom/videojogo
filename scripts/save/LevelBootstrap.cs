@@ -29,6 +29,14 @@ public partial class LevelBootstrap : Node
 	// blade's element for free (no resins, no timer) the way it worked before the quick bar.
 	[Export] public bool HideHud;
 	[Export] public bool FreeElementCycle;
+	// Player takes no damage at all here (for filming a boss's moves without fighting it).
+	[Export] public bool PlayerGodMode;
+	// Trim the HUD for videos while keeping the rest of it: the consumables quick bar, and the
+	// Bastón summon slots with their use counts.
+	[Export] public bool HideQuickBar;
+	[Export] public bool HideSummonSlots;
+	// Heal charges added to the player's progression count while in this map (e.g. a boss arena).
+	[Export] public int ExtraHealCharges;
 
 	private Player.Player _player;
 
@@ -42,8 +50,14 @@ public partial class LevelBootstrap : Node
 
 		_player = GetNode<Player.Player>("Player");
 		ApplyCameraConfig();
+		AddChild(new LacquerLayer { Name = "CapaLaqueado", ScenePath = SceneFilePath });
 		_player.GetNode<CanvasLayer>("HUD").Visible = !HideHud;
 		_player.FreeElementCycle = FreeElementCycle;
+		_player.GetNode<Stats>("Stats").GodMode = PlayerGodMode;
+		_player.GetNode<CanvasItem>("HUD/QuickSlotHud").Visible = !HideQuickBar;
+		_player.GetNode<CanvasItem>("HUD/ShadowSlotsHud").Visible = !HideSummonSlots;
+		if (ExtraHealCharges > 0)
+			_player.GetNode<HealFlask>("HealFlask").AddBonusCharges(ExtraHealCharges);
 
 		if (!string.IsNullOrEmpty(ZoneName))
 			ZoneTitle.Instance.Show(ZoneName);

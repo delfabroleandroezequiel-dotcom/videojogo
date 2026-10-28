@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://d3b21wsc0gwom"]
 
 [ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_t37y4"]
+[ext_resource type="Texture2D" uid="uid://cgcpxerl43arf" path="res://assets/backgrounds/bosquecave.png" id="98_bosquecave"]
 [ext_resource type="Texture2D" uid="uid://cifx8bcfrp4ai" path="res://assets/backgrounds/FondoCueva2.png" id="2_yqxvv"]
 [ext_resource type="Texture2D" uid="uid://bwotbdii73pl5" path="res://assets/sprites/deco/telarañas.png" id="3_pk224"]
 [ext_resource type="PackedScene" path="res://scenes/world/iluminacion/CuevaLantern.tscn" id="3_snwom"]
@@ -26,6 +27,9 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PendulumTrap.tscn" id="900_pendulum"]
 [ext_resource type="Material" path="res://resources/shaders/CobwebSway.tres" id="cobweb_sway"]
 [ext_resource type="Material" path="res://resources/shaders/CobwebSwaySprite.tres" id="cobweb_sway_sprite"]
+[ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="93_parallaxfollow"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/NieblaFondo.tscn" id="94_niebla"]
+[ext_resource type="Texture2D" uid="uid://c2jhapnqj7tsq" path="res://assets/backgrounds/ChatGPT Image 2 jul 2026, 11_42_58.png" id="97_capafondo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(398, 490)
@@ -5468,13 +5472,23 @@ CameraLimitBottom = 1024
 
 [node name="Fondos" type="Node2D" parent="." unique_id=562820694]
 
-[node name="Background" type="Node2D" parent="Fondos" unique_id=436563625]
-visible = false
+[node name="Background" type="Node2D" parent="Fondos"]
 z_index = -10
+position = Vector2(-115, 0)
+script = ExtResource("93_parallaxfollow")
+ParallaxFactor = Vector2(0.15, 0)
+FollowCamera = true
 
-[node name="BgTile1" type="Sprite2D" parent="Fondos/Background" unique_id=1770664378]
-texture = ExtResource("2_yqxvv")
+[node name="BgTile1" type="Sprite2D" parent="Fondos/Background"]
+texture = ExtResource("98_bosquecave")
 centered = false
+
+[node name="BgTile2" type="Sprite2D" parent="Fondos/Background"]
+visible = false
+texture = ExtResource("97_capafondo")
+centered = false
+
+[node name="NieblaFondo" parent="Fondos/Background" instance=ExtResource("94_niebla")]
 
 [node name="Telaraña3" type="Sprite2D" parent="Fondos" unique_id=1437868010]
 visible = false
@@ -5484,6 +5498,7 @@ position = Vector2(765, 317)
 texture = ExtResource("3_pk224")
 
 [node name="ParallaxCueva" parent="Fondos" unique_id=199300695 instance=ExtResource("90_parallaxcueva")]
+visible = false
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Fondos" unique_id=1987144399]
 color = Color(0.05, 0.05, 0.08, 1)
@@ -5491,14 +5506,17 @@ color = Color(0.05, 0.05, 0.08, 1)
 [node name="Iluminacion" type="Node2D" parent="." unique_id=1225592405]
 
 [node name="CuevaLantern1" parent="Iluminacion" unique_id=632577015 instance=ExtResource("3_snwom")]
+visible = false
 position = Vector2(320, 900)
 LightRange = 1.0
 
 [node name="CuevaLantern2" parent="Iluminacion" unique_id=1406654995 instance=ExtResource("3_snwom")]
+visible = false
 position = Vector2(768, 900)
 LightRange = 1.0
 
 [node name="CuevaLantern3" parent="Iluminacion" unique_id=1305228027 instance=ExtResource("3_snwom")]
+visible = false
 position = Vector2(1216, 900)
 LightRange = 1.0
 

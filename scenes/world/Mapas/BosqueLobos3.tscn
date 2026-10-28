@@ -3834,5 +3834,5 @@ position = Vector2(784, 257)
 position = Vector2(829, 258)
 
 [node name="ElfMage" parent="." unique_id=1516424012 instance=ExtResource("17_41wgy")]
-position = Vector2(1191, 261)
+position = Vector2(1192, 261)
 HoldPosition = true

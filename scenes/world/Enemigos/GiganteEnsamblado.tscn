@@ -1,0 +1,217 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/GiganteEnsamblado.cs" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Gigante/Partes/GiganteTorso.png" id="2_torso"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Gigante/Partes/GiganteCabeza.png" id="3_cabeza"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Gigante/Partes/GiganteBrazoSuperior.png" id="4_brazo"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Gigante/Partes/GiganteAntebrazo.png" id="5_antebrazo"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Gigante/Partes/GiganteOjos.png" id="6_ojo"]
+[ext_resource type="Script" path="res://scripts/world/ZonaTrepable.cs" id="8_zona"]
+[ext_resource type="Script" path="res://scripts/world/AgujeroGigante.cs" id="9_agujero"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/ProyectilAgujero.tscn" id="10_proyectil"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MonstruoFantasia3ASpriteFrames.tres" id="11_larva"]
+
+[node name="GiganteEnsamblado" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Visual" type="Node2D" parent="."]
+scale = Vector2(1.5, 1.5)
+
+[node name="Cabeza" type="Sprite2D" parent="Visual"]
+z_index = 2
+position = Vector2(5, -520)
+scale = Vector2(0.66, 0.66)
+texture = ExtResource("3_cabeza")
+centered = false
+offset = Vector2(-331, -740)
+
+[node name="OjoIzquierdo" type="Sprite2D" parent="Visual/Cabeza"]
+position = Vector2(-72, -400)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("6_ojo")
+hframes = 8
+
+[node name="OjoDerecho" type="Sprite2D" parent="Visual/Cabeza"]
+position = Vector2(90, -400)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("6_ojo")
+flip_h = true
+hframes = 8
+
+[node name="Torso" type="Sprite2D" parent="Visual"]
+texture = ExtResource("2_torso")
+
+[node name="HombroIzquierdo" type="Node2D" parent="Visual"]
+z_index = 1
+position = Vector2(-453, -267)
+
+[node name="Brazo" type="Node2D" parent="Visual/HombroIzquierdo"]
+
+[node name="Codo" type="Node2D" parent="Visual/HombroIzquierdo/Brazo"]
+position = Vector2(-76, 312)
+
+[node name="Antebrazo" type="Sprite2D" parent="Visual/HombroIzquierdo/Brazo/Codo"]
+texture = ExtResource("5_antebrazo")
+centered = false
+offset = Vector2(-171, -100)
+hframes = 4
+frame = 3
+
+[node name="BrazoSuperior" type="Sprite2D" parent="Visual/HombroIzquierdo/Brazo"]
+texture = ExtResource("4_brazo")
+centered = false
+offset = Vector2(-247, -118)
+
+[node name="HombroDerecho" type="Node2D" parent="Visual"]
+z_index = 1
+position = Vector2(452, -267)
+scale = Vector2(-1, 1)
+
+[node name="Brazo" type="Node2D" parent="Visual/HombroDerecho"]
+
+[node name="Codo" type="Node2D" parent="Visual/HombroDerecho/Brazo"]
+position = Vector2(-76, 312)
+
+[node name="Antebrazo" type="Sprite2D" parent="Visual/HombroDerecho/Brazo/Codo"]
+texture = ExtResource("5_antebrazo")
+centered = false
+offset = Vector2(-171, -100)
+hframes = 4
+frame = 3
+
+[node name="BrazoSuperior" type="Sprite2D" parent="Visual/HombroDerecho/Brazo"]
+texture = ExtResource("4_brazo")
+centered = false
+offset = Vector2(-247, -118)
+
+[node name="ZonaTorso" type="Area2D" parent="Visual/Torso"]
+script = ExtResource("8_zona")
+
+[node name="Forma" type="CollisionPolygon2D" parent="Visual/Torso/ZonaTorso"]
+polygon = PackedVector2Array(-170, -470, 170, -470, 430, -360, 510, -210, 380, -110, 280, 90, 300, 290, 320, 490, 170, 580, -170, 580, -320, 490, -300, 290, -280, 90, -380, -110, -510, -210, -430, -360)
+
+[node name="ZonaBrazo" type="Area2D" parent="Visual/HombroIzquierdo/Brazo"]
+script = ExtResource("8_zona")
+
+[node name="Forma" type="CollisionPolygon2D" parent="Visual/HombroIzquierdo/Brazo/ZonaBrazo"]
+polygon = PackedVector2Array(-40, -60, 110, -60, 130, 50, 75, 150, 30, 250, 10, 330, -60, 400, -140, 380, -170, 300, -135, 240, -95, 150, -90, 40)
+
+[node name="ZonaAntebrazo" type="Area2D" parent="Visual/HombroIzquierdo/Brazo/Codo"]
+script = ExtResource("8_zona")
+
+[node name="Forma" type="CollisionPolygon2D" parent="Visual/HombroIzquierdo/Brazo/Codo/ZonaAntebrazo"]
+polygon = PackedVector2Array(-95, -30, 95, -30, 70, 110, 80, 190, 140, 260, 120, 340, 60, 400, -50, 400, -85, 330, -70, 250, -65, 110)
+
+[node name="ZonaBrazo" type="Area2D" parent="Visual/HombroDerecho/Brazo"]
+script = ExtResource("8_zona")
+
+[node name="Forma" type="CollisionPolygon2D" parent="Visual/HombroDerecho/Brazo/ZonaBrazo"]
+polygon = PackedVector2Array(-40, -60, 110, -60, 130, 50, 75, 150, 30, 250, 10, 330, -60, 400, -140, 380, -170, 300, -135, 240, -95, 150, -90, 40)
+
+[node name="ZonaAntebrazo" type="Area2D" parent="Visual/HombroDerecho/Brazo/Codo"]
+script = ExtResource("8_zona")
+
+[node name="Forma" type="CollisionPolygon2D" parent="Visual/HombroDerecho/Brazo/Codo/ZonaAntebrazo"]
+polygon = PackedVector2Array(-95, -30, 95, -30, 70, 110, 80, 190, 140, 260, 120, 340, 60, 400, -50, 400, -85, 330, -70, 250, -65, 110)
+
+[node name="ZonaCabeza" type="Area2D" parent="Visual/Cabeza"]
+script = ExtResource("8_zona")
+
+[node name="Forma" type="CollisionPolygon2D" parent="Visual/Cabeza/ZonaCabeza"]
+polygon = PackedVector2Array(-90, -720, 90, -720, 190, -640, 240, -540, 250, -370, 215, -240, 155, -140, 120, -60, -120, -60, -155, -140, -215, -240, -250, -370, -240, -540, -190, -640)
+
+[node name="AgujeroPechoIzq" type="Node2D" parent="Visual/Torso"]
+position = Vector2(-248, -346)
+script = ExtResource("9_agujero")
+Tipo = 2
+Radio = 35.0
+
+[node name="AgujeroPechoDer" type="Node2D" parent="Visual/Torso"]
+position = Vector2(247, -346)
+script = ExtResource("9_agujero")
+Tipo = 3
+Radio = 35.0
+
+[node name="AgujeroMedioIzq" type="Node2D" parent="Visual/Torso"]
+position = Vector2(-233, -256)
+script = ExtResource("9_agujero")
+Tipo = 0
+Radio = 35.0
+Proyectil = ExtResource("10_proyectil")
+
+[node name="AgujeroMedioDer" type="Node2D" parent="Visual/Torso"]
+position = Vector2(232, -256)
+script = ExtResource("9_agujero")
+Tipo = 0
+Radio = 35.0
+Proyectil = ExtResource("10_proyectil")
+
+[node name="AgujeroCostadoIzq" type="Node2D" parent="Visual/Torso"]
+position = Vector2(-263, -1)
+script = ExtResource("9_agujero")
+Tipo = 5
+Radio = 45.0
+
+[node name="AgujeroCostadoDer" type="Node2D" parent="Visual/Torso"]
+position = Vector2(262, -1)
+script = ExtResource("9_agujero")
+Tipo = 1
+Radio = 45.0
+
+[node name="AgujeroCaderaIzq" type="Node2D" parent="Visual/Torso"]
+position = Vector2(-268, 354)
+script = ExtResource("9_agujero")
+Tipo = 4
+Radio = 65.0
+LarvaFrames = ExtResource("11_larva")
+
+[node name="AgujeroCaderaDer" type="Node2D" parent="Visual/Torso"]
+position = Vector2(267, 354)
+script = ExtResource("9_agujero")
+Tipo = 4
+Radio = 65.0
+LarvaFrames = ExtResource("11_larva")
+
+[node name="AgujeroBrazo" type="Node2D" parent="Visual/HombroIzquierdo/Brazo"]
+position = Vector2(-72, 152)
+script = ExtResource("9_agujero")
+Tipo = 0
+Radio = 40.0
+Proyectil = ExtResource("10_proyectil")
+
+[node name="AgujeroMuneca" type="Node2D" parent="Visual/HombroIzquierdo/Brazo/Codo"]
+position = Vector2(-41, 175)
+script = ExtResource("9_agujero")
+Tipo = 5
+Radio = 35.0
+
+[node name="AgujeroBrazo" type="Node2D" parent="Visual/HombroDerecho/Brazo"]
+position = Vector2(-72, 152)
+script = ExtResource("9_agujero")
+Tipo = 0
+Radio = 40.0
+Proyectil = ExtResource("10_proyectil")
+
+[node name="AgujeroMuneca" type="Node2D" parent="Visual/HombroDerecho/Brazo/Codo"]
+position = Vector2(-41, 175)
+script = ExtResource("9_agujero")
+Tipo = 5
+Radio = 35.0
+
+[node name="AgujeroSienIzq" type="Node2D" parent="Visual/Cabeza"]
+position = Vector2(-221, -355)
+script = ExtResource("9_agujero")
+Tipo = 1
+Radio = 50.0
+
+[node name="AgujeroSienDer" type="Node2D" parent="Visual/Cabeza"]
+position = Vector2(224, -355)
+script = ExtResource("9_agujero")
+Tipo = 3
+Radio = 50.0
+
+[node name="AgujeroCoronilla" type="Node2D" parent="Visual/Cabeza"]
+position = Vector2(129, -650)
+script = ExtResource("9_agujero")
+Tipo = 2
+Radio = 50.0

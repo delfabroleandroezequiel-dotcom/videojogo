@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="LacquerConfig" format=3]
+
+[ext_resource type="Script" path="res://scripts/world/LacquerConfig.cs" id="1_script"]
+[ext_resource type="Resource" path="res://resources/rendering/Laqueado/NeonVibrante.tres" id="2_neon"]
+[ext_resource type="Resource" path="res://resources/rendering/Laqueado/SoulsFrio.tres" id="3_souls"]
+
+[resource]
+script = ExtResource("1_script")
+Default = ExtResource("2_neon")
+ByScenePrefix = {
+"InteriorCueva": ExtResource("3_souls"),
+"InteriorCueva1": ExtResource("2_neon"),
+"InteriorCueva2": ExtResource("2_neon"),
+"InteriorCueva3": ExtResource("2_neon"),
+"InteriorCueva4": ExtResource("2_neon"),
+"InteriorCueva5": ExtResource("2_neon"),
+"InteriorCueva6": ExtResource("2_neon"),
+"InteriorCueva7": ExtResource("2_neon"),
+"InteriorCueva8": ExtResource("2_neon"),
+"InteriorCueva9": ExtResource("2_neon")
+}

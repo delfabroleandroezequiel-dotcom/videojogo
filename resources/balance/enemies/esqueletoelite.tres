@@ -13,7 +13,5 @@ script = ExtResource("1_script")
 MaxHealth = 80
 AttackPower = 14
 Defense = 2
-MoveSpeed = 60
-StopDistance = 50
 KnockbackDuration = 0.15
 LootTable = [SubResource("LootEntry_coin")]

@@ -1,0 +1,29 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/ChargedWall.cs" id="1_script"]
+[ext_resource type="Script" path="res://scripts/shared/Stats.cs" id="2_stats"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+resource_local_to_scene = true
+size = Vector2(48, 160)
+
+[node name="MuroCargado" type="StaticBody2D"]
+collision_layer = 1
+script = ExtResource("1_script")
+Width = 48.0
+Height = 160.0
+MaxHealth = 30
+FillColor = Color(0.22, 0.12, 0.13, 1)
+ShowFill = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Fill" type="Polygon2D" parent="."]
+show_behind_parent = true
+color = Color(0.22, 0.12, 0.13, 1)
+polygon = PackedVector2Array(-24, -80, 24, -80, 24, 80, -24, 80)
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("2_stats")
+MaxHealth = 30

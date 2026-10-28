@@ -13,8 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="11_transition"]
 [ext_resource type="Texture2D" uid="uid://ty3n1f388iap" path="res://scenes/world/Mapas/entradaarbol.png" id="12_ldpml"]
 [ext_resource type="Texture2D" uid="uid://74874siup48v" path="res://assets/external/Fondos/village/_PNG/MainLevBuild.png" id="13_or5jt"]
-[ext_resource type="Script" path="res://scripts/world/ParallaxFollow.cs" id="91_parallaxfollow"]
-[ext_resource type="Texture2D" path="res://assets/sprites/deco/CapaArboles3.png" id="92_capaarboles"]
+[ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="91_parallaxfollow"]
+[ext_resource type="Texture2D" uid="uid://cbv3ti8s4l4de" path="res://assets/sprites/deco/CapaArboles3.png" id="92_capaarboles"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1774, 56)

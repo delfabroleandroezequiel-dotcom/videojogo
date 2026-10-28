@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/BossFogWall.tscn" id="8_wk0h5"]
 [ext_resource type="Texture2D" uid="uid://d2v6fnc1sjgwl" path="res://scenes/world/Mapas/raices2.png" id="9_glmih"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/EnergyBarrier.tscn" id="10_8rtda"]
+[ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="91_parallaxfollow"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8rtda"]
 size = Vector2(734.25, 56)
@@ -8379,6 +8380,10 @@ polygon = PackedVector2Array(-900, -550, 900, -550, 900, 550, -900, 550)
 
 [node name="Background" type="Node2D" parent="." unique_id=1042001004]
 z_index = -9
+position = Vector2(-35.1, -59.0)
+script = ExtResource("91_parallaxfollow")
+ParallaxFactor = Vector2(0.1, 0.1)
+FollowCamera = true
 
 [node name="BgTile1" type="Sprite2D" parent="Background" unique_id=1042001005]
 position = Vector2(396, 863)
@@ -8460,24 +8465,30 @@ tile_set = SubResource("TileSet_bn06r")
 position = Vector2(-690.9074, 223.474)
 BossPath = NodePath("")
 
-[node name="Raices2" type="Sprite2D" parent="." unique_id=710535955]
+[node name="Ramas" type="Node2D" parent="."]
+position = Vector2(14.1, 23.6)
+script = ExtResource("91_parallaxfollow")
+ParallaxFactor = Vector2(-0.04, -0.04)
+FollowCamera = true
+
+[node name="Raices2" type="Sprite2D" parent="Ramas" unique_id=710535955]
 z_index = 10
 position = Vector2(80, 0)
 texture = ExtResource("9_glmih")
 
-[node name="Raices3" type="Sprite2D" parent="." unique_id=1001250175]
+[node name="Raices3" type="Sprite2D" parent="Ramas" unique_id=1001250175]
 z_index = 10
 position = Vector2(14, 550)
 rotation = 3.1415927
 texture = ExtResource("9_glmih")
 
-[node name="Raices4" type="Sprite2D" parent="." unique_id=1871610695]
+[node name="Raices4" type="Sprite2D" parent="Ramas" unique_id=1871610695]
 z_index = 10
 position = Vector2(651, 87)
 rotation = 1.5707964
 texture = ExtResource("9_glmih")
 
-[node name="Raices5" type="Sprite2D" parent="." unique_id=1310360201]
+[node name="Raices5" type="Sprite2D" parent="Ramas" unique_id=1310360201]
 z_index = 10
 position = Vector2(-65, 16)
 rotation = 4.712389

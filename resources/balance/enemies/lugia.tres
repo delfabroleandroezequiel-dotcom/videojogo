@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_script")
-MaxHealth = 320
+MaxHealth = 960
 AttackPower = 16
 MaxStamina = 100
 MoveSpeed = 150.0

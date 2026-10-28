@@ -30,30 +30,6 @@ region = Rect2(550, 400, 110, 80)
 atlas = ExtResource("1_sheet")
 region = Rect2(660, 400, 110, 80)
 
-[sub_resource type="AtlasTexture" id="AT_5_7"]
-atlas = ExtResource("1_sheet")
-region = Rect2(770, 400, 110, 80)
-
-[sub_resource type="AtlasTexture" id="AT_5_8"]
-atlas = ExtResource("1_sheet")
-region = Rect2(880, 400, 110, 80)
-
-[sub_resource type="AtlasTexture" id="AT_5_9"]
-atlas = ExtResource("1_sheet")
-region = Rect2(990, 400, 110, 80)
-
-[sub_resource type="AtlasTexture" id="AT_5_10"]
-atlas = ExtResource("1_sheet")
-region = Rect2(1100, 400, 110, 80)
-
-[sub_resource type="AtlasTexture" id="AT_5_11"]
-atlas = ExtResource("1_sheet")
-region = Rect2(1210, 400, 110, 80)
-
-[sub_resource type="AtlasTexture" id="AT_5_12"]
-atlas = ExtResource("1_sheet")
-region = Rect2(1320, 400, 110, 80)
-
 [sub_resource type="AtlasTexture" id="AT_7_0"]
 atlas = ExtResource("1_sheet")
 region = Rect2(0, 560, 110, 80)
@@ -272,8 +248,7 @@ region = Rect2(770, 80, 110, 80)
 
 [resource]
 animations = [{
-"frames": [
-{
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AT_5_0")
 }, {
@@ -294,8 +269,7 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AT_5_6")
-}
-],
+}],
 "loop": 0,
 "name": &"attack1",
 "speed": 14.0

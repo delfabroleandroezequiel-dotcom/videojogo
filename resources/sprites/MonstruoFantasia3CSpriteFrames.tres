@@ -1,0 +1,38 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (3)/PNG/Monster 3 (3)1.png" id="1_jv0tj"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (3)/PNG/Monster 3 (3)3.png" id="2_rm460"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (3)/PNG/Monster 3 (3)4.png" id="3_5q83d"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (3)/PNG/Monster 3 (3)5.png" id="4_8wof8"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (3)/PNG/Monster 3 (3)6.png" id="5_sei5o"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (3)/PNG/Monster 3 (3)7.png" id="6_3jmma"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (3)/PNG/Monster 3 (3)8.png" id="7_8v6n0"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_jv0tj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_rm460")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5q83d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_8wof8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_sei5o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_3jmma")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_8v6n0")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 10.0
+}]

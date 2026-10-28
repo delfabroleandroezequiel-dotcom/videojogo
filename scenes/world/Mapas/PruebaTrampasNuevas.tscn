@@ -1,0 +1,548 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="bootstrap"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="camera"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/FarolImplosivo.tscn" id="e0"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/OndaElectrica.tscn" id="e1"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/BloqueFurioso.tscn" id="e2"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Mina.tscn" id="e3"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/BloqueDeslizante.tscn" id="e4"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Rebotador.tscn" id="e5"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Rafaga.tscn" id="e6"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SombraPerseguidora.tscn" id="e7"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ArenasMovedizas.tscn" id="e8"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CintaTransportadora.tscn" id="e9"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ChispaSaltarina.tscn" id="e10"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/OndaExpansiva.tscn" id="e11"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/LanzaMisiles.tscn" id="e12"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/GarrasDelSuelo.tscn" id="e13"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/MiniMidir.tscn" id="e14"]
+[ext_resource type="PackedScene" path="res://scenes/world/SavePoint.tscn" id="e15"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="e16"]
+
+[sub_resource type="RectangleShape2D" id="R_11480x40"]
+size = Vector2(11480, 40)
+
+[sub_resource type="RectangleShape2D" id="R_40x460"]
+size = Vector2(40, 460)
+
+[sub_resource type="RectangleShape2D" id="R_5800x40"]
+size = Vector2(5800, 40)
+
+[sub_resource type="RectangleShape2D" id="R_1240x40"]
+size = Vector2(1240, 40)
+
+[sub_resource type="RectangleShape2D" id="R_4000x40"]
+size = Vector2(4000, 40)
+
+[sub_resource type="RectangleShape2D" id="R_20x120"]
+size = Vector2(20, 120)
+
+[sub_resource type="RectangleShape2D" id="R_140x20"]
+size = Vector2(140, 20)
+
+[sub_resource type="RectangleShape2D" id="R_80x90"]
+size = Vector2(80, 90)
+
+[sub_resource type="RectangleShape2D" id="R_40x180"]
+size = Vector2(40, 180)
+
+[sub_resource type="RectangleShape2D" id="R_30x120"]
+size = Vector2(30, 120)
+
+[node name="PruebaTrampasNuevas" type="Node2D"]
+script = ExtResource("bootstrap")
+ScenePath = "res://scenes/world/Mapas/PruebaTrampasNuevas.tscn"
+CameraProfile = ExtResource("camera")
+CameraLimitLeft = -40
+CameraLimitRight = 11440
+CameraLimitTop = -460
+CameraLimitBottom = 160
+
+[node name="Fondo" type="ColorRect" parent="."]
+z_index = -50
+offset_left = -600
+offset_top = -1000
+offset_right = 12000
+offset_bottom = 800
+color = Color(0.06, 0.06, 0.08, 1)
+
+[node name="Colisiones" type="StaticBody2D" parent="."]
+
+[node name="Visible" type="Node2D" parent="."]
+z_index = -5
+
+[node name="Trampas" type="Node2D" parent="."]
+
+[node name="Enemigos" type="Node2D" parent="."]
+
+[node name="Techo" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(5700, -440)
+shape = SubResource("R_11480x40")
+
+[node name="ParedOeste" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(-20, -190)
+shape = SubResource("R_40x460")
+
+[node name="ParedEste" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(11420, -190)
+shape = SubResource("R_40x460")
+
+[node name="Suelo" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(2900, 20)
+shape = SubResource("R_5800x40")
+
+[node name="Suelo2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(6680, 20)
+shape = SubResource("R_1240x40")
+
+[node name="Suelo3" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(9400, 20)
+shape = SubResource("R_4000x40")
+
+[node name="Foso" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(7290, 60)
+shape = SubResource("R_20x120")
+
+[node name="Foso2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(7410, 60)
+shape = SubResource("R_20x120")
+
+[node name="FosoFondo" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(7350, 130)
+shape = SubResource("R_140x20")
+
+[node name="FarolImplosivo" parent="Trampas" instance=ExtResource("e0")]
+position = Vector2(380, -190)
+ChainLength = 230
+
+[node name="OndaElectrica" parent="Trampas" instance=ExtResource("e1")]
+position = Vector2(1350, 0)
+Direction = -1
+Length = 560
+
+[node name="BloqueFurioso" parent="Trampas" instance=ExtResource("e2")]
+position = Vector2(1920, -37)
+
+[node name="Mina" parent="Trampas" instance=ExtResource("e3")]
+position = Vector2(2320, 0)
+
+[node name="Mina2" parent="Trampas" instance=ExtResource("e3")]
+position = Vector2(2430, 0)
+
+[node name="Mina3" parent="Trampas" instance=ExtResource("e3")]
+position = Vector2(2540, 0)
+
+[node name="Escalon" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(2880, -45)
+shape = SubResource("R_80x90")
+
+[node name="BloqueDeslizante" parent="Trampas" instance=ExtResource("e4")]
+position = Vector2(2990, -160)
+
+[node name="Tope" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(3420, -210)
+shape = SubResource("R_40x180")
+
+[node name="Rebotador" parent="Trampas" instance=ExtResource("e5")]
+position = Vector2(3760, -50)
+
+[node name="Rebotador2" parent="Trampas" instance=ExtResource("e5")]
+position = Vector2(4000, -220)
+OrbitRadius = 70
+
+[node name="Rafaga" parent="Trampas" instance=ExtResource("e6")]
+position = Vector2(4200, -260)
+Size = Vector2(700, 260)
+Direction = -1
+
+[node name="SombraPerseguidora" parent="Trampas" instance=ExtResource("e7")]
+position = Vector2(4900, -420)
+Size = Vector2(700, 420)
+
+[node name="ArenasMovedizas" parent="Trampas" instance=ExtResource("e8")]
+position = Vector2(5800, 0)
+Width = 260
+
+[node name="CintaTransportadora" parent="Trampas" instance=ExtResource("e9")]
+position = Vector2(6450, -24)
+Width = 400
+Speed = -140
+
+[node name="ChispaSaltarina" parent="Trampas" instance=ExtResource("e10")]
+position = Vector2(7350, 110)
+JumpHeight = 300
+
+[node name="OndaExpansiva" parent="Trampas" instance=ExtResource("e11")]
+position = Vector2(7720, -90)
+Direction = 1
+Range = 680
+BandHeight = 180
+
+[node name="Cobertura" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(7975, -60)
+shape = SubResource("R_30x120")
+
+[node name="Cobertura2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(8215, -60)
+shape = SubResource("R_30x120")
+
+[node name="LanzaMisiles" parent="Trampas" instance=ExtResource("e12")]
+position = Vector2(9000, -300)
+
+[node name="GarrasDelSuelo" parent="Trampas" instance=ExtResource("e13")]
+position = Vector2(9150, 0)
+Width = 600
+
+[node name="MiniMidir" parent="Enemigos" instance=ExtResource("e14")]
+position = Vector2(10500, -40)
+
+[node name="MiniMidir2" parent="Enemigos" instance=ExtResource("e14")]
+position = Vector2(11100, -40)
+
+[node name="Santuario" parent="." instance=ExtResource("e15")]
+position = Vector2(90, 0)
+
+[node name="Santuario2" parent="." instance=ExtResource("e15")]
+position = Vector2(3590, 0)
+
+[node name="Santuario3" parent="." instance=ExtResource("e15")]
+position = Vector2(7090, 0)
+
+[node name="Santuario4" parent="." instance=ExtResource("e15")]
+position = Vector2(9890, 0)
+
+[node name="Player" parent="." instance=ExtResource("e16")]
+position = Vector2(160, -40)
+
+[node name="Techo" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -460
+offset_right = 11440
+offset_bottom = -420
+color = Color(0.4, 0.42, 0.48, 1)
+
+[node name="ParedOeste" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -420
+offset_right = 0
+offset_bottom = 40
+color = Color(0.4, 0.42, 0.48, 1)
+
+[node name="ParedEste" type="ColorRect" parent="Visible"]
+offset_left = 11400
+offset_top = -420
+offset_right = 11440
+offset_bottom = 40
+color = Color(0.4, 0.42, 0.48, 1)
+
+[node name="Suelo" type="ColorRect" parent="Visible"]
+offset_left = 0
+offset_top = 0
+offset_right = 5800
+offset_bottom = 40
+color = Color(0.4, 0.42, 0.48, 1)
+
+[node name="Suelo2" type="ColorRect" parent="Visible"]
+offset_left = 6060
+offset_top = 0
+offset_right = 7300
+offset_bottom = 40
+color = Color(0.4, 0.42, 0.48, 1)
+
+[node name="Suelo3" type="ColorRect" parent="Visible"]
+offset_left = 7400
+offset_top = 0
+offset_right = 11400
+offset_bottom = 40
+color = Color(0.4, 0.42, 0.48, 1)
+
+[node name="Foso" type="ColorRect" parent="Visible"]
+offset_left = 7280
+offset_top = 0
+offset_right = 7300
+offset_bottom = 120
+color = Color(0.4, 0.42, 0.48, 1)
+
+[node name="Foso2" type="ColorRect" parent="Visible"]
+offset_left = 7400
+offset_top = 0
+offset_right = 7420
+offset_bottom = 120
+color = Color(0.4, 0.42, 0.48, 1)
+
+[node name="FosoFondo" type="ColorRect" parent="Visible"]
+offset_left = 7280
+offset_top = 120
+offset_right = 7420
+offset_bottom = 140
+color = Color(0.4, 0.42, 0.48, 1)
+
+[node name="Cartel" type="Label" parent="Visible"]
+offset_left = 150
+offset_top = -300
+offset_right = 550
+offset_bottom = -270
+theme_override_font_sizes/font_size = 18
+text = "1 Farol implosivo (salta cerca)"
+horizontal_alignment = 1
+
+[node name="Poste" type="ColorRect" parent="Visible"]
+offset_left = 0
+offset_top = -420
+offset_right = 6
+offset_bottom = 0
+color = Color(0.3, 0.3, 0.36, 1)
+
+[node name="Cartel2" type="Label" parent="Visible"]
+offset_left = 850
+offset_top = -300
+offset_right = 1250
+offset_bottom = -270
+theme_override_font_sizes/font_size = 18
+text = "2 Onda electrica (saltala)"
+horizontal_alignment = 1
+
+[node name="Poste2" type="ColorRect" parent="Visible"]
+offset_left = 700
+offset_top = -420
+offset_right = 706
+offset_bottom = 0
+color = Color(0.3, 0.3, 0.36, 1)
+
+[node name="Cartel3" type="Label" parent="Visible"]
+offset_left = 1550
+offset_top = -300
+offset_right = 1950
+offset_bottom = -270
+theme_override_font_sizes/font_size = 18
+text = "3 Bloque furioso"
+horizontal_alignment = 1
+
+[node name="Poste3" type="ColorRect" parent="Visible"]
+offset_left = 1400
+offset_top = -420
+offset_right = 1406
+offset_bottom = 0
+color = Color(0.3, 0.3, 0.36, 1)
+
+[node name="Cartel4" type="Label" parent="Visible"]
+offset_left = 2250
+offset_top = -300
+offset_right = 2650
+offset_bottom = -270
+theme_override_font_sizes/font_size = 18
+text = "4 Minas (no te quedes quieto)"
+horizontal_alignment = 1
+
+[node name="Poste4" type="ColorRect" parent="Visible"]
+offset_left = 2100
+offset_top = -420
+offset_right = 2106
+offset_bottom = 0
+color = Color(0.3, 0.3, 0.36, 1)
+
+[node name="Cartel5" type="Label" parent="Visible"]
+offset_left = 2950
+offset_top = -300
+offset_right = 3350
+offset_bottom = -270
+theme_override_font_sizes/font_size = 18
+text = "5 Bloque deslizante (subite)"
+horizontal_alignment = 1
+
+[node name="Poste5" type="ColorRect" parent="Visible"]
+offset_left = 2800
+offset_top = -420
+offset_right = 2806
+offset_bottom = 0
+color = Color(0.3, 0.3, 0.36, 1)
+
+[node name="Cartel6" type="Label" parent="Visible"]
+offset_left = 3650
+offset_top = -300
+offset_right = 4050
+offset_bottom = -270
+theme_override_font_sizes/font_size = 18
+text = "6 Rebotadores"
+horizontal_alignment = 1
+
+[node name="Poste6" type="ColorRect" parent="Visible"]
+offset_left = 3500
+offset_top = -420
+offset_right = 3506
+offset_bottom = 0
+color = Color(0.3, 0.3, 0.36, 1)
+
+[node name="Cartel7" type="Label" parent="Visible"]
+offset_left = 4350
+offset_top = -300
+offset_right = 4750
+offset_bottom = -270
+theme_override_font_sizes/font_size = 18
+text = "7 Rafagas de viento"
+horizontal_alignment = 1
+
+[node name="Poste7" type="ColorRect" parent="Visible"]
+offset_left = 4200
+offset_top = -420
+offset_right = 4206
+offset_bottom = 0
+color = Color(0.3, 0.3, 0.36, 1)
+
+[node name="Cartel8" type="Label" parent="Visible"]
+offset_left = 5050
+offset_top = -300
+offset_right = 5450
+offset_bottom = -270
+theme_override_font_sizes/font_size = 18
+text = "8 Sombra perseguidora (no frenes)"
+horizontal_alignment = 1
+
+[node name="Poste8" type="ColorRect" parent="Visible"]
+offset_left = 4900
+offset_top = -420
+offset_right = 4906
+offset_bottom = 0
+color = Color(0.3, 0.3, 0.36, 1)
+
+[node name="Cartel9" type="Label" parent="Visible"]
+offset_left = 5750
+offset_top = -300
+offset_right = 6150
+offset_bottom = -270
+theme_override_font_sizes/font_size = 18
+text = "9 Arenas movedizas"
+horizontal_alignment = 1
+
+[node name="Poste9" type="ColorRect" parent="Visible"]
+offset_left = 5600
+offset_top = -420
+offset_right = 5606
+offset_bottom = 0
+color = Color(0.3, 0.3, 0.36, 1)
+
+[node name="Cartel10" type="Label" parent="Visible"]
+offset_left = 6450
+offset_top = -300
+offset_right = 6850
+offset_bottom = -270
+theme_override_font_sizes/font_size = 18
+text = "10 Cinta transportadora"
+horizontal_alignment = 1
+
+[node name="Poste10" type="ColorRect" parent="Visible"]
+offset_left = 6300
+offset_top = -420
+offset_right = 6306
+offset_bottom = 0
+color = Color(0.3, 0.3, 0.36, 1)
+
+[node name="Cartel11" type="Label" parent="Visible"]
+offset_left = 7150
+offset_top = -300
+offset_right = 7550
+offset_bottom = -270
+theme_override_font_sizes/font_size = 18
+text = "11 Chispa saltarina"
+horizontal_alignment = 1
+
+[node name="Poste11" type="ColorRect" parent="Visible"]
+offset_left = 7000
+offset_top = -420
+offset_right = 7006
+offset_bottom = 0
+color = Color(0.3, 0.3, 0.36, 1)
+
+[node name="Cartel12" type="Label" parent="Visible"]
+offset_left = 7850
+offset_top = -300
+offset_right = 8250
+offset_bottom = -270
+theme_override_font_sizes/font_size = 18
+text = "12 Onda expansiva (cubrite)"
+horizontal_alignment = 1
+
+[node name="Poste12" type="ColorRect" parent="Visible"]
+offset_left = 7700
+offset_top = -420
+offset_right = 7706
+offset_bottom = 0
+color = Color(0.3, 0.3, 0.36, 1)
+
+[node name="Cartel13" type="Label" parent="Visible"]
+offset_left = 8550
+offset_top = -300
+offset_right = 8950
+offset_bottom = -270
+theme_override_font_sizes/font_size = 18
+text = "13 Lanzamisiles"
+horizontal_alignment = 1
+
+[node name="Poste13" type="ColorRect" parent="Visible"]
+offset_left = 8400
+offset_top = -420
+offset_right = 8406
+offset_bottom = 0
+color = Color(0.3, 0.3, 0.36, 1)
+
+[node name="Cartel14" type="Label" parent="Visible"]
+offset_left = 9250
+offset_top = -300
+offset_right = 9650
+offset_bottom = -270
+theme_override_font_sizes/font_size = 18
+text = "14 Garras del suelo"
+horizontal_alignment = 1
+
+[node name="Poste14" type="ColorRect" parent="Visible"]
+offset_left = 9100
+offset_top = -420
+offset_right = 9106
+offset_bottom = 0
+color = Color(0.3, 0.3, 0.36, 1)
+
+[node name="Cartel15" type="Label" parent="Visible"]
+offset_left = 10400
+offset_top = -300
+offset_right = 10800
+offset_bottom = -270
+theme_override_font_sizes/font_size = 18
+text = "Mini Midir x2"
+horizontal_alignment = 1
+
+[node name="Poste15" type="ColorRect" parent="Visible"]
+offset_left = 10250
+offset_top = -420
+offset_right = 10256
+offset_bottom = 0
+color = Color(0.3, 0.3, 0.36, 1)
+
+[node name="Escalon" type="ColorRect" parent="Visible"]
+offset_left = 2840
+offset_top = -90
+offset_right = 2920
+offset_bottom = 0
+color = Color(0.4, 0.42, 0.48, 1)
+
+[node name="Tope" type="ColorRect" parent="Visible"]
+offset_left = 3400
+offset_top = -300
+offset_right = 3440
+offset_bottom = -120
+color = Color(0.4, 0.42, 0.48, 1)
+
+[node name="Cobertura" type="ColorRect" parent="Visible"]
+offset_left = 7960
+offset_top = -120
+offset_right = 7990
+offset_bottom = 0
+color = Color(0.4, 0.42, 0.48, 1)
+
+[node name="Cobertura2" type="ColorRect" parent="Visible"]
+offset_left = 8200
+offset_top = -120
+offset_right = 8230
+offset_bottom = 0
+color = Color(0.4, 0.42, 0.48, 1)
+

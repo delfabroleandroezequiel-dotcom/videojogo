@@ -1,0 +1,30 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/ProyectilAgujero.cs" id="1_script"]
+[ext_resource type="Texture2D" path="res://resources/particles/SoftDotGradient.tres" id="2_trail_tex"]
+[ext_resource type="ParticleProcessMaterial" path="res://resources/particles/ArrowTrailProcess.tres" id="3_trail_process"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_shot"]
+radius = 9.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_add"]
+blend_mode = 1
+
+[node name="ProyectilAgujero" type="Area2D"]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_script")
+Speed = 330.0
+Lifetime = 6.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_shot")
+
+[node name="Trail" type="GPUParticles2D" parent="."]
+modulate = Color(0.45, 1.4, 0.55, 1)
+material = SubResource("CanvasItemMaterial_add")
+amount = 14
+lifetime = 0.35
+local_coords = false
+process_material = ExtResource("3_trail_process")
+texture = ExtResource("2_trail_tex")

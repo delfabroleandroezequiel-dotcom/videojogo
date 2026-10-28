@@ -1,0 +1,275 @@
+[gd_scene format=3 uid="uid://c7vx05gh1xwgd"]
+
+[ext_resource type="Script" uid="uid://buueuladhrowt" path="res://scripts/world/SpriteLandWobble.cs" id="landwobble"]
+[ext_resource type="Script" uid="uid://t1j44pb0h7ux" path="res://scripts/world/SpriteSway.cs" id="sway"]
+[ext_resource type="Texture2D" uid="uid://dvlekuv1b5rfc" path="res://assets/backgrounds/decopiezas/decopieza1.png" id="t1"]
+[ext_resource type="Texture2D" uid="uid://dbnlpecil8gn6" path="res://assets/backgrounds/decopiezas/decopieza2.png" id="t2"]
+[ext_resource type="Texture2D" uid="uid://tfy5ah265c6t" path="res://assets/backgrounds/decopiezas/decopieza3.png" id="t3"]
+[ext_resource type="Texture2D" uid="uid://b75i5rxkbvebm" path="res://assets/backgrounds/decopiezas/decopieza4.png" id="t4"]
+[ext_resource type="Texture2D" uid="uid://bbiwkm8swbjda" path="res://assets/backgrounds/decopiezas/decopieza5.png" id="t5"]
+[ext_resource type="Texture2D" uid="uid://bru6rgp7ms52e" path="res://assets/backgrounds/decopiezas/decopieza6.png" id="t6"]
+[ext_resource type="Texture2D" uid="uid://cpweq4ddkdmtr" path="res://assets/backgrounds/decopiezas/decopieza7.png" id="t7"]
+[ext_resource type="Texture2D" uid="uid://dp7t2ky8cvsp6" path="res://assets/backgrounds/decopiezas/decopieza8.png" id="t8"]
+[ext_resource type="Texture2D" uid="uid://bwahw7ly4y73" path="res://assets/backgrounds/decopiezas/decopieza9.png" id="t9"]
+[ext_resource type="Texture2D" uid="uid://kt3sv00arwly" path="res://assets/backgrounds/decopiezas/decopieza10.png" id="t10"]
+[ext_resource type="Texture2D" uid="uid://cgip7oddt8w3d" path="res://assets/backgrounds/decopiezas/decopieza11.png" id="t11"]
+[ext_resource type="Texture2D" uid="uid://d2t02k3uxd7hm" path="res://assets/backgrounds/decopiezas/decopieza12.png" id="t12"]
+[ext_resource type="Texture2D" uid="uid://dxm00hh5s27fk" path="res://assets/backgrounds/decopiezas/decopieza13.png" id="t13"]
+[ext_resource type="Texture2D" uid="uid://ws5fit8bdx42" path="res://assets/backgrounds/decopiezas/decopieza14.png" id="t14"]
+[ext_resource type="Texture2D" uid="uid://ckfndqn8p3hvf" path="res://assets/backgrounds/decopiezas/decopieza15.png" id="t15"]
+[ext_resource type="Texture2D" uid="uid://bd2asdfdxkap7" path="res://assets/backgrounds/decopiezas/decopieza16.png" id="t16"]
+[ext_resource type="Texture2D" uid="uid://bsuyn3mb4onm2" path="res://assets/backgrounds/decopiezas/decopieza17.png" id="t17"]
+[ext_resource type="Texture2D" uid="uid://b34kbdxingb7o" path="res://assets/backgrounds/decopiezas/decopieza18.png" id="t18"]
+[ext_resource type="Texture2D" uid="uid://whntvvpoct7s" path="res://assets/backgrounds/decopiezas/decopieza19.png" id="t19"]
+[ext_resource type="Texture2D" uid="uid://bn8j24h84dnt8" path="res://assets/backgrounds/decopiezas/decopieza20.png" id="t20"]
+[ext_resource type="Texture2D" uid="uid://dybwfp2uxdemi" path="res://assets/backgrounds/decopiezas/decopieza21.png" id="t21"]
+[ext_resource type="Texture2D" uid="uid://cqm2hwb648lvh" path="res://assets/backgrounds/decopiezas/decopieza22.png" id="t22"]
+[ext_resource type="Texture2D" uid="uid://c1r6ucl8y18tq" path="res://assets/backgrounds/decopiezas/decopieza23.png" id="t23"]
+[ext_resource type="Texture2D" uid="uid://ck478qgfy4yno" path="res://assets/backgrounds/decopiezas/decopieza24.png" id="t24"]
+[ext_resource type="Texture2D" uid="uid://j70ma5imam4y" path="res://assets/backgrounds/decopiezas/decopieza25.png" id="t25"]
+[ext_resource type="Texture2D" uid="uid://b4fkbib4wig7g" path="res://assets/backgrounds/decopiezas/decopieza26.png" id="t26"]
+[ext_resource type="Texture2D" uid="uid://c8krjyrq3ptfg" path="res://assets/backgrounds/decopiezas/decopieza27.png" id="t27"]
+[ext_resource type="Texture2D" uid="uid://dvv28y44fv8q8" path="res://assets/backgrounds/decopiezas/decopieza28.png" id="t28"]
+[ext_resource type="Texture2D" uid="uid://c3gtkmqcuw00b" path="res://assets/backgrounds/decopiezas/decopieza29.png" id="t29"]
+[ext_resource type="Texture2D" uid="uid://c5uluq4odjm37" path="res://assets/backgrounds/decopiezas/decopieza30.png" id="t30"]
+[ext_resource type="Texture2D" uid="uid://dkkf023jnj1uy" path="res://assets/backgrounds/decopiezas/decopieza31.png" id="t31"]
+[ext_resource type="Texture2D" uid="uid://cm3cdtw7e7jtf" path="res://assets/backgrounds/decopiezas/decopieza32.png" id="t32"]
+[ext_resource type="Texture2D" uid="uid://hf6h8x3vglxv" path="res://assets/backgrounds/decopiezas/decopieza33.png" id="t33"]
+
+[node name="DecoPiezasCueva" type="Node2D" unique_id=231823343]
+
+[node name="DecoPieza1" type="Sprite2D" parent="." unique_id=124508821]
+position = Vector2(353, 141)
+texture = ExtResource("t1")
+
+[node name="DecoPieza2" type="Sprite2D" parent="." unique_id=703550789]
+position = Vector2(823, 137)
+texture = ExtResource("t2")
+
+[node name="DecoPieza3" type="Sprite2D" parent="." unique_id=2111222248]
+position = Vector2(1239, 151)
+texture = ExtResource("t3")
+
+[node name="DecoPieza4" type="Sprite2D" parent="." unique_id=11419001]
+position = Vector2(1489, 152)
+texture = ExtResource("t4")
+centered = false
+offset = Vector2(-21, 0)
+script = ExtResource("sway")
+AmplitudeDegrees = 2.5
+Speed = 0.63
+PhaseOffset = 4.12
+
+[node name="DecoPieza5" type="Sprite2D" parent="." unique_id=253687337]
+position = Vector2(1598, 10)
+texture = ExtResource("t5")
+centered = false
+offset = Vector2(-26, 0)
+script = ExtResource("sway")
+AmplitudeDegrees = 2.5
+Speed = 0.4
+PhaseOffset = 5.65
+
+[node name="DecoPieza6" type="Sprite2D" parent="." unique_id=349164575]
+position = Vector2(1647, 10)
+texture = ExtResource("t6")
+centered = false
+offset = Vector2(-9, 0)
+script = ExtResource("sway")
+AmplitudeDegrees = 2.5
+Speed = 0.47
+PhaseOffset = 0.18
+
+[node name="DecoPieza7" type="Sprite2D" parent="." unique_id=1051267661]
+position = Vector2(1754, 10)
+texture = ExtResource("t7")
+centered = false
+offset = Vector2(-90, 0)
+script = ExtResource("sway")
+AmplitudeDegrees = 1
+Speed = 0.54
+PhaseOffset = 1.71
+
+[node name="DecoPieza8" type="Sprite2D" parent="." unique_id=964322324]
+position = Vector2(1879, 12)
+texture = ExtResource("t8")
+centered = false
+offset = Vector2(-13, 0)
+script = ExtResource("sway")
+AmplitudeDegrees = 2.5
+Speed = 0.61
+PhaseOffset = 2.24
+
+[node name="DecoPieza9" type="Sprite2D" parent="." unique_id=199627371]
+position = Vector2(1910, 10)
+texture = ExtResource("t9")
+centered = false
+offset = Vector2(-12, 0)
+script = ExtResource("sway")
+AmplitudeDegrees = 2.5
+Speed = 0.38
+PhaseOffset = 3.77
+
+[node name="DecoPieza10" type="Sprite2D" parent="." unique_id=1025132265]
+position = Vector2(1958, 10)
+texture = ExtResource("t10")
+centered = false
+offset = Vector2(-22, 0)
+script = ExtResource("sway")
+AmplitudeDegrees = 2.5
+Speed = 0.45
+PhaseOffset = 4.3
+
+[node name="DecoPieza11" type="Sprite2D" parent="." unique_id=1651123407]
+position = Vector2(2012, 10)
+texture = ExtResource("t11")
+centered = false
+offset = Vector2(-16, 0)
+script = ExtResource("sway")
+AmplitudeDegrees = 2.5
+Speed = 0.52
+PhaseOffset = 5.83
+
+[node name="DecoPieza12" type="Sprite2D" parent="." unique_id=187077286]
+position = Vector2(2048, 10)
+texture = ExtResource("t12")
+centered = false
+offset = Vector2(-4, 0)
+script = ExtResource("sway")
+AmplitudeDegrees = 2.5
+Speed = 0.59
+PhaseOffset = 0.36
+
+[node name="DecoPieza13" type="Sprite2D" parent="." unique_id=136429545]
+position = Vector2(2094, 10)
+texture = ExtResource("t13")
+centered = false
+offset = Vector2(-20, 0)
+script = ExtResource("sway")
+AmplitudeDegrees = 2.5
+Speed = 0.36
+PhaseOffset = 1.89
+
+[node name="DecoPieza14" type="Sprite2D" parent="." unique_id=1447537108]
+position = Vector2(2147, 8)
+texture = ExtResource("t14")
+centered = false
+offset = Vector2(-17, 0)
+script = ExtResource("sway")
+AmplitudeDegrees = 2.5
+Speed = 0.43
+PhaseOffset = 2.42
+
+[node name="DecoPieza15" type="Sprite2D" parent="." unique_id=1683042616]
+position = Vector2(156, 377)
+texture = ExtResource("t15")
+script = ExtResource("landwobble")
+
+[node name="DecoPieza16" type="Sprite2D" parent="." unique_id=700917694]
+position = Vector2(446, 413)
+texture = ExtResource("t16")
+script = ExtResource("landwobble")
+
+[node name="DecoPieza17" type="Sprite2D" parent="." unique_id=322011743]
+position = Vector2(807, 370)
+texture = ExtResource("t17")
+
+[node name="DecoPieza18" type="Sprite2D" parent="." unique_id=906037461]
+position = Vector2(1079, 382)
+texture = ExtResource("t18")
+
+[node name="DecoPieza19" type="Sprite2D" parent="." unique_id=1472023992]
+position = Vector2(1275, 462)
+texture = ExtResource("t19")
+
+[node name="DecoPieza20" type="Sprite2D" parent="." unique_id=785305082]
+position = Vector2(1519, 429)
+texture = ExtResource("t20")
+
+[node name="DecoPieza21" type="Sprite2D" parent="." unique_id=141068810]
+position = Vector2(1799, 284)
+rotation = -0.004611479
+texture = ExtResource("t21")
+centered = false
+offset = Vector2(-239, 0)
+script = ExtResource("sway")
+AmplitudeDegrees = 1
+Speed = 0.62
+PhaseOffset = 3.13
+
+[node name="DecoPieza22" type="Sprite2D" parent="." unique_id=1421033747]
+position = Vector2(149, 603)
+texture = ExtResource("t22")
+
+[node name="DecoPieza23" type="Sprite2D" parent="." unique_id=1765716589]
+position = Vector2(276, 481)
+texture = ExtResource("t23")
+
+[node name="DecoPieza24" type="Sprite2D" parent="." unique_id=816586268]
+position = Vector2(344, 696)
+texture = ExtResource("t24")
+centered = false
+offset = Vector2(-54, -108)
+script = ExtResource("sway")
+AmplitudeDegrees = 0.0
+Speed = 0.3
+
+[node name="DecoPieza25" type="Sprite2D" parent="." unique_id=669930963]
+position = Vector2(549, 634)
+texture = ExtResource("t25")
+
+[node name="DecoPieza26" type="Sprite2D" parent="." unique_id=844375221]
+position = Vector2(786, 714)
+texture = ExtResource("t26")
+centered = false
+offset = Vector2(-102, -130)
+script = ExtResource("sway")
+AmplitudeDegrees = 0.0
+Speed = 0.3
+PhaseOffset = 2.0
+
+[node name="DecoPieza27" type="Sprite2D" parent="." unique_id=1995024649]
+position = Vector2(1058, 647)
+texture = ExtResource("t27")
+
+[node name="DecoPieza28" type="Sprite2D" parent="." unique_id=1797123858]
+position = Vector2(1366, 714)
+texture = ExtResource("t28")
+centered = false
+offset = Vector2(-136, -126)
+script = ExtResource("sway")
+AmplitudeDegrees = 0.0
+Speed = 0.3
+PhaseOffset = 4.0
+
+[node name="DecoPieza29" type="Sprite2D" parent="." unique_id=1667814249]
+position = Vector2(1571, 646)
+texture = ExtResource("t29")
+
+[node name="DecoPieza30" type="Sprite2D" parent="." unique_id=1957621746]
+position = Vector2(1726, 440)
+texture = ExtResource("t30")
+centered = false
+offset = Vector2(-128, 0)
+script = ExtResource("sway")
+AmplitudeDegrees = 1
+Speed = 0.35
+PhaseOffset = 0.9
+
+[node name="DecoPieza31" type="Sprite2D" parent="." unique_id=1265458479]
+position = Vector2(1775, 647)
+texture = ExtResource("t31")
+
+[node name="DecoPieza32" type="Sprite2D" parent="." unique_id=138239424]
+position = Vector2(1951, 380)
+texture = ExtResource("t32")
+centered = false
+offset = Vector2(-85, 0)
+script = ExtResource("sway")
+AmplitudeDegrees = 1
+Speed = 0.49
+PhaseOffset = 2.96
+
+[node name="DecoPieza33" type="Sprite2D" parent="." unique_id=920507268]
+position = Vector2(2039, 545)
+texture = ExtResource("t33")

@@ -12,7 +12,5 @@ DropScene = ExtResource("2_coin")
 script = ExtResource("1_script")
 MaxHealth = 26
 AttackPower = 10
-MoveSpeed = 45
-DetectionRange = 420
 KnockbackDuration = 0.15
 LootTable = [SubResource("LootEntry_coin")]

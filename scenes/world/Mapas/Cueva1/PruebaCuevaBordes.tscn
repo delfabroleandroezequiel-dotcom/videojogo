@@ -1,5 +1,4 @@
 [gd_scene format=3]
-
 [ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
 [ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_camera"]
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="3_player"]
@@ -16,24 +15,12 @@
 [ext_resource type="PackedScene" path="res://scenes/world/iluminacion/BosqueAntorchaPilarAzul.tscn" id="91_luz"]
 [ext_resource type="Script" uid="uid://dbeg53nir0706" path="res://scripts/world/GreyboxVisual.cs" id="92_greyboxvisual"]
 [ext_resource type="Script" path="res://scripts/world/EdgeDresser.cs" id="93_edge"]
-[ext_resource type="Texture2D" path="res://assets/external/Fondos/Mossy_juego/Bordes/Borde_Suelo_A.png" id="94_sa"]
-[ext_resource type="Texture2D" path="res://assets/external/Fondos/Mossy_juego/Bordes/Borde_Suelo_B.png" id="95_sb"]
-[ext_resource type="Texture2D" path="res://assets/external/Fondos/Mossy_juego/Bordes/Borde_Techo_A.png" id="96_ta"]
-[ext_resource type="Texture2D" path="res://assets/external/Fondos/Mossy_juego/Bordes/Borde_Techo_B.png" id="97_tb"]
-[ext_resource type="Texture2D" path="res://assets/external/Fondos/Mossy_juego/Bordes/Borde_ParedIzq_A.png" id="98_lia"]
-[ext_resource type="Texture2D" path="res://assets/external/Fondos/Mossy_juego/Bordes/Borde_ParedIzq_B.png" id="99_lib"]
-[ext_resource type="Texture2D" path="res://assets/external/Fondos/Mossy_juego/Bordes/Borde_ParedDer_A.png" id="100_lda"]
-[ext_resource type="Texture2D" path="res://assets/external/Fondos/Mossy_juego/Bordes/Borde_ParedDer_B.png" id="101_ldb"]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_frag1"]
 size = Vector2(80, 30)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_frag2"]
 size = Vector2(80, 30)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_frag3"]
 size = Vector2(80, 30)
-
 [node name="PruebaCuevaBordes" type="Node2D" unique_id=620795842]
 script = ExtResource("1_bootstrap")
 ScenePath = "res://scenes/world/Mapas/Cueva1/PruebaCuevaBordes.tscn"
@@ -42,33 +29,24 @@ CameraLimitLeft = -104
 CameraLimitRight = 664
 CameraLimitTop = -300
 CameraLimitBottom = 1860
-
 [node name="Fondos" type="Node2D" parent="." unique_id=619052653]
-
 [node name="ParallaxCueva" parent="Fondos" unique_id=187958573 instance=ExtResource("90_parallaxcueva")]
-
 [node name="CanvasModulate" type="CanvasModulate" parent="Fondos" unique_id=702197395]
 visible = false
 color = Color(0.05, 0.05, 0.08, 1)
-
 [node name="Iluminacion" type="Node2D" parent="." unique_id=660364506]
-
 [node name="AntorchaAzul1" parent="Iluminacion" unique_id=1695164897 instance=ExtResource("91_luz")]
 position = Vector2(60, -11)
 LightRange = 2.0
-
 [node name="AntorchaAzul2" parent="Iluminacion" unique_id=1109904893 instance=ExtResource("91_luz")]
 position = Vector2(280, 439)
 LightRange = 2.0
-
 [node name="AntorchaAzul3" parent="Iluminacion" unique_id=236879618 instance=ExtResource("91_luz")]
 position = Vector2(280, 1299)
 LightRange = 2.0
-
 [node name="AntorchaAzul4" parent="Iluminacion" unique_id=1732029937 instance=ExtResource("91_luz")]
 position = Vector2(280, 1519)
 LightRange = 2.0
-
 [node name="Fondo" type="ColorRect" parent="." unique_id=1760655544]
 z_index = -50
 offset_left = -500.0
@@ -76,123 +54,95 @@ offset_top = -600.0
 offset_right = 1100.0
 offset_bottom = 2300.0
 color = Color(0.09, 0.1, 0.13, 1)
-
 [node name="Greybox" type="Node2D" parent="." unique_id=2033239396]
-
 [node name="ParedIzquierda" parent="Greybox" unique_id=1616805967 instance=ExtResource("4_corridor")]
 position = Vector2(-10, -300)
 Orientation = 1
 Length = 2140.0
 Thickness = 20.0
-
 [node name="ParedDerecha" parent="Greybox" unique_id=1412079189 instance=ExtResource("4_corridor")]
 position = Vector2(560, -300)
 Orientation = 1
 Length = 1900.0
 Thickness = 20.0
-
 [node name="Techo" parent="Greybox" unique_id=1990832010 instance=ExtResource("4_corridor")]
 position = Vector2(-20, -300)
 Length = 600.0
 Thickness = 40.0
-
 [node name="Repisa0" parent="Greybox" unique_id=1205733969 instance=ExtResource("4_corridor")]
 Length = 330.0
 Thickness = 30.0
-
 [node name="Repisa1" parent="Greybox" unique_id=383091855 instance=ExtResource("4_corridor")]
 position = Vector2(230, 220)
 Length = 330.0
 Thickness = 30.0
-
 [node name="Piso3" parent="Greybox" unique_id=1715904448 instance=ExtResource("4_corridor")]
 position = Vector2(0, 660)
 Length = 400.0
 Thickness = 30.0
-
 [node name="PilarChimenea" parent="Greybox" unique_id=623408458 instance=ExtResource("4_corridor")]
 position = Vector2(390, 690)
 Orientation = 1
 Length = 520.0
 Thickness = 20.0
-
 [node name="Piso5" parent="Greybox" unique_id=1750318419 instance=ExtResource("4_corridor")]
 position = Vector2(140, 1300)
 Length = 420.0
 Thickness = 30.0
-
 [node name="Piso6" parent="Greybox" unique_id=1071800869 instance=ExtResource("4_corridor")]
 position = Vector2(0, 1520)
 Length = 360.0
 Thickness = 30.0
-
 [node name="Fondo7" parent="Greybox" unique_id=161155890 instance=ExtResource("4_corridor")]
 position = Vector2(0, 1800)
 Length = 640.0
 Thickness = 40.0
-
 [node name="Visible" type="Node2D" parent="." unique_id=921499668]
 z_index = -5
 script = ExtResource("92_greyboxvisual")
-
 [node name="ParedIzquierda" type="Polygon2D" parent="Visible" unique_id=1125788210]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(-20, -300, 0, -300, 0, 1840, -20, 1840)
-
 [node name="ParedDerecha" type="Polygon2D" parent="Visible" unique_id=201182699]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(550, -300, 570, -300, 570, 1600, 550, 1600)
-
 [node name="Techo" type="Polygon2D" parent="Visible" unique_id=595184335]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(-20, -300, 580, -300, 580, -260, -20, -260)
-
 [node name="Repisa0" type="Polygon2D" parent="Visible" unique_id=1282329596]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(0, 0, 330, 0, 330, 30, 0, 30)
-
 [node name="Repisa1" type="Polygon2D" parent="Visible" unique_id=1449436130]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(230, 220, 560, 220, 560, 250, 230, 250)
-
 [node name="Piso3" type="Polygon2D" parent="Visible" unique_id=100333934]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(0, 660, 400, 660, 400, 690, 0, 690)
-
 [node name="PilarChimenea" type="Polygon2D" parent="Visible" unique_id=580624447]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(380, 690, 400, 690, 400, 1210, 380, 1210)
-
 [node name="Piso5" type="Polygon2D" parent="Visible" unique_id=1560366615]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(140, 1300, 560, 1300, 560, 1330, 140, 1330)
-
 [node name="Piso6" type="Polygon2D" parent="Visible" unique_id=1170729500]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(0, 1520, 360, 1520, 360, 1550, 0, 1550)
-
 [node name="Fondo7" type="Polygon2D" parent="Visible" unique_id=904900248]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(0, 1800, 640, 1800, 640, 1840, 0, 1840)
-
 [node name="Santuario" parent="." unique_id=309216434 instance=ExtResource("11_savepoint")]
 position = Vector2(110, 0)
-
 [node name="HaciaColector" parent="." unique_id=1048468242 instance=ExtResource("12_transition")]
 position = Vector2(625, 1700)
 TargetScenePath = "res://scenes/world/Mapas/Quebrada/Quebrada10_Colector.tscn"
 TargetSpawnPosition = Vector2(190, -40)
 Width = 30.0
 Height = 200.0
-
 [node name="SuelosFragiles" type="Node2D" parent="." unique_id=234115969]
-
 [node name="Frag1Cuerpo" type="StaticBody2D" parent="SuelosFragiles" unique_id=1006987415]
 position = Vector2(130, 455)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SuelosFragiles/Frag1Cuerpo" unique_id=11371749]
 shape = SubResource("RectangleShape2D_frag1")
-
 [node name="Frag1" parent="SuelosFragiles" unique_id=2095458644 node_paths=PackedStringArray("AttachedCollision") instance=ExtResource("7_crumble")]
 position = Vector2(130, 453)
 Width = 80.0
@@ -203,13 +153,10 @@ RespawnDelay = 4.0
 Persistent = false
 FillColor = Color(0.55, 0.45, 0.35, 1)
 ShowFill = true
-
 [node name="Frag2Cuerpo" type="StaticBody2D" parent="SuelosFragiles" unique_id=219267410]
 position = Vector2(210, 455)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SuelosFragiles/Frag2Cuerpo" unique_id=622980236]
 shape = SubResource("RectangleShape2D_frag2")
-
 [node name="Frag2" parent="SuelosFragiles" unique_id=813634513 node_paths=PackedStringArray("AttachedCollision") instance=ExtResource("7_crumble")]
 position = Vector2(210, 453)
 Width = 80.0
@@ -220,13 +167,10 @@ RespawnDelay = 4.0
 Persistent = false
 FillColor = Color(0.55, 0.45, 0.35, 1)
 ShowFill = true
-
 [node name="Frag3Cuerpo" type="StaticBody2D" parent="SuelosFragiles" unique_id=1321976574]
 position = Vector2(290, 455)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SuelosFragiles/Frag3Cuerpo" unique_id=1356154757]
 shape = SubResource("RectangleShape2D_frag3")
-
 [node name="Frag3" parent="SuelosFragiles" unique_id=240185529 node_paths=PackedStringArray("AttachedCollision") instance=ExtResource("7_crumble")]
 position = Vector2(290, 453)
 Width = 80.0
@@ -237,170 +181,28 @@ RespawnDelay = 4.0
 Persistent = false
 FillColor = Color(0.55, 0.45, 0.35, 1)
 ShowFill = true
-
 [node name="Trampas" type="Node2D" parent="." unique_id=253288169]
-
 [node name="PinchosBajoFragil" parent="Trampas" unique_id=28888804 instance=ExtResource("6_spikes")]
 position = Vector2(200, 660)
 Count = 2
 Spacing = 100.0
 StaggerStep = 0.8
-
 [node name="PinchosChimenea" parent="Trampas" unique_id=1205247635 instance=ExtResource("6_spikes")]
 position = Vector2(550, 1180)
 rotation = -1.5708
 Count = 4
 Spacing = 110.0
 StaggerStep = 0.5
-
 [node name="Enemigos" type="Node2D" parent="." unique_id=618159862]
-
 [node name="AraniaRepisa" parent="Enemigos" unique_id=45513095 instance=ExtResource("16_spider")]
 position = Vector2(470, 180)
-
 [node name="BandidoDescanso" parent="Enemigos" unique_id=147873804 instance=ExtResource("13_bandido4")]
 position = Vector2(330, 1240)
-
 [node name="MurcielagoBajo1" parent="Enemigos" unique_id=678905189 instance=ExtResource("17_bat")]
 position = Vector2(150, 1440)
-
 [node name="MurcielagoBajo2" parent="Enemigos" unique_id=588262032 instance=ExtResource("17_bat")]
 position = Vector2(470, 1650)
-
 [node name="MurcielagoChicoFondo" parent="Enemigos" unique_id=289743388 instance=ExtResource("18_batsmall")]
 position = Vector2(300, 1700)
-
 [node name="Player" parent="." unique_id=292220630 instance=ExtResource("3_player")]
 position = Vector2(60, -40)
-
-[node name="Vestido" type="Node2D" parent="."]
-
-[node name="VestidoParedIzquierda" type="Node2D" parent="Vestido"]
-script = ExtResource("93_edge")
-Target = NodePath("../../Greybox/ParedIzquierda")
-Seed = 1
-DressTop = false
-DressBottom = false
-DressLeft = false
-DressRight = true
-TopPieces = Array[Texture2D]([ExtResource("94_sa"), ExtResource("95_sb")])
-BottomPieces = Array[Texture2D]([ExtResource("96_ta"), ExtResource("97_tb")])
-LeftPieces = Array[Texture2D]([ExtResource("98_lia"), ExtResource("99_lib")])
-RightPieces = Array[Texture2D]([ExtResource("100_lda"), ExtResource("101_ldb")])
-
-[node name="VestidoParedDerecha" type="Node2D" parent="Vestido"]
-script = ExtResource("93_edge")
-Target = NodePath("../../Greybox/ParedDerecha")
-Seed = 2
-DressTop = false
-DressBottom = false
-DressLeft = true
-DressRight = false
-TopPieces = Array[Texture2D]([ExtResource("94_sa"), ExtResource("95_sb")])
-BottomPieces = Array[Texture2D]([ExtResource("96_ta"), ExtResource("97_tb")])
-LeftPieces = Array[Texture2D]([ExtResource("98_lia"), ExtResource("99_lib")])
-RightPieces = Array[Texture2D]([ExtResource("100_lda"), ExtResource("101_ldb")])
-
-[node name="VestidoTecho" type="Node2D" parent="Vestido"]
-script = ExtResource("93_edge")
-Target = NodePath("../../Greybox/Techo")
-Seed = 3
-DressTop = false
-DressBottom = true
-DressLeft = false
-DressRight = false
-TopPieces = Array[Texture2D]([ExtResource("94_sa"), ExtResource("95_sb")])
-BottomPieces = Array[Texture2D]([ExtResource("96_ta"), ExtResource("97_tb")])
-LeftPieces = Array[Texture2D]([ExtResource("98_lia"), ExtResource("99_lib")])
-RightPieces = Array[Texture2D]([ExtResource("100_lda"), ExtResource("101_ldb")])
-
-[node name="VestidoRepisa0" type="Node2D" parent="Vestido"]
-script = ExtResource("93_edge")
-Target = NodePath("../../Greybox/Repisa0")
-Seed = 4
-DressTop = true
-DressBottom = true
-DressLeft = false
-DressRight = true
-TopPieces = Array[Texture2D]([ExtResource("94_sa"), ExtResource("95_sb")])
-BottomPieces = Array[Texture2D]([ExtResource("96_ta"), ExtResource("97_tb")])
-LeftPieces = Array[Texture2D]([ExtResource("98_lia"), ExtResource("99_lib")])
-RightPieces = Array[Texture2D]([ExtResource("100_lda"), ExtResource("101_ldb")])
-
-[node name="VestidoRepisa1" type="Node2D" parent="Vestido"]
-script = ExtResource("93_edge")
-Target = NodePath("../../Greybox/Repisa1")
-Seed = 5
-DressTop = true
-DressBottom = true
-DressLeft = true
-DressRight = false
-TopPieces = Array[Texture2D]([ExtResource("94_sa"), ExtResource("95_sb")])
-BottomPieces = Array[Texture2D]([ExtResource("96_ta"), ExtResource("97_tb")])
-LeftPieces = Array[Texture2D]([ExtResource("98_lia"), ExtResource("99_lib")])
-RightPieces = Array[Texture2D]([ExtResource("100_lda"), ExtResource("101_ldb")])
-
-[node name="VestidoPiso3" type="Node2D" parent="Vestido"]
-script = ExtResource("93_edge")
-Target = NodePath("../../Greybox/Piso3")
-Seed = 6
-DressTop = true
-DressBottom = true
-DressLeft = false
-DressRight = true
-TopPieces = Array[Texture2D]([ExtResource("94_sa"), ExtResource("95_sb")])
-BottomPieces = Array[Texture2D]([ExtResource("96_ta"), ExtResource("97_tb")])
-LeftPieces = Array[Texture2D]([ExtResource("98_lia"), ExtResource("99_lib")])
-RightPieces = Array[Texture2D]([ExtResource("100_lda"), ExtResource("101_ldb")])
-
-[node name="VestidoPilarChimenea" type="Node2D" parent="Vestido"]
-script = ExtResource("93_edge")
-Target = NodePath("../../Greybox/PilarChimenea")
-Seed = 7
-DressTop = false
-DressBottom = false
-DressLeft = true
-DressRight = true
-TopPieces = Array[Texture2D]([ExtResource("94_sa"), ExtResource("95_sb")])
-BottomPieces = Array[Texture2D]([ExtResource("96_ta"), ExtResource("97_tb")])
-LeftPieces = Array[Texture2D]([ExtResource("98_lia"), ExtResource("99_lib")])
-RightPieces = Array[Texture2D]([ExtResource("100_lda"), ExtResource("101_ldb")])
-
-[node name="VestidoPiso5" type="Node2D" parent="Vestido"]
-script = ExtResource("93_edge")
-Target = NodePath("../../Greybox/Piso5")
-Seed = 8
-DressTop = true
-DressBottom = true
-DressLeft = true
-DressRight = false
-TopPieces = Array[Texture2D]([ExtResource("94_sa"), ExtResource("95_sb")])
-BottomPieces = Array[Texture2D]([ExtResource("96_ta"), ExtResource("97_tb")])
-LeftPieces = Array[Texture2D]([ExtResource("98_lia"), ExtResource("99_lib")])
-RightPieces = Array[Texture2D]([ExtResource("100_lda"), ExtResource("101_ldb")])
-
-[node name="VestidoPiso6" type="Node2D" parent="Vestido"]
-script = ExtResource("93_edge")
-Target = NodePath("../../Greybox/Piso6")
-Seed = 9
-DressTop = true
-DressBottom = true
-DressLeft = false
-DressRight = true
-TopPieces = Array[Texture2D]([ExtResource("94_sa"), ExtResource("95_sb")])
-BottomPieces = Array[Texture2D]([ExtResource("96_ta"), ExtResource("97_tb")])
-LeftPieces = Array[Texture2D]([ExtResource("98_lia"), ExtResource("99_lib")])
-RightPieces = Array[Texture2D]([ExtResource("100_lda"), ExtResource("101_ldb")])
-
-[node name="VestidoFondo7" type="Node2D" parent="Vestido"]
-script = ExtResource("93_edge")
-Target = NodePath("../../Greybox/Fondo7")
-Seed = 10
-DressTop = true
-DressBottom = false
-DressLeft = false
-DressRight = false
-TopPieces = Array[Texture2D]([ExtResource("94_sa"), ExtResource("95_sb")])
-BottomPieces = Array[Texture2D]([ExtResource("96_ta"), ExtResource("97_tb")])
-LeftPieces = Array[Texture2D]([ExtResource("98_lia"), ExtResource("99_lib")])
-RightPieces = Array[Texture2D]([ExtResource("100_lda"), ExtResource("101_ldb")])

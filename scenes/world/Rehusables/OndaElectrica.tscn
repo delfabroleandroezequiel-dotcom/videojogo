@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/ElectricWave.cs" id="1_script"]
+
+[node name="OndaElectrica" type="Node2D"]
+script = ExtResource("1_script")

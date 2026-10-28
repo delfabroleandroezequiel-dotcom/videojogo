@@ -1,0 +1,571 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="bootstrap"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="camera"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="transition"]
+[ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="ladder"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SpikeTrap.tscn" id="spike"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MovingPlatform.tscn" id="moving"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CrumbleFloor.tscn" id="crumble"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/MurcielagoChico.tscn" id="murcielago"]
+
+[sub_resource type="RectangleShape2D" id="R_40x360"]
+size = Vector2(40, 360)
+
+[sub_resource type="RectangleShape2D" id="R_40x200"]
+size = Vector2(40, 200)
+
+[sub_resource type="RectangleShape2D" id="R_60x40"]
+size = Vector2(60, 40)
+
+[sub_resource type="RectangleShape2D" id="R_2220x40"]
+size = Vector2(2220, 40)
+
+[sub_resource type="RectangleShape2D" id="R_2280x40"]
+size = Vector2(2280, 40)
+
+[sub_resource type="RectangleShape2D" id="R_20x40"]
+size = Vector2(20, 40)
+
+[sub_resource type="RectangleShape2D" id="R_20x200"]
+size = Vector2(20, 200)
+
+[sub_resource type="RectangleShape2D" id="R_160x20"]
+size = Vector2(160, 20)
+
+[sub_resource type="RectangleShape2D" id="R_80x80"]
+size = Vector2(80, 80)
+
+[sub_resource type="RectangleShape2D" id="R_100x80"]
+size = Vector2(100, 80)
+
+[sub_resource type="RectangleShape2D" id="R_80x30"]
+size = Vector2(80, 30)
+
+[sub_resource type="RectangleShape2D" id="R_180x80"]
+size = Vector2(180, 80)
+
+[sub_resource type="RectangleShape2D" id="R_20x260"]
+size = Vector2(20, 260)
+
+[sub_resource type="RectangleShape2D" id="R_140x20"]
+size = Vector2(140, 20)
+
+[node name="Sima14_LagoPinchos" type="Node2D"]
+script = ExtResource("bootstrap")
+ScenePath = "res://scenes/world/Mapas/Sima/Sima14_LagoPinchos.tscn"
+CameraProfile = ExtResource("camera")
+CameraLimitLeft = -40
+CameraLimitRight = 2440
+CameraLimitTop = -260
+CameraLimitBottom = 520
+
+[node name="Fondo" type="ColorRect" parent="."]
+z_index = -50
+offset_left = -640
+offset_top = -860
+offset_right = 3040
+offset_bottom = 1400
+color = Color(0.05, 0.06, 0.09, 1)
+
+[node name="Colisiones" type="StaticBody2D" parent="."]
+
+[node name="PlataformasOneWay" type="StaticBody2D" parent="."]
+collision_layer = 49
+
+[node name="Visible" type="Node2D" parent="."]
+z_index = -5
+
+[node name="Trampas" type="Node2D" parent="."]
+
+[node name="Enemigos" type="Node2D" parent="."]
+
+[node name="Objetos" type="Node2D" parent="."]
+
+[node name="ParedOeste" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(-20, 140)
+shape = SubResource("R_40x360")
+
+[node name="ParedOeste2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(-20, 420)
+shape = SubResource("R_40x200")
+
+[node name="ParedEste" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(2420, 140)
+shape = SubResource("R_40x360")
+
+[node name="ParedEste2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(2420, 420)
+shape = SubResource("R_40x200")
+
+[node name="Techo" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(30, -20)
+shape = SubResource("R_60x40")
+
+[node name="Techo2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(1290, -20)
+shape = SubResource("R_2220x40")
+
+[node name="Suelo" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(1140, 500)
+shape = SubResource("R_2280x40")
+
+[node name="Suelo2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(2390, 500)
+shape = SubResource("R_20x40")
+
+[node name="Chimenea" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(50, -140)
+shape = SubResource("R_20x200")
+
+[node name="Chimenea2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(190, -140)
+shape = SubResource("R_20x200")
+
+[node name="ChimeneaTapa" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(120, -250)
+shape = SubResource("R_160x20")
+
+[node name="Escalera" parent="Objetos" instance=ExtResource("ladder")]
+position = Vector2(150, 175)
+Length = 610
+
+[node name="Orilla" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(260, 440)
+shape = SubResource("R_80x80")
+
+[node name="Pinchos" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(332, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos2" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(396, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos3" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(460, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos4" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(524, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos5" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(588, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos6" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(652, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos7" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(716, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos8" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(780, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos9" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(844, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos10" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(908, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos11" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(972, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos12" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(1036, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos13" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(1100, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos14" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(1164, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos15" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(1228, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos16" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(1292, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos17" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(1356, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos18" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(1420, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos19" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(1484, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos20" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(1548, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos21" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(1612, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos22" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(1676, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos23" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(1740, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos24" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(1804, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos25" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(1868, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos26" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(1932, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos27" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(1996, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Pinchos28" parent="Trampas" instance=ExtResource("spike")]
+position = Vector2(2060, 480)
+RetractedDuration = 0
+ExtendedDuration = 100000
+HasFloorCollision = false
+
+[node name="Balsa" parent="Trampas" instance=ExtResource("moving")]
+position = Vector2(390, 408)
+PointBOffset = Vector2(470, 0)
+Speed = 90
+WaitTimeAtPoints = 0.600
+
+[node name="CollisionShape2D" parent="Trampas/Balsa"]
+one_way_collision = true
+
+[node name="Islote" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(950, 440)
+shape = SubResource("R_100x80")
+
+[node name="Balsa2" parent="Trampas" instance=ExtResource("moving")]
+position = Vector2(1090, 408)
+PointBOffset = Vector2(370, 0)
+Speed = 110
+WaitTimeAtPoints = 0.600
+
+[node name="CollisionShape2D" parent="Trampas/Balsa2"]
+one_way_collision = true
+
+[node name="Islote2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(1550, 440)
+shape = SubResource("R_100x80")
+
+[node name="PuenteCuerpo" type="StaticBody2D" parent="Trampas"]
+position = Vector2(1640, 415)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trampas/PuenteCuerpo"]
+shape = SubResource("R_80x30")
+
+[node name="Puente" parent="Trampas" node_paths=PackedStringArray("AttachedCollision") instance=ExtResource("crumble")]
+position = Vector2(1640, 413)
+Width = 80
+Height = 34
+AttachedCollision = NodePath("../PuenteCuerpo/CollisionShape2D")
+TriggerDelay = 0.450
+RespawnDelay = 3
+Persistent = false
+FillColor = Color(0.55, 0.45, 0.35, 1)
+ShowFill = true
+
+[node name="PuenteCuerpo2" type="StaticBody2D" parent="Trampas"]
+position = Vector2(1720, 415)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trampas/PuenteCuerpo2"]
+shape = SubResource("R_80x30")
+
+[node name="Puente2" parent="Trampas" node_paths=PackedStringArray("AttachedCollision") instance=ExtResource("crumble")]
+position = Vector2(1720, 413)
+Width = 80
+Height = 34
+AttachedCollision = NodePath("../PuenteCuerpo2/CollisionShape2D")
+TriggerDelay = 0.450
+RespawnDelay = 3
+Persistent = false
+FillColor = Color(0.55, 0.45, 0.35, 1)
+ShowFill = true
+
+[node name="PuenteCuerpo3" type="StaticBody2D" parent="Trampas"]
+position = Vector2(1800, 415)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trampas/PuenteCuerpo3"]
+shape = SubResource("R_80x30")
+
+[node name="Puente3" parent="Trampas" node_paths=PackedStringArray("AttachedCollision") instance=ExtResource("crumble")]
+position = Vector2(1800, 413)
+Width = 80
+Height = 34
+AttachedCollision = NodePath("../PuenteCuerpo3/CollisionShape2D")
+TriggerDelay = 0.450
+RespawnDelay = 3
+Persistent = false
+FillColor = Color(0.55, 0.45, 0.35, 1)
+ShowFill = true
+
+[node name="PuenteCuerpo4" type="StaticBody2D" parent="Trampas"]
+position = Vector2(1880, 415)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trampas/PuenteCuerpo4"]
+shape = SubResource("R_80x30")
+
+[node name="Puente4" parent="Trampas" node_paths=PackedStringArray("AttachedCollision") instance=ExtResource("crumble")]
+position = Vector2(1880, 413)
+Width = 80
+Height = 34
+AttachedCollision = NodePath("../PuenteCuerpo4/CollisionShape2D")
+TriggerDelay = 0.450
+RespawnDelay = 3
+Persistent = false
+FillColor = Color(0.55, 0.45, 0.35, 1)
+ShowFill = true
+
+[node name="Orilla2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(2010, 440)
+shape = SubResource("R_180x80")
+
+[node name="Orilla3" type="CollisionPolygon2D" parent="Colisiones"]
+polygon = PackedVector2Array(2100, 400, 2260, 480, 2260, 480, 2100, 480)
+
+[node name="Murcielago" parent="Enemigos" instance=ExtResource("murcielago")]
+position = Vector2(700, 150)
+
+[node name="Murcielago2" parent="Enemigos" instance=ExtResource("murcielago")]
+position = Vector2(1300, 150)
+
+[node name="PozoSalida" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(2270, 650)
+shape = SubResource("R_20x260")
+
+[node name="PozoSalida2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(2390, 650)
+shape = SubResource("R_20x260")
+
+[node name="PozoSalidaFondo" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(2330, 790)
+shape = SubResource("R_140x20")
+
+[node name="SubirSalida" parent="." instance=ExtResource("transition")]
+position = Vector2(120, -53)
+TargetScenePath = "res://scenes/world/Mapas/Sima/Sima13_Pendiente.tscn"
+TargetSpawnPosition = Vector2(1890, 960)
+Width = 120
+Height = 120
+
+[node name="BajarSalida" parent="." instance=ExtResource("transition")]
+position = Vector2(2330, 687)
+TargetScenePath = "res://scenes/world/Mapas/Sima/Sima15_Derrumbe.tscn"
+TargetSpawnPosition = Vector2(100, 260)
+Width = 100
+Height = 160
+
+[node name="Player" parent="." instance=ExtResource("player")]
+position = Vector2(120, 440)
+
+[node name="ParedOeste" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -40
+offset_right = 0
+offset_bottom = 320
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="ParedOeste2" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = 320
+offset_right = 0
+offset_bottom = 520
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="ParedEste" type="ColorRect" parent="Visible"]
+offset_left = 2400
+offset_top = -40
+offset_right = 2440
+offset_bottom = 320
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="ParedEste2" type="ColorRect" parent="Visible"]
+offset_left = 2400
+offset_top = 320
+offset_right = 2440
+offset_bottom = 520
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="Techo" type="ColorRect" parent="Visible"]
+offset_left = 0
+offset_top = -40
+offset_right = 60
+offset_bottom = 0
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="Techo2" type="ColorRect" parent="Visible"]
+offset_left = 180
+offset_top = -40
+offset_right = 2400
+offset_bottom = 0
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="Suelo" type="ColorRect" parent="Visible"]
+offset_left = 0
+offset_top = 480
+offset_right = 2280
+offset_bottom = 520
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="Suelo2" type="ColorRect" parent="Visible"]
+offset_left = 2380
+offset_top = 480
+offset_right = 2400
+offset_bottom = 520
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="Chimenea" type="ColorRect" parent="Visible"]
+offset_left = 40
+offset_top = -240
+offset_right = 60
+offset_bottom = -40
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="Chimenea2" type="ColorRect" parent="Visible"]
+offset_left = 180
+offset_top = -240
+offset_right = 200
+offset_bottom = -40
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="ChimeneaTapa" type="ColorRect" parent="Visible"]
+offset_left = 40
+offset_top = -260
+offset_right = 200
+offset_bottom = -240
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="Orilla" type="ColorRect" parent="Visible"]
+offset_left = 220
+offset_top = 400
+offset_right = 300
+offset_bottom = 480
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="Islote" type="ColorRect" parent="Visible"]
+offset_left = 900
+offset_top = 400
+offset_right = 1000
+offset_bottom = 480
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="Islote2" type="ColorRect" parent="Visible"]
+offset_left = 1500
+offset_top = 400
+offset_right = 1600
+offset_bottom = 480
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="Orilla2" type="ColorRect" parent="Visible"]
+offset_left = 1920
+offset_top = 400
+offset_right = 2100
+offset_bottom = 480
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="Orilla3" type="Polygon2D" parent="Visible"]
+color = Color(0.36, 0.4, 0.47, 1)
+polygon = PackedVector2Array(2100, 400, 2260, 480, 2260, 480, 2100, 480)
+
+[node name="PozoSalida" type="ColorRect" parent="Visible"]
+offset_left = 2260
+offset_top = 520
+offset_right = 2280
+offset_bottom = 780
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="PozoSalida2" type="ColorRect" parent="Visible"]
+offset_left = 2380
+offset_top = 520
+offset_right = 2400
+offset_bottom = 780
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="PozoSalidaFondo" type="ColorRect" parent="Visible"]
+offset_left = 2260
+offset_top = 780
+offset_right = 2400
+offset_bottom = 800
+color = Color(0.36, 0.4, 0.47, 1)
+

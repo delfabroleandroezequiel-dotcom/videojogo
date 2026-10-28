@@ -291,24 +291,26 @@ InvulnerabilityDuration = 1.0
 
 [node name="Abilities" type="Node" parent="." unique_id=97306542]
 script = ExtResource("4_abilities")
-StartWithDoubleJump = true
-StartWithDash = true
+StartWithDoubleJump = false
+StartWithDash = false
 StartWithRoll = true
-StartWithSpell = true
-StartWithSpell2 = true
-StartWithSprint = true
-StartWithWallClimb = true
-StartWithRunThrust = true
+StartWithSpell = false
+StartWithSpell2 = false
+StartWithSprint = false
+StartWithWallClimb = false
+StartWithRunThrust = false
 StartWithBlock = true
-StartWithChargedAttack = true
-StartWithPoundAttack = true
+StartWithChargedAttack = false
+StartWithPoundAttack = false
 StartWithUpAttack = true
 StartWithLedgeGrab = true
-StartWithComboFinisher = true
-StartWithRopeSwing = true
-StartWithSwim = true
-StartWithBow = true
+StartWithComboFinisher = false
+StartWithRopeSwing = false
+StartWithSwim = false
+StartWithBow = false
 StartWithTorch = true
+StartWithComboFourth = false
+StartWithFlyingSword = false
 
 [node name="Inventory" type="Node" parent="." unique_id=1900453380]
 script = ExtResource("7_inventory")

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="LacquerPreset" format=3]
+
+[ext_resource type="Script" path="res://scripts/world/LacquerPreset.cs" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+Exposure = -0.15
+Contrast = 1.15
+Saturation = 0.75
+ShadowTint = Vector3(-0.01, 0, 0.04)
+HighlightTint = Vector3(0, 0.01, 0.02)
+Vignette = 0.45
+Grain = 0.03
+Aberration = 0.0

@@ -10,13 +10,13 @@ extends SceneTree
 const S := "res://scenes/world/"
 const F := "res://resources/sprites/"
 
-# [group, path]. Scenes first so their SpriteFrames dedupe the plain-frames entries.
+# [group, path] or [group, path, fixed scale]. Scenes first so their SpriteFrames dedupe the plain-frames entries.
 var ENTRIES := [
 	["hero", "res://scenes/player/Player.tscn"],
 	["ally", S + "Enemigos/Gransin.tscn"], ["ally", F + "AlatheaSpriteFrames.tres"],
 	["boss", S + "SkeletonKingBoss.tscn"], ["boss", S + "Enemigos/MushroomBoss.tscn"], ["boss", S + "SpiderBoss.tscn"],
 	["boss", S + "BossLobo.tscn"], ["boss", S + "Boss.tscn"], ["boss", S + "Enemys/LargeSkullBoss.tscn"],
-	["boss", S + "Enemys/MountainEyeBoss.tscn"],
+	["boss", S + "Enemys/MountainEyeBoss.tscn"], ["boss", S + "Enemigos/Lugia.tscn"], ["boss", S + "Enemigos/LugiaVerde.tscn"],
 	["giant", F + "GiantOgreRedSpriteFrames.tres"], ["giant", F + "GiantOgreBlueSpriteFrames.tres"],
 	["bandit", S + "Enemys/Bandido1.tscn"], ["bandit", S + "Enemys/Bandido2.tscn"], ["bandit", S + "Enemys/Bandido3.tscn"],
 	["bandit", S + "Enemigos/Bandido4.tscn"], ["bandit", S + "Enemigos/Bandido5.tscn"], ["bandit", S + "Enemigos/BandidoCorpulento.tscn"],
@@ -29,12 +29,18 @@ var ENTRIES := [
 	["undead", F + "SkeletonGuardSpriteFrames.tres"], ["undead", F + "SkeletonWarriorSpriteFrames.tres"],
 	["undead", F + "NecromancerSpriteFrames.tres"], ["undead", F + "NecromancerCreativeKindSpriteFrames.tres"], ["undead", F + "NecropolisWarriorSpriteFrames.tres"],
 	["undead", S + "Enemys/BurningDamned.tscn"], ["undead", S + "Enemys/BurningSkull.tscn"],
+	["undead", S + "Enemigos/EsqueletoBallestero.tscn"], ["undead", S + "Enemigos/EsqueletoElite.tscn"],
+	["undead", S + "Enemigos/EsqueletoEspadachin.tscn"], ["undead", S + "Enemigos/EsqueletoSepulturero.tscn"],
+	["undead", S + "Enemigos/ZombiComun.tscn"], ["undead", S + "Enemigos/ZombiGordo.tscn"], ["undead", S + "Enemigos/ZombiBrazoLargo.tscn"],
+	["undead", S + "Enemigos/ZombiEscupidor.tscn"], ["undead", S + "Enemigos/ZombiReptante.tscn"],
 	["desert", F + "DesertCactusBedouinSpriteFrames.tres"], ["desert", F + "DesertCamelRiderBedouinSpriteFrames.tres"], ["desert", F + "DesertGlassBedouinSpriteFrames.tres"],
 	["desert", F + "DesertSandBugSpriteFrames.tres"], ["desert", F + "DesertScorpionSpriteFrames.tres"], ["desert", F + "DesertVultureSpriteFrames.tres"],
 	["dark", S + "Enemigos/GhostWarrior2.tscn"], ["dark", S + "Enemigos/Hechicero.tscn"], ["dark", S + "Enemigos/MagoCamino.tscn"],
 	["dark", F + "NightborneSpriteFrames.tres"], ["dark", F + "BringerOfDeathSpriteFrames.tres"], ["dark", F + "ArchDemonSpriteFrames.tres"],
 	["dark", F + "EvilWizardSpriteFrames.tres"], ["dark", F + "EvilWizard2SpriteFrames.tres"], ["dark", F + "EvilWizard3SpriteFrames.tres"],
 	["dark", F + "ShadowUrchinSpriteFrames.tres"],
+	["dark", S + "Enemigos/OscuroSegador.tscn"], ["dark", S + "Enemigos/OscuraHechicera.tscn"], ["dark", S + "Enemigos/OscuroCampeon.tscn"],
+	["dark", S + "Enemigos/Diablilla.tscn"],
 	["human", S + "Enemy.tscn"], ["human", S + "Enemigos/WarriorEnemy.tscn"], ["human", S + "Enemigos/WarriorEnemyBlond.tscn"],
 	["human", S + "RangedEnemy.tscn"], ["human", S + "RangedEnemyBrown.tscn"],
 	["human", F + "FantasyWarriorSpriteFrames.tres"], ["human", F + "HeroKnightSpriteFrames.tres"], ["human", F + "HeroKnight2SpriteFrames.tres"],
@@ -52,10 +58,16 @@ var ENTRIES := [
 	["monster", S + "Enemigos/OrcEnemy.tscn"], ["monster", S + "Enemigos/BatEnemy.tscn"], ["monster", S + "Enemigos/RatEnemy.tscn"],
 	["monster", S + "Enemigos/SlimeEnemyBlue.tscn"], ["monster", S + "Enemigos/SlimeEnemyGreen.tscn"], ["monster", S + "Enemigos/SlimeEnemyRed.tscn"],
 	["monster", S + "Enemigos/SpiderEnemy.tscn"], ["monster", S + "Enemigos/SpiderEnemyDark.tscn"], ["monster", S + "MosquitoEnemy.tscn"],
-	["monster", S + "MushroomEnemy.tscn"],
+	["monster", S + "MushroomEnemy.tscn"], ["monster", S + "Enemigos/Hornet.tscn"], ["monster", S + "Enemigos/MurcielagoChico.tscn"],
 	["monster", F + "MonsterMimicSpriteFrames.tres"],
 	["monster", F + "MonsterRatSpriteFrames.tres"], ["monster", F + "MonsterSlimeSpriteFrames.tres"],
 	["monster", F + "MonsterBatSpriteFrames.tres"],
+	# Fantasy Monsters Pack (80x80 frames, same pixel density as the zombies): fixed 2x scale so the
+	# small crawlers aren't normalized up to the protagonist's height. One colour variant per design
+	# (B/C SpriteFrames exist too) - all 14 don't fit on the steps.
+	["monster", F + "MonstruoFantasia1ASpriteFrames.tres", 2.0], ["monster", F + "MonstruoFantasia2ASpriteFrames.tres", 2.0],
+	["monster", F + "MonstruoFantasia3ASpriteFrames.tres", 2.0], ["monster", F + "MonstruoFantasia4ASpriteFrames.tres", 2.0],
+	["monster", F + "MonstruoFantasia5ASpriteFrames.tres", 2.0],
 	["animal", F + "AkitaSpriteFrames.tres"], ["animal", F + "DalmatianSpriteFrames.tres"], ["animal", F + "DogSpriteFrames.tres"],
 	["animal", F + "GoldenRetrieverSpriteFrames.tres"], ["animal", F + "GreatDaneSpriteFrames.tres"], ["animal", F + "SaintBernardSpriteFrames.tres"],
 	["animal", F + "SchnauzerSpriteFrames.tres"], ["animal", F + "SiberianHuskySpriteFrames.tres"],
@@ -101,8 +113,9 @@ func _spawn_all():
 			slot.Frames = res
 			if path.ends_with("MonsterMimicSpriteFrames.tres"): slot.Animation = "idle_transformed"
 			slot.FigureScale = scale_map.get(path, 0.0) if scale_map.has(path) else 1.0
+			if e.size() > 2: slot.FigureScale = e[2]
 		holder.add_child(slot)
-		items.append({"group": e[0], "path": path, "slot": slot, "known": path.ends_with(".tscn") or scale_map.has(path)})
+		items.append({"group": e[0], "path": path, "slot": slot, "known": path.ends_with(".tscn") or scale_map.has(path) or e.size() > 2})
 
 func _finish():
 	var args := OS.get_cmdline_user_args()

@@ -1,0 +1,42 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (2)/PNG/Monster 2 (1)1.png" id="1_algn7"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (2)/PNG/Monster 2 (1)2.png" id="2_jkaa8"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (2)/PNG/Monster 2 (1)3.png" id="3_r0f0j"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (2)/PNG/Monster 2 (1)4.png" id="4_j5gqu"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (2)/PNG/Monster 2 (1)5.png" id="5_iojxe"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (2)/PNG/Monster 2 (1)6.png" id="6_6rn85"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (2)/PNG/Monster 2 (1)7.png" id="7_a6r02"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (2)/PNG/Monster 2 (1)8.png" id="8_2g74a"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_algn7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_jkaa8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_r0f0j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_j5gqu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_iojxe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_6rn85")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_a6r02")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_2g74a")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 10.0
+}]

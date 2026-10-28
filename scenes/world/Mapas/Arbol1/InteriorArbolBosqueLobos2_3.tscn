@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://blg02mf55nabu" path="res://assets/external/Fondos/bosque/_PNG/Decoratives.png" id="9_25eil"]
 [ext_resource type="Texture2D" uid="uid://d2v6fnc1sjgwl" path="res://scenes/world/Mapas/raices2.png" id="90_raices2png"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniPlataforma.tscn" id="91_miniplataforma"]
+[ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="91_parallaxfollow"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1552.9895, 52.107056)
@@ -13996,6 +13997,10 @@ polygon = PackedVector2Array(-900, -550, 900, -550, 900, 550, -900, 550)
 
 [node name="Background" type="Node2D" parent="." unique_id=1042001004]
 z_index = -9
+position = Vector2(5.0, -4.3)
+script = ExtResource("91_parallaxfollow")
+ParallaxFactor = Vector2(0.1, 0.1)
+FollowCamera = true
 
 [node name="BgTile1" type="Sprite2D" parent="Background" unique_id=1042001005]
 position = Vector2(-55, 6)
@@ -14136,24 +14141,30 @@ MaxDistance = 1500.0
 tile_map_data = PackedByteArray("AADN/+r/AQAoAAkAAADN/+v/AQAoAAoAAADN/+z/AQAoAAsAAADO/+r/AQApAAkAAADO/+v/AQApAAoAAADO/+z/AQApAAsAAADP/+r/AQAqAAkAAADP/+v/AQAqAAoAAADP/+z/AQAqAAsAAADQ/+r/AQArAAkAAADQ/+v/AQArAAoAAADQ/+z/AQArAAsAAADR/+r/AQAsAAkAAADR/+v/AQAsAAoAAADR/+z/AQAsAAsAAADS/+r/AQAtAAkAAADS/+v/AQAtAAoAAADS/+z/AQAtAAsAAADT/+r/AQAuAAkAAADT/+v/AQAuAAoAAADT/+z/AQAuAAsAAADU/+r/AQAvAAkAAADU/+v/AQAvAAoAAADU/+z/AQAvAAsAAADV/+r/AQAoAAkAAADV/+v/AQAoAAoAAADV/+z/AQAoAAsAAADW/+r/AQApAAkAAADW/+v/AQApAAoAAADW/+z/AQApAAsAAADX/+r/AQAqAAkAAADX/+v/AQAqAAoAAADX/+z/AQAqAAsAAADY/+r/AQArAAkAAADY/+v/AQArAAoAAADY/+z/AQArAAsAAADZ/+r/AQAsAAkAAADZ/+v/AQAsAAoAAADZ/+z/AQAsAAsAAADa/+r/AQAtAAkAAADa/+v/AQAtAAoAAADa/+z/AQAtAAsAAADb/+r/AQAuAAkAAADb/+v/AQAuAAoAAADb/+z/AQAuAAsAAADc/+r/AQAvAAkAAADc/+v/AQAvAAoAAADc/+z/AQAvAAsAAADd/+r/AQAwAAkAAADd/+v/AQAwAAoAAADd/+z/AQAwAAsAAADe/+r/AQAxAAkAAADe/+v/AQAxAAoAAADe/+z/AQAxAAsAAAAAAOr/AQAoAAkAAAAAAOv/AQAoAAoAAAAAAOz/AQAoAAsAAAABAOr/AQApAAkAAAABAOv/AQApAAoAAAABAOz/AQApAAsAAAACAOr/AQAqAAkAAAACAOv/AQAqAAoAAAACAOz/AQAqAAsAAAADAOr/AQArAAkAAAADAOv/AQArAAoAAAADAOz/AQArAAsAAAAEAOr/AQAsAAkAAAAEAOv/AQAsAAoAAAAEAOz/AQAsAAsAAAAFAOr/AQAtAAkAAAAFAOv/AQAtAAoAAAAFAOz/AQAtAAsAAAAGAOr/AQAuAAkAAAAGAOv/AQAuAAoAAAAGAOz/AQAuAAsAAAAHAOr/AQAvAAkAAAAHAOv/AQAvAAoAAAAHAOz/AQAvAAsAAAAIAOr/AQAwAAkAAAAIAOv/AQAwAAoAAAAIAOz/AQAwAAsAAAAJAOr/AQAxAAkAAAAJAOv/AQAxAAoAAAAJAOz/AQAxAAsAAAAdAB4AAQAoAAkAAAAdAB8AAQAoAAoAAAAdACAAAQAoAAsAAAAeAB4AAQApAAkAAAAeAB8AAQApAAoAAAAeACAAAQApAAsAAAAfAB4AAQAqAAkAAAAfAB8AAQAqAAoAAAAfACAAAQAqAAsAAAAgAB4AAQArAAkAAAAgAB8AAQArAAoAAAAgACAAAQArAAsAAAAhAB4AAQAsAAkAAAAhAB8AAQAsAAoAAAAhACAAAQAsAAsAAAAiAB4AAQAtAAkAAAAiAB8AAQAtAAoAAAAiACAAAQAtAAsAAAAjAB4AAQAuAAkAAAAjAB8AAQAuAAoAAAAjACAAAQAuAAsAAAAkAB4AAQAvAAkAAAAkAB8AAQAvAAoAAAAkACAAAQAvAAsAAAAlAB4AAQAwAAkAAAAlAB8AAQAwAAoAAAAlACAAAQAwAAsAAAAmAB4AAQAxAAkAAAAmAB8AAQAxAAoAAAAmACAAAQAxAAsAAADI/x4AAQAoAAkAAADI/x8AAQAoAAoAAADI/yAAAQAoAAsAAADJ/x4AAQApAAkAAADJ/x8AAQApAAoAAADJ/yAAAQApAAsAAADK/x4AAQAqAAkAAADK/x8AAQAqAAoAAADK/yAAAQAqAAsAAADL/x4AAQArAAkAAADL/x8AAQArAAoAAADL/yAAAQArAAsAAADM/x4AAQAsAAkAAADM/x8AAQAsAAoAAADM/yAAAQAsAAsAAADN/x4AAQAtAAkAAADN/x8AAQAtAAoAAADN/yAAAQAtAAsAAADO/x4AAQAuAAkAAADO/x8AAQAuAAoAAADO/yAAAQAuAAsAAADP/x4AAQAvAAkAAADP/x8AAQAvAAoAAADP/yAAAQAvAAsAAADQ/x4AAQAwAAkAAADQ/x8AAQAwAAoAAADQ/yAAAQAwAAsAAADR/x4AAQAxAAkAAADR/x8AAQAxAAoAAADR/yAAAQAxAAsAAADU/x4AAQAoAAkAAADU/x8AAQAoAAoAAADU/yAAAQAoAAsAAADV/x4AAQApAAkAAADV/x8AAQApAAoAAADV/yAAAQApAAsAAADW/x4AAQAqAAkAAADW/x8AAQAqAAoAAADW/yAAAQAqAAsAAADX/x4AAQArAAkAAADX/x8AAQArAAoAAADX/yAAAQArAAsAAADY/x4AAQAsAAkAAADY/x8AAQAsAAoAAADY/yAAAQAsAAsAAADZ/x4AAQAtAAkAAADZ/x8AAQAtAAoAAADZ/yAAAQAtAAsAAADa/x4AAQAuAAkAAADa/x8AAQAuAAoAAADa/yAAAQAuAAsAAADb/x4AAQAvAAkAAADb/x8AAQAvAAoAAADb/yAAAQAvAAsAAADc/x4AAQAwAAkAAADc/x8AAQAwAAoAAADc/yAAAQAwAAsAAADd/x4AAQAxAAkAAADd/x8AAQAxAAoAAADd/yAAAQAxAAsAAADr/x4AAQAyAAkAAADr/x8AAQAyAAoAAADr/yAAAQAyAAsAAADs/x4AAQAzAAkAAADs/x8AAQAzAAoAAADs/yAAAQAzAAsAAAD2/x4AAQAyAAkAAAD2/x8AAQAyAAoAAAD2/yAAAQAyAAsAAAD3/x4AAQAzAAkAAAD3/x8AAQAzAAoAAAD3/yAAAQAzAAsAAAD//x4AAQAyAAkAAAD//x8AAQAyAAoAAAD//yAAAQAyAAsAAAAAAB4AAQAzAAkAAAAAAB8AAQAzAAoAAAAAACAAAQAzAAsAAAD9/x4AAQAyAAkAAAD9/x8AAQAyAAoAAAD9/yAAAQAyAAsAAAD+/x4AAQAzAAkAAAD+/x8AAQAzAAoAAAD+/yAAAQAzAAsAAADz/+r/AQAyAAkAAADz/+v/AQAyAAoAAADz/+z/AQAyAAsAAAD0/+r/AQAzAAkAAAD0/+v/AQAzAAoAAAD0/+z/AQAzAAsAAADm/+r/AQAyAAkAAADm/+v/AQAyAAoAAADm/+z/AQAyAAsAAADn/+r/AQAzAAkAAADn/+v/AQAzAAoAAADn/+z/AQAzAAsAAADo/+r/AQAyAAkAAADo/+v/AQAyAAoAAADo/+z/AQAyAAsAAADp/+r/AQAzAAkAAADp/+v/AQAzAAoAAADp/+z/AQAzAAsAAAA=")
 tile_set = SubResource("TileSet_yvfok")
 
-[node name="Raices2" type="Sprite2D" parent="." unique_id=710535954]
+[node name="Ramas" type="Node2D" parent="."]
+position = Vector2(-2.0, 1.7)
+script = ExtResource("91_parallaxfollow")
+ParallaxFactor = Vector2(-0.04, -0.04)
+FollowCamera = true
+
+[node name="Raices2" type="Sprite2D" parent="Ramas" unique_id=710535954]
 z_index = 10
 position = Vector2(-50, -422)
 texture = ExtResource("90_raices2png")
 
-[node name="Raices3" type="Sprite2D" parent="." unique_id=1001250174]
+[node name="Raices3" type="Sprite2D" parent="Ramas" unique_id=1001250174]
 z_index = 10
 position = Vector2(-50, 583)
 rotation = 3.1415927
 texture = ExtResource("90_raices2png")
 
-[node name="Raices4" type="Sprite2D" parent="." unique_id=1871610694]
+[node name="Raices4" type="Sprite2D" parent="Ramas" unique_id=1871610694]
 z_index = 10
 position = Vector2(616, 43)
 rotation = 1.5707964
 texture = ExtResource("90_raices2png")
 
-[node name="Raices5" type="Sprite2D" parent="." unique_id=1310360200]
+[node name="Raices5" type="Sprite2D" parent="Ramas" unique_id=1310360200]
 z_index = 10
 position = Vector2(-816, 43)
 rotation = 4.712389

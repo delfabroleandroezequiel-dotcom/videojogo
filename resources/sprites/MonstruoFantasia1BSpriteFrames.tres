@@ -1,0 +1,42 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (1)/PNG/Monster (2)1.png" id="1_65vkn"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (1)/PNG/Monster (2)2.png" id="2_rj6nm"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (1)/PNG/Monster (2)3.png" id="3_tbrsw"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (1)/PNG/Monster (2)4.png" id="4_00cn6"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (1)/PNG/Monster (2)5.png" id="5_rwb5r"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (1)/PNG/Monster (2)6.png" id="6_mk8to"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (1)/PNG/Monster (2)7.png" id="7_3nqya"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Monsters Pack – 2D Pixel Art Enemies Collection/Aseprite/Monster (1)/PNG/Monster (2)8.png" id="8_jtol2"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_65vkn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_rj6nm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_tbrsw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_00cn6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_rwb5r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_mk8to")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3nqya")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_jtol2")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 10.0
+}]

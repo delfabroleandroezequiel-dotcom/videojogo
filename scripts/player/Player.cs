@@ -202,7 +202,7 @@ public partial class Player : CharacterBody2D
 	// Brightness of the lunge's neon shockwave (see RunThrustEffects).
 	[Export] public float RunThrustNeonIntensity = 1.5f;
 	[Export] public float CrouchSpeedMultiplier = 0.5f;
-	[Export] public float ParryWindowDuration = 0.2f;
+	[Export] public float ParryWindowDuration = 0.3f;
 	// Lockout after a parry window that caught nothing (see UpdateBlock).
 	[Export] public float ParryMissRecovery = 0.35f;
 	[Export] public float ParryBubbleFadeIn = 0.08f;
@@ -640,6 +640,15 @@ public partial class Player : CharacterBody2D
 	[Export] public float SwimFloatCorrectionSpeed = 250f;
 	[Export] public float ClimbHorizontalSpeedMultiplier = 0.6f;
 	[Export] public float LadderJumpLockoutDuration = 0.25f;
+	// Gripping a ZonaTrepable (a climbable boss body): free 4-way climbing over its surface.
+	[Export] public float GripClimbSpeed = 120f;
+	// Stamina per second just to hang on, and while moving over the surface.
+	[Export] public float GripStaminaPerSecond = 6f;
+	[Export] public float GripMoveStaminaPerSecond = 12f;
+	// After letting go (jump, out of stamina, hit) no re-grab for this long.
+	[Export] public float GripLockoutDuration = 0.35f;
+	// Cap on the surface's own velocity handed to the player on release (a swinging arm flings).
+	[Export] public float GripMaxFlingSpeed = 700f;
 	[Export] public float InputBufferWindow = 0.15f;
 	// Jump pressed this long before touching down still jumps on landing.
 	[Export] public float JumpBufferWindow = 0.12f;
@@ -828,7 +837,10 @@ public partial class Player : CharacterBody2D
 	private int _berserkerLastHit;
 	private enum ShadowSpell { Basic, Decoy, Echo, Puppet, Rush, Sentinel, Berserker, Steal, Carapace }
 	private static readonly string[] ShadowSpellNameKeys = { "UI_CLONE_BASIC", "UI_CLONE_DECOY", "UI_CLONE_ECHO", "UI_CLONE_PUPPET", "UI_CLONE_RUSH", "UI_CLONE_SENTINEL", "UI_CLONE_BERSERKER", "UI_CLONE_ROBO", "UI_CLONE_CORAZA" };
-	private ShadowSpell _shadowSpell;
+	// The clones the picker offers (C cycles through these, in this order); the rest stay in code
+	// but are hidden from the player.
+	private static readonly ShadowSpell[] OfferedShadowSpells = { ShadowSpell.Berserker, ShadowSpell.Carapace, ShadowSpell.Puppet };
+	private ShadowSpell _shadowSpell = OfferedShadowSpells[0];
 	private Metroidvania.UI.TornadoVariantsHud _shadowSpellHud;
 	// Clon eco's source: the player's recent frames, one per physics frame, long enough for the
 	// longest echo delay.
@@ -912,6 +924,16 @@ public partial class Player : CharacterBody2D
 	// Dropped off with down: not re-grabbed until the player has left its zone once (same idea as
 	// _lastReleasedRope), since falling clear of a tall grab zone can outlast any short lockout.
 	private HangRope _droppedHangRope;
+	// ZonaTrepable grip: zones currently overlapped, the one held, and the grip point in its local
+	// space (re-projected every frame so the moving surface carries the player).
+	private readonly List<ZonaTrepable> _climbZones = new();
+	private ZonaTrepable _gripZone;
+	private Vector2 _gripLocal;
+	private Vector2 _gripSurfaceVelocity;
+	private float _gripLockout;
+	private float _gripStaminaDebt;
+	public bool IsGripping => _gripZone != null;
+	public ZonaTrepable GripZone => _gripZone;
 	private bool _isWallClimbing;
 	private float _wallJumpLockout;
 	private ShapeCast2D _ledgeWallCheck;
@@ -1165,13 +1187,13 @@ public partial class Player : CharacterBody2D
 		// sits, which only shows while the (parked) tornado spell is unlocked.
 		_shadowSpellHud = new Metroidvania.UI.TornadoVariantsHud { Name = "ShadowSpellHud" };
 		GetNode("HUD").AddChild(_shadowSpellHud);
-		_shadowSpellHud.Build(ShadowSpellNameKeys);
-		_shadowSpellHud.Refresh((int)_shadowSpell);
+		_shadowSpellHud.Build(System.Array.ConvertAll(OfferedShadowSpells, spell => ShadowSpellNameKeys[(int)spell]));
+		_shadowSpellHud.Refresh(OfferedShadowSpellIndex());
 		_shadowSpellHud.Visible = _abilities.Has(PlayerAbilities.Spell);
 		LocaleManager.Instance.LocaleChanged += _ =>
 		{
 			if (IsInstanceValid(_shadowSpellHud))
-				_shadowSpellHud.Refresh((int)_shadowSpell);
+				_shadowSpellHud.Refresh(OfferedShadowSpellIndex());
 		};
 
 		// Tornado variant picker, just above the Bastón row.
@@ -1435,6 +1457,7 @@ public partial class Player : CharacterBody2D
 			return;
 		_knockbackVelocity = new Vector2(direction.X * force, -KnockbackUpwardVelocity);
 		_knockbackTimer = KnockbackDuration;
+		ReleaseGrip(Vector2.Zero);
 
 		if (_isLedgeHanging || _isLedgeClimbing)
 		{
@@ -1779,6 +1802,152 @@ public partial class Player : CharacterBody2D
 		_droppedHangRope = null;
 	}
 
+	public void EnterClimbZone(ZonaTrepable zone)
+	{
+		if (!_climbZones.Contains(zone))
+			_climbZones.Add(zone);
+	}
+
+	public void ExitClimbZone(ZonaTrepable zone)
+	{
+		_climbZones.Remove(zone);
+	}
+
+	// Pushes the player by a world offset this frame (suction, wind): while gripping it slides the
+	// grip point over the surface (staying on it), otherwise it moves the body with collisions.
+	public void AddExternalDisplacement(Vector2 offset)
+	{
+		if (_gripZone is not null)
+		{
+			Vector2 target = GlobalPosition + offset;
+			if (_gripZone.ContainsGlobalPoint(target))
+			{
+				GlobalPosition = target;
+				_gripLocal = _gripZone.ToLocal(target);
+			}
+			return;
+		}
+		MoveAndCollide(offset);
+	}
+
+	// A jolt from the surface being held (a boss shaking you off): costs stamina at once; running
+	// out lets go on the next grip frame, with the surface's motion as the fling.
+	public void ApplyGripJolt(int staminaCost)
+	{
+		if (_gripZone is null)
+			return;
+		_stats.SpendStaminaClamped(staminaCost);
+	}
+
+	// Lets go of a ZonaTrepable, keeping the surface's own motion (a swinging arm throws you).
+	private void ReleaseGrip(Vector2 extraVelocity)
+	{
+		if (_gripZone is null)
+			return;
+		_gripZone = null;
+		_gripLockout = GripLockoutDuration;
+		_gripStaminaDebt = 0f;
+		Velocity = _gripSurfaceVelocity.LimitLength(GripMaxFlingSpeed) + extraVelocity;
+	}
+
+	// The first overlapped zone whose surface contains this world point (zones can overlap, e.g.
+	// upper arm over torso — the last one added wins, which is usually the one drawn on top).
+	private ZonaTrepable ClimbZoneAt(Vector2 globalPoint)
+	{
+		for (int i = _climbZones.Count - 1; i >= 0; i--)
+		{
+			ZonaTrepable zone = _climbZones[i];
+			if (IsInstanceValid(zone) && zone.ContainsGlobalPoint(globalPoint))
+				return zone;
+		}
+		return null;
+	}
+
+	// Grip state: returns true when it handled this physics frame.
+	private bool ProcessGrip(double delta)
+	{
+		float dt = (float)delta;
+		if (_gripLockout > 0f)
+			_gripLockout -= dt;
+
+		if (_gripZone is null)
+		{
+			if (_gripLockout > 0f || _climbZones.Count == 0 || !Input.IsActionPressed("move_up")
+				|| _stats.CurrentStamina <= 0)
+				return false;
+			ZonaTrepable zone = ClimbZoneAt(GlobalPosition);
+			if (zone is null)
+				return false;
+			_gripZone = zone;
+			_gripLocal = zone.ToLocal(GlobalPosition);
+			_gripSurfaceVelocity = Vector2.Zero;
+			_gripStaminaDebt = 0f;
+			_jumpCount = 0;
+		}
+
+		if (!IsInstanceValid(_gripZone))
+		{
+			_gripZone = null;
+			return false;
+		}
+
+		// Where the surface carried the grip point since last frame.
+		Vector2 carried = _gripZone.ToGlobal(_gripLocal);
+		_gripSurfaceVelocity = dt > 0f ? (carried - GlobalPosition) / dt : Vector2.Zero;
+
+		// Snared (e.g. a tentacle's grab) pins the grip in place, same as it pins the feet on the ground.
+		Vector2 input = IsSnared ? Vector2.Zero
+			: new Vector2(Input.GetAxis("move_left", "move_right"), Input.GetAxis("move_up", "move_down"));
+		Vector2 move = input.LimitLength(1f) * GripClimbSpeed * _gripZone.ClimbSpeedMultiplier * dt;
+		Vector2 target = carried + move;
+		// Only move onto climbable surface; crossing into an overlapping zone switches to it.
+		if (move != Vector2.Zero)
+		{
+			ZonaTrepable onto = _gripZone.ContainsGlobalPoint(target) ? _gripZone : ClimbZoneAt(target);
+			if (onto is null)
+				target = carried;
+			else
+				_gripZone = onto;
+		}
+		GlobalPosition = target;
+		_gripLocal = _gripZone.ToLocal(target);
+		if (input.X != 0f)
+			_facingRight = input.X > 0f;
+
+		bool moving = target != carried;
+		_gripStaminaDebt += ((moving ? GripMoveStaminaPerSecond : GripStaminaPerSecond + _gripZone.ExtraStaminaWhenStill)
+			+ _gripZone.ExtraStaminaPerSecond) * dt;
+		if (_gripStaminaDebt >= 1f)
+		{
+			int spend = Mathf.FloorToInt(_gripStaminaDebt);
+			_gripStaminaDebt -= spend;
+			_stats.SpendStaminaClamped(spend);
+		}
+
+		_visual.Scale = new Vector2(_facingRight ? 1 : -1, 1f);
+		_visual.Position = Vector2.Zero;
+
+		// Letting go skips the rest of this frame so the normal air logic starts from the release
+		// velocity (surface fling + jump) instead of the stale one it read at the top of the frame.
+		if (_stats.CurrentStamina <= 0 || (!IsSnared && Input.IsActionJustPressed("jump")))
+		{
+			bool jumped = _stats.CurrentStamina > 0;
+			ReleaseGrip(jumped ? new Vector2(0f, JumpVelocity) : Vector2.Zero);
+			if (jumped)
+			{
+				_jumpCount = 1;
+				_jumpBufferTimer = 0f;
+			}
+			UpdateAnimation(delta, false, Velocity.X);
+			return true;
+		}
+
+		// Only read by UpdateAnimation's ladder branch, to advance the climb cycle while moving.
+		Velocity = moving ? (target - carried) / dt : Vector2.Zero;
+		UpdateAnimation(delta, false, Velocity.X, true);
+		return true;
+	}
+
 	public override void _PhysicsProcess(double delta)
 	{
 		UpdateLightningBolts((float)delta);
@@ -1856,7 +2025,7 @@ public partial class Player : CharacterBody2D
 				GlobalPosition = new Vector2(GlobalPosition.X, floatY);
 		}
 
-		bool isGroundedOrClimbing = IsOnFloor() || _isClimbing || _isWallClimbing || _isLedgeHanging || _isLedgeClimbing || _isSwinging || _isHanging || _isSwimming;
+		bool isGroundedOrClimbing = IsOnFloor() || _isClimbing || _isWallClimbing || _isLedgeHanging || _isLedgeClimbing || _isSwinging || _isHanging || _isSwimming || IsGripping;
 		_airborneTimer = isGroundedOrClimbing ? 0f : _airborneTimer + (float)delta;
 		if (_airborneTimer > MaxAirborneTime && !SceneFader.IsChangingScene)
 		{
@@ -1996,6 +2165,11 @@ public partial class Player : CharacterBody2D
 			}
 			return;
 		}
+
+		// ZonaTrepable grip (climbable boss bodies) — before ladders, so holding up on a boss that
+		// happens to stand behind a ladder still prefers whatever was grabbed first.
+		if (!_isClimbing && !_isHanging && ProcessGrip(delta))
+			return;
 
 		if (_ladderGrabLockout > 0f)
 			_ladderGrabLockout -= (float)delta;
@@ -4028,9 +4202,11 @@ public partial class Player : CharacterBody2D
 
 	private void CycleShadowSpell()
 	{
-		_shadowSpell = (ShadowSpell)(((int)_shadowSpell + 1) % ShadowSpellNameKeys.Length);
-		_shadowSpellHud?.Refresh((int)_shadowSpell);
+		_shadowSpell = OfferedShadowSpells[(OfferedShadowSpellIndex() + 1) % OfferedShadowSpells.Length];
+		_shadowSpellHud?.Refresh(OfferedShadowSpellIndex());
 	}
+
+	private int OfferedShadowSpellIndex() => Mathf.Max(0, System.Array.IndexOf(OfferedShadowSpells, _shadowSpell));
 
 	// One entry per physics frame, kept just long enough for the +3 echo's doubled delay.
 	private void RecordEchoFrame()
@@ -5662,6 +5838,16 @@ public partial class Player : CharacterBody2D
 		_sprite.Play("idle");
 		_isFireImbued = _currentElement == DamageElement.Fire;
 		_isTransforming = false;
+	}
+
+	// Swaps the everyday palette (the one the element looks fall back to), e.g. the young-Delfrad
+	// palette in the tutorial.
+	public void SetBasePalette(Material material)
+	{
+		_normalMaterial = material;
+		ApplyElementLook(_currentElement);
+		if (FireMaterial == null)
+			_sprite.Material = material;
 	}
 
 	private void ApplyElementLook(DamageElement element)

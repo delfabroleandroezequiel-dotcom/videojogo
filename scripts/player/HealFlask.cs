@@ -40,6 +40,14 @@ public partial class HealFlask : Node
 		EmitSignal(SignalName.ChargesChanged, CurrentCharges, MaxCharges);
 	}
 
+	// Per-map bonus on top of the progression count (LevelBootstrap.ExtraHealCharges); not saved.
+	public void AddBonusCharges(int extra)
+	{
+		MaxCharges += extra;
+		CurrentCharges += extra;
+		EmitSignal(SignalName.ChargesChanged, CurrentCharges, MaxCharges);
+	}
+
 	public void UnlockCharge()
 	{
 		if (!SaveManager.Instance.UnlockHealCharge())

@@ -33,6 +33,9 @@ public partial class Stats : Node
 	// fog walls, etc. early). Kill() ignores it.
 	public int MinHealth { get; set; }
 	public bool IsInvulnerable => _invulnerableTimer > 0f || ExternalInvulnerable;
+	// Filming/debug: TakeDamage does nothing at all, even for hits that ignore invulnerability
+	// (burn ticks, unparryable beams). Kill() (falling out of the map) still works.
+	public bool GodMode { get; set; }
 
 	// Lets a controller (e.g. the player's block/parry state) veto an incoming hit before
 	// health/stamina are touched. Returning true fully negates the hit for this call.
@@ -116,7 +119,7 @@ public partial class Stats : Node
 	// not grant i-frames either, or standing in the hazard would make the target immune to real hits.
 	public void TakeDamage(int incomingAttack, bool isProjectile = false, DamageElement element = DamageElement.Normal, bool ignoreInvulnerability = false, bool armInvulnerability = true)
 	{
-		if (IsInvulnerable && !ignoreInvulnerability)
+		if (GodMode || (IsInvulnerable && !ignoreInvulnerability))
 			return;
 
 		float multiplier = element != DamageElement.Normal && element == Weakness ? WeaknessDamageMultiplier : 1f;

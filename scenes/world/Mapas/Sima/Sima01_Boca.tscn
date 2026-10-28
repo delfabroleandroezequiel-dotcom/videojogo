@@ -1,0 +1,305 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="bootstrap"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="camera"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="transition"]
+[ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="ladder"]
+[ext_resource type="PackedScene" path="res://scenes/world/SavePoint.tscn" id="savepoint"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/MurcielagoChico.tscn" id="murcielago"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/RatEnemy.tscn" id="rata"]
+
+[sub_resource type="RectangleShape2D" id="R_40x360"]
+size = Vector2(40, 360)
+
+[sub_resource type="RectangleShape2D" id="R_40x120"]
+size = Vector2(40, 120)
+
+[sub_resource type="RectangleShape2D" id="R_60x40"]
+size = Vector2(60, 40)
+
+[sub_resource type="RectangleShape2D" id="R_1820x40"]
+size = Vector2(1820, 40)
+
+[sub_resource type="RectangleShape2D" id="R_1840x40"]
+size = Vector2(1840, 40)
+
+[sub_resource type="RectangleShape2D" id="R_40x40"]
+size = Vector2(40, 40)
+
+[sub_resource type="RectangleShape2D" id="R_20x200"]
+size = Vector2(20, 200)
+
+[sub_resource type="RectangleShape2D" id="R_160x20"]
+size = Vector2(160, 20)
+
+[sub_resource type="RectangleShape2D" id="R_208x96"]
+size = Vector2(208, 96)
+
+[sub_resource type="RectangleShape2D" id="R_276x64"]
+size = Vector2(276, 64)
+
+[sub_resource type="RectangleShape2D" id="R_20x260"]
+size = Vector2(20, 260)
+
+[node name="Sima01_Boca" type="Node2D"]
+script = ExtResource("bootstrap")
+ScenePath = "res://scenes/world/Mapas/Sima/Sima01_Boca.tscn"
+CameraProfile = ExtResource("camera")
+CameraLimitLeft = -40
+CameraLimitRight = 2040
+CameraLimitTop = -260
+CameraLimitBottom = 440
+
+[node name="Fondo" type="ColorRect" parent="."]
+z_index = -50
+offset_left = -640
+offset_top = -860
+offset_right = 2640
+offset_bottom = 1320
+color = Color(0.05, 0.06, 0.09, 1)
+
+[node name="Colisiones" type="StaticBody2D" parent="."]
+
+[node name="PlataformasOneWay" type="StaticBody2D" parent="."]
+collision_layer = 49
+
+[node name="Visible" type="Node2D" parent="."]
+z_index = -5
+
+[node name="Trampas" type="Node2D" parent="."]
+
+[node name="Enemigos" type="Node2D" parent="."]
+
+[node name="Objetos" type="Node2D" parent="."]
+
+[node name="ParedOeste" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(-20, 140)
+shape = SubResource("R_40x360")
+
+[node name="ParedOeste2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(-20, 380)
+shape = SubResource("R_40x120")
+
+[node name="ParedEste" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(2020, 140)
+shape = SubResource("R_40x360")
+
+[node name="ParedEste2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(2020, 380)
+shape = SubResource("R_40x120")
+
+[node name="Techo" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(30, -20)
+shape = SubResource("R_60x40")
+
+[node name="Techo2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(1090, -20)
+shape = SubResource("R_1820x40")
+
+[node name="Suelo" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(920, 420)
+shape = SubResource("R_1840x40")
+
+[node name="Suelo2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(1980, 420)
+shape = SubResource("R_40x40")
+
+[node name="Chimenea" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(50, -140)
+shape = SubResource("R_20x200")
+
+[node name="Chimenea2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(190, -140)
+shape = SubResource("R_20x200")
+
+[node name="ChimeneaTapa" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(120, -250)
+shape = SubResource("R_160x20")
+
+[node name="Escalera" parent="Objetos" instance=ExtResource("ladder")]
+position = Vector2(150, 135)
+Length = 530
+
+[node name="Santuario" parent="." instance=ExtResource("savepoint")]
+position = Vector2(320, 400)
+
+[node name="Colina" type="CollisionPolygon2D" parent="Colisiones"]
+polygon = PackedVector2Array(500, 400, 692, 304, 692, 400, 500, 400)
+
+[node name="ColinaCima" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(796, 352)
+shape = SubResource("R_208x96")
+
+[node name="Colina2" type="CollisionPolygon2D" parent="Colisiones"]
+polygon = PackedVector2Array(900, 304, 1092, 400, 1092, 400, 900, 400)
+
+[node name="Terraza" type="CollisionPolygon2D" parent="Colisiones"]
+polygon = PackedVector2Array(1236, 400, 1364, 336, 1364, 400, 1236, 400)
+
+[node name="TerrazaCima" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(1502, 368)
+shape = SubResource("R_276x64")
+
+[node name="Rata" parent="Enemigos" instance=ExtResource("rata")]
+position = Vector2(800, 264)
+
+[node name="Rata2" parent="Enemigos" instance=ExtResource("rata")]
+position = Vector2(1500, 296)
+
+[node name="Murcielago" parent="Enemigos" instance=ExtResource("murcielago")]
+position = Vector2(1400, 120)
+
+[node name="PozoSalida" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(1830, 570)
+shape = SubResource("R_20x260")
+
+[node name="PozoSalida2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(1970, 570)
+shape = SubResource("R_20x260")
+
+[node name="PozoSalidaFondo" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(1900, 710)
+shape = SubResource("R_160x20")
+
+[node name="SubirSalida" parent="." instance=ExtResource("transition")]
+position = Vector2(120, -53)
+TargetScenePath = ""
+TargetSpawnPosition = Vector2(0, 0)
+Width = 120
+Height = 120
+
+[node name="BajarSalida" parent="." instance=ExtResource("transition")]
+position = Vector2(1900, 607)
+TargetScenePath = "res://scenes/world/Mapas/Sima/Sima02_PrimerRebote.tscn"
+TargetSpawnPosition = Vector2(120, 420)
+Width = 120
+Height = 160
+
+[node name="Player" parent="." instance=ExtResource("player")]
+position = Vector2(120, 360)
+
+[node name="ParedOeste" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -40
+offset_right = 0
+offset_bottom = 320
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="ParedOeste2" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = 320
+offset_right = 0
+offset_bottom = 440
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="ParedEste" type="ColorRect" parent="Visible"]
+offset_left = 2000
+offset_top = -40
+offset_right = 2040
+offset_bottom = 320
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="ParedEste2" type="ColorRect" parent="Visible"]
+offset_left = 2000
+offset_top = 320
+offset_right = 2040
+offset_bottom = 440
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="Techo" type="ColorRect" parent="Visible"]
+offset_left = 0
+offset_top = -40
+offset_right = 60
+offset_bottom = 0
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="Techo2" type="ColorRect" parent="Visible"]
+offset_left = 180
+offset_top = -40
+offset_right = 2000
+offset_bottom = 0
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="Suelo" type="ColorRect" parent="Visible"]
+offset_left = 0
+offset_top = 400
+offset_right = 1840
+offset_bottom = 440
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="Suelo2" type="ColorRect" parent="Visible"]
+offset_left = 1960
+offset_top = 400
+offset_right = 2000
+offset_bottom = 440
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="Chimenea" type="ColorRect" parent="Visible"]
+offset_left = 40
+offset_top = -240
+offset_right = 60
+offset_bottom = -40
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="Chimenea2" type="ColorRect" parent="Visible"]
+offset_left = 180
+offset_top = -240
+offset_right = 200
+offset_bottom = -40
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="ChimeneaTapa" type="ColorRect" parent="Visible"]
+offset_left = 40
+offset_top = -260
+offset_right = 200
+offset_bottom = -240
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="Colina" type="Polygon2D" parent="Visible"]
+color = Color(0.36, 0.4, 0.47, 1)
+polygon = PackedVector2Array(500, 400, 692, 304, 692, 400, 500, 400)
+
+[node name="ColinaCima" type="ColorRect" parent="Visible"]
+offset_left = 692
+offset_top = 304
+offset_right = 900
+offset_bottom = 400
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="Colina2" type="Polygon2D" parent="Visible"]
+color = Color(0.36, 0.4, 0.47, 1)
+polygon = PackedVector2Array(900, 304, 1092, 400, 1092, 400, 900, 400)
+
+[node name="Terraza" type="Polygon2D" parent="Visible"]
+color = Color(0.36, 0.4, 0.47, 1)
+polygon = PackedVector2Array(1236, 400, 1364, 336, 1364, 400, 1236, 400)
+
+[node name="TerrazaCima" type="ColorRect" parent="Visible"]
+offset_left = 1364
+offset_top = 336
+offset_right = 1640
+offset_bottom = 400
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="PozoSalida" type="ColorRect" parent="Visible"]
+offset_left = 1820
+offset_top = 440
+offset_right = 1840
+offset_bottom = 700
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="PozoSalida2" type="ColorRect" parent="Visible"]
+offset_left = 1960
+offset_top = 440
+offset_right = 1980
+offset_bottom = 700
+color = Color(0.36, 0.4, 0.47, 1)
+
+[node name="PozoSalidaFondo" type="ColorRect" parent="Visible"]
+offset_left = 1820
+offset_top = 700
+offset_right = 1980
+offset_bottom = 720
+color = Color(0.36, 0.4, 0.47, 1)
+

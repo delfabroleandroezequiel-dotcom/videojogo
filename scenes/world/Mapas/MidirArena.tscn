@@ -5,11 +5,14 @@
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="3_player"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Lugia.tscn" id="4_lugia"]
 [ext_resource type="Resource" path="res://resources/camera/ArenaMidirCamera.tres" id="5_camara"]
+[ext_resource type="Texture2D" uid="uid://xupbdr6ercbg" path="res://scenes/world/Mapas/deco.png" id="5_rgymj"]
 [ext_resource type="Texture2D" uid="uid://cb8gyivleynt" path="res://resources/particles/SoftDotGradient.tres" id="6_punto"]
 [ext_resource type="Material" uid="uid://dyscjj6pn2yrt" path="res://resources/particles/PolvoCuevaAzul.tres" id="7_polvo"]
 [ext_resource type="Script" uid="uid://dgfme40ce5n06" path="res://scripts/world/GroundFog.cs" id="8_niebla"]
 [ext_resource type="Texture2D" uid="uid://c8u136yyw3rtd" path="res://resources/vfx/FogBlobGradient.tres" id="9_blob"]
 [ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="10_luz"]
+[ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="11_parallax"]
+[ext_resource type="Texture2D" uid="uid://de8rjcbc0g3kg" path="res://assets/backgrounds/MidirArenaSuelo.png" id="12_suelo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_piso"]
 size = Vector2(2172, 60)
@@ -31,6 +34,25 @@ FreeElementCycle = true
 [node name="Fondo" type="Sprite2D" parent="." unique_id=869775709]
 z_index = -10
 texture = ExtResource("2_fondo")
+script = ExtResource("11_parallax")
+ParallaxFactor = Vector2(0.15, 0)
+FollowCamera = true
+
+[node name="Deco" type="Sprite2D" parent="." unique_id=1301119728]
+modulate = Color(0.55, 0.6, 0.7, 0.85)
+z_index = 3
+texture_repeat = 3
+position = Vector2(-6, 76)
+texture = ExtResource("5_rgymj")
+region_enabled = true
+region_rect = Rect2(-200, 0, 2572, 724)
+script = ExtResource("11_parallax")
+ParallaxFactor = Vector2(-0.2, 0)
+FollowCamera = true
+
+[node name="Suelo" type="Sprite2D" parent="." unique_id=869775710]
+z_index = -9
+texture = ExtResource("12_suelo")
 
 [node name="Piso" type="StaticBody2D" parent="." unique_id=503600859]
 position = Vector2(1.4097748, 294.36615)
