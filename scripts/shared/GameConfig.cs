@@ -24,7 +24,7 @@ public partial class GameConfig : Node
 	{
 		"move_left", "move_right", "move_up", "move_down", "jump", "attack", "dash", "sprint", "interact", "quest_log",
 		"inventory", "heal", "companion_stance", "block", "charged_attack", "roll", "run_thrust", "spell", "spell_tornado",
-		"spell_poison", "spell_fireball", "shoot_bow", "quick_use", "quick_cycle", "equip_torch", "summon_cycle", "summon_cast", "summon_discard",
+		"spell_poison", "spell_fireball", "throw_sword", "quick_use", "quick_cycle", "equip_torch", "summon_cycle", "summon_cast", "summon_discard",
 		"tornado_cycle", "wind_shield", "wind_hurricane",
 	};
 
@@ -51,7 +51,7 @@ public partial class GameConfig : Node
 		{ "spell_tornado", Key.Key1 },
 		{ "spell_poison", Key.Key2 },
 		{ "spell_fireball", Key.Key3 },
-		{ "shoot_bow", Key.G },
+		{ "throw_sword", Key.G },
 		{ "quick_use", Key.F },
 		{ "quick_cycle", Key.T },
 		{ "equip_torch", Key.V },

@@ -531,11 +531,6 @@ public partial class Player : CharacterBody2D
 	[Export] public float FlyingSwordRange = 240f;
 	[Export] public float FlyingSwordHeight = -14f;
 	[Export] public float FlyingSwordDamageMultiplier = 0.8f;
-	[Export] public float BowAnimDuration = 0.5f;
-	[Export] public float BowReleaseDelay = 0.35f;
-	[Export] public float ArrowSpeed = 420f;
-	[Export] public float ArrowSpawnYOffset = -20f;
-	[Export] public PackedScene ArrowProjectileScene;
 	[Export] public float LookUpOffset = -80f;
 	[Export] public float LookDownOffset = 60f;
 	[Export] public float LookSmoothSpeed = 4f;
@@ -803,7 +798,7 @@ public partial class Player : CharacterBody2D
 	private float _runThrustDirection;
 	private bool _canUpAttack = true;
 	private bool _isShooting;
-	// Which clip the shooting state plays (flying sword phases); null = the bow's "shoot_bow".
+	// Which flying sword clip the shooting state plays (start / loop / catch phases).
 	private string _shootAnimation;
 	private bool _swordOut;
 	private bool _isCastingSpell;
@@ -2674,21 +2669,14 @@ public partial class Player : CharacterBody2D
 			StartCharging();
 		}
 
-		if (Input.IsActionJustPressed("shoot_bow") && !_isShooting
+		// Only sheets with the flying sword clips can throw it.
+		if (Input.IsActionJustPressed("throw_sword") && !_isShooting
 			&& !_attacking && !_healing && !_isBlocking && !_isTransforming && !_crouching
 			&& !_isDashing && !_isRolling && !_isRunThrusting && !_isCharging
-			&& !_isCastingSpell && !_isCastingSpell2)
+			&& !_isCastingSpell && !_isCastingSpell2
+			&& _abilities.Has(PlayerAbilities.FlyingSword) && _sprite.SpriteFrames.HasAnimation("flying_sword_start"))
 		{
-			// Sheets with the flying sword clips throw the sword (its own unlock); others keep the bow.
-			if (_sprite.SpriteFrames.HasAnimation("flying_sword_start"))
-			{
-				if (_abilities.Has(PlayerAbilities.FlyingSword))
-					ThrowFlyingSword();
-			}
-			else if (_abilities.Has(PlayerAbilities.Bow))
-			{
-				ShootBow();
-			}
+			ThrowFlyingSword();
 		}
 
 		if (Input.IsActionJustPressed("spell") && _abilities.Has(PlayerAbilities.Spell) && !_isCastingSpell
@@ -2852,9 +2840,8 @@ public partial class Player : CharacterBody2D
 
 		if (_isShooting)
 		{
-			string shootAnim = _shootAnimation ?? "shoot_bow";
-			if (_sprite.Animation != shootAnim)
-				_sprite.Play(shootAnim);
+			if (_shootAnimation is not null && _sprite.Animation != _shootAnimation)
+				_sprite.Play(_shootAnimation);
 			return;
 		}
 
@@ -4159,31 +4146,9 @@ public partial class Player : CharacterBody2D
 		_isShooting = false;
 	}
 
-	private async void ShootBow()
-	{
-		_isShooting = true;
-
-		await ToSignal(GetTree().CreateTimer(BowReleaseDelay), SceneTreeTimer.SignalName.Timeout);
-		if (!IsInstanceValid(this) || _isDead)
-			return;
-
-		Vector2 direction = new(_facingRight ? 1f : -1f, 0f);
-		Projectile arrow = ArrowProjectileScene.Instantiate<Projectile>();
-		GetTree().CurrentScene.AddChild(arrow);
-		arrow.GlobalPosition = GlobalPosition + new Vector2(0, ArrowSpawnYOffset);
-		arrow.Speed = ArrowSpeed;
-		arrow.Launch(direction, _stats);
-		Sfx.Play(this, "Combat/Bow", "Bow Attack");
-
-		float remainingAnimTime = Mathf.Max(0f, BowAnimDuration - BowReleaseDelay);
-		await ToSignal(GetTree().CreateTimer(remainingAnimTime), SceneTreeTimer.SignalName.Timeout);
-		if (IsInstanceValid(this))
-			_isShooting = false;
-	}
-
 	// Plays the "spell"/"spell2" clip only — no effect/projectile yet, see the SpellAnimDuration
 	// export doc. Split into two methods (rather than one CastSpell(int slot)) to match how every
-	// other single-purpose action here (ShootBow, StartDash, StartRoll...) is its own method.
+	// other single-purpose action here (ThrowFlyingSword, StartDash, StartRoll...) is its own method.
 	// Spell 1: shadow clone. Partway through the "spell" clip a neon silhouette of the player pops
 	// in beside them (facing side), throws one normal attack1 with the player's own hitbox size,
 	// reach, timing and AttackPower, then fades out (see ShadowClone). Costs stamina, has its own

@@ -27,7 +27,6 @@ public partial class PlayerAbilities : Node
 	public const string FlyingSword = "flying_sword";
 	public const string RopeSwing = "rope_swing";
 	public const string Swim = "swim";
-	public const string Bow = "bow";
 	public const string Torch = "torch";
 	// Elemental spells, parked 2026-10-13: they made the player too strong at range and didn't fit
 	// the Shadow-centred kit. Code kept so a relic/consumable can grant them later.
@@ -52,7 +51,6 @@ public partial class PlayerAbilities : Node
 	[Export] public bool StartWithComboFinisher;
 	[Export] public bool StartWithRopeSwing;
 	[Export] public bool StartWithSwim;
-	[Export] public bool StartWithBow;
 	[Export] public bool StartWithTorch;
 	// Start unlocked for now, like everything above is in Player.tscn, until the skill tree grants
 	// them — untick on the Abilities node to test them locked.
@@ -101,8 +99,6 @@ public partial class PlayerAbilities : Node
 			Unlock(RopeSwing);
 		if (StartWithSwim)
 			Unlock(Swim);
-		if (StartWithBow)
-			Unlock(Bow);
 		if (StartWithComboFourth)
 			Unlock(ComboFourth);
 		if (StartWithFlyingSword)

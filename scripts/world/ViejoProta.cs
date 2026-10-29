@@ -13,7 +13,7 @@ namespace Metroidvania.World;
 // Frames used (from the sheets): attack1 f1 overhead cut, attack2 f1 big crescent, attack3 f1-3
 // thrust, crouch_attack f1 low sweep to both sides, jump_attack f1 aerial cut, roll,
 // block (parry flashes), spell f5 releases the fireball, transformation (12f), heal (4f).
-// shoot_bow is skipped (its frames are another character); slide and spell2 (flame jet) are unused.
+// The sheet's shoot_bow clip is skipped (its frames are another character); slide and spell2 (flame jet) are unused.
 // Every strike is telegraphed with a white body flash; neon trails reach out to each cut's reach.
 public partial class ViejoProta : Enemy
 {

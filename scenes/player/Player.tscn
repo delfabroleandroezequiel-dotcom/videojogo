@@ -17,7 +17,6 @@
 [ext_resource type="SpriteFrames" uid="uid://j4jc0pc1fxd5" path="res://resources/sprites/FireWarriorFireSwordSpriteFrames.tres" id="11_fireframes"]
 [ext_resource type="PackedScene" path="res://scenes/ui/HudBar.tscn" id="16_hudbar"]
 [ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="17_lightgrad"]
-[ext_resource type="PackedScene" uid="uid://cuhg0wrlo6of" path="res://scenes/world/Projectile.tscn" id="18_projectile"]
 [ext_resource type="Texture2D" uid="uid://cb8gyivleynt" path="res://resources/particles/SoftDotGradient.tres" id="19_dot_tex"]
 [ext_resource type="Material" uid="uid://ch03r6ui4r7fq" path="res://resources/particles/ChargeAuraPlayerProcess.tres" id="20_aura_process"]
 [ext_resource type="Texture2D" uid="uid://cagka7h2qpyxf" path="res://resources/particles/SpikeGradient.tres" id="21_spike_tex"]
@@ -62,7 +61,6 @@ collision_layer = 2
 floor_snap_length = 12.0
 script = ExtResource("1_script")
 FireSpriteFrames = ExtResource("11_fireframes")
-ArrowProjectileScene = ExtResource("18_projectile")
 FireMaterial = ExtResource("27_palette_fire")
 DustFrames = ExtResource("28_dust")
 WeaponSwingStartAngle = 60.0
@@ -307,7 +305,6 @@ StartWithLedgeGrab = true
 StartWithComboFinisher = false
 StartWithRopeSwing = false
 StartWithSwim = false
-StartWithBow = false
 StartWithTorch = true
 StartWithComboFourth = false
 StartWithFlyingSword = false

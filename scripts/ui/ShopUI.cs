@@ -61,7 +61,8 @@ public partial class ShopUI : CanvasLayer
 		// The press that opened it (e.g. the one closing the greeting dialogue) must not close it too.
 		if (Time.GetTicksMsec() - _openedAtMs < 150)
 			return;
-		if (@event.IsActionPressed("ui_cancel") || @event.IsActionPressed("interact"))
+		// On a gamepad interact is d-pad up, which also browses the list, so only the keyboard's closes it.
+		if (@event.IsActionPressed("ui_cancel") || (@event.IsActionPressed("interact") && @event is InputEventKey))
 		{
 			GetViewport().SetInputAsHandled();
 			Close();

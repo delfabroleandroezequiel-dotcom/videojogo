@@ -12846,7 +12846,6 @@ texture = ExtResource("14_n4hbi")
 
 [node name="Player" parent="." unique_id=1962161526 instance=ExtResource("1_player")]
 position = Vector2(-260.10834, 404.14734)
-ArrowProjectileScene = null
 
 [node name="ProceduralWater" parent="." unique_id=907448503 instance=ExtResource("15_xdiy7")]
 visible = false

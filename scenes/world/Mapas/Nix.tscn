@@ -15283,7 +15283,6 @@ Count = 16
 
 [node name="Player" parent="." unique_id=1962161526 instance=ExtResource("1_player")]
 position = Vector2(-480.10242, -126.03177)
-ArrowProjectileScene = null
 
 [node name="ProceduralWater" parent="." unique_id=907448503 instance=ExtResource("15_xdiy7")]
 visible = false

@@ -27,7 +27,10 @@ public partial class PauseMenu : CanvasLayer
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		if (!@event.IsActionPressed("ui_cancel"))
+		// "pause" (Escape / Start) opens and closes it; ui_cancel only backs out once it's open,
+		// since on a gamepad ui_cancel is B, which is also roll.
+		bool pausePressed = @event.IsActionPressed("pause");
+		if (!pausePressed && !(_panel.Visible && @event.IsActionPressed("ui_cancel")))
 			return;
 
 		bool inLevel = GetTree().CurrentScene is LevelBootstrap;

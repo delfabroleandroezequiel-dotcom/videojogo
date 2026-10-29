@@ -27,7 +27,7 @@ public partial class ModoJoven : Node
 	[Export] public string[] LockedAbilities =
 	{
 		PlayerAbilities.Spell, PlayerAbilities.Spell2, PlayerAbilities.TornadoSpell, PlayerAbilities.PoisonSpell,
-		PlayerAbilities.FireballSpell, PlayerAbilities.WindShield, PlayerAbilities.FlyingSword, PlayerAbilities.Bow,
+		PlayerAbilities.FireballSpell, PlayerAbilities.WindShield, PlayerAbilities.FlyingSword,
 		PlayerAbilities.Torch, PlayerAbilities.ChargedAttack, PlayerAbilities.RunThrust, PlayerAbilities.PoundAttack,
 	};
 
