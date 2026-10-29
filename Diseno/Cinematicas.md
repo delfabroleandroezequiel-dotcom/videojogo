@@ -1,6 +1,6 @@
 # Cinemáticas — guía de dirección
 
-Documento vivo. **Leerlo antes de armar o tocar cualquier cinemática** y sumarle lo que se aprenda en cada una. Última actualización: 2026-10-27.
+Documento vivo. **Leerlo antes de armar o tocar cualquier cinemática** y sumarle lo que se aprenda en cada una. Última actualización: 2026-10-28.
 
 ---
 
@@ -116,6 +116,7 @@ En 2D no hay lentes ni ángulos: los planos se arman con **zoom + punto de foco 
 - **Sin HUD en cinemáticas** (lo oculta `HoldForCutscene` y lo devuelve al terminar).
 - **El ritmo lo decide la cinemática, no el botón** (decisión del autor, 2026-10-28): cada línea de `StepSay` avanza cuando termina su voz, con una pausa (`GapAfterVoice`, 0.7 s por defecto; 0.9 en la narración), y no se puede saltear. Si la línea no tiene voz, espera su tiempo de lectura (15 caracteres por segundo). Los diálogos con NPCs fuera de cinemáticas siguen avanzando con el botón.
 - **Pausa antes de un cambio de tono** (`StepSay.ExtraPauses`, por línea): después de una línea fuerte, 1.5 s extra de silencio antes de que alguien cambie de tono. Ejemplo: "ya no me necesitarás" → 1.6 s → "la cena se enfría".
+- **La voz en off no lleva nombre** (`SpeakerKeys` vacío en `StepSay`): se lee como el libro, no como un personaje en escena. Sirve para no confundirla con el Delfrad joven.
 
 ## 7. Lo que falta en las herramientas (sumar cuando una escena lo pida)
 

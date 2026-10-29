@@ -73,7 +73,7 @@ UI_ACTION_SPELL,Clon de Sombra,Shadow Clone,Clone de Sombra
 UI_ACTION_SPELL_TORNADO,Tornado,Tornado,Tornado
 UI_ACTION_SPELL_POISON,Bola de Veneno,Poison Ball,Bola de Veneno
 UI_ACTION_SPELL_FIREBALL,Bola de Fuego,Fireball,Bola de Fogo
-UI_ACTION_SHOOT_BOW,Espada Voladora,Flying Sword,Espada Voadora
+UI_ACTION_THROW_SWORD,Espada Voladora,Flying Sword,Espada Voadora
 UI_ACTION_FIRE_IMBUE,Imbuir Fuego,Fire Imbue,Imbuir Fogo
 UI_ACTION_EQUIP_TORCH,Antorcha,Torch,Tocha
 UI_ACTION_SUMMON_CYCLE,Cambiar Invocación,Cycle Summon,Trocar Invocação
@@ -362,7 +362,7 @@ ARTHUR_CALENTAR_3,"Los vi. Siempre los miras como si te estuvieran llamando.","I
 ARTHUR_CALENTAR_4,"Arriba esa espada. Primero el brazo; los sueños, después.","Raise that sword. Arm first; dreams later.","Levante essa espada. Primeiro o braço; os sonhos, depois."
 ARTHUR_EN_SERIO_2,"Pero allá afuera nadie va a esperar a que estés listo.","But out there, no one will wait until you're ready.","Mas lá fora ninguém vai esperar você estar pronto."
 ARTHUR_BERSERK_2,"Entonces mira bien. Así peleábamos en la Gran Guerra.","Then watch closely. This is how we fought in the Great War.","Então olhe bem. Assim lutávamos na Grande Guerra."
-DERROTA_ARTHUR_4,"Vamos, la cena se enfría. Tu madre odiaba que llegáramos tarde.","Come on, dinner's getting cold. Your mother hated it when we were late.","Vamos, o jantar está esfriando. Sua mãe odiava quando nos atrasávamos."
+DERROTA_ARTHUR_4,"Vamos, la cena se enfría. Tu madre odiaba que yo llegara tarde.","Come on, dinner's getting cold. Your mother hated it when I was late.","Vamos, o jantar está esfriando. Sua mãe odiava quando eu me atrasava."
 NARRA_APERTURA_5,"Quizás digan que todo fue un sueño, o un invento de mi imaginación...","Perhaps they'll say it was all a dream, or something I made up...","Talvez digam que tudo foi um sonho, ou uma invenção da minha imaginação..."
 NARRA_APERTURA_6,"Por suerte, no estaré vivo cuando juzguen lo que escribí con esta pluma.","Luckily, I won't be alive when they judge what I wrote with this quill.","Por sorte, não estarei vivo quando julgarem o que escrevi com esta pena."
 CINE_CASA_4,"Lleva el pescado de ayer a Bram. Y no te quedes mirando las caravanas.","Take yesterday's fish to Bram. And don't stand there staring at the caravans.","Leve o peixe de ontem para o Bram. E não fique olhando as caravanas."

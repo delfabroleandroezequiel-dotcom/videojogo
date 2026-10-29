@@ -1,6 +1,6 @@
 # Escritura — guía del escritor de "Las Reliquias del Reino"
 
-Documento vivo. **Leerlo antes de reescribir el libro, crear o tocar personajes, escribir diálogos del juego o lore.** Sumarle lo que se decida. Última actualización: 2026-10-27.
+Documento vivo. **Leerlo antes de reescribir el libro, crear o tocar personajes, escribir diálogos del juego o lore.** Sumarle lo que se decida. Última actualización: 2026-10-28.
 
 ---
 
@@ -127,6 +127,7 @@ Diferencias entre juego y libro:
 | 2026-10-27 | El juego abre con la derrota en el entrenamiento ("Algún día te ganaré"), la narración del libro en negro y la huida de un Nix destruido en el "presente" | Secuencia de apertura |
 | 2026-10-28 | Pase de humanidad a Arthur (entrenamiento, derrota, casa) y a la narración: Delfrad mira las caravanas como si lo llamaran; Arthur habla de la Gran Guerra y de la madre; la narración suma la espada de madera y "nunca me enseñó a perderlo". Aparece Bram (propuesta del prólogo) | Pase de escritor |
 | 2026-10-28 | Cuatro Delfrad: entrenamiento (15), el que jugamos (aventura de 1 o 2 años), el del futuro cercano que muere en el Nix en llamas, y la voz en off que escribe 35 años después, revivido en el libro 3 o 4 | Aclaración del autor |
+| 2026-10-28 | Revisión de voces del pase: "Tu madre odiaba que **yo** llegara tarde" (la madre murió en el parto); la voz en off va sin nombre en pantalla y con 1.6 s de silencio después de "Nunca me enseñó a perderlo". Arthur con pelo negro a los 15 y blanco a los 17 **queda así** (decisión del autor). El Delfrad del Nix en llamas sigue sin líneas | Revisión de voces |
 | 2026-10-27 | **Propuesta (pendiente):** prólogo de dos días en Nix con vecinos con nombre (Morlok, Garrik, Bram, Tobías, Halvar, Aldric, Sela, Pip y Tomo, Lio y Edda, Bruno), rumores de malvivientes y la quest "El carro de Morlok" (la capa como regalo). Ver `PrologoNix.md` | Prólogo |
 
 ---

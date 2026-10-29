@@ -14,11 +14,12 @@ Seconds = 1.0
 
 [sub_resource type="Resource" id="Paso_narracion"]
 script = ExtResource("3_say")
-SpeakerKeys = PackedStringArray("NPC_DELFRAD_NAME")
+SpeakerKeys = PackedStringArray("")
 LineKeys = PackedStringArray("NARRA_APERTURA_1", "NARRA_APERTURA_2", "NARRA_APERTURA_3", "NARRA_APERTURA_4", "NARRA_APERTURA_5", "NARRA_APERTURA_6")
 AdvanceWithVoice = true
 AllowSkip = false
 GapAfterVoice = 0.9
+ExtraPauses = PackedFloat32Array(0, 0, 0, 1.6)
 
 [sub_resource type="Resource" id="Paso_pausa"]
 script = ExtResource("2_wait")

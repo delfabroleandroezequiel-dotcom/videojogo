@@ -110,6 +110,8 @@ public partial class DialogueBox : CanvasLayer
 	{
 		string speakerKey = _speakerKeys[Mathf.Min(_lineIndex, _speakerKeys.Length - 1)];
 		_nameLabel.Text = TranslationServer.Translate(speakerKey);
+		// An empty speaker key (e.g. the voice-over narration) shows no name at all.
+		_nameLabel.Visible = _nameLabel.Text != "";
 		_textLabel.Text = TranslationServer.Translate(_lines[_lineIndex]);
 		_continueHint.Text = TranslationServer.Translate(_lineIndex < _lines.Length - 1 ? "UI_DIALOGUE_CONTINUE" : "UI_DIALOGUE_CLOSE");
 		Sfx.PlayVoice(this, _lines[_lineIndex]);
