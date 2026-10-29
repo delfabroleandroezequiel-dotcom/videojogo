@@ -2,10 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_7lste"]
 [ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_ql48t"]
-[ext_resource type="Environment" path="res://resources/rendering/NixPostProcess.tres" id="3_cbgf8"]
-[ext_resource type="Texture2D" uid="uid://cb8gyivleynt" path="res://resources/particles/SoftDotGradient.tres" id="4_s3chm"]
-[ext_resource type="Material" uid="uid://jm40glxfalh" path="res://resources/particles/DustMoteProcess.tres" id="5_73lfw"]
-[ext_resource type="PackedScene" path="res://scenes/world/WeatherOverlay.tscn" id="6_ddojd"]
 [ext_resource type="Texture2D" uid="uid://dtixu7ma353nj" path="res://assets/sprites/misprite/bosquelobos1.png" id="7_jyq1y"]
 [ext_resource type="PackedScene" uid="uid://dgydh5wklq6qh" path="res://scenes/world/RangedEnemy.tscn" id="8_14i7q"]
 [ext_resource type="PackedScene" path="res://scenes/world/MosquitoEnemy.tscn" id="9_kxn46"]
@@ -23,10 +19,9 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniCorridorAccordionBosque.tscn" id="23_xpmh8"]
 [ext_resource type="Texture2D" uid="uid://d3et3hek0jct6" path="res://assets/sprites/deco/decoarboles2.png" id="24_itfpo"]
 [ext_resource type="PackedScene" uid="uid://qpeeme8h315i" path="res://scenes/world/Rehusables/MiniCorridorBosque.tscn" id="24_v2wi5"]
-[ext_resource type="Script" uid="uid://dmc84bj2qiwao" path="res://scripts/shared/LoopingAudioPlayer.cs" id="90_looping_audio"]
-[ext_resource type="AudioStream" uid="uid://dbg5k12n40k7g" path="res://assets/audio/Sonidos/Ambience/ForestDay/Forest Day.wav" id="91_forest_ambience"]
 [ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="91_parallaxfollow"]
 [ext_resource type="Texture2D" uid="uid://cv75eoysrwmj2" path="res://assets/sprites/deco/CapaArboles.png" id="92_capaarboles"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/AtmosferaBosqueLobos.tscn" id="90_atmosfera"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h48re"]
 load_path = "res://.godot/imported/ChatGPT_Image_12_jul_2026__17_14_53-removebg-preview.png-d59d64ce255041962d0d7588581fe35a.ctex"
@@ -12791,28 +12786,10 @@ CameraLimitLeft = 0
 CameraLimitRight = 1760
 CameraLimitBottom = 450
 
-[node name="PostProcessEnvironment" type="WorldEnvironment" parent="." unique_id=-1194967300]
-environment = ExtResource("3_cbgf8")
+[node name="AtmosferaBosqueLobos" parent="." instance=ExtResource("90_atmosfera")]
 
-[node name="Ambience" type="AudioStreamPlayer" parent="." unique_id=1365513182]
-stream = ExtResource("91_forest_ambience")
-volume_db = -10.0
-autoplay = true
-script = ExtResource("90_looping_audio")
-
-[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=-1194967299]
-color = Color(0.85, 0.9, 1, 1)
-
-[node name="DustMotes" type="GPUParticles2D" parent="." unique_id=-1194967298]
+[node name="DustMotes" parent="AtmosferaBosqueLobos" index="3"]
 position = Vector2(150, 258)
-amount = 18
-texture = ExtResource("4_s3chm")
-lifetime = 7.0
-randomness = 0.5
-process_material = ExtResource("5_73lfw")
-
-[node name="WeatherOverlay" parent="." unique_id=-1194967297 instance=ExtResource("6_ddojd")]
-ForceWeatherIndex = -1
 
 [node name="Background" type="Node2D" parent="." unique_id=-1194967294]
 z_index = -10

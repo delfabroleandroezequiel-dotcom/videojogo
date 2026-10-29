@@ -1,0 +1,33 @@
+[gd_scene format=3]
+
+[ext_resource type="Environment" path="res://resources/rendering/NixPostProcess.tres" id="1_postprocess"]
+[ext_resource type="Script" uid="uid://dmc84bj2qiwao" path="res://scripts/shared/LoopingAudioPlayer.cs" id="2_looping_audio"]
+[ext_resource type="AudioStream" uid="uid://dbg5k12n40k7g" path="res://assets/audio/Sonidos/Ambience/ForestDay/Forest Day.wav" id="3_forest_ambience"]
+[ext_resource type="Texture2D" uid="uid://cb8gyivleynt" path="res://resources/particles/SoftDotGradient.tres" id="4_dust_tex"]
+[ext_resource type="Material" uid="uid://jm40glxfalh" path="res://resources/particles/DustMoteProcess.tres" id="5_dust_process"]
+[ext_resource type="PackedScene" path="res://scenes/world/WeatherOverlay.tscn" id="6_weather"]
+
+[node name="AtmosferaBosqueLobos" type="Node2D"]
+
+[node name="PostProcessEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_postprocess")
+
+[node name="Ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_forest_ambience")
+volume_db = -10.0
+autoplay = true
+script = ExtResource("2_looping_audio")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.85, 0.9, 1, 1)
+
+[node name="DustMotes" type="GPUParticles2D" parent="."]
+position = Vector2(887, 258)
+amount = 18
+texture = ExtResource("4_dust_tex")
+lifetime = 7.0
+randomness = 0.5
+process_material = ExtResource("5_dust_process")
+
+[node name="WeatherOverlay" parent="." instance=ExtResource("6_weather")]
+ForceWeatherIndex = -1

@@ -78,7 +78,8 @@ public partial class BurningMap : Node
 			npc.QueueFree();
 		RewireExits(Map);
 
-		if (Map.GetNodeOrNull<CanvasModulate>("CanvasModulate") is { } modulate)
+		// Recursive: some maps keep it inside a shared atmosphere scene (AtmosferaBosqueLobos).
+		if (Map.FindChild("CanvasModulate", true, false) is CanvasModulate modulate)
 			modulate.Color = LightTint;
 		else
 			Map.AddChild(new CanvasModulate { Color = LightTint });
