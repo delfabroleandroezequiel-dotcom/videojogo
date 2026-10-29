@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cmt3fryrhlap1"
+path="res://.godot/imported/Salto 2.wav-e4de6034ee3bf5f3a1ed1f86a0a12979.sample"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/DelfradJoven/Salto 2.wav"
+dest_files=["res://.godot/imported/Salto 2.wav-e4de6034ee3bf5f3a1ed1f86a0a12979.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

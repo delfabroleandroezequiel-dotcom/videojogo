@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d0mtq55ljlw8y"
+path="res://.godot/imported/Golpeado 3.wav-72535a06667b90dd46eb88cb79f4df23.sample"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/Arthur/Golpeado 3.wav"
+dest_files=["res://.godot/imported/Golpeado 3.wav-72535a06667b90dd46eb88cb79f4df23.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
