@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://54bek7loxhit" path="res://scenes/world/Mapas/Nix.tscn" id="1_base"]
+[ext_resource type="Script" path="res://scripts/world/ruina/BurningMap.cs" id="2_llamas"]
+[ext_resource type="PackedScene" path="res://scenes/world/WeatherOverlay.tscn" id="3_clima"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/GroundFire.tscn" id="4_fuego"]
+
+[node name="Llamas_Nix" instance=ExtResource("1_base")]
+ScenePath = "res://scenes/world/Mapas/Llamas/Llamas_Nix.tscn"
+ZoneName = ""
+
+[node name="MapaEnLlamas" type="Node" parent="."]
+script = ExtResource("2_llamas")
+WeatherScene = ExtResource("3_clima")
+FireScene = ExtResource("4_fuego")

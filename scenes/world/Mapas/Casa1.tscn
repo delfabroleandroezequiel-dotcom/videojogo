@@ -61,8 +61,8 @@ WaitSeconds = 0.3
 
 [sub_resource type="Resource" id="Paso_dialogo"]
 script = ExtResource("36_say")
-SpeakerKeys = PackedStringArray("NPC_ARTHUR_NAME", "NPC_DELFRAD_NAME", "NPC_ARTHUR_NAME")
-LineKeys = PackedStringArray("CINE_CASA_1", "CINE_CASA_2", "CINE_CASA_3")
+SpeakerKeys = PackedStringArray("NPC_ARTHUR_NAME", "NPC_DELFRAD_NAME", "NPC_ARTHUR_NAME", "NPC_ARTHUR_NAME")
+LineKeys = PackedStringArray("CINE_CASA_1", "CINE_CASA_2", "CINE_CASA_3", "CINE_CASA_4")
 
 [sub_resource type="Resource" id="Paso_arthurVuelve"]
 script = ExtResource("34_move")

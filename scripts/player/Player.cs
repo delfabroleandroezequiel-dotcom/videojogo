@@ -1115,7 +1115,7 @@ public partial class Player : CharacterBody2D
 			if (now - _lastGruntMsec < GruntMinIntervalMsec)
 				return;
 			_lastGruntMsec = now;
-			Sfx.Play(this, "Voice/Player", "Damage Grunt (Male)");
+			VoiceBark(HurtVoiceKey);
 		};
 		// Getting hit while steering a summon snaps control back to the body.
 		_stats.HitTaken += (isProjectile) => EndSummonControl();
@@ -1486,6 +1486,22 @@ public partial class Player : CharacterBody2D
 	private float _burnLinger = 0.6f;
 	private ulong _lastGruntMsec;
 	private const ulong GruntMinIntervalMsec = 400;
+
+	// Whose voice the body makes (folder under Sonidos/). A scene can swap it — ModoJoven gives the
+	// young Delfrad his own. Keys missing from the folder are simply silent, so a voice set doesn't
+	// need every bark.
+	[Export] public string VoiceCategory = "Voice/Player";
+	[Export] public string HurtVoiceKey = "Damage Grunt (Male)";
+	[Export(PropertyHint.Range, "0,1")] public float AttackVoiceChance = 0.5f;
+	// 0 for now: the roll barks exist (young Delfrad) but are muted until they're judged in play.
+	[Export(PropertyHint.Range, "0,1")] public float RollVoiceChance = 0f;
+	[Export(PropertyHint.Range, "0,1")] public float ParryVoiceChance = 0.6f;
+
+	public void VoiceBark(string key, float chance = 1f)
+	{
+		if (chance >= 1f || GD.Randf() < chance)
+			Sfx.PlayIfExistsAt(this, VoiceCategory, key);
+	}
 	private bool _poisonTinted;
 
 	// Mini-cinematic lock (e.g. a boss waking up and roaring): no input, idle pose, gravity still
@@ -1497,6 +1513,7 @@ public partial class Player : CharacterBody2D
 
 	public void HoldForCutscene(bool hold)
 	{
+		SetHudHiddenForCutscene(hold);
 		_cutsceneHold = hold;
 		_cutscenePushX = 0f;
 		if (!hold)
@@ -1510,6 +1527,27 @@ public partial class Player : CharacterBody2D
 			_sprite.Play(TorchAnim("idle"));
 		}
 		SetLetterbox(hold);
+	}
+
+	// No HUD during cutscenes (it breaks the film framing). Remembers whether it was showing, so a
+	// map that hides it anyway (LevelBootstrap.HideHud) keeps it hidden afterwards.
+	private bool _hudHiddenByCutscene;
+
+	private void SetHudHiddenForCutscene(bool hide)
+	{
+		if (GetNodeOrNull<CanvasLayer>("HUD") is not { } hud)
+			return;
+		if (hide && !_cutsceneHold)
+		{
+			_hudHiddenByCutscene = hud.Visible;
+			hud.Visible = false;
+		}
+		else if (!hide && _cutsceneHold)
+		{
+			if (_hudHiddenByCutscene)
+				hud.Visible = true;
+			_hudHiddenByCutscene = false;
+		}
 	}
 
 	// Cinema bars: black strips sliding in from the top and bottom while a cutscene holds the player.
@@ -1563,6 +1601,8 @@ public partial class Player : CharacterBody2D
 	// While held, the camera pans `weight` of the way toward this world point (null = off; default
 	// CutsceneFocusWeight, 1 = centred on it) and zooms by `zoom` × the map's zoom.
 	[Export] public float CutsceneFocusWeight = 0.5f;
+	// Vertical nudge of that framing (negative = camera higher, characters lower in the shot).
+	[Export] public float CutsceneFramingOffsetY = 0f;
 	private Vector2? _cutsceneFocus;
 	private float _cutsceneFocusWeight = 0.5f;
 	private float _cutsceneZoom = 1f;
@@ -3091,6 +3131,7 @@ public partial class Player : CharacterBody2D
 	private void OnParryLanded(bool perfect)
 	{
 		_parryLanded = true;
+		VoiceBark("Parry", ParryVoiceChance);
 		_parryWindowTimer = Mathf.Max(_parryWindowTimer, ParryChainExtension);
 		AddShadowEssence(perfect ? PerfectParryEssenceGain : ParryEssenceGain);
 		PlayParryFx(perfect);
@@ -3164,10 +3205,14 @@ public partial class Player : CharacterBody2D
 
 		Vector2 targetOffset = new Vector2(0, targetY + _bossFramingOffsetY);
 		// Cutscene framing: pan part of the way toward the focus point so both stay in shot.
+		// Centred on the subjects, without the gameplay's upward look-ahead: with the letterbox and the
+		// dialogue box at the bottom, that framing pushed the characters under the box.
+		// Measured from where the limits actually put the camera (Camera2D clamps its position first and
+		// adds the offset after): near a map edge, an offset from the unclamped position overshot the
+		// shot by the clamp and pushed the player off-screen.
 		if (_cutsceneHold && _cutsceneFocus is Vector2 focus)
-			targetOffset = _cutsceneFocusWeight >= 1f
-				? focus - _camera.GlobalPosition // fully on the focus (from the camera itself, not the feet)
-				: targetOffset + (focus - GlobalPosition) * _cutsceneFocusWeight;
+			targetOffset = GlobalPosition.Lerp(focus, Mathf.Min(_cutsceneFocusWeight, 1f)) - LimitedCameraCenter()
+				+ new Vector2(0f, CutsceneFramingOffsetY);
 		// Tracked separately from _camera.Offset so Shake() can add a jitter on top of it each
 		// frame without that jitter itself getting lerped-toward next frame (which would just
 		// smooth the shake away to nothing).
@@ -3216,6 +3261,17 @@ public partial class Player : CharacterBody2D
 		return new Vector2(
 			ClampAxis(offset.X, currentCenter.X, targetCenter.X, halfView.X, _camera.LimitLeft, _camera.LimitRight),
 			ClampAxis(offset.Y, currentCenter.Y, targetCenter.Y, halfView.Y, _camera.LimitTop, _camera.LimitBottom, feetY));
+	}
+
+	private Vector2 LimitedCameraCenter()
+	{
+		Vector2 half = GetViewportRect().Size / _camera.Zoom / 2f;
+		Vector2 position = _camera.GlobalPosition;
+		static float Limit(float value, float half, int min, int max) =>
+			min + half > max - half ? value : Mathf.Clamp(value, min + half, max - half);
+		return new Vector2(
+			Limit(position.X, half.X, _camera.LimitLeft, _camera.LimitRight),
+			Limit(position.Y, half.Y, _camera.LimitTop, _camera.LimitBottom));
 	}
 
 	// strength is in pixels; the shake decays linearly to 0 over duration.
@@ -3378,7 +3434,7 @@ public partial class Player : CharacterBody2D
 		// _jumpCount still holds its pre-increment value here, so >=1 means this is the second
 		// (double) jump about to happen.
 		bool isDoubleJump = !_infiniteJumpDebug && _jumpCount >= 1;
-		Sfx.Play(this, "Voice/Player", isDoubleJump ? "DobleSalto" : "Salto");
+		VoiceBark(isDoubleJump ? "DobleSalto" : "Salto");
 		if (!_infiniteJumpDebug)
 		{
 			_jumpCount++;
@@ -3454,6 +3510,7 @@ public partial class Player : CharacterBody2D
 		if (!_stats.TrySpendStamina(RollStaminaCost))
 			return;
 
+		VoiceBark("Rodar", RollVoiceChance);
 		_isRolling = true;
 		_canRoll = false;
 		_rollDirection = _facingRight ? 1f : -1f;
@@ -5092,6 +5149,11 @@ public partial class Player : CharacterBody2D
 		};
 		if (_currentAttackAnimation == "attack3" && IsOnFloor())
 			SpawnDust("pierce_dust");
+		// The combo's last hit always gets the bigger effort; the others only sometimes.
+		if (comboKey == "attack3")
+			VoiceBark("Remate");
+		else
+			VoiceBark("Ataque", AttackVoiceChance);
 		_comboResetTimer = 0f;
 
 		bool hitLanded = false;

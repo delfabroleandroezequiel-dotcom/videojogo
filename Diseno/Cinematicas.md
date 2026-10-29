@@ -109,6 +109,14 @@ En 2D no hay lentes ni ángulos: los planos se arman con **zoom + punto de foco 
   - `CinematicaDerrota` en ArenaEntrenamiento: de rodillas, desenfoque, "Algún día te ganaré".
   - `NarracionApertura`: narración en negro, al estilo del libro.
 
+## 6b. Lecciones aprendidas
+
+- **Nunca congelar la pantalla para hablar** en momentos de juego: el `DialogueBox` con pausa se siente como un cartel, no como una escena. En combate y en las transiciones de fase se usa una cinemática armada por código (`StepCode` + `StepSay` sin pausa + `HoldForCutscene`): franjas negras, cámara en el que habla, el mundo sigue vivo. Así se arma la entrada y los cambios de fase de Arthur.
+- **Abrir desde negro** con un plano que muestre a los dos personajes antes de la primera línea.
+- **Sin HUD en cinemáticas** (lo oculta `HoldForCutscene` y lo devuelve al terminar).
+- **El ritmo lo decide la cinemática, no el botón** (decisión del autor, 2026-10-28): cada línea de `StepSay` avanza cuando termina su voz, con una pausa (`GapAfterVoice`, 0.7 s por defecto; 0.9 en la narración), y no se puede saltear. Si la línea no tiene voz, espera su tiempo de lectura (15 caracteres por segundo). Los diálogos con NPCs fuera de cinemáticas siguen avanzando con el botón.
+- **Pausa antes de un cambio de tono** (`StepSay.ExtraPauses`, por línea): después de una línea fuerte, 1.5 s extra de silencio antes de que alguien cambie de tono. Ejemplo: "ya no me necesitarás" → 1.6 s → "la cena se enfría".
+
 ## 7. Lo que falta en las herramientas (sumar cuando una escena lo pida)
 
 - Pasos de **Música** (entrar, cruzar, cortar) y **Sonido** (con ambiente).

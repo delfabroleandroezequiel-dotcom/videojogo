@@ -26,9 +26,13 @@ public partial class ArthurEntrenamiento : RedWarrior
 	// The training ends when Arthur beats the player: they can't die here (held at 1 HP) and this
 	// cinematic plays instead of the death screen.
 	[Export] public Cinematic DefeatCinematic;
+	[Export] public float WalkAwaySpeed = 30f;
 
 	[ExportGroup("Warmup")]
-	[Export] public string[] WarmupLines = { "ARTHUR_CALENTAR_1" };
+	[Export] public bool OpenFromBlack = true;
+	// One speaker per line (the last one repeats if the list is shorter).
+	[Export] public string[] WarmupSpeakers = { "NPC_ARTHUR_NAME", "NPC_DELFRAD_NAME", "NPC_ARTHUR_NAME", "NPC_ARTHUR_NAME" };
+	[Export] public string[] WarmupLines = { "ARTHUR_CALENTAR_1", "ARTHUR_CALENTAR_2", "ARTHUR_CALENTAR_3", "ARTHUR_CALENTAR_4" };
 	[Export] public string WarmupHintKey = "TUTORIAL_ATAQUE_RODAR";
 	[Export] public string[] WarmupHintActions = { "attack", "roll" };
 	[Export] public float WarmupTelegraphScale = 2.2f;
@@ -39,7 +43,8 @@ public partial class ArthurEntrenamiento : RedWarrior
 	[Export] public int HitsToSerious = 6;
 
 	[ExportGroup("Serious")]
-	[Export] public string[] SeriousLines = { "ARTHUR_EN_SERIO_1" };
+	[Export] public string[] SeriousSpeakers = { "NPC_ARTHUR_NAME" };
+	[Export] public string[] SeriousLines = { "ARTHUR_EN_SERIO_1", "ARTHUR_EN_SERIO_2" };
 	[Export] public string SeriousHintKey = "TUTORIAL_PARRY";
 	[Export] public string[] SeriousHintActions = { "block" };
 	[Export] public float SeriousCooldownScale = 0.8f;
@@ -47,7 +52,8 @@ public partial class ArthurEntrenamiento : RedWarrior
 	[Export] public int HitsToBerserk = 8;
 
 	[ExportGroup("Berserk")]
-	[Export] public string[] BerserkLines = { "ARTHUR_BERSERK_1" };
+	[Export] public string[] BerserkSpeakers = { "NPC_ARTHUR_NAME" };
+	[Export] public string[] BerserkLines = { "ARTHUR_BERSERK_1", "ARTHUR_BERSERK_2" };
 	[Export] public float BerserkShake = 14f;
 	[Export] public float BerserkShakeDuration = 1.4f;
 	[Export] public float BerserkSwingShake = 4f;
@@ -56,6 +62,14 @@ public partial class ArthurEntrenamiento : RedWarrior
 	[Export] public float BerserkCooldownScale = 0.6f;
 	[Export] public float BerserkDamageScale = 1.25f;
 	[Export] public float BerserkTelegraphScale = 0.85f;
+
+	// One track per phase. Each transition drops the music under the talk and the next track comes
+	// in on the roar; the defeat fades it out.
+	[ExportGroup("Music")]
+	[Export] public AudioStream WarmupMusic;
+	[Export] public AudioStream SeriousMusic;
+	[Export] public AudioStream BerserkMusic;
+	[Export] public float MusicVolumeDb = -6f;
 
 	[ExportGroup("Brain")]
 	[Export] public float JumpSlamMinDistance = 110f;
@@ -110,12 +124,16 @@ public partial class ArthurEntrenamiento : RedWarrior
 	private int _hitsInRow;
 	private float _clock;
 	private Node _veil;
+	private Metroidvania.Shared.MusicCrossfader _music;
+	private bool _leaving;
 
 	public override void _Ready()
 	{
 		base._Ready();
 		if (IsQueuedForRemoval)
 			return;
+		_music = new Metroidvania.Shared.MusicCrossfader { Name = "Musica", VolumeDb = MusicVolumeDb };
+		AddChild(_music);
 		Stats.HealthChanged += OnHealthChanged;
 		Stats.HitTaken += _ => OnHit();
 		Callable.From(StartIntro).CallDeferred();
@@ -138,11 +156,56 @@ public partial class ArthurEntrenamiento : RedWarrior
 					Defeat(playerStats);
 			};
 		}
-		Say(WarmupLines, () =>
+		PlayIntro();
+	}
+
+	// Opens like a film: from black onto the yard, the camera finding Arthur, the two of them
+	// talking while the world keeps moving (no frozen frame), then control and the first sign.
+	private async void PlayIntro()
+	{
+		_music.Play(WarmupMusic, OpenFromBlack ? 3f : 1f);
+		var steps = new System.Collections.Generic.List<CinematicStep>();
+		if (OpenFromBlack)
 		{
-			_phase = Phase.Warmup;
-			Hint?.ShowHint(WarmupHintKey, WarmupHintActions);
+			steps.Add(new StepFade { ToBlack = true, Duration = 0f });
+			steps.Add(new StepWait { Seconds = 0.8f });
+			steps.Add(new StepFade { ToBlack = false, Duration = 1.6f });
+		}
+		steps.Add(new StepCamera { Target = new NodePath(".."), Weight = 0.45f, Zoom = 0.95f, WaitSeconds = 0.9f });
+		steps.Add(new StepSay { SpeakerKeys = WarmupSpeakers, LineKeys = WarmupLines });
+		steps.Add(new StepCamera { WaitSeconds = 0.4f });
+		await PlayScene(steps);
+		if (!IsInstanceValid(this))
+			return;
+		_phase = Phase.Warmup;
+		Hint?.ShowHint(WarmupHintKey, WarmupHintActions);
+	}
+
+	// A phase change as a short scene: camera on Arthur, the exchange, his roar (still holding the
+	// player, so the roar lands as a moment and not as a free hit), camera back, then the fight.
+	private async void PlayTransition(string[] speakers, string[] lines, AudioStream music, System.Func<Task> roar, System.Action then)
+	{
+		_music.Stop(1.2f);
+		await PlayScene(new CinematicStep[]
+		{
+			new StepCamera { Target = new NodePath(".."), Weight = 0.55f, Zoom = 1.2f, WaitSeconds = 0.5f },
+			new StepSay { SpeakerKeys = speakers, LineKeys = lines },
+			new StepCode { Action = () => { _music.Play(music, 0.4f); return roar(); } },
+			new StepCamera { WaitSeconds = 0.3f },
 		});
+		if (IsInstanceValid(this))
+			then();
+	}
+
+	private async Task PlayScene(System.Collections.Generic.IEnumerable<CinematicStep> steps)
+	{
+		var scene = new Cinematic { Name = "EscenaArthur", PlayOnce = false };
+		foreach (CinematicStep step in steps)
+			scene.Steps.Add(step);
+		AddChild(scene);
+		await scene.Play();
+		if (IsInstanceValid(scene))
+			scene.QueueFree();
 	}
 
 	// Immortal the TrainingDummy way: refill before Stats' own death check so Died never fires.
@@ -171,6 +234,9 @@ public partial class ArthurEntrenamiento : RedWarrior
 		_leapCooldown -= dt / CooldownScale;
 		ReadPlayer(dt);
 		base._PhysicsProcess(delta);
+		// Walking off he passes the arena's invisible walls instead of idling against one on screen.
+		if (_leaving && IsOnWall() && GetLastSlideCollision()?.GetCollider() is PhysicsBody2D wall)
+			AddCollisionExceptionWith(wall);
 		// Wait for the current swing to finish before talking, so he doesn't freeze mid-slash.
 		if (_transitionStarted || IsBusy)
 			return;
@@ -178,13 +244,13 @@ public partial class ArthurEntrenamiento : RedWarrior
 		{
 			_transitionStarted = true;
 			Hint?.HideHint();
-			Say(SeriousLines, GetSerious);
+			PlayTransition(SeriousSpeakers, SeriousLines, SeriousMusic, Roar, GetSerious);
 		}
 		else if (_phase == Phase.ToBerserk)
 		{
 			_transitionStarted = true;
 			Hint?.HideHint();
-			Say(BerserkLines, GoBerserk);
+			PlayTransition(BerserkSpeakers, BerserkLines, BerserkMusic, BerserkRoar, GoBerserk);
 		}
 	}
 
@@ -204,17 +270,14 @@ public partial class ArthurEntrenamiento : RedWarrior
 		_wasBlocking = player.IsBlocking;
 	}
 
-	private async void GetSerious()
+	private void GetSerious()
 	{
-		await Roar();
-		if (!IsInstanceValid(this))
-			return;
 		_phase = Phase.Serious;
 		_transitionStarted = false;
 		Hint?.ShowHint(SeriousHintKey, SeriousHintActions);
 	}
 
-	private async void GoBerserk()
+	private async Task BerserkRoar()
 	{
 		RoarShake = BerserkShake;
 		RoarShakeDuration = BerserkShakeDuration;
@@ -225,8 +288,10 @@ public partial class ArthurEntrenamiento : RedWarrior
 			scene.AddChild(_veil);
 		}
 		await Roar();
-		if (!IsInstanceValid(this))
-			return;
+	}
+
+	private void GoBerserk()
+	{
 		SwingShake = BerserkSwingShake;
 		SlamShake = BerserkSlamShake;
 		_phase = Phase.Berserk;
@@ -238,7 +303,9 @@ public partial class ArthurEntrenamiento : RedWarrior
 	{
 		_phase = Phase.Done;
 		playerStats.GodMode = true;
+		PlayerReads.Find(this)?.VoiceBark("Derribado");
 		Hint?.HideHint();
+		_music.Stop(3f);
 		if (IsInstanceValid(_veil) && _veil is Metroidvania.Player.BerserkerVeil veil)
 			veil.Release();
 		_veil = null;
@@ -254,16 +321,18 @@ public partial class ArthurEntrenamiento : RedWarrior
 			await DefeatCinematic.Play();
 	}
 
+	// Only walks while actually fighting: during the talks and after the defeat he stands his ground.
 	protected override float ComputeMoveX(Node2D player, float distanceX, float currentVelocityX, double delta) =>
-		_phase == Phase.Done ? 0f : base.ComputeMoveX(player, distanceX, currentVelocityX, delta);
+		_leaving ? (distanceX >= 0f ? -WalkAwaySpeed : WalkAwaySpeed)
+		: _phase is Phase.Warmup or Phase.Serious or Phase.Berserk
+			? base.ComputeMoveX(player, distanceX, currentVelocityX, delta)
+			: 0f;
 
-	private void Say(string[] lines, System.Action then)
-	{
-		if (lines.Length == 0 || DialogueBox.Instance is null)
-			then();
-		else
-			DialogueBox.Instance.Show(SpeakerNameKey, lines, then);
-	}
+	protected override bool DesiredFacingRight(Node2D player, float distanceX) =>
+		_leaving ? distanceX < 0f : base.DesiredFacingRight(player, distanceX);
+
+	// End of the defeat scene (StepCall): he turns his back on the boy and walks home, unhurried.
+	public void WalkAway() => _leaving = true;
 
 	// ── Phase tuning ────────────────────────────────────────────────────────────────────────
 
@@ -416,10 +485,12 @@ public partial class ArthurEntrenamiento : RedWarrior
 			if (!await Frames(4, 6, 0.1f * TelegraphScale))
 				return;
 			Stats.ExternalInvulnerable = true;
+			Bark("Salto");
 			if (!await Frames(7, 14, 0.045f / Speed()))
 				return;
 			Stats.ExternalInvulnerable = false;
 			Sprite.Frame = 15;
+			Bark("Martillazo");
 			float dir = FacingRight ? 1f : -1f;
 			GroundSlamFx.Impact(this, GlobalPosition + new Vector2(dir * 69f, FeetY), SlamImpactScale * 1.2f, SlamPalette);
 			Shake(SlamShake * 1.3f, 0.3f);
@@ -471,12 +542,14 @@ public partial class ArthurEntrenamiento : RedWarrior
 			if (!await Frames(0, 7, 0.07f * TelegraphScale))
 				return;
 			Stats.ExternalInvulnerable = true;
+			Bark("Salto");
 			if (!await Frames(8, 19, 0.05f / Speed()))
 				return;
 			float dir = FacingRight ? 1f : -1f;
 
 			// 20: the thrown hammer plants itself.
 			Sprite.Frame = 20;
+			Bark("Lanzamiento");
 			float hammerX = LeapX(186f, 20);
 			GroundSlamFx.Impact(this, GlobalPosition + new Vector2(dir * hammerX, FeetY), SlamImpactScale * 1.4f, SlamPalette);
 			Shake(SlamShake, 0.35f);
@@ -498,6 +571,7 @@ public partial class ArthurEntrenamiento : RedWarrior
 			// 26: dives onto the hammer with a ground slash running forward.
 			Stats.ExternalInvulnerable = false;
 			Sprite.Frame = 26;
+			Bark("Martillazo");
 			GroundSlamFx.Impact(this, GlobalPosition + new Vector2(dir * 20f, FeetY), SlamImpactScale * 1.5f, SlamPalette);
 			Shake(SlamShake * 1.4f, 0.45f);
 			float reach = LeapX(250f, 26);

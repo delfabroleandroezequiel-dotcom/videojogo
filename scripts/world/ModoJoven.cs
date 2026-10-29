@@ -21,6 +21,9 @@ public partial class ModoJoven : Node
 	[Export] public float GhostIntensity = 0.9f;
 	// The cloth cape from CharacterFlair comes later in his journey.
 	[Export] public bool ShowCape = false;
+	// A boy's voice instead of the grown man's grunts.
+	[Export] public string VoiceCategory = "Voice/DelfradJoven";
+	[Export] public string HurtVoiceKey = "Golpeado";
 	[Export] public string[] LockedAbilities =
 	{
 		PlayerAbilities.Spell, PlayerAbilities.Spell2, PlayerAbilities.TornadoSpell, PlayerAbilities.PoisonSpell,
@@ -46,6 +49,9 @@ public partial class ModoJoven : Node
 
 		if (player.GetNodeOrNull<CharacterFlair>("CharacterFlair") is { } flair)
 			flair.CapeEnabled = ShowCape;
+
+		player.VoiceCategory = VoiceCategory;
+		player.HurtVoiceKey = HurtVoiceKey;
 
 		player.DashGhostColor = GhostColor;
 		player.DashGhostAlpha = GhostAlpha;

@@ -65,6 +65,10 @@ public partial class RedWarrior : Enemy
 
 	[ExportGroup("Look")]
 	// Camera shake on every swing he throws (slash, whirlwind start); 0 = none.
+	// Folder under Sonidos/ with this fighter's voice barks (empty = silent): Ataque, Martillazo,
+	// Torbellino, Esquive, Rugido, Golpeado, Salto... — numbered variants pick at random.
+	[Export] public string BarkCategory = "";
+	[Export(PropertyHint.Range, "0,1,0.05")] public float HurtBarkChance = 0.5f;
 	[Export] public float SwingShake = 0f;
 	[Export] public float RoarShake = 3f;
 	[Export] public float RoarShakeDuration = 0.3f;
@@ -176,6 +180,14 @@ public partial class RedWarrior : Enemy
 		Visual.AddChild(_trail);
 		Sprite.FrameChanged += ApplyRootMotion;
 		Stats.HitTaken += _ => _whiff.NotifyHitTaken();
+		Stats.HitTaken += _ =>
+		{
+			if (Time.GetTicksMsec() - _lastHurtBarkMsec > 700 && Rng.Randf() < HurtBarkChance)
+			{
+				_lastHurtBarkMsec = Time.GetTicksMsec();
+				Bark("Golpeado");
+			}
+		};
 	}
 
 	// ── Root motion ─────────────────────────────────────────────────────────────────────────
@@ -315,6 +327,7 @@ public partial class RedWarrior : Enemy
 			FacePlayer();
 			_trail.Play(new Vector2(0f, 4f), 60f, -40f, 60f, 0.08f, 34f);
 			Shake(SwingShake, 0.15f);
+			Bark("Ataque");
 			if (!await StrikeFrames(5, LowSlashReach, LowSlashTop, Damage(LowDamageMultiplier), 200f, 0.05f))
 				return;
 			if (!await Frames(9, 10, 0.05f))
@@ -330,6 +343,7 @@ public partial class RedWarrior : Enemy
 				float feetY = (CellFeetY - CellCenterY) * SpriteScale + SpriteOffset.Y;
 				GroundSlamFx.Impact(this, GlobalPosition + new Vector2(FacingRight ? slamX : -slamX, feetY), SlamImpactScale, SlamPalette);
 				Shake(SlamShake, 0.25f);
+				Bark("Martillazo");
 				if (!await StrikeFrames(15, HighSlashReach, HighSlashTop, Damage(HighDamageMultiplier), 280f, 0.045f))
 					return;
 				if (!await Frames(19, 22, 0.045f))
@@ -342,6 +356,7 @@ public partial class RedWarrior : Enemy
 					FlashBody(0.12f);
 					_trail.Play(new Vector2(0f, -30f), 58f, -170f, -10f, 0.1f);
 					Shake(SlamShake, 0.25f);
+				Bark("Martillazo");
 					bool hit = false;
 					for (int f = 23; f <= 25; f++)
 					{
@@ -416,6 +431,7 @@ public partial class RedWarrior : Enemy
 		FacingRight = away > 0f;
 		Visual.Scale = new Vector2(FacingRight ? 1 : -1, 1);
 		Stats.ExternalInvulnerable = true;
+		Bark("Esquive");
 		try
 		{
 			Sprite.Play("dash");
@@ -484,6 +500,7 @@ public partial class RedWarrior : Enemy
 				return;
 			FlashBody(0.35f);
 			Shake(SwingShake, 0.2f);
+			Bark("Torbellino");
 			if (!await Frames(4, 8, 0.07f))
 				return;
 			float hitTimer = 0f;
@@ -526,6 +543,7 @@ public partial class RedWarrior : Enemy
 				if (f == 7)
 				{
 					Shake(RoarShake, RoarShakeDuration);
+					Bark("Rugido");
 					Sprite.SelfModulate = new Color(1.8f, 0.6f, 0.6f, 1f);
 					CreateTween().TweenProperty(Sprite, "self_modulate", Colors.White, 0.8f);
 				}
@@ -607,6 +625,14 @@ public partial class RedWarrior : Enemy
 		// The tree timer keeps ticking through a stun/execution freeze, so the attack has to notice it
 		// and stop — otherwise the swing that got parried into a stun carried on and still hit.
 		return IsInstanceValid(this) && !IsQueuedForRemoval && !IsStunned && ProcessMode != ProcessModeEnum.Disabled;
+	}
+
+	private ulong _lastHurtBarkMsec;
+
+	protected void Bark(string key)
+	{
+		if (!string.IsNullOrEmpty(BarkCategory))
+			Sfx.PlayIfExistsAt(this, BarkCategory, key);
 	}
 
 	protected void Shake(float strength, float duration)

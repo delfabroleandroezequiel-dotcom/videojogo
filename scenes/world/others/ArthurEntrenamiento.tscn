@@ -4,6 +4,9 @@
 [ext_resource type="Script" uid="uid://b47a4kpptnpqi" path="res://scripts/shared/Stats.cs" id="2_stats"]
 [ext_resource type="PackedScene" uid="uid://ba6e10sx6t2c8" path="res://scenes/ui/StatBar.tscn" id="3_statbar"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/ArthurSpriteFrames.tres" id="4_frames"]
+[ext_resource type="AudioStream" path="res://assets/audio/Musica/Arthur/EntrenamientoCalentamiento.mp3" id="5_musica1"]
+[ext_resource type="AudioStream" path="res://assets/audio/Musica/Arthur/EntrenamientoEnSerio.mp3" id="6_musica2"]
+[ext_resource type="AudioStream" path="res://assets/audio/Musica/Arthur/EntrenamientoBerserk.mp3" id="7_musica3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cuerpo"]
 size = Vector2(26, 62)
@@ -22,6 +25,10 @@ DodgeCooldown = 1.8
 SwingShake = 1.5
 RoarShake = 8.0
 RoarShakeDuration = 0.7
+BarkCategory = "Voice/Arthur"
+WarmupMusic = ExtResource("5_musica1")
+SeriousMusic = ExtResource("6_musica2")
+BerserkMusic = ExtResource("7_musica3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_cuerpo")

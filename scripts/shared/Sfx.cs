@@ -14,7 +14,7 @@ public static class Sfx
 {
 	private const string BasePath = "res://assets/audio/Sonidos/";
 	private const string VoiceBasePath = "res://assets/audio/Voces/";
-	private const string VoiceFallbackLocale = "es";
+	private const string VoiceFallbackLocale = "en";
 
 	// Slight per-play pitch wobble so a sound repeated many times in a row (footsteps, sword
 	// swings) doesn't read as a mechanical loop.
@@ -40,16 +40,62 @@ public static class Sfx
 	}
 
 	// Drop files under res://assets/audio/Voces/<locale>/<key>.(wav|mp3|ogg) (locale = "es"/"en"/"pt")
-	// and this picks the current language, falling back to Spanish if that locale's line is missing.
+	// and this picks the current language, falling back to English (the recorded voice-over) if that
+	// locale's line is missing.
 	public static void PlayVoice(Node context, string key)
 	{
 		string locale = LocaleManager.Instance?.CurrentLocale ?? VoiceFallbackLocale;
 		AudioStream stream = LoadVoiceStream(locale, key);
 		if (stream is null && locale != VoiceFallbackLocale)
 			stream = LoadVoiceStream(VoiceFallbackLocale, key);
+		// Lines recorded only in Spanish (older NPC barks) still play in any language.
+		if (stream is null && locale != "es" && VoiceFallbackLocale != "es")
+			stream = LoadVoiceStream("es", key);
 
-		PlayStream(context, stream);
+		// One voice at a time: advancing the dialogue cuts the previous line instead of stacking
+		// them. And no pitch wobble — that's for repeated SFX; on a voice it changes who's talking.
+		// Short fades on both ends: the generated clips don't start/end exactly at silence, and a
+		// hard start or cut is heard as a click when the lines change.
+		if (GodotObject.IsInstanceValid(_voicePlayer))
+		{
+			AudioStreamPlayer previous = _voicePlayer;
+			if (previous.Playing)
+			{
+				Tween fadeOut = previous.CreateTween();
+				fadeOut.TweenProperty(previous, "volume_db", VoiceSilentDb, VoiceFadeOut);
+				fadeOut.TweenCallback(Callable.From(previous.QueueFree));
+			}
+			else
+			{
+				previous.QueueFree();
+			}
+		}
+		_voicePlayer = null;
+		if (stream is null || context.GetTree()?.CurrentScene is not Node scene)
+			return;
+		var player = new AudioStreamPlayer { Stream = stream, ProcessMode = Node.ProcessModeEnum.Always, VolumeDb = VoiceSilentDb };
+		scene.AddChild(player);
+		player.Finished += player.QueueFree;
+		player.Play();
+		Tween fades = player.CreateTween();
+		fades.TweenProperty(player, "volume_db", 0f, VoiceFadeIn);
+		// ...and out just before its natural end, in case the clip ends off-silence too.
+		double hold = stream.GetLength() - VoiceFadeIn - VoiceFadeOut;
+		if (hold > 0.0)
+		{
+			fades.TweenInterval(hold);
+			fades.TweenProperty(player, "volume_db", VoiceSilentDb, VoiceFadeOut);
+		}
+		_voicePlayer = player;
 	}
+
+	private const float VoiceSilentDb = -60f;
+	private const float VoiceFadeIn = 0.05f;
+	private const float VoiceFadeOut = 0.08f;
+
+	private static AudioStreamPlayer _voicePlayer;
+
+	public static bool IsVoicePlaying => GodotObject.IsInstanceValid(_voicePlayer) && _voicePlayer.Playing;
 
 	private static readonly string[] VoiceExtensions = { ".wav", ".mp3", ".ogg" };
 
@@ -93,6 +139,16 @@ public static class Sfx
 	// Matches "<key>.wav", "<key> <N>.wav", and "<N>. <key>.wav" (any numbered variant, either
 	// convention) — never a name that merely starts with key (e.g. key "Sword Attack" must not
 	// pick up "Sword Attack Extra.wav").
+	// Optional sounds (a character's combat barks): plays if the folder has the key, silently does
+	// nothing otherwise — so the hooks can exist before the recordings do.
+	public static void PlayIfExistsAt(Node2D context, string category, string key, float maxDistance = 900f)
+	{
+		string folder = BasePath + category;
+		string fileName = PickVariantFile(folder, key);
+		if (fileName is not null)
+			PlayStreamAt(context, GD.Load<AudioStream>(folder + "/" + fileName), maxDistance);
+	}
+
 	private static string PickVariantFile(string folder, string key)
 	{
 		string[] files = GetFolderFiles(folder);

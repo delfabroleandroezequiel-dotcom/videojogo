@@ -67,9 +67,24 @@ public partial class DialogueBox : CanvasLayer
 			Advance();
 	}
 
+	// While locked the player can't advance or skip; whoever opened the box drives it (a narration
+	// that moves on as each voice line ends). The continue hint is hidden meanwhile.
+	public bool InputLocked
+	{
+		get => _inputLocked;
+		set
+		{
+			_inputLocked = value;
+			if (_continueHint is not null)
+				_continueHint.Visible = !value;
+		}
+	}
+
+	private bool _inputLocked;
+
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		if (!_isOpen)
+		if (!_isOpen || _inputLocked)
 			return;
 
 		if (@event.IsActionPressed("interact") || @event.IsActionPressed("attack"))

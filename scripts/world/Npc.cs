@@ -142,6 +142,8 @@ public partial class Npc : CharacterBody2D
 
 	private void FacePlayer()
 	{
+		if (_visual is null)
+			return;
 		if (GetTree().GetFirstNodeInGroup("player") is not Node2D player)
 			return;
 

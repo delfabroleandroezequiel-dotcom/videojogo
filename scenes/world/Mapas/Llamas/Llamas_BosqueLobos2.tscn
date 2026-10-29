@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://cyhqukl6spjfn" path="res://scenes/world/Mapas/BosqueLobos2.tscn" id="1_base"]
+[ext_resource type="Script" path="res://scripts/world/ruina/BurningMap.cs" id="2_llamas"]
+[ext_resource type="PackedScene" path="res://scenes/world/WeatherOverlay.tscn" id="3_clima"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/GroundFire.tscn" id="4_fuego"]
+
+[node name="Llamas_BosqueLobos2" instance=ExtResource("1_base")]
+ScenePath = "res://scenes/world/Mapas/Llamas/Llamas_BosqueLobos2.tscn"
+ZoneName = ""
+
+[node name="MapaEnLlamas" type="Node" parent="."]
+script = ExtResource("2_llamas")
+WeatherScene = ExtResource("3_clima")
+FireScene = ExtResource("4_fuego")

@@ -4,6 +4,9 @@
 [ext_resource type="Script" path="res://scripts/world/cinematica/StepWait.cs" id="2_wait"]
 [ext_resource type="Script" path="res://scripts/world/cinematica/StepSay.cs" id="3_say"]
 [ext_resource type="Script" path="res://scripts/world/cinematica/StepChangeScene.cs" id="4_cambio"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/StepLogo.cs" id="5_logo"]
+[ext_resource type="Texture2D" path="res://assets/ui/LogoJekyria.jpg" id="6_logotex"]
+[ext_resource type="AudioStream" path="res://assets/audio/Musica/Prueba/LogoPrueba.wav" id="7_logomusica"]
 
 [sub_resource type="Resource" id="Paso_silencio"]
 script = ExtResource("2_wait")
@@ -12,14 +15,23 @@ Seconds = 1.0
 [sub_resource type="Resource" id="Paso_narracion"]
 script = ExtResource("3_say")
 SpeakerKeys = PackedStringArray("NPC_DELFRAD_NAME")
-LineKeys = PackedStringArray("NARRA_APERTURA_1", "NARRA_APERTURA_2", "NARRA_APERTURA_3", "NARRA_APERTURA_4")
+LineKeys = PackedStringArray("NARRA_APERTURA_1", "NARRA_APERTURA_2", "NARRA_APERTURA_3", "NARRA_APERTURA_4", "NARRA_APERTURA_5", "NARRA_APERTURA_6")
+AdvanceWithVoice = true
+AllowSkip = false
+GapAfterVoice = 0.9
 
 [sub_resource type="Resource" id="Paso_pausa"]
 script = ExtResource("2_wait")
 Seconds = 0.8
 
+[sub_resource type="Resource" id="Paso_logo"]
+script = ExtResource("5_logo")
+Logo = ExtResource("6_logotex")
+Music = ExtResource("7_logomusica")
+
 [sub_resource type="Resource" id="Paso_siguiente"]
 script = ExtResource("4_cambio")
+ScenePath = "res://scenes/world/Mapas/Llamas/Llamas_BosqueLobos2.tscn"
 
 [node name="NarracionApertura" type="Node2D"]
 
@@ -37,6 +49,6 @@ color = Color(0, 0, 0, 1)
 
 [node name="Narracion" type="Node" parent="."]
 script = ExtResource("1_cine")
-Steps = [SubResource("Paso_silencio"), SubResource("Paso_narracion"), SubResource("Paso_pausa"), SubResource("Paso_siguiente")]
+Steps = [SubResource("Paso_silencio"), SubResource("Paso_narracion"), SubResource("Paso_pausa"), SubResource("Paso_logo"), SubResource("Paso_siguiente")]
 PlayOnStart = true
 PlayOnce = false

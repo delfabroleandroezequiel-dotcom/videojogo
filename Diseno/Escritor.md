@@ -24,7 +24,13 @@ Cuando toque escribir, trabajo como **novelista profesional de fantasía épica 
 - **Estructura:** dos partes, unos 22 capítulos, y un final inconcluso ("Continuará…").
   - **Parte 1:** narra **Delfrad**. Va de Nix a su muerte frente a Mefasto. Es la base del juego.
   - **Parte 2:** narra **Fendreld**. Queda para un DLC o secuela.
-- **Voz:** primera persona **retrospectiva**. Delfrad escribe 35 años después ("con esta pluma"), sabiendo cómo termina todo, y se arrepiente ("nunca debí haber tenido dicho interés"). Es como el marco de *El nombre del viento*: un narrador viejo que cuenta su juventud. Esa distancia es el mayor recurso del libro.
+- **Voz:** primera persona **retrospectiva**. Delfrad escribe "con esta pluma" sabiendo cómo termina todo, y se arrepiente ("nunca debí haber tenido dicho interés"). La aventura en sí dura **uno o dos años**; los "35 años" se cuentan desde que empezó la era oscura hasta el momento en que escribe.
+- **Los cuatro Delfrad (aclarado por el autor, 2026-10-28):**
+  1. **Delfrad del entrenamiento:** el chico de 15 años que entrena con Arthur (el tutorial).
+  2. **Delfrad que jugamos:** el de la aventura, desde que sale de Nix a los 17 años, durante 1 o 2 años.
+  3. **Delfrad del futuro cercano:** el que vuelve a un Nix en llamas que se destruye (la huida de la apertura). **Ese Delfrad muere ahí**, al final de la Parte 1.
+  4. **Delfrad de la voz en off:** el que escribe 35 años después del comienzo de la era oscura. Es un Delfrad que **el lector todavía no conoce**, del futuro del tercer libro: lo **reviven en el tercer o cuarto libro**. Por eso puede decir "no estaré vivo cuando juzguen lo que escribí" sin contradicción.
+  - **Cuidar:** nunca mezclar sus voces. La voz en off sabe todo y es la de alguien que volvió de la muerte (tono distante, cansado, culpable); el Delfrad que jugamos no sabe nada.
 - **Fortalezas del borrador:** el misterio de la Gran Guerra falsa, la relación padre-hijo (Arthur), un elenco amplio, facciones claras (Jekyrianos, Oscuros, Dinglis), cinco reliquias con reglas.
 - **Debilidades a trabajar:**
   - Muertes resueltas en una línea.
@@ -119,6 +125,8 @@ Diferencias entre juego y libro:
 | 2026-10-25 | Ovre aparece en el Acto 1, con su choza en el desierto (en el libro es de la Parte 2) | Diseño de mundo |
 | 2026-10-27 | Arthur entrena a Delfrad joven; Arthur joven de pelo negro, Arthur viejo de pelo blanco; espada de madera | Tutorial del juego |
 | 2026-10-27 | El juego abre con la derrota en el entrenamiento ("Algún día te ganaré"), la narración del libro en negro y la huida de un Nix destruido en el "presente" | Secuencia de apertura |
+| 2026-10-28 | Pase de humanidad a Arthur (entrenamiento, derrota, casa) y a la narración: Delfrad mira las caravanas como si lo llamaran; Arthur habla de la Gran Guerra y de la madre; la narración suma la espada de madera y "nunca me enseñó a perderlo". Aparece Bram (propuesta del prólogo) | Pase de escritor |
+| 2026-10-28 | Cuatro Delfrad: entrenamiento (15), el que jugamos (aventura de 1 o 2 años), el del futuro cercano que muere en el Nix en llamas, y la voz en off que escribe 35 años después, revivido en el libro 3 o 4 | Aclaración del autor |
 | 2026-10-27 | **Propuesta (pendiente):** prólogo de dos días en Nix con vecinos con nombre (Morlok, Garrik, Bram, Tobías, Halvar, Aldric, Sela, Pip y Tomo, Lio y Edda, Bruno), rumores de malvivientes y la quest "El carro de Morlok" (la capa como regalo). Ver `PrologoNix.md` | Prólogo |
 
 ---
