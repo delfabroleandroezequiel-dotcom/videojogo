@@ -21,8 +21,6 @@
 [ext_resource type="PackedScene" uid="uid://b8bq1p6t7tyck" path="res://scenes/world/Elevator.tscn" id="16_dgyem"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemy.tscn" id="17_0nctb"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Chest.tscn" id="17_8dbxv"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/WarriorEnemyBlond.tscn" id="18_0xdqd"]
-[ext_resource type="PackedScene" path="res://scenes/world/RangedEnemyBrown.tscn" id="18_archerbrown"]
 [ext_resource type="Texture2D" uid="uid://c2pm3pc4lmk63" path="res://assets/external/tileset/_PNG/Decoratives.png" id="19_pie5l"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/OrcEnemy.tscn" id="19_u2sm2"]
 [ext_resource type="Texture2D" uid="uid://4arww5y2k5n" path="res://assets/backgrounds/capa3mina.png" id="20_capa3mina"]
@@ -5342,21 +5340,6 @@ TravelDistance = 650.0
 PointStart = 0.0
 AutoTravel = true
 
-[node name="RangedEnemyBrown" parent="." unique_id=760427542 instance=ExtResource("18_archerbrown")]
-position = Vector2(2075, -224)
-ProjectileSpeed = 300.0
-
-[node name="RangedEnemyBrown2" parent="." unique_id=1013721392 instance=ExtResource("18_archerbrown")]
-position = Vector2(3008.9788, -211.52927)
-
-[node name="RangedEnemyBrown3" parent="." unique_id=397897620 instance=ExtResource("18_archerbrown")]
-position = Vector2(1392, 649)
-ProjectileSpeed = 500.0
-
-[node name="RangedEnemyBrown4" parent="." unique_id=859458443 instance=ExtResource("18_archerbrown")]
-position = Vector2(1497, 649)
-ProjectileSpeed = 500.0
-
 [node name="SpiderEnemy" parent="." unique_id=664817568 instance=ExtResource("17_0nctb")]
 position = Vector2(1667, -25)
 
@@ -5371,9 +5354,6 @@ position = Vector2(2080.46, -43.888855)
 
 [node name="SpiderEnemy5" parent="." unique_id=1750379256 instance=ExtResource("17_0nctb")]
 position = Vector2(183.27658, -46.792816)
-
-[node name="WarriorEnemyBlond" parent="." unique_id=1353682165 instance=ExtResource("18_0xdqd")]
-position = Vector2(1631, 633)
 
 [node name="OrcEnemy4" parent="." unique_id=195142505 instance=ExtResource("19_u2sm2")]
 position = Vector2(1567, 640)

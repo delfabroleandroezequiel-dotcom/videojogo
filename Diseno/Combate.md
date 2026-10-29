@@ -37,7 +37,7 @@ Cuando toque combate, trabajo como **diseñador de combate y jefes de juegos de 
 
 ## 3. Reglas de enemigos
 
-- **Un `.cs` por enemigo**, subclase de `Enemy` / `MeleeEnemy` / `RangedEnemy` / `FlyingEnemy`. Si hace falta una costura nueva en la base, se agrega un `protected virtual` con el comportamiento original por defecto. Nunca se dobla el comportamiento compartido en el lugar ni se suma otro `[Export]` booleano por enemigo.
+- **Un `.cs` por enemigo**, subclase de `Enemy` / `MeleeEnemy` / `FlyingEnemy`. Si hace falta una costura nueva en la base, se agrega un `protected virtual` con el comportamiento original por defecto. Nunca se dobla el comportamiento compartido en el lugar ni se suma otro `[Export]` booleano por enemigo.
 - **Cada cambio en un script compartido** se pregunta: "¿esto cambia a los otros enemigos o jefes?". Ya pasó dos veces con `Boss.cs` (el caballero perdió su idle y su esquive).
 - **Nivel de referencia:** Bandido7, los elfos (ElfArcher, ElfAssassin, ElfSwordsman) y RangerArcher. El lote del 2026-10-10 quedó "bien básico": hay que subir cada uno a ese nivel.
 - **IA inteligente = leer al jugador, no hacer trampa.** Castigar el reflejo (rodar o hacer parry a lo loco), premiar leer el aviso.

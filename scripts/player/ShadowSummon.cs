@@ -116,7 +116,7 @@ public partial class ShadowSummon : CharacterBody2D
 			Style style = instance switch
 			{
 				FlyingEnemy => Style.Flying,
-				RangedEnemy or ElfArcher or ElfMage or Hechicero or MagoCamino => Style.Ranged,
+				ElfArcher or ElfMage or Hechicero or MagoCamino => Style.Ranged,
 				_ => Style.Melee,
 			};
 			// Ranged casters may also have a melee "attack" clip: prefer their shooting one.

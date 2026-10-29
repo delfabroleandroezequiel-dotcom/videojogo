@@ -68,9 +68,18 @@
 [ext_resource type="SpriteFrames" path="res://resources/sprites/ShieldKnightSpriteFrames.tres" id="131_shieldknight"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/RedWarriorSpriteFrames.tres" id="132_redwarrior"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/AlatheaSpriteFrames.tres" id="133_alathea"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueEscarabajoSpriteFrames.tres" id="134_bosqueescarabajo"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueLimoSpriteFrames.tres" id="135_bosquelimo"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueGusanoSpriteFrames.tres" id="136_bosquegusano"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueAbejorroSpriteFrames.tres" id="137_bosqueabejorro"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueHongoMoradoSpriteFrames.tres" id="138_bosquehongomorado"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueHongoEspinosoSpriteFrames.tres" id="139_bosquehongoespinoso"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueOjoTalloSpriteFrames.tres" id="140_bosqueojotallo"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueHongoFantasmaSpriteFrames.tres" id="141_bosquehongofantasma"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/CthuluSpriteFrames.tres" id="142_cthulu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
-size = Vector2(31400, 60)
+size = Vector2(35500, 60)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
 size = Vector2(60, 700)
@@ -78,15 +87,15 @@ size = Vector2(60, 700)
 [node name="EnemyLookAll" type="Node2D" unique_id=1183027699]
 
 [node name="Floor" type="StaticBody2D" parent="." unique_id=653339485]
-position = Vector2(15650, 460)
+position = Vector2(17700, 460)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1677327946]
 shape = SubResource("RectangleShape2D_floor")
 
 [node name="FloorVisual" type="ColorRect" parent="Floor" unique_id=823653674]
-offset_left = -15700.0
+offset_left = -17750.0
 offset_top = -30.0
-offset_right = 15700.0
+offset_right = 17750.0
 offset_bottom = 30.0
 color = Color(0.22, 0.22, 0.24, 1)
 
@@ -97,7 +106,7 @@ position = Vector2(-30, 100)
 shape = SubResource("RectangleShape2D_wall")
 
 [node name="WallRight" type="StaticBody2D" parent="." unique_id=136363820]
-position = Vector2(30900, 100)
+position = Vector2(35000, 100)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight" unique_id=641346876]
 shape = SubResource("RectangleShape2D_wall")
@@ -2147,4 +2156,283 @@ horizontal_alignment = 1
 [node name="Cycler" type="Node" parent="AlatheaViewer"]
 script = ExtResource("2_cycler")
 Animations = PackedStringArray("idle", "move", "attack1", "attack2", "attack3", "flip", "hit", "death")
+SecondsPerAnimation = 2.2
+
+[node name="BosqueEscarabajoViewer" type="Node2D" parent="."]
+position = Vector2(30950, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="BosqueEscarabajoViewer"]
+position = Vector2(0, -58)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("134_bosqueescarabajo")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="BosqueEscarabajoViewer"]
+offset_left = -80.0
+offset_top = -160.0
+offset_right = 80.0
+offset_bottom = -140.0
+text = "BosqueEscarabajo"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="BosqueEscarabajoViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="BosqueEscarabajoViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "walk", "hit", "death")
+SecondsPerAnimation = 2.2
+
+[node name="BosqueLimoViewer" type="Node2D" parent="."]
+position = Vector2(31400, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="BosqueLimoViewer"]
+position = Vector2(0, -84)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("135_bosquelimo")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="BosqueLimoViewer"]
+offset_left = -80.0
+offset_top = -160.0
+offset_right = 80.0
+offset_bottom = -140.0
+text = "BosqueLimo"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="BosqueLimoViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="BosqueLimoViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "hit", "death")
+SecondsPerAnimation = 2.2
+
+[node name="BosqueGusanoViewer" type="Node2D" parent="."]
+position = Vector2(31850, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="BosqueGusanoViewer"]
+position = Vector2(0, -88)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("136_bosquegusano")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="BosqueGusanoViewer"]
+offset_left = -80.0
+offset_top = -160.0
+offset_right = 80.0
+offset_bottom = -140.0
+text = "BosqueGusano"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="BosqueGusanoViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="BosqueGusanoViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "hit", "death")
+SecondsPerAnimation = 2.2
+
+[node name="BosqueAbejorroViewer" type="Node2D" parent="."]
+position = Vector2(32300, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="BosqueAbejorroViewer"]
+position = Vector2(0, -36)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("137_bosqueabejorro")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="BosqueAbejorroViewer"]
+offset_left = -80.0
+offset_top = -160.0
+offset_right = 80.0
+offset_bottom = -140.0
+text = "BosqueAbejorro"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="BosqueAbejorroViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="BosqueAbejorroViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "hit", "death")
+SecondsPerAnimation = 2.2
+
+[node name="BosqueHongoMoradoViewer" type="Node2D" parent="."]
+position = Vector2(32750, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="BosqueHongoMoradoViewer"]
+position = Vector2(0, -68)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("138_bosquehongomorado")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="BosqueHongoMoradoViewer"]
+offset_left = -80.0
+offset_top = -160.0
+offset_right = 80.0
+offset_bottom = -140.0
+text = "BosqueHongoMorado"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="BosqueHongoMoradoViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="BosqueHongoMoradoViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "walk", "hide", "hit", "death")
+SecondsPerAnimation = 2.2
+
+[node name="BosqueHongoEspinosoViewer" type="Node2D" parent="."]
+position = Vector2(33200, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="BosqueHongoEspinosoViewer"]
+position = Vector2(0, -88)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("139_bosquehongoespinoso")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="BosqueHongoEspinosoViewer"]
+offset_left = -80.0
+offset_top = -160.0
+offset_right = 80.0
+offset_bottom = -140.0
+text = "BosqueHongoEspinoso"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="BosqueHongoEspinosoViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="BosqueHongoEspinosoViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "walk", "attack", "hit", "death")
+SecondsPerAnimation = 2.2
+
+[node name="BosqueOjoTalloViewer" type="Node2D" parent="."]
+position = Vector2(33650, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="BosqueOjoTalloViewer"]
+position = Vector2(0, -36)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("140_bosqueojotallo")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="BosqueOjoTalloViewer"]
+offset_left = -80.0
+offset_top = -160.0
+offset_right = 80.0
+offset_bottom = -140.0
+text = "BosqueOjoTallo"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="BosqueOjoTalloViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="BosqueOjoTalloViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "hit", "death")
+SecondsPerAnimation = 2.2
+
+[node name="BosqueHongoFantasmaViewer" type="Node2D" parent="."]
+position = Vector2(34100, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="BosqueHongoFantasmaViewer"]
+position = Vector2(0, -52)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("141_bosquehongofantasma")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="BosqueHongoFantasmaViewer"]
+offset_left = -80.0
+offset_top = -160.0
+offset_right = 80.0
+offset_bottom = -140.0
+text = "BosqueHongoFantasma"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="BosqueHongoFantasmaViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="BosqueHongoFantasmaViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "hit", "death")
+SecondsPerAnimation = 2.2
+
+[node name="CthuluViewer" type="Node2D" parent="."]
+position = Vector2(34550, 430)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="CthuluViewer"]
+position = Vector2(0, -80)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("142_cthulu")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="CthuluViewer"]
+offset_left = -80.0
+offset_top = -160.0
+offset_right = 80.0
+offset_bottom = -140.0
+text = "Cthulu"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="CthuluViewer"]
+offset_left = -60.0
+offset_top = -140.0
+offset_right = 60.0
+offset_bottom = -120.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="Cycler" type="Node" parent="CthuluViewer"]
+script = ExtResource("2_cycler")
+Animations = PackedStringArray("idle", "walk", "fly", "attack1", "attack2", "hurt", "death")
 SecondsPerAnimation = 2.2

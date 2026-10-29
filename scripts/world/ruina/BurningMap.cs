@@ -34,7 +34,7 @@ public partial class BurningMap : Node
 		"res://scenes/world/Rehusables/Akita.tscn", "res://scenes/world/Rehusables/GoldenRetriever.tscn",
 		"res://scenes/world/Rehusables/Schnauzer.tscn", "res://scenes/world/Rehusables/SiberianHusky.tscn",
 		"res://scenes/world/Rehusables/CatOrange.tscn", "res://scenes/world/WeatherOverlay.tscn",
-		"res://scenes/world/MosquitoEnemy.tscn", "res://scenes/world/RangedEnemy.tscn",
+		"res://scenes/world/MosquitoEnemy.tscn",
 	};
 
 	[ExportGroup("Look")]

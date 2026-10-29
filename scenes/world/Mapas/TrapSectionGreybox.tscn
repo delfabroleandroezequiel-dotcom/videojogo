@@ -12,8 +12,6 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/DefeatWall.tscn" id="10_defeat"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SecretWall.tscn" id="11_secret"]
 [ext_resource type="PackedScene" uid="uid://chest_main" path="res://scenes/world/Rehusables/Chest.tscn" id="12_chest"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/WarriorEnemy.tscn" id="13_warrior"]
-
 [node name="TrapSectionGreybox" type="Node2D"]
 
 [node name="Greybox" type="Node2D" parent="."]
@@ -184,12 +182,6 @@ StartOffset = 1.0
 MaxFallDistance = 112.0
 
 [node name="Enemigos" type="Node2D" parent="."]
-
-[node name="6_WarriorA" parent="Enemigos" instance=ExtResource("13_warrior")]
-position = Vector2(1300, -40)
-
-[node name="6_WarriorB" parent="Enemigos" instance=ExtResource("13_warrior")]
-position = Vector2(1600, -40)
 
 [node name="Puertas" type="Node2D" parent="."]
 

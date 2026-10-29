@@ -71,7 +71,6 @@
 [ext_resource type="SpriteFrames" uid="uid://dyo3cbh846dgd" path="res://resources/sprites/RiflemanSpriteFrames.tres" id="76_rifleman"]
 [ext_resource type="SpriteFrames" uid="uid://cye6vs5ciuuw6" path="res://resources/sprites/ThugSpriteFrames.tres" id="77_thug"]
 [ext_resource type="SpriteFrames" uid="uid://btt5wtvy3gjfl" path="res://resources/sprites/NecromancerSpriteFrames.tres" id="78_necromancer"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/AdventurerSpriteFrames.tres" id="80_adventurer"]
 [ext_resource type="SpriteFrames" uid="uid://ccyascnpjwmsd" path="res://resources/sprites/NightborneSpriteFrames.tres" id="81_nightborne"]
 [ext_resource type="PackedScene" path="res://scenes/world/TrainingDummy.tscn" id="82_trainingdummy"]
 [ext_resource type="SpriteFrames" uid="uid://ny7talqn81iy" path="res://resources/sprites/ArchDemonSpriteFrames.tres" id="83_archdemon"]
@@ -90,13 +89,8 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SlimeEnemyRed.tscn" id="96_enemyslimered"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemy.tscn" id="97_enemyspider"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemyDark.tscn" id="98_enemyspiderdark"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/WarriorEnemy.tscn" id="99_enemywarrior"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/WarriorEnemyBlond.tscn" id="100_enemywarriorblond"]
 [ext_resource type="PackedScene" path="res://scenes/world/MosquitoEnemy.tscn" id="101_enemymosquito"]
 [ext_resource type="PackedScene" path="res://scenes/world/MushroomEnemy.tscn" id="102_enemymushroom"]
-[ext_resource type="PackedScene" path="res://scenes/world/RangedEnemy.tscn" id="103_enemyranged"]
-[ext_resource type="PackedScene" path="res://scenes/world/RangedEnemyBrown.tscn" id="104_enemyrangedbrown"]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn06r"]
 size = Vector2(67, 11.360123)
 
@@ -13073,20 +13067,9 @@ position = Vector2(1100, 430)
 [node name="EnemySpiderDark" parent="." instance=ExtResource("98_enemyspiderdark")]
 position = Vector2(1250, 430)
 
-[node name="EnemyWarrior" parent="." instance=ExtResource("99_enemywarrior")]
-position = Vector2(1400, 430)
-
-[node name="EnemyWarriorBlond" parent="." instance=ExtResource("100_enemywarriorblond")]
-position = Vector2(1550, 430)
-
 [node name="EnemyMosquito" parent="." instance=ExtResource("101_enemymosquito")]
 position = Vector2(1700, 430)
 
 [node name="EnemyMushroom" parent="." instance=ExtResource("102_enemymushroom")]
 position = Vector2(1850, 430)
 
-[node name="EnemyRanged" parent="." instance=ExtResource("103_enemyranged")]
-position = Vector2(2000, 430)
-
-[node name="EnemyRangedBrown" parent="." instance=ExtResource("104_enemyrangedbrown")]
-position = Vector2(2150, 430)

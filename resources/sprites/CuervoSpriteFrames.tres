@@ -1,0 +1,449 @@
+[gd_resource type="SpriteFrames" load_steps=97 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/look_around/00.png" id="1_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/look_around/01.png" id="2_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/look_around/02.png" id="3_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/look_around/03.png" id="4_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/look_around/04.png" id="5_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/look_around/05.png" id="6_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/look_around/06.png" id="7_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/look_around/07.png" id="8_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/peck/00.png" id="9_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/peck/01.png" id="10_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/peck/02.png" id="11_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/peck/03.png" id="12_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/peck/04.png" id="13_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/peck/05.png" id="14_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/peck/06.png" id="15_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/peck/07.png" id="16_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/flick/00.png" id="17_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/flick/01.png" id="18_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/flick/02.png" id="19_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/flick/03.png" id="20_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/flick/04.png" id="21_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/flick/05.png" id="22_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/flick/06.png" id="23_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/flick/07.png" id="24_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/flick/08.png" id="25_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/flick/09.png" id="26_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/flick/10.png" id="27_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/flick/11.png" id="28_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/hop/00.png" id="29_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/hop/01.png" id="30_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/hop/02.png" id="31_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/hop/03.png" id="32_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/hop/04.png" id="33_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/hop/05.png" id="34_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/hop/06.png" id="35_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/hop/07.png" id="36_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/standing_to_walk/00.png" id="37_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/standing_to_walk/01.png" id="38_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/standing_to_walk/02.png" id="39_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/standing_to_walk/03.png" id="40_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/walk/00.png" id="41_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/walk/01.png" id="42_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/walk/02.png" id="43_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/walk/03.png" id="44_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/walk/04.png" id="45_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/walk/05.png" id="46_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/walk/06.png" id="47_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/walk/07.png" id="48_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/walk_to_standing/00.png" id="49_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/walk_to_standing/01.png" id="50_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/walk_to_standing/02.png" id="51_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/walk_to_standing/03.png" id="52_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/takeoff/00.png" id="53_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/takeoff/01.png" id="54_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/takeoff/02.png" id="55_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/takeoff/03.png" id="56_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/takeoff/04.png" id="57_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/takeoff/05.png" id="58_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/takeoff/06.png" id="59_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/takeoff/07.png" id="60_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/takeoff/08.png" id="61_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/takeoff/09.png" id="62_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/takeoff/10.png" id="63_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/takeoff/11.png" id="64_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/fly/00.png" id="65_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/fly/01.png" id="66_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/fly/02.png" id="67_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/fly/03.png" id="68_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/fly/04.png" id="69_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/fly/05.png" id="70_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/fly/06.png" id="71_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/fly/07.png" id="72_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/glide/00.png" id="73_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/glide/01.png" id="74_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/glide/02.png" id="75_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/glide/03.png" id="76_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/glide/04.png" id="77_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/glide/05.png" id="78_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/glide/06.png" id="79_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/glide/07.png" id="80_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/glide_to_landing/00.png" id="81_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/glide_to_landing/01.png" id="82_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/glide_to_landing/02.png" id="83_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/glide_to_landing/03.png" id="84_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/landing/00.png" id="85_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/landing/01.png" id="86_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/landing/02.png" id="87_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/landing/03.png" id="88_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/landing/04.png" id="89_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/landing/05.png" id="90_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/landing/06.png" id="91_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/landing/07.png" id="92_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/landing/08.png" id="93_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/landing/09.png" id="94_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/landing/10.png" id="95_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Bird_Animation_Template/Crow/Frames/landing/11.png" id="96_f"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_f")
+}],
+"loop": true,
+"name": &"look_around",
+"speed": 3.81
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_f")
+}],
+"loop": false,
+"name": &"peck",
+"speed": 11.27
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_f")
+}],
+"loop": false,
+"name": &"flick",
+"speed": 18.46
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("29_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_f")
+}],
+"loop": false,
+"name": &"hop",
+"speed": 10.67
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("37_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_f")
+}],
+"loop": false,
+"name": &"standing_to_walk",
+"speed": 12.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("41_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_f")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 12.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("49_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_f")
+}],
+"loop": false,
+"name": &"walk_to_standing",
+"speed": 9.52
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("53_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_f")
+}],
+"loop": false,
+"name": &"takeoff",
+"speed": 12.9
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("65_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("71_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("72_f")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 12.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("73_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("74_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("75_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("76_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("77_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("78_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("79_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("80_f")
+}],
+"loop": true,
+"name": &"glide",
+"speed": 7.41
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("81_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("82_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("83_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("84_f")
+}],
+"loop": false,
+"name": &"glide_to_landing",
+"speed": 13.33
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("85_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("86_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("87_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("88_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("89_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("90_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("91_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("92_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("93_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("94_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("95_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("96_f")
+}],
+"loop": false,
+"name": &"landing",
+"speed": 13.04
+}]

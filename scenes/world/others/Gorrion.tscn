@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/PajaroDecoracion.cs" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/GorrionSpriteFrames.tres" id="2_frames"]
+
+[node name="Gorrion" type="AnimatedSprite2D"]
+texture_filter = 1
+offset = Vector2(0, -28)
+sprite_frames = ExtResource("2_frames")
+animation = &"look_around"
+script = ExtResource("1_script")

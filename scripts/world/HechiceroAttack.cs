@@ -4,7 +4,7 @@ namespace Metroidvania.World;
 
 // One tunable attack definition for Hechicero — a plain data Resource so each attack shows up as
 // an editable block in the Inspector instead of being hardcoded per-attack fields on the enemy
-// itself. Hechicero picks one of these to drive its (inherited) RangedEnemy shoot loop.
+// itself. Hechicero picks one of these to drive its shoot loop.
 [GlobalClass]
 public partial class HechiceroAttack : Resource, ISpellDefinition
 {
@@ -16,7 +16,7 @@ public partial class HechiceroAttack : Resource, ISpellDefinition
 	[Export] public float Range = 350f;
 
 	// Total time the "shoot" animation plays for, and how far into it the projectile actually
-	// releases — same meaning as RangedEnemy.ShootAnimDuration/ShootReleaseDelay, just per-attack.
+	// releases — shoot-anim duration / release delay, just per-attack.
 	[Export] public float CastDuration = 0.92f;
 	[Export] public float ReleaseDelay = 0.67f;
 

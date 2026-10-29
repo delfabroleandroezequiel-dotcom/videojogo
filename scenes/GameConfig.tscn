@@ -5,15 +5,13 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SlimeEnemyRed.tscn" id="3_slime_red"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SlimeEnemyBlue.tscn" id="4_slime_blue"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SlimeEnemyGreen.tscn" id="5_slime_green"]
-[ext_resource type="PackedScene" uid="uid://cexihxsolu6jg" path="res://scenes/world/MeleeEnemy.tscn" id="6_melee"]
-[ext_resource type="PackedScene" uid="uid://dgydh5wklq6qh" path="res://scenes/world/RangedEnemy.tscn" id="7_ranged"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BatEnemy.tscn" id="8_bat"]
 
 [node name="GameConfig" type="Node"]
 script = ExtResource("1_script")
 DefaultStartScenePath = "res://scenes/world/Mapas/Casa1.tscn"
 MainMenuScenePath = "res://scenes/ui/MainMenu.tscn"
-GroundEnemyPool = [ExtResource("3_slime_red"), ExtResource("4_slime_blue"), ExtResource("5_slime_green"), ExtResource("6_melee"), ExtResource("7_ranged")]
+GroundEnemyPool = [ExtResource("3_slime_red"), ExtResource("4_slime_blue"), ExtResource("5_slime_green")]
 FlyingEnemyPool = [ExtResource("8_bat")]
 
 [node name="Achievements" type="Node" parent="."]

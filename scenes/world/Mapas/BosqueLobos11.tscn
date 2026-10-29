@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" path="res://scenes/world/WeatherOverlay.tscn" id="8_tmjri"]
 [ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="9_il1tm"]
 [ext_resource type="Texture2D" uid="uid://dtixu7ma353nj" path="res://assets/sprites/misprite/bosquelobos1.png" id="10_gk5ts"]
-[ext_resource type="PackedScene" uid="uid://dgydh5wklq6qh" path="res://scenes/world/RangedEnemy.tscn" id="11_6knhj"]
 [ext_resource type="PackedScene" path="res://scenes/world/MosquitoEnemy.tscn" id="12_e54g1"]
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="13_0efy3"]
 [ext_resource type="Texture2D" uid="uid://ddorccofiac2x" path="res://assets/sprites/misprite/CuevaBosqueLobos1.png" id="14_qqpcb"]
@@ -12824,10 +12823,6 @@ FollowCamera = true
 [node name="BgTile1" type="Sprite2D" parent="Background" unique_id=-1194967293]
 position = Vector2(887, 0)
 texture = ExtResource("10_gk5ts")
-
-[node name="RangedEnemy3" parent="." unique_id=2067347911 instance=ExtResource("11_6knhj")]
-position = Vector2(318, 92)
-ProjectileSpeed = 380.0
 
 [node name="Mosquito1" parent="." unique_id=2067347912 instance=ExtResource("12_e54g1")]
 position = Vector2(700, 150)

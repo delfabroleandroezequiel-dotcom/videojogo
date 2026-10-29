@@ -1,0 +1,121 @@
+[gd_resource type="SpriteFrames" load_steps=25 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)1.png" id="1_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)2.png" id="2_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)3.png" id="3_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)4.png" id="4_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)5.png" id="5_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)6.png" id="6_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)7.png" id="7_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)8.png" id="8_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)10.png" id="9_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)11.png" id="10_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)12.png" id="11_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)13.png" id="12_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)14.png" id="13_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)15.png" id="14_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)16.png" id="15_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)17.png" id="16_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)19.png" id="17_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)20.png" id="18_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)22.png" id="19_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)23.png" id="20_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)24.png" id="21_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)25.png" id="22_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)26.png" id="23_f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Fantasy Forest Enemies/PNG/PNG COLOR (3)/INIMIG (1)27.png" id="24_f"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_f")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_f")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_f")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 10
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_f")
+}],
+"loop": false,
+"name": &"death",
+"speed": 10
+}]

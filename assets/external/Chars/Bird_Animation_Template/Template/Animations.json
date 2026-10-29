@@ -1,0 +1,2115 @@
+{
+  "character": "Template",
+  "frame_width": 64,
+  "frame_height": 64,
+  "perspective": "Side profile facing right",
+  "source": "Template.aseprite",
+  "atlas": "Atlas.png",
+  "grid": {
+    "columns": 96,
+    "rows": 1,
+    "spacing": 0,
+    "margin": 0
+  },
+  "layer_order_bottom_to_top": [
+    "Wing Far",
+    "Tail",
+    "Feet",
+    "Body",
+    "Head",
+    "Wing Near"
+  ],
+  "animations": {
+    "fly": {
+      "loop": true,
+      "durations_ms": [
+        100,
+        80,
+        80,
+        70,
+        90,
+        80,
+        60,
+        80
+      ],
+      "source_tag": {
+        "name": "fly",
+        "from": 13,
+        "to": 20
+      },
+      "atlas_rectangles": [
+        {
+          "x": 768,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 832,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 896,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 960,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 1024,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 1088,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 1152,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 1216,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "frames": [
+        "Frames/fly/00.png",
+        "Frames/fly/01.png",
+        "Frames/fly/02.png",
+        "Frames/fly/03.png",
+        "Frames/fly/04.png",
+        "Frames/fly/05.png",
+        "Frames/fly/06.png",
+        "Frames/fly/07.png"
+      ],
+      "atlas": "Atlas.png"
+    },
+    "takeoff": {
+      "loop": false,
+      "durations_ms": [
+        120,
+        70,
+        100,
+        60,
+        70,
+        60,
+        90,
+        70,
+        60,
+        60,
+        70,
+        100
+      ],
+      "source_tag": {
+        "name": "takeoff",
+        "from": 1,
+        "to": 12
+      },
+      "atlas_rectangles": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 128,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 192,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 256,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 320,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 384,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 448,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 512,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 576,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 640,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 704,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "frames": [
+        "Frames/takeoff/00.png",
+        "Frames/takeoff/01.png",
+        "Frames/takeoff/02.png",
+        "Frames/takeoff/03.png",
+        "Frames/takeoff/04.png",
+        "Frames/takeoff/05.png",
+        "Frames/takeoff/06.png",
+        "Frames/takeoff/07.png",
+        "Frames/takeoff/08.png",
+        "Frames/takeoff/09.png",
+        "Frames/takeoff/10.png",
+        "Frames/takeoff/11.png"
+      ],
+      "atlas": "Atlas.png"
+    },
+    "landing": {
+      "loop": false,
+      "hold_final_pose": true,
+      "durations_ms": [
+        100,
+        60,
+        90,
+        60,
+        70,
+        60,
+        50,
+        60,
+        70,
+        90,
+        70,
+        140
+      ],
+      "source_tag": {
+        "name": "landing",
+        "from": 21,
+        "to": 32
+      },
+      "atlas_rectangles": [
+        {
+          "x": 1280,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 1344,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 1408,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 1472,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 1536,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 1600,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 1664,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 1728,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 1792,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 1856,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 1920,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 1984,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "frames": [
+        "Frames/landing/00.png",
+        "Frames/landing/01.png",
+        "Frames/landing/02.png",
+        "Frames/landing/03.png",
+        "Frames/landing/04.png",
+        "Frames/landing/05.png",
+        "Frames/landing/06.png",
+        "Frames/landing/07.png",
+        "Frames/landing/08.png",
+        "Frames/landing/09.png",
+        "Frames/landing/10.png",
+        "Frames/landing/11.png"
+      ],
+      "atlas": "Atlas.png"
+    },
+    "flick": {
+      "loop": false,
+      "hold_final_pose": true,
+      "durations_ms": [
+        140,
+        50,
+        40,
+        20,
+        20,
+        30,
+        20,
+        30,
+        40,
+        50,
+        70,
+        140
+      ],
+      "source_tag": {
+        "name": "wing_tail_flick",
+        "from": 33,
+        "to": 44
+      },
+      "atlas_rectangles": [
+        {
+          "x": 2048,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 2112,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 2176,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 2240,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 2304,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 2368,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 2432,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 2496,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 2560,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 2624,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 2688,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 2752,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "frames": [
+        "Frames/flick/00.png",
+        "Frames/flick/01.png",
+        "Frames/flick/02.png",
+        "Frames/flick/03.png",
+        "Frames/flick/04.png",
+        "Frames/flick/05.png",
+        "Frames/flick/06.png",
+        "Frames/flick/07.png",
+        "Frames/flick/08.png",
+        "Frames/flick/09.png",
+        "Frames/flick/10.png",
+        "Frames/flick/11.png"
+      ],
+      "atlas": "Atlas.png"
+    },
+    "glide": {
+      "loop": false,
+      "hold_final_pose": true,
+      "durations_ms": [
+        80,
+        80,
+        120,
+        320,
+        200,
+        120,
+        80,
+        80
+      ],
+      "source_tag": {
+        "name": "glide",
+        "from": 45,
+        "to": 52
+      },
+      "atlas_rectangles": [
+        {
+          "x": 2816,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 2880,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 2944,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 3008,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 3072,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 3136,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 3200,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 3264,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "frames": [
+        "Frames/glide/00.png",
+        "Frames/glide/01.png",
+        "Frames/glide/02.png",
+        "Frames/glide/03.png",
+        "Frames/glide/04.png",
+        "Frames/glide/05.png",
+        "Frames/glide/06.png",
+        "Frames/glide/07.png"
+      ],
+      "atlas": "Atlas.png"
+    },
+    "glide_to_landing": {
+      "loop": false,
+      "hold_final_pose": false,
+      "durations_ms": [
+        80,
+        70,
+        70,
+        80
+      ],
+      "source_tag": {
+        "name": "glide_to_landing",
+        "from": 53,
+        "to": 56
+      },
+      "next_animation": "landing",
+      "next_frame": 1,
+      "atlas_rectangles": [
+        {
+          "x": 3328,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 3392,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 3456,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 3520,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "frames": [
+        "Frames/glide_to_landing/00.png",
+        "Frames/glide_to_landing/01.png",
+        "Frames/glide_to_landing/02.png",
+        "Frames/glide_to_landing/03.png"
+      ],
+      "atlas": "Atlas.png"
+    },
+    "hop": {
+      "loop": false,
+      "hold_final_pose": true,
+      "durations_ms": [
+        140,
+        100,
+        50,
+        50,
+        90,
+        50,
+        90,
+        180
+      ],
+      "source_tag": {
+        "name": "hop",
+        "from": 57,
+        "to": 64
+      },
+      "atlas_rectangles": [
+        {
+          "x": 3584,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 3648,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 3712,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 3776,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 3840,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 3904,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 3968,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 4032,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "frames": [
+        "Frames/hop/00.png",
+        "Frames/hop/01.png",
+        "Frames/hop/02.png",
+        "Frames/hop/03.png",
+        "Frames/hop/04.png",
+        "Frames/hop/05.png",
+        "Frames/hop/06.png",
+        "Frames/hop/07.png"
+      ],
+      "atlas": "Atlas.png"
+    },
+    "walk": {
+      "loop": true,
+      "durations_ms": [
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80
+      ],
+      "source_tag": {
+        "name": "walk",
+        "from": 65,
+        "to": 72
+      },
+      "secondary_motion_dy": {
+        "head": [
+          0,
+          0,
+          -1,
+          0,
+          0,
+          0,
+          -1,
+          0
+        ],
+        "tail": [
+          0,
+          0,
+          -1,
+          0,
+          0,
+          0,
+          -1,
+          0
+        ]
+      },
+      "root_motion": {
+        "source_mode": "in_place",
+        "translation_pixels_per_frame": 2,
+        "translation_pixels_per_cycle": 16,
+        "duration_ms": 640,
+        "native_pixels_per_second": 25,
+        "preview_ground_marker_period": 16,
+        "preview_ground_scroll_pixels_per_frame": 2,
+        "preview_note": "Ground shifts left in the same discrete pose steps as the sprite, avoiding drift during held frames. This is a source-level motion match; game-engine testing is deferred."
+      },
+      "atlas_rectangles": [
+        {
+          "x": 4096,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 4160,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 4224,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 4288,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 4352,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 4416,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 4480,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 4544,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "frames": [
+        "Frames/walk/00.png",
+        "Frames/walk/01.png",
+        "Frames/walk/02.png",
+        "Frames/walk/03.png",
+        "Frames/walk/04.png",
+        "Frames/walk/05.png",
+        "Frames/walk/06.png",
+        "Frames/walk/07.png"
+      ],
+      "atlas": "Atlas.png"
+    },
+    "standing_to_walk": {
+      "loop": false,
+      "hold_final_pose": false,
+      "durations_ms": [
+        120,
+        60,
+        60,
+        80
+      ],
+      "source_tag": {
+        "name": "standing_to_walk",
+        "from": 73,
+        "to": 76
+      },
+      "secondary_motion_dy": {
+        "head": [
+          0,
+          1,
+          0,
+          -1
+        ],
+        "tail": [
+          0,
+          1,
+          0,
+          -1
+        ]
+      },
+      "root_motion": {
+        "source_mode": "in_place",
+        "relative_root_positions_native_pixels": [
+          0,
+          0,
+          2,
+          3
+        ],
+        "duration_ms": 320
+      },
+      "next_animation": "walk",
+      "next_frame": 4,
+      "handoff_note": "The last transition pose supplies walk frame 3 and its 80 ms hold. Continue at walk frame 4.",
+      "atlas_rectangles": [
+        {
+          "x": 4608,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 4672,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 4736,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 4800,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "frames": [
+        "Frames/standing_to_walk/00.png",
+        "Frames/standing_to_walk/01.png",
+        "Frames/standing_to_walk/02.png",
+        "Frames/standing_to_walk/03.png"
+      ],
+      "atlas": "Atlas.png"
+    },
+    "walk_to_standing": {
+      "loop": false,
+      "hold_final_pose": true,
+      "durations_ms": [
+        80,
+        60,
+        100,
+        180
+      ],
+      "source_tag": {
+        "name": "walk_to_standing",
+        "from": 77,
+        "to": 80
+      },
+      "secondary_motion_dy": {
+        "head": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "tail": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "root_motion": {
+        "source_mode": "in_place",
+        "relative_root_positions_native_pixels": [
+          0,
+          1,
+          1,
+          1
+        ],
+        "duration_ms": 420
+      },
+      "entry_animation": "walk",
+      "entry_frame": 1,
+      "handoff_note": "Branch when walk frame 1 is due; its identical pose and 80 ms hold are supplied by this transition. Do not repeat the anchor hold.",
+      "atlas_rectangles": [
+        {
+          "x": 4864,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 4928,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 4992,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 5056,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "frames": [
+        "Frames/walk_to_standing/00.png",
+        "Frames/walk_to_standing/01.png",
+        "Frames/walk_to_standing/02.png",
+        "Frames/walk_to_standing/03.png"
+      ],
+      "atlas": "Atlas.png"
+    },
+    "peck": {
+      "loop": false,
+      "hold_final_pose": true,
+      "durations_ms": [
+        180,
+        60,
+        70,
+        40,
+        40,
+        60,
+        80,
+        180
+      ],
+      "source_tag": {
+        "name": "peck",
+        "from": 81,
+        "to": 88
+      },
+      "atlas_rectangles": [
+        {
+          "x": 5120,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 5184,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 5248,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 5312,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 5376,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 5440,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 5504,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 5568,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "frames": [
+        "Frames/peck/00.png",
+        "Frames/peck/01.png",
+        "Frames/peck/02.png",
+        "Frames/peck/03.png",
+        "Frames/peck/04.png",
+        "Frames/peck/05.png",
+        "Frames/peck/06.png",
+        "Frames/peck/07.png"
+      ],
+      "atlas": "Atlas.png"
+    },
+    "look_around": {
+      "loop": false,
+      "hold_final_pose": true,
+      "durations_ms": [
+        320,
+        100,
+        480,
+        90,
+        550,
+        90,
+        110,
+        360
+      ],
+      "source_tag": {
+        "name": "look_around",
+        "from": 89,
+        "to": 96
+      },
+      "atlas_rectangles": [
+        {
+          "x": 5632,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 5696,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 5760,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 5824,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 5888,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 5952,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 6016,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 6080,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "frames": [
+        "Frames/look_around/00.png",
+        "Frames/look_around/01.png",
+        "Frames/look_around/02.png",
+        "Frames/look_around/03.png",
+        "Frames/look_around/04.png",
+        "Frames/look_around/05.png",
+        "Frames/look_around/06.png",
+        "Frames/look_around/07.png"
+      ],
+      "atlas": "Atlas.png"
+    }
+  },
+  "color_roles": {
+    "Body": "Green",
+    "Head": "Light blue",
+    "Wing Near": "Orange",
+    "Wing Far": "Bright cyan",
+    "Tail": "Purple",
+    "Feet": "Coral red"
+  },
+  "palette_ramps": {
+    "Body": [
+      "#173f37",
+      "#246354",
+      "#3b9270",
+      "#72bb88",
+      "#a6dbab",
+      "#d4ead0",
+      "#edf6e5"
+    ],
+    "Head": [
+      "#28638a",
+      "#4d98c4",
+      "#82c9ec",
+      "#b0e1f5",
+      "#d2effb",
+      "#e8f8ff",
+      "#f7fcff"
+    ],
+    "Wing Near": [
+      "#653616",
+      "#9b501d",
+      "#d58932",
+      "#edb44c",
+      "#f5d17c",
+      "#ffe5a2",
+      "#fff2d0"
+    ],
+    "Wing Far": [
+      "#168b9a",
+      "#31cad3",
+      "#62e2e3",
+      "#9af3ed",
+      "#c8fff5",
+      "#e6fffb",
+      "#f5fffd"
+    ],
+    "Tail": [
+      "#482d5d",
+      "#6d4486",
+      "#a26bb5",
+      "#c28ed1",
+      "#dfb7e8",
+      "#f0d8f1",
+      "#fbf0fa"
+    ],
+    "Feet": [
+      "#d84e62",
+      "#ee7180",
+      "#fa939c",
+      "#ffb7b9",
+      "#ffd4d2",
+      "#ffe8e3",
+      "#fff7ef"
+    ]
+  },
+  "reusable_scope": "One crow-like feathered body plan; large anatomy or wing-shape changes need pose revision",
+  "transition": {
+    "destination": "fly",
+    "last_takeoff_equals_flight_frame": 1,
+    "next_playback_flight_frame": 2,
+    "shared_entry_hold_ms": 100,
+    "instruction": "Play takeoff once, then enter fly at frame 2. Takeoff frame 12 already supplies the identical fly frame 1 hold. The Fly tag itself retains all eight frames."
+  },
+  "landing_transition": {
+    "after_flight_frame": 8,
+    "first_contact_frame": 7,
+    "hold_final_pose": true,
+    "standing_matches_takeoff_frame": 1
+  },
+  "flick_transition": {
+    "start": "approved standing",
+    "landing_to_flick": "Landing frame 12 equals flick frame 1. Play flick once, then hold its final standing pose.",
+    "loop": false,
+    "hold_final_pose": true,
+    "duration_ms": 650
+  },
+  "glide_transition": {
+    "enter_after_flight_frame": 2,
+    "entry_reuses_flight_frame": 3,
+    "gap_repairs_present": true,
+    "resume_flight_at_frame": 4,
+    "loop": false,
+    "duration_ms": 1080,
+    "steady_hold_frames": [
+      4,
+      5
+    ],
+    "steady_hold_ms": 520,
+    "instruction": "Play glide after fly frame 2. When it completes, resume fly at frame 4; do not restart the flight cycle at frame 1. Entry and exit reuse fly frame 3 with small gap repairs."
+  },
+  "glide_landing_transition": {
+    "steps": [
+      {
+        "animation": "glide",
+        "from_frame": 1,
+        "to_frame": 5
+      },
+      {
+        "animation": "glide_to_landing",
+        "from_frame": 1,
+        "to_frame": 4
+      },
+      {
+        "animation": "landing",
+        "from_frame": 1,
+        "to_frame": 12
+      }
+    ],
+    "duration_ms": 2020,
+    "loop": false,
+    "hold_final_pose": true,
+    "combined_source_frame_ranges_1_based": [
+      [
+        45,
+        49
+      ],
+      [
+        53,
+        56
+      ],
+      [
+        21,
+        32
+      ]
+    ],
+    "instruction": "Branch after glide frame 5. Play all four connector frames once, then landing frame 1 through 12. Skip glide frames 6 through 8. Hold the final standing pose."
+  },
+  "walk_motion": {
+    "source_mode": "in_place",
+    "translation_pixels_per_frame": 2,
+    "translation_pixels_per_cycle": 16,
+    "duration_ms": 640,
+    "native_pixels_per_second": 25,
+    "preview_ground_marker_period": 16,
+    "preview_ground_scroll_pixels_per_frame": 2,
+    "preview_note": "Ground shifts left in the same discrete pose steps as the sprite, avoiding drift during held frames. This is a source-level motion match; game-engine testing is deferred."
+  },
+  "playback_sequences": {
+    "glide_to_standing": {
+      "steps": [
+        {
+          "animation": "glide",
+          "from_frame": 1,
+          "to_frame": 5
+        },
+        {
+          "animation": "glide_to_landing",
+          "from_frame": 1,
+          "to_frame": 4
+        },
+        {
+          "animation": "landing",
+          "from_frame": 1,
+          "to_frame": 12
+        }
+      ],
+      "duration_ms": 2020,
+      "loop": false,
+      "hold_final_pose": true,
+      "combined_source_frame_ranges_1_based": [
+        [
+          45,
+          49
+        ],
+        [
+          53,
+          56
+        ],
+        [
+          21,
+          32
+        ]
+      ],
+      "instruction": "Branch after glide frame 5. Play all four connector frames once, then landing frame 1 through 12. Skip glide frames 6 through 8. Hold the final standing pose."
+    },
+    "complete_showcase": {
+      "steps": [
+        {
+          "animation": "takeoff",
+          "frame": 1,
+          "duration_ms": 120,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "takeoff",
+          "frame": 2,
+          "duration_ms": 70,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "takeoff",
+          "frame": 3,
+          "duration_ms": 100,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "takeoff",
+          "frame": 4,
+          "duration_ms": 60,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "takeoff",
+          "frame": 5,
+          "duration_ms": 70,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "takeoff",
+          "frame": 6,
+          "duration_ms": 60,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "takeoff",
+          "frame": 7,
+          "duration_ms": 90,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "takeoff",
+          "frame": 8,
+          "duration_ms": 70,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "takeoff",
+          "frame": 9,
+          "duration_ms": 60,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "takeoff",
+          "frame": 10,
+          "duration_ms": 60,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "takeoff",
+          "frame": 11,
+          "duration_ms": 70,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "takeoff",
+          "frame": 12,
+          "duration_ms": 100,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "fly",
+          "frame": 2,
+          "duration_ms": 80,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "fly",
+          "frame": 3,
+          "duration_ms": 80,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "fly",
+          "frame": 4,
+          "duration_ms": 70,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "fly",
+          "frame": 5,
+          "duration_ms": 90,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "fly",
+          "frame": 6,
+          "duration_ms": 80,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "fly",
+          "frame": 7,
+          "duration_ms": 60,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "fly",
+          "frame": 8,
+          "duration_ms": 80,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "fly",
+          "frame": 1,
+          "duration_ms": 100,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "fly",
+          "frame": 2,
+          "duration_ms": 80,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "glide",
+          "frame": 1,
+          "duration_ms": 80,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "glide",
+          "frame": 2,
+          "duration_ms": 80,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "glide",
+          "frame": 3,
+          "duration_ms": 120,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "glide",
+          "frame": 4,
+          "duration_ms": 320,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "glide",
+          "frame": 5,
+          "duration_ms": 200,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "glide_to_landing",
+          "frame": 1,
+          "duration_ms": 80,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "glide_to_landing",
+          "frame": 2,
+          "duration_ms": 70,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "glide_to_landing",
+          "frame": 3,
+          "duration_ms": 70,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "glide_to_landing",
+          "frame": 4,
+          "duration_ms": 80,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "landing",
+          "frame": 1,
+          "duration_ms": 100,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "landing",
+          "frame": 2,
+          "duration_ms": 60,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "landing",
+          "frame": 3,
+          "duration_ms": 90,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "landing",
+          "frame": 4,
+          "duration_ms": 60,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "landing",
+          "frame": 5,
+          "duration_ms": 70,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "landing",
+          "frame": 6,
+          "duration_ms": 60,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "landing",
+          "frame": 7,
+          "duration_ms": 50,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "landing",
+          "frame": 8,
+          "duration_ms": 60,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "landing",
+          "frame": 9,
+          "duration_ms": 70,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "landing",
+          "frame": 10,
+          "duration_ms": 90,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "landing",
+          "frame": 11,
+          "duration_ms": 70,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "landing",
+          "frame": 12,
+          "duration_ms": 140,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "flick",
+          "frame": 1,
+          "duration_ms": 140,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "flick",
+          "frame": 2,
+          "duration_ms": 50,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "flick",
+          "frame": 3,
+          "duration_ms": 40,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "flick",
+          "frame": 4,
+          "duration_ms": 20,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "flick",
+          "frame": 5,
+          "duration_ms": 20,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "flick",
+          "frame": 6,
+          "duration_ms": 30,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "flick",
+          "frame": 7,
+          "duration_ms": 20,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "flick",
+          "frame": 8,
+          "duration_ms": 30,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "flick",
+          "frame": 9,
+          "duration_ms": 40,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "flick",
+          "frame": 10,
+          "duration_ms": 50,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "flick",
+          "frame": 11,
+          "duration_ms": 70,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "flick",
+          "frame": 12,
+          "duration_ms": 140,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "hop",
+          "frame": 1,
+          "duration_ms": 140,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "hop",
+          "frame": 2,
+          "duration_ms": 100,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "hop",
+          "frame": 3,
+          "duration_ms": 50,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "hop",
+          "frame": 4,
+          "duration_ms": 50,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "hop",
+          "frame": 5,
+          "duration_ms": 90,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "hop",
+          "frame": 6,
+          "duration_ms": 50,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "hop",
+          "frame": 7,
+          "duration_ms": 90,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "hop",
+          "frame": 8,
+          "duration_ms": 180,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "standing_to_walk",
+          "frame": 1,
+          "duration_ms": 120,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "standing_to_walk",
+          "frame": 2,
+          "duration_ms": 60,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "standing_to_walk",
+          "frame": 3,
+          "duration_ms": 60,
+          "root_x_native_pixels": 2
+        },
+        {
+          "animation": "standing_to_walk",
+          "frame": 4,
+          "duration_ms": 80,
+          "root_x_native_pixels": 3
+        },
+        {
+          "animation": "walk",
+          "frame": 4,
+          "duration_ms": 80,
+          "root_x_native_pixels": 5
+        },
+        {
+          "animation": "walk",
+          "frame": 5,
+          "duration_ms": 80,
+          "root_x_native_pixels": 7
+        },
+        {
+          "animation": "walk",
+          "frame": 6,
+          "duration_ms": 80,
+          "root_x_native_pixels": 9
+        },
+        {
+          "animation": "walk",
+          "frame": 7,
+          "duration_ms": 80,
+          "root_x_native_pixels": 11
+        },
+        {
+          "animation": "walk",
+          "frame": 8,
+          "duration_ms": 80,
+          "root_x_native_pixels": 13
+        },
+        {
+          "animation": "walk",
+          "frame": 1,
+          "duration_ms": 80,
+          "root_x_native_pixels": 15
+        },
+        {
+          "animation": "walk",
+          "frame": 2,
+          "duration_ms": 80,
+          "root_x_native_pixels": 17
+        },
+        {
+          "animation": "walk",
+          "frame": 3,
+          "duration_ms": 80,
+          "root_x_native_pixels": 19
+        },
+        {
+          "animation": "walk",
+          "frame": 4,
+          "duration_ms": 80,
+          "root_x_native_pixels": 21
+        },
+        {
+          "animation": "walk",
+          "frame": 5,
+          "duration_ms": 80,
+          "root_x_native_pixels": 23
+        },
+        {
+          "animation": "walk",
+          "frame": 6,
+          "duration_ms": 80,
+          "root_x_native_pixels": 25
+        },
+        {
+          "animation": "walk",
+          "frame": 7,
+          "duration_ms": 80,
+          "root_x_native_pixels": 27
+        },
+        {
+          "animation": "walk",
+          "frame": 8,
+          "duration_ms": 80,
+          "root_x_native_pixels": 29
+        },
+        {
+          "animation": "walk_to_standing",
+          "frame": 1,
+          "duration_ms": 80,
+          "root_x_native_pixels": 31
+        },
+        {
+          "animation": "walk_to_standing",
+          "frame": 2,
+          "duration_ms": 60,
+          "root_x_native_pixels": 32
+        },
+        {
+          "animation": "walk_to_standing",
+          "frame": 3,
+          "duration_ms": 100,
+          "root_x_native_pixels": 32
+        },
+        {
+          "animation": "walk_to_standing",
+          "frame": 4,
+          "duration_ms": 180,
+          "root_x_native_pixels": 32
+        },
+        {
+          "animation": "peck",
+          "frame": 1,
+          "duration_ms": 180,
+          "root_x_native_pixels": 32
+        },
+        {
+          "animation": "peck",
+          "frame": 2,
+          "duration_ms": 60,
+          "root_x_native_pixels": 32
+        },
+        {
+          "animation": "peck",
+          "frame": 3,
+          "duration_ms": 70,
+          "root_x_native_pixels": 32
+        },
+        {
+          "animation": "peck",
+          "frame": 4,
+          "duration_ms": 40,
+          "root_x_native_pixels": 32
+        },
+        {
+          "animation": "peck",
+          "frame": 5,
+          "duration_ms": 40,
+          "root_x_native_pixels": 32
+        },
+        {
+          "animation": "peck",
+          "frame": 6,
+          "duration_ms": 60,
+          "root_x_native_pixels": 32
+        },
+        {
+          "animation": "peck",
+          "frame": 7,
+          "duration_ms": 80,
+          "root_x_native_pixels": 32
+        },
+        {
+          "animation": "peck",
+          "frame": 8,
+          "duration_ms": 180,
+          "root_x_native_pixels": 32
+        },
+        {
+          "animation": "look_around",
+          "frame": 1,
+          "duration_ms": 320,
+          "root_x_native_pixels": 32
+        },
+        {
+          "animation": "look_around",
+          "frame": 2,
+          "duration_ms": 100,
+          "root_x_native_pixels": 32
+        },
+        {
+          "animation": "look_around",
+          "frame": 3,
+          "duration_ms": 480,
+          "root_x_native_pixels": 32
+        },
+        {
+          "animation": "look_around",
+          "frame": 4,
+          "duration_ms": 90,
+          "root_x_native_pixels": 32
+        },
+        {
+          "animation": "look_around",
+          "frame": 5,
+          "duration_ms": 550,
+          "root_x_native_pixels": 32
+        },
+        {
+          "animation": "look_around",
+          "frame": 6,
+          "duration_ms": 90,
+          "root_x_native_pixels": 32
+        },
+        {
+          "animation": "look_around",
+          "frame": 7,
+          "duration_ms": 110,
+          "root_x_native_pixels": 32
+        },
+        {
+          "animation": "look_around",
+          "frame": 8,
+          "duration_ms": 360,
+          "root_x_native_pixels": 32
+        }
+      ],
+      "combined_source_frames_1_based": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        13,
+        14,
+        45,
+        46,
+        47,
+        48,
+        49,
+        53,
+        54,
+        55,
+        56,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        73,
+        74,
+        75,
+        76,
+        68,
+        69,
+        70,
+        71,
+        72,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96
+      ],
+      "duration_ms": 9660,
+      "loop": false,
+      "hold_final_pose": true,
+      "note": "Source holds only. The 15.26 second presentation adds 5600 ms of viewing pauses. Peck and look-around share the exact standing pose; retain source holds. Start-walk and walk-stop remain phase-specific."
+    },
+    "standing_walk_standing": {
+      "steps": [
+        {
+          "animation": "standing_to_walk",
+          "frame": 1,
+          "duration_ms": 120,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "standing_to_walk",
+          "frame": 2,
+          "duration_ms": 60,
+          "root_x_native_pixels": 0
+        },
+        {
+          "animation": "standing_to_walk",
+          "frame": 3,
+          "duration_ms": 60,
+          "root_x_native_pixels": 2
+        },
+        {
+          "animation": "standing_to_walk",
+          "frame": 4,
+          "duration_ms": 80,
+          "root_x_native_pixels": 3
+        },
+        {
+          "animation": "walk",
+          "frame": 4,
+          "duration_ms": 80,
+          "root_x_native_pixels": 5
+        },
+        {
+          "animation": "walk",
+          "frame": 5,
+          "duration_ms": 80,
+          "root_x_native_pixels": 7
+        },
+        {
+          "animation": "walk",
+          "frame": 6,
+          "duration_ms": 80,
+          "root_x_native_pixels": 9
+        },
+        {
+          "animation": "walk",
+          "frame": 7,
+          "duration_ms": 80,
+          "root_x_native_pixels": 11
+        },
+        {
+          "animation": "walk",
+          "frame": 8,
+          "duration_ms": 80,
+          "root_x_native_pixels": 13
+        },
+        {
+          "animation": "walk",
+          "frame": 1,
+          "duration_ms": 80,
+          "root_x_native_pixels": 15
+        },
+        {
+          "animation": "walk",
+          "frame": 2,
+          "duration_ms": 80,
+          "root_x_native_pixels": 17
+        },
+        {
+          "animation": "walk",
+          "frame": 3,
+          "duration_ms": 80,
+          "root_x_native_pixels": 19
+        },
+        {
+          "animation": "walk",
+          "frame": 4,
+          "duration_ms": 80,
+          "root_x_native_pixels": 21
+        },
+        {
+          "animation": "walk",
+          "frame": 5,
+          "duration_ms": 80,
+          "root_x_native_pixels": 23
+        },
+        {
+          "animation": "walk",
+          "frame": 6,
+          "duration_ms": 80,
+          "root_x_native_pixels": 25
+        },
+        {
+          "animation": "walk",
+          "frame": 7,
+          "duration_ms": 80,
+          "root_x_native_pixels": 27
+        },
+        {
+          "animation": "walk",
+          "frame": 8,
+          "duration_ms": 80,
+          "root_x_native_pixels": 29
+        },
+        {
+          "animation": "walk_to_standing",
+          "frame": 1,
+          "duration_ms": 80,
+          "root_x_native_pixels": 31
+        },
+        {
+          "animation": "walk_to_standing",
+          "frame": 2,
+          "duration_ms": 60,
+          "root_x_native_pixels": 32
+        },
+        {
+          "animation": "walk_to_standing",
+          "frame": 3,
+          "duration_ms": 100,
+          "root_x_native_pixels": 32
+        },
+        {
+          "animation": "walk_to_standing",
+          "frame": 4,
+          "duration_ms": 180,
+          "root_x_native_pixels": 32
+        }
+      ],
+      "combined_source_frames_1_based": [
+        73,
+        74,
+        75,
+        76,
+        68,
+        69,
+        70,
+        71,
+        72,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        77,
+        78,
+        79,
+        80
+      ],
+      "duration_ms": 1780,
+      "forward_travel_native_pixels": 32,
+      "loop": false,
+      "hold_final_pose": true,
+      "instruction": "The start supplies walk frame 3; continue at frame 4. The stop supplies walk frame 1 at the stop branch. This sample includes a complete stride plus phase alignment. Hold the final standing pose."
+    }
+  }
+}
