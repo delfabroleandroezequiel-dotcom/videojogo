@@ -27,7 +27,6 @@
 [ext_resource type="PackedScene" path="res://scenes/world/SpiderBoss.tscn" id="29_d7d5u"]
 [ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="30_ladder"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/OrcEnemy.tscn" id="31_orc"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/RatEnemy.tscn" id="32_rat"]
 [ext_resource type="PackedScene" path="res://scenes/world/MushroomEnemy.tscn" id="33_mushroom"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yabpa"]
@@ -322,14 +321,6 @@ position = Vector2(3782.929, 1717.3953)
 
 [node name="Orc4" parent="." unique_id=2142848049 instance=ExtResource("31_orc")]
 position = Vector2(1463.3258, 1445.0063)
-
-[node name="Rat1" parent="." unique_id=910442232 instance=ExtResource("32_rat")]
-position = Vector2(1812.3259, 358.48822)
-LedgeCheckAheadX = 14.0
-
-[node name="Rat2" parent="." unique_id=1300367463 instance=ExtResource("32_rat")]
-position = Vector2(2724.5186, 635.496)
-LedgeCheckAheadX = 14.0
 
 [node name="Mushroom1" parent="." unique_id=910442233 instance=ExtResource("33_mushroom")]
 position = Vector2(1230, 1183)

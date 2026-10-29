@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="ladder"]
 [ext_resource type="PackedScene" path="res://scenes/world/Door.tscn" id="door"]
 [ext_resource type="PackedScene" path="res://scenes/world/Lever.tscn" id="lever"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/RatEnemy.tscn" id="rata"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/RataPlaga.tscn" id="rata_plaga"]
 
 [sub_resource type="RectangleShape2D" id="Rect_1420x40"]
@@ -181,12 +180,6 @@ position = Vector2(550, 0)
 position = Vector2(1420, -14)
 TravelOffset = Vector2(280, 140)
 TravelSpeed = 150
-
-[node name="Rata1" parent="Enemigos" instance=ExtResource("rata")]
-position = Vector2(900, -40)
-
-[node name="Rata2" parent="Enemigos" instance=ExtResource("rata")]
-position = Vector2(1100, -40)
 
 [node name="RataPlaga" parent="Enemigos" instance=ExtResource("rata_plaga")]
 position = Vector2(1950, 120)

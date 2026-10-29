@@ -2,16 +2,13 @@
 
 [ext_resource type="Script" uid="uid://djjjiyjgusf3x" path="res://scripts/shared/GameConfig.cs" id="1_script"]
 [ext_resource type="Script" uid="uid://bln1d8vkphwvv" path="res://scripts/achievements/AchievementTracker.cs" id="2_achievements"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SlimeEnemyRed.tscn" id="3_slime_red"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SlimeEnemyBlue.tscn" id="4_slime_blue"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SlimeEnemyGreen.tscn" id="5_slime_green"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BatEnemy.tscn" id="8_bat"]
 
 [node name="GameConfig" type="Node"]
 script = ExtResource("1_script")
 DefaultStartScenePath = "res://scenes/world/Mapas/Casa1.tscn"
 MainMenuScenePath = "res://scenes/ui/MainMenu.tscn"
-GroundEnemyPool = [ExtResource("3_slime_red"), ExtResource("4_slime_blue"), ExtResource("5_slime_green")]
+GroundEnemyPool = []
 FlyingEnemyPool = [ExtResource("8_bat")]
 
 [node name="Achievements" type="Node" parent="."]

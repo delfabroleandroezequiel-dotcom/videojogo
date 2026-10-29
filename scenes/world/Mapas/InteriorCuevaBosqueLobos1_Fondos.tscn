@@ -25,7 +25,6 @@
 [ext_resource type="Texture2D" uid="uid://b0qjlttage0ki" path="res://assets/sprites/deco/28906c33-0346-4437-a9b8-c56944a3da36.png" id="22_x0wdf"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniRampa.tscn" id="23_6dulm"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Puente.tscn" id="24_fy0lv"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/RatEnemy.tscn" id="24_oqhyp"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniCorridor.tscn" id="24_vfppi"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ArrowTrapAccordion.tscn" id="26_a00a3"]
 [ext_resource type="Texture2D" uid="uid://bnngqj6wi6uwm" path="res://assets/sprites/deco/ChatGPT Image 13 jul 2026, 09_00_27.png" id="26_oqhyp"]
@@ -8549,18 +8548,6 @@ position = Vector2(844.18994, -52.479126)
 
 [node name="BatEnemy4" parent="Enemigos" unique_id=2120544540 instance=ExtResource("20_nga76")]
 position = Vector2(1250.5898, -77.27908)
-
-[node name="RatEnemy" parent="Enemigos" unique_id=701747239 instance=ExtResource("24_oqhyp")]
-position = Vector2(425.37128, 1450.0165)
-
-[node name="RatEnemy2" parent="Enemigos" unique_id=1091422100 instance=ExtResource("24_oqhyp")]
-position = Vector2(817.75024, 1287.2083)
-
-[node name="RatEnemy5" parent="Enemigos" unique_id=549869007 instance=ExtResource("24_oqhyp")]
-position = Vector2(891.5408, 1411.3643)
-
-[node name="RatEnemy6" parent="Enemigos" unique_id=1512941188 instance=ExtResource("24_oqhyp")]
-position = Vector2(704.1359, 1420.7344)
 
 [node name="ArrowTrapAccordion" parent="." unique_id=643826944 instance=ExtResource("26_a00a3")]
 position = Vector2(-139.98294, 90.5076)

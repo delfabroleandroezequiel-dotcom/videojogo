@@ -7,8 +7,6 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="ladder"]
 [ext_resource type="PackedScene" path="res://scenes/world/SavePoint.tscn" id="savepoint"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/MurcielagoChico.tscn" id="murcielago"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/RatEnemy.tscn" id="rata"]
-
 [sub_resource type="RectangleShape2D" id="R_40x360"]
 size = Vector2(40, 360)
 
@@ -140,12 +138,6 @@ polygon = PackedVector2Array(1236, 400, 1364, 336, 1364, 400, 1236, 400)
 [node name="TerrazaCima" type="CollisionShape2D" parent="Colisiones"]
 position = Vector2(1502, 368)
 shape = SubResource("R_276x64")
-
-[node name="Rata" parent="Enemigos" instance=ExtResource("rata")]
-position = Vector2(800, 264)
-
-[node name="Rata2" parent="Enemigos" instance=ExtResource("rata")]
-position = Vector2(1500, 296)
 
 [node name="Murcielago" parent="Enemigos" instance=ExtResource("murcielago")]
 position = Vector2(1400, 120)

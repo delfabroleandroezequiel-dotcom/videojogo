@@ -98,54 +98,50 @@
 [ext_resource type="SpriteFrames" path="res://resources/sprites/BlacksmithNpcSSWSpriteFrames.tres" id="r92"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/OrcEnemy.tscn" id="r93"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BatEnemy.tscn" id="r94"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/RatEnemy.tscn" id="r95"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SlimeEnemyBlue.tscn" id="r96"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SlimeEnemyGreen.tscn" id="r97"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SlimeEnemyRed.tscn" id="r98"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemy.tscn" id="r99"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemyDark.tscn" id="r100"]
-[ext_resource type="PackedScene" path="res://scenes/world/MosquitoEnemy.tscn" id="r101"]
-[ext_resource type="PackedScene" path="res://scenes/world/MushroomEnemy.tscn" id="r102"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Hornet.tscn" id="r103"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/MurcielagoChico.tscn" id="r104"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterMimicSpriteFrames.tres" id="r105"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterRatSpriteFrames.tres" id="r106"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterSlimeSpriteFrames.tres" id="r107"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/MonstruoFantasia1ASpriteFrames.tres" id="r108"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/MonstruoFantasia2ASpriteFrames.tres" id="r109"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/MonstruoFantasia3ASpriteFrames.tres" id="r110"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/MonstruoFantasia4ASpriteFrames.tres" id="r111"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/MonstruoFantasia5ASpriteFrames.tres" id="r112"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueEscarabajoSpriteFrames.tres" id="r113"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueLimoSpriteFrames.tres" id="r114"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueGusanoSpriteFrames.tres" id="r115"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueAbejorroSpriteFrames.tres" id="r116"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueHongoMoradoSpriteFrames.tres" id="r117"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueHongoEspinosoSpriteFrames.tres" id="r118"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueOjoTalloSpriteFrames.tres" id="r119"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueHongoFantasmaSpriteFrames.tres" id="r120"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/CthuluSpriteFrames.tres" id="r121"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/GiantOgreRedSpriteFrames.tres" id="r122"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/AkitaSpriteFrames.tres" id="r123"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/DalmatianSpriteFrames.tres" id="r124"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/DogSpriteFrames.tres" id="r125"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/GoldenRetrieverSpriteFrames.tres" id="r126"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/GreatDaneSpriteFrames.tres" id="r127"]
-[ext_resource type="PackedScene" path="res://scenes/world/SkeletonKingBoss.tscn" id="r128"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/MushroomBoss.tscn" id="r129"]
-[ext_resource type="PackedScene" path="res://scenes/world/SpiderBoss.tscn" id="r130"]
-[ext_resource type="PackedScene" path="res://scenes/world/BossLobo.tscn" id="r131"]
-[ext_resource type="PackedScene" path="res://scenes/world/Boss.tscn" id="r132"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemys/LargeSkullBoss.tscn" id="r133"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemys/MountainEyeBoss.tscn" id="r134"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Lugia.tscn" id="r135"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/LugiaVerde.tscn" id="r136"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/SaintBernardSpriteFrames.tres" id="r137"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/SchnauzerSpriteFrames.tres" id="r138"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/SiberianHuskySpriteFrames.tres" id="r139"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/CatOrangeSpriteFrames.tres" id="r140"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/CatWhiteSpriteFrames.tres" id="r141"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/GiantOgreBlueSpriteFrames.tres" id="r142"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemy.tscn" id="r95"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemyDark.tscn" id="r96"]
+[ext_resource type="PackedScene" path="res://scenes/world/MosquitoEnemy.tscn" id="r97"]
+[ext_resource type="PackedScene" path="res://scenes/world/MushroomEnemy.tscn" id="r98"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Hornet.tscn" id="r99"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/MurcielagoChico.tscn" id="r100"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterMimicSpriteFrames.tres" id="r101"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterRatSpriteFrames.tres" id="r102"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MonsterSlimeSpriteFrames.tres" id="r103"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MonstruoFantasia1ASpriteFrames.tres" id="r104"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MonstruoFantasia2ASpriteFrames.tres" id="r105"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MonstruoFantasia3ASpriteFrames.tres" id="r106"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MonstruoFantasia4ASpriteFrames.tres" id="r107"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MonstruoFantasia5ASpriteFrames.tres" id="r108"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueEscarabajoSpriteFrames.tres" id="r109"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueLimoSpriteFrames.tres" id="r110"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueGusanoSpriteFrames.tres" id="r111"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueAbejorroSpriteFrames.tres" id="r112"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueHongoMoradoSpriteFrames.tres" id="r113"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueHongoEspinosoSpriteFrames.tres" id="r114"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueOjoTalloSpriteFrames.tres" id="r115"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/BosqueHongoFantasmaSpriteFrames.tres" id="r116"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/CthuluSpriteFrames.tres" id="r117"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/AkitaSpriteFrames.tres" id="r118"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/DalmatianSpriteFrames.tres" id="r119"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/DogSpriteFrames.tres" id="r120"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/GiantOgreRedSpriteFrames.tres" id="r121"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/GoldenRetrieverSpriteFrames.tres" id="r122"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/GreatDaneSpriteFrames.tres" id="r123"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/SaintBernardSpriteFrames.tres" id="r124"]
+[ext_resource type="PackedScene" path="res://scenes/world/SkeletonKingBoss.tscn" id="r125"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/MushroomBoss.tscn" id="r126"]
+[ext_resource type="PackedScene" path="res://scenes/world/SpiderBoss.tscn" id="r127"]
+[ext_resource type="PackedScene" path="res://scenes/world/BossLobo.tscn" id="r128"]
+[ext_resource type="PackedScene" path="res://scenes/world/Boss.tscn" id="r129"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemys/LargeSkullBoss.tscn" id="r130"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemys/MountainEyeBoss.tscn" id="r131"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Lugia.tscn" id="r132"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/LugiaVerde.tscn" id="r133"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/SchnauzerSpriteFrames.tres" id="r134"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/SiberianHuskySpriteFrames.tres" id="r135"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/CatOrangeSpriteFrames.tres" id="r136"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/CatWhiteSpriteFrames.tres" id="r137"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/GiantOgreBlueSpriteFrames.tres" id="r138"]
 
 [sub_resource type="RectangleShape2D" id="ground_shape"]
 size = Vector2(3548.0, 80)
@@ -866,180 +862,175 @@ Mirror = true
 
 [node name="Row5" type="Node2D" parent="Figures"]
 
-[node name="RatEnemy" type="Node2D" parent="Figures/Row5"]
-position = Vector2(537.2, 1394.0)
+[node name="SpiderEnemy" type="Node2D" parent="Figures/Row5"]
+position = Vector2(587.6, 1394.0)
 script = ExtResource("slot")
 Source = ExtResource("r95")
 FigureScale = 1.5000
 
-[node name="SlimeEnemyBlue" type="Node2D" parent="Figures/Row5"]
-position = Vector2(603.2, 1394.0)
+[node name="SpiderEnemyDark" type="Node2D" parent="Figures/Row5"]
+position = Vector2(755.2, 1394.0)
 script = ExtResource("slot")
 Source = ExtResource("r96")
 FigureScale = 1.5000
 
-[node name="SlimeEnemyGreen" type="Node2D" parent="Figures/Row5"]
-position = Vector2(669.0, 1394.0)
+[node name="MosquitoEnemy" type="Node2D" parent="Figures/Row5"]
+position = Vector2(856.0, 1394.0)
 script = ExtResource("slot")
 Source = ExtResource("r97")
 FigureScale = 1.5000
 
-[node name="SlimeEnemyRed" type="Node2D" parent="Figures/Row5"]
-position = Vector2(734.8, 1394.0)
+[node name="MushroomEnemy" type="Node2D" parent="Figures/Row5"]
+position = Vector2(898.6, 1394.0)
 script = ExtResource("slot")
 Source = ExtResource("r98")
 FigureScale = 1.5000
 
-[node name="SpiderEnemy" type="Node2D" parent="Figures/Row5"]
-position = Vector2(851.3, 1394.0)
+[node name="Hornet" type="Node2D" parent="Figures/Row5"]
+position = Vector2(975.6, 1394.0)
 script = ExtResource("slot")
 Source = ExtResource("r99")
 FigureScale = 1.5000
 
-[node name="SpiderEnemyDark" type="Node2D" parent="Figures/Row5"]
-position = Vector2(1018.3, 1394.0)
+[node name="MurcielagoChico" type="Node2D" parent="Figures/Row5"]
+position = Vector2(1060.7, 1394.0)
 script = ExtResource("slot")
 Source = ExtResource("r100")
 FigureScale = 1.5000
 
-[node name="MosquitoEnemy" type="Node2D" parent="Figures/Row5"]
-position = Vector2(1118.5, 1394.0)
-script = ExtResource("slot")
-Source = ExtResource("r101")
-FigureScale = 1.5000
-
-[node name="MushroomEnemy" type="Node2D" parent="Figures/Row5"]
-position = Vector2(1160.6, 1394.0)
-script = ExtResource("slot")
-Source = ExtResource("r102")
-FigureScale = 1.5000
-
-[node name="Hornet" type="Node2D" parent="Figures/Row5"]
-position = Vector2(1237.1, 1394.0)
-script = ExtResource("slot")
-Source = ExtResource("r103")
-FigureScale = 1.5000
-
-[node name="MurcielagoChico" type="Node2D" parent="Figures/Row5"]
-position = Vector2(1321.7, 1394.0)
-script = ExtResource("slot")
-Source = ExtResource("r104")
-FigureScale = 1.5000
-
 [node name="MonsterMimic" type="Node2D" parent="Figures/Row5"]
-position = Vector2(1409.5, 1394.0)
+position = Vector2(1149.0, 1394.0)
 script = ExtResource("slot")
-Frames = ExtResource("r105")
+Frames = ExtResource("r101")
 FigureScale = 2.2500
 Animation = "idle_transformed"
 
 [node name="MonsterRat" type="Node2D" parent="Figures/Row5"]
-position = Vector2(1514.6, 1394.0)
+position = Vector2(1254.8, 1394.0)
 script = ExtResource("slot")
-Frames = ExtResource("r106")
+Frames = ExtResource("r102")
 FigureScale = 2.2500
 
 [node name="MonsterSlime" type="Node2D" parent="Figures/Row5"]
-position = Vector2(1620.9, 1394.0)
+position = Vector2(1361.6, 1394.0)
 script = ExtResource("slot")
-Frames = ExtResource("r107")
+Frames = ExtResource("r103")
 FigureScale = 2.2500
 
 [node name="MonstruoFantasia1A" type="Node2D" parent="Figures/Row5"]
-position = Vector2(1731.7, 1394.0)
+position = Vector2(1472.9, 1394.0)
 script = ExtResource("slot")
-Frames = ExtResource("r108")
+Frames = ExtResource("r104")
 FigureScale = 3.0000
 
 [node name="MonstruoFantasia2A" type="Node2D" parent="Figures/Row5"]
-position = Vector2(1859.0, 1394.0)
+position = Vector2(1600.7, 1394.0)
 script = ExtResource("slot")
-Frames = ExtResource("r109")
+Frames = ExtResource("r105")
 FigureScale = 3.0000
-Mirror = true
 
 [node name="MonstruoFantasia3A" type="Node2D" parent="Figures/Row5"]
-position = Vector2(1981.8, 1394.0)
+position = Vector2(1724.1, 1394.0)
 script = ExtResource("slot")
-Frames = ExtResource("r110")
+Frames = ExtResource("r106")
 FigureScale = 3.0000
-Mirror = true
 
 [node name="MonstruoFantasia4A" type="Node2D" parent="Figures/Row5"]
-position = Vector2(2101.6, 1394.0)
+position = Vector2(1844.4, 1394.0)
 script = ExtResource("slot")
-Frames = ExtResource("r111")
+Frames = ExtResource("r107")
 FigureScale = 3.0000
 Mirror = true
 
 [node name="MonstruoFantasia5A" type="Node2D" parent="Figures/Row5"]
-position = Vector2(2240.9, 1394.0)
+position = Vector2(1984.2, 1394.0)
 script = ExtResource("slot")
-Frames = ExtResource("r112")
+Frames = ExtResource("r108")
 FigureScale = 3.0000
 Mirror = true
 
 [node name="BosqueEscarabajo" type="Node2D" parent="Figures/Row5"]
-position = Vector2(2349.8, 1394.0)
+position = Vector2(2093.6, 1394.0)
+script = ExtResource("slot")
+Frames = ExtResource("r109")
+FigureScale = 2.1000
+Mirror = true
+
+[node name="BosqueLimo" type="Node2D" parent="Figures/Row5"]
+position = Vector2(2181.6, 1394.0)
+script = ExtResource("slot")
+Frames = ExtResource("r110")
+FigureScale = 2.1000
+Mirror = true
+
+[node name="BosqueGusano" type="Node2D" parent="Figures/Row5"]
+position = Vector2(2289.4, 1394.0)
+script = ExtResource("slot")
+Frames = ExtResource("r111")
+FigureScale = 2.1000
+Mirror = true
+
+[node name="BosqueAbejorro" type="Node2D" parent="Figures/Row5"]
+position = Vector2(2378.4, 1394.0)
+script = ExtResource("slot")
+Frames = ExtResource("r112")
+FigureScale = 2.1000
+Mirror = true
+
+[node name="BosqueHongoMorado" type="Node2D" parent="Figures/Row5"]
+position = Vector2(2433.8, 1394.0)
 script = ExtResource("slot")
 Frames = ExtResource("r113")
 FigureScale = 2.1000
 Mirror = true
 
-[node name="BosqueLimo" type="Node2D" parent="Figures/Row5"]
-position = Vector2(2437.2, 1394.0)
+[node name="BosqueHongoEspinoso" type="Node2D" parent="Figures/Row5"]
+position = Vector2(2506.0, 1394.0)
 script = ExtResource("slot")
 Frames = ExtResource("r114")
 FigureScale = 2.1000
 Mirror = true
 
-[node name="BosqueGusano" type="Node2D" parent="Figures/Row5"]
-position = Vector2(2544.5, 1394.0)
+[node name="BosqueOjoTallo" type="Node2D" parent="Figures/Row5"]
+position = Vector2(2579.2, 1394.0)
 script = ExtResource("slot")
 Frames = ExtResource("r115")
 FigureScale = 2.1000
 Mirror = true
 
-[node name="BosqueAbejorro" type="Node2D" parent="Figures/Row5"]
-position = Vector2(2633.0, 1394.0)
+[node name="BosqueHongoFantasma" type="Node2D" parent="Figures/Row5"]
+position = Vector2(2635.7, 1394.0)
 script = ExtResource("slot")
 Frames = ExtResource("r116")
 FigureScale = 2.1000
 Mirror = true
 
-[node name="BosqueHongoMorado" type="Node2D" parent="Figures/Row5"]
-position = Vector2(2687.8, 1394.0)
+[node name="Cthulu" type="Node2D" parent="Figures/Row5"]
+position = Vector2(2735.1, 1394.0)
 script = ExtResource("slot")
 Frames = ExtResource("r117")
 FigureScale = 2.1000
 Mirror = true
 
-[node name="BosqueHongoEspinoso" type="Node2D" parent="Figures/Row5"]
-position = Vector2(2759.5, 1394.0)
+[node name="Akita" type="Node2D" parent="Figures/Row5"]
+position = Vector2(2839.0, 1394.0)
 script = ExtResource("slot")
 Frames = ExtResource("r118")
-FigureScale = 2.1000
+FigureScale = 3.0000
 Mirror = true
 
-[node name="BosqueOjoTallo" type="Node2D" parent="Figures/Row5"]
-position = Vector2(2832.2, 1394.0)
+[node name="Dalmatian" type="Node2D" parent="Figures/Row5"]
+position = Vector2(2923.7, 1394.0)
 script = ExtResource("slot")
 Frames = ExtResource("r119")
-FigureScale = 2.1000
+FigureScale = 2.2500
 Mirror = true
 
-[node name="BosqueHongoFantasma" type="Node2D" parent="Figures/Row5"]
-position = Vector2(2888.1, 1394.0)
+[node name="Dog" type="Node2D" parent="Figures/Row5"]
+position = Vector2(3014.9, 1394.0)
 script = ExtResource("slot")
 Frames = ExtResource("r120")
-FigureScale = 2.1000
-Mirror = true
-
-[node name="Cthulu" type="Node2D" parent="Figures/Row5"]
-position = Vector2(2987.0, 1394.0)
-script = ExtResource("slot")
-Frames = ExtResource("r121")
-FigureScale = 2.1000
+FigureScale = 2.6969
 Mirror = true
 
 [node name="Row6" type="Node2D" parent="Figures"]
@@ -1047,129 +1038,110 @@ Mirror = true
 [node name="GiantOgreRed" type="Node2D" parent="Figures/Row6"]
 position = Vector2(167.4, 1564.0)
 script = ExtResource("slot")
-Frames = ExtResource("r122")
+Frames = ExtResource("r121")
 FigureScale = 0.3296
 
-[node name="Akita" type="Node2D" parent="Figures/Row6"]
-position = Vector2(325.8, 1564.0)
+[node name="GoldenRetriever" type="Node2D" parent="Figures/Row6"]
+position = Vector2(363.5, 1564.0)
+script = ExtResource("slot")
+Frames = ExtResource("r122")
+FigureScale = 3.0000
+
+[node name="GreatDane" type="Node2D" parent="Figures/Row6"]
+position = Vector2(510.5, 1564.0)
 script = ExtResource("slot")
 Frames = ExtResource("r123")
 FigureScale = 3.0000
 
-[node name="Dalmatian" type="Node2D" parent="Figures/Row6"]
-position = Vector2(420.7, 1564.0)
+[node name="SaintBernard" type="Node2D" parent="Figures/Row6"]
+position = Vector2(672.6, 1564.0)
 script = ExtResource("slot")
 Frames = ExtResource("r124")
-FigureScale = 2.2500
-
-[node name="Dog" type="Node2D" parent="Figures/Row6"]
-position = Vector2(522.1, 1564.0)
-script = ExtResource("slot")
-Frames = ExtResource("r125")
-FigureScale = 2.6969
-
-[node name="GoldenRetriever" type="Node2D" parent="Figures/Row6"]
-position = Vector2(629.1, 1564.0)
-script = ExtResource("slot")
-Frames = ExtResource("r126")
-FigureScale = 3.0000
-
-[node name="GreatDane" type="Node2D" parent="Figures/Row6"]
-position = Vector2(759.6, 1564.0)
-script = ExtResource("slot")
-Frames = ExtResource("r127")
 FigureScale = 3.0000
 
 [node name="SkeletonKingBoss" type="Node2D" parent="Figures/Row6"]
-position = Vector2(964.8, 1564.0)
+position = Vector2(900.4, 1564.0)
 script = ExtResource("slot")
-Source = ExtResource("r128")
+Source = ExtResource("r125")
 FigureScale = 0.5946
 
 [node name="MushroomBoss" type="Node2D" parent="Figures/Row6"]
-position = Vector2(1147.5, 1564.0)
+position = Vector2(1099.8, 1564.0)
 script = ExtResource("slot")
-Source = ExtResource("r129")
+Source = ExtResource("r126")
 
 [node name="SpiderBoss" type="Node2D" parent="Figures/Row6"]
-position = Vector2(1395.7, 1564.0)
+position = Vector2(1364.6, 1564.0)
 script = ExtResource("slot")
-Source = ExtResource("r130")
+Source = ExtResource("r127")
 
 [node name="BossLobo" type="Node2D" parent="Figures/Row6"]
-position = Vector2(1669.2, 1564.0)
+position = Vector2(1654.6, 1564.0)
 script = ExtResource("slot")
-Source = ExtResource("r131")
+Source = ExtResource("r128")
 
 [node name="Boss" type="Node2D" parent="Figures/Row6"]
-position = Vector2(1820.3, 1564.0)
+position = Vector2(1822.3, 1564.0)
+script = ExtResource("slot")
+Source = ExtResource("r129")
+Mirror = true
+
+[node name="LargeSkullBoss" type="Node2D" parent="Figures/Row6"]
+position = Vector2(1977.8, 1564.0)
+script = ExtResource("slot")
+Source = ExtResource("r130")
+Mirror = true
+
+[node name="MountainEyeBoss" type="Node2D" parent="Figures/Row6"]
+position = Vector2(2194.7, 1564.0)
+script = ExtResource("slot")
+Source = ExtResource("r131")
+Mirror = true
+
+[node name="Lugia" type="Node2D" parent="Figures/Row6"]
+position = Vector2(2454.2, 1564.0)
 script = ExtResource("slot")
 Source = ExtResource("r132")
 Mirror = true
 
-[node name="LargeSkullBoss" type="Node2D" parent="Figures/Row6"]
-position = Vector2(1959.1, 1564.0)
+[node name="LugiaVerde" type="Node2D" parent="Figures/Row6"]
+position = Vector2(2676.3, 1564.0)
 script = ExtResource("slot")
 Source = ExtResource("r133")
 Mirror = true
 
-[node name="MountainEyeBoss" type="Node2D" parent="Figures/Row6"]
-position = Vector2(2159.4, 1564.0)
-script = ExtResource("slot")
-Source = ExtResource("r134")
-Mirror = true
-
-[node name="Lugia" type="Node2D" parent="Figures/Row6"]
-position = Vector2(2402.4, 1564.0)
-script = ExtResource("slot")
-Source = ExtResource("r135")
-Mirror = true
-
-[node name="LugiaVerde" type="Node2D" parent="Figures/Row6"]
-position = Vector2(2607.8, 1564.0)
-script = ExtResource("slot")
-Source = ExtResource("r136")
-Mirror = true
-
-[node name="SaintBernard" type="Node2D" parent="Figures/Row6"]
-position = Vector2(2786.3, 1564.0)
-script = ExtResource("slot")
-Frames = ExtResource("r137")
-FigureScale = 3.0000
-Mirror = true
-
 [node name="Schnauzer" type="Node2D" parent="Figures/Row6"]
-position = Vector2(2913.8, 1564.0)
+position = Vector2(2847.4, 1564.0)
 script = ExtResource("slot")
-Frames = ExtResource("r138")
+Frames = ExtResource("r134")
 FigureScale = 3.0000
 Mirror = true
 
 [node name="SiberianHusky" type="Node2D" parent="Figures/Row6"]
-position = Vector2(3026.2, 1564.0)
+position = Vector2(2976.4, 1564.0)
 script = ExtResource("slot")
-Frames = ExtResource("r139")
+Frames = ExtResource("r135")
 FigureScale = 3.0000
 Mirror = true
 
 [node name="CatOrange" type="Node2D" parent="Figures/Row6"]
-position = Vector2(3131.2, 1564.0)
+position = Vector2(3098.0, 1564.0)
 script = ExtResource("slot")
-Frames = ExtResource("r140")
+Frames = ExtResource("r136")
 FigureScale = 3.0000
 Mirror = true
 
 [node name="CatWhite" type="Node2D" parent="Figures/Row6"]
-position = Vector2(3219.7, 1564.0)
+position = Vector2(3203.0, 1564.0)
 script = ExtResource("slot")
-Frames = ExtResource("r141")
+Frames = ExtResource("r137")
 FigureScale = 3.0000
 Mirror = true
 
 [node name="GiantOgreBlue" type="Node2D" parent="Figures/Row6"]
 position = Vector2(3382.6, 1564.0)
 script = ExtResource("slot")
-Frames = ExtResource("r142")
+Frames = ExtResource("r138")
 FigureScale = 0.3296
 Mirror = true
 

@@ -1,9 +1,6 @@
 [gd_scene format=3 uid="uid://brf8pcssvhum7"]
 
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SlimeEnemyRed.tscn" id="4_slime_red"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SlimeEnemyBlue.tscn" id="5_slime_blue"]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(3000, 60)
 
@@ -18,10 +15,3 @@ shape = SubResource("RectangleShape2D_floor")
 [node name="Player" parent="." unique_id=1137243195 instance=ExtResource("1_player")]
 position = Vector2(-1200, 353)
 
-[node name="SlimeRed1" parent="." unique_id=1568606173 instance=ExtResource("4_slime_red")]
-position = Vector2(-250, 390)
-CustomPersistenceId = "combat_test_slime_red_1"
-
-[node name="SlimeBlue1" parent="." unique_id=1568606176 instance=ExtResource("5_slime_blue")]
-position = Vector2(650, 390)
-CustomPersistenceId = "combat_test_slime_blue_1"

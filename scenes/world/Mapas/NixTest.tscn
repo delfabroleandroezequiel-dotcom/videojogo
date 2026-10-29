@@ -83,10 +83,6 @@
 [ext_resource type="SpriteFrames" uid="uid://bsn1smcu554j0" path="res://resources/sprites/HoodedKnightSpriteFrames.tres" id="90_hoodedknight"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BatEnemy.tscn" id="91_enemybat"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/OrcEnemy.tscn" id="92_enemyorc"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/RatEnemy.tscn" id="93_enemyrat"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SlimeEnemyBlue.tscn" id="94_enemyslimeblue"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SlimeEnemyGreen.tscn" id="95_enemyslimegreen"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SlimeEnemyRed.tscn" id="96_enemyslimered"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemy.tscn" id="97_enemyspider"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemyDark.tscn" id="98_enemyspiderdark"]
 [ext_resource type="PackedScene" path="res://scenes/world/MosquitoEnemy.tscn" id="101_enemymosquito"]
@@ -13048,18 +13044,6 @@ position = Vector2(200, 430)
 
 [node name="EnemyOrc" parent="." instance=ExtResource("92_enemyorc")]
 position = Vector2(350, 430)
-
-[node name="EnemyRat" parent="." instance=ExtResource("93_enemyrat")]
-position = Vector2(500, 430)
-
-[node name="EnemySlimeBlue" parent="." instance=ExtResource("94_enemyslimeblue")]
-position = Vector2(650, 430)
-
-[node name="EnemySlimeGreen" parent="." instance=ExtResource("95_enemyslimegreen")]
-position = Vector2(800, 430)
-
-[node name="EnemySlimeRed" parent="." instance=ExtResource("96_enemyslimered")]
-position = Vector2(950, 430)
 
 [node name="EnemySpider" parent="." instance=ExtResource("97_enemyspider")]
 position = Vector2(1100, 430)

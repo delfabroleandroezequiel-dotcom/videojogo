@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PlacaDePresion.tscn" id="placa"]
 [ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="transition"]
 [ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="ladder"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/RatEnemy.tscn" id="rata"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/RataPlaga.tscn" id="rata_plaga"]
 
 [sub_resource type="RectangleShape2D" id="Rect_1720x40"]
@@ -200,9 +199,6 @@ position = Vector2(1300, -40)
 
 [node name="RataPlaga2" parent="Enemigos" instance=ExtResource("rata_plaga")]
 position = Vector2(1420, -40)
-
-[node name="Rata" parent="Enemigos" instance=ExtResource("rata")]
-position = Vector2(2360, -40)
 
 [node name="PlacaFlechas" parent="Trampas" instance=ExtResource("placa")]
 position = Vector2(2440, 0)

@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="ladder"]
 [ext_resource type="PackedScene" path="res://scenes/world/Door.tscn" id="door"]
 [ext_resource type="PackedScene" path="res://scenes/world/Lever.tscn" id="lever"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/RatEnemy.tscn" id="rata"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/MurcielagoChico.tscn" id="murcielago_chico"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/EsqueletoBallestero.tscn" id="esqueleto_ballestero"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/EsqueletoEspadachin.tscn" id="esqueleto_espadachin"]
@@ -199,12 +198,6 @@ SingleUse = true
 
 [node name="Santuario" parent="." instance=ExtResource("savepoint")]
 position = Vector2(1200, 960)
-
-[node name="Rata1" parent="Enemigos" instance=ExtResource("rata")]
-position = Vector2(500, 160)
-
-[node name="Rata2" parent="Enemigos" instance=ExtResource("rata")]
-position = Vector2(650, 85)
 
 [node name="EspadachinRellanoB" parent="Enemigos" instance=ExtResource("esqueleto_espadachin")]
 position = Vector2(130, 440)
