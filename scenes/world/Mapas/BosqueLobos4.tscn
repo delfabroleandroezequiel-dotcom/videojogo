@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://74874siup48v" path="res://assets/external/Fondos/village/_PNG/MainLevBuild.png" id="12_4q70c"]
 [ext_resource type="PackedScene" path="res://scenes/world/NpcAmbiente/LeonBarmanGigante.tscn" id="13_sfqqo"]
 [ext_resource type="PackedScene" path="res://scenes/world/NpcAmbiente/MujerCaraGigante.tscn" id="14_bcuqf"]
+[ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="91_parallaxfollow"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1774, 56)
@@ -3764,6 +3765,10 @@ ForceWeatherIndex = -1
 
 [node name="Background" type="Node2D" parent="." unique_id=106571058]
 z_index = -10
+position = Vector2(-139, 0)
+script = ExtResource("91_parallaxfollow")
+ParallaxFactor = Vector2(0.15, 0)
+FollowCamera = true
 
 [node name="BgTile1" type="Sprite2D" parent="Background" unique_id=1316625130]
 position = Vector2(887, 0)

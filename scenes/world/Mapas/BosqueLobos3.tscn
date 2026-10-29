@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/ElfSwordsman.tscn" id="15_aysyu"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/ElfSpearman.tscn" id="16_b3t1g"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/ElfMage.tscn" id="17_41wgy"]
+[ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="91_parallaxfollow"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1774, 65)
@@ -3767,6 +3768,10 @@ ForceWeatherIndex = -1
 
 [node name="Background" type="Node2D" parent="." unique_id=1683787470]
 z_index = -10
+position = Vector2(-139, 0)
+script = ExtResource("91_parallaxfollow")
+ParallaxFactor = Vector2(0.15, 0)
+FollowCamera = true
 
 [node name="BgTile1" type="Sprite2D" parent="Background" unique_id=1371892743]
 position = Vector2(887, 0)
