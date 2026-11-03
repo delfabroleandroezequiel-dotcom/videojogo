@@ -73,6 +73,10 @@ public partial class CrumbleFloor : Area2D
 		set { _showFill = value; Rebuild(); }
 	}
 
+	// Optional child with the floor's own art (a sprite instead of a painted overlay): it shakes,
+	// hides and comes back together with the collision.
+	private const string ArtNodeName = "Arte";
+
 	private string _persistenceId;
 	private bool _triggered;
 
@@ -143,6 +147,7 @@ public partial class CrumbleFloor : Area2D
 	private async System.Threading.Tasks.Task HideAndRespawn()
 	{
 		var fill = GetNodeOrNull<Polygon2D>("Fill");
+		var art = GetNodeOrNull<Node2D>(ArtNodeName);
 		if (IsInstanceValid(OverlayLayer))
 		{
 			OverlayLayer.CollisionEnabled = false;
@@ -150,6 +155,8 @@ public partial class CrumbleFloor : Area2D
 		}
 		if (fill is not null)
 			fill.Visible = false;
+		if (art is not null)
+			art.Visible = false;
 
 		await ToSignal(GetTree().CreateTimer(RespawnDelay), SceneTreeTimer.SignalName.Timeout);
 		// Don't re-solidify inside the player: wait until it's out of the zone.
@@ -167,6 +174,8 @@ public partial class CrumbleFloor : Area2D
 		}
 		if (fill is not null)
 			fill.Visible = _showFill;
+		if (art is not null)
+			art.Visible = true;
 		_triggered = false;
 	}
 
@@ -198,6 +207,8 @@ public partial class CrumbleFloor : Area2D
 			ShakeNode(OverlayLayer, steps, step);
 		if (GetNodeOrNull<Polygon2D>("Fill") is Polygon2D fill)
 			ShakeNode(fill, steps, step);
+		if (GetNodeOrNull<Node2D>(ArtNodeName) is Node2D art)
+			ShakeNode(art, steps, step);
 	}
 
 	private void ShakeNode(Node2D node, int steps, float step)
