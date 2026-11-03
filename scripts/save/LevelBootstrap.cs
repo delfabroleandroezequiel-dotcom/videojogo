@@ -51,6 +51,7 @@ public partial class LevelBootstrap : Node
 		_player = GetNode<Player.Player>("Player");
 		ApplyCameraConfig();
 		AddChild(new LacquerLayer { Name = "CapaLaqueado", ScenePath = SceneFilePath });
+		DecoRocaViva.Apply(this);
 		_player.GetNode<CanvasLayer>("HUD").Visible = !HideHud;
 		_player.FreeElementCycle = FreeElementCycle;
 		_player.GetNode<Stats>("Stats").GodMode = PlayerGodMode;
