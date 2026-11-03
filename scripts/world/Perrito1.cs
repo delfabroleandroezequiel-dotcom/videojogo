@@ -23,6 +23,11 @@ public partial class Perrito1 : MeleeEnemy
 	[Export] public int AttackTelegraphFrame = 0;
 	[Export] public float LungeSpeed = 260f;
 	[Export] public float LungeDuration = 0.25f;
+	// The jaws only get out to the bite on frames 2-4 of attack1 (measured from the sheet), and the
+	// dog's body sits below its origin, so the hitbox waits for them and sits at mouth height.
+	[Export] public float BiteStartDelay = 2f / 14f;
+	[Export] public float BiteEndTime = 5f / 14f;
+	[Export] public float BiteHitboxY = 8f;
 
 	// Two-speed approach: trots over on noticing the player from afar, then breaks into a sprint
 	// once close enough that a charge actually reads as one. RunSpeed reuses the profile's
@@ -510,7 +515,7 @@ public partial class Perrito1 : MeleeEnemy
 			{
 				Sprite.Play("attack1");
 				_ribbonEmitting = true;
-				AttackHitbox.Position = new Vector2(FacingRight ? AttackHitboxReach : -AttackHitboxReach, 0);
+				AttackHitbox.Position = new Vector2(FacingRight ? AttackHitboxReach : -AttackHitboxReach, BiteHitboxY);
 				AttackHitbox.Activate(Stats);
 
 				float elapsed = 0f;
@@ -573,19 +578,26 @@ public partial class Perrito1 : MeleeEnemy
 		_isLunging = true;
 		_ribbonEmitting = true;
 
-		AttackHitbox.Position = new Vector2(FacingRight ? AttackHitboxReach : -AttackHitboxReach, 0);
-		AttackHitbox.Activate(Stats);
-
 		try
 		{
-			await ToSignal(GetTree().CreateTimer(LungeDuration), SceneTreeTimer.SignalName.Timeout);
+			await ToSignal(GetTree().CreateTimer(BiteStartDelay), SceneTreeTimer.SignalName.Timeout);
+			if (!IsInstanceValid(this) || IsQueuedForRemoval)
+				return;
+			AttackHitbox.Position = new Vector2(FacingRight ? AttackHitboxReach : -AttackHitboxReach, BiteHitboxY);
+			AttackHitbox.Activate(Stats);
+
+			await ToSignal(GetTree().CreateTimer(Mathf.Max(0f, LungeDuration - BiteStartDelay)), SceneTreeTimer.SignalName.Timeout);
 			if (!IsInstanceValid(this) || IsQueuedForRemoval)
 				return;
 			_isLunging = false;
 			_ribbonEmitting = false;
+
+			await ToSignal(GetTree().CreateTimer(Mathf.Max(0f, BiteEndTime - LungeDuration)), SceneTreeTimer.SignalName.Timeout);
+			if (!IsInstanceValid(this) || IsQueuedForRemoval)
+				return;
 			AttackHitbox.Deactivate();
 
-			float remainingAnimTime = Mathf.Max(0f, AttackAnimDuration - windup - LungeDuration);
+			float remainingAnimTime = Mathf.Max(0f, AttackAnimDuration - windup - BiteEndTime);
 			await ToSignal(GetTree().CreateTimer(remainingAnimTime), SceneTreeTimer.SignalName.Timeout);
 			if (!IsInstanceValid(this) || IsQueuedForRemoval)
 				return;

@@ -56,7 +56,13 @@ public partial class Bandido5 : MeleeEnemy
 	// claw smear runs from high-front down to the floor in front of the body.
 	[ExportGroup("Claws")]
 	[Export] public Vector2 ClawCenter = new(6f, -14f);
-	[Export] public float ClawRadius = 50f;
+	// The slam's arm lands out at x=104 on the sheet (frames 8-12), so the rake and its hitbox go that
+	// far along the floor. The claws over its head for the anti-air keep their smaller box.
+	[Export] public float ClawRadius = 90f;
+	[Export] public float ClawRadiusY = 50f;
+	[Export] public float RakeUpRadius = 50f;
+	[Export] public Vector2 SlamClawHitboxSize = new(96f, 42f);
+	[Export] public Vector2 AntiAirHitboxSize = new(50f, 42f);
 	[Export] public float ClawSpacing = 8f;
 	[Export] public float ClawStartAngle = -80f;
 	[Export] public float ClawEndAngle = 40f;
@@ -382,13 +388,17 @@ public partial class Bandido5 : MeleeEnemy
 	{
 		for (int i = 0; i < _claws.Length; i++)
 		{
-			float radius = ClawRadius + (i - 1) * ClawSpacing;
+			float spread = (i - 1) * ClawSpacing;
 			if (upward)
-				_claws[i].Play(new Vector2(0f, -20f), radius, 30f - i * 6f, -150f + i * 6f, ClawDuration);
+				_claws[i].Play(new Vector2(0f, -20f), RakeUpRadius + spread, 30f - i * 6f, -150f + i * 6f, ClawDuration);
 			else
-				_claws[i].Play(ClawCenter, radius, ClawStartAngle, ClawEndAngle, ClawDuration);
+				_claws[i].Play(ClawCenter, ClawRadius + spread, ClawStartAngle, ClawEndAngle, ClawDuration, ClawRadiusY + spread);
 		}
 	}
+
+	// Fresh shape each time: the .tscn's RectangleShape2D is shared between instances.
+	private void SetHitboxSize(Vector2 size) =>
+		AttackHitbox.GetNode<CollisionShape2D>("CollisionShape2D").Shape = new RectangleShape2D { Size = size };
 
 	private void UpdateAfterimages(float dt)
 	{
@@ -448,6 +458,7 @@ public partial class Bandido5 : MeleeEnemy
 		RunShockwave(sign, SlamTileCount, 0f);
 		if (_enraged)
 			RunShockwave(-sign, RageBackwardTiles, SlamStrikeGap);
+		SetHitboxSize(SlamClawHitboxSize);
 		await base.Attack();
 	}
 
@@ -609,6 +620,7 @@ public partial class Bandido5 : MeleeEnemy
 		RunShockwave(1f, tiles, SlamStrikeGap * 0.6f, shakePerTile: false);
 		RunShockwave(-1f, tiles, SlamStrikeGap * 0.6f, shakePerTile: false);
 
+		SetHitboxSize(SlamClawHitboxSize);
 		AttackHitbox.Position = new Vector2(FacingRight ? AttackHitboxReach : -AttackHitboxReach, 0);
 		AttackHitbox.Activate(Stats);
 		await ToSignal(GetTree().CreateTimer(AttackDuration), SceneTreeTimer.SignalName.Timeout);
@@ -693,6 +705,7 @@ public partial class Bandido5 : MeleeEnemy
 		// Claws up (frame 4) through the rise, hitbox over its head.
 		Sprite.Frame = FirstAirFrame;
 		RakeClaws(upward: true);
+		SetHitboxSize(AntiAirHitboxSize);
 		AttackHitbox.Position = new Vector2(FacingRight ? AntiAirHitboxOffset.X : -AntiAirHitboxOffset.X, AntiAirHitboxOffset.Y);
 		AttackHitbox.Activate(Stats);
 		_leapHoming = true;

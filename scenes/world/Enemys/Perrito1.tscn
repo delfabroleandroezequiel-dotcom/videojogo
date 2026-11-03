@@ -12,13 +12,13 @@
 size = Vector2(56, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
-size = Vector2(24, 24)
+size = Vector2(40, 28)
 
 [node name="Perrito1" type="CharacterBody2D" unique_id=1079485317]
 collision_layer = 4
 script = ExtResource("1_script")
 AttackSpriteYOffset = -2.0
-AttackHitboxReach = 22.0
+AttackHitboxReach = 40.0
 Profile = ExtResource("7_profile")
 ExplosionScene = ExtResource("6_explosion")
 

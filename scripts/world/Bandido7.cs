@@ -238,7 +238,7 @@ public partial class Bandido7 : Enemy
 					return;
 
 				Sprite.Frame = 4;
-				_trail.Play(new Vector2(6f, -10f), charged ? 60f : 54f, -130f, 80f, 0.09f);
+				_trail.Play(new Vector2(6f, -10f), charged ? 55f : 49f, -130f, 80f, 0.09f);
 				Strike(CleaveHitboxCenter, CleaveHitboxSize, damageMultiplier, CleaveKnockback * (charged ? 1.4f : 1f), shoveThroughBlock: charged);
 				if (charged)
 					Shake(3f, 0.18f);
@@ -411,7 +411,7 @@ public partial class Bandido7 : Enemy
 			Sprite.Play("attack");
 			Sprite.Pause();
 			Sprite.Frame = 4;
-			_trail.Play(new Vector2(6f, -10f), 56f, -130f, 80f, 0.08f);
+			_trail.Play(new Vector2(6f, -10f), 49f, -130f, 80f, 0.08f);
 			Strike(CleaveHitboxCenter, CleaveHitboxSize, CleaveDamageMultiplier * 1.2f, CleaveKnockback, shoveThroughBlock: false);
 			Shake(2.5f, 0.15f);
 			for (int f = 5; f <= 7; f++)

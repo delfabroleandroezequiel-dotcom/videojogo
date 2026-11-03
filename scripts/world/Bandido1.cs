@@ -18,9 +18,14 @@ public partial class Bandido1 : MeleeEnemy
 	[Export] public int Attack1TelegraphFrame = 1;
 	[Export] public int Attack2TelegraphFrame = 2;
 
-	// Both attack1/attack2 play at 14fps (see AssassinSpriteFrames.tres) — frame 3 of the resumed
+	// Both attack1/attack2 play at 14fps (see AssassinSpriteFrames.tres) and resume from their telegraph
+	// frame, not from 0, so the wait is counted from there — frame 3 of the resumed
 	// swing is where the dagger actually connects, same for either variant.
-	[Export] public float HitFrameDelay = 3f / 14f;
+	[Export] public int HitFrame = 3;
+	// The two swings reach differently (measured from the sheet): attack1's overhead stab gets to
+	// x=68 and attack2's short slash to x=48, so each hitbox's far edge sits just past its own blade.
+	[Export] public float Attack1HitboxReach = 38.5f;
+	[Export] public float Attack2HitboxReach = 20.5f;
 
 	// If the player dashes past it (crosses from one side to the other mid-dash — the classic
 	// "dash through and hit from behind" trick), it breaks off and runs a short burst back toward
@@ -151,7 +156,7 @@ public partial class Bandido1 : MeleeEnemy
 	{
 		trail.Play(center, radius, startAngle, endAngle, duration);
 		await ToSignal(GetTree().CreateTimer(duration), SceneTreeTimer.SignalName.Timeout);
-		if (!IsInstanceValid(this) || IsQueuedForRemoval)
+		if (!IsInstanceValid(this) || IsQueuedForRemoval || IsStunned)
 			return;
 		SpawnTipFlash(center + Vector2.Right.Rotated(Mathf.DegToRad(endAngle)) * radius, flashSize);
 	}
@@ -382,6 +387,7 @@ public partial class Bandido1 : MeleeEnemy
 		bool useSecondAttack = Rng.Randf() < SecondAttackChance;
 		_currentAttackAnimation = useSecondAttack ? "attack2" : "attack1";
 		int telegraphFrame = useSecondAttack ? Attack2TelegraphFrame : Attack1TelegraphFrame;
+		AttackHitboxReach = useSecondAttack ? Attack2HitboxReach : Attack1HitboxReach;
 
 		HoldTelegraphFrame(_currentAttackAnimation);
 		Sprite.Frame = telegraphFrame;
@@ -393,7 +399,7 @@ public partial class Bandido1 : MeleeEnemy
 
 		_trailPending = true;
 		Sprite.Play(_currentAttackAnimation);
-		await ToSignal(GetTree().CreateTimer(HitFrameDelay), SceneTreeTimer.SignalName.Timeout);
+		await ToSignal(GetTree().CreateTimer(Mathf.Max(0, HitFrame - telegraphFrame) / 14f), SceneTreeTimer.SignalName.Timeout);
 		if (!IsInstanceValid(this) || IsQueuedForRemoval)
 			return;
 

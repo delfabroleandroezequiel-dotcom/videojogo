@@ -121,3 +121,6 @@ Cuando toque combate, trabajo como **diseñador de combate y jefes de juegos de 
 | 2026-10-18 | Postura, estremecimiento, hitstop y retroceso | Investigación souls |
 | 2026-10-28 | Se elimina el arco del jugador | Pedido del autor |
 | 2026-10-28 | Joystick: A saltar, X atacar, B rodar, Y curar, LB parry, RB dash, LT clon, RT cargado, L3 golpe en carrera, R3 espada voladora, cruceta ↑ interactuar / ↓ barra rápida / ← invocar / → cambiar clon, Back inventario, Start pausa | Reasignación del joystick |
+| 2026-10-30 | La cura se aplica al terminar la animación; un golpe real la cancela y la carga se pierde | Pedido del autor |
+| 2026-11-02 | Hitboxes de los melee de Cueva 1–11 medidos contra el dibujo: pegan en el cuadro del golpe y su borde lejano queda a 0–14 px de la punta del arma; las estelas se ajustaron a ese alcance salvo las de Bandido1, calcadas del arte | Pedido del autor |
+| 2026-11-02 | Arañas comunes con el Monster (2) de Fantasy Monsters Pack: violeta la normal, carmesí la oscura; mueren con animación, sin explosión. Los jefes araña conservan su sprite | Pedido del autor |

@@ -29,7 +29,12 @@ public partial class BandidoCorpulento : MeleeEnemy
 	// Frame 9 is where the blade hits the floor.
 	[Export] public float WindupDuration = 9f / 14f;
 	[Export] public float SmashHitWindow = 0.16f;
-	[Export] public float SmashImpactOffsetX = 70f;
+	[Export] public float SmashImpactOffsetX = 78f;
+	// Measured from the sheet: the sword tip reaches x=80-96 during SmashHitWindow, the scoop only 51.
+	[Export] public Vector2 SmashHitboxSize = new(88f, 42f);
+	[Export] public float SmashHitboxReach = 52f;
+	[Export] public Vector2 ScoopHitboxSize = new(52f, 42f);
+	[Export] public float ScoopHitboxReach = 28f;
 	[Export] public float SmashShake = 4f;
 	// Body flash while the sword is raised (frames 4-8).
 	[Export] public Color FlashTint = new(2.2f, 2.2f, 2.2f, 1f);
@@ -39,7 +44,8 @@ public partial class BandidoCorpulento : MeleeEnemy
 	// overhead pose behind its head down to the floor in front, where frame 10 plants the tip.
 	[ExportGroup("Trails")]
 	[Export] public Vector2 SmashTrailCenter = new(8f, -10f);
-	[Export] public float SmashTrailRadius = 72f;
+	[Export] public float SmashTrailRadius = 88f;
+	[Export] public float SmashTrailRadiusY = 72f;
 	[Export] public float SmashTrailStartAngle = -120f;
 	[Export] public float SmashTrailEndAngle = 35f;
 	[Export] public float SmashTrailDuration = 0.09f;
@@ -262,6 +268,14 @@ public partial class BandidoCorpulento : MeleeEnemy
 
 	// ── Smash ───────────────────────────────────────────────────────────────────────────────────
 
+	// Fresh shape each time: the .tscn's RectangleShape2D is shared between instances.
+	private void ActivateHitbox(Vector2 size, float x)
+	{
+		AttackHitbox.GetNode<CollisionShape2D>("CollisionShape2D").Shape = new RectangleShape2D { Size = size };
+		AttackHitbox.Position = new Vector2(x, 0f);
+		AttackHitbox.Activate(Stats);
+	}
+
 	// Full replacement of MeleeEnemy.Attack (the sword lying in the floor for frames 10-19 must not
 	// keep hurting, so the hit window is its own), with the same slot/cooldown bookkeeping.
 	protected override async Task Attack()
@@ -281,7 +295,7 @@ public partial class BandidoCorpulento : MeleeEnemy
 			ClearFlash();
 
 			float sign = FacingRight ? 1f : -1f;
-			_trail.Play(SmashTrailCenter, SmashTrailRadius, SmashTrailStartAngle, SmashTrailEndAngle, SmashTrailDuration);
+			_trail.Play(SmashTrailCenter, SmashTrailRadius, SmashTrailStartAngle, SmashTrailEndAngle, SmashTrailDuration, SmashTrailRadiusY);
 			if (TryFindGround(GlobalPosition.X + sign * SmashImpactOffsetX, out Vector2 impact))
 			{
 				GroundSlamFx.Impact(this, impact, 0.9f, Palette);
@@ -289,8 +303,7 @@ public partial class BandidoCorpulento : MeleeEnemy
 			}
 			ShakePlayerCamera(SmashShake, 0.22f);
 
-			AttackHitbox.Position = new Vector2(sign * AttackHitboxReach, 0f);
-			AttackHitbox.Activate(Stats);
+			ActivateHitbox(SmashHitboxSize, sign * SmashHitboxReach);
 			await ToSignal(GetTree().CreateTimer(SmashHitWindow), SceneTreeTimer.SignalName.Timeout);
 			if (!IsInstanceValid(this) || IsQueuedForRemoval)
 				return;
@@ -356,7 +369,8 @@ public partial class BandidoCorpulento : MeleeEnemy
 			while (travelled < FissureLength)
 			{
 				await hazard.ToSignal(tree, SceneTree.SignalName.PhysicsFrame);
-				if (!IsInstanceValid(hazard))
+				// The map can be on its way out with the crack still running: out of the tree counts too.
+				if (!IsInstanceValid(hazard) || !hazard.IsInsideTree())
 					return;
 				float step = FissureSpeed * (float)(1.0 / Engine.PhysicsTicksPerSecond);
 				float nextX = front.X + sign * step;
@@ -394,11 +408,12 @@ public partial class BandidoCorpulento : MeleeEnemy
 		}
 
 		// Eruption at the end of the crack.
-		if (scene is null || !IsInstanceValid(scene))
+		if (scene is null || !IsInstanceValid(scene) || !scene.IsInsideTree())
 			return;
 		GroundSlamFx.EarthSpikes(scene, front, EruptionSize, EruptionHold, Palette);
 		GroundSlamFx.Impact(scene, front, 0.6f, Palette);
-		if (IsInstanceValid(this) && !IsQueuedForRemoval)
+		// The crack outlives its owner, so the owner may have already left the tree.
+		if (IsInstanceValid(this) && !IsQueuedForRemoval && IsInsideTree())
 			ShakePlayerCamera(EruptionShake, 0.18f);
 
 		Hazard eruption = Hazard.CreateArea(scene, instantKill: false, damage: EruptionDamage, knockbackForce: 280f);
@@ -449,8 +464,7 @@ public partial class BandidoCorpulento : MeleeEnemy
 			FlingGravel(sign);
 			ShakePlayerCamera(1.5f, 0.1f);
 
-			AttackHitbox.Position = new Vector2(sign * AttackHitboxReach, 0f);
-			AttackHitbox.Activate(Stats);
+			ActivateHitbox(ScoopHitboxSize, sign * ScoopHitboxReach);
 			await ToSignal(GetTree().CreateTimer(ScoopHitWindow), SceneTreeTimer.SignalName.Timeout);
 			if (!IsInstanceValid(this) || IsQueuedForRemoval)
 				return;

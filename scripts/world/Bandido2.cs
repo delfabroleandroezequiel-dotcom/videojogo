@@ -17,7 +17,8 @@ public partial class Bandido2 : MeleeEnemy
 
 	// attack1 plays at 14fps (see RaiderSpriteFrames.tres) — frame 3 of the resumed swing is where
 	// the axe actually connects.
-	[Export] public float HitFrameDelay = 3f / 14f;
+	// Counted from AttackTelegraphFrame (2), where the swing resumes: the axe lands on frame 3.
+	[Export] public float HitFrameDelay = 1f / 14f;
 
 	// Same dash-cross reposition as Bandido1 — breaks off and retreats a short burst if the player
 	// dashes past it, instead of standing there while they circle behind.
@@ -30,7 +31,7 @@ public partial class Bandido2 : MeleeEnemy
 	// in front, radius 56). Angles: 0° = front, -90° = up, +90° = down. The attack hitbox in
 	// Bandido2.tscn is sized to cover this arc.
 	[Export] public Vector2 SlashTrailCenter = new(12f, 0f);
-	[Export] public float SlashTrailRadius = 56f;
+	[Export] public float SlashTrailRadius = 48f;
 	[Export] public float SlashTrailStartAngle = -115f;
 	[Export] public float SlashTrailEndAngle = 85f;
 	[Export] public float SlashTrailDuration = 0.2f;

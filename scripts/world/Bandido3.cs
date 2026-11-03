@@ -17,7 +17,8 @@ public partial class Bandido3 : MeleeEnemy
 
 	// "attack" plays at 14fps (see LightBanditSpriteFrames.tres) — frame 4 of the resumed swing is
 	// where the hit actually connects.
-	[Export] public float HitFrameDelay = 4f / 14f;
+	// Counted from TelegraphFrame (1), where the swing resumes: the blade lands on frame 4.
+	[Export] public float HitFrameDelay = 3f / 14f;
 
 	// Neon-red streak swept OUT AHEAD of the blade, not on top of it: it rides the sheet's own swing
 	// (over the head, down the front — top-down, starts on TrailFrame, the frame the baked smear first
@@ -28,7 +29,7 @@ public partial class Bandido3 : MeleeEnemy
 	[ExportGroup("Trail")]
 	[Export] public int TrailFrame = 4;
 	[Export] public Vector2 SlashTrailCenter = new(9f, -10f);
-	[Export] public float SlashTrailRadius = 72f;
+	[Export] public float SlashTrailRadius = 49f;
 	[Export] public float SlashTrailRadiusY = 45f;
 	[Export] public float SlashTrailStartAngle = -120f;
 	[Export] public float SlashTrailEndAngle = 95f;

@@ -14,7 +14,8 @@ public partial class Bandido4 : MeleeEnemy
 
 	// Attack.png plays at 14fps (see TorcherBanditSpriteFrames.tres) — frame 7 of the resumed
 	// swing (after the telegraph hold below) is where the torch actually connects.
-	[Export] public float HitFrameDelay = 7f / 14f;
+	// Counted from TelegraphFrame (1), where the swing resumes: the torch lands on frame 7.
+	[Export] public float HitFrameDelay = 6f / 14f;
 
 	// Fire trail following the torch's swing, drawn by EnemySlashTrail. Measured off
 	// TorcherBandit/Attack.png (flame-pixel centroid per frame, sprite scale 1.6192 + offset):
@@ -25,10 +26,12 @@ public partial class Bandido4 : MeleeEnemy
 	// the trail starts one frame before it (frame 6; play resumes from TelegraphFrame 1) and
 	// sweeps fast.
 	[Export] public Vector2 FireTrailCenter = new(-6f, -32f);
-	[Export] public float FireTrailRadius = 50f;
+	// Wide enough to end where the torch does (x=66 on the sheet), low enough to stay near its arc.
+	[Export] public float FireTrailRadius = 76f;
+	[Export] public float FireTrailRadiusY = 50f;
 	[Export] public float FireTrailStartAngle = -198f;
 	[Export] public float FireTrailEndAngle = 20f;
-	[Export] public float FireTrailStartDelay = 5f / 14f;
+	[Export] public float FireTrailStartDelay = 4f / 14f;
 	[Export] public float FireTrailDuration = 0.12f;
 	[Export] public float FireTrailCoreWidth = 4f;
 	[Export] public float FireTrailGlowWidth = 12f;
@@ -143,7 +146,7 @@ public partial class Bandido4 : MeleeEnemy
 		if (!IsInstanceValid(this) || IsQueuedForRemoval)
 			return;
 
-		_fireTrail.Play(FireTrailCenter, FireTrailRadius, FireTrailStartAngle, FireTrailEndAngle, FireTrailDuration);
+		_fireTrail.Play(FireTrailCenter, FireTrailRadius, FireTrailStartAngle, FireTrailEndAngle, FireTrailDuration, FireTrailRadiusY);
 
 		// The fire only lands once the torch's own hit window (HitFrameDelay + AttackDuration from
 		// the swing's start) has closed — spawned any earlier, its first tick would reach the player
@@ -326,7 +329,7 @@ public partial class Bandido4 : MeleeEnemy
 			await ToSignal(GetTree().CreateTimer(FireTrailStartDelay), SceneTreeTimer.SignalName.Timeout);
 			if (!IsInstanceValid(this) || IsQueuedForRemoval)
 				return;
-			_fireTrail.Play(FireTrailCenter, FireTrailRadius, FireTrailStartAngle, FireTrailEndAngle, FireTrailDuration);
+			_fireTrail.Play(FireTrailCenter, FireTrailRadius, FireTrailStartAngle, FireTrailEndAngle, FireTrailDuration, FireTrailRadiusY);
 
 			// Release on the frame the torch comes over the top (same hit frame as the melee swing).
 			await ToSignal(GetTree().CreateTimer(Mathf.Max(0f, HitFrameDelay - FireTrailStartDelay)), SceneTreeTimer.SignalName.Timeout);

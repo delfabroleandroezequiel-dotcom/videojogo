@@ -15,14 +15,15 @@
 size = Vector2(49, 82.25774)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
-size = Vector2(44, 42)
+size = Vector2(60, 56)
 
 [node name="Bandido4" type="CharacterBody2D" unique_id=1626398336]
 collision_layer = 4
 script = ExtResource("1_script")
 AttackRange = 48.0
 AttackCooldown = 1.4
-AttackDuration = 0.15
+AttackDuration = 0.36
+AttackHitboxReach = 40.0
 AttackAnimDuration = 1.0
 AttackSpriteYOffset = 0.0
 TelegraphFrame = 1
