@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PoisonSpit.tscn" id="8_poisonspit"]
 [ext_resource type="Script" path="res://scripts/shared/Stats.cs" id="2_stats"]
 [ext_resource type="PackedScene" path="res://scenes/ui/StatBar.tscn" id="3_statbar"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/SpiderSpriteFrames.tres" id="4_frames"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/AranaSpriteFrames.tres" id="4_frames"]
 [ext_resource type="PackedScene" uid="uid://dq3mb122eef3v" path="res://scenes/world/Explosion.tscn" id="5_explosion"]
 [ext_resource type="Resource" path="res://resources/balance/enemies/spider.tres" id="6_profile"]
 [ext_resource type="Script" path="res://scripts/player/Hitbox.cs" id="7_hitbox"]
@@ -13,20 +13,22 @@
 size = Vector2(60, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
-size = Vector2(30, 24)
+size = Vector2(44, 30)
 
 [node name="SpiderEnemy" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 1
 script = ExtResource("1_script")
 PoisonSpitScene = ExtResource("8_poisonspit")
+HitStartFrame = 4
+ExplodeOnDeath = false
 AttackRange = 42.0
 AttackCooldown = 1.0
 AttackCooldownJitter = 0.2
 AttackDuration = 0.22
 AttackAnimDuration = 0.75
 AttackSpriteYOffset = 0.0
-AttackHitboxReach = 32.0
+AttackHitboxReach = 40.0
 LedgeCheckAheadX = 16.0
 LedgeCheckDownY = 22.0
 Profile = ExtResource("6_profile")
@@ -60,8 +62,8 @@ collision_mask = 1
 [node name="Visual" type="Node2D" parent="."]
 
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual"]
-scale = Vector2(0.9, 0.9)
-offset = Vector2(0, -33.56)
+scale = Vector2(2, 2)
+offset = Vector2(5, -28.5)
 sprite_frames = ExtResource("4_frames")
 animation = &"idle"
 autoplay = "idle"

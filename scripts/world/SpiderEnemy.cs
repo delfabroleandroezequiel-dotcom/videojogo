@@ -14,10 +14,9 @@ namespace Metroidvania.World;
 //    pose instead of at the bite itself.
 // 2. A poison spit fires the moment the "attack" clip reaches its own last frame. This uses
 //    FrameChanged (checking Sprite.Frame against the clip's last index), not AnimationFinished:
-//    the clip is 14 frames at 18fps (~0.78s) but AttackAnimDuration is 0.75s, so the old
-//    base.Attack()-based version swapped back to "idle" about a frame early and AnimationFinished
-//    never fired at all. Watching the frame index directly still catches it regardless of exactly
-//    when that swap happens.
+//    the clip is 6 frames at 8fps (0.75s), the same length as AttackAnimDuration, so the swap back
+//    to "idle" can land before AnimationFinished fires. Watching the frame index directly still
+//    catches it regardless of exactly when that swap happens.
 public partial class SpiderEnemy : MeleeEnemy
 {
 	[Export] public PackedScene PoisonSpitScene;
@@ -26,14 +25,15 @@ public partial class SpiderEnemy : MeleeEnemy
 	// player standing almost directly under/over the spider, where the real distance would blow
 	// up the required vertical speed into an unreasonable spike.
 	[Export] public float PoisonSpitMinDistance = 60f;
-	// Which frame of "attack" the bite actually connects on — the sheet's lunge doesn't land until
-	// well into the clip (frames 0-9 are windup), not frame 0 like MeleeEnemy assumes by default.
+	// Which frame of "attack" the bite actually connects on — the sheet's strike doesn't land until
+	// well into the clip (SpiderEnemy.tscn: frames 0-3 are windup), not frame 0 like MeleeEnemy
+	// assumes by default.
 	[Export] public int HitStartFrame = 10;
 
 	// ── Telegraph ──
 	// Neon-green blinking during every wind-up (bite, pounce) — the small dark sprite read poorly
 	// before it struck. Done on the sprite's own SelfModulate plus an additive glow behind it, so
-	// it never overwrites Visual.Modulate (SpiderEnemyDark's darker tint lives there).
+	// it never overwrites Visual.Modulate.
 	[ExportGroup("Telegraph")]
 	[Export] public Color TelegraphTint = new(0.55f, 3.2f, 0.75f, 1f);
 	[Export] public Color TelegraphGlowColor = new(0.3f, 1f, 0.4f, 0.9f);
