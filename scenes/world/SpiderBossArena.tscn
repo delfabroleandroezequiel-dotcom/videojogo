@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/world/SpiderBoss.tscn" id="1_base"]
 [ext_resource type="Script" path="res://scripts/world/SpiderBossArena.cs" id="2_script"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/SpiderEnemyDark.tscn" id="3_fallingspider"]
 [ext_resource type="Texture2D" path="res://resources/lighting/PointLightGradient.tres" id="4_glow_tex"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/AranaOscuraSpriteFrames.tres" id="5_frames"]
 
 [node name="SpiderBossArena" instance=ExtResource("1_base")]
 script = ExtResource("2_script")
@@ -19,8 +20,8 @@ AttackAnimDuration = 0.8
 SpiderlingScene = null
 FallingSpiderScene = ExtResource("3_fallingspider")
 
-[node name="Visual" parent="." index="2"]
-modulate = Color(0.32, 0.32, 0.4, 1)
+[node name="CharacterSprite" parent="Visual" index="0"]
+sprite_frames = ExtResource("5_frames")
 
 [node name="Glow" type="PointLight2D" parent="Visual"]
 color = Color(0.55, 0.85, 0.55, 1)

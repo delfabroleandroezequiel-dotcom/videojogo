@@ -32,15 +32,15 @@ public partial class SpiderBoss : Boss
 
 	// Neon-green blink before every attack (bite, lunge, spit) — same tell as the small spiders
 	// (SpiderEnemy), its own copy here per the boss-uniqueness rule. SelfModulate + an additive glow,
-	// so it never touches Visual.Modulate (enrage tint / SpiderBossArena's dark tint live there).
-	// The bite and lunge used to land 0.12s / 0.22s after starting — too fast to read — so each now
-	// gets a short lead-in (MeleeTelegraphLead / LungeLead) before the original timing.
+	// so it never touches Visual.Modulate (enrage tint / SpiderBossArena's own glow live there).
+	// The bite's own wind-up (AttackHitboxDelay, up to the sheet's strike frame) is the readable part,
+	// so MeleeTelegraphLead stays tiny; the lunge lands fast and gets a real lead-in (LungeLead).
 	[ExportGroup("Telegraph")]
 	[Export] public Color TelegraphTint = new(0.55f, 3.2f, 0.75f, 1f);
 	[Export] public Color TelegraphGlowColor = new(0.3f, 1f, 0.4f, 0.9f);
 	[Export] public float TelegraphGlowScale = 2.6f;
 	[Export] public int TelegraphBlinks = 3;
-	[Export] public float MeleeTelegraphLead = 0.3f;
+	[Export] public float MeleeTelegraphLead = 0.05f;
 	[Export] public float LungeLead = 0.3f;
 
 	private Sprite2D _telegraphGlow;
@@ -48,7 +48,7 @@ public partial class SpiderBoss : Boss
 	private float _webSpitCooldownTimer;	private bool _isWebSpitting;
 	private int _nextSummonIndex;
 
-	// SpiderSpriteFrames.tres only has "attack" (no "attack1") — Boss.cs's default is tuned for
+	// AranaSpriteFrames.tres only has "attack" (no "attack1") — Boss.cs's default is tuned for
 	// BossLobo/BanditBoss's naming instead.
 	protected override string DefaultAttackAnimation => "attack";
 
@@ -107,6 +107,9 @@ public partial class SpiderBoss : Boss
 			if (!IsInstanceValid(this) || IsQueuedForRemoval)
 				return;
 		}
+		// A combo starts as the last swing's clip ends: without the reset Play() would carry on from
+		// its last frame instead of winding up again.
+		Sprite?.Stop();
 		base.Attack(isCombo);
 	}
 	public override void _PhysicsProcess(double delta)

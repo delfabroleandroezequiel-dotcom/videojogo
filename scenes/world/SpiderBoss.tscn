@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/player/Hitbox.cs" id="2_hitbox"]
 [ext_resource type="Script" path="res://scripts/shared/Stats.cs" id="3_stats"]
 [ext_resource type="PackedScene" path="res://scenes/ui/StatBar.tscn" id="4_statbar"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/SpiderSpriteFrames.tres" id="5_spriteframes"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/AranaSpriteFrames.tres" id="5_spriteframes"]
 [ext_resource type="PackedScene" uid="uid://dq3mb122eef3v" path="res://scenes/world/Explosion.tscn" id="6_explosion"]
 [ext_resource type="PackedScene" path="res://scenes/world/Coin.tscn" id="7_coin"]
 [ext_resource type="Script" path="res://scripts/world/LootEntry.cs" id="8_lootentry_script"]
@@ -35,6 +35,9 @@ MoveSpeed = 140.0
 AttackRange = 130.0
 AttackCooldown = 1.1
 AttackHitboxReach = 130.0
+AttackHitboxDelay = 0.5
+AttackDuration = 0.22
+AttackAnimDuration = 0.75
 ComboChance = 0.4
 WanderInterval = 1.0
 WanderRadius = 110.0
@@ -70,8 +73,8 @@ shape = SubResource("RectangleShape2D_collision")
 [node name="Visual" type="Node2D" parent="."]
 
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual"]
-scale = Vector2(3.3, 3.3)
-offset = Vector2(0, -36.64)
+scale = Vector2(6.5, 6.5)
+offset = Vector2(5, -29.23)
 sprite_frames = ExtResource("5_spriteframes")
 animation = &"idle"
 autoplay = "idle"
