@@ -1,19 +1,26 @@
-[gd_scene format=3 uid="uid://moving_platform_main"]
+[gd_scene format=3 uid="uid://dmhin8fsklide"]
 
-[ext_resource type="Script" path="res://scripts/world/MovingPlatform.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://b2q40bctr82d4" path="res://scripts/world/MovingPlatform.cs" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://ckfndqn8p3hvf" path="res://assets/backgrounds/decopiezas/decopieza15.png" id="2_2aw6w"]
+[ext_resource type="Script" uid="uid://buueuladhrowt" path="res://scripts/world/SpriteLandWobble.cs" id="3_a47ej"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_platform"]
 size = Vector2(96, 16)
 
-[node name="MovingPlatform" type="AnimatableBody2D"]
-collision_layer = 1
+[node name="MovingPlatform" type="AnimatableBody2D" unique_id=335699779]
 collision_mask = 0
-sync_to_physics = true
 script = ExtResource("1_script")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1486117201]
 shape = SubResource("RectangleShape2D_platform")
 
-[node name="Visual" type="Polygon2D" parent="."]
+[node name="DecoPieza15" type="Sprite2D" parent="CollisionShape2D" unique_id=926705279]
+position = Vector2(2.2737368e-13, 28)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_2aw6w")
+script = ExtResource("3_a47ej")
+
+[node name="Visual" type="Polygon2D" parent="." unique_id=2069821906]
+visible = false
 color = Color(0.35, 0.35, 0.4, 1)
 polygon = PackedVector2Array(-48, -8, 48, -8, 48, 8, -48, 8)

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_rjvc0"]
 [ext_resource type="Resource" uid="uid://beqplhalhp4r6" path="res://resources/camera/ClosedRoomCamera.tres" id="2_cexwh"]
 [ext_resource type="Texture2D" uid="uid://biocr8wq64pqc" path="res://assets/sprites/deco/interior arbol.png" id="3_60mjd"]
-[ext_resource type="Texture2D" uid="uid://cku6awb3vjdax" path="res://assets/backgrounds/ChatGPT Image 12 jul 2026, 18_51_06.png" id="4_60mjd"]
+[ext_resource type="Texture2D" uid="uid://cgcpxerl43arf" path="res://assets/backgrounds/bosquecave.png" id="5_1qrr8"]
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="5_80r0d"]
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="6_fhj5p"]
 [ext_resource type="Texture2D" uid="uid://1qd0nimfqvj7" path="res://assets/external/Fondos/bosque/_PNG/MainLevBuild.png" id="7_h5nx0"]
@@ -6688,7 +6688,7 @@ texture = ExtResource("3_60mjd")
 [node name="BgTile2" type="Sprite2D" parent="Background" unique_id=1439859875]
 position = Vector2(-840, -366)
 scale = Vector2(1.21, 1.21)
-texture = ExtResource("4_60mjd")
+texture = ExtResource("5_1qrr8")
 
 [node name="Floor" type="StaticBody2D" parent="." unique_id=1042001006]
 position = Vector2(0, 350)
@@ -6741,8 +6741,8 @@ Height = 100.0
 
 [node name="LevelTransition3" parent="." unique_id=281766969 instance=ExtResource("6_fhj5p")]
 position = Vector2(-1352, -344)
-TargetScenePath = "res://scenes/world/Mapas/Cueva1/InteriorCueva9.tscn"
-TargetSpawnPosition = Vector2(2700, -690)
+TargetScenePath = "res://scenes/world/Mapas/Cueva1/InteriorCueva10.tscn"
+TargetSpawnPosition = Vector2(3813, -639)
 Width = 500.0
 Height = 500.0
 
@@ -6776,7 +6776,7 @@ LightRange = 1.0
 position = Vector2(-390, -296)
 LightRange = 1.0
 
-[node name="Ramas" type="Node2D" parent="."]
+[node name="Ramas" type="Node2D" parent="." unique_id=1615933790]
 position = Vector2(-3.1, -8.1)
 script = ExtResource("91_parallaxfollow")
 ParallaxFactor = Vector2(-0.04, -0.04)

@@ -1,7 +1,6 @@
 [gd_scene format=4 uid="uid://cxbi6m1dv6bfo"]
 
 [ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
-[ext_resource type="Texture2D" uid="uid://cgcpxerl43arf" path="res://assets/backgrounds/bosquecave.png" id="98_bosquecave"]
 [ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_camera"]
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="3_player"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniCorridor.tscn" id="4_corridor"]
@@ -12,11 +11,14 @@
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="12_transition"]
 [ext_resource type="PackedScene" path="res://scenes/world/iluminacion/BosqueAntorchaPilarAzul.tscn" id="16_luz"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ParallaxCueva.tscn" id="16_parallaxcueva"]
-[ext_resource type="Script" path="res://scripts/world/GreyboxVisual.cs" id="92_greyboxvisual"]
-[ext_resource type="Texture2D" uid="uid://cku6awb3vjdax" path="res://assets/backgrounds/ChatGPT Image 12 jul 2026, 18_51_06.png" id="96_fondocueva"]
+[ext_resource type="Texture2D" uid="uid://dt4vxm7g7dtx7" path="res://scenes/world/Mapas/Cueva1/62db2d77-1200-445f-a529-c6e994fabf07.png" id="17_ts75u"]
+[ext_resource type="PackedScene" uid="uid://7qmgnmcio1w2" path="res://scenes/world/Enemigos/BandidoCorpulento.tscn" id="18_sr1lu"]
+[ext_resource type="PackedScene" uid="uid://h2wn6f1r0jji" path="res://scenes/world/Enemigos/Bandido4.tscn" id="19_3tfra"]
+[ext_resource type="Script" uid="uid://dbeg53nir0706" path="res://scripts/world/GreyboxVisual.cs" id="92_greyboxvisual"]
 [ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="93_parallaxfollow"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/NieblaFondo.tscn" id="94_niebla"]
 [ext_resource type="Texture2D" uid="uid://c2jhapnqj7tsq" path="res://assets/backgrounds/ChatGPT Image 2 jul 2026, 11_42_58.png" id="97_capafondo"]
+[ext_resource type="Texture2D" uid="uid://cgcpxerl43arf" path="res://assets/backgrounds/bosquecave.png" id="98_bosquecave"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3fb5j"]
 texture = ExtResource("11_rudqb")
@@ -2512,40 +2514,41 @@ color = Color(0.09, 0.1, 0.13, 1)
 
 [node name="Fondos" type="Node2D" parent="." unique_id=1111742593]
 
-[node name="Background" type="Node2D" parent="Fondos"]
+[node name="Background" type="Node2D" parent="Fondos" unique_id=1400126887]
 z_index = -10
 position = Vector2(-85, -520)
 script = ExtResource("93_parallaxfollow")
 ParallaxFactor = Vector2(0.15, 0)
 FollowCamera = true
 
-[node name="BgTile1" type="Sprite2D" parent="Fondos/Background"]
+[node name="BgTile1" type="Sprite2D" parent="Fondos/Background" unique_id=754436128]
 texture = ExtResource("98_bosquecave")
 centered = false
 
-[node name="BgTile2" type="Sprite2D" parent="Fondos/Background"]
+[node name="BgTile2" type="Sprite2D" parent="Fondos/Background" unique_id=941605408]
 visible = false
 texture = ExtResource("97_capafondo")
 centered = false
 
-[node name="BgTile3" type="Sprite2D" parent="Fondos/Background"]
+[node name="BgTile3" type="Sprite2D" parent="Fondos/Background" unique_id=1224107144]
 position = Vector2(1534, 0)
 texture = ExtResource("98_bosquecave")
 centered = false
 
-[node name="BgTile4" type="Sprite2D" parent="Fondos/Background"]
+[node name="BgTile4" type="Sprite2D" parent="Fondos/Background" unique_id=1824010940]
 visible = false
 position = Vector2(1534, 0)
 texture = ExtResource("97_capafondo")
 centered = false
 
-[node name="NieblaFondo" parent="Fondos/Background" instance=ExtResource("94_niebla")]
+[node name="NieblaFondo" parent="Fondos/Background" unique_id=1631491849 instance=ExtResource("94_niebla")]
 scale = Vector2(48, 4)
 
 [node name="ParallaxCueva" parent="Fondos" unique_id=120953016 instance=ExtResource("16_parallaxcueva")]
 visible = false
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Fondos" unique_id=2129582331]
+visible = false
 color = Color(0.05, 0.05, 0.08, 1)
 
 [node name="Iluminacion" type="Node2D" parent="." unique_id=1283465555]
@@ -2705,13 +2708,13 @@ Seals = [NodePath("../SelloRojo"), NodePath("../SelloVioleta"), NodePath("../Sel
 Target = NodePath("../GranSello")
 
 [node name="EscaleraArriba" parent="." unique_id=1069319833 instance=ExtResource("12_ladder")]
-position = Vector2(1300, -280)
+position = Vector2(1300, -440)
 Length = 560
 VisualWidth = 40.0
 
 [node name="Visible" type="Node2D" parent="." unique_id=2046405581]
-script = ExtResource("92_greyboxvisual")
 z_index = -5
+script = ExtResource("92_greyboxvisual")
 
 [node name="SueloA" type="Polygon2D" parent="Visible" unique_id=1813025046]
 color = Color(0.42, 0.43, 0.48, 1)
@@ -2845,3 +2848,15 @@ shape = SubResource("RectangleShape2D_cy8gb")
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="Floor" unique_id=492703299]
 position = Vector2(1208, -1635)
 shape = SubResource("RectangleShape2D_cy8gb")
+
+[node name="62Db2d771200445fA529C6e994Fabf07" type="Sprite2D" parent="." unique_id=829310811]
+z_index = -1
+position = Vector2(1284.0359, -67.70119)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("17_ts75u")
+
+[node name="BandidoCorpulento" parent="." unique_id=1386265048 instance=ExtResource("18_sr1lu")]
+position = Vector2(1277, -41)
+
+[node name="Bandido4" parent="." unique_id=1626398336 instance=ExtResource("19_3tfra")]
+position = Vector2(1343, -36)

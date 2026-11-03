@@ -27,11 +27,10 @@
 [ext_resource type="Texture2D" uid="uid://bd2asdfdxkap7" path="res://assets/backgrounds/decopiezas/decopieza16.png" id="29_6ppht"]
 [ext_resource type="Texture2D" uid="uid://ckfndqn8p3hvf" path="res://assets/backgrounds/decopiezas/decopieza15.png" id="30_pdm4s"]
 [ext_resource type="Texture2D" uid="uid://pw7vbp6crn8u" path="res://scenes/world/Mapas/Cueva1/decocueva2.png" id="36_uvhbg"]
-[ext_resource type="Texture2D" uid="uid://c6gjevi2mhrkq" path="res://assets/sprites/deco/decoRoca.png" id="37_1oajm"]
+[ext_resource type="Texture2D" uid="uid://c6gjevi2mhrkq" path="res://assets/sprites/deco/Cueva/decoRoca.png" id="37_1oajm"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ParallaxCueva.tscn" id="90_parallaxcueva"]
 [ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="93_parallaxfollow"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/NieblaFondo.tscn" id="94_niebla"]
-[ext_resource type="Texture2D" uid="uid://c2jhapnqj7tsq" path="res://assets/backgrounds/ChatGPT Image 2 jul 2026, 11_42_58.png" id="97_capafondo"]
 [ext_resource type="Texture2D" uid="uid://cgcpxerl43arf" path="res://assets/backgrounds/bosquecave.png" id="98_bosquecave"]
 [ext_resource type="Script" uid="uid://buueuladhrowt" path="res://scripts/world/SpriteLandWobble.cs" id="99_landwobble"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ArrowTrap.tscn" id="900_arrow"]
@@ -6711,11 +6710,6 @@ FollowCamera = true
 texture = ExtResource("98_bosquecave")
 centered = false
 
-[node name="BgTile2" type="Sprite2D" parent="Fondos/Background" unique_id=1120009533]
-visible = false
-texture = ExtResource("97_capafondo")
-centered = false
-
 [node name="NieblaFondo" parent="Fondos/Background" unique_id=1001922429 instance=ExtResource("94_niebla")]
 
 [node name="Telaraña3" type="Sprite2D" parent="Fondos" unique_id=1486089118]
@@ -6727,6 +6721,7 @@ texture = ExtResource("3_jihxl")
 [node name="ParallaxCueva" parent="Fondos" unique_id=488565565 instance=ExtResource("90_parallaxcueva")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Fondos" unique_id=222791140]
+visible = false
 color = Color(0.05, 0.05, 0.08, 1)
 
 [node name="Iluminacion" type="Node2D" parent="." unique_id=1959472875]

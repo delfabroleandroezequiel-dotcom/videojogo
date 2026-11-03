@@ -1,8 +1,6 @@
 [gd_scene format=4 uid="uid://d3b21wsc0gwom"]
 
 [ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_t37y4"]
-[ext_resource type="Texture2D" uid="uid://cgcpxerl43arf" path="res://assets/backgrounds/bosquecave.png" id="98_bosquecave"]
-[ext_resource type="Texture2D" uid="uid://cifx8bcfrp4ai" path="res://assets/backgrounds/FondoCueva2.png" id="2_yqxvv"]
 [ext_resource type="Texture2D" uid="uid://bwotbdii73pl5" path="res://assets/sprites/deco/telarañas.png" id="3_pk224"]
 [ext_resource type="PackedScene" path="res://scenes/world/iluminacion/CuevaLantern.tscn" id="3_snwom"]
 [ext_resource type="TileSet" uid="uid://sj6r3rvvphxk" path="res://resources/tilesets/CuevaBosqueLobo1_TileMapLayer2.tres" id="4_yqxvv"]
@@ -24,12 +22,13 @@
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="23_m1lew"]
 [ext_resource type="Texture2D" uid="uid://fv01uors0c75" path="res://assets/sprites/deco/estalagtitas.png" id="26_naad2"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ParallaxCueva.tscn" id="90_parallaxcueva"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PendulumTrap.tscn" id="900_pendulum"]
-[ext_resource type="Material" path="res://resources/shaders/CobwebSway.tres" id="cobweb_sway"]
-[ext_resource type="Material" path="res://resources/shaders/CobwebSwaySprite.tres" id="cobweb_sway_sprite"]
 [ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="93_parallaxfollow"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/NieblaFondo.tscn" id="94_niebla"]
 [ext_resource type="Texture2D" uid="uid://c2jhapnqj7tsq" path="res://assets/backgrounds/ChatGPT Image 2 jul 2026, 11_42_58.png" id="97_capafondo"]
+[ext_resource type="Texture2D" uid="uid://cgcpxerl43arf" path="res://assets/backgrounds/bosquecave.png" id="98_bosquecave"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PendulumTrap.tscn" id="900_pendulum"]
+[ext_resource type="Material" path="res://resources/shaders/CobwebSway.tres" id="cobweb_sway"]
+[ext_resource type="Material" path="res://resources/shaders/CobwebSwaySprite.tres" id="cobweb_sway_sprite"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(398, 490)
@@ -5472,23 +5471,23 @@ CameraLimitBottom = 1024
 
 [node name="Fondos" type="Node2D" parent="." unique_id=562820694]
 
-[node name="Background" type="Node2D" parent="Fondos"]
+[node name="Background" type="Node2D" parent="Fondos" unique_id=103258371]
 z_index = -10
 position = Vector2(-115, 0)
 script = ExtResource("93_parallaxfollow")
 ParallaxFactor = Vector2(0.15, 0)
 FollowCamera = true
 
-[node name="BgTile1" type="Sprite2D" parent="Fondos/Background"]
+[node name="BgTile1" type="Sprite2D" parent="Fondos/Background" unique_id=20876336]
 texture = ExtResource("98_bosquecave")
 centered = false
 
-[node name="BgTile2" type="Sprite2D" parent="Fondos/Background"]
+[node name="BgTile2" type="Sprite2D" parent="Fondos/Background" unique_id=41597698]
 visible = false
 texture = ExtResource("97_capafondo")
 centered = false
 
-[node name="NieblaFondo" parent="Fondos/Background" instance=ExtResource("94_niebla")]
+[node name="NieblaFondo" parent="Fondos/Background" unique_id=1214452742 instance=ExtResource("94_niebla")]
 
 [node name="Telaraña3" type="Sprite2D" parent="Fondos" unique_id=1437868010]
 visible = false
@@ -5708,7 +5707,7 @@ SwingPeriod = 4.2
 StartPhase = 0.5
 
 [node name="HaciaCueva6" parent="." unique_id=1872277274 instance=ExtResource("23_m1lew")]
-position = Vector2(1600, 500)
+position = Vector2(1519, 553)
 TargetScenePath = "res://scenes/world/Mapas/Cueva1/InteriorCueva6.tscn"
 TargetSpawnPosition = Vector2(90, 880)
 Width = 60.0

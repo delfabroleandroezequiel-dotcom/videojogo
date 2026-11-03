@@ -1,7 +1,6 @@
 [gd_scene format=4 uid="uid://dmy0l8llclqkc"]
 
 [ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_udaxe"]
-[ext_resource type="PackedScene" path="res://scenes/world/iluminacion/CuevaLantern.tscn" id="3_1mksb"]
 [ext_resource type="TileSet" uid="uid://sj6r3rvvphxk" path="res://resources/tilesets/CuevaBosqueLobo1_TileMapLayer2.tres" id="4_pe8c8"]
 [ext_resource type="TileSet" uid="uid://tw62db3nswn7" path="res://resources/tilesets/CuevaBosqueLobo1_TileRocas.tres" id="5_5mhna"]
 [ext_resource type="TileSet" uid="uid://cfhxpf4vpw5d1" path="res://resources/tilesets/CuevaBosqueLobo1_PiedrasPiso.tres" id="6_jfup8"]
@@ -18,21 +17,15 @@
 [ext_resource type="PackedScene" uid="uid://drser5bfbd5kp" path="res://scenes/world/Enemys/Perrito1.tscn" id="17_w0nta"]
 [ext_resource type="PackedScene" path="res://scenes/world/MushroomEnemy.tscn" id="18_vcubd"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniCorridor.tscn" id="19_hyohp"]
-[ext_resource type="Texture2D" uid="uid://bkjhcl5xyddn6" path="res://assets/sprites/deco/telaraña3.png" id="20_ijk3y"]
 [ext_resource type="Script" uid="uid://4ch6askhtulp" path="res://scripts/world/ProceduralWater.cs" id="21_vcubd"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ArrowTrap.tscn" id="21_w0nta"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/SecretWall.tscn" id="23_j8h8l"]
-[ext_resource type="Texture2D" uid="uid://clbo7s6ccbmrj" path="res://scenes/world/Mapas/Cueva1/decocueva1_50.png" id="29_324da"]
-[ext_resource type="Texture2D" uid="uid://pw7vbp6crn8u" path="res://scenes/world/Mapas/Cueva1/decocueva2.png" id="30_gmyci"]
 [ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="33_parallaxfollow"]
-[ext_resource type="Shader" uid="uid://d4c1bw2od6pek" path="res://resources/shaders/DegradadoBorde.gdshader" id="34_degradadoborde"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ParallaxCueva.tscn" id="90_parallaxcueva"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Plantin2.tscn" id="34_pinww"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/NieblaFondo.tscn" id="94_niebla"]
-[ext_resource type="Texture2D" uid="uid://c2jhapnqj7tsq" path="res://assets/backgrounds/ChatGPT Image 2 jul 2026, 11_42_58.png" id="97_capafondo"]
 [ext_resource type="Texture2D" uid="uid://cgcpxerl43arf" path="res://assets/backgrounds/bosquecave.png" id="98_bosquecave"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PendulumTrap.tscn" id="900_pendulum"]
 [ext_resource type="Material" path="res://resources/shaders/CobwebSway.tres" id="cobweb_sway"]
-[ext_resource type="Material" path="res://resources/shaders/CobwebSwaySprite.tres" id="cobweb_sway_sprite"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vcubd"]
 texture = ExtResource("12_dnep3")
@@ -9158,15 +9151,6 @@ texture = ExtResource("12_dnep3")
 [sub_resource type="TileSet" id="TileSet_evy1w"]
 sources/0 = SubResource("TileSetAtlasSource_jst0r")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_degradado151"]
-shader = ExtResource("34_degradadoborde")
-shader_parameter/borde_derecho = 1.0
-shader_parameter/ancho_derecho = 0.010000000475
-shader_parameter/borde_inferior = 0.98000004655
-shader_parameter/ancho_inferior = 0.010000000475
-shader_parameter/oscurecer = 1.0
-shader_parameter/desvanecer = 1.0
-
 [node name="InteriorCueva1" type="Node2D" unique_id=2074547145]
 script = ExtResource("1_udaxe")
 ScenePath = "res://scenes/world/Mapas/Cueva1/InteriorCueva2.tscn"
@@ -9185,47 +9169,15 @@ ParallaxFactor = Vector2(0.15, 0)
 FollowCamera = true
 
 [node name="BgTile1" type="Sprite2D" parent="Fondos/Background" unique_id=1027331514]
+position = Vector2(-239, 1)
 texture = ExtResource("98_bosquecave")
 centered = false
 
-[node name="BgTile2" type="Sprite2D" parent="Fondos/Background" unique_id=2034626697]
-visible = false
-texture = ExtResource("97_capafondo")
-centered = false
-
 [node name="NieblaFondo" parent="Fondos/Background" unique_id=803532112 instance=ExtResource("94_niebla")]
-visible = false
-
-[node name="Telaraña3" type="Sprite2D" parent="Fondos" unique_id=1486089118]
-modulate = Color(1, 1, 1, 0.3)
-z_index = 3
-material = ExtResource("cobweb_sway_sprite")
-position = Vector2(701, 262)
-texture = ExtResource("20_ijk3y")
-
-[node name="ParallaxCueva" parent="Fondos" unique_id=1966456303 instance=ExtResource("90_parallaxcueva")]
-visible = false
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Fondos" unique_id=222791140]
+visible = false
 color = Color(0.05, 0.05, 0.08, 1)
-
-[node name="Iluminacion" type="Node2D" parent="." unique_id=1959472875]
-visible = false
-
-[node name="CuevaLantern1" parent="Iluminacion" unique_id=1670066155 instance=ExtResource("3_1mksb")]
-visible = false
-position = Vector2(320, 900)
-LightRange = 1.0
-
-[node name="CuevaLantern2" parent="Iluminacion" unique_id=81947483 instance=ExtResource("3_1mksb")]
-visible = false
-position = Vector2(768, 900)
-LightRange = 1.0
-
-[node name="CuevaLantern3" parent="Iluminacion" unique_id=1548402039 instance=ExtResource("3_1mksb")]
-visible = false
-position = Vector2(1216, 900)
-LightRange = 1.0
 
 [node name="TileMapLayer2" type="TileMapLayer" parent="." unique_id=402750970]
 tile_map_data = PackedByteArray("AAA1AB8AAAAzACgAAAA1ACAAAAA0ACkAACA2AB8AAAA0ACgAAAA2ACAAAAA1ACkAACA3AB8AAAA1ACgAAAA3ACAAAAA2ACkAACA4AB8AAAA2ACgAAAA4ACAAAAA3ACkAACA5AB8AAAA3ACgAAAA5ACAAAAA4ACkAACA6AB8AAAA4ACgAAAA6ACAAAAA1ACkAACA7AB8AAAAxACgAAAA7ACAAAAA2ACkAACA8AB8AAAAyACgAAAA8ACAAAAA3ACkAACA9AB8AAAAzACgAAAA9ACAAAAA4ACkAACA+AB8AAAA0ACgAAAA+ACAAAAA2ACkAACA/AB8AAAA1ACgAAAA/ACAAAAA3ACkAACBAAB8AAAAxACgAAABAACAAAAA4ACkAACBBAB8AAAAyACgAAABBACAAAAAyACkAACBCAB8AAAAzACgAAABCACAAAAAzACkAACBDAB8AAAA0ACgAAABDACAAAAA0ACkAACBEAB8AAAA1ACgAAABEACAAAAA1ACkAACBFAB8AAAA2ACgAAABFACAAAAA2ACkAACBFACEAAAA2ACgAACBGAB8AAAAgAA8AAABGACAAAAAgABAAAABGACEAAAAgABEAAABGAA8AAAA2ACgAAABGABAAAAA2ACkAACBGABEAAAA2ACgAACA0AA8AAAAxACgAAAA0ABAAAAAyACkAACA0ABEAAAAyACgAACA1AA8AAAAyACgAAAA1ABAAAAAzACkAACA1ABEAAAAzACgAACA2AA8AAAAzACgAAAA2ABAAAAA0ACkAACA2ABEAAAA0ACgAACA3AA8AAAA0ACgAAAA3ABAAAAA1ACkAACA3ABEAAAA1ACgAACA4AA8AAAA1ACgAAAA4ABAAAAA2ACkAACA4ABEAAAA2ACgAACA5AA8AAAA2ACgAAAA5ABAAAAA3ACkAACA5ABEAAAA3ACgAACA6AA8AAAA3ACgAAAA6ABAAAAA4ACkAACA6ABEAAAA4ACgAACA7AA8AAAA4ACgAAAA7ABAAAAA1ACkAACA7ABEAAAA1ACgAACA8AA8AAAAxACgAAAA8ABAAAAA2ACkAACA8ABEAAAA2ACgAACA9AA8AAAAyACgAAAA9ABAAAAA3ACkAACA9ABEAAAA3ACgAACA+AA8AAAAzACgAAAA+ABAAAAA4ACkAACA/AA8AAAA0ACgAAAA/ABAAAAA2ACkAACBAAA8AAAA1ACgAAABAABAAAAA3ACkAACBBAA8AAAAxACgAAABBABAAAAA4ACkAACBCAA8AAAAyACgAAABCABAAAAAyACkAACBDAA8AAAAzACgAAABDABAAAAAzACkAACBEAA8AAAA0ACgAAABEABAAAAA0ACkAACBFAA8AAAA1ACgAAABFABAAAAA1ACkAACBHAA8AAAA3ACgAAABHABAAAAA3ACkAACBIAA8AAAA4ACgAAABIABAAAAA4ACkAACBBABEAAAA4ACgAACBCABEAAAAyACgAACBDABEAAAAzACgAACBEABEAAAA0ACgAACBFABEAAAA1ACgAACBHABEAAAA3ACgAACBIABEAAAA4ACgAACA+ABEAAAA4ACgAACA/ABEAAAA2ACgAACBAABEAAAA3ACgAACAzABEAAAAxACgAACAzABAAAAAxACkAACAzAB8AAAAxACgAAAAzACAAAAAyACkAACAzACEAAAAyACgAACA0AB8AAAAyACgAAAA0ACAAAAAzACkAACA0ACEAAAAzACgAACA1ACEAAAA0ACgAACA2ACEAAAA1ACgAACA3ACEAAAA2ACgAACA4ACEAAAA3ACgAACA5ACEAAAA4ACgAACA6ACEAAAA1ACgAACA7ACEAAAA2ACgAACA8ACEAAAA3ACgAACA9ACEAAAA4ACgAACA+ACEAAAA2ACgAACA/ACEAAAA3ACgAACBAACEAAAA4ACgAACBBACEAAAAyACgAACBCACEAAAAzACgAACBDACEAAAA0ACgAACBEACEAAAA1ACgAACA=")
@@ -9375,7 +9327,7 @@ position = Vector2(862, 396)
 
 [node name="EnderLiliesWaterTest5" type="Node2D" parent="." unique_id=2110818925]
 z_index = -10
-position = Vector2(888, -309)
+position = Vector2(889, -284)
 script = ExtResource("21_vcubd")
 Width = 200
 Height = 1100
@@ -9416,65 +9368,10 @@ position = Vector2(600, 0)
 ChainLength = 160.0
 MaxAngleDegrees = 50.0
 
-[node name="Decocueva150" type="Sprite2D" parent="." unique_id=239641778]
-modulate = Color(0.4, 0.45, 0.55, 0.95)
-z_index = 3
-position = Vector2(196, 401)
-texture = ExtResource("29_324da")
-script = ExtResource("33_parallaxfollow")
-ParallaxFactor = Vector2(-0.05, 0)
-FollowCamera = true
-ShiftOffsetOnly = true
-OffsetAnchor = Vector2(199, 497)
+[node name="Plantin2" parent="." unique_id=1335452070 instance=ExtResource("34_pinww")]
+position = Vector2(989.99994, 213.99994)
+scale = Vector2(0.2, 0.2)
 
-[node name="Decocueva151" type="Sprite2D" parent="." unique_id=1807171234]
-modulate = Color(0.4, 0.45, 0.55, 0.95)
-z_index = 3
-material = SubResource("ShaderMaterial_degradado151")
-position = Vector2(489.00003, 134)
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("29_324da")
-script = ExtResource("33_parallaxfollow")
-ParallaxFactor = Vector2(0, 0)
-FollowCamera = true
-ShiftOffsetOnly = true
-OffsetAnchor = Vector2(393, 159)
-
-[node name="Decocueva152" type="Sprite2D" parent="." unique_id=877351037]
-modulate = Color(0.4, 0.45, 0.55, 0.95)
-z_index = 3
-material = SubResource("ShaderMaterial_degradado151")
-position = Vector2(453.00003, 473.00006)
-rotation = 3.1415927
-scale = Vector2(0.68, 0.68)
-texture = ExtResource("29_324da")
-script = ExtResource("33_parallaxfollow")
-ParallaxFactor = Vector2(0, 0)
-FollowCamera = true
-ShiftOffsetOnly = true
-OffsetAnchor = Vector2(393, 159)
-
-[node name="Decocueva2" type="Sprite2D" parent="." unique_id=2128835926]
-modulate = Color(0.4, 0.45, 0.55, 0.95)
-z_index = 3
-position = Vector2(1852, 198)
-scale = Vector2(1.0208334, 1.03125)
-texture = ExtResource("30_gmyci")
-script = ExtResource("33_parallaxfollow")
-ParallaxFactor = Vector2(0, -0.03)
-FollowCamera = true
-ShiftOffsetOnly = true
-OffsetAnchor = Vector2(1871, 198)
-
-[node name="Decocueva3" type="Sprite2D" parent="." unique_id=804658043]
-modulate = Color(0.4, 0.45, 0.55, 0.95)
-z_index = 3
-position = Vector2(350, -749)
-rotation = 1.5707964
-scale = Vector2(1.0208334, 1.03125)
-texture = ExtResource("30_gmyci")
-script = ExtResource("33_parallaxfollow")
-ParallaxFactor = Vector2(0, -0.03)
-FollowCamera = true
-ShiftOffsetOnly = true
-OffsetAnchor = Vector2(350, -790)
+[node name="Plantin3" parent="." unique_id=158448597 instance=ExtResource("34_pinww")]
+position = Vector2(982.99994, 468.99988)
+scale = Vector2(0.2, 0.2)
