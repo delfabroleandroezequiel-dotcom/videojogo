@@ -107,6 +107,31 @@ public partial class InventoryUI : CanvasLayer
 			_itemList.AddChild(new Label { Text = "UI_INVENTORY_EMPTY", Modulate = new Color(0.7f, 0.7f, 0.7f) });
 	}
 
+	// One line of what the item does in numbers: a weapon's damage per hit and whether it breaks
+	// poise, and any stat bonuses (rings and the like).
+	private static string BuildAttributes(Item item, PlayerInventory inventory)
+	{
+		var parts = new System.Collections.Generic.List<string>();
+		if (item.Type == ItemType.Weapon)
+		{
+			int damage = item.WeaponDamageCap > 0
+				? item.WeaponDamageCap
+				: inventory.GetParent().GetNode<Stats>("Stats").AttackPower;
+			parts.Add(string.Format(TranslationServer.Translate("UI_ATTR_DAMAGE_PER_HIT"), damage));
+			parts.Add(TranslationServer.Translate(item.WeaponBreaksPoise ? "UI_ATTR_BREAKS_POISE" : "UI_ATTR_NO_POISE"));
+		}
+		void Bonus(int value, string statKey)
+		{
+			if (value != 0)
+				parts.Add($"{TranslationServer.Translate(statKey)} {value:+0;-0}");
+		}
+		Bonus(item.HealthBonus, "UI_STAT_VITALITY");
+		Bonus(item.StaminaBonus, "UI_STAT_ENDURANCE");
+		Bonus(item.AttackBonus, "UI_STAT_STRENGTH");
+		Bonus(item.DefenseBonus, "UI_ATTR_DEFENSE");
+		return string.Join(" · ", parts);
+	}
+
 	private Control BuildItemRow(Item item, PlayerInventory inventory, int count = 0)
 	{
 		HBoxContainer row = new();
@@ -118,16 +143,20 @@ public partial class InventoryUI : CanvasLayer
 			ItemType.Quest => "UI_INVENTORY_TAG_QUEST",
 			ItemType.Key => "UI_INVENTORY_TAG_KEY",
 			ItemType.Consumable => "UI_INVENTORY_TAG_CONSUMABLE",
+			ItemType.Weapon => "UI_INVENTORY_TAG_WEAPON",
 			_ => "UI_INVENTORY_TAG_LORE",
 		});
 		string itemName = TranslationServer.Translate(item.ItemName);
 		if (count > 0)
 			itemName += $" x{count}";
+		if (item.Type == ItemType.Weapon && inventory.HeldSwordId == item.Id)
+			itemName += " " + TranslationServer.Translate("UI_INVENTORY_IN_HAND");
 		string description = TranslationServer.Translate(item.Description);
+		string attributes = BuildAttributes(item, inventory);
 
 		Label label = new()
 		{
-			Text = $"{typeTag} {itemName}\n  {description}",
+			Text = $"{typeTag} {itemName}\n  {description}" + (attributes.Length > 0 ? $"\n  {attributes}" : ""),
 			AutowrapMode = TextServer.AutowrapMode.Word,
 			CustomMinimumSize = new Vector2(380, 0),
 			SizeFlagsHorizontal = Control.SizeFlags.ExpandFill,

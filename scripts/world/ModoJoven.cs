@@ -31,7 +31,14 @@ public partial class ModoJoven : Node
 		PlayerAbilities.Torch, PlayerAbilities.ChargedAttack, PlayerAbilities.RunThrust, PlayerAbilities.PoundAttack,
 	};
 
-	public override void _Ready() => Callable.From(Apply).CallDeferred();
+	// PlayerInventory leaves the sword alone while a node of this group is in the scene.
+	public const string Group = "modo_joven";
+
+	public override void _Ready()
+	{
+		AddToGroup(Group);
+		Callable.From(Apply).CallDeferred();
+	}
 
 	private void Apply()
 	{

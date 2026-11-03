@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Item" format=3]
+
+[ext_resource type="Script" path="res://scripts/items/Item.cs" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+Id = "item_espada_madera"
+ItemName = "ITEM_ESPADA_MADERA_NAME"
+Description = "ITEM_ESPADA_MADERA_DESC"
+Type = 7
+WeaponDamageCap = 1
+WeaponBreaksPoise = false

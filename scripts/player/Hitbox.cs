@@ -102,7 +102,11 @@ public partial class Hitbox : Area2D
 		if (targetStats.IsInvulnerable && !pierce)
 			return;
 
-		targetStats.TakeDamage(Mathf.RoundToInt(_attackerStats.AttackPower * _damageMultiplier), element: _element, ignoreInvulnerability: pierce);
+		int damage = Mathf.RoundToInt(_attackerStats.AttackPower * _damageMultiplier);
+
+		if (_attackerStats.WeaponDamageCap > 0)
+			damage = Mathf.Min(damage, _attackerStats.WeaponDamageCap);
+		targetStats.TakeDamage(damage, element: _element, ignoreInvulnerability: pierce);
 		Vector2 impactPoint = (GlobalPosition + body.GlobalPosition) / 2f;
 		LastImpactPoint = impactPoint;
 		if (AppliesShadowMark && body is Enemy markedEnemy)
@@ -123,7 +127,7 @@ public partial class Hitbox : Area2D
 		EmitSignal(SignalName.HitDealt);
 		if (targetStats.CurrentHealth <= 0)
 			EmitSignal(SignalName.KilledTarget);
-		else if (PoiseDamage is not null && body is Enemy enemy && enemy.TakePoiseDamage(PoiseDamage()))
+		else if (_attackerStats.WeaponBreaksPoise && PoiseDamage is not null && body is Enemy enemy && enemy.TakePoiseDamage(PoiseDamage()))
 			EmitSignal(SignalName.PoiseBroken);
 
 		if (body.HasMethod("ApplyKnockback"))

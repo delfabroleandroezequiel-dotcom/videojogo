@@ -366,3 +366,13 @@ DERROTA_ARTHUR_4,"Vamos, la cena se enfría. Tu madre odiaba que yo llegara tard
 NARRA_APERTURA_5,"Quizás digan que todo fue un sueño, o un invento de mi imaginación...","Perhaps they'll say it was all a dream, or something I made up...","Talvez digam que tudo foi um sonho, ou uma invenção da minha imaginação..."
 NARRA_APERTURA_6,"Por suerte, no estaré vivo cuando juzguen lo que escribí con esta pluma.","Luckily, I won't be alive when they judge what I wrote with this quill.","Por sorte, não estarei vivo quando julgarem o que escrevi com esta pena."
 CINE_CASA_4,"Lleva el pescado de ayer a Bram. Y no te quedes mirando las caravanas.","Take yesterday's fish to Bram. And don't stand there staring at the caravans.","Leve o peixe de ontem para o Bram. E não fique olhando as caravanas."
+ITEM_ESPADA_MADERA_NAME,"Espada de madera","Wooden sword","Espada de madeira"
+ITEM_ESPADA_MADERA_DESC,"La de entrenar con papá. Pega, pero no corta. Con esto no le sacas ni un susto a nadie.","The one from training with dad. It hits, but it doesn't cut. This won't even scare anyone.","A dos treinos com o pai. Bate, mas não corta. Com isso você não assusta ninguém."
+ITEM_ESPADA_ARTHUR_NAME,"Espada de Arthur","Arthur's sword","Espada de Arthur"
+ITEM_ESPADA_ARTHUR_DESC,"La forjó Garrik para una guerra que nadie quiere recordar. El mango tiene la forma de otra mano.","Garrik forged it for a war no one wants to remember. The grip is worn to the shape of another hand.","Garrik a forjou para uma guerra que ninguém quer lembrar. O cabo tem a forma de outra mão."
+UI_INVENTORY_TAG_WEAPON,[Arma],[Weapon],[Arma]
+UI_INVENTORY_IN_HAND,(en la mano),(in hand),(na mão)
+UI_ATTR_DAMAGE_PER_HIT,Daño por golpe: {0},Damage per hit: {0},Dano por golpe: {0}
+UI_ATTR_BREAKS_POISE,Rompe la postura,Breaks poise,Quebra a postura
+UI_ATTR_NO_POISE,No rompe la postura,Doesn't break poise,Não quebra a postura
+UI_ATTR_DEFENSE,Defensa,Defense,Defesa

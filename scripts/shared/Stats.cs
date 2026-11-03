@@ -6,6 +6,11 @@ public partial class Stats : Node
 {
 	[Export] public int MaxHealth = 100;
 	[Export] public int AttackPower = 10;
+	// The weapon in hand (the player's swords, see Item.Weapon*): when above 0, every hit this attacker lands
+	// through a Hitbox deals at most this much (0 = no limit), and WeaponBreaksPoise says whether it
+	// wears down the target's poise.
+	public int WeaponDamageCap;
+	public bool WeaponBreaksPoise = true;
 	[Export] public int Defense = 0;
 	[Export] public int MaxStamina = 100;
 	[Export] public int StaminaRegenPerSecond = 20;

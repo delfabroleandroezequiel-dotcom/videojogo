@@ -13,7 +13,9 @@ public enum ItemType
 	Key,
 	// Used up from the quick slots or the inventory (see Player.UseConsumable); what it does comes
 	// from its fields below (e.g. ImbueElement for the resins).
-	Consumable
+	Consumable,
+	// A sword the player holds (see PlayerInventory.ApplySword): its attributes below are what it does.
+	Weapon
 }
 
 [GlobalClass]
@@ -39,4 +41,9 @@ public partial class Item : Resource
 	// Consumable resins: coats the sword in this element for ImbueDuration seconds (Normal = not a resin).
 	[Export] public DamageElement ImbueElement = DamageElement.Normal;
 	[Export] public float ImbueDuration = 60f;
+
+	// Weapons: the most a single hit can deal (0 = no limit, the player's own AttackPower) and whether
+	// its hits wear down an enemy's poise.
+	[Export] public int WeaponDamageCap;
+	[Export] public bool WeaponBreaksPoise = true;
 }

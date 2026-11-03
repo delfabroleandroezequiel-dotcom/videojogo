@@ -55,6 +55,7 @@ Nix ──► BosqueLobos1 ──► BosqueLobos2 (CORTADO: bandidos)
 - Todavía no existe ningún mapa.
 - **PENDIENTE:** ¿tiene su propio jefe? ¿Qué ambientación (rieles, vagonetas, andamios, minerales, mineros)? ¿Qué enemigos?
 
+- **Espada de madera (2026-11-02):** la partida empieza con el ítem `item_espada_madera` (daño 1 por golpe, no rompe la postura). Es el bloqueo natural de la Cueva antes de partir: se puede entrar, pero no le sacás nada a nadie. Arthur da `item_espada_arthur` al empezar el capítulo 2 (la mañana después de la visita). **Falta la escena que la entrega.**
 - **Personaje base:** sin ataque cargado y sin doble salto en todo el tramo.
 - **Bloqueo:** el camino de superficie a Ullatorp está cortado por bandidos muy fuertes que te matan de un golpe.
 - **Desvío obligado:** desde BosqueLobos1 se entra a la cueva, se conecta con las minas y se sale por la entrada de mina de BosqueLobos6, ya del otro lado del bloqueo.
