@@ -23,16 +23,19 @@ public partial class HealFlask : Node
 		CurrentCharges = MaxCharges;
 	}
 
-	public bool TryUse(Stats stats)
+	// Spends the charge when the drink starts; the health only comes with ApplyHeal at the end, so a
+	// hit that interrupts the drink wastes the charge.
+	public bool TrySpendCharge(Stats stats)
 	{
 		if (CurrentCharges <= 0 || stats.CurrentHealth >= stats.MaxHealth)
 			return false;
 
 		CurrentCharges--;
-		stats.Heal(HealAmount);
 		EmitSignal(SignalName.ChargesChanged, CurrentCharges, MaxCharges);
 		return true;
 	}
+
+	public void ApplyHeal(Stats stats) => stats.Heal(HealAmount);
 
 	public void SetCurrentCharges(int value)
 	{

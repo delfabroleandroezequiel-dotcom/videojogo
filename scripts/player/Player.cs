@@ -762,6 +762,7 @@ public partial class Player : CharacterBody2D
 	private bool _facingRight = true;
 	private bool _attacking;
 	private bool _healing;
+	private int _healRunId;
 	private int _comboStep;
 	// Separate counter for the airborne combo (air_attack1..3) so a jump doesn't eat the ground
 	// combo's progress; reset on touchdown.
@@ -1127,6 +1128,7 @@ public partial class Player : CharacterBody2D
 		{
 			if (!_stats.IsInvulnerable)
 				return;
+			CancelHeal();
 			_hitBlinking = true;
 			// Bumping an enemy's body is a light hit: a short freeze and only ContactInvulnerability
 			// of i-frames, so a brush can't swallow the real attack that follows.
@@ -3119,6 +3121,7 @@ public partial class Player : CharacterBody2D
 	{
 		_parryLanded = true;
 		VoiceBark("Parry", ParryVoiceChance);
+		Sfx.Play(this, "Combat/Sword", "Sword Parry");
 		_parryWindowTimer = Mathf.Max(_parryWindowTimer, ParryChainExtension);
 		AddShadowEssence(perfect ? PerfectParryEssenceGain : ParryEssenceGain);
 		PlayParryFx(perfect);
@@ -3619,7 +3622,8 @@ public partial class Player : CharacterBody2D
 	// then a long freeze, and on a kill a slow-motion tail like OnKillingBlow's, only deeper.
 	private async void ExecutionImpact(Vector2 point, Vector2 direction, bool killed)
 	{
-		Sfx.PlayAt(this, "Combat/Sword", "Sword Impact Hit");
+		// Combat/Placeholder: temporary file, swap it for a licensed one before release.
+		Sfx.PlayAt(this, "Combat/Placeholder", "Backstab");
 		BloodEffect.SpawnAt(this, point);
 		HitImpactBurst.SpawnAt(this, point, HitImpactBurst.ImpactTier.Heavy);
 		HitSparks.SpawnAt(this, point, direction, ExecutionSparkIntensity);
@@ -5773,12 +5777,24 @@ public partial class Player : CharacterBody2D
 
 	private async void UseHealFlask()
 	{
-		if (!_healFlask.TryUse(_stats))
+		if (!_healFlask.TrySpendCharge(_stats))
 			return;
 
 		Sfx.Play(this, "Magic", "Firebuff"); // TODO: swap for a real potion/heal sound once we have one
+		int runId = ++_healRunId;
 		_healing = true;
 		await ToSignal(GetTree().CreateTimer(HealAnimDuration), SceneTreeTimer.SignalName.Timeout);
+		if (!IsInstanceValid(this) || runId != _healRunId)
+			return;
+		_healing = false;
+		if (!_isDead)
+			_healFlask.ApplyHeal(_stats);
+	}
+
+	// A real hit interrupts the drink: no health, and the animation doesn't resume after the knockback.
+	private void CancelHeal()
+	{
+		_healRunId++;
 		_healing = false;
 	}
 

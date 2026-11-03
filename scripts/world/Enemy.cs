@@ -148,6 +148,18 @@ public partial class Enemy : CharacterBody2D
 		DisableMode = DisableModeEnum.KeepActive;
 		ProcessMode = ProcessModeEnum.Disabled;
 		GetNodeOrNull<Metroidvania.Player.Hitbox>("AttackHitbox")?.Deactivate();
+		CancelSlashTrails(this);
+	}
+
+	private static void CancelSlashTrails(Node node)
+	{
+		foreach (Node child in node.GetChildren())
+		{
+			if (child is EnemySlashTrail trail)
+				trail.Cancel();
+			else
+				CancelSlashTrails(child);
+		}
 	}
 
 	private void Unfreeze()
@@ -171,7 +183,12 @@ public partial class Enemy : CharacterBody2D
 			return;
 		_parryCount = 0;
 		Stun();
+		PlayStunSfx();
 	}
+
+	// Parry chain and poise break share it; a hollow (Robo de sombra) is a different beat and stays
+	// silent here. Combat/Placeholder: temporary file, swap it for a licensed one before release.
+	private void PlayStunSfx() => Sfx.PlayAt(this, "Combat/Placeholder", "Stun");
 
 	public bool IsFlinching => _flinchTimer > 0f;
 
@@ -195,6 +212,7 @@ public partial class Enemy : CharacterBody2D
 		_parryCount = 0;
 		_flinchTimer = 0f;
 		Stun();
+		PlayStunSfx();
 		return true;
 	}
 

@@ -74,6 +74,17 @@ public partial class EnemySlashTrail : Node2D
 		AddChild(_sparks);
 	}
 
+	// Wipes the streak right now (the owner got stunned mid-swing): frozen with it, the fade tween
+	// would stall and leave the streak hanging on the enemy for the whole stun.
+	public void Cancel()
+	{
+		_runId++;
+		_points.Clear();
+		_glow.Points = System.Array.Empty<Vector2>();
+		_core.Points = System.Array.Empty<Vector2>();
+		_sparks.Emitting = false;
+	}
+
 	// radiusY (optional) makes the arc an ellipse: radius is then the horizontal radius and radiusY the
 	// vertical one, for swings the sheet draws wider than tall. Omitted = a plain circle.
 	public async void Play(Vector2 center, float radius, float startAngle, float endAngle, float duration, float radiusY = -1f)
