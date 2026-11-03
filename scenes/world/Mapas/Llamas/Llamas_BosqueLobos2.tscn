@@ -4,6 +4,74 @@
 [ext_resource type="Script" path="res://scripts/world/ruina/BurningMap.cs" id="2_llamas"]
 [ext_resource type="PackedScene" path="res://scenes/world/WeatherOverlay.tscn" id="3_clima"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/GroundFire.tscn" id="4_fuego"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/Cinematic.cs" id="5_cine"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/StepFade.cs" id="6_fade"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/StepWait.cs" id="7_wait"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/StepAnimate.cs" id="8_anim"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/StepMeteor.cs" id="9_meteoro"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/StepShake.cs" id="10_temblor"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/StepCamera.cs" id="11_cam"]
+
+[sub_resource type="Resource" id="Paso_negro"]
+script = ExtResource("6_fade")
+ToBlack = true
+Duration = 0.0
+
+[sub_resource type="Resource" id="Paso_tirado"]
+script = ExtResource("8_anim")
+Animation = "death"
+WaitForEnd = true
+ThenAnimation = ""
+
+[sub_resource type="Resource" id="Paso_fuegoEnNegro"]
+script = ExtResource("7_wait")
+Seconds = 0.6
+
+[sub_resource type="Resource" id="Paso_abrir"]
+script = ExtResource("6_fade")
+ToBlack = false
+Duration = 1.4
+
+[sub_resource type="Resource" id="Paso_quieto"]
+script = ExtResource("7_wait")
+Seconds = 0.9
+
+[sub_resource type="Resource" id="Paso_meteoro"]
+script = ExtResource("9_meteoro")
+OffsetX = 120.0
+FromRight = true
+FireScene = ExtResource("4_fuego")
+WarningTime = 0.6
+
+[sub_resource type="Resource" id="Paso_impacto"]
+script = ExtResource("10_temblor")
+Strength = 7.0
+Duration = 0.4
+
+[sub_resource type="Resource" id="Paso_respira"]
+script = ExtResource("7_wait")
+Seconds = 0.5
+
+[sub_resource type="Resource" id="Paso_seLevanta"]
+script = ExtResource("8_anim")
+Animation = "death"
+WaitForEnd = true
+Backwards = true
+
+[sub_resource type="Resource" id="Paso_miraNix"]
+script = ExtResource("11_cam")
+Target = NodePath("../HaciaNix")
+Weight = 0.7
+Zoom = 0.9
+WaitSeconds = 1.0
+
+[sub_resource type="Resource" id="Paso_sostiene"]
+script = ExtResource("7_wait")
+Seconds = 0.8
+
+[sub_resource type="Resource" id="Paso_vuelve"]
+script = ExtResource("11_cam")
+WaitSeconds = 0.4
 
 [node name="Llamas_BosqueLobos2" instance=ExtResource("1_base")]
 ScenePath = "res://scenes/world/Mapas/Llamas/Llamas_BosqueLobos2.tscn"
@@ -13,3 +81,12 @@ ZoneName = ""
 script = ExtResource("2_llamas")
 WeatherScene = ExtResource("3_clima")
 FireScene = ExtResource("4_fuego")
+
+[node name="HaciaNix" type="Marker2D" parent="."]
+position = Vector2(700, 260)
+
+[node name="CinematicaAtaque" type="Node" parent="."]
+script = ExtResource("5_cine")
+Steps = [SubResource("Paso_negro"), SubResource("Paso_tirado"), SubResource("Paso_fuegoEnNegro"), SubResource("Paso_abrir"), SubResource("Paso_quieto"), SubResource("Paso_meteoro"), SubResource("Paso_impacto"), SubResource("Paso_respira"), SubResource("Paso_seLevanta"), SubResource("Paso_miraNix"), SubResource("Paso_sostiene"), SubResource("Paso_vuelve")]
+PlayOnStart = true
+PersistenceId = "cine_llamas_ataque"

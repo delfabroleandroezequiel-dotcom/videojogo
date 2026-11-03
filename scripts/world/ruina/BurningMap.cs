@@ -22,9 +22,11 @@ public partial class BurningMap : Node
 		{ "res://scenes/world/Mapas/BosqueLobos2.tscn", "res://scenes/world/Mapas/Llamas/Llamas_BosqueLobos2.tscn" },
 		{ "res://scenes/world/Mapas/BosqueLobos1.tscn", "res://scenes/world/Mapas/Llamas/Llamas_BosqueLobos1.tscn" },
 		{ "res://scenes/world/Mapas/Nix.tscn", "res://scenes/world/Mapas/Llamas/Llamas_Nix.tscn" },
+		// The house burns too: its cinematic is the jump back to the present (the memory).
+		{ "res://scenes/world/Mapas/Casa1.tscn", "res://scenes/world/Mapas/Llamas/Llamas_Casa1.tscn" },
 	};
-	// Exits left as they are (e.g. the house door, where the memory begins).
-	[Export] public string[] KeepExits = { "res://scenes/world/Mapas/Casa1.tscn" };
+	// Exits left exactly as they are (none by default: every open exit leads to a burning map).
+	[Export] public string[] KeepExits = System.Array.Empty<string>();
 	// Instanced scenes removed from the map: the living world that's gone.
 	[Export] public string[] RemoveScenes =
 	{

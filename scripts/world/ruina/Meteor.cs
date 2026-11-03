@@ -111,7 +111,8 @@ public partial class Meteor : Node2D
 		if (GetTree().GetFirstNodeInGroup("player") is Metroidvania.Player.Player player)
 		{
 			Vector2 offset = player.GlobalPosition - Target;
-			if (Mathf.Abs(offset.X) <= BlastRadius && offset.Y > -110f && offset.Y < 30f
+			// Damage 0 = set dressing (a cutscene's impact): the blast and shake, never a hit.
+			if (Damage > 0 && Mathf.Abs(offset.X) <= BlastRadius && offset.Y > -110f && offset.Y < 30f
 				&& player.GetNodeOrNull<Stats>("Stats") is { IsInvulnerable: false } stats)
 			{
 				stats.TakeDamage(Damage);

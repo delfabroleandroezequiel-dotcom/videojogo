@@ -12,6 +12,8 @@ public partial class StepAnimate : CinematicStep
 	[Export] public bool WaitForEnd;
 	// Animation to fall back to once a waited-for animation ends ("" = stay on its last frame).
 	[Export] public string ThenAnimation = "idle";
+	// Plays it from the last frame back to the first: a fall played backwards reads as getting up.
+	[Export] public bool Backwards;
 
 	public override async Task Run(Cinematic cinematic)
 	{
@@ -21,7 +23,10 @@ public partial class StepAnimate : CinematicStep
 		AnimatedSprite2D sprite = Cinematic.SpriteOf(actor);
 		if (sprite?.SpriteFrames is null || !sprite.SpriteFrames.HasAnimation(Animation))
 			return;
-		sprite.Play(Animation);
+		if (Backwards)
+			sprite.PlayBackwards(Animation);
+		else
+			sprite.Play(Animation);
 		if (!WaitForEnd || sprite.SpriteFrames.GetAnimationLoop(Animation))
 			return;
 		await cinematic.ToSignal(sprite, AnimatedSprite2D.SignalName.AnimationFinished);
