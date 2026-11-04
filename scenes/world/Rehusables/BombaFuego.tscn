@@ -1,0 +1,33 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/BombaFuego.cs" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://ct5f2yj2vrjxf" path="res://assets/sprites/effects/white_square.png" id="2_white"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/GroundFire.tscn" id="3_fire"]
+[ext_resource type="Texture2D" uid="uid://cb8gyivleynt" path="res://resources/particles/SoftDotGradient.tres" id="4_dot"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bomba"]
+radius = 6.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_add"]
+blend_mode = 1
+
+[node name="BombaFuego" type="Area2D"]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_script")
+GroundFireScene = ExtResource("3_fire")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bomba")
+
+[node name="Visual" type="Sprite2D" parent="."]
+modulate = Color(0.55, 0.33, 0.2, 1)
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("2_white")
+
+[node name="Mecha" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_add")
+modulate = Color(1, 0.6, 0.15, 1)
+position = Vector2(0, -6)
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("4_dot")

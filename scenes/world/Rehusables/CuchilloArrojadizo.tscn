@@ -1,0 +1,13 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ElfArrow.tscn" id="1_base"]
+[ext_resource type="Texture2D" uid="uid://ct5f2yj2vrjxf" path="res://assets/sprites/effects/white_square.png" id="2_white"]
+
+[node name="CuchilloArrojadizo" instance=ExtResource("1_base")]
+TrailColor = Color(1, 0.1, 0.25, 1)
+TrailWidth = 3.0
+
+[node name="Visual" parent="." index="1"]
+modulate = Color(0.85, 0.88, 0.95, 1)
+scale = Vector2(0.22, 0.05)
+texture = ExtResource("2_white")
