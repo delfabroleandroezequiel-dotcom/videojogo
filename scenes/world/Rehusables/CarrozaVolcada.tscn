@@ -1,0 +1,24 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/CarrozzaRota_juego.png" id="1_tex"]
+[ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="2_glow"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_carroza"]
+size = Vector2(200, 70)
+
+[node name="CarrozaVolcada" type="StaticBody2D"]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -64)
+texture = ExtResource("1_tex")
+
+[node name="Colision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -35)
+shape = SubResource("RectangleShape2D_carroza")
+
+[node name="LuzFarol" type="PointLight2D" parent="."]
+position = Vector2(-101, -92)
+color = Color(1, 0.7, 0.35, 1)
+energy = 1.0
+texture = ExtResource("2_glow")
+texture_scale = 0.7

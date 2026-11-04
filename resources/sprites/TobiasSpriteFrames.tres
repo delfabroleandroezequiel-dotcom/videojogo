@@ -1,0 +1,42 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Tobias/idle_sureste/frame_000.png" id="t0"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Tobias/idle_sureste/frame_001.png" id="t1"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Tobias/idle_sureste/frame_002.png" id="t2"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Tobias/idle_sureste/frame_003.png" id="t3"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Tobias/idle_sureste/frame_004.png" id="t4"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Tobias/idle_sureste/frame_005.png" id="t5"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Tobias/idle_sureste/frame_006.png" id="t6"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/Tobias/idle_sureste/frame_007.png" id="t7"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("t0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t7")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}]

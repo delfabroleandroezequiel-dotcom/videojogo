@@ -50,7 +50,7 @@ Para cada uno: qué quiere, qué lo hace humano y cuál es su **pago** más adel
 | **Sela** | Pescadera viuda a medias: su marido fue a Ullatorp hace un mes y no volvió | Noticias de él | El jugador lo encuentra en el camino (muerto o cautivo), y es la cara humana de los bandidos. Su casa aparece en la huida del presente |
 | **Pip y Tomo** | Dos chicos que juegan a la "Gran Guerra" con espadas de madera | Que Delfrad les enseñe un golpe | Eco de Delfrad niño. En el presente, una espada de madera tirada en el barro |
 | **Lio y Edda** | Los amigos de Delfrad del Mesón (en el libro hay amigos sin nombre) | Que Delfrad no se olvide de ellos | Se quedan en Nix y vuelven en "Nix, la última resistencia" (Acto 2): muertes con peso, porque ya los conocimos |
-| **Bruno el carretero** | Conductor del carro de Morlok, herido en el borde del bosque | Volver a casa | Testigo de los bandidos: "Llevaban un emblema… no era de por acá" |
+| **Leomax el carretero** | Conductor del carro de Morlok, herido en el borde del bosque | Volver a casa | Testigo de los bandidos: "Llevaban un emblema… no era de por acá" |
 
 ---
 
@@ -63,7 +63,7 @@ Nadie dice "hay bandidos" de una. Cada vecino aporta una pieza y el jugador arma
 - **Sela:** "Mi marido salió para Ullatorp hace un mes. Un mes, Delfrad."
 - **Tobías:** "Los lobos siempre estuvieron. Lo que no estaba es gente que espanta a los lobos."
 - **Ostigada:** "Malvivientes, dicen. Gente del desierto, tan al sur… no tiene sentido."
-- **Bruno** (en la quest): "Nos cortaron el paso. Llevaban un emblema bordado… no era de por acá." Es la semilla de la guerra falsa (los saqueos con emblemas de otro reino que confiesa Matheo).
+- **Leomax** (en la quest): "Nos cortaron el paso. Llevaban un emblema bordado… no era de por acá." Es la semilla de la guerra falsa (los saqueos con emblemas de otro reino que confiesa Matheo).
 
 **El misterio que se siembra:** ¿por qué hay malvivientes del desierto tan al sur? Algo los empuja desde el norte. Es la primera señal de la era oscura.
 
@@ -76,10 +76,10 @@ Nadie dice "hay bandidos" de una. Cada vecino aporta una pieza y el jugador arma
   1. Hablar con **Alathea** en el mercado: el carro de su padre debía llegar ayer.
   2. Hablar con **Morlok** (quiere ir él; Alathea no lo deja; Delfrad se ofrece).
   3. Ir al borde del bosque con **Alathea** (acompañante o encuentro allá).
-  4. Encontrar el **carro volcado** y a **Bruno herido**.
+  4. Encontrar el **carro volcado** y a **Leomax herido**.
   5. Pelear con **2 o 3 malvivientes** que están saqueando. Es la primera pelea "de verdad" después del entrenamiento con Arthur.
   6. Recuperar el **libro de cuentas de Morlok** y **el trozo de tela con el emblema**.
-  7. Volver con Bruno a Nix.
+  7. Volver con Leomax a Nix.
 - **Recompensa:** Morlok le regala a Delfrad una **capa de viaje** ("una capa de Ullatorp, para que no parezcas un pescador cuando llegues a la ciudad"). En el juego es **la capa con física (`CharacterFlair`)**, que en el modo joven no está. Así la capa pasa a tener historia: es un regalo y una pieza de identidad.
 - **Consecuencia:** Halvar cierra el camino del norte ("nadie más sale por ahí"). Eso arma el bloqueo de BosqueLobos2 del Tramo 1 y deja la tela con el emblema en el inventario para cuando Matheo confiese en Enterbill.
 - **Diseño metroidvania:** en el borde del bosque se ve el camino del norte con más bandidos, que todavía no se pueden pelear: una cerradura vista antes de tener la llave.
@@ -101,7 +101,7 @@ Nadie dice "hay bandidos" de una. Cada vecino aporta una pieza y el jugador arma
 Se arman con `Cinematicas.md`:
 - Mañana con el encargo (ajustar la `CinematicaApertura`).
 - Alathea preocupada en el mercado (corta).
-- El carro volcado y Bruno (descubrimiento, plano general y después medio).
+- El carro volcado y Leomax (descubrimiento, plano general y después medio).
 - La noche en el Mesón (respiro emocional, la "secuela" antes de la partida).
 - Escuchar a escondidas al encapuchado (tensión, cámara quieta, poca luz, el brillo del amuleto).
 - Arthur le da la espada (primer plano, silencio, la línea más importante del prólogo).

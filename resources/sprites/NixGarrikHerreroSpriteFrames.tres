@@ -1,0 +1,26 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Garrik/martillo_0.png" id="m0"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Garrik/martillo_1.png" id="m1"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Garrik/martillo_2.png" id="m2"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Garrik/martillo_3.png" id="m3"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1,
+"texture": ExtResource("m0")
+}, {
+"duration": 1,
+"texture": ExtResource("m1")
+}, {
+"duration": 1.3,
+"texture": ExtResource("m2")
+}, {
+"duration": 1.8,
+"texture": ExtResource("m3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}]

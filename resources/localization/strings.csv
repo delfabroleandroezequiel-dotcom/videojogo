@@ -365,7 +365,7 @@ ARTHUR_BERSERK_2,"Entonces mira bien. Así peleábamos en la Gran Guerra.","Then
 DERROTA_ARTHUR_4,"Vamos, la cena se enfría. Tu madre odiaba que yo llegara tarde.","Come on, dinner's getting cold. Your mother hated it when I was late.","Vamos, o jantar está esfriando. Sua mãe odiava quando eu me atrasava."
 NARRA_APERTURA_5,"Quizás digan que todo fue un sueño, o un invento de mi imaginación...","Perhaps they'll say it was all a dream, or something I made up...","Talvez digam que tudo foi um sonho, ou uma invenção da minha imaginação..."
 NARRA_APERTURA_6,"Por suerte, no estaré vivo cuando juzguen lo que escribí con esta pluma.","Luckily, I won't be alive when they judge what I wrote with this quill.","Por sorte, não estarei vivo quando julgarem o que escrevi com esta pena."
-CINE_CASA_4,"Lleva el pescado de ayer a Bram. Y no te quedes mirando las caravanas.","Take yesterday's fish to Bram. And don't stand there staring at the caravans.","Leve o peixe de ontem para o Bram. E não fique olhando as caravanas."
+CINE_CASA_4,Lleva el pescado de ayer a Bram. Pasa por lo de Garrik a buscar la red. Y no te quedes mirando las caravanas.,Take yesterday's fish to Bram. Stop by Garrik's for the net. And don't stand there staring at the caravans.,Leve o peixe de ontem para o Bram. Passe no Garrik para buscar a rede. E não fique olhando as caravanas.
 ITEM_ESPADA_MADERA_NAME,"Espada de madera","Wooden sword","Espada de madeira"
 ITEM_ESPADA_MADERA_DESC,"La de entrenar con papá. Pega, pero no corta. Con esto no le sacas ni un susto a nadie.","The one from training with dad. It hits, but it doesn't cut. This won't even scare anyone.","A dos treinos com o pai. Bate, mas não corta. Com isso você não assusta ninguém."
 ITEM_ESPADA_ARTHUR_NAME,"Espada de Arthur","Arthur's sword","Espada de Arthur"
@@ -376,3 +376,61 @@ UI_ATTR_DAMAGE_PER_HIT,Daño por golpe: {0},Damage per hit: {0},Dano por golpe: 
 UI_ATTR_BREAKS_POISE,Rompe la postura,Breaks poise,Quebra a postura
 UI_ATTR_NO_POISE,No rompe la postura,Doesn't break poise,Não quebra a postura
 UI_ATTR_DEFENSE,Defensa,Defense,Defesa
+TUTORIAL_DASH_DOBLE_SALTO,"[{0}] Dash      [{1}] en el aire: Doble salto","[{0}] Dash      [{1}] in mid-air: Double jump","[{0}] Dash      [{1}] no ar: Pulo duplo"
+NPC_TOBIAS_NAME,Tobías,Tobías,Tobías
+NPC_TOBIAS_L1,"El mar estuvo tranquilo esta semana. Decile a tu padre que mañana salimos temprano.","The sea's been calm this week. Tell your father we head out early tomorrow.","O mar esteve calmo esta semana. Diga ao seu pai que amanhã saímos cedo."
+NPC_TOBIAS_L2,"Antes salíamos más lejos... antes de que cerraran el paso del este.","We used to sail farther out... before they closed the eastern passage.","Antes íamos mais longe... antes de fecharem a passagem do leste."
+NPC_TOBIAS_L3,"Tu padre no siempre fue pescador, muchacho. Pero eso que te lo cuente él.","Your father wasn't always a fisherman, lad. But let him be the one to tell you.","Seu pai nem sempre foi pescador, rapaz. Mas deixe que ele mesmo te conte."
+QUEST_CARRO_MORLOK_TITLE,El carro de Morlok,Morlok's Cart,A carroça de Morlok
+QUEST_CARRO_MORLOK_DESC,El carro de Morlok no llegó de Ullatorp. Alathea teme que a Leomax le pasó algo en el camino del bosque.,Morlok's cart never arrived from Ullatorp. Alathea fears something happened to Leomax on the forest road.,A carroça de Morlok não chegou de Ullatorp. Alathea teme que algo tenha acontecido com Leomax na estrada da floresta.
+QUEST_CARRO_MORLOK_OBJECTIVE,Recuperar el libro de cuentas de Morlok,Recover Morlok's ledger,Recuperar o livro de contas de Morlok
+QUEST_CARRO_MORLOK_REWARD,Una capa de viaje de Ullatorp,A travel cloak from Ullatorp,Uma capa de viagem de Ullatorp
+ITEM_LIBRO_CUENTAS_MORLOK_NAME,Libro de cuentas de Morlok,Morlok's Ledger,Livro de contas de Morlok
+ITEM_LIBRO_CUENTAS_MORLOK_DESC,"Deudas, precios y nombres de medio Nix, con la letra apretada de Morlok.","Debts, prices and names of half of Nix, in Morlok's cramped handwriting.","Dívidas, preços e nomes de meio Nix, na letra apertada de Morlok."
+ITEM_TELA_EMBLEMA_NAME,Tela con emblema,Embroidered Rag,Pano com emblema
+ITEM_TELA_EMBLEMA_DESC,Un jirón bordado que perdió un bandido. El emblema no es de este reino.,An embroidered scrap a bandit lost. The emblem is not from this kingdom.,Um retalho bordado que um bandido perdeu. O emblema não é deste reino.
+NPC_ALATHEA_NAME,Alathea,Alathea,Alathea
+NPC_ALATHEA_CARRO_L1,"Delfrad. Justo tú, el que nunca llega a tiempo a nada.","Delfrad. Of course it's you, the one who's never on time for anything.","Delfrad. Logo você, que nunca chega na hora para nada."
+NPC_ALATHEA_CARRO_L2,El carro de mi padre tenía que llegar ayer de Ullatorp. Y nada.,My father's cart was due from Ullatorp yesterday. Nothing.,A carroça do meu pai devia ter chegado ontem de Ullatorp. E nada.
+NPC_ALATHEA_CARRO_L3,Leomax no se atrasa nunca. Ni con tormenta.,Leomax is never late. Not even in a storm.,Leomax nunca se atrasa. Nem com tempestade.
+NPC_ALATHEA_CARRO_L4,"Ve a mirar el camino del bosque. Si mi padre va solo, no vuelve.","Go check the forest road. If my father goes alone, he won't come back.","Vá olhar a estrada da floresta. Se meu pai for sozinho, não volta."
+NPC_ALATHEA_CARRO_PROG,"¿Sigues aquí? El bosque empieza al final del pueblo, por si lo olvidaste.","Still here? The forest starts at the end of town, in case you forgot.","Ainda aqui? A floresta começa no fim da vila, caso tenha esquecido."
+NPC_ALATHEA_CARRO_DONE,Lo encontraste. Supongo que tendré que dejar de burlarme de ti... un rato.,You found it. I suppose I'll have to stop mocking you... for a while.,Você encontrou. Acho que vou ter que parar de zombar de você... um pouco.
+NPC_MORLOK_NAME,Morlok,Morlok,Morlok
+NPC_MORLOK_CARRO_L1,"Mi carro, con todo lo de Ullatorp, y Leomax... no aparecen.","My cart, with everything from Ullatorp, and Leomax... they never showed up.","Minha carroça, com tudo de Ullatorp, e o Leomax... não aparecem."
+NPC_MORLOK_CARRO_L2,"Iría yo mismo, pero Alathea no me deja salir del puesto.","I'd go myself, but Alathea won't let me leave the stall.","Eu iria pessoalmente, mas Alathea não me deixa sair da barraca."
+NPC_MORLOK_CARRO_L3,"Si vas al bosque, tráeme al menos mi libro de cuentas.","If you go to the forest, at least bring back my ledger.","Se for à floresta, traga pelo menos meu livro de contas."
+NPC_MORLOK_CARRO_PROG,"Ese libro tiene las cuentas de medio Nix. Tráelo, por favor.",That ledger holds the accounts of half of Nix. Please bring it back.,"Esse livro tem as contas de meio Nix. Traga-o, por favor."
+NPC_MORLOK_CARRO_DONE1,¡Mi libro! Y Leomax vivo... Te debo más de lo que anoto aquí.,My ledger! And Leomax alive... I owe you more than I write in here.,Meu livro! E o Leomax vivo... Te devo mais do que anoto aqui.
+NPC_MORLOK_CARRO_DONE2,Es de Ullatorp. La lana de allá no deja pasar el agua.,It's from Ullatorp. The wool there keeps the water out.,É de Ullatorp. A lã de lá não deixa a água passar.
+NPC_BRUNO_NAME,Leomax,Leomax,Leomax
+NPC_BRUNO_HERIDO_L1,Nos cortaron el paso. Más arriba hay otros. Muchos más.,They cut us off. There are more further up. Many more.,Cortaram nosso caminho. Mais acima há outros. Muitos mais.
+NPC_BRUNO_HERIDO_L2,"Son del desierto, ¿qué hacen aquí? Andaban como si los corrieran.","They're from the desert, what are they doing here? Like something was chasing them.","São do deserto, o que fazem aqui? Andavam como se fugissem de algo."
+NPC_BRUNO_HERIDO_L3,"Llevaban un emblema bordado. El que mandaba... no es de por aquí.","They wore an embroidered emblem. The leader... it's not from around here.","Usavam um emblema bordado. O que mandava... não é daqui."
+NPC_BRUNO_NIX_L1,"Gracias por sacarme de ahí, muchacho.","Thanks for getting me out of there, lad.","Obrigado por me tirar de lá, rapaz."
+NPC_BRUNO_NIX_L2,Ese emblema... lo sigo viendo cuando cierro los ojos.,That emblem... I still see it when I close my eyes.,Aquele emblema... ainda o vejo quando fecho os olhos.
+NPC_BRUNO_HERIDO_L4,El libro de Morlok quedó en el carro. Que no se lo lleven.,Morlok's ledger is still in the cart. Don't let them take it.,O livro de Morlok ficou na carroça. Não deixe que o levem.
+UI_INV_TAB_KEY,Elementos clave,Key items,Itens-chave
+UI_INV_TAB_CONSUMABLES,Consumibles,Consumables,Consumíveis
+UI_INV_TAB_WEAPONS,Armas,Weapons,Armas
+UI_INV_TAB_ARMOR,Armaduras,Armor,Armaduras
+UI_INV_EMPTY_TAB,Nada por aquí todavía.,Nothing here yet.,Nada por aqui ainda.
+UI_INV_TABS_HINT,Q / E: pestañas,Q / E: tabs,Q / E: abas
+UI_INV_EQUIPPED_TAG,Equipado,Equipped,Equipado
+QUEST_ENCARGO_TITLE,El encargo de Arthur,Arthur's Errand,A encomenda de Arthur
+QUEST_ENCARGO_DESC,Arthur te pidió llevarle el pescado de ayer a Bram y pasar por lo de Garrik a buscar la red.,Arthur asked you to take yesterday's fish to Bram and pick up the net from Garrik's.,Arthur pediu que você levasse o peixe de ontem para o Bram e buscasse a rede com o Garrik.
+QUEST_ENCARGO_OBJECTIVE,Entregar el pescado a Bram y buscar la red de Garrik,Deliver the fish to Bram and fetch the net from Garrik,Entregar o peixe ao Bram e buscar a rede com o Garrik
+QUEST_ENCARGO_REWARD,Unas monedas de Bram (pocas),A few coins from Bram (not many),Algumas moedas do Bram (poucas)
+ITEM_PESCADO_AYER_NAME,Pescado de ayer,Yesterday's Fish,Peixe de ontem
+ITEM_PESCADO_AYER_DESC,"Un atado envuelto en papel. Huele a ayer, y Bram lo va a notar.","A paper-wrapped bundle. It smells like yesterday, and Bram will notice.","Um embrulho de papel. Cheira a ontem, e o Bram vai perceber."
+ITEM_RED_ARTHUR_NAME,Red de Arthur,Arthur's Net,Rede de Arthur
+ITEM_RED_ARTHUR_DESC,"La red de pesca de tu padre, remendada por Garrik con nudos más firmes que los originales.","Your father's fishing net, mended by Garrik with knots stronger than the originals.","A rede de pesca do seu pai, remendada pelo Garrik com nós mais firmes que os originais."
+NPC_BRAM_NAME,Bram,Bram,Bram
+NPC_BRAM_ENCARGO_1,¿De ayer? Dile a tu padre que por este precio me lo traiga vivo.,Yesterday's? Tell your father that for this price he can bring it to me alive.,De ontem? Diga ao seu pai que por esse preço ele me traga vivo.
+NPC_BRAM_ENCARGO_2,"Y que suba lo que quiera, porque yo voy a tener que subir.","And he can raise his price all he wants, because I'll have to raise mine.","E que suba o que quiser, porque eu vou ter que subir."
+NPC_BRAM_ENCARGO_3,"Hace semanas que no baja ganado del norte, y el que llega, llega caro.","No cattle has come down from the north in weeks, and what does come, comes expensive.","Faz semanas que não desce gado do norte, e o que chega, chega caro."
+NPC_BRAM_ENCARGO_4,¿Tengo cara de rey? Toma.,Do I look like the king? Here.,Eu tenho cara de rei? Toma.
+NPC_GARRIK_NAME,Garrik,Garrik,Garrik
+NPC_GARRIK_ENCARGO_1,"Espera. El hierro no espera a nadie, y yo tampoco.","Wait. Iron waits for no one, and neither do I.","Espere. O ferro não espera ninguém, e eu também não."
+NPC_GARRIK_ENCARGO_2,Ahí tienes la red de tu padre. Los nudos nuevos aguantan más que los viejos.,There's your father's net. The new knots hold better than the old ones.,Aí está a rede do seu pai. Os nós novos aguentam mais que os velhos.
+NPC_GARRIK_ENCARGO_3,Dile a Arthur que pase un día. Hace mucho que no hablamos de acero.,Tell Arthur to stop by one day. It's been a long time since we talked about steel.,Diga ao Arthur que passe aqui um dia. Faz tempo que não falamos de aço.

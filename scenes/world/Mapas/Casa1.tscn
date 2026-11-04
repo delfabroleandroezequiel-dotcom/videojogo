@@ -19,6 +19,9 @@
 [ext_resource type="Script" path="res://scripts/world/cinematica/StepSay.cs" id="36_say"]
 [ext_resource type="Script" path="res://scripts/world/cinematica/StepAnimate.cs" id="37_anim"]
 [ext_resource type="Script" path="res://scripts/world/cinematica/StepActorOffset.cs" id="38_offset"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/StepStartQuest.cs" id="enc_step"]
+[ext_resource type="Resource" path="res://resources/quests/encargo_arthur.tres" id="enc_quest"]
+[ext_resource type="Resource" path="res://resources/items/pescado_ayer.tres" id="enc_pescado"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(816.4462, 29.750008)
@@ -33,18 +36,18 @@ Duration = 0.0
 
 [sub_resource type="Resource" id="Paso_enLaCama"]
 script = ExtResource("38_offset")
-Offset = Vector2(55, -46)
+Offset = Vector2(70, -46)
 HideCape = true
 
 [sub_resource type="Resource" id="Paso_acostado"]
 script = ExtResource("37_anim")
-Animation = "death"
+Animation = "death_sin_espada"
 WaitForEnd = true
 ThenAnimation = ""
 
 [sub_resource type="Resource" id="Paso_seLevanta"]
 script = ExtResource("37_anim")
-Animation = "death"
+Animation = "death_sin_espada"
 WaitForEnd = true
 Backwards = true
 
@@ -81,6 +84,11 @@ Actor = NodePath("../Arthur")
 [sub_resource type="Resource" id="Paso_camaraVuelve"]
 script = ExtResource("33_cam")
 WaitSeconds = 0.3
+
+[sub_resource type="Resource" id="Paso_encargo"]
+script = ExtResource("enc_step")
+Quest = ExtResource("enc_quest")
+GivesItem = ExtResource("enc_pescado")
 
 [sub_resource type="Resource" id="Paso_dialogo"]
 script = ExtResource("36_say")
@@ -174,6 +182,6 @@ position = Vector2(215, 91)
 
 [node name="CinematicaApertura" type="Node" parent="."]
 script = ExtResource("30_cine")
-Steps = [SubResource("Paso_negro"), SubResource("Paso_enLaCama"), SubResource("Paso_acostado"), SubResource("Paso_espera"), SubResource("Paso_aclarar"), SubResource("Paso_camaraArthur"), SubResource("Paso_arthurVa"), SubResource("Paso_arthurMira"), SubResource("Paso_camaraVuelve"), SubResource("Paso_dialogo"), SubResource("Paso_seLevanta"), SubResource("Paso_bajaDeLaCama"), SubResource("Paso_arthurVuelve")]
+Steps = [SubResource("Paso_negro"), SubResource("Paso_enLaCama"), SubResource("Paso_acostado"), SubResource("Paso_espera"), SubResource("Paso_aclarar"), SubResource("Paso_camaraArthur"), SubResource("Paso_arthurVa"), SubResource("Paso_arthurMira"), SubResource("Paso_camaraVuelve"), SubResource("Paso_dialogo"), SubResource("Paso_encargo"), SubResource("Paso_seLevanta"), SubResource("Paso_bajaDeLaCama"), SubResource("Paso_arthurVuelve")]
 PlayOnStart = true
 PersistenceId = "cine_casa_apertura"

@@ -120,11 +120,11 @@ Morlok, redondo y colorado, trataba de ponerse una bota sentado sobre un barril.
 
 Los dos me miraron como si yo fuera la respuesta.
 
-—El carro de Ullatorp debía llegar ayer, con Bruno —dijo ella—. Y no llegó.
+—El carro de Ullatorp debía llegar ayer, con Leomax —dijo ella—. Y no llegó.
 
 —Se le habrá roto un eje.
 
-—Bruno lleva veinte años en ese camino y no se le rompe ni un cordón. —Me miró la red, el hombro, la cara de bobo—. ¿Tienes algo más importante que hacer?
+—Leomax lleva veinte años en ese camino y no se le rompe ni un cordón. —Me miró la red, el hombro, la cara de bobo—. ¿Tienes algo más importante que hacer?
 
 Yo tenía diecisiete años y una muchacha me estaba pidiendo que me fuera con ella al bosque. Dejé la red sobre el barril de Morlok, y me dije que luego la llevaría.
 
@@ -146,7 +146,7 @@ Eran tres. Uno revolvía los fardos. Otro estaba sentado sobre la caja de Morlok
 
 El tercero estaba parado junto a algo que había en el suelo. Vi una bota, y reconocí el remiendo de la bota.
 
-—Bruno —dijo Alathea, muy bajito. Puso una flecha en la cuerda—. Cuando yo tire, gritas.
+—Leomax —dijo Alathea, muy bajito. Puso una flecha en la cuerda—. Cuando yo tire, gritas.
 
 —¿Que grite qué?
 
@@ -166,7 +166,7 @@ Me di cuenta de que me temblaban las rodillas y de que había vomitado, sin sabe
 
 —Se fueron —dije.
 
-—Te pregunté si le diste. —Después me miró bien, miró lo que había en el suelo y por una vez no dijo nada. Se limitó a acercarme el odre y fue a arrodillarse junto a Bruno.
+—Te pregunté si le diste. —Después me miró bien, miró lo que había en el suelo y por una vez no dijo nada. Se limitó a acercarme el odre y fue a arrodillarse junto a Leomax.
 
 Estaba vivo. Tenía la cabeza abierta y una pierna que no miraba para donde debía. Alathea le dio agua y él tardó en reconocerla, y cuando lo hizo la agarró de la muñeca con una fuerza que no le correspondía.
 
@@ -180,11 +180,11 @@ Alathea levantó el libro de cuentas de su padre de un charco y lo sacudió con 
 
 Miré hacia el norte. Unos pasos más allá, el camino subía entre los árboles y se perdía en la sombra. Era por donde pasaba la caravana. Era por donde yo llevaba años pensando irme. Me pareció que allá arriba, muy lejos, había una columna de humo, y que no era humo de ninguna chimenea.
 
-Tardamos hasta el anochecer en llevar a Bruno de vuelta sobre la lona, tirando de ella entre los dos. Halvar nos vio venir desde la puerta. No preguntó nada. Se quitó el casco, se quedó mirando dentro como si allí estuviera lo que tenía que hacer, y volvió a ponérselo.
+Tardamos hasta el anochecer en llevar a Leomax de vuelta sobre la lona, tirando de ella entre los dos. Halvar nos vio venir desde la puerta. No preguntó nada. Se quitó el casco, se quedó mirando dentro como si allí estuviera lo que tenía que hacer, y volvió a ponérselo.
 
 ---
 
-A Morlok le pareció que debía pagarme. Era la única manera que conocía de decir cualquier cosa. Bruno ya estaba en la cama, con el hermano Aldric rezándole al lado y una tabla atada a la pierna. El libro de cuentas se secaba sobre el fogón. Morlok fue a la trastienda, volvió con una tela gris doblada y me la puso en los brazos sin mirarme.
+A Morlok le pareció que debía pagarme. Era la única manera que conocía de decir cualquier cosa. Leomax ya estaba en la cama, con el hermano Aldric rezándole al lado y una tabla atada a la pierna. El libro de cuentas se secaba sobre el fogón. Morlok fue a la trastienda, volvió con una tela gris doblada y me la puso en los brazos sin mirarme.
 
 —Es de Ullatorp. La lana de allá no deja pasar el agua.
 

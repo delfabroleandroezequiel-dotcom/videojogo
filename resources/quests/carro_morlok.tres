@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Quest" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/Quest.cs" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+Id = "carro_morlok"
+Title = "QUEST_CARRO_MORLOK_TITLE"
+Description = "QUEST_CARRO_MORLOK_DESC"
+IsMainQuest = true
+ObjectiveTarget = 1
+ObjectiveLabel = "QUEST_CARRO_MORLOK_OBJECTIVE"
+RewardText = "QUEST_CARRO_MORLOK_REWARD"
+ObjectiveKind = 2
+RequiredItemId = "item_libro_cuentas_morlok"

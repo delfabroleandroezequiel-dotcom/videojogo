@@ -4,14 +4,22 @@
 [ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_camera"]
 [ext_resource type="Texture2D" uid="uid://6kig0gdifgss" path="res://assets/backgrounds/BosqueLobos2.png" id="9_bg"]
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="10_player"]
-[ext_resource type="PackedScene" uid="uid://duh0skspcxwjr" path="res://scenes/world/Enemys/Bandido1.tscn" id="11_jyn7r"]
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="11_transition"]
 [ext_resource type="Texture2D" uid="uid://ty3n1f388iap" path="res://scenes/world/Mapas/entradaarbol.png" id="12_ldpml"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemys/Bandido2.tscn" id="12_or5jt"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BandidoDagas.tscn" id="13_6tjfj"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/ElfArcher.tscn" id="13_810g8"]
 [ext_resource type="Texture2D" uid="uid://74874siup48v" path="res://assets/external/Fondos/village/_PNG/MainLevBuild.png" id="13_or5jt"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BandidoHacha.tscn" id="14_8rplg"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/AtmosferaBosqueLobos.tscn" id="90_atmosfera"]
 [ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="91_parallaxfollow"]
 [ext_resource type="Texture2D" uid="uid://cbv3ti8s4l4de" path="res://assets/sprites/deco/CapaArboles3.png" id="92_capaarboles"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Arbusto.png" id="dpl_Arbusto"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Flores.png" id="dpl_Flores"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Helechos.png" id="dpl_Helechos"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/HongosRojos.png" id="dpl_HongosRojos"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Raices.png" id="dpl_Raices"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Rocas.png" id="dpl_Rocas"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/TroncoCaido.png" id="dpl_TroncoCaido"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1774, 56)
@@ -3758,7 +3766,7 @@ position = Vector2(-3, 2)
 shape = SubResource("RectangleShape2D_floor")
 
 [node name="Player" parent="." unique_id=2145623876 instance=ExtResource("10_player")]
-position = Vector2(1464, 263)
+position = Vector2(1065, 265)
 
 [node name="ToBosqueLobos1" parent="." unique_id=1893594719 instance=ExtResource("11_transition")]
 position = Vector2(80, 290)
@@ -3800,10 +3808,62 @@ modulate = Color(0.45, 0.45, 0.45, 1)
 texture = ExtResource("92_capaarboles")
 centered = false
 
-[node name="Bandido1" parent="." unique_id=1252243445 instance=ExtResource("11_jyn7r")]
-position = Vector2(934, 262)
-Backstabbable = true
+[node name="BandidoDagas" parent="." unique_id=1465496051 instance=ExtResource("13_6tjfj")]
+position = Vector2(830, 264)
 
-[node name="Bandido2" parent="." unique_id=1923557143 instance=ExtResource("12_or5jt")]
-position = Vector2(1194, 266)
-Backstabbable = true
+[node name="BandidoHacha" parent="." unique_id=1862853395 instance=ExtResource("14_8rplg")]
+position = Vector2(436, 260)
+
+[node name="ElfArcher" parent="." unique_id=1777634499 instance=ExtResource("13_810g8")]
+position = Vector2(200, 255)
+
+[node name="DecoPixelLab" type="Node2D" parent="."]
+
+[node name="TroncoCaido" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(318, 307)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_TroncoCaido")
+offset = Vector2(0, -31)
+
+[node name="HongosRojos" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(558, 307)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_HongosRojos")
+offset = Vector2(0, -31)
+
+[node name="Arbusto" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(698, 307)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Arbusto")
+offset = Vector2(0, -31)
+
+[node name="Flores" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(1238, 307)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Flores")
+offset = Vector2(0, -31)
+
+[node name="Raices" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(1358, 307)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Raices")
+offset = Vector2(0, -31)
+
+[node name="Helechos" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(1478, 307)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Helechos")
+offset = Vector2(0, -31)
+
+[node name="Rocas" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(1598, 307)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Rocas")
+offset = Vector2(0, -31)

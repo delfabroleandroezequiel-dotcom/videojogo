@@ -60,7 +60,32 @@
 [ext_resource type="Script" uid="uid://c66cvo06t25i2" path="res://scripts/world/AtmosphereHaze.cs" id="113_haze"]
 [ext_resource type="Script" uid="uid://bgg0sgbr3un2" path="res://scripts/world/FogWisps.cs" id="114_fog"]
 [ext_resource type="Texture2D" uid="uid://cv75eoysrwmj2" path="res://assets/sprites/deco/CapaArboles.png" id="190_capaarboles"]
-[ext_resource type="Texture2D" path="res://assets/sprites/CapaCasasTira.png" id="191_capacasas"]
+[ext_resource type="Texture2D" uid="uid://da2pbv8kd0qss" path="res://assets/sprites/CapaCasasTira.png" id="191_capacasas"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/AlatheaPixelLabSpriteFrames.tres" id="cm_alathea"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/NixBrunoSpriteFrames.tres" id="cm_bruno"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/NixMorlokSpriteFrames.tres" id="cm_morlok"]
+[ext_resource type="Resource" path="res://resources/quests/carro_morlok.tres" id="cm_quest"]
+[ext_resource type="Texture2D" uid="uid://bmeutsyc06bj" path="res://assets/sprites/deco/pixellab/nix/Abrevadero.png" id="dpl_Abrevadero"]
+[ext_resource type="Texture2D" uid="uid://bh2dtu5sktmq2" path="res://assets/sprites/deco/pixellab/nix/Bote.png" id="dpl_Bote"]
+[ext_resource type="Texture2D" uid="uid://80ximfc8p8bm" path="res://assets/sprites/deco/pixellab/nix/Carreta.png" id="dpl_Carreta"]
+[ext_resource type="Texture2D" uid="uid://dp8x4gywauj7f" path="res://assets/sprites/deco/pixellab/nix/Cartel.png" id="dpl_Cartel"]
+[ext_resource type="Texture2D" uid="uid://dgk2k23x2bwmw" path="res://assets/sprites/deco/pixellab/nix/Fardos.png" id="dpl_Fardos"]
+[ext_resource type="Texture2D" uid="uid://c73123yinnvns" path="res://assets/sprites/deco/pixellab/nix/FarolCalle.png" id="dpl_FarolCalle"]
+[ext_resource type="Texture2D" uid="uid://ov42rjp6xltn" path="res://assets/sprites/deco/pixellab/nix/Gallinero.png" id="dpl_Gallinero"]
+[ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="dpl_glow"]
+[ext_resource type="Texture2D" uid="uid://b7edu5jhqhree" path="res://assets/sprites/deco/pixellab/nix/Lena.png" id="dpl_Lena"]
+[ext_resource type="Texture2D" uid="uid://obcuakm80w80" path="res://assets/sprites/deco/pixellab/nix/Macetas.png" id="dpl_Macetas"]
+[ext_resource type="Texture2D" uid="uid://bx38qnq0iunl2" path="res://assets/sprites/deco/pixellab/nix/Pozo.png" id="dpl_Pozo"]
+[ext_resource type="Texture2D" uid="uid://jmp0qtovfsy6" path="res://assets/sprites/deco/pixellab/nix/PuestoMercado.png" id="dpl_PuestoMercado"]
+[ext_resource type="Texture2D" uid="uid://bs3yi63sjkbrg" path="res://assets/sprites/deco/pixellab/nix/RedPesca.png" id="dpl_RedPesca"]
+[ext_resource type="Texture2D" uid="uid://bjdgske08gpx2" path="res://assets/sprites/deco/pixellab/nix/TablonAnuncios.png" id="dpl_TablonAnuncios"]
+[ext_resource type="Texture2D" uid="uid://ckixdv5prvhim" path="res://assets/sprites/deco/pixellab/nix/Tendedero.png" id="dpl_Tendedero"]
+[ext_resource type="Texture2D" uid="uid://nh0y8jrb1s1" path="res://assets/sprites/deco/pixellab/nix/Valla.png" id="dpl_Valla"]
+[ext_resource type="Texture2D" uid="uid://drctggwcif6j2" path="res://assets/sprites/deco/pixellab/nix/Yunque.png" id="dpl_Yunque"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/TobiasSpriteFrames.tres" id="tobias_frames"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/NixGarrikHerreroSpriteFrames.tres" id="enc_garrik"]
+[ext_resource type="Resource" path="res://resources/items/pescado_ayer.tres" id="enc_pescado"]
+[ext_resource type="Resource" path="res://resources/items/red_arthur.tres" id="enc_red"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn06r"]
 size = Vector2(67, 11.360123)
@@ -15282,7 +15307,7 @@ Area = Vector2(7200, 220)
 Count = 16
 
 [node name="Player" parent="." unique_id=1962161526 instance=ExtResource("1_player")]
-position = Vector2(-480.10242, -126.03177)
+position = Vector2(115.56874, 399.00302)
 
 [node name="ProceduralWater" parent="." unique_id=907448503 instance=ExtResource("15_xdiy7")]
 visible = false
@@ -15528,17 +15553,29 @@ position = Vector2(-265, 444)
 position = Vector2(-1400, 351)
 
 [node name="NpcHerrero" parent="." unique_id=1257441973 instance=ExtResource("6_npc")]
-position = Vector2(3830, 428)
-NpcName = "NPC_HERRERO_NAME"
+position = Vector2(3650, 428)
+NpcName = "NPC_GARRIK_NAME"
 DialogueLines = PackedStringArray("NPC_HERRERO_L1")
-CustomSpriteFrames = ExtResource("98_herrero")
-CustomSpriteScale = Vector2(1.3, 1.3)
-CollisionSize = Vector2(42, 64)
+QuestStepQuestId = "encargo_arthur"
+QuestStepGivesItem = ExtResource("enc_red")
+QuestStepLines = PackedStringArray("NPC_GARRIK_ENCARGO_1", "NPC_GARRIK_ENCARGO_2", "NPC_GARRIK_ENCARGO_3")
+FacePlayerEnabled = false
+CustomSpriteFrames = ExtResource("enc_garrik")
+CustomSpriteScale = Vector2(1.158, 1.158)
+CustomSpriteYOffset = -16.5
+CollisionSize = Vector2(30, 64)
+
+[node name="Visual" parent="NpcHerrero" index="1"]
+z_index = 1
 
 [node name="NpcCarnicero" parent="." unique_id=190981188 instance=ExtResource("6_npc")]
 position = Vector2(-537, 428)
-NpcName = "NPC_CARNICERO_NAME"
+NpcName = "NPC_BRAM_NAME"
 DialogueLines = PackedStringArray("NPC_CARNICERO_L1")
+QuestStepQuestId = "encargo_arthur"
+QuestStepTakesItem = ExtResource("enc_pescado")
+QuestStepGold = 5
+QuestStepLines = PackedStringArray("NPC_BRAM_ENCARGO_1", "NPC_BRAM_ENCARGO_2", "NPC_BRAM_ENCARGO_3", "NPC_BRAM_ENCARGO_4")
 CustomSpriteFrames = ExtResource("99_carnicero")
 CustomSpriteScale = Vector2(1.39, 1.39)
 CollisionSize = Vector2(47, 64)
@@ -15584,3 +15621,211 @@ FollowCamera = true
 modulate = Color(0.35, 0.4, 0.5, 1)
 texture = ExtResource("191_capacasas")
 centered = false
+
+[node name="NpcTobias" parent="." unique_id=1740110864 instance=ExtResource("6_npc")]
+position = Vector2(-880, 428)
+NpcName = "NPC_TOBIAS_NAME"
+DialogueLines = PackedStringArray("NPC_TOBIAS_L1", "NPC_TOBIAS_L2", "NPC_TOBIAS_L3")
+CustomSpriteFrames = ExtResource("tobias_frames")
+CustomSpriteYOffset = 2.0
+CustomSpriteScale = Vector2(1.158, 1.158)
+CollisionSize = Vector2(30, 64)
+
+[node name="DecoPixelLab" type="Node2D" parent="." unique_id=1771389417]
+
+[node name="Bote" type="Sprite2D" parent="DecoPixelLab" unique_id=1714171508]
+texture_filter = 1
+position = Vector2(-1843, 366)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Bote")
+offset = Vector2(0, -31)
+
+[node name="RedPesca" type="Sprite2D" parent="DecoPixelLab" unique_id=1848350658]
+texture_filter = 1
+position = Vector2(-1703, 366)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_RedPesca")
+offset = Vector2(0, -31)
+
+[node name="Pozo" type="Sprite2D" parent="DecoPixelLab" unique_id=613562444]
+texture_filter = 1
+position = Vector2(77, 466)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Pozo")
+offset = Vector2(0, -31)
+
+[node name="FarolCalle" type="Sprite2D" parent="DecoPixelLab" unique_id=1191861718]
+texture_filter = 1
+position = Vector2(337, 466)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_FarolCalle")
+offset = Vector2(0, -31)
+
+[node name="Luz" type="PointLight2D" parent="DecoPixelLab/FarolCalle" unique_id=485407003]
+position = Vector2(10, -38)
+color = Color(1, 0.7, 0.35, 1)
+energy = 1.1
+texture = ExtResource("dpl_glow")
+texture_scale = 0.8
+
+[node name="PuestoMercado" type="Sprite2D" parent="DecoPixelLab" unique_id=141728375]
+texture_filter = 1
+position = Vector2(537, 466)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_PuestoMercado")
+offset = Vector2(0, -31)
+
+[node name="Lena" type="Sprite2D" parent="DecoPixelLab" unique_id=503832732]
+texture_filter = 1
+position = Vector2(757, 466)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Lena")
+offset = Vector2(0, -29)
+
+[node name="Carreta" type="Sprite2D" parent="DecoPixelLab" unique_id=1449001051]
+texture_filter = 1
+position = Vector2(1277, 466)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Carreta")
+offset = Vector2(0, -31)
+
+[node name="Valla" type="Sprite2D" parent="DecoPixelLab" unique_id=1480823068]
+texture_filter = 1
+position = Vector2(1557, 466)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Valla")
+offset = Vector2(0, -25)
+
+[node name="Yunque" type="Sprite2D" parent="DecoPixelLab" unique_id=985132793]
+texture_filter = 1
+position = Vector2(3684, 466)
+scale = Vector2(1, 1)
+texture = ExtResource("dpl_Yunque")
+offset = Vector2(0, -31)
+
+[node name="Abrevadero" type="Sprite2D" parent="DecoPixelLab" unique_id=2024524942]
+texture_filter = 1
+position = Vector2(2077, 466)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Abrevadero")
+offset = Vector2(0, -27)
+
+[node name="Cartel" type="Sprite2D" parent="DecoPixelLab" unique_id=1583282830]
+texture_filter = 1
+position = Vector2(2337, 466)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Cartel")
+offset = Vector2(0, -31)
+
+[node name="Fardos" type="Sprite2D" parent="DecoPixelLab" unique_id=2063601994]
+texture_filter = 1
+position = Vector2(2697, 466)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Fardos")
+offset = Vector2(0, -30)
+
+[node name="Macetas" type="Sprite2D" parent="DecoPixelLab" unique_id=1464187075]
+texture_filter = 1
+position = Vector2(2937, 466)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Macetas")
+offset = Vector2(0, -30)
+
+[node name="Gallinero" type="Sprite2D" parent="DecoPixelLab" unique_id=786150221]
+texture_filter = 1
+position = Vector2(3317, 466)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Gallinero")
+offset = Vector2(0, -30)
+
+[node name="TablonAnuncios" type="Sprite2D" parent="DecoPixelLab" unique_id=1944063612]
+texture_filter = 1
+position = Vector2(4180, 466)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_TablonAnuncios")
+offset = Vector2(0, -31)
+
+[node name="Tendedero" type="Sprite2D" parent="DecoPixelLab" unique_id=1042960758]
+texture_filter = 1
+position = Vector2(2207, 466)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Tendedero")
+offset = Vector2(0, -29)
+
+[node name="FarolCalle2" type="Sprite2D" parent="DecoPixelLab" unique_id=1375285093]
+texture_filter = 1
+position = Vector2(4057, 466)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_FarolCalle")
+offset = Vector2(0, -31)
+
+[node name="Luz" type="PointLight2D" parent="DecoPixelLab/FarolCalle2" unique_id=159184339]
+position = Vector2(10, -38)
+color = Color(1, 0.7, 0.35, 1)
+energy = 1.1
+texture = ExtResource("dpl_glow")
+texture_scale = 0.8
+
+[node name="Valla2" type="Sprite2D" parent="DecoPixelLab" unique_id=1755915545]
+texture_filter = 1
+position = Vector2(4517, 466)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Valla")
+offset = Vector2(0, -25)
+
+[node name="Macetas2" type="Sprite2D" parent="DecoPixelLab" unique_id=147278322]
+texture_filter = 1
+position = Vector2(4717, 466)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Macetas")
+offset = Vector2(0, -30)
+
+[node name="FarolCalle3" type="Sprite2D" parent="DecoPixelLab" unique_id=1790699191]
+texture_filter = 1
+position = Vector2(4917, 466)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_FarolCalle")
+offset = Vector2(0, -31)
+
+[node name="Luz" type="PointLight2D" parent="DecoPixelLab/FarolCalle3" unique_id=21440654]
+position = Vector2(10, -38)
+color = Color(1, 0.7, 0.35, 1)
+energy = 1.1
+texture = ExtResource("dpl_glow")
+texture_scale = 0.8
+
+[node name="NpcAlathea" parent="." unique_id=623933349 instance=ExtResource("6_npc")]
+position = Vector2(640, 428)
+NpcName = "NPC_ALATHEA_NAME"
+DialogueLines = PackedStringArray("NPC_ALATHEA_CARRO_L1", "NPC_ALATHEA_CARRO_L2", "NPC_ALATHEA_CARRO_L3", "NPC_ALATHEA_CARRO_L4")
+InProgressDialogueLines = PackedStringArray("NPC_ALATHEA_CARRO_PROG")
+CompletedDialogueLines = PackedStringArray("NPC_ALATHEA_CARRO_DONE")
+Quest = ExtResource("cm_quest")
+GrantsOwnObjective = false
+CustomSpriteFrames = ExtResource("cm_alathea")
+CustomSpriteYOffset = 2.0
+CustomSpriteScale = Vector2(1.158, 1.158)
+CollisionSize = Vector2(30, 64)
+
+[node name="NpcMorlok" parent="." unique_id=1380617496 instance=ExtResource("6_npc")]
+position = Vector2(450, 428)
+NpcName = "NPC_MORLOK_NAME"
+DialogueLines = PackedStringArray("NPC_MORLOK_CARRO_L1", "NPC_MORLOK_CARRO_L2", "NPC_MORLOK_CARRO_L3")
+InProgressDialogueLines = PackedStringArray("NPC_MORLOK_CARRO_PROG")
+CompletedDialogueLines = PackedStringArray("NPC_MORLOK_CARRO_DONE1", "NPC_MORLOK_CARRO_DONE2")
+Quest = ExtResource("cm_quest")
+GrantsOwnObjective = false
+CustomSpriteFrames = ExtResource("cm_morlok")
+CustomSpriteYOffset = 2.0
+CustomSpriteScale = Vector2(1.158, 1.158)
+CollisionSize = Vector2(30, 64)
+
+[node name="NpcLeomax" parent="." unique_id=1025932143 instance=ExtResource("6_npc")]
+position = Vector2(250, 428)
+NpcName = "NPC_BRUNO_NAME"
+DialogueLines = PackedStringArray("NPC_BRUNO_NIX_L1", "NPC_BRUNO_NIX_L2")
+AppearOnlyWhenQuestCompleted = "carro_morlok"
+CustomSpriteFrames = ExtResource("cm_bruno")
+CustomSpriteYOffset = 2.0
+CustomSpriteScale = Vector2(1.158, 1.158)
+CollisionSize = Vector2(30, 64)

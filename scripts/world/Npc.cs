@@ -22,6 +22,21 @@ public partial class Npc : CharacterBody2D
 
 	[Export] public Quest Quest;
 	[Export] public bool GrantsOwnObjective = true;
+	// Handed to the player the moment this NPC starts its Quest (Arthur's fish for Bram).
+	[Export] public Metroidvania.Items.Item QuestStartGivesItem;
+
+	// A stop on someone else's quest (Bram taking Arthur's fish, Garrik handing over the net):
+	// while QuestStepQuestId is active and this step isn't done yet, talking here takes
+	// QuestStepTakesItem (only if the player has it), gives QuestStepGivesItem and QuestStepGold,
+	// adds one progress to that quest and says QuestStepLines — once per save.
+	[Export] public string QuestStepQuestId = "";
+	[Export] public Metroidvania.Items.Item QuestStepTakesItem;
+	[Export] public Metroidvania.Items.Item QuestStepGivesItem;
+	[Export] public int QuestStepGold;
+	[Export] public string[] QuestStepLines = { };
+
+	// Off for NPCs busy with something in a fixed direction (Garrik at his anvil).
+	[Export] public bool FacePlayerEnabled = true;
 
 	// For an NPC that relocates once a quest wraps up (e.g. a rescued villager who leaves the
 	// place you found them and turns up back home) -- set one of these on each of the two
@@ -131,7 +146,7 @@ public partial class Npc : CharacterBody2D
 		Velocity = velocity;
 		MoveAndSlide();
 
-		if (!CinematicControl)
+		if (!CinematicControl && FacePlayerEnabled)
 			FacePlayer();
 	}
 
@@ -191,6 +206,9 @@ public partial class Npc : CharacterBody2D
 			return;
 		}
 
+		if (TryQuestStep())
+			return;
+
 		if (Quest is null)
 		{
 			DialogueBox.Instance.Show(NpcName, GetCurrentDialogueLines());
@@ -219,6 +237,8 @@ public partial class Npc : CharacterBody2D
 		}
 
 		QuestManager.Instance.StartQuest(Quest);
+		if (QuestStartGivesItem is not null)
+			GetPlayerInventory()?.CollectItem(QuestStartGivesItem);
 		if (GrantsOwnObjective)
 			QuestManager.Instance.AddProgress(Quest.Id);
 
@@ -231,6 +251,29 @@ public partial class Npc : CharacterBody2D
 		{
 			DialogueBox.Instance.Show(NpcName, DialogueLines);
 		}
+	}
+
+	private Metroidvania.Items.PlayerInventory GetPlayerInventory() =>
+		(GetTree().GetFirstNodeInGroup("player") as Node)?.GetNodeOrNull<Metroidvania.Items.PlayerInventory>("Inventory");
+
+	private bool TryQuestStep()
+	{
+		if (string.IsNullOrEmpty(QuestStepQuestId) || !QuestManager.Instance.IsActive(QuestStepQuestId))
+			return false;
+		string doneKey = $"queststep:{QuestStepQuestId}:{_persistenceId}";
+		if (SaveManager.Instance.IsPickupCollected(doneKey))
+			return false;
+		if (QuestStepTakesItem is not null && !SaveManager.Instance.ConsumeItem(QuestStepTakesItem.Id))
+			return false;
+
+		if (QuestStepGivesItem is not null)
+			GetPlayerInventory()?.CollectItem(QuestStepGivesItem);
+		if (QuestStepGold > 0)
+			SaveManager.Instance.AddGold(QuestStepGold);
+		SaveManager.Instance.MarkPickupCollected(doneKey);
+		QuestManager.Instance.AddProgress(QuestStepQuestId);
+		DialogueBox.Instance.Show(NpcName, QuestStepLines);
+		return true;
 	}
 
 	private string[] GetCurrentDialogueLines()

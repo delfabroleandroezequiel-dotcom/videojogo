@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Quest" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/Quest.cs" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+Id = "encargo_arthur"
+Title = "QUEST_ENCARGO_TITLE"
+Description = "QUEST_ENCARGO_DESC"
+IsMainQuest = true
+ObjectiveTarget = 2
+ObjectiveLabel = "QUEST_ENCARGO_OBJECTIVE"
+RewardText = "QUEST_ENCARGO_REWARD"

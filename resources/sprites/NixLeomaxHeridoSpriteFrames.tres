@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bruno/herido_0.png" id="h0"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bruno/herido_1.png" id="h1"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bruno/herido_2.png" id="h2"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bruno/herido_3.png" id="h3"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bruno/herido_4.png" id="h4"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bruno/herido_5.png" id="h5"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bruno/herido_6.png" id="h6"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bruno/herido_7.png" id="h7"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bruno/herido_8.png" id="h8"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("h0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h8")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}]
