@@ -1,0 +1,346 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/idle_0.png" id="t1"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/idle_1.png" id="t2"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/idle_2.png" id="t3"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/idle_3.png" id="t4"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/idle_4.png" id="t5"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/move_0.png" id="t6"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/move_1.png" id="t7"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/move_2.png" id="t8"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/move_3.png" id="t9"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/move_4.png" id="t10"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/move_5.png" id="t11"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/move_6.png" id="t12"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/move_7.png" id="t13"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/run_0.png" id="t14"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/run_1.png" id="t15"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/run_2.png" id="t16"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/run_3.png" id="t17"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/run_4.png" id="t18"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/run_5.png" id="t19"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/run_6.png" id="t20"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/run_7.png" id="t21"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack1_0.png" id="t22"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack1_1.png" id="t23"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack1_2.png" id="t24"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack1_3.png" id="t25"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack1_4.png" id="t26"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack1_5.png" id="t27"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack1_6.png" id="t28"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack1_7.png" id="t29"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack1_8.png" id="t30"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack1_9.png" id="t31"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack1_10.png" id="t32"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack1_11.png" id="t33"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack1_12.png" id="t34"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack2_0.png" id="t35"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack2_1.png" id="t36"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack2_2.png" id="t37"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack2_3.png" id="t38"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack2_4.png" id="t39"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack2_5.png" id="t40"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack2_6.png" id="t41"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack2_7.png" id="t42"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack2_8.png" id="t43"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack3_0.png" id="t44"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack3_1.png" id="t45"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack3_2.png" id="t46"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack3_3.png" id="t47"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack3_4.png" id="t48"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack3_5.png" id="t49"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack3_6.png" id="t50"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack3_7.png" id="t51"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/attack3_8.png" id="t52"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/flip_0.png" id="t53"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/flip_1.png" id="t54"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/flip_2.png" id="t55"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/flip_3.png" id="t56"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/flip_4.png" id="t57"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/flip_5.png" id="t58"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/flip_6.png" id="t59"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/flip_7.png" id="t60"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/flip_8.png" id="t61"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/hit_0.png" id="t62"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/hit_1.png" id="t63"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/hit_2.png" id="t64"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/hit_3.png" id="t65"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/death_0.png" id="t66"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/death_1.png" id="t67"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/death_2.png" id="t68"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/death_3.png" id="t69"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/death_4.png" id="t70"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/death_5.png" id="t71"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/death_6.png" id="t72"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/death_7.png" id="t73"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AlatheaPixelLab/death_8.png" id="t74"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("t1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t5")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("t6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t9")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t11")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t13")
+}],
+"loop": true,
+"name": &"move",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("t14")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t15")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t16")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t17")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t18")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t19")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t20")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t21")
+}],
+"loop": true,
+"name": &"run",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("t22")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t23")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t24")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t25")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t26")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t27")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t28")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t29")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t30")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t31")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t32")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t33")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t34")
+}],
+"loop": false,
+"name": &"attack1",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("t35")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t36")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t37")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t38")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t39")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t40")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t41")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t42")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t43")
+}],
+"loop": false,
+"name": &"attack2",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("t44")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t45")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t46")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t47")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t48")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t49")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t50")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t51")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t52")
+}],
+"loop": false,
+"name": &"attack3",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("t53")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t54")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t55")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t56")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t57")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t58")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t59")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t60")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t61")
+}],
+"loop": false,
+"name": &"flip",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("t62")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t63")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t64")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t65")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("t66")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t67")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t68")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t69")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t70")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t71")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t72")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t73")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t74")
+}],
+"loop": false,
+"name": &"death",
+"speed": 10.0
+}]

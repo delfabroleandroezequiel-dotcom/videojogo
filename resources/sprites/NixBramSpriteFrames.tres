@@ -1,0 +1,30 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bram/idle_0.png" id="t1"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bram/idle_1.png" id="t2"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bram/idle_2.png" id="t3"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bram/idle_3.png" id="t4"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bram/idle_4.png" id="t5"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("t1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t5")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}]

@@ -48,8 +48,9 @@ public partial class SpiderBoss : Boss
 	private float _webSpitCooldownTimer;	private bool _isWebSpitting;
 	private int _nextSummonIndex;
 
-	// AranaSpriteFrames.tres only has "attack" (no "attack1") — Boss.cs's default is tuned for
-	// BossLobo/BanditBoss's naming instead.
+	// The spider sheets only have "attack" (no "attack1") — Boss.cs's default is tuned for
+	// BossLobo/BanditBoss's naming instead. On AranaGiganteSpriteFrames that clip is the rear-up and
+	// slam: the front legs hit the ground on frame 11 at 13fps, which is the scene's AttackHitboxDelay.
 	protected override string DefaultAttackAnimation => "attack";
 
 	// Neutral here (this encounter's cooldown never changes) — exists purely so SpiderBossArena can
@@ -140,8 +141,10 @@ public partial class SpiderBoss : Boss
 	{
 		if (_isWebSpitting)
 		{
-			if (Sprite is not null && Sprite.Animation != "attack")
-				Sprite.Play("attack");
+			// AranaGiganteSpriteFrames has its own spit clip; the arena's older sheet falls back to the bite.
+			string spitAnimation = Sprite?.SpriteFrames?.HasAnimation("spit") == true ? "spit" : "attack";
+			if (Sprite is not null && Sprite.Animation != spitAnimation)
+				Sprite.Play(spitAnimation);
 			return;
 		}
 
