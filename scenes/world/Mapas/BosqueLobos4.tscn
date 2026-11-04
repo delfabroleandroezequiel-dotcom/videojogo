@@ -10,6 +10,14 @@
 [ext_resource type="PackedScene" path="res://scenes/world/NpcAmbiente/MujerCaraGigante.tscn" id="14_bcuqf"]
 [ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="91_parallaxfollow"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/AtmosferaBosqueLobos.tscn" id="90_atmosfera"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/ArbolSeco.png" id="dpl_ArbolSeco"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Arbusto.png" id="dpl_Arbusto"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Flores.png" id="dpl_Flores"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Helechos.png" id="dpl_Helechos"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Lapida.png" id="dpl_Lapida"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Raices.png" id="dpl_Raices"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Rocas.png" id="dpl_Rocas"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/TroncoCaido.png" id="dpl_TroncoCaido"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1774, 56)
@@ -3778,3 +3786,61 @@ position = Vector2(676, 338)
 
 [node name="MujerCaraGigante" parent="." unique_id=484131877 instance=ExtResource("14_bcuqf")]
 position = Vector2(1091, 305)
+
+[node name="DecoPixelLab" type="Node2D" parent="."]
+
+[node name="Lapida" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(221, 305)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Lapida")
+offset = Vector2(0, -30)
+
+[node name="ArbolSeco" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(481, 305)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_ArbolSeco")
+offset = Vector2(0, -31)
+
+[node name="Raices" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(641, 305)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Raices")
+offset = Vector2(0, -31)
+
+[node name="Helechos" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(761, 305)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Helechos")
+offset = Vector2(0, -31)
+
+[node name="Arbusto" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(961, 305)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Arbusto")
+offset = Vector2(0, -31)
+
+[node name="Flores" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(1181, 305)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Flores")
+offset = Vector2(0, -31)
+
+[node name="Rocas" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(1341, 305)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Rocas")
+offset = Vector2(0, -31)
+
+[node name="TroncoCaido" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(1621, 305)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_TroncoCaido")
+offset = Vector2(0, -31)

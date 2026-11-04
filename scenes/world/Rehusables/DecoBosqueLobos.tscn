@@ -1,0 +1,133 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="glow"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/TroncoCaido.png" id="t_TroncoCaido"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Tocon.png" id="t_Tocon"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Arbusto.png" id="t_Arbusto"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Helechos.png" id="t_Helechos"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Rocas.png" id="t_Rocas"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/HongosRojos.png" id="t_HongosRojos"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/CraneoLobo.png" id="t_CraneoLobo"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/CartelGarras.png" id="t_CartelGarras"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Cepo.png" id="t_Cepo"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Lapida.png" id="t_Lapida"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/PiedraLobo.png" id="t_PiedraLobo"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/ArbolSeco.png" id="t_ArbolSeco"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Flores.png" id="t_Flores"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Madriguera.png" id="t_Madriguera"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/CampamentoAbandonado.png" id="t_CampamentoAbandonado"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Raices.png" id="t_Raices"]
+
+[node name="DecoBosqueLobos" type="Node2D"]
+
+[node name="TroncoCaido" type="Sprite2D" parent="."]
+position = Vector2(0, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_TroncoCaido")
+offset = Vector2(0, -32)
+
+[node name="Tocon" type="Sprite2D" parent="."]
+position = Vector2(110, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Tocon")
+offset = Vector2(0, -32)
+
+[node name="Arbusto" type="Sprite2D" parent="."]
+position = Vector2(220, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Arbusto")
+offset = Vector2(0, -32)
+
+[node name="Helechos" type="Sprite2D" parent="."]
+position = Vector2(330, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Helechos")
+offset = Vector2(0, -32)
+
+[node name="Rocas" type="Sprite2D" parent="."]
+position = Vector2(440, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Rocas")
+offset = Vector2(0, -32)
+
+[node name="HongosRojos" type="Sprite2D" parent="."]
+position = Vector2(550, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_HongosRojos")
+offset = Vector2(0, -32)
+
+[node name="CraneoLobo" type="Sprite2D" parent="."]
+position = Vector2(660, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_CraneoLobo")
+offset = Vector2(0, -32)
+
+[node name="CartelGarras" type="Sprite2D" parent="."]
+position = Vector2(770, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_CartelGarras")
+offset = Vector2(0, -32)
+
+[node name="Cepo" type="Sprite2D" parent="."]
+position = Vector2(880, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Cepo")
+offset = Vector2(0, -32)
+
+[node name="Lapida" type="Sprite2D" parent="."]
+position = Vector2(990, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Lapida")
+offset = Vector2(0, -32)
+
+[node name="PiedraLobo" type="Sprite2D" parent="."]
+position = Vector2(1100, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_PiedraLobo")
+offset = Vector2(0, -32)
+
+[node name="ArbolSeco" type="Sprite2D" parent="."]
+position = Vector2(1210, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_ArbolSeco")
+offset = Vector2(0, -32)
+
+[node name="Flores" type="Sprite2D" parent="."]
+position = Vector2(1320, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Flores")
+offset = Vector2(0, -32)
+
+[node name="Madriguera" type="Sprite2D" parent="."]
+position = Vector2(1430, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Madriguera")
+offset = Vector2(0, -32)
+
+[node name="CampamentoAbandonado" type="Sprite2D" parent="."]
+position = Vector2(1540, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_CampamentoAbandonado")
+offset = Vector2(0, -32)
+
+[node name="Raices" type="Sprite2D" parent="."]
+position = Vector2(1650, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Raices")
+offset = Vector2(0, -32)

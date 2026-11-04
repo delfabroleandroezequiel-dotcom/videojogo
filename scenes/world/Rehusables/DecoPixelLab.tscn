@@ -1,0 +1,149 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/FogataBandidos.tscn" id="fogata"]
+[ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="glow"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/Petate.png" id="t_Petate"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/Carpa.png" id="t_Carpa"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/Cajas.png" id="t_Cajas"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/Barril.png" id="t_Barril"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/SacosBotin.png" id="t_SacosBotin"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/EstanteArmas.png" id="t_EstanteArmas"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/OllaTripode.png" id="t_OllaTripode"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/BancoTronco.png" id="t_BancoTronco"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/CofreOro.png" id="t_CofreOro"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/CristalesAzules.png" id="t_CristalesAzules"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/HongosLuminosos.png" id="t_HongosLuminosos"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/HuesosCalavera.png" id="t_HuesosCalavera"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/Estalagmita.png" id="t_Estalagmita"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/CarretillaMina.png" id="t_CarretillaMina"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/VigaFarol.png" id="t_VigaFarol"]
+
+[node name="DecoPixelLab" type="Node2D"]
+
+[node name="Fogata" parent="." instance=ExtResource("fogata")]
+
+[node name="Petate" type="Sprite2D" parent="."]
+position = Vector2(110, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Petate")
+offset = Vector2(0, -32)
+
+[node name="Carpa" type="Sprite2D" parent="."]
+position = Vector2(220, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Carpa")
+offset = Vector2(0, -32)
+
+[node name="Cajas" type="Sprite2D" parent="."]
+position = Vector2(330, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Cajas")
+offset = Vector2(0, -32)
+
+[node name="Barril" type="Sprite2D" parent="."]
+position = Vector2(440, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Barril")
+offset = Vector2(0, -32)
+
+[node name="SacosBotin" type="Sprite2D" parent="."]
+position = Vector2(550, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_SacosBotin")
+offset = Vector2(0, -32)
+
+[node name="EstanteArmas" type="Sprite2D" parent="."]
+position = Vector2(660, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_EstanteArmas")
+offset = Vector2(0, -32)
+
+[node name="OllaTripode" type="Sprite2D" parent="."]
+position = Vector2(770, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_OllaTripode")
+offset = Vector2(0, -32)
+
+[node name="BancoTronco" type="Sprite2D" parent="."]
+position = Vector2(880, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_BancoTronco")
+offset = Vector2(0, -32)
+
+[node name="CofreOro" type="Sprite2D" parent="."]
+position = Vector2(990, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_CofreOro")
+offset = Vector2(0, -32)
+
+[node name="CristalesAzules" type="Sprite2D" parent="."]
+position = Vector2(1100, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_CristalesAzules")
+offset = Vector2(0, -32)
+
+[node name="Luz" type="PointLight2D" parent="CristalesAzules"]
+position = Vector2(0, -26)
+color = Color(0.35, 0.7, 1, 1)
+energy = 1.1
+texture = ExtResource("glow")
+texture_scale = 0.8
+
+[node name="HongosLuminosos" type="Sprite2D" parent="."]
+position = Vector2(1210, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_HongosLuminosos")
+offset = Vector2(0, -32)
+
+[node name="Luz" type="PointLight2D" parent="HongosLuminosos"]
+position = Vector2(0, -26)
+color = Color(0.3, 1, 0.85, 1)
+energy = 1.1
+texture = ExtResource("glow")
+texture_scale = 0.8
+
+[node name="HuesosCalavera" type="Sprite2D" parent="."]
+position = Vector2(1320, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_HuesosCalavera")
+offset = Vector2(0, -32)
+
+[node name="Estalagmita" type="Sprite2D" parent="."]
+position = Vector2(1430, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Estalagmita")
+offset = Vector2(0, -32)
+
+[node name="CarretillaMina" type="Sprite2D" parent="."]
+position = Vector2(1540, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_CarretillaMina")
+offset = Vector2(0, -32)
+
+[node name="VigaFarol" type="Sprite2D" parent="."]
+position = Vector2(1650, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_VigaFarol")
+offset = Vector2(0, -32)
+
+[node name="Luz" type="PointLight2D" parent="VigaFarol"]
+position = Vector2(0, -26)
+color = Color(1, 0.7, 0.35, 1)
+energy = 1.1
+texture = ExtResource("glow")
+texture_scale = 0.8

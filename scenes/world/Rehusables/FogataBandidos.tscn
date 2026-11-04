@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="SpriteFrames" path="res://resources/sprites/FogataBandidosSpriteFrames.tres" id="1_frames"]
+[ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="2_glow_tex"]
+
+[node name="FogataBandidos" type="Node2D"]
+
+[node name="Llama" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+offset = Vector2(0, -32)
+sprite_frames = ExtResource("1_frames")
+animation = &"lit"
+autoplay = "lit"
+
+[node name="Luz" type="PointLight2D" parent="."]
+position = Vector2(0, -24)
+color = Color(1, 0.6, 0.25, 1)
+energy = 1.4
+texture = ExtResource("2_glow_tex")
+texture_scale = 1.3

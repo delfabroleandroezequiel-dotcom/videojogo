@@ -1,0 +1,140 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="glow"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/nix/Pozo.png" id="t_Pozo"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/nix/FarolCalle.png" id="t_FarolCalle"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/nix/PuestoMercado.png" id="t_PuestoMercado"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/nix/Lena.png" id="t_Lena"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/nix/Carreta.png" id="t_Carreta"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/nix/Valla.png" id="t_Valla"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/nix/Yunque.png" id="t_Yunque"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/nix/Abrevadero.png" id="t_Abrevadero"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/nix/Bote.png" id="t_Bote"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/nix/RedPesca.png" id="t_RedPesca"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/nix/Cartel.png" id="t_Cartel"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/nix/Fardos.png" id="t_Fardos"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/nix/Macetas.png" id="t_Macetas"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/nix/Gallinero.png" id="t_Gallinero"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/nix/TablonAnuncios.png" id="t_TablonAnuncios"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/nix/Tendedero.png" id="t_Tendedero"]
+
+[node name="DecoNix" type="Node2D"]
+
+[node name="Pozo" type="Sprite2D" parent="."]
+position = Vector2(0, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Pozo")
+offset = Vector2(0, -32)
+
+[node name="FarolCalle" type="Sprite2D" parent="."]
+position = Vector2(110, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_FarolCalle")
+offset = Vector2(0, -32)
+
+[node name="Luz" type="PointLight2D" parent="FarolCalle"]
+position = Vector2(10, -38)
+color = Color(1, 0.7, 0.35, 1)
+energy = 1.1
+texture = ExtResource("glow")
+texture_scale = 0.8
+
+[node name="PuestoMercado" type="Sprite2D" parent="."]
+position = Vector2(220, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_PuestoMercado")
+offset = Vector2(0, -32)
+
+[node name="Lena" type="Sprite2D" parent="."]
+position = Vector2(330, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Lena")
+offset = Vector2(0, -32)
+
+[node name="Carreta" type="Sprite2D" parent="."]
+position = Vector2(440, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Carreta")
+offset = Vector2(0, -32)
+
+[node name="Valla" type="Sprite2D" parent="."]
+position = Vector2(550, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Valla")
+offset = Vector2(0, -32)
+
+[node name="Yunque" type="Sprite2D" parent="."]
+position = Vector2(660, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Yunque")
+offset = Vector2(0, -32)
+
+[node name="Abrevadero" type="Sprite2D" parent="."]
+position = Vector2(770, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Abrevadero")
+offset = Vector2(0, -32)
+
+[node name="Bote" type="Sprite2D" parent="."]
+position = Vector2(880, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Bote")
+offset = Vector2(0, -32)
+
+[node name="RedPesca" type="Sprite2D" parent="."]
+position = Vector2(990, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_RedPesca")
+offset = Vector2(0, -32)
+
+[node name="Cartel" type="Sprite2D" parent="."]
+position = Vector2(1100, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Cartel")
+offset = Vector2(0, -32)
+
+[node name="Fardos" type="Sprite2D" parent="."]
+position = Vector2(1210, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Fardos")
+offset = Vector2(0, -32)
+
+[node name="Macetas" type="Sprite2D" parent="."]
+position = Vector2(1320, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Macetas")
+offset = Vector2(0, -32)
+
+[node name="Gallinero" type="Sprite2D" parent="."]
+position = Vector2(1430, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Gallinero")
+offset = Vector2(0, -32)
+
+[node name="TablonAnuncios" type="Sprite2D" parent="."]
+position = Vector2(1540, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_TablonAnuncios")
+offset = Vector2(0, -32)
+
+[node name="Tendedero" type="Sprite2D" parent="."]
+position = Vector2(1650, 0)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("t_Tendedero")
+offset = Vector2(0, -32)

@@ -11,6 +11,13 @@
 [ext_resource type="Texture2D" uid="uid://bk0b1iulvqdl0" path="res://assets/external/Fondos/village/_PNG/MainLevBuildTerrenoSeco.png" id="15_2yyts"]
 [ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="91_parallaxfollow"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/AtmosferaBosqueLobos.tscn" id="90_atmosfera"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/ArbolSeco.png" id="dpl_ArbolSeco"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Arbusto.png" id="dpl_Arbusto"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Flores.png" id="dpl_Flores"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Helechos.png" id="dpl_Helechos"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/PiedraLobo.png" id="dpl_PiedraLobo"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Raices.png" id="dpl_Raices"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Rocas.png" id="dpl_Rocas"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1774, 69)
@@ -7503,3 +7510,54 @@ tile_set = SubResource("TileSet_bn06r")
 position = Vector2(1628.0001, 202)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("12_u17lu")
+
+[node name="DecoPixelLab" type="Node2D" parent="."]
+
+[node name="PiedraLobo" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(301, 292)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_PiedraLobo")
+offset = Vector2(0, -31)
+
+[node name="ArbolSeco" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(461, 292)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_ArbolSeco")
+offset = Vector2(0, -31)
+
+[node name="Helechos" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(641, 292)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Helechos")
+offset = Vector2(0, -31)
+
+[node name="Arbusto" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(861, 292)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Arbusto")
+offset = Vector2(0, -31)
+
+[node name="Raices" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(1021, 292)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Raices")
+offset = Vector2(0, -31)
+
+[node name="Flores" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(1161, 292)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Flores")
+offset = Vector2(0, -31)
+
+[node name="Rocas" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(1321, 292)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Rocas")
+offset = Vector2(0, -31)

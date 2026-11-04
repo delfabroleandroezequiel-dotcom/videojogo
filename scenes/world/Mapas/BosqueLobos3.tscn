@@ -13,6 +13,11 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/ElfMage.tscn" id="17_41wgy"]
 [ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="91_parallaxfollow"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/AtmosferaBosqueLobos.tscn" id="90_atmosfera"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Arbusto.png" id="dpl_Arbusto"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/CampamentoAbandonado.png" id="dpl_CampamentoAbandonado"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Flores.png" id="dpl_Flores"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Helechos.png" id="dpl_Helechos"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Tocon.png" id="dpl_Tocon"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1774, 65)
@@ -3815,3 +3820,40 @@ position = Vector2(829, 258)
 [node name="ElfMage" parent="." unique_id=1516424012 instance=ExtResource("17_41wgy")]
 position = Vector2(1192, 261)
 HoldPosition = true
+
+[node name="DecoPixelLab" type="Node2D" parent="."]
+
+[node name="CampamentoAbandonado" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(281, 296)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_CampamentoAbandonado")
+offset = Vector2(0, -31)
+
+[node name="Tocon" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(161, 296)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Tocon")
+offset = Vector2(0, -29)
+
+[node name="Arbusto" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(1321, 296)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Arbusto")
+offset = Vector2(0, -31)
+
+[node name="Helechos" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(1441, 296)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Helechos")
+offset = Vector2(0, -31)
+
+[node name="Flores" type="Sprite2D" parent="DecoPixelLab"]
+position = Vector2(1561, 296)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_Flores")
+offset = Vector2(0, -31)
