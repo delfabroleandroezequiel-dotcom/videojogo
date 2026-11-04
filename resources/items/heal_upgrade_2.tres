@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="Item" format=3]
 
 [ext_resource type="Script" path="res://scripts/items/Item.cs" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/iconos/frasco_vida.png" id="icono"]
 
 [resource]
 script = ExtResource("1_script")
@@ -8,3 +9,4 @@ Id = "item_heal_upgrade_2"
 ItemName = "ITEM_HEAL_UPGRADE_NAME"
 Description = "ITEM_HEAL_UPGRADE_DESC"
 Type = 4
+Icon = ExtResource("icono")

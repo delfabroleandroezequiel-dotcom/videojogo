@@ -222,6 +222,13 @@ public partial class Player : CharacterBody2D
 	// string can be caught by the press that follows; a press this early before the parry is
 	// available again (end of an attack/roll) is kept and opens the window as soon as it is.
 	[Export] public float ParryChainExtension = 0.12f;
+	// Guard poses: a press within ParryPoseChainWindow of the previous one moves on to the next pose
+	// (block_start/idle_block, then the _2 and _3 clips) so spammed parries don't repeat one stance;
+	// a fresh press after a pause starts again from the first pose. Measured from when the previous
+	// window opened, so it has to outlast ParryWindowDuration + ParryMissRecovery (0.65s) for missed
+	// presses to rotate too, not only chained parries.
+	[Export] public int ParryPoseCount = 3;
+	[Export] public float ParryPoseChainWindow = 1.2f;
 	[Export] public float ParryInputBuffer = 0.12f;
 	// Shadow essence: the shadow spells' mana. Only parries fill it; shadow spells spend it.
 	[Export] public float MaxShadowEssence = 100f;
@@ -511,6 +518,9 @@ public partial class Player : CharacterBody2D
 	// Bastón summons: 4 cycles the selected slot, 5 summons it (costs 1 use + stamina) and hands
 	// control to the shadow while the player stands still and vulnerable, 6 discards the selected
 	// slot (asks which). See ShadowSummon for what ends the control.
+	// Off since 2026-11-04 (user removed enemy summons and the uses gained from kills): no keys, no HUD.
+	// Code parked so it can come back; turn this on together with Enemy.DropsShadowEssence.
+	[Export] public bool BastonSummonsEnabled = false;
 	[Export] public int ShadowSummonStaminaCost = 10;
 	[Export] public float ShadowSummonCooldown = 0.6f;
 	[Export] public float ShadowSummonDamageMultiplier = 1f;
@@ -861,6 +871,8 @@ public partial class Player : CharacterBody2D
 	private float _parryWindowTimer;
 	private float _parryOpenedFor;
 	private float _parryBufferTimer;
+	private int _parryPose;
+	private float _sinceParryOpened = float.MaxValue;
 	private float _shadowEssence;
 	private ShadowEssenceBar _essenceBar;
 	public float ShadowEssence => _shadowEssence;
@@ -1174,11 +1186,14 @@ public partial class Player : CharacterBody2D
 		LocaleManager.Instance.LocaleChanged += _ => UpdateGoldLabel(SaveManager.Instance.Gold);
 
 		// Bastón mini HUD: 5 slot squares in the bottom-left corner of the HUD layer.
-		_summonHud = new Metroidvania.UI.ShadowSlotsHud { Name = "ShadowSlotsHud" };
-		GetNode("HUD").AddChild(_summonHud);
-		SaveManager.Instance.ShadowUsesChanged += UpdateSummonLabel;
-		LocaleManager.Instance.LocaleChanged += _ => UpdateSummonLabel();
-		UpdateSummonLabel();
+		if (BastonSummonsEnabled)
+		{
+			_summonHud = new Metroidvania.UI.ShadowSlotsHud { Name = "ShadowSlotsHud" };
+			GetNode("HUD").AddChild(_summonHud);
+			SaveManager.Instance.ShadowUsesChanged += UpdateSummonLabel;
+			LocaleManager.Instance.LocaleChanged += _ => UpdateSummonLabel();
+			UpdateSummonLabel();
+		}
 
 		// Shadow clone picker (Q casts, C cycles), just above the Bastón row — where the tornado picker
 		// sits, which only shows while the (parked) tornado spell is unlocked.
@@ -2728,11 +2743,11 @@ public partial class Player : CharacterBody2D
 		{
 			CastHurricane();
 		}
-		if (Input.IsActionJustPressed("summon_cycle"))
+		if (BastonSummonsEnabled && Input.IsActionJustPressed("summon_cycle"))
 			CycleSummon();
-		if (Input.IsActionJustPressed("summon_discard"))
+		if (BastonSummonsEnabled && Input.IsActionJustPressed("summon_discard"))
 			DiscardSummonSlot();
-		if (Input.IsActionJustPressed("summon_cast") && !_attacking && !_healing && !_isBlocking && !_isTransforming
+		if (BastonSummonsEnabled && Input.IsActionJustPressed("summon_cast") && !_attacking && !_healing && !_isBlocking && !_isTransforming
 			&& !_isDashing && !_isRolling && !_isRunThrusting && !_isCharging)
 			CastShadowSummon();
 
@@ -2962,15 +2977,18 @@ public partial class Player : CharacterBody2D
 		}
 		else if (_isBlocking)
 		{
-			// Raise the guard with block_start (when the sheet has it), then hold idle_block.
-			if (_sprite.Animation == "block_start")
+			// Raise the guard with block_start (when the sheet has it), then hold idle_block — in the
+			// current pose's version of both (see ParryPoseChainWindow).
+			string blockStart = ParryPoseAnim("block_start");
+			string idleBlock = ParryPoseAnim("idle_block");
+			if (_sprite.Animation == blockStart)
 			{
 				if (!_sprite.IsPlaying())
-					_sprite.Play("idle_block");
+					_sprite.Play(idleBlock);
 			}
-			else if (_sprite.Animation != "idle_block")
+			else if (_sprite.Animation != idleBlock)
 			{
-				_sprite.Play(_sprite.SpriteFrames.HasAnimation("block_start") ? "block_start" : "idle_block");
+				_sprite.Play(_sprite.SpriteFrames.HasAnimation(blockStart) ? blockStart : idleBlock);
 			}
 			return;
 		}
@@ -3055,6 +3073,8 @@ public partial class Player : CharacterBody2D
 			_parryRecoveryTimer -= dt;
 
 		_parryBufferTimer = Mathf.Max(0f, _parryBufferTimer - dt);
+		if (_sinceParryOpened < float.MaxValue)
+			_sinceParryOpened += dt;
 		if (Input.IsActionJustPressed("block"))
 			_parryBufferTimer = ParryInputBuffer;
 
@@ -3070,6 +3090,8 @@ public partial class Player : CharacterBody2D
 			_parryWindowTimer = ParryWindowDuration;
 			_parryOpenedFor = 0f;
 			_parryLanded = false;
+			_parryPose = _sinceParryOpened <= ParryPoseChainWindow ? (_parryPose + 1) % Mathf.Max(1, ParryPoseCount) : 0;
+			_sinceParryOpened = 0f;
 		}
 		if (_parryWindowTimer > 0f)
 			_parryOpenedFor += dt;
@@ -3114,6 +3136,16 @@ public partial class Player : CharacterBody2D
 	}
 
 	private bool IsPerfectParry() => _parryOpenedFor <= PerfectParryWindow;
+
+	// "block_start" -> "block_start_2" etc. for the current guard pose; falls back to the base clip
+	// when the sheet doesn't have that pose.
+	private string ParryPoseAnim(string baseName)
+	{
+		if (_parryPose == 0)
+			return baseName;
+		string posed = $"{baseName}_{_parryPose + 1}";
+		return _sprite.SpriteFrames.HasAnimation(posed) ? posed : baseName;
+	}
 
 	// Shared by melee and projectile parries: essence, the clash, the freeze, and keeping the window
 	// open long enough for the next hit of a fast string.

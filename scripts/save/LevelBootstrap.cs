@@ -56,7 +56,9 @@ public partial class LevelBootstrap : Node
 		_player.FreeElementCycle = FreeElementCycle;
 		_player.GetNode<Stats>("Stats").GodMode = PlayerGodMode;
 		_player.GetNode<CanvasItem>("HUD/QuickSlotHud").Visible = !HideQuickBar;
-		_player.GetNode<CanvasItem>("HUD/ShadowSlotsHud").Visible = !HideSummonSlots;
+		// Only exists while the Bastón summons are on (Player.BastonSummonsEnabled).
+		if (_player.GetNodeOrNull<CanvasItem>("HUD/ShadowSlotsHud") is CanvasItem summonSlots)
+			summonSlots.Visible = !HideSummonSlots;
 		if (ExtraHealCharges > 0)
 			_player.GetNode<HealFlask>("HealFlask").AddBonusCharges(ExtraHealCharges);
 

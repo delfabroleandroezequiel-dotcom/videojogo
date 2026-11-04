@@ -25,7 +25,7 @@ Cuando toque combate, trabajo como **diseñador de combate y jefes de juegos de 
 1. **Combate normal:** combo de espada, ataques arriba y abajo, rodar (barato, en el piso, te pasa a la espalda del enemigo) y dash (más caro, más largo, sirve en el aire), los dos con invulnerabilidad.
 2. **Parry:** la única defensa además de esquivar. **No hay guardia sostenida.** Ventana de 0.2 s; si no atrapa nada, el botón se traba 0.35 s. Refleja proyectiles, 2 parries seguidos aturden y un enemigo aturdido se puede ejecutar. Los que se pueden apuñalar, también por la espalda.
 3. **Sombra:** el kit de clones neón (básico, señuelo, eco, manipulable). Los hechizos futuros salen de los clones.
-4. **Invocaciones:** el Bastón revive enemigos muertos como sombras.
+4. **Invocaciones:** el Bastón revive enemigos muertos como sombras. **Apagado el 2026-11-04** por pedido del autor: los enemigos ya no sueltan esencia ni dan "usos", y no hay teclas ni HUD de invocación (`Player.BastonSummonsEnabled` y `Enemy.DropsShadowEssence` en `false`; el código queda guardado).
 
 - **Estacionados** (código guardado, apagados): tornado, escupitajo venenoso, bola de fuego, escudo de viento. Vuelven como **consumibles**, no como habilidades.
 - **Espada voladora:** se queda, pero le falta una vuelta que la ate a los pilares.
@@ -109,6 +109,7 @@ Cuando toque combate, trabajo como **diseñador de combate y jefes de juegos de 
 
 | Fecha | Decisión | Origen |
 |---|---|---|
+| 2026-11-04 | Fuera los "usos" por matar enemigos y las invocaciones de enemigos del Bastón (apagado, no borrado). Nuevo `Enemy.ExtraLoot` para botín propio de una instancia (el bandido del hacha suelta el libro de Morlok) | Pedido del autor |
 | 2026-07-07 | Cada jefe único; no generalizar en `Boss.cs` | Jefe lobo |
 | 2026-07-10 | El kit de combate se siente sólido; reusar y rotar animaciones | Prueba del autor |
 | 2026-08-02 | Cada enemigo con su propio `.cs`, también los comunes | OrcEnemy |

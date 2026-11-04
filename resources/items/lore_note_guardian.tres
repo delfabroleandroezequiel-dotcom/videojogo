@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="Item" format=3]
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://bbwjqx1r2yb0r"]
 
-[ext_resource type="Script" path="res://scripts/items/Item.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://c7k8nu6e2htri" path="res://scripts/items/Item.cs" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://ddc07y4ehl8ev" path="res://assets/sprites/iconos/lore_note_guardian.png" id="icono"]
 
 [resource]
 script = ExtResource("1_script")
 Id = "item_lore_note_guardian"
 ItemName = "ITEM_LORE_NOTE_GUARDIAN_NAME"
 Description = "ITEM_LORE_NOTE_GUARDIAN_DESC"
-Type = 3
+Icon = ExtResource("icono")

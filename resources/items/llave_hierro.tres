@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="Item" format=3]
 
 [ext_resource type="Script" uid="uid://c7k8nu6e2htri" path="res://scripts/items/Item.cs" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/iconos/llave_hierro.png" id="icono"]
 
 [resource]
 script = ExtResource("1_script")
@@ -9,3 +10,4 @@ ItemName = "ITEM_KEY_QUEBRADA_HIERRO_NAME"
 Description = "ITEM_KEY_QUEBRADA_HIERRO_DESC"
 Type = 5
 Stackable = true
+Icon = ExtResource("icono")

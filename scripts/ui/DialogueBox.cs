@@ -28,8 +28,35 @@ public partial class DialogueBox : CanvasLayer
 		_nameLabel = GetNode<Label>("Panel/VBox/Name");
 		_textLabel = GetNode<Label>("Panel/VBox/Text");
 		_continueHint = GetNode<Label>("Panel/VBox/ContinueHint");
+		FitBoxToText();
 
 		_panel.Visible = false;
+	}
+
+	// The scene's box was a fixed 640x120 rect with the text column laid on top of it, so a line that
+	// wrapped to a third row spilled out below the background. Instead the column lives in a panel
+	// anchored to the bottom of the screen that grows upward with however many rows the text takes.
+	private void FitBoxToText()
+	{
+		GetNode<CanvasItem>("Panel/Background").Visible = false;
+		var vbox = GetNode<VBoxContainer>("Panel/VBox");
+
+		var box = new PanelContainer
+		{
+			Name = "Box",
+			AnchorLeft = 0.5f, AnchorRight = 0.5f, AnchorTop = 1f, AnchorBottom = 1f,
+			OffsetLeft = -380f, OffsetRight = 380f, OffsetTop = -30f, OffsetBottom = -30f,
+			GrowVertical = Control.GrowDirection.Begin,
+			CustomMinimumSize = new Vector2(0f, 110f),
+		};
+		box.AddThemeStyleboxOverride("panel", new StyleBoxFlat
+		{
+			BgColor = new Color(0f, 0f, 0f, 0.75f),
+			ContentMarginLeft = 20f, ContentMarginRight = 20f, ContentMarginTop = 12f, ContentMarginBottom = 10f,
+		});
+		_panel.AddChild(box);
+		vbox.Reparent(box, false);
+		_textLabel.SizeFlagsVertical = Control.SizeFlags.ExpandFill;
 	}
 
 	public bool IsOpen => _isOpen;

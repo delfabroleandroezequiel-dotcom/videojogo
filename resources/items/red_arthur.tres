@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Item" format=3]
+
+[ext_resource type="Script" uid="uid://c7k8nu6e2htri" path="res://scripts/items/Item.cs" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/iconos/red_arthur.png" id="icono"]
+
+[resource]
+script = ExtResource("1_script")
+Id = "item_red_arthur"
+ItemName = "ITEM_RED_ARTHUR_NAME"
+Description = "ITEM_RED_ARTHUR_DESC"
+Type = 2
+Stackable = false
+Icon = ExtResource("icono")

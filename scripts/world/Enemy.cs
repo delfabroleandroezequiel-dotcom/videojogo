@@ -588,8 +588,13 @@ public partial class Enemy : CharacterBody2D
 	}
 
 	// Bastón: the defeated enemy leaves a wisp of shadow; taking it stores one summon use of this enemy
-	// type (keyed by its scene). Bosses override OnDefeated and don't drop one.
-	[Export] public bool DropsShadowEssence = true;
+	// type (keyed by its scene). Bosses override OnDefeated and don't drop one. Off since 2026-11-04
+	// together with the summons themselves (Player.BastonSummonsEnabled) — parked, not deleted.
+	[Export] public bool DropsShadowEssence = false;
+
+	// Per-instance drops on top of the profile's LootTable (which every enemy of that type shares and
+	// which overwrites LootTable on load) — e.g. a quest item only one placed bandit carries.
+	[Export] public LootEntry[] ExtraLoot = System.Array.Empty<LootEntry>();
 
 	private void SpawnShadowEssence()
 	{
@@ -602,24 +607,28 @@ public partial class Enemy : CharacterBody2D
 
 	protected void SpawnLoot()
 	{
-		if (LootTable is null || LootTable.Length == 0)
-			return;
-
-		foreach (LootEntry entry in LootTable)
+		foreach (LootEntry[] table in new[] { LootTable, ExtraLoot })
 		{
-			if (entry?.DropScene is null || LootRng.Randf() > entry.DropChance)
+			if (table is null)
 				continue;
 
-			Node dropNode = entry.DropScene.Instantiate();
-			GetTree().CurrentScene.AddChild(dropNode);
+			foreach (LootEntry entry in table)
+			{
+				if (entry?.DropScene is null || LootRng.Randf() > entry.DropChance)
+					continue;
 
-			if (dropNode is Node2D dropNode2D)
-				dropNode2D.GlobalPosition = GlobalPosition;
+				Node dropNode = entry.DropScene.Instantiate();
+				// The item must be set before AddChild: ItemPickup._Ready frees itself without one.
+				if (dropNode is ItemPickup pickup && entry.RewardItem is not null)
+					pickup.Item = entry.RewardItem;
+				GetTree().CurrentScene.AddChild(dropNode);
 
-			if (dropNode is Coin coin)
-				coin.Value = LootRng.RandiRange(entry.MinAmount, entry.MaxAmount);
-			else if (dropNode is ItemPickup pickup && entry.RewardItem is not null)
-				pickup.Item = entry.RewardItem;
+				if (dropNode is Node2D dropNode2D)
+					dropNode2D.GlobalPosition = GlobalPosition;
+
+				if (dropNode is Coin coin)
+					coin.Value = LootRng.RandiRange(entry.MinAmount, entry.MaxAmount);
+			}
 		}
 	}
 

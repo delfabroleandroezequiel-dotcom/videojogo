@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Item" format=3]
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://if0iink3jefn"]
 
 [ext_resource type="Script" uid="uid://c7k8nu6e2htri" path="res://scripts/items/Item.cs" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://lbkyl83midpq" path="res://assets/sprites/iconos/llave_sello_violeta.png" id="icono"]
 
 [resource]
 script = ExtResource("1_script")
@@ -8,4 +9,5 @@ Id = "item_key_seal_violet"
 ItemName = "ITEM_KEY_SEAL_VIOLET_NAME"
 Description = "ITEM_KEY_SEAL_VIOLET_DESC"
 Type = 5
+Icon = ExtResource("icono")
 Stackable = true
