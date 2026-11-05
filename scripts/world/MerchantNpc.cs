@@ -22,7 +22,7 @@ public partial class MerchantNpc : Npc
 		if (!_greeted && GreetingLines.Length > 0)
 		{
 			_greeted = true;
-			DialogueBox.Instance.Show(NpcName, GreetingLines, OpenShop);
+			DialogueBox.Instance.Show(NpcName, GreetingLines, OpenShop, this);
 			return;
 		}
 

@@ -86,6 +86,15 @@
 [ext_resource type="SpriteFrames" path="res://resources/sprites/NixGarrikHerreroSpriteFrames.tres" id="enc_garrik"]
 [ext_resource type="Resource" path="res://resources/items/pescado_ayer.tres" id="enc_pescado"]
 [ext_resource type="Resource" path="res://resources/items/red_arthur.tres" id="enc_red"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/NixBramCarniceroSpriteFrames.tres" id="pob_bram"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/NixSelaSpriteFrames.tres" id="pob_sela"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/NixPipJuegoSpriteFrames.tres" id="pob_pip"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/NixTomoJuegoSpriteFrames.tres" id="pob_tomo"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/NixHalvarSpriteFrames.tres" id="pob_halvar"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/nix/TroncoCarnicero.png" id="pob_TroncoCarnicero"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/nix/ColgaderoCarnes.png" id="pob_ColgaderoCarnes"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/nix/MostradorCarnicero.png" id="pob_MostradorCarnicero"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/nix/PuestoPescado.png" id="pob_PuestoPescado"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn06r"]
 size = Vector2(67, 11.360123)
@@ -15576,9 +15585,14 @@ QuestStepQuestId = "encargo_arthur"
 QuestStepTakesItem = ExtResource("enc_pescado")
 QuestStepGold = 5
 QuestStepLines = PackedStringArray("NPC_BRAM_ENCARGO_1", "NPC_BRAM_ENCARGO_2", "NPC_BRAM_ENCARGO_3", "NPC_BRAM_ENCARGO_4")
-CustomSpriteFrames = ExtResource("99_carnicero")
-CustomSpriteScale = Vector2(1.39, 1.39)
-CollisionSize = Vector2(47, 64)
+FacePlayerEnabled = false
+CustomSpriteFrames = ExtResource("pob_bram")
+CustomSpriteScale = Vector2(1.158, 1.158)
+CustomSpriteYOffset = -16.5
+CollisionSize = Vector2(30, 64)
+
+[node name="Visual" parent="NpcCarnicero" index="1"]
+z_index = 1
 
 [node name="NpcGransin" parent="." unique_id=475770780 instance=ExtResource("6_npc")]
 position = Vector2(2060, 430)
@@ -15829,3 +15843,83 @@ CustomSpriteFrames = ExtResource("cm_bruno")
 CustomSpriteYOffset = 2.0
 CustomSpriteScale = Vector2(1.158, 1.158)
 CollisionSize = Vector2(30, 64)
+
+[node name="NpcSela" parent="." instance=ExtResource("6_npc")]
+position = Vector2(-1090, 428)
+NpcName = "NPC_SELA_NAME"
+DialogueLines = PackedStringArray("NPC_SELA_L1", "NPC_SELA_L2")
+CustomSpriteFrames = ExtResource("pob_sela")
+CustomSpriteScale = Vector2(1.158, 1.158)
+CustomSpriteYOffset = 2.0
+CollisionSize = Vector2(30, 64)
+
+[node name="NpcPip" parent="." instance=ExtResource("6_npc")]
+position = Vector2(4780, 428)
+NpcName = "NPC_PIP_NAME"
+DialogueLines = PackedStringArray("NPC_PIP_L1")
+FacePlayerEnabled = false
+CustomSpriteFrames = ExtResource("pob_pip")
+CustomSpriteScale = Vector2(1.158, 1.158)
+CustomSpriteYOffset = -16.5
+CollisionSize = Vector2(24, 48)
+
+[node name="NpcTomo" parent="." instance=ExtResource("6_npc")]
+position = Vector2(4837, 428)
+NpcName = "NPC_TOMO_NAME"
+DialogueLines = PackedStringArray("NPC_TOMO_L1")
+FacePlayerEnabled = false
+CustomSpriteFrames = ExtResource("pob_tomo")
+CustomSpriteScale = Vector2(-1.158, 1.158)
+CustomSpriteYOffset = -16.5
+CollisionSize = Vector2(24, 48)
+
+[node name="NpcHalvar" parent="." instance=ExtResource("6_npc")]
+position = Vector2(5080, 428)
+NpcName = "NPC_HALVAR_NAME"
+DialogueLines = PackedStringArray("NPC_HALVAR_L1")
+CustomSpriteFrames = ExtResource("pob_halvar")
+CustomSpriteScale = Vector2(1.158, 1.158)
+CustomSpriteYOffset = 2.0
+CollisionSize = Vector2(30, 64)
+
+[node name="Carniceria" type="Node2D" parent="DecoPixelLab"]
+
+[node name="TroncoCarnicero" type="Sprite2D" parent="DecoPixelLab/Carniceria"]
+texture_filter = 1
+position = Vector2(-509, 466)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("pob_TroncoCarnicero")
+offset = Vector2(0, -31)
+
+[node name="ColgaderoCarnes" type="Sprite2D" parent="DecoPixelLab/Carniceria"]
+texture_filter = 1
+position = Vector2(-625, 466)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("pob_ColgaderoCarnes")
+offset = Vector2(0, -30)
+
+[node name="MostradorCarnicero" type="Sprite2D" parent="DecoPixelLab/Carniceria"]
+texture_filter = 1
+position = Vector2(-420, 466)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("pob_MostradorCarnicero")
+offset = Vector2(0, -31)
+
+[node name="PuestoPescado" type="Sprite2D" parent="DecoPixelLab"]
+texture_filter = 1
+position = Vector2(-1015, 466)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("pob_PuestoPescado")
+offset = Vector2(0, -31)
+
+[node name="Visual" parent="NpcSela" index="1"]
+z_index = 1
+
+[node name="Visual" parent="NpcPip" index="1"]
+z_index = 1
+
+[node name="Visual" parent="NpcTomo" index="1"]
+z_index = 1
+
+[node name="Visual" parent="NpcHalvar" index="1"]
+z_index = 1

@@ -1,0 +1,42 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bram/cuchilla_0.png" id="a0"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bram/cuchilla_1.png" id="a1"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bram/cuchilla_2.png" id="a2"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bram/cuchilla_3.png" id="a3"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bram/cuchilla_4.png" id="a4"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bram/cuchilla_5.png" id="a5"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bram/cuchilla_6.png" id="a6"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Bram/cuchilla_7.png" id="a7"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.2,
+"texture": ExtResource("a0")
+}, {
+"duration": 1,
+"texture": ExtResource("a1")
+}, {
+"duration": 1,
+"texture": ExtResource("a2")
+}, {
+"duration": 1,
+"texture": ExtResource("a3")
+}, {
+"duration": 1,
+"texture": ExtResource("a4")
+}, {
+"duration": 1,
+"texture": ExtResource("a5")
+}, {
+"duration": 1.8,
+"texture": ExtResource("a6")
+}, {
+"duration": 1.2,
+"texture": ExtResource("a7")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 7.0
+}]

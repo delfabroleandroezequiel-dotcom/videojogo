@@ -42,7 +42,8 @@ public static class Sfx
 	// Drop files under res://assets/audio/Voces/<locale>/<key>.(wav|mp3|ogg) (locale = "es"/"en"/"pt")
 	// and this picks the current language, falling back to English (the recorded voice-over) if that
 	// locale's line is missing.
-	public static void PlayVoice(Node context, string key)
+	// The voice clip for a key in the current language (English, then Spanish as fallbacks), or null.
+	public static AudioStream LoadVoice(string key)
 	{
 		string locale = LocaleManager.Instance?.CurrentLocale ?? VoiceFallbackLocale;
 		AudioStream stream = LoadVoiceStream(locale, key);
@@ -51,6 +52,17 @@ public static class Sfx
 		// Lines recorded only in Spanish (older NPC barks) still play in any language.
 		if (stream is null && locale != "es" && VoiceFallbackLocale != "es")
 			stream = LoadVoiceStream("es", key);
+		return stream;
+	}
+
+	// How far a spoken line carries once the player walks away from whoever said it.
+	public const float VoiceMaxDistance = 1100f;
+
+	// source: who is talking, when it's someone in the world (an NPC). The line then comes from
+	// there and fades as the player walks away; without one (narration, cinematics) it plays flat.
+	public static void PlayVoice(Node context, string key, Node2D source = null)
+	{
+		AudioStream stream = LoadVoice(key);
 
 		// One voice at a time: advancing the dialogue cuts the previous line instead of stacking
 		// them. And no pitch wobble — that's for repeated SFX; on a voice it changes who's talking.
@@ -58,8 +70,8 @@ public static class Sfx
 		// hard start or cut is heard as a click when the lines change.
 		if (GodotObject.IsInstanceValid(_voicePlayer))
 		{
-			AudioStreamPlayer previous = _voicePlayer;
-			if (previous.Playing)
+			Node previous = _voicePlayer;
+			if ((bool)previous.Get("playing"))
 			{
 				Tween fadeOut = previous.CreateTween();
 				fadeOut.TweenProperty(previous, "volume_db", VoiceSilentDb, VoiceFadeOut);
@@ -73,10 +85,28 @@ public static class Sfx
 		_voicePlayer = null;
 		if (stream is null || context.GetTree()?.CurrentScene is not Node scene)
 			return;
-		var player = new AudioStreamPlayer { Stream = stream, ProcessMode = Node.ProcessModeEnum.Always, VolumeDb = VoiceSilentDb };
-		scene.AddChild(player);
-		player.Finished += player.QueueFree;
-		player.Play();
+		Node player;
+		if (GodotObject.IsInstanceValid(source))
+		{
+			var positional = new AudioStreamPlayer2D
+			{
+				Stream = stream, ProcessMode = Node.ProcessModeEnum.Always, VolumeDb = VoiceSilentDb,
+				MaxDistance = VoiceMaxDistance, Attenuation = 1.6f, PanningStrength = 0.5f,
+			};
+			scene.AddChild(positional);
+			positional.GlobalPosition = source.GlobalPosition + new Vector2(0f, -40f);
+			positional.Finished += positional.QueueFree;
+			positional.Play();
+			player = positional;
+		}
+		else
+		{
+			var flat = new AudioStreamPlayer { Stream = stream, ProcessMode = Node.ProcessModeEnum.Always, VolumeDb = VoiceSilentDb };
+			scene.AddChild(flat);
+			flat.Finished += flat.QueueFree;
+			flat.Play();
+			player = flat;
+		}
 		Tween fades = player.CreateTween();
 		fades.TweenProperty(player, "volume_db", 0f, VoiceFadeIn);
 		// ...and out just before its natural end, in case the clip ends off-silence too.
@@ -93,9 +123,10 @@ public static class Sfx
 	private const float VoiceFadeIn = 0.05f;
 	private const float VoiceFadeOut = 0.08f;
 
-	private static AudioStreamPlayer _voicePlayer;
+	// AudioStreamPlayer (flat) or AudioStreamPlayer2D (an NPC speaking from somewhere in the world).
+	private static Node _voicePlayer;
 
-	public static bool IsVoicePlaying => GodotObject.IsInstanceValid(_voicePlayer) && _voicePlayer.Playing;
+	public static bool IsVoicePlaying => GodotObject.IsInstanceValid(_voicePlayer) && (bool)_voicePlayer.Get("playing");
 
 	private static readonly string[] VoiceExtensions = { ".wav", ".mp3", ".ogg" };
 

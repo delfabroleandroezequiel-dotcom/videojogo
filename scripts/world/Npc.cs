@@ -202,7 +202,7 @@ public partial class Npc : CharacterBody2D
 		if (!string.IsNullOrEmpty(BossAliveDialogueBossId) && BossAliveDialogueLines.Length > 0
 			&& !SaveManager.Instance.IsBossDefeated(BossAliveDialogueBossId))
 		{
-			DialogueBox.Instance.Show(NpcName, BossAliveDialogueLines);
+			DialogueBox.Instance.Show(NpcName, BossAliveDialogueLines, null, this);
 			return;
 		}
 
@@ -211,13 +211,13 @@ public partial class Npc : CharacterBody2D
 
 		if (Quest is null)
 		{
-			DialogueBox.Instance.Show(NpcName, GetCurrentDialogueLines());
+			DialogueBox.Instance.Show(NpcName, GetCurrentDialogueLines(), null, this);
 			return;
 		}
 
 		if (QuestManager.Instance.IsCompleted(Quest.Id))
 		{
-			DialogueBox.Instance.Show(NpcName, CompletedDialogueLines);
+			DialogueBox.Instance.Show(NpcName, CompletedDialogueLines, null, this);
 			return;
 		}
 
@@ -226,11 +226,11 @@ public partial class Npc : CharacterBody2D
 			if (QuestManager.Instance.IsObjectiveMet(Quest))
 			{
 				QuestManager.Instance.CompleteQuest(Quest.Id);
-				DialogueBox.Instance.Show(NpcName, CompletedDialogueLines);
+				DialogueBox.Instance.Show(NpcName, CompletedDialogueLines, null, this);
 			}
 			else
 			{
-				DialogueBox.Instance.Show(NpcName, InProgressDialogueLines);
+				DialogueBox.Instance.Show(NpcName, InProgressDialogueLines, null, this);
 			}
 
 			return;
@@ -245,11 +245,11 @@ public partial class Npc : CharacterBody2D
 		if (QuestManager.Instance.IsObjectiveMet(Quest))
 		{
 			QuestManager.Instance.CompleteQuest(Quest.Id);
-			DialogueBox.Instance.Show(NpcName, CompletedDialogueLines);
+			DialogueBox.Instance.Show(NpcName, CompletedDialogueLines, null, this);
 		}
 		else
 		{
-			DialogueBox.Instance.Show(NpcName, DialogueLines);
+			DialogueBox.Instance.Show(NpcName, DialogueLines, null, this);
 		}
 	}
 
@@ -272,7 +272,7 @@ public partial class Npc : CharacterBody2D
 			SaveManager.Instance.AddGold(QuestStepGold);
 		SaveManager.Instance.MarkPickupCollected(doneKey);
 		QuestManager.Instance.AddProgress(QuestStepQuestId);
-		DialogueBox.Instance.Show(NpcName, QuestStepLines);
+		DialogueBox.Instance.Show(NpcName, QuestStepLines, null, this);
 		return true;
 	}
 

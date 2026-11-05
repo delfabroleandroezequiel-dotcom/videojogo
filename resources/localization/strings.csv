@@ -434,3 +434,28 @@ NPC_GARRIK_NAME,Garrik,Garrik,Garrik
 NPC_GARRIK_ENCARGO_1,"Espera. El hierro no espera a nadie, y yo tampoco.","Wait. Iron waits for no one, and neither do I.","Espere. O ferro não espera ninguém, e eu também não."
 NPC_GARRIK_ENCARGO_2,Ahí tienes la red de tu padre. Los nudos nuevos aguantan más que los viejos.,There's your father's net. The new knots hold better than the old ones.,Aí está a rede do seu pai. Os nós novos aguentam mais que os velhos.
 NPC_GARRIK_ENCARGO_3,Dile a Arthur que pase un día. Hace mucho que no hablamos de acero.,Tell Arthur to stop by one day. It's been a long time since we talked about steel.,Diga ao Arthur que passe aqui um dia. Faz tempo que não falamos de aço.
+NPC_SELA_NAME,Sela,Sela,Sela
+NPC_SELA_L1,Tú que andas por el camino. ¿Pasó alguien de Ullatorp?,"You, who walk the road. Did anyone come through from Ullatorp?",Você que anda pela estrada. Passou alguém de Ullatorp?
+NPC_SELA_L2,"Mi marido salió hace un mes, Delfrad. Un mes.","My husband left a month ago, Delfrad. A month.","Meu marido saiu faz um mês, Delfrad. Um mês."
+NPC_PIP_NAME,Pip,Pip,Pip
+NPC_PIP_L1,¡Soy el rey Rhodas! Y él es Aragost el Temible.,I'm King Rhodas! And he's Aragost the Terrible.,"Eu sou o rei Rhodas! E ele é Aragost, o Terrível."
+NPC_TOMO_NAME,Tomo,Tomo,Tomo
+NPC_TOMO_L1,¡Delfrad! Enséñanos el golpe con el que te vimos caer tantas veces.,Delfrad! Teach us the move we've seen you fall to so many times.,Delfrad! Ensina pra gente o golpe com que te vimos cair tantas vezes.
+NPC_HALVAR_NAME,Halvar,Halvar,Halvar
+NPC_HALVAR_L1,"Si vas para el bosque, vuelve antes de que oscurezca. Lo digo en serio.","If you're heading for the forest, come back before it gets dark. I mean it.","Se for para a floresta, volte antes de escurecer. Estou falando sério."
+AMB_BAR_A1,Dicen que en el bosque ya no se oyen los lobos.,They say you can't hear the wolves in the forest anymore.,Dizem que na floresta já não se ouvem os lobos.
+AMB_BAR_A2,"Mejor. Menos lobos, menos sustos.","Good. Fewer wolves, fewer scares.","Melhor. Menos lobos, menos sustos."
+AMB_BAR_A3,"No, muchacho. Cuando los lobos se callan, es que algo los calló.","No, lad. When the wolves go quiet, something made them quiet.","Não, rapaz. Quando os lobos se calam, é porque algo os calou."
+AMB_BAR_A4,"Pide otra ronda, anda.","Order another round, go on.","Pede outra rodada, vai."
+AMB_BAR_B1,Hace un año bajaban doce carros del norte.,A year ago twelve carts came down from the north.,Há um ano desciam doze carroças do norte.
+AMB_BAR_B2,"Y ahora dos, y medio vacíos.","And now two, half empty.","E agora duas, meio vazias."
+AMB_BAR_B3,"El rey ni se entera, allá en su castillo.","The king doesn't even notice, up in his castle.","O rei nem fica sabendo, lá no castelo dele."
+AMB_BAR_B4,El rey no se entera de nada que quede al sur del río.,The king hears nothing that happens south of the river.,O rei não sabe de nada que fique ao sul do rio.
+AMB_OSTIGADA_1,Doce jarras. Ayer eran trece...,Twelve mugs. Yesterday there were thirteen...,Doze canecas. Ontem eram treze...
+AMB_OSTIGADA_2,"El que rompe, paga. El que no paga, friega.","You break it, you pay. You can't pay, you scrub.","Quem quebra, paga. Quem não paga, lava."
+AMB_OSTIGADA_3,Esta lluvia me va a espantar a los viajeros.,This rain is going to scare off my travelers.,Essa chuva vai espantar meus viajantes.
+AMB_OSTIGADA_4,¡Y que nadie baje al sótano!,And nobody goes down to the cellar!,E ninguém desce pro porão!
+AMB_BANDIDOS_1,Rápido. Lo que pese poco y valga mucho.,Quick. Whatever weighs little and is worth a lot.,Rápido. O que pesa pouco e vale muito.
+AMB_BANDIDOS_2,Esta caja no abre.,This box won't open.,Esta caixa não abre.
+AMB_BANDIDOS_3,Callaos. Algo se mueve en el bosque.,Quiet. Something's moving in the forest.,Quietos. Algo se mexe na floresta.
+AMB_BANDIDOS_4,"Si nos alcanzan los de arriba, no hará falta ninguna caja.","If the ones up north catch us, no box will matter.","Se os lá de cima nos alcançarem, nenhuma caixa vai importar."

@@ -61,21 +61,26 @@ public partial class DialogueBox : CanvasLayer
 
 	public bool IsOpen => _isOpen;
 
-	public void Show(string speakerNameKey, string[] lineKeys, Action onFinished = null)
+	// voiceSource: the character saying the lines, so the voice comes from them and fades with
+	// distance (see Sfx.PlayVoice); leave null for narration.
+	public void Show(string speakerNameKey, string[] lineKeys, Action onFinished = null, Node2D voiceSource = null)
 	{
-		Show(new[] { speakerNameKey }, lineKeys, onFinished);
+		Show(new[] { speakerNameKey }, lineKeys, onFinished, true, voiceSource);
 	}
+
+	private Node2D _voiceSource;
 
 	// Cutscene-style overload: SpeakerKeys can list a different speaker per line (a back-and-forth
 	// between characters), or just one entry to keep speaking as the same character for every
 	// line — same as the single-speaker overload above, which just forwards here.
 	// pauseWorld = false is for cinematics: the player is already held (Player.HoldForCutscene), and
 	// the characters keep moving and animating while they talk.
-	public void Show(string[] speakerNameKeys, string[] lineKeys, Action onFinished = null, bool pauseWorld = true)
+	public void Show(string[] speakerNameKeys, string[] lineKeys, Action onFinished = null, bool pauseWorld = true, Node2D voiceSource = null)
 	{
 		if (lineKeys is null || lineKeys.Length == 0 || speakerNameKeys is null || speakerNameKeys.Length == 0)
 			return;
 
+		_voiceSource = voiceSource;
 		_speakerKeys = speakerNameKeys;
 		_lines = lineKeys;
 		_lineIndex = 0;
@@ -141,7 +146,7 @@ public partial class DialogueBox : CanvasLayer
 		_nameLabel.Visible = _nameLabel.Text != "";
 		_textLabel.Text = TranslationServer.Translate(_lines[_lineIndex]);
 		_continueHint.Text = TranslationServer.Translate(_lineIndex < _lines.Length - 1 ? "UI_DIALOGUE_CONTINUE" : "UI_DIALOGUE_CLOSE");
-		Sfx.PlayVoice(this, _lines[_lineIndex]);
+		Sfx.PlayVoice(this, _lines[_lineIndex], _voiceSource);
 	}
 
 	private void Close()

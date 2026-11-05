@@ -1,0 +1,26 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Pip/palo_0.png" id="a0"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Pip/palo_1.png" id="a1"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Pip/palo_2.png" id="a2"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Pip/palo_3.png" id="a3"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.4,
+"texture": ExtResource("a0")
+}, {
+"duration": 1,
+"texture": ExtResource("a1")
+}, {
+"duration": 1,
+"texture": ExtResource("a2")
+}, {
+"duration": 1.4,
+"texture": ExtResource("a3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]

@@ -37,6 +37,7 @@
 [ext_resource type="Resource" path="res://resources/items/libro_cuentas_morlok.tres" id="cm_libro"]
 [ext_resource type="Resource" path="res://resources/items/tela_emblema.tres" id="cm_tela"]
 [ext_resource type="Script" path="res://scripts/world/LootEntry.cs" id="cm_lootscript"]
+[ext_resource type="Script" path="res://scripts/world/VozAmbiente.cs" id="voz_amb"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h48re"]
 load_path = "res://.godot/imported/ChatGPT_Image_12_jul_2026__17_14_53-removebg-preview.png-d59d64ce255041962d0d7588581fe35a.ctex"
@@ -13005,3 +13006,12 @@ position = Vector2(820, 87)
 [node name="TelaEmblema" parent="CarroDeMorlok" instance=ExtResource("cm_pickup")]
 position = Vector2(560, 222)
 Item = ExtResource("cm_tela")
+
+[node name="CharlaBandidos" type="Node2D" parent="CarroDeMorlok"]
+position = Vector2(600, 263)
+script = ExtResource("voz_amb")
+LineKeys = PackedStringArray("AMB_BANDIDOS_1", "AMB_BANDIDOS_2", "AMB_BANDIDOS_3", "AMB_BANDIDOS_4")
+Speakers = Array[NodePath]([NodePath("../BandidoHacha"), NodePath("../BandidoDagas"), NodePath("../BandidoArquero"), NodePath("../BandidoHacha")])
+MinInterval = 7.0
+MaxInterval = 14.0
+HearDistance = 650.0
