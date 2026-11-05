@@ -18,26 +18,24 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniCorridorAccordionBosque.tscn" id="23_xpmh8"]
 [ext_resource type="Texture2D" uid="uid://d3et3hek0jct6" path="res://assets/sprites/deco/decoarboles2.png" id="24_itfpo"]
 [ext_resource type="PackedScene" uid="uid://qpeeme8h315i" path="res://scenes/world/Rehusables/MiniCorridorBosque.tscn" id="24_v2wi5"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/AtmosferaBosqueLobos.tscn" id="90_atmosfera"]
 [ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="91_parallaxfollow"]
 [ext_resource type="Texture2D" uid="uid://cv75eoysrwmj2" path="res://assets/sprites/deco/CapaArboles.png" id="92_capaarboles"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/AtmosferaBosqueLobos.tscn" id="90_atmosfera"]
-[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Arbusto.png" id="dpl_Arbusto"]
-[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/CartelGarras.png" id="dpl_CartelGarras"]
-[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Flores.png" id="dpl_Flores"]
-[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Helechos.png" id="dpl_Helechos"]
-[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Rocas.png" id="dpl_Rocas"]
-[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Tocon.png" id="dpl_Tocon"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CarrozaVolcada.tscn" id="cm_carroza"]
-[ext_resource type="PackedScene" uid="uid://d8tq20x6upcu" path="res://scenes/world/Npc.tscn" id="cm_npc"]
-[ext_resource type="SpriteFrames" path="res://resources/sprites/NixLeomaxHeridoSpriteFrames.tres" id="cm_bruno"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BandidoHacha.tscn" id="cm_bHacha"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BandidoDagas.tscn" id="cm_bDagas"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BandidoArquero.tscn" id="cm_bArquero"]
-[ext_resource type="PackedScene" path="res://scenes/world/ItemPickup.tscn" id="cm_pickup"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BandidoDagas.tscn" id="cm_bDagas"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BandidoHacha.tscn" id="cm_bHacha"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/NixLeomaxHeridoSpriteFrames.tres" id="cm_bruno"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CarrozaVolcada.tscn" id="cm_carroza"]
 [ext_resource type="Resource" path="res://resources/items/libro_cuentas_morlok.tres" id="cm_libro"]
+[ext_resource type="Script" uid="uid://ca3by7a2nprbd" path="res://scripts/world/LootEntry.cs" id="cm_lootscript"]
+[ext_resource type="PackedScene" uid="uid://d8tq20x6upcu" path="res://scenes/world/Npc.tscn" id="cm_npc"]
+[ext_resource type="PackedScene" path="res://scenes/world/ItemPickup.tscn" id="cm_pickup"]
 [ext_resource type="Resource" path="res://resources/items/tela_emblema.tres" id="cm_tela"]
-[ext_resource type="Script" path="res://scripts/world/LootEntry.cs" id="cm_lootscript"]
-[ext_resource type="Script" path="res://scripts/world/VozAmbiente.cs" id="voz_amb"]
+[ext_resource type="Texture2D" uid="uid://dh51pxnn5etxm" path="res://assets/sprites/deco/pixellab/bosque/CartelGarras.png" id="dpl_CartelGarras"]
+[ext_resource type="Texture2D" uid="uid://b22hoi3nby3k2" path="res://assets/sprites/deco/pixellab/bosque/Flores.png" id="dpl_Flores"]
+[ext_resource type="Texture2D" uid="uid://daiqdmitovqwu" path="res://assets/sprites/deco/pixellab/bosque/Rocas.png" id="dpl_Rocas"]
+[ext_resource type="Texture2D" uid="uid://bl37jt8inbx1p" path="res://assets/sprites/deco/pixellab/bosque/Tocon.png" id="dpl_Tocon"]
+[ext_resource type="Script" uid="uid://4mtch3ihux0j" path="res://scripts/world/VozAmbiente.cs" id="voz_amb"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h48re"]
 load_path = "res://.godot/imported/ChatGPT_Image_12_jul_2026__17_14_53-removebg-preview.png-d59d64ce255041962d0d7588581fe35a.ctex"
@@ -12807,10 +12805,7 @@ CameraLimitLeft = 0
 CameraLimitRight = 1760
 CameraLimitBottom = 450
 
-[node name="AtmosferaBosqueLobos" parent="." instance=ExtResource("90_atmosfera")]
-
-[node name="DustMotes" parent="AtmosferaBosqueLobos" index="3"]
-position = Vector2(150, 258)
+[node name="AtmosferaBosqueLobos" parent="." unique_id=841766526 instance=ExtResource("90_atmosfera")]
 
 [node name="Background" type="Node2D" parent="." unique_id=-1194967294]
 z_index = -10
@@ -12850,7 +12845,7 @@ scale = Vector2(0.7, 0.7)
 texture = ExtResource("10_6s2r5")
 
 [node name="Player" parent="." unique_id=-1194967286 instance=ExtResource("11_xpmh8")]
-position = Vector2(1464, 263)
+position = Vector2(149.39629, 256.5627)
 
 [node name="ReturnToNixTransition" parent="." unique_id=-1194967285 instance=ExtResource("12_itfpo")]
 position = Vector2(80, 290)
@@ -12947,71 +12942,70 @@ modulate = Color(0.45, 0.45, 0.45, 1)
 texture = ExtResource("92_capaarboles")
 centered = false
 
-[node name="DecoPixelLab" type="Node2D" parent="."]
+[node name="DecoPixelLab" type="Node2D" parent="." unique_id=454540301]
 
-[node name="CartelGarras" type="Sprite2D" parent="DecoPixelLab"]
-position = Vector2(161, 305)
+[node name="CartelGarras" type="Sprite2D" parent="DecoPixelLab" unique_id=2122431696]
 texture_filter = 1
+position = Vector2(161, 305)
 scale = Vector2(1.4, 1.4)
 texture = ExtResource("dpl_CartelGarras")
 offset = Vector2(0, -28)
 
-
-
-[node name="Flores" type="Sprite2D" parent="DecoPixelLab"]
-position = Vector2(1161, 305)
+[node name="Flores" type="Sprite2D" parent="DecoPixelLab" unique_id=479400552]
 texture_filter = 1
+position = Vector2(394.99997, 309)
 scale = Vector2(1.4, 1.4)
 texture = ExtResource("dpl_Flores")
 offset = Vector2(0, -31)
 
-[node name="Rocas" type="Sprite2D" parent="DecoPixelLab"]
-position = Vector2(1281, 305)
+[node name="Rocas" type="Sprite2D" parent="DecoPixelLab" unique_id=1359798100]
 texture_filter = 1
+position = Vector2(1281, 305)
 scale = Vector2(1.4, 1.4)
 texture = ExtResource("dpl_Rocas")
 offset = Vector2(0, -31)
 
-[node name="Tocon" type="Sprite2D" parent="DecoPixelLab"]
-position = Vector2(1621, 305)
+[node name="Tocon" type="Sprite2D" parent="DecoPixelLab" unique_id=515826171]
 texture_filter = 1
+position = Vector2(1621, 305)
 scale = Vector2(1.4, 1.4)
 texture = ExtResource("dpl_Tocon")
 offset = Vector2(0, -29)
 
-[node name="CarroDeMorlok" type="Node2D" parent="."]
+[node name="CarroDeMorlok" type="Node2D" parent="." unique_id=527568863]
 
-[node name="CarrozaVolcada" parent="CarroDeMorlok" instance=ExtResource("cm_carroza")]
-position = Vector2(600, 305)
+[node name="CarrozaVolcada" parent="CarroDeMorlok" unique_id=2015755046 instance=ExtResource("cm_carroza")]
+position = Vector2(1026, 311)
 
-[node name="LeomaxHerido" parent="CarroDeMorlok" instance=ExtResource("cm_npc")]
-position = Vector2(748, 267)
+[node name="LeomaxHerido" parent="CarroDeMorlok" unique_id=479129746 instance=ExtResource("cm_npc")]
+position = Vector2(393, 267)
 NpcName = "NPC_BRUNO_NAME"
 DialogueLines = PackedStringArray("NPC_BRUNO_HERIDO_L1", "NPC_BRUNO_HERIDO_L2", "NPC_BRUNO_HERIDO_L3", "NPC_BRUNO_HERIDO_L4")
 DisappearWhenQuestCompleted = "carro_morlok"
 CustomSpriteFrames = ExtResource("cm_bruno")
-CustomSpriteScale = Vector2(1.158, 1.158)
 CustomSpriteYOffset = 2.0
+CustomSpriteScale = Vector2(1.158, 1.158)
 CollisionSize = Vector2(30, 64)
 
-[node name="BandidoHacha" parent="CarroDeMorlok" instance=ExtResource("cm_bHacha")]
-position = Vector2(440, 263)
+[node name="BandidoHacha" parent="CarroDeMorlok" unique_id=419733167 instance=ExtResource("cm_bHacha")]
+position = Vector2(858, 265)
 ExtraLoot = [SubResource("LootEntry_libro")]
 
-[node name="BandidoDagas" parent="CarroDeMorlok" instance=ExtResource("cm_bDagas")]
-position = Vector2(620, 190)
+[node name="BandidoDagas" parent="CarroDeMorlok" unique_id=1099225664 instance=ExtResource("cm_bDagas")]
+position = Vector2(1013, 207)
 
-[node name="BandidoArquero" parent="CarroDeMorlok" instance=ExtResource("cm_bArquero")]
+[node name="BandidoArquero" parent="CarroDeMorlok" unique_id=444966249 instance=ExtResource("cm_bArquero")]
 position = Vector2(820, 87)
-[node name="TelaEmblema" parent="CarroDeMorlok" instance=ExtResource("cm_pickup")]
-position = Vector2(560, 222)
+
+[node name="TelaEmblema" parent="CarroDeMorlok" unique_id=1197920697 instance=ExtResource("cm_pickup")]
+position = Vector2(967, 221)
 Item = ExtResource("cm_tela")
 
-[node name="CharlaBandidos" type="Node2D" parent="CarroDeMorlok"]
+[node name="CharlaBandidos" type="Node2D" parent="CarroDeMorlok" unique_id=1730101389]
 position = Vector2(600, 263)
 script = ExtResource("voz_amb")
 LineKeys = PackedStringArray("AMB_BANDIDOS_1", "AMB_BANDIDOS_2", "AMB_BANDIDOS_3", "AMB_BANDIDOS_4")
-Speakers = Array[NodePath]([NodePath("../BandidoHacha"), NodePath("../BandidoDagas"), NodePath("../BandidoArquero"), NodePath("../BandidoHacha")])
+Speakers = [NodePath("../BandidoHacha"), NodePath("../BandidoDagas"), NodePath("../BandidoArquero"), NodePath("../BandidoHacha")]
 MinInterval = 7.0
 MaxInterval = 14.0
 HearDistance = 650.0
