@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/ElfSpearman.tscn" id="16_b3t1g"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/ElfMage.tscn" id="17_41wgy"]
 [ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="91_parallaxfollow"]
+[ext_resource type="Texture2D" uid="uid://cbv3ti8s4l4de" path="res://assets/sprites/deco/CapaArboles3.png" id="92_capaarboles"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/AtmosferaBosqueLobos.tscn" id="90_atmosfera"]
 [ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Arbusto.png" id="dpl_Arbusto"]
 [ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/CampamentoAbandonado.png" id="dpl_CampamentoAbandonado"]
@@ -3857,3 +3858,15 @@ texture_filter = 1
 scale = Vector2(1.4, 1.4)
 texture = ExtResource("dpl_Flores")
 offset = Vector2(0, -31)
+
+[node name="CapaArbolesFrente" type="Node2D" parent="."]
+z_index = 20
+position = Vector2(105, 120)
+script = ExtResource("91_parallaxfollow")
+ParallaxFactor = Vector2(-0.3, 0)
+FollowCamera = true
+
+[node name="Arboles" type="Sprite2D" parent="CapaArbolesFrente"]
+modulate = Color(0.45, 0.45, 0.45, 1)
+texture = ExtResource("92_capaarboles")
+centered = false
