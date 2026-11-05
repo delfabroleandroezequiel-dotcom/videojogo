@@ -60,9 +60,13 @@
 [ext_resource type="Texture2D" uid="uid://ewcb4kiryi4c" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v1)/Walk.png" id="t58"]
 [ext_resource type="Texture2D" uid="uid://cqgr21wf4tmc6" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v3)/MainChar_SideClimb_UpwardClimb.png" id="t59"]
 [ext_resource type="Texture2D" uid="uid://cv2jp1nhwm6mq" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v1)/WallSlide_Loop.png" id="t60"]
+[ext_resource type="Texture2D" uid="uid://djvo87gao7gkj" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v3)/MainChar_SideClimb_StaticStand.png" id="t_climb_idle"]
+[ext_resource type="Texture2D" uid="uid://kr3hxwd5d5oe" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v3)/MainChar_SideClimb.png" id="t_climb_side"]
+[ext_resource type="Texture2D" uid="uid://2wf8htla7bbf" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v1)/Desenvainar_PixelLab.png" id="t_iai"]
 [ext_resource type="Texture2D" uid="uid://dbu77aapbjwoc" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v1)/Block_Alta_PixelLab.png" id="t_parry_alta"]
 [ext_resource type="Texture2D" uid="uid://cw1tsnkpuyp45" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v1)/Block_Baja_PixelLab.png" id="t_parry_baja"]
 [ext_resource type="Texture2D" uid="uid://b25ktsbqifdp8" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v1)/Air_Jump_PixelLab.png" id="t_salto_pl"]
+[ext_resource type="Texture2D" uid="uid://cwjpsb5gi1eh7" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v1)/Sigilo_PixelLab.png" id="t_sigilo"]
 [ext_resource type="Texture2D" uid="uid://f1ajijg7xqf8" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v1)/Death_SinEspada.png" id="t_sinespada"]
 
 [sub_resource type="AtlasTexture" id="a179"]
@@ -489,6 +493,90 @@ region = Rect2(1344, 0, 192, 128)
 atlas = ExtResource("t37")
 region = Rect2(1536, 0, 192, 128)
 
+[sub_resource type="AtlasTexture" id="cidle0"]
+atlas = ExtResource("t_climb_idle")
+region = Rect2(0, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="cside0"]
+atlas = ExtResource("t_climb_side")
+region = Rect2(0, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="cside1"]
+atlas = ExtResource("t_climb_side")
+region = Rect2(192, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="cside2"]
+atlas = ExtResource("t_climb_side")
+region = Rect2(384, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="cside3"]
+atlas = ExtResource("t_climb_side")
+region = Rect2(576, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="cside4"]
+atlas = ExtResource("t_climb_side")
+region = Rect2(768, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="cside5"]
+atlas = ExtResource("t_climb_side")
+region = Rect2(960, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="cside6"]
+atlas = ExtResource("t_climb_side")
+region = Rect2(1152, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="cside7"]
+atlas = ExtResource("t_climb_side")
+region = Rect2(1344, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="cside8"]
+atlas = ExtResource("t_climb_side")
+region = Rect2(1536, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="cside9"]
+atlas = ExtResource("t_climb_side")
+region = Rect2(1728, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="cup0"]
+atlas = ExtResource("t59")
+region = Rect2(0, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="cup1"]
+atlas = ExtResource("t59")
+region = Rect2(192, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="cup2"]
+atlas = ExtResource("t59")
+region = Rect2(384, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="cup3"]
+atlas = ExtResource("t59")
+region = Rect2(576, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="cup4"]
+atlas = ExtResource("t59")
+region = Rect2(768, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="cup5"]
+atlas = ExtResource("t59")
+region = Rect2(960, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="cup6"]
+atlas = ExtResource("t59")
+region = Rect2(1152, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="cup7"]
+atlas = ExtResource("t59")
+region = Rect2(1344, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="cup8"]
+atlas = ExtResource("t59")
+region = Rect2(1536, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="cup9"]
+atlas = ExtResource("t59")
+region = Rect2(1728, 0, 192, 128)
+
 [sub_resource type="AtlasTexture" id="a52"]
 atlas = ExtResource("t10")
 region = Rect2(0, 0, 192, 128)
@@ -824,6 +912,38 @@ region = Rect2(4992, 0, 192, 128)
 [sub_resource type="AtlasTexture" id="sinesp27"]
 atlas = ExtResource("t_sinespada")
 region = Rect2(5184, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="iai0"]
+atlas = ExtResource("t_iai")
+region = Rect2(0, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="iai1"]
+atlas = ExtResource("t_iai")
+region = Rect2(192, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="iai2"]
+atlas = ExtResource("t_iai")
+region = Rect2(384, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="iai3"]
+atlas = ExtResource("t_iai")
+region = Rect2(576, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="iai4"]
+atlas = ExtResource("t_iai")
+region = Rect2(768, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="iai5"]
+atlas = ExtResource("t_iai")
+region = Rect2(960, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="iai6"]
+atlas = ExtResource("t_iai")
+region = Rect2(1152, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="iai7"]
+atlas = ExtResource("t_iai")
+region = Rect2(1344, 0, 192, 128)
 
 [sub_resource type="AtlasTexture" id="a108"]
 atlas = ExtResource("t16")
@@ -1721,6 +1841,38 @@ region = Rect2(1344, 0, 192, 128)
 atlas = ExtResource("t49")
 region = Rect2(1536, 0, 192, 128)
 
+[sub_resource type="AtlasTexture" id="sig0"]
+atlas = ExtResource("t_sigilo")
+region = Rect2(0, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="sig1"]
+atlas = ExtResource("t_sigilo")
+region = Rect2(192, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="sig2"]
+atlas = ExtResource("t_sigilo")
+region = Rect2(384, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="sig3"]
+atlas = ExtResource("t_sigilo")
+region = Rect2(576, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="sig4"]
+atlas = ExtResource("t_sigilo")
+region = Rect2(768, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="sig5"]
+atlas = ExtResource("t_sigilo")
+region = Rect2(960, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="sig6"]
+atlas = ExtResource("t_sigilo")
+region = Rect2(1152, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="sig7"]
+atlas = ExtResource("t_sigilo")
+region = Rect2(1344, 0, 192, 128)
+
 [sub_resource type="AtlasTexture" id="a375"]
 atlas = ExtResource("t50")
 region = Rect2(0, 0, 192, 128)
@@ -2591,6 +2743,84 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("cidle0")
+}],
+"loop": 1,
+"name": &"climb_idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("cside0")
+}, {
+"duration": 1.0,
+"texture": SubResource("cside1")
+}, {
+"duration": 1.0,
+"texture": SubResource("cside2")
+}, {
+"duration": 1.0,
+"texture": SubResource("cside3")
+}, {
+"duration": 1.0,
+"texture": SubResource("cside4")
+}, {
+"duration": 1.0,
+"texture": SubResource("cside5")
+}, {
+"duration": 1.0,
+"texture": SubResource("cside6")
+}, {
+"duration": 1.0,
+"texture": SubResource("cside7")
+}, {
+"duration": 1.0,
+"texture": SubResource("cside8")
+}, {
+"duration": 1.0,
+"texture": SubResource("cside9")
+}],
+"loop": 1,
+"name": &"climb_side",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("cup0")
+}, {
+"duration": 1.0,
+"texture": SubResource("cup1")
+}, {
+"duration": 1.0,
+"texture": SubResource("cup2")
+}, {
+"duration": 1.0,
+"texture": SubResource("cup3")
+}, {
+"duration": 1.0,
+"texture": SubResource("cup4")
+}, {
+"duration": 1.0,
+"texture": SubResource("cup5")
+}, {
+"duration": 1.0,
+"texture": SubResource("cup6")
+}, {
+"duration": 1.0,
+"texture": SubResource("cup7")
+}, {
+"duration": 1.0,
+"texture": SubResource("cup8")
+}, {
+"duration": 1.0,
+"texture": SubResource("cup9")
+}],
+"loop": 1,
+"name": &"climb_up",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("a52")
 }, {
 "duration": 1.0,
@@ -2865,6 +3095,35 @@ animations = [{
 "loop": 0,
 "name": &"death_sin_espada",
 "speed": 20.36
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("iai0")
+}, {
+"duration": 1.0,
+"texture": SubResource("iai1")
+}, {
+"duration": 1.0,
+"texture": SubResource("iai2")
+}, {
+"duration": 1.0,
+"texture": SubResource("iai3")
+}, {
+"duration": 1.0,
+"texture": SubResource("iai4")
+}, {
+"duration": 1.0,
+"texture": SubResource("iai5")
+}, {
+"duration": 1.0,
+"texture": SubResource("iai6")
+}, {
+"duration": 1.0,
+"texture": SubResource("iai7")
+}],
+"loop": 0,
+"name": &"desenvainar",
+"speed": 14.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -3697,6 +3956,35 @@ animations = [{
 "loop": 0,
 "name": &"shoot_bow",
 "speed": 18.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("sig0")
+}, {
+"duration": 1.0,
+"texture": SubResource("sig1")
+}, {
+"duration": 1.0,
+"texture": SubResource("sig2")
+}, {
+"duration": 1.0,
+"texture": SubResource("sig3")
+}, {
+"duration": 1.0,
+"texture": SubResource("sig4")
+}, {
+"duration": 1.0,
+"texture": SubResource("sig5")
+}, {
+"duration": 1.0,
+"texture": SubResource("sig6")
+}, {
+"duration": 1.0,
+"texture": SubResource("sig7")
+}],
+"loop": 1,
+"name": &"sigilo",
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,

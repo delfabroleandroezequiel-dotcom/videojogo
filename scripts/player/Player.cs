@@ -581,6 +581,9 @@ public partial class Player : CharacterBody2D
 	// Drinking the heal flask (read by enemies that punish healing, e.g. MushroomBoss).
 	public bool IsHealing => _healing;
 	public bool IsFacingRight => _facingRight;
+	// Sigilo = crouched on the ground: enemies with their back to him don't notice him
+	// (Enemy.SneakingBehindUnseen).
+	public bool IsSneaking => _crouching && IsOnFloor();
 	[Export] public float BossZoomDistance = 500f;
 	[Export] public float BossZoomInMultiplier = 0.75f;
 	[Export] public float ZoomSmoothSpeed = 3f;
@@ -1502,8 +1505,10 @@ public partial class Player : CharacterBody2D
 	// Whose voice the body makes (folder under Sonidos/). A scene can swap it — ModoJoven gives the
 	// young Delfrad his own. Keys missing from the folder are simply silent, so a voice set doesn't
 	// need every bark.
-	[Export] public string VoiceCategory = "Voice/Player";
-	[Export] public string HurtVoiceKey = "Damage Grunt (Male)";
+	// Delfrad's barks everywhere (the user's pick, 2026-11-05): the young Delfrad's set, which has
+	// attacks, finishers, rolls, jumps and hurt grunts. The old "Voice/Player" pack stays on disk.
+	[Export] public string VoiceCategory = "Voice/DelfradJoven";
+	[Export] public string HurtVoiceKey = "Golpeado";
 	[Export(PropertyHint.Range, "0,1")] public float AttackVoiceChance = 0.5f;
 	// 0 for now: the roll barks exist (young Delfrad) but are muted until they're judged in play.
 	[Export(PropertyHint.Range, "0,1")] public float RollVoiceChance = 0f;
@@ -2892,12 +2897,21 @@ public partial class Player : CharacterBody2D
 
 		if (isLadderClimbing)
 		{
-			if (_sprite.Animation != "ladder_climb")
-				_sprite.Play("ladder_climb");
-			// Play() alone would keep the climb cycle advancing on its own even when the player
-			// is holding still on the ladder — gate actual frame playback on real climb movement
-			// so the character freezes on its current grip pose instead of climbing in place.
-			_sprite.SpeedScale = Mathf.Abs(Velocity.Y) > 0.01f || Mathf.Abs(velocityX) > 0.01f ? 1f : 0f;
+			// Seen from behind, Kratos-style, so it matches "ladder_attack": climb_up going up or down,
+			// climb_side shuffling sideways, climb_idle holding still. Older frame sets without them
+			// keep the side-view ladder clip, frozen on its grip pose when not moving.
+			bool movingY = Mathf.Abs(Velocity.Y) > 0.01f;
+			bool movingX = Mathf.Abs(velocityX) > 0.01f;
+			string climbAnim = !_sprite.SpriteFrames.HasAnimation("climb_up") ? "ladder_climb"
+				: movingY ? "climb_up"
+				: movingX ? "climb_side"
+				: "climb_idle";
+			if (_sprite.Animation != climbAnim)
+				_sprite.Play(climbAnim);
+			_sprite.SpeedScale = climbAnim != "ladder_climb" || movingX || movingY ? 1f : 0f;
+			// Going down runs the climb backwards instead of climbing up in place.
+			if (climbAnim == "climb_up" && Velocity.Y > 0f)
+				_sprite.SpeedScale = -1f;
 
 			_walkPhase += Mathf.Abs(Velocity.Y) * (float)delta * 0.3f;
 			float climbSwing = Mathf.Sin(_walkPhase) * 15f;
@@ -2971,8 +2985,18 @@ public partial class Player : CharacterBody2D
 		}
 		else if (_crouching)
 		{
-			if (_sprite.Animation != "crouch")
-				_sprite.Play("crouch");
+			// Crouching is Sigilo: the sneak walk while moving, frozen on its low pose while still
+			// (frame 0 is that pose, so stopping and starting never pops). Older frame sets keep "crouch".
+			string crouchAnim = _sprite.SpriteFrames.HasAnimation("sigilo") ? "sigilo" : "crouch";
+			if (_sprite.Animation != crouchAnim)
+				_sprite.Play(crouchAnim);
+			if (crouchAnim == "sigilo")
+			{
+				bool sneaking = Mathf.Abs(velocityX) > 0.01f;
+				_sprite.SpeedScale = sneaking ? 1f : 0f;
+				if (!sneaking)
+					_sprite.Frame = 0;
+			}
 			return;
 		}
 		else if (_isBlocking)
