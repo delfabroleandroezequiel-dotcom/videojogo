@@ -42,7 +42,8 @@ public partial class GroundFire : Area2D
 	public override void _PhysicsProcess(double delta)
 	{
 		_tickTimer -= (float)delta;
-		if (!_burning || _tickTimer > 0f)
+		// TickDamage 0 = set dressing; Stats would still floor any hit to 1.
+		if (!_burning || _tickTimer > 0f || TickDamage <= 0)
 			return;
 
 		foreach (Node2D body in GetOverlappingBodies())

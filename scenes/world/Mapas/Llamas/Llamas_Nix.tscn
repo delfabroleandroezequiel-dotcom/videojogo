@@ -1,15 +1,23 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dmaff0lb5gaaq"]
 
 [ext_resource type="PackedScene" uid="uid://54bek7loxhit" path="res://scenes/world/Mapas/Nix.tscn" id="1_base"]
-[ext_resource type="Script" path="res://scripts/world/ruina/BurningMap.cs" id="2_llamas"]
+[ext_resource type="Script" uid="uid://ckxjb8a3u7xrq" path="res://scripts/world/ruina/BurningMap.cs" id="2_llamas"]
 [ext_resource type="PackedScene" path="res://scenes/world/WeatherOverlay.tscn" id="3_clima"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/GroundFire.tscn" id="4_fuego"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TutorialHint.tscn" id="cartel_tuto"]
 
-[node name="Llamas_Nix" instance=ExtResource("1_base")]
+[node name="Llamas_Nix" unique_id=1666787074 instance=ExtResource("1_base")]
 ScenePath = "res://scenes/world/Mapas/Llamas/Llamas_Nix.tscn"
 ZoneName = ""
 
-[node name="MapaEnLlamas" type="Node" parent="."]
+[node name="Player" parent="." index="22" unique_id=1962161526]
+position = Vector2(4802.8877, 413.91656)
+
+[node name="MapaEnLlamas" type="Node" parent="." index="90" unique_id=601800009]
 script = ExtResource("2_llamas")
 WeatherScene = ExtResource("3_clima")
 FireScene = ExtResource("4_fuego")
+
+[node name="CartelFuturo" parent="." index="91" unique_id=1864791528 instance=ExtResource("cartel_tuto")]
+TextKey = "TUTORIAL_DASH_DOBLE_SALTO"
+Actions = PackedStringArray("dash", "jump")

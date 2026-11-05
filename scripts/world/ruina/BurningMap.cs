@@ -1,5 +1,6 @@
 using Godot;
 using Metroidvania.Player;
+using Metroidvania.Save;
 using Metroidvania.Shared;
 
 namespace Metroidvania.World;
@@ -47,6 +48,10 @@ public partial class BurningMap : Node
 	[Export] public PackedScene FireScene;
 	[Export] public float FireSpacing = 230f;
 	[Export] public Vector2 FireScale = new(1.7f, 1.7f);
+	// No set-dressing fire this close (in x) to where the player arrives and respawns.
+	[Export] public float FireClearance = 160f;
+	// Closed exits get a column of black smoke so the dead end reads from afar.
+	[Export] public bool SmokeOnClosedExits = true;
 
 	[ExportGroup("Disaster")]
 	[Export] public float MeteorIntervalMin = 1.3f;
@@ -63,6 +68,9 @@ public partial class BurningMap : Node
 	private float _meteorTimer = 2f;
 	private float _rumbleTimer = 1.5f;
 	private bool _reloading;
+	// Where the player entered this map: deaths send them back here, not to the scene's authored spot.
+	private Vector2 _arrival;
+	private readonly System.Collections.Generic.List<(Vector2 Position, bool Wall)> _closedExits = new();
 
 	static BurningMap() => Rng.Randomize();
 
@@ -73,6 +81,8 @@ public partial class BurningMap : Node
 	private void Setup()
 	{
 		_player = GetTree().GetFirstNodeInGroup("player") as Metroidvania.Player.Player;
+		if (_player is not null)
+			_arrival = _player.GlobalPosition;
 		EmptyTheMap(Map);
 		foreach (Node enemy in GetTree().GetNodesInGroup("enemy"))
 			enemy.QueueFree();
@@ -103,9 +113,14 @@ public partial class BurningMap : Node
 			}
 			var stats = _player.GetNode<Stats>("Stats");
 			stats.MinHealth = 1;
+			// Hit on the doorstep of the previous map: don't start this one already "dead".
+			if (stats.CurrentHealth <= 1)
+				stats.SetCurrentHealth(stats.MaxHealth);
 			stats.HealthChanged += (current, _) =>
 			{
-				if (current <= 1)
+				// Mid-door or mid-cinematic the player can't act: hold at 1 HP instead of reloading
+				// under the transition or a cutscene.
+				if (current <= 1 && !SceneFader.IsChangingScene && !Cinematic.Playing)
 					RestartMap();
 			};
 		}
@@ -135,7 +150,11 @@ public partial class BurningMap : Node
 				if (ExitRemap.TryGetValue(exit.TargetScenePath, out string burning))
 					exit.TargetScenePath = burning;
 				else if (System.Array.IndexOf(KeepExits, exit.TargetScenePath) < 0)
+				{
+					// Edge exits get a wall too; a door you'd press Interact on just disappears.
+					_closedExits.Add((exit.GlobalPosition, !exit.RequireInteract));
 					exit.QueueFree();
+				}
 				continue;
 			}
 			RewireExits(child);
@@ -147,8 +166,26 @@ public partial class BurningMap : Node
 	{
 		await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
 		await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
-		if (IsInstanceValid(this))
-			LightFires();
+		if (!IsInstanceValid(this))
+			return;
+		LightFires();
+		RaiseSmoke();
+	}
+
+	private void RaiseSmoke()
+	{
+		if (!SmokeOnClosedExits || _player is null)
+			return;
+		foreach ((Vector2 position, bool wall) in _closedExits)
+		{
+			// The exit the player just came through (Llamas_Casa1's door) stays clear.
+			if (position.DistanceTo(_arrival) < FireClearance)
+				continue;
+			Vector2 ground = GroundBelow(_player, position + new Vector2(0f, -200f)) ?? position;
+			var smoke = new HumoNegro { BlockPassage = wall };
+			Map.AddChild(smoke);
+			smoke.GlobalPosition = ground;
+		}
 	}
 
 	// Fires along the ground every FireSpacing (found by casting down), harmless set dressing.
@@ -166,6 +203,8 @@ public partial class BurningMap : Node
 			top = -400f;
 		for (float x = left + FireSpacing * 0.5f; x < right; x += FireSpacing * Rng.RandfRange(0.7f, 1.3f))
 		{
+			if (Mathf.Abs(x - _arrival.X) < FireClearance)
+				continue;
 			Vector2? ground = GroundBelow(world, new Vector2(x, top));
 			if (ground is null || FireScene.Instantiate() is not Node2D fire)
 				continue;
@@ -239,6 +278,12 @@ public partial class BurningMap : Node
 		Tween tween = black.CreateTween();
 		tween.TweenProperty(black, "color:a", 1f, 0.8f);
 		await ToSignal(tween, Tween.SignalName.Finished);
+		if (!IsInsideTree() || SceneFader.IsChangingScene)
+			return;
+		// Back where they entered this map (the scene's own Player spot can be anywhere, Nix's is up
+		// a tree), with full health rather than the 1 HP they died on.
+		SaveManager.Instance.PendingSpawnPosition = _arrival;
+		SaveManager.Instance.SessionCurrentHealth = null;
 		GetTree().ReloadCurrentScene();
 	}
 }

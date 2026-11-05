@@ -30,6 +30,7 @@ public partial class Cinematic : Node
 	private CanvasLayer _fadeLayer;
 	private ColorRect _fadeRect;
 	private ShaderMaterial _blurMaterial;
+	private bool _running;
 
 	public override void _Ready()
 	{
@@ -44,7 +45,8 @@ public partial class Cinematic : Node
 		if (Playing || (PlayOnce && SaveManager.Instance.IsCutscenePlayed(Id)))
 			return;
 		Playing = true;
-		Player = GetTree().GetFirstNodeInGroup("player") as Metroidvania.Player.Player;
+		_running = true;
+		Player =GetTree().GetFirstNodeInGroup("player") as Metroidvania.Player.Player;
 		Player?.HoldForCutscene(true);
 		try
 		{
@@ -60,9 +62,18 @@ public partial class Cinematic : Node
 		finally
 		{
 			Playing = false;
+			_running = false;
 			if (IsInstanceValid(this))
 				Release();
 		}
+	}
+
+	// A reload or scene change mid-cinematic frees this node while a step is awaiting, so the finally
+	// above never runs: without this, Playing stays stuck and every later cinematic refuses to start.
+	public override void _ExitTree()
+	{
+		if (_running)
+			Playing = false;
 	}
 
 	private void Release()

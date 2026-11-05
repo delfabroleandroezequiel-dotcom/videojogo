@@ -142,6 +142,17 @@
 [ext_resource type="SpriteFrames" path="res://resources/sprites/CatOrangeSpriteFrames.tres" id="r136"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/CatWhiteSpriteFrames.tres" id="r137"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/GiantOgreBlueSpriteFrames.tres" id="r138"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/RuinasGobernadorSpriteFrames.tres" id="npc0"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/RuinasDetectiveSpriteFrames.tres" id="npc1"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/RuinasViajeroPerdidoSpriteFrames.tres" id="npc2"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/RuinasHerreroSpriteFrames.tres" id="npc3"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/RuinasMercaderSpriteFrames.tres" id="npc4"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/RuinasHerbolariaSpriteFrames.tres" id="npc5"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/RuinasCocineroSpriteFrames.tres" id="npc6"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/RuinasAldeano1SpriteFrames.tres" id="npc7"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/RuinasAldeano2SpriteFrames.tres" id="npc8"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/RuinasAldeano3SpriteFrames.tres" id="npc9"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/RuinasAldeano4SpriteFrames.tres" id="npc10"]
 
 [sub_resource type="RectangleShape2D" id="ground_shape"]
 size = Vector2(3548.0, 80)
@@ -163,6 +174,9 @@ size = Vector2(2410.0, 8)
 
 [sub_resource type="RectangleShape2D" id="ledge_shape_5"]
 size = Vector2(2540.0, 8)
+
+[sub_resource type="RectangleShape2D" id="suelo_npcs_shape"]
+size = Vector2(2600.0, 80)
 
 [node name="Roster" type="Node2D"]
 
@@ -1148,3 +1162,77 @@ Mirror = true
 [node name="Player" parent="." instance=ExtResource("player")]
 position = Vector2(120.0, 1524.0)
 FallDeathY = 2200.0
+
+[node name="SueloNpcs" type="StaticBody2D" parent="."]
+position = Vector2(4848.0, 1604.0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SueloNpcs"]
+shape = SubResource("suelo_npcs_shape")
+
+[node name="NpcsRuinas" type="Node2D" parent="Figures"]
+
+[node name="Gobernador" type="Node2D" parent="Figures/NpcsRuinas"]
+position = Vector2(3700, 1564.0)
+script = ExtResource("slot")
+Frames = ExtResource("npc0")
+FigureScale = 1.4851
+
+[node name="Detective" type="Node2D" parent="Figures/NpcsRuinas"]
+position = Vector2(3910, 1564.0)
+script = ExtResource("slot")
+Frames = ExtResource("npc1")
+FigureScale = 1.4851
+
+[node name="ViajeroPerdido" type="Node2D" parent="Figures/NpcsRuinas"]
+position = Vector2(4120, 1564.0)
+script = ExtResource("slot")
+Frames = ExtResource("npc2")
+FigureScale = 1.4851
+
+[node name="Herrero" type="Node2D" parent="Figures/NpcsRuinas"]
+position = Vector2(4330, 1564.0)
+script = ExtResource("slot")
+Frames = ExtResource("npc3")
+FigureScale = 1.4851
+
+[node name="Mercader" type="Node2D" parent="Figures/NpcsRuinas"]
+position = Vector2(4540, 1564.0)
+script = ExtResource("slot")
+Frames = ExtResource("npc4")
+FigureScale = 1.4851
+
+[node name="Herbolaria" type="Node2D" parent="Figures/NpcsRuinas"]
+position = Vector2(4750, 1564.0)
+script = ExtResource("slot")
+Frames = ExtResource("npc5")
+FigureScale = 1.4851
+
+[node name="Cocinero" type="Node2D" parent="Figures/NpcsRuinas"]
+position = Vector2(4960, 1564.0)
+script = ExtResource("slot")
+Frames = ExtResource("npc6")
+FigureScale = 1.4851
+
+[node name="Aldeano1" type="Node2D" parent="Figures/NpcsRuinas"]
+position = Vector2(5170, 1564.0)
+script = ExtResource("slot")
+Frames = ExtResource("npc7")
+FigureScale = 1.4851
+
+[node name="Aldeano2" type="Node2D" parent="Figures/NpcsRuinas"]
+position = Vector2(5380, 1564.0)
+script = ExtResource("slot")
+Frames = ExtResource("npc8")
+FigureScale = 1.4851
+
+[node name="Aldeano3" type="Node2D" parent="Figures/NpcsRuinas"]
+position = Vector2(5590, 1564.0)
+script = ExtResource("slot")
+Frames = ExtResource("npc9")
+FigureScale = 1.4851
+
+[node name="Aldeano4" type="Node2D" parent="Figures/NpcsRuinas"]
+position = Vector2(5800, 1564.0)
+script = ExtResource("slot")
+Frames = ExtResource("npc10")
+FigureScale = 1.4851

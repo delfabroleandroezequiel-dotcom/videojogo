@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://scripts/world/ruina/BurningMap.cs" id="2_llamas"]
 [ext_resource type="PackedScene" path="res://scenes/world/WeatherOverlay.tscn" id="3_clima"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/GroundFire.tscn" id="4_fuego"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TutorialHint.tscn" id="cartel_tuto"]
 
 [node name="Llamas_BosqueLobos1" instance=ExtResource("1_base")]
 ScenePath = "res://scenes/world/Mapas/Llamas/Llamas_BosqueLobos1.tscn"
@@ -13,3 +14,7 @@ ZoneName = ""
 script = ExtResource("2_llamas")
 WeatherScene = ExtResource("3_clima")
 FireScene = ExtResource("4_fuego")
+
+[node name="CartelFuturo" parent="." instance=ExtResource("cartel_tuto")]
+TextKey = "TUTORIAL_DASH_DOBLE_SALTO"
+Actions = PackedStringArray("dash", "jump")

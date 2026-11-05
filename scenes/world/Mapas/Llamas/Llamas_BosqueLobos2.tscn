@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://scripts/world/cinematica/StepMeteor.cs" id="9_meteoro"]
 [ext_resource type="Script" path="res://scripts/world/cinematica/StepShake.cs" id="10_temblor"]
 [ext_resource type="Script" path="res://scripts/world/cinematica/StepCamera.cs" id="11_cam"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TutorialHint.tscn" id="cartel_tuto"]
 
 [sub_resource type="Resource" id="Paso_negro"]
 script = ExtResource("6_fade")
@@ -90,3 +91,7 @@ script = ExtResource("5_cine")
 Steps = [SubResource("Paso_negro"), SubResource("Paso_tirado"), SubResource("Paso_fuegoEnNegro"), SubResource("Paso_abrir"), SubResource("Paso_quieto"), SubResource("Paso_meteoro"), SubResource("Paso_impacto"), SubResource("Paso_respira"), SubResource("Paso_seLevanta"), SubResource("Paso_miraNix"), SubResource("Paso_sostiene"), SubResource("Paso_vuelve")]
 PlayOnStart = true
 PersistenceId = "cine_llamas_ataque"
+
+[node name="CartelFuturo" parent="." instance=ExtResource("cartel_tuto")]
+TextKey = "TUTORIAL_DASH_DOBLE_SALTO"
+Actions = PackedStringArray("dash", "jump")

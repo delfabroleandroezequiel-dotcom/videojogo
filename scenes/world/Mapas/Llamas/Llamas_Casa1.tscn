@@ -1,56 +1,19 @@
 [gd_scene format=3]
 
 [ext_resource type="PackedScene" uid="uid://p65p3tlphlu3" path="res://scenes/world/Mapas/Casa1.tscn" id="1_base"]
-[ext_resource type="Script" path="res://scripts/world/ruina/BurningMap.cs" id="2_llamas"]
-[ext_resource type="PackedScene" path="res://scenes/world/WeatherOverlay.tscn" id="3_clima"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/GroundFire.tscn" id="4_fuego"]
 [ext_resource type="Script" path="res://scripts/world/cinematica/Cinematic.cs" id="5_cine"]
 [ext_resource type="Script" path="res://scripts/world/cinematica/StepFade.cs" id="6_fade"]
 [ext_resource type="Script" path="res://scripts/world/cinematica/StepWait.cs" id="7_wait"]
-[ext_resource type="Script" path="res://scripts/world/cinematica/StepAnimate.cs" id="8_anim"]
-[ext_resource type="Script" path="res://scripts/world/cinematica/StepCamera.cs" id="9_cam"]
 [ext_resource type="Script" path="res://scripts/world/cinematica/StepChangeScene.cs" id="10_cambio"]
-
-[sub_resource type="Resource" id="Paso_entra"]
-script = ExtResource("7_wait")
-Seconds = 0.5
-
-[sub_resource type="Resource" id="Paso_miraCasa"]
-script = ExtResource("9_cam")
-Target = NodePath("../Cama")
-Weight = 0.55
-Zoom = 1.05
-WaitSeconds = 1.0
-
-[sub_resource type="Resource" id="Paso_sostiene"]
-script = ExtResource("7_wait")
-Seconds = 1.4
-
-[sub_resource type="Resource" id="Paso_primerPlano"]
-script = ExtResource("9_cam")
-Target = NodePath("../Cama")
-Weight = 0.3
-Zoom = 1.45
-WaitSeconds = 0.7
-
-[sub_resource type="Resource" id="Paso_cae"]
-script = ExtResource("8_anim")
-Animation = "death"
-WaitForEnd = true
-ThenAnimation = ""
-
-[sub_resource type="Resource" id="Paso_quieto"]
-script = ExtResource("7_wait")
-Seconds = 1.6
 
 [sub_resource type="Resource" id="Paso_negro"]
 script = ExtResource("6_fade")
 ToBlack = true
-Duration = 2.0
+Duration = 0.0
 
 [sub_resource type="Resource" id="Paso_silencio"]
 script = ExtResource("7_wait")
-Seconds = 1.2
+Seconds = 1.8
 
 [sub_resource type="Resource" id="Paso_recuerdo"]
 script = ExtResource("10_cambio")
@@ -66,20 +29,8 @@ process_mode = 4
 [node name="CinematicaApertura" parent="." index="17"]
 PlayOnStart = false
 
-[node name="MapaEnLlamas" type="Node" parent="."]
-script = ExtResource("2_llamas")
-WeatherScene = ExtResource("3_clima")
-FireScene = ExtResource("4_fuego")
-FireSpacing = 170.0
-ExitRemap = {}
-MeteorIntervalMin = 9999.0
-MeteorIntervalMax = 9999.0
-
-[node name="Cama" type="Marker2D" parent="."]
-position = Vector2(-250, 70)
-
 [node name="CinematicaRecuerdo" type="Node" parent="."]
 script = ExtResource("5_cine")
-Steps = [SubResource("Paso_entra"), SubResource("Paso_miraCasa"), SubResource("Paso_sostiene"), SubResource("Paso_primerPlano"), SubResource("Paso_cae"), SubResource("Paso_quieto"), SubResource("Paso_negro"), SubResource("Paso_silencio"), SubResource("Paso_recuerdo")]
+Steps = [SubResource("Paso_negro"), SubResource("Paso_silencio"), SubResource("Paso_recuerdo")]
 PlayOnStart = true
 PlayOnce = false

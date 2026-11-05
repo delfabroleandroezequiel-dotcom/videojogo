@@ -109,7 +109,7 @@ En 2D no hay lentes ni ángulos: los planos se arman con **zoom + punto de foco 
   - `CinematicaDerrota` en ArenaEntrenamiento: de rodillas, desenfoque, "Algún día te ganaré".
   - `NarracionApertura`: narración en negro, al estilo del libro.
   - `CinematicaAtaque` en `Llamas_BosqueLobos2` (2026-11-02): abre en negro con Delfrad tirado, cae un meteoro a su lado, se levanta (la caída al revés) y la cámara mira hacia Nix. Unos 9 s, sin líneas. Se ve una vez por partida.
-  - `CinematicaRecuerdo` en `Llamas_Casa1` (2026-11-02): la puerta de la casa en Nix en llamas lleva a la casa en llamas. Delfrad mira la casa, cae, fundido a negro de 2 s y 1.2 s de silencio, y se abre `Casa1` de mañana con Arthur. **Ahí se pasa al Nix actual (el recuerdo).**
+  - `CinematicaRecuerdo` en `Llamas_Casa1` (2026-11-02, rehecha 2026-11-03): la casa en llamas por dentro **no se muestra**. Abrir la puerta en `Llamas_Nix` funde a negro, `Llamas_Casa1` es solo ese negro (1.8 s de silencio) y se abre `Casa1` de mañana con Arthur. **Ahí se pasa al Nix actual (el recuerdo).** La versión anterior (Delfrad mira la casa y cae) se descartó: el usuario prefirió cortar al abrir la puerta.
 - **Pasos nuevos:** `StepAnimate.Backwards` (una caída al revés se lee como levantarse), `StepMeteor` (un meteoro inofensivo con tiempo propio) y `StepActorOffset` (corre el dibujo de un actor sin mover su cuerpo, para acostarlo en una cama o bajarlo de un salto; puede esconder la capa).
 - **`CinematicaApertura` en Casa1:** Delfrad arranca acostado en la cama (dibujo corrido 55, -46, sin capa) y se levanta después de la última línea de Arthur.
 

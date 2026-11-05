@@ -1,0 +1,67 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://txt7k86jrid1"]
+
+[ext_resource type="Texture2D" uid="uid://b7bxylmhxwb76" path="res://assets/external/Chars/RuinedTown/NPCs/Merchant_Idle.png" id="t0"]
+
+[sub_resource type="AtlasTexture" id="a0_0"]
+atlas = ExtResource("t0")
+region = Rect2(0, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_1"]
+atlas = ExtResource("t0")
+region = Rect2(128, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_2"]
+atlas = ExtResource("t0")
+region = Rect2(256, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_3"]
+atlas = ExtResource("t0")
+region = Rect2(384, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_4"]
+atlas = ExtResource("t0")
+region = Rect2(512, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_5"]
+atlas = ExtResource("t0")
+region = Rect2(640, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_6"]
+atlas = ExtResource("t0")
+region = Rect2(768, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_7"]
+atlas = ExtResource("t0")
+region = Rect2(896, 0, 128, 96)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("a0_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_7")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 10.0
+}]

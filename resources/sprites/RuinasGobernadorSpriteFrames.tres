@@ -1,0 +1,164 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://dtbkq0t1rt5py"]
+
+[ext_resource type="Texture2D" uid="uid://tg58fmnhesoi" path="res://assets/external/Chars/RuinedTown/NPCs/Governer_StoryCharacter_Idle.png" id="t0"]
+[ext_resource type="Texture2D" uid="uid://bjkb41f50m6sp" path="res://assets/external/Chars/RuinedTown/NPCs/Governer_StoryCharacter_Talk.png" id="t1"]
+
+[sub_resource type="AtlasTexture" id="a0_0"]
+atlas = ExtResource("t0")
+region = Rect2(0, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_1"]
+atlas = ExtResource("t0")
+region = Rect2(128, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_2"]
+atlas = ExtResource("t0")
+region = Rect2(256, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_3"]
+atlas = ExtResource("t0")
+region = Rect2(384, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_4"]
+atlas = ExtResource("t0")
+region = Rect2(512, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_5"]
+atlas = ExtResource("t0")
+region = Rect2(640, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_6"]
+atlas = ExtResource("t0")
+region = Rect2(768, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_7"]
+atlas = ExtResource("t0")
+region = Rect2(896, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_8"]
+atlas = ExtResource("t0")
+region = Rect2(1024, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_9"]
+atlas = ExtResource("t0")
+region = Rect2(1152, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_10"]
+atlas = ExtResource("t0")
+region = Rect2(1280, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_11"]
+atlas = ExtResource("t0")
+region = Rect2(1408, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_12"]
+atlas = ExtResource("t0")
+region = Rect2(1536, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_13"]
+atlas = ExtResource("t0")
+region = Rect2(1664, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_14"]
+atlas = ExtResource("t0")
+region = Rect2(1792, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a0_15"]
+atlas = ExtResource("t0")
+region = Rect2(1920, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a1_0"]
+atlas = ExtResource("t1")
+region = Rect2(0, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a1_1"]
+atlas = ExtResource("t1")
+region = Rect2(128, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a1_2"]
+atlas = ExtResource("t1")
+region = Rect2(256, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a1_3"]
+atlas = ExtResource("t1")
+region = Rect2(384, 0, 128, 96)
+
+[sub_resource type="AtlasTexture" id="a1_4"]
+atlas = ExtResource("t1")
+region = Rect2(512, 0, 128, 96)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("a0_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_9")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_11")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_12")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_13")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_14")
+}, {
+"duration": 1.0,
+"texture": SubResource("a0_15")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("a1_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("a1_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("a1_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("a1_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("a1_4")
+}],
+"loop": 1,
+"name": &"talk",
+"speed": 10.0
+}]
