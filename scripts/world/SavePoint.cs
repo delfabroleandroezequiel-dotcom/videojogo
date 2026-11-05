@@ -66,20 +66,28 @@ public partial class SavePoint : Area2D
 		_interactPrompt.Visible = false;
 	}
 
+	// Leveling up doesn't belong at every hoguera (user, 2026-11-05): only the ones with this on
+	// open the level-up menu before resting. Where it goes is still to be decided.
+	[Export] public bool PermiteSubirNivel = false;
+
+	// No questions asked (user, 2026-11-05): an unlit hoguera lights on interact, a lit one rests.
+	// Lighting doesn't rest by itself — the burst is its own moment; interact again to rest.
 	private void Interact()
 	{
 		if (!_isLit)
-			ConfirmPrompt.Instance.Show("SAVEPOINT_LIGHT_CONFIRM", OnLightConfirmed);
-		else
+			Light();
+		else if (PermiteSubirNivel)
 			LevelUpUI.Open(this, Rest);
+		else
+			Rest();
 	}
 
-	private void OnLightConfirmed()
+	private void Light()
 	{
 		_isLit = true;
 		SaveManager.Instance.MarkSavePointLit(_persistenceId);
 		UpdateVisual();
-		Rest();
+		HogueraFx.Ignite(this);
 	}
 
 	private void Rest()
