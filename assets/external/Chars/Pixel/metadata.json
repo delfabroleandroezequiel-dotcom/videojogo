@@ -1,0 +1,36 @@
+{
+  "group_id": "23cdc58c-4582-4a8c-a605-6c7cd358dd57",
+  "states": [
+    {
+      "character": {
+        "id": "3d88311a-25f9-4a72-8b8f-82603361f3d8",
+        "name": "Idle",
+        "prompt": "old fisherman, white beard, red wool cap, red shirt, green trousers, holding a long fishing fork. Realistic proportions, about 5 heads tall, not chibi. Muted earthy palette, dark desaturated outline, soft detailed shading, medieval fantasy villager",
+        "size": {
+          "width": 64,
+          "height": 64
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "side",
+        "created_at": "2026-11-03T19:48:51.639161+00:00"
+      },
+      "folder": "Idle",
+      "frames": {
+        "rotations": {
+          "south": "Idle/rotations/south.png",
+          "south-east": "Idle/rotations/south-east.png",
+          "east": "Idle/rotations/east.png",
+          "north-east": "Idle/rotations/north-east.png",
+          "north": "Idle/rotations/north.png",
+          "north-west": "Idle/rotations/north-west.png",
+          "west": "Idle/rotations/west.png",
+          "south-west": "Idle/rotations/south-west.png"
+        },
+        "animations": {}
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-11-03T19:51:12.133241"
+}

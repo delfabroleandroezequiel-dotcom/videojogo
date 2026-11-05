@@ -6721,7 +6721,6 @@ texture = ExtResource("3_jihxl")
 [node name="ParallaxCueva" parent="Fondos" unique_id=488565565 instance=ExtResource("90_parallaxcueva")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Fondos" unique_id=222791140]
-visible = false
 color = Color(0.05, 0.05, 0.08, 1)
 
 [node name="Iluminacion" type="Node2D" parent="." unique_id=1959472875]
