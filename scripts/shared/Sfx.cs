@@ -172,13 +172,17 @@ public static class Sfx
 	// pick up "Sword Attack Extra.wav").
 	// Optional sounds (a character's combat barks): plays if the folder has the key, silently does
 	// nothing otherwise — so the hooks can exist before the recordings do.
-	public static void PlayIfExistsAt(Node2D context, string category, string key, float maxDistance = 900f)
+	// maxSeconds > 0 cuts the clip there with a short fade: a grunt that trails into breathing reads
+	// as something else entirely, so enemy voices keep only the bite.
+	public static void PlayIfExistsAt(Node2D context, string category, string key, float maxDistance = 900f, float maxSeconds = 0f)
 	{
 		string folder = BasePath + category;
 		string fileName = PickVariantFile(folder, key);
 		if (fileName is not null)
-			PlayStreamAt(context, GD.Load<AudioStream>(folder + "/" + fileName), maxDistance);
+			PlayStreamAt(context, GD.Load<AudioStream>(folder + "/" + fileName), maxDistance, maxSeconds);
 	}
+
+	private const float ClipCutFade = 0.08f;
 
 	private static string PickVariantFile(string folder, string key)
 	{
@@ -241,7 +245,7 @@ public static class Sfx
 		player.Play();
 	}
 
-	private static void PlayStreamAt(Node2D context, AudioStream stream, float maxDistance)
+	private static void PlayStreamAt(Node2D context, AudioStream stream, float maxDistance, float maxSeconds = 0f)
 	{
 		if (stream is null)
 			return;
@@ -257,6 +261,13 @@ public static class Sfx
 		context.GetTree().CurrentScene.AddChild(player);
 		player.Finished += player.QueueFree;
 		player.Play();
+		if (maxSeconds > 0f && stream.GetLength() > maxSeconds)
+		{
+			Tween cut = player.CreateTween();
+			cut.TweenInterval(Mathf.Max(0f, maxSeconds - ClipCutFade));
+			cut.TweenProperty(player, "volume_db", -60f, ClipCutFade);
+			cut.TweenCallback(Callable.From(player.QueueFree));
+		}
 	}
 
 	private static float RandomPitch() => 1f + ((float)Rng.NextDouble() * 2f - 1f) * PitchVariance;

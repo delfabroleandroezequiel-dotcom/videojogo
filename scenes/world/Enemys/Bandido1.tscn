@@ -17,6 +17,7 @@ size = Vector2(67, 74)
 [node name="Bandido1" type="CharacterBody2D" unique_id=1252243445]
 collision_layer = 4
 script = ExtResource("1_script")
+VoiceCategory = "Voice/BandidoA"
 AttackSpriteYOffset = -4.0
 AttackRange = 60.0
 AttackHitboxReach = 38.5

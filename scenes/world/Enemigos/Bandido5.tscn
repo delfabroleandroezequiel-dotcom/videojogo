@@ -17,6 +17,7 @@ size = Vector2(50, 42)
 [node name="Bandido5" type="CharacterBody2D" unique_id=268502135]
 collision_layer = 4
 script = ExtResource("1_script")
+VoiceCategory = "Voice/BandidoA"
 WindupDuration = 0.5714
 SlamTileCount = 5
 AttackRange = 52.0

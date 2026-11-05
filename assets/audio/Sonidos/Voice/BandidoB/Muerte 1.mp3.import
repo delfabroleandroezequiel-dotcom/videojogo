@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://12txtcl2rr4v"
+path="res://.godot/imported/Muerte 1.mp3-9356d8fdf03c70b1909ebd04c278b4fc.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/BandidoB/Muerte 1.mp3"
+dest_files=["res://.godot/imported/Muerte 1.mp3-9356d8fdf03c70b1909ebd04c278b4fc.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

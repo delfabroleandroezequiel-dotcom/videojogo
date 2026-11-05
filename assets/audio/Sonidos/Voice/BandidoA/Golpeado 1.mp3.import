@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cab4sh0pt3lh3"
+path="res://.godot/imported/Golpeado 1.mp3-ba32b87b1c25472700a1e92a36ba6c80.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/BandidoA/Golpeado 1.mp3"
+dest_files=["res://.godot/imported/Golpeado 1.mp3-ba32b87b1c25472700a1e92a36ba6c80.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -13,6 +13,7 @@ size = Vector2(30, 66)
 [node name="Bandido7" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_script")
+VoiceCategory = "Voice/BandidoA"
 Profile = ExtResource("6_profile")
 ExplosionScene = ExtResource("5_explosion")
 ExplodeOnDeath = false

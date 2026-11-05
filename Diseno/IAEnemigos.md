@@ -19,6 +19,7 @@ Documento vivo con todo lo que hace falta para diseñar o tocar la IA de un enem
 | Pieza | Archivo | Para qué |
 |---|---|---|
 | `Enemy` | `scripts/world/Enemy.cs` | Base: detección, persecución, giro, contacto, poise/flinch, parry→stun, ejecuciones, muerte. |
+| Sigilo / orientación | ídem | `SneakingBehindUnseen` (virtual): el jugador agachado (`Player.IsSneaking`) detrás de un enemigo que no lo vio no cuenta como detectado. `_engaged` recuerda que ya lo vio (golpe, alerta o detección normal). `OrientacionInicial` fija hacia dónde mira al empezar. Solo actúa en la detección de la base: un enemigo que decide atacar por su cuenta (distancia propia) lo ignora. |
 | `Enemy.ComputeMoveX` | ídem | **Gancho de movimiento**: devolver la velocidad X deseada (espaciado, kiting, acercarse). |
 | `CanTurnToFacePlayer`, `CanChase`, `ContactDamageEnabled`, `UpdateAnimation` | ídem | Overrides habituales (no girar mientras ataca, sin daño por contacto, etc.). |
 | `PlayerReads` | `scripts/world/PlayerReads.cs` | Lecturas del jugador: `IsBlockingToward` (parry abierto hacia mí), `WhiffedParryToward` (falló el parry: abertura), `IsClosingIn`, `PredictAimDirection` (apuntar adonde va a estar). |

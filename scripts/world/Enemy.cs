@@ -12,6 +12,19 @@ public partial class Enemy : CharacterBody2D
 	// defaults (handy for one-off/unique enemies that don't need a shared profile).
 	[Export] public EnemyProfile Profile;
 
+	// Whose voice the body makes (folder under Sonidos/, e.g. "Voice/BandidoA"): a short grunt
+	// ("Golpeado N") when hit and a cry ("Muerte N") on death, a random numbered variant each time.
+	// Empty = silent, which is every enemy that hasn't been given a voice yet.
+	[Export] public string VoiceCategory = "";
+	// Fewer grunts than hits: a voice on every blow of a combo turns comic fast.
+	[Export(PropertyHint.Range, "0,1")] public float HurtVoiceChance = 0.6f;
+	private const ulong HurtVoiceMinIntervalMsec = 700;
+	// Only the bite of each clip: anything longer trails into breathing and reads wrong.
+	// (ElevenLabs clips open with ~0.1-0.2 s of silence, hence a bit of slack.)
+	private const float HurtVoiceMaxSeconds = 0.6f;
+	private const float DeathVoiceMaxSeconds = 0.9f;
+	private ulong _nextHurtVoiceMsec;
+
 	[Export] public float DetectionRange = 400f;
 	[Export] public float MoveSpeed = 80f;
 	[Export] public float Gravity = 900f;
@@ -329,6 +342,32 @@ public partial class Enemy : CharacterBody2D
 	public void Alert(float seconds) =>
 		_alertUntilMsec = System.Math.Max(_alertUntilMsec, Time.GetTicksMsec() + (ulong)(seconds * 1000f));
 
+	// Sigilo: the player sneaking up behind an enemy that hasn't noticed him yet goes unseen, so it
+	// neither turns around nor gives chase. Being hit, alerted, or having seen him already (_engaged)
+	// cancels it. Bosses always see him.
+	private bool _engaged;
+	private const float EngageForgetRangeFactor = 1.5f;
+
+	protected virtual bool SneakingBehindUnseen(Node2D player, float distanceX)
+	{
+		if (IsInGroup("boss") || player is not Metroidvania.Player.Player p || !p.IsSneaking)
+			return false;
+		bool playerOnRight = distanceX >= 0f;
+		return playerOnRight != FacingRight;
+	}
+
+	// Which way it faces when the level starts. Default = whatever the scene/script already does.
+	public enum StartFacing { PorDefecto, Izquierda, Derecha }
+	[Export] public StartFacing OrientacionInicial = StartFacing.PorDefecto;
+
+	private void ApplyStartFacing()
+	{
+		if (OrientacionInicial == StartFacing.PorDefecto)
+			return;
+		FacingRight = OrientacionInicial == StartFacing.Derecha;
+		Visual.Scale = new Vector2(FacingRight ? 1 : -1, Visual.Scale.Y);
+	}
+
 	protected Area2D ContactArea;
 	private bool _isHoldingDistance;
 	private float _turnAwayTimer;
@@ -386,6 +425,24 @@ public partial class Enemy : CharacterBody2D
 		Stats.HealthChanged += (current, max) => healthBar.SetRatio((float)current / max);
 		Stats.StaminaChanged += (current, max) => staminaBar.SetRatio((float)current / max);
 		Stats.HitTaken += (isProjectile) => FlashHit();
+		// A backstab from the shadows still wakes it up.
+		Stats.HitTaken += _ => _engaged = true;
+		ApplyStartFacing();
+		if (!string.IsNullOrEmpty(VoiceCategory))
+		{
+			Stats.HitTaken += _ => HurtVoice();
+			Stats.Died += () => Sfx.PlayIfExistsAt(this, VoiceCategory, "Muerte", maxSeconds: DeathVoiceMaxSeconds);
+		}
+	}
+
+	private void HurtVoice()
+	{
+		// The killing blow also counts as a hit (HitTaken fires before Died): let the death cry
+		// have it alone.
+		if (Stats.CurrentHealth <= 0 || Time.GetTicksMsec() < _nextHurtVoiceMsec || GD.Randf() > HurtVoiceChance)
+			return;
+		_nextHurtVoiceMsec = Time.GetTicksMsec() + HurtVoiceMinIntervalMsec;
+		Sfx.PlayIfExistsAt(this, VoiceCategory, "Golpeado", maxSeconds: HurtVoiceMaxSeconds);
 	}
 
 	private void ApplyProfile()
@@ -745,7 +802,16 @@ public partial class Enemy : CharacterBody2D
 		{
 			float distanceX = player.GlobalPosition.X - GlobalPosition.X;
 			float absDistance = Mathf.Abs(distanceX);
-			PlayerDetected = absDistance <= DetectionRange || (Time.GetTicksMsec() < _alertUntilMsec && absDistance <= AlertRange);
+			bool alerted = Time.GetTicksMsec() < _alertUntilMsec;
+			PlayerDetected = absDistance <= DetectionRange || (alerted && absDistance <= AlertRange);
+			if (PlayerDetected && !_engaged && !alerted && SneakingBehindUnseen(player, distanceX))
+				PlayerDetected = false;
+			// Once it has seen him it keeps him: crouching mid-fight doesn't make him vanish. It
+			// forgets only when he gets well out of range.
+			if (PlayerDetected)
+				_engaged = true;
+			else if (absDistance > DetectionRange * EngageForgetRangeFactor)
+				_engaged = false;
 			if (PlayerDetected)
 			{
 				bool desiredFacingRight = DesiredFacingRight(player, distanceX);
