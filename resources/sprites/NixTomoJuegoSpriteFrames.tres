@@ -1,46 +1,41 @@
 [gd_resource type="SpriteFrames" format=3]
 
-[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Tomo/palo_0.png" id="a0"]
-[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Tomo/palo_1.png" id="a1"]
-[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Tomo/palo_2.png" id="a2"]
-[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Tomo/palo_3.png" id="a3"]
-[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Tomo/palo_4.png" id="a4"]
-[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Tomo/palo_5.png" id="a5"]
-[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Tomo/palo_6.png" id="a6"]
-[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Tomo/palo_7.png" id="a7"]
-[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Tomo/palo_8.png" id="a8"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Tomo/pelea_0.png" id="p0"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Tomo/pelea_1.png" id="p1"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Tomo/pelea_2.png" id="p2"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Tomo/pelea_3.png" id="p3"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Tomo/pelea_4.png" id="p4"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Tomo/pelea_5.png" id="p5"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Tomo/pelea_6.png" id="p6"]
 
 [resource]
 animations = [{
 "frames": [{
-"duration": 1.2,
-"texture": ExtResource("a0")
+"duration": 6.0,
+"texture": ExtResource("p0")
 }, {
-"duration": 1,
-"texture": ExtResource("a1")
+"duration": 1.0,
+"texture": ExtResource("p1")
 }, {
-"duration": 1,
-"texture": ExtResource("a2")
+"duration": 1.0,
+"texture": ExtResource("p2")
 }, {
-"duration": 1,
-"texture": ExtResource("a3")
+"duration": 1.0,
+"texture": ExtResource("p3")
 }, {
-"duration": 1,
-"texture": ExtResource("a4")
+"duration": 1.0,
+"texture": ExtResource("p4")
 }, {
-"duration": 1,
-"texture": ExtResource("a5")
+"duration": 1.0,
+"texture": ExtResource("p5")
 }, {
-"duration": 1,
-"texture": ExtResource("a6")
+"duration": 1.0,
+"texture": ExtResource("p6")
 }, {
-"duration": 1.4,
-"texture": ExtResource("a7")
-}, {
-"duration": 1.2,
-"texture": ExtResource("a8")
+"duration": 2.0,
+"texture": ExtResource("p0")
 }],
 "loop": true,
 "name": &"idle",
-"speed": 7.0
+"speed": 8.0
 }]
