@@ -216,6 +216,6 @@ public partial class MainMenu : Control
 		// The journey starts with the practice sword; Arthur's comes the morning he sends Delfrad off.
 		SaveManager.Instance.CollectItem(Metroidvania.Items.PlayerInventory.WoodenSwordId);
 		SaveManager.Instance.EnemyRandomizerEnabled = _randomizerCheck.ButtonPressed;
-		GetTree().ChangeSceneToFile(GameConfig.Instance.DefaultStartScenePath);
+		GetTree().ChangeSceneToFile(GameConfig.Instance.NewGameScenePath);
 	}
 }

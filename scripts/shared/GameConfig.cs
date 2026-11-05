@@ -13,7 +13,10 @@ public partial class GameConfig : Node
 	// used to reposition a save whose PositionX/Y belonged to a since-removed scene, so a stale
 	// ScenePath fallback doesn't also drop the player at another scene's leftover coordinates.
 	[Export] public Vector2 DefaultStartPosition = new(-312, 62);
-	[Export] public string MainMenuScenePath = "res://scenes/ui/MainMenu.tscn";
+	// Where a brand-new game opens (Arthur's training). DefaultStartScenePath stays the fallback for
+	// respawns without a save and stale save paths, so those never replay the tutorial.
+	[Export] public string NewGameScenePath = "res://scenes/world/Mapas/ArenaEntrenamiento.tscn";
+	[Export] public string MainMenuScenePath ="res://scenes/ui/MainMenu.tscn";
 
 	[Export] public PackedScene[] GroundEnemyPool = System.Array.Empty<PackedScene>();
 	[Export] public PackedScene[] FlyingEnemyPool = System.Array.Empty<PackedScene>();
