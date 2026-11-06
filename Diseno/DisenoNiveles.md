@@ -1,6 +1,6 @@
 # Diseño de niveles — guía del diseñador
 
-Documento vivo. **Leerlo antes de armar, generar o tocar cualquier mapa** (greybox, trampas, zonas nuevas, atajos, secretos) y sumarle lo que se aprenda en cada uno. Última actualización: 2026-10-28.
+Documento vivo. **Leerlo antes de armar, generar o tocar cualquier mapa** (greybox, trampas, zonas nuevas, atajos, secretos) y sumarle lo que se aprenda en cada uno. Última actualización: 2026-11-05.
 
 El mapa grande del mundo (actos, tramos, llaves y cerraduras) vive en **`Diseno/DisenoMundo.md`**. Este documento es el oficio de cada sala y cada zona.
 
@@ -95,6 +95,34 @@ Decorar o poner enemigos antes de cerrar la geometría obliga a rehacerlo cada v
 
 ---
 
+## 6b. Zona: La Mina (greybox, 2026-11-05)
+
+`scenes/world/Mapas/Mina/` — 10 escenas, bajada en diagonal hacia la derecha. Capturas en `Mina/capturas/`. **Sin conectar todavía**: `Mina01` tiene el marcador `ConexionPendiente_InteriorCueva` (borde oeste, pared cerrada) y `Mina09` el marcador `ConexionPendiente_BosqueLobos6` (rellano de arriba del montacargas). Se juega con el kit base (sin doble salto ni cargado).
+
+| Cuarto | Forma | Mecánica estrella y por qué |
+|---|---|---|
+| Mina01_Bocamina | dos rampas largas con descansos | **Vagoneta suelta** enseñada: una frenada a la vista en la entrada, que se suelta cuando llegás al descanso (viene de atrás); otra con ritmo fijo en la segunda rampa. Respuesta: saltarla o meterse en el **refugio** (zanja bajo el riel). Cerradura de **doble salto**: cornisa a 150 px con cofre |
+| Mina02_Grisu | galería escalonada con domo | **Grisú**: domo con ciclo fijo (cruzar el montículo con el gas limpio) y gas en el techo donde cuelgan murciélagos (explotan con él). **Secreto con propósito**: una palanca-válvula llena de gas el tapón de escombro del techo; la explosión lo abre → enseña que el gas rompe escombro |
+| Mina02b_Polvorin | cuarto chico arriba | premio del secreto (mejora de frasco 1), barriles, rata |
+| Mina03_Pozo | pozo vertical | **Montacargas** con murciélagos dormidos en las paredes; hoguera arriba. Galería lateral a mitad del pozo con **cuerdas sobre ácido**: cerradura de los guantes (mejora de frasco 2 al fondo) |
+| Mina04_Andamios | caverna alta | andamios de una vía bajando, bandido de bombas arriba. **Derrumbe de techo**: el escombro que cae es el escalón para la repisa de salida (170 px, imposible sin él). Cerradura de **ataque cargado**: muro cargado con cofre en un nicho. Escalera de vuelta |
+| Mina05_Capataz | campamento plano | 3 bandidos + barriles; en la oficina, **Guantes de minero** (`rope_swing`). Uso inmediato: una cuerda sobre ácido es la única salida |
+| Mina06_LagoAcido | lago largo | cadena de 4 **cuerdas en contrafase** (con islote), **bandido de cuerda** en la del medio, luego **cuerda horizontal** sobre un segundo lago con murciélagos |
+| Mina07_Vagoneta | riel de 3600 px | **la vagoneta montable**: bajada rápida, subida lenta (pelea), puente de caballetes sobre ácido con **vigas bajas** (agacharse). Emboscadas: bandido que cae al carro, murciélagos al frente, otro bandido sobre el abismo. Palancas de llamada en las dos puntas, hoguera al inicio |
+| Mina08_Fundicion | lava + galería | cuerda horizontal sobre **lava**; después, **el gas como dinamita** (obligatorio): galería llena de grisú sin chispa y tapada por escombro; la palanca suelta una vagoneta que se estrella adentro y lo prende |
+| Mina09_Montacargas | pozo de 1100 px | hoguera; **montacargas mayor** hacia la superficie con 2 bandidos de cuerda que caen sobre la jaula y murciélagos |
+
+**Llave y cerraduras (propuesta):** la llave de la Mina son los **Guantes de minero** (balancearse en cuerdas). Cerraduras vistas antes: cuerdas en Mina03 (se vuelve con los guantes), cornisa de doble salto en Mina01 (vuelta desde Ullatorp), muro cargado en Mina04 (vuelta después de Ovre). Atajos: los montacargas llamables (Mina09 conecta la superficie con el fondo) y la vagoneta en las dos direcciones.
+
+**Aprendido construyendo la Mina:**
+- **El agarre de cornisa solo existe en paredes de la capa `ClimbableWalls`.** En greybox con colisión normal el límite real es el salto: 80 px sube, 100 ya no. Una cerradura de doble salto va entre 100 y 170 px (el doble llega a ~174).
+- **Cuerdas que se balancean (`Rope`) son de ritmo fijo y lento** (periodo ~6 s): dos seguidas van **en contrafase** (`PhaseOffset` = π) y a ~250 px, así en los extremos las puntas casi se tocan. Con desfases arbitrarios casi nunca se cruzan.
+- **Peligros que caen al vacío:** `PozaAcido` te devuelve al último piso firme (nunca a un carro o plataforma móvil) en lugar de matarte.
+- **Plano al inicio de un riel:** la vagoneta suelta necesita velocidad de arranque mayor que lo que la fricción le saca en ese tramo, o se frena y "explota" quieta.
+- **`Elevator.PointStart` no deja el carro arriba al cargar** (arranca abajo y sube solo); está en el script compartido, no lo toqué. Por eso los montacargas tienen palancas de llamada propias.
+
+---
+
 ## 7. Lo que el autor rechazó (no repetir)
 
 - **Plantilla repetida:** La Sima v1, 40 pisos en zigzag con un obstáculo cada uno ("bastante repetitivo"). Mezclar tipos: pozos verticales, cavernas anchas, diagonales, chimeneas de viento, salas de rebote, santuarios.
@@ -127,3 +155,4 @@ Decorar o poner enemigos antes de cerrar la geometría obliga a rehacerlo cada v
 | 2026-10-25 | Variedad de tipos en cada lote; puertas para enseñar o crear situaciones | La Sima v1 |
 | 2026-10-25 | Objetivo principal: que se sienta metroidvania y no plataformero | Ruta de dos actos |
 | 2026-10-28 | Atmósfera compartida por bioma (`AtmosferaBosqueLobos.tscn`) | BosqueLobos 1 a 6 |
+| 2026-11-05 | La Mina en greybox (10 escenas): vagonetas, grisú como trampa y como dinamita, cuerdas en contrafase, guantes de minero como llave | Pedido del autor |
