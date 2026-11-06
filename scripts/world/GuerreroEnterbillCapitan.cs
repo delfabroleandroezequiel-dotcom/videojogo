@@ -41,7 +41,7 @@ public partial class GuerreroEnterbillCapitan : GuerreroReino
 		if (Time.GetTicksMsec() >= _orderReadyMsec && CountAllies() > 0)
 			return await GiveOrder();
 
-		var player = Target;
+		var player = PlayerRef;
 		float windup = ThrustWindup * WindupScale;
 		WindupScale = 1f;
 		if (player is not null && PlayerReads.WhiffedParryToward(player, GlobalPosition.X))
@@ -49,7 +49,7 @@ public partial class GuerreroEnterbillCapitan : GuerreroReino
 		if (!await Telegraph("attack", WindupFrame, windup))
 			return false;
 		float held = 0f;
-		while (Target is { } p && PlayerReads.IsBlockingToward(p, GlobalPosition.X) && held < MaxFeintHold)
+		while (PlayerRef is { } p && PlayerReads.IsBlockingToward(p, GlobalPosition.X) && held < MaxFeintHold)
 		{
 			if (!await Wait(0.04f))
 				return false;

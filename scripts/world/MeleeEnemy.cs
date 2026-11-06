@@ -115,7 +115,7 @@ public partial class MeleeEnemy : Enemy
 		if (Attacking || !CanAttack || _yieldTimer > 0f || Hopping || IsFlinching)
 			return;
 
-		Node2D playerNode = EnemyTargeting.Current(GetTree());
+		Node2D playerNode = CurrentTarget();
 		if (playerNode is null)
 			return;
 

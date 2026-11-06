@@ -355,6 +355,10 @@ public partial class Enemy : CharacterBody2D
 	// AlertRange away instead of DetectionRange, so a whole camp comes running.
 	[Export] public float AlertRange = 900f;
 	private ulong _alertUntilMsec;
+	// Who this enemy is fighting this frame. Default: the player (or the controlled shadow).
+	// GuerreroReino overrides it so Enterbill and Radem soldiers go for each other.
+	protected virtual Node2D CurrentTarget() => EnemyTargeting.Current(GetTree());
+
 	public void Alert(float seconds) =>
 		_alertUntilMsec = System.Math.Max(_alertUntilMsec, Time.GetTicksMsec() + (ulong)(seconds * 1000f));
 
@@ -813,7 +817,7 @@ public partial class Enemy : CharacterBody2D
 			return;
 		}
 
-		Node2D player = EnemyTargeting.Current(GetTree());
+		Node2D player = CurrentTarget();
 		if (player is not null)
 		{
 			float distanceX = player.GlobalPosition.X - GlobalPosition.X;

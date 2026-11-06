@@ -33,7 +33,7 @@ public partial class GuerreroEnterbillBallestero : GuerreroReino
 			return false;
 		WindupScale = 1f;
 		float held = 0f;
-		while (Target is { } p && PlayerReads.IsBlockingToward(p, GlobalPosition.X) && held < MaxParryHold)
+		while (PlayerRef is { } p && PlayerReads.IsBlockingToward(p, GlobalPosition.X) && held < MaxParryHold)
 		{
 			if (!await Wait(0.05f))
 				return false;
@@ -59,7 +59,7 @@ public partial class GuerreroEnterbillBallestero : GuerreroReino
 			return;
 		Vector2 origin = GlobalPosition + new Vector2(BoltOrigin.X * Forward, BoltOrigin.Y);
 		Vector2 direction = new(Forward, 0f);
-		if (Target is { } p)
+		if (PlayerRef is { } p)
 		{
 			Vector2 aim = PlayerReads.PredictAimDirection(origin, p, BoltSpeed, 0.8f, 0.2f, new Vector2(0f, -10f));
 			float angle = Mathf.Clamp(Mathf.Atan2(aim.Y, aim.X * Forward), -Mathf.DegToRad(MaxAimAngleDegrees), Mathf.DegToRad(MaxAimAngleDegrees));

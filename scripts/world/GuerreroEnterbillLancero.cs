@@ -37,7 +37,7 @@ public partial class GuerreroEnterbillLancero : GuerreroReino
 			return false;
 		// Reads the parry: keep the spear cocked while it's up toward me.
 		float held = 0f;
-		while (Target is { } p && PlayerReads.IsBlockingToward(p, GlobalPosition.X) && held < MaxParryHold)
+		while (PlayerRef is { } p && PlayerReads.IsBlockingToward(p, GlobalPosition.X) && held < MaxParryHold)
 		{
 			if (!await Wait(0.05f))
 				return false;

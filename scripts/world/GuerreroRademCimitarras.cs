@@ -60,7 +60,7 @@ public partial class GuerreroRademCimitarras : GuerreroReino
 			}
 			if (!await Wait(1f / 18f))
 				return false;
-			if (cut == 2 && Target is { } p && PlayerReads.IsBlockingToward(p, GlobalPosition.X))
+			if (cut == 2 && PlayerRef is { } p && PlayerReads.IsBlockingToward(p, GlobalPosition.X))
 			{
 				_parriedDuringFlurry = true;
 				break;

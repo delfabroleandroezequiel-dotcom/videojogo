@@ -39,7 +39,7 @@ public partial class GuerreroRademCampeon : GuerreroReino
 	{
 		if (TargetDistanceX > LeapMinDistance)
 			return await Leap();
-		return await Chain(Target is { } p && PlayerReads.WhiffedParryToward(p, GlobalPosition.X) ? 0.12f : ThrustWindup * WindupScale);
+		return await Chain(PlayerRef is { } p && PlayerReads.WhiffedParryToward(p, GlobalPosition.X) ? 0.12f : ThrustWindup * WindupScale);
 	}
 
 	private async Task<bool> Chain(float windup)
@@ -52,7 +52,7 @@ public partial class GuerreroRademCampeon : GuerreroReino
 		Lunge(240f, 0.1f);
 		if (!await Strike("attack", FirstThrustFrame, SecondWindupFrame - 1, FirstThrustFrame, 40f, new Vector2(58f, 16f), y: -8f, trail: thrust))
 			return false;
-		if (Target is { } p && PlayerReads.IsBlockingToward(p, GlobalPosition.X))
+		if (PlayerRef is { } p && PlayerReads.IsBlockingToward(p, GlobalPosition.X))
 			return true;
 		TurnToTarget();
 		Pose("attack", SecondWindupFrame);

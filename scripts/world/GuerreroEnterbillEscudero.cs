@@ -24,7 +24,7 @@ public partial class GuerreroEnterbillEscudero : GuerreroReino
 
 	protected override async Task<bool> Kit()
 	{
-		var player = Target;
+		var player = PlayerRef;
 		if (player is not null && PlayerReads.WhiffedParryToward(player, GlobalPosition.X))
 			return await Slash(PunishWindup);
 		if (player is not null && PlayerReads.IsBlockingToward(player, GlobalPosition.X))

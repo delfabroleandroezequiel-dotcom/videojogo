@@ -38,7 +38,7 @@ public partial class GuerreroEnterbillCaballero : GuerreroReino
 
 		// The pause that reads the player.
 		float waited = 0f;
-		while (Target is { } p && (p.IsRolling || p.IsDashing) && waited < MaxEvadeWait)
+		while (PlayerRef is { } p && (p.IsRolling || p.IsDashing) && waited < MaxEvadeWait)
 		{
 			if (!await Wait(0.04f))
 				return false;

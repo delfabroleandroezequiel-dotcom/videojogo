@@ -42,7 +42,47 @@ public abstract partial class GuerreroReino : MeleeEnemy
 	}
 
 	protected float Forward => FacingRight ? 1f : -1f;
-	protected Metroidvania.Player.Player Target => PlayerRef;
+	// The player, or the nearest soldier of the rival kingdom when one is closer (Enterbill vs Radem).
+	protected CharacterBody2D Target => IsInstanceValid(_rival) ? _rival : AliadoDelJugador ? null : PlayerRef;
+
+	// ── Kingdom rivalry ──
+	private const string GroupName = "guerreros_reino";
+	private const uint EnemyLayer = 1u << 2;
+	public bool EsEnterbill => GetType().Name.StartsWith("GuerreroEnterbill");
+	// On the player's side: never targets or hurts the player, only fights the rival kingdom
+	// (and stands guard while none is around). Per instance, so a map can field an allied squad.
+	[Export] public bool AliadoDelJugador;
+	private GuerreroReino _rival;
+
+	private bool IsAliveRival(GuerreroReino other) =>
+		IsInstanceValid(other) && other != this && other.IsInsideTree() && other.EsEnterbill != EsEnterbill
+		&& other.Stats is not null && other.Stats.CurrentHealth > 0;
+
+	private void PickRival()
+	{
+		_rival = null;
+		Node2D player = AliadoDelJugador ? null : base.CurrentTarget();
+		float best = player is null ? DetectionRange : Mathf.Min(DetectionRange, player.GlobalPosition.DistanceTo(GlobalPosition));
+		foreach (Node node in GetTree().GetNodesInGroup(GroupName))
+		{
+			if (node is not GuerreroReino other || !IsAliveRival(other))
+				continue;
+			float d = other.GlobalPosition.DistanceTo(GlobalPosition);
+			if (d < best)
+			{
+				best = d;
+				_rival = other;
+			}
+		}
+	}
+
+	protected override Node2D CurrentTarget()
+	{
+		PickRival();
+		if (IsInstanceValid(_rival))
+			return _rival;
+		return AliadoDelJugador ? null : base.CurrentTarget();
+	}
 	protected float TargetDistanceX => Target is null ? float.MaxValue : Mathf.Abs(Target.GlobalPosition.X - GlobalPosition.X);
 	protected bool TargetInFront => Target is not null && Mathf.Sign(Target.GlobalPosition.X - GlobalPosition.X) == Forward;
 	protected static float Roll() => Rng.Randf();
@@ -60,6 +100,10 @@ public abstract partial class GuerreroReino : MeleeEnemy
 		_hitShape = (RectangleShape2D)_hitCollision.Shape.Duplicate();
 		_hitCollision.Shape = _hitShape;
 		_baseDefense = Stats.Defense;
+		// Rival kingdoms fight each other: the blade also reaches enemies, but only the other crown's.
+		AddToGroup(GroupName);
+		AttackHitbox.CollisionMask |= EnemyLayer;
+		AttackHitbox.TargetFilter = body => (!AliadoDelJugador && body.IsInGroup("player")) || (body is GuerreroReino other && IsAliveRival(other));
 	}
 
 	private int _baseDefense;
@@ -286,7 +330,7 @@ public abstract partial class GuerreroReino : MeleeEnemy
 
 	protected void Shake(float strength, float duration)
 	{
-		if (Target is { } player && player.GlobalPosition.DistanceTo(GlobalPosition) < 700f)
+		if (PlayerRef is { } player && player.GlobalPosition.DistanceTo(GlobalPosition) < 700f)
 			player.ShakeCamera(strength, duration);
 	}
 

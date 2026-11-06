@@ -91,8 +91,14 @@ public partial class Hitbox : Area2D
 
 	public bool IsActive => _shape is { Disabled: false };
 
+	// Optional: who this hitbox may hurt (e.g. a soldier hitting only the player and the rival
+	// kingdom's soldiers once its mask also covers enemies). Null = anything on its mask.
+	public System.Predicate<Node2D> TargetFilter;
+
 	private void OnBodyEntered(Node2D body)
 	{
+		if (TargetFilter is not null && !TargetFilter(body))
+			return;
 		Stats targetStats = body.GetNodeOrNull<Stats>("Stats");
 		if (targetStats is null || targetStats == _attackerStats)
 			return;

@@ -42,7 +42,7 @@ public partial class GuerreroRademArquero : GuerreroReino
 
 	protected override async Task<bool> Kit()
 	{
-		bool fire = _stillTime > 0.6f || (Target is { } p && p.IsBlocking) || Roll() < 0.25f;
+		bool fire = _stillTime > 0.6f || (PlayerRef is { } p && p.IsBlocking) || Roll() < 0.25f;
 		if (!await Strike("attack", 1, DrawFrame - 1, 99, 0f, Vector2.Zero, fps: 12f))
 			return false;
 		if (!await Telegraph("attack", DrawFrame, (fire ? FireDraw : QuickDraw) * WindupScale))
@@ -65,7 +65,7 @@ public partial class GuerreroRademArquero : GuerreroReino
 	{
 		if (ArrowScene is null || Target is null)
 			return;
-		Vector2 dir = PlayerReads.PredictAimDirection(Origin, Target, ArrowSpeed, 0.7f, 0.1f, new Vector2(0f, -10f));
+		Vector2 dir = PlayerReads.PredictAimDirection(Origin, PlayerRef, ArrowSpeed, 0.7f, 0.1f, new Vector2(0f, -10f));
 		if (Mathf.Sign(dir.X) != Forward)
 			dir = new Vector2(Forward, 0f);
 		var arrow = ArrowScene.Instantiate<ElfArrow>();
@@ -102,7 +102,7 @@ public partial class GuerreroRademArquero : GuerreroReino
 
 	protected override float MoveX(Node2D player, float distanceX, float currentVelocityX, double delta)
 	{
-		if (!Attacking && Mathf.Abs(distanceX) < TooCloseDistance * 0.6f && IsOnFloor() && Target is { } p
+		if (!Attacking && Mathf.Abs(distanceX) < TooCloseDistance * 0.6f && IsOnFloor() && PlayerRef is { } p
 			&& PlayerReads.IsClosingIn(p, GlobalPosition.X))
 		{
 			float away = -Mathf.Sign(distanceX);

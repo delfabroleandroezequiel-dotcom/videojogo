@@ -25,7 +25,7 @@ public partial class GuerreroEnterbillAlabardero : GuerreroReino
 
 	protected override async Task<bool> Kit()
 	{
-		bool far = TargetDistanceX > ChopRange || (Target is { } p && PlayerReads.IsClosingIn(p, GlobalPosition.X) == false && Roll() < 0.35f);
+		bool far = TargetDistanceX > ChopRange || (PlayerRef is { } p && PlayerReads.IsClosingIn(p, GlobalPosition.X) == false && Roll() < 0.35f);
 		return far ? await Chop() : await Sweep();
 	}
 
