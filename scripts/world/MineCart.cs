@@ -7,8 +7,9 @@ namespace Metroidvania.World;
 // Vagoneta: a rideable mine cart that runs along a visible rail (RailPoints, relative to where the
 // node is placed — the first point is normally (0,0)). Step on it and, after a short BoardDelay
 // (lamp blinks, rattle), it rolls to the OTHER end of the rail and stops there; step on it again
-// at that end and it rolls back. With ReturnWhenEmpty it also rolls home on its own if it arrives
-// with nobody aboard, so a rider who fell off is never stranded on the wrong side of a chasm.
+// at that end and it rolls back. With ReturnWhenEmpty a cart that loses its rider mid-ride rolls back
+// home (so a retry from the hoguera finds it waiting); a cart that ARRIVES with its rider stays
+// there. CallToStart/CallToEnd (levers at each end) summon it when it's parked at the other one.
 //
 // Speed is physical, not scripted: gravity along the rail's slope speeds it up downhill and slows
 // it uphill (clamped to MinSpeed..MaxSpeed, so it never stalls on a rise). That's what gives a ride
@@ -81,6 +82,8 @@ public partial class MineCart : AnimatableBody2D
 	private CharacterBody2D _rider;
 	private bool _riderAttached;
 	private bool _waitForRiderToLeave;
+	private float _lostTimer;
+	private bool _arrivedWithRider;
 	private float _shake;
 
 	private static Texture2D _dot;
@@ -141,7 +144,7 @@ public partial class MineCart : AnimatableBody2D
 					_state = State.Boarding;
 					_timer = BoardDelay;
 				}
-				else if (ReturnWhenEmpty && !AtHome())
+				else if (ReturnWhenEmpty && !AtHome() && !_arrivedWithRider)
 				{
 					_emptyTimer += dt;
 					if (_emptyTimer >= ReturnDelay)
@@ -159,6 +162,19 @@ public partial class MineCart : AnimatableBody2D
 				break;
 
 			case State.Rolling:
+				// Rider knocked off mid-ride (or jumped off): after a beat the cart gives up and rolls
+				// back home, so a retry doesn't mean waiting for it at the far end.
+				if (ReturnWhenEmpty && _rider == null && Direction == HomeDirection * -1)
+				{
+					_lostTimer += dt;
+					if (_lostTimer > 1f)
+					{
+						Direction = HomeDirection;
+						_lostTimer = 0f;
+					}
+				}
+				else
+					_lostTimer = 0f;
 				Roll(dt);
 				break;
 		}
@@ -205,7 +221,8 @@ public partial class MineCart : AnimatableBody2D
 		{
 			_state = State.Parked;
 			_emptyTimer = 0f;
-			_waitForRiderToLeave = true;
+			_arrivedWithRider = _riderAttached;
+			_waitForRiderToLeave = _riderAttached;
 			RailVelocity = Vector2.Zero;
 			_shake = 4f;
 			Sfx.PlayAt(this, "World/Mining", "mine", 900f);
@@ -214,6 +231,24 @@ public partial class MineCart : AnimatableBody2D
 			EmitSignal(SignalName.Arrived, Direction);
 		}
 	}
+
+	// Call levers (Lever.Activated → here): summon the parked, empty cart to that end of the rail.
+	public void CallToStart() => CallTo(-1);
+	public void CallToEnd() => CallTo(1);
+
+	private void CallTo(int end)
+	{
+		if (_state != State.Parked || RiderStandingOnDeck())
+			return;
+		bool alreadyThere = end > 0 ? _distance >= _railLength - 0.5f : _distance <= 0.5f;
+		if (!alreadyThere)
+		{
+			_waitForRiderToLeave = false;
+			Depart();
+		}
+	}
+
+	private int HomeDirection => StartAtEnd == 1 ? 1 : -1;
 
 	private bool AtHome() => StartAtEnd == 1 ? _distance >= _railLength - 0.5f : _distance <= 0.5f;
 

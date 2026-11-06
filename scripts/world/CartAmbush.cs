@@ -74,8 +74,9 @@ public partial class CartAmbush : Node2D
 			{
 				at = new Vector2(_cart.GlobalPosition.X + Direction * (AheadDistance + i * Spacing), deckY - HeightAboveDeck - i * 24f);
 			}
+			// Positioned BEFORE entering the tree: flyers remember their spawn as "home" in _Ready.
+			enemy.Position = parent is Node2D p2 ? p2.ToLocal(at) : at;
 			parent.AddChild(enemy);
-			enemy.GlobalPosition = at;
 		}
 	}
 }

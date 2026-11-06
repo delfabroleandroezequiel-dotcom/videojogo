@@ -1,0 +1,327 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="1_hlcyk"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_mmcpw"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MuroCargado.tscn" id="3_rytx7"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/DerrumbeTecho.tscn" id="4_ndysa"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido4Bombas.tscn" id="5_uuelw"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BandidoDagas.tscn" id="6_rdc61"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido5Garrote.tscn" id="7_0l50a"]
+[ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="8_arfct"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Chest.tscn" id="9_42dj6"]
+[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="10_ftmls"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="11_70y7s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vsxbt"]
+size = Vector2(2440, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d5q5n"]
+size = Vector2(20, 240)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6iwog"]
+size = Vector2(340, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xcg3u"]
+size = Vector2(340, 400)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7hwt3"]
+size = Vector2(180, 200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c1jsn"]
+size = Vector2(1560, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hgmp1"]
+size = Vector2(220, 540)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4t6a2"]
+size = Vector2(700, 210)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_otast"]
+size = Vector2(700, 390)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_khcuy"]
+size = Vector2(240, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bp4ic"]
+size = Vector2(260, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hvjt7"]
+size = Vector2(240, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hba0g"]
+size = Vector2(180, 12)
+
+[node name="Mina04_Andamios" type="Node2D" unique_id=1363883823]
+script = ExtResource("1_hlcyk")
+ScenePath = "res://scenes/world/Mapas/Mina/Mina04_Andamios.tscn"
+CameraProfile = ExtResource("2_mmcpw")
+CameraLimitLeft = -20
+CameraLimitRight = 2420
+CameraLimitTop = -260
+CameraLimitBottom = 660
+
+[node name="Fondo" type="ColorRect" parent="." unique_id=637695704]
+z_index = -50
+offset_left = -620.0
+offset_top = -860.0
+offset_right = 3020.0
+offset_bottom = 1260.0
+color = Color(0.07, 0.06, 0.06, 1)
+
+[node name="Colisiones" type="StaticBody2D" parent="." unique_id=271344295]
+
+[node name="Techo1" type="CollisionShape2D" parent="Colisiones" unique_id=1058738291]
+position = Vector2(1200, -250)
+shape = SubResource("RectangleShape2D_vsxbt")
+
+[node name="ParedOeste2" type="CollisionShape2D" parent="Colisiones" unique_id=547699793]
+position = Vector2(-10, -120)
+shape = SubResource("RectangleShape2D_d5q5n")
+
+[node name="Suelo3" type="CollisionShape2D" parent="Colisiones" unique_id=574284543]
+position = Vector2(150, 20)
+shape = SubResource("RectangleShape2D_6iwog")
+
+[node name="RocaBajoEntrada4" type="CollisionShape2D" parent="Colisiones" unique_id=1292664731]
+position = Vector2(150, 240)
+shape = SubResource("RectangleShape2D_xcg3u")
+
+[node name="RocaNichoIzq5" type="CollisionShape2D" parent="Colisiones" unique_id=1315673708]
+position = Vector2(70, 540)
+shape = SubResource("RectangleShape2D_7hwt3")
+
+[node name="SueloFondo6" type="CollisionShape2D" parent="Colisiones" unique_id=1963025422]
+position = Vector2(940, 620)
+shape = SubResource("RectangleShape2D_c1jsn")
+
+[node name="TechoTunel19" type="CollisionShape2D" parent="Colisiones" unique_id=2061648906]
+position = Vector2(1610, 30)
+shape = SubResource("RectangleShape2D_hgmp1")
+
+[node name="RepisaSalida20" type="CollisionShape2D" parent="Colisiones" unique_id=1851301693]
+position = Vector2(2070, 535)
+shape = SubResource("RectangleShape2D_4t6a2")
+
+[node name="TechoSalida21" type="CollisionShape2D" parent="Colisiones" unique_id=1647311888]
+position = Vector2(2070, -45)
+shape = SubResource("RectangleShape2D_otast")
+
+[node name="PlataformasOneWay" type="StaticBody2D" parent="." unique_id=72319153]
+collision_layer = 49
+
+[node name="Andamio7" type="CollisionShape2D" parent="PlataformasOneWay" unique_id=1322268898]
+position = Vector2(520, 126)
+shape = SubResource("RectangleShape2D_khcuy")
+one_way_collision = true
+
+[node name="Andamio10" type="CollisionShape2D" parent="PlataformasOneWay" unique_id=874179502]
+position = Vector2(830, 246)
+shape = SubResource("RectangleShape2D_bp4ic")
+one_way_collision = true
+
+[node name="Andamio13" type="CollisionShape2D" parent="PlataformasOneWay" unique_id=1706584147]
+position = Vector2(1140, 366)
+shape = SubResource("RectangleShape2D_hvjt7")
+one_way_collision = true
+
+[node name="Andamio16" type="CollisionShape2D" parent="PlataformasOneWay" unique_id=787651346]
+position = Vector2(1390, 476)
+shape = SubResource("RectangleShape2D_hba0g")
+one_way_collision = true
+
+[node name="Visible" type="Node2D" parent="." unique_id=1963075066]
+z_index = -5
+
+[node name="Techo1" type="ColorRect" parent="Visible" unique_id=317686467]
+offset_left = -20.0
+offset_top = -260.0
+offset_right = 2420.0
+offset_bottom = -240.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="ParedOeste2" type="ColorRect" parent="Visible" unique_id=1539095207]
+offset_left = -20.0
+offset_top = -240.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="Suelo3" type="ColorRect" parent="Visible" unique_id=1196597560]
+offset_left = -20.0
+offset_right = 320.0
+offset_bottom = 40.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="RocaBajoEntrada4" type="ColorRect" parent="Visible" unique_id=1438855867]
+offset_left = -20.0
+offset_top = 40.0
+offset_right = 320.0
+offset_bottom = 440.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="RocaNichoIzq5" type="ColorRect" parent="Visible" unique_id=302705453]
+offset_left = -20.0
+offset_top = 440.0
+offset_right = 160.0
+offset_bottom = 640.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="SueloFondo6" type="ColorRect" parent="Visible" unique_id=105947677]
+offset_left = 160.0
+offset_top = 600.0
+offset_right = 1720.0
+offset_bottom = 640.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="Andamio7" type="ColorRect" parent="Visible" unique_id=765622962]
+offset_left = 400.0
+offset_top = 120.0
+offset_right = 640.0
+offset_bottom = 132.0
+color = Color(0.46, 0.31, 0.17, 1)
+
+[node name="AndamioPata8" type="ColorRect" parent="Visible" unique_id=879996176]
+offset_left = 408.0
+offset_top = 132.0
+offset_right = 412.0
+offset_bottom = 192.0
+color = Color(0.299, 0.2015, 0.1105, 1)
+
+[node name="AndamioPata9" type="ColorRect" parent="Visible" unique_id=1226867384]
+offset_left = 628.0
+offset_top = 132.0
+offset_right = 632.0
+offset_bottom = 192.0
+color = Color(0.299, 0.2015, 0.1105, 1)
+
+[node name="Andamio10" type="ColorRect" parent="Visible" unique_id=414158046]
+offset_left = 700.0
+offset_top = 240.0
+offset_right = 960.0
+offset_bottom = 252.0
+color = Color(0.46, 0.31, 0.17, 1)
+
+[node name="AndamioPata11" type="ColorRect" parent="Visible" unique_id=617093842]
+offset_left = 708.0
+offset_top = 252.0
+offset_right = 712.0
+offset_bottom = 312.0
+color = Color(0.299, 0.2015, 0.1105, 1)
+
+[node name="AndamioPata12" type="ColorRect" parent="Visible" unique_id=840629228]
+offset_left = 948.0
+offset_top = 252.0
+offset_right = 952.0
+offset_bottom = 312.0
+color = Color(0.299, 0.2015, 0.1105, 1)
+
+[node name="Andamio13" type="ColorRect" parent="Visible" unique_id=2118507063]
+offset_left = 1020.0
+offset_top = 360.0
+offset_right = 1260.0
+offset_bottom = 372.0
+color = Color(0.46, 0.31, 0.17, 1)
+
+[node name="AndamioPata14" type="ColorRect" parent="Visible" unique_id=910748918]
+offset_left = 1028.0
+offset_top = 372.0
+offset_right = 1032.0
+offset_bottom = 432.0
+color = Color(0.299, 0.2015, 0.1105, 1)
+
+[node name="AndamioPata15" type="ColorRect" parent="Visible" unique_id=1307150044]
+offset_left = 1248.0
+offset_top = 372.0
+offset_right = 1252.0
+offset_bottom = 432.0
+color = Color(0.299, 0.2015, 0.1105, 1)
+
+[node name="Andamio16" type="ColorRect" parent="Visible" unique_id=224505830]
+offset_left = 1300.0
+offset_top = 470.0
+offset_right = 1480.0
+offset_bottom = 482.0
+color = Color(0.46, 0.31, 0.17, 1)
+
+[node name="AndamioPata17" type="ColorRect" parent="Visible" unique_id=946683226]
+offset_left = 1308.0
+offset_top = 482.0
+offset_right = 1312.0
+offset_bottom = 542.0
+color = Color(0.299, 0.2015, 0.1105, 1)
+
+[node name="AndamioPata18" type="ColorRect" parent="Visible" unique_id=862791745]
+offset_left = 1468.0
+offset_top = 482.0
+offset_right = 1472.0
+offset_bottom = 542.0
+color = Color(0.299, 0.2015, 0.1105, 1)
+
+[node name="TechoTunel19" type="ColorRect" parent="Visible" unique_id=1422878715]
+offset_left = 1500.0
+offset_top = -240.0
+offset_right = 1720.0
+offset_bottom = 300.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="RepisaSalida20" type="ColorRect" parent="Visible" unique_id=904267143]
+offset_left = 1720.0
+offset_top = 430.0
+offset_right = 2420.0
+offset_bottom = 640.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="TechoSalida21" type="ColorRect" parent="Visible" unique_id=104538130]
+offset_left = 1720.0
+offset_top = -240.0
+offset_right = 2420.0
+offset_bottom = 150.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="Trampas" type="Node2D" parent="." unique_id=1739721075]
+
+[node name="MuroCargadoNicho" parent="Trampas" unique_id=187473686 instance=ExtResource("3_rytx7")]
+position = Vector2(300, 520)
+
+[node name="DerrumbeEscalon" parent="Trampas" unique_id=1089682710 instance=ExtResource("4_ndysa")]
+position = Vector2(1615, 300)
+Width = 190.0
+Drop = 300.0
+RubbleHeight = 96.0
+PersistenceId = "mina04_derrumbe"
+
+[node name="Enemigos" type="Node2D" parent="." unique_id=663720317]
+
+[node name="Bandido4Bombas" parent="Enemigos" unique_id=2096551776 instance=ExtResource("5_uuelw")]
+position = Vector2(830, 200)
+
+[node name="BandidoDagas" parent="Enemigos" unique_id=256989101 instance=ExtResource("6_rdc61")]
+position = Vector2(900, 560)
+
+[node name="Bandido5Garrote" parent="Enemigos" unique_id=1964778930 instance=ExtResource("7_0l50a")]
+position = Vector2(1250, 560)
+
+[node name="Objetos" type="Node2D" parent="." unique_id=1563691813]
+
+[node name="EscaleraVuelta" parent="Objetos" unique_id=1601643818 instance=ExtResource("8_arfct")]
+position = Vector2(345, 300)
+Length = 600.0
+
+[node name="CofreNicho" parent="Objetos" unique_id=947326603 instance=ExtResource("9_42dj6")]
+position = Vector2(210, 600)
+GoldReward = 250
+
+[node name="HaciaMina03" parent="." unique_id=2116574566 instance=ExtResource("10_ftmls")]
+position = Vector2(15, -53)
+TargetScenePath = "res://scenes/world/Mapas/Mina/Mina03_Pozo.tscn"
+TargetSpawnPosition = Vector2(1330, 960)
+Width = 30.0
+Height = 200.0
+
+[node name="HaciaMina05" parent="." unique_id=2077425638 instance=ExtResource("10_ftmls")]
+position = Vector2(2385, 377)
+TargetScenePath = "res://scenes/world/Mapas/Mina/Mina05_Capataz.tscn"
+TargetSpawnPosition = Vector2(170, -40)
+Width = 30.0
+Height = 200.0
+
+[node name="Player" parent="." unique_id=1867495339 instance=ExtResource("11_70y7s")]
+position = Vector2(170, -40)

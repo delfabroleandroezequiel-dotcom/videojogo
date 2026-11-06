@@ -1,0 +1,305 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="1_mi0d0"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_mngqd"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PozaAcido.tscn" id="3_nuom1"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BandidoCuerda.tscn" id="4_3c1wq"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/MurcielagoChico.tscn" id="5_rf8r5"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Rope.tscn" id="6_ur0lk"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/HangRope.tscn" id="7_ae0s8"]
+[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="8_4qfcd"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="9_2ilhk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8qyay"]
+size = Vector2(3040, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dxu2d"]
+size = Vector2(20, 260)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ylg4"]
+size = Vector2(320, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_do5mc"]
+size = Vector2(20, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jtst7"]
+size = Vector2(20, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_em45e"]
+size = Vector2(1200, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lgerm"]
+size = Vector2(80, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sqgnj"]
+size = Vector2(150, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ntvns"]
+size = Vector2(20, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nqkow"]
+size = Vector2(20, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b5tso"]
+size = Vector2(700, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tr244"]
+size = Vector2(100, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kcitb"]
+size = Vector2(170, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a0ydx"]
+size = Vector2(20, 260)
+
+[node name="Mina06_LagoAcido" type="Node2D" unique_id=995155891]
+script = ExtResource("1_mi0d0")
+ScenePath = "res://scenes/world/Mapas/Mina/Mina06_LagoAcido.tscn"
+CameraProfile = ExtResource("2_mngqd")
+CameraLimitLeft = -20
+CameraLimitRight = 3020
+CameraLimitTop = -280
+CameraLimitBottom = 360
+
+[node name="Fondo" type="ColorRect" parent="." unique_id=938969360]
+z_index = -50
+offset_left = -620.0
+offset_top = -880.0
+offset_right = 3620.0
+offset_bottom = 960.0
+color = Color(0.07, 0.06, 0.06, 1)
+
+[node name="Colisiones" type="StaticBody2D" parent="." unique_id=890435108]
+
+[node name="Techo1" type="CollisionShape2D" parent="Colisiones" unique_id=483104741]
+position = Vector2(1500, -270)
+shape = SubResource("RectangleShape2D_8qyay")
+
+[node name="ParedOeste2" type="CollisionShape2D" parent="Colisiones" unique_id=1382823092]
+position = Vector2(-10, -130)
+shape = SubResource("RectangleShape2D_dxu2d")
+
+[node name="Suelo3" type="CollisionShape2D" parent="Colisiones" unique_id=141610691]
+position = Vector2(140, 20)
+shape = SubResource("RectangleShape2D_6ylg4")
+
+[node name="SueloRampa4" type="CollisionPolygon2D" parent="Colisiones" unique_id=580725977]
+polygon = PackedVector2Array(300, 0, 500, 100, 500, 140, 300, 40)
+
+[node name="Lago1ParedIzq5" type="CollisionShape2D" parent="Colisiones" unique_id=117190729]
+position = Vector2(490, 190)
+shape = SubResource("RectangleShape2D_do5mc")
+
+[node name="Lago1ParedDer6" type="CollisionShape2D" parent="Colisiones" unique_id=834661520]
+position = Vector2(1710, 190)
+shape = SubResource("RectangleShape2D_jtst7")
+
+[node name="Lago1Fondo7" type="CollisionShape2D" parent="Colisiones" unique_id=882216262]
+position = Vector2(1100, 260)
+shape = SubResource("RectangleShape2D_em45e")
+
+[node name="Islote8" type="CollisionShape2D" parent="Colisiones" unique_id=1457160292]
+position = Vector2(1280, 180)
+shape = SubResource("RectangleShape2D_lgerm")
+
+[node name="Orilla9" type="CollisionShape2D" parent="Colisiones" unique_id=1928215277]
+position = Vector2(1775, 120)
+shape = SubResource("RectangleShape2D_sqgnj")
+
+[node name="Lago2ParedIzq10" type="CollisionShape2D" parent="Colisiones" unique_id=497672688]
+position = Vector2(1840, 190)
+shape = SubResource("RectangleShape2D_ntvns")
+
+[node name="Lago2ParedDer11" type="CollisionShape2D" parent="Colisiones" unique_id=364391452]
+position = Vector2(2560, 190)
+shape = SubResource("RectangleShape2D_nqkow")
+
+[node name="Lago2Fondo12" type="CollisionShape2D" parent="Colisiones" unique_id=912417254]
+position = Vector2(2200, 260)
+shape = SubResource("RectangleShape2D_b5tso")
+
+[node name="Suelo13" type="CollisionShape2D" parent="Colisiones" unique_id=912217538]
+position = Vector2(2600, 120)
+shape = SubResource("RectangleShape2D_tr244")
+
+[node name="SueloRampa14" type="CollisionPolygon2D" parent="Colisiones" unique_id=1043671629]
+polygon = PackedVector2Array(2650, 100, 2850, 200, 2850, 240, 2650, 140)
+
+[node name="Suelo15" type="CollisionShape2D" parent="Colisiones" unique_id=1829667873]
+position = Vector2(2935, 220)
+shape = SubResource("RectangleShape2D_kcitb")
+
+[node name="ParedEste16" type="CollisionShape2D" parent="Colisiones" unique_id=2133802553]
+position = Vector2(3010, -130)
+shape = SubResource("RectangleShape2D_a0ydx")
+
+[node name="PlataformasOneWay" type="StaticBody2D" parent="." unique_id=1450275983]
+collision_layer = 49
+
+[node name="Visible" type="Node2D" parent="." unique_id=1475600229]
+z_index = -5
+
+[node name="Techo1" type="ColorRect" parent="Visible" unique_id=540027242]
+offset_left = -20.0
+offset_top = -280.0
+offset_right = 3020.0
+offset_bottom = -260.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="ParedOeste2" type="ColorRect" parent="Visible" unique_id=1999217171]
+offset_left = -20.0
+offset_top = -260.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="Suelo3" type="ColorRect" parent="Visible" unique_id=249981302]
+offset_left = -20.0
+offset_right = 300.0
+offset_bottom = 40.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="SueloRampa4" type="Polygon2D" parent="Visible" unique_id=229956763]
+color = Color(0.4, 0.36, 0.33, 1)
+polygon = PackedVector2Array(300, 0, 500, 100, 500, 140, 300, 40)
+
+[node name="Lago1ParedIzq5" type="ColorRect" parent="Visible" unique_id=1163819422]
+offset_left = 480.0
+offset_top = 100.0
+offset_right = 500.0
+offset_bottom = 280.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="Lago1ParedDer6" type="ColorRect" parent="Visible" unique_id=1516949867]
+offset_left = 1700.0
+offset_top = 100.0
+offset_right = 1720.0
+offset_bottom = 280.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="Lago1Fondo7" type="ColorRect" parent="Visible" unique_id=1396101390]
+offset_left = 500.0
+offset_top = 240.0
+offset_right = 1700.0
+offset_bottom = 280.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="Islote8" type="ColorRect" parent="Visible" unique_id=226023786]
+offset_left = 1240.0
+offset_top = 120.0
+offset_right = 1320.0
+offset_bottom = 240.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="Orilla9" type="ColorRect" parent="Visible" unique_id=335320791]
+offset_left = 1700.0
+offset_top = 100.0
+offset_right = 1850.0
+offset_bottom = 140.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="Lago2ParedIzq10" type="ColorRect" parent="Visible" unique_id=1177776700]
+offset_left = 1830.0
+offset_top = 100.0
+offset_right = 1850.0
+offset_bottom = 280.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="Lago2ParedDer11" type="ColorRect" parent="Visible" unique_id=1057287328]
+offset_left = 2550.0
+offset_top = 100.0
+offset_right = 2570.0
+offset_bottom = 280.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="Lago2Fondo12" type="ColorRect" parent="Visible" unique_id=129881788]
+offset_left = 1850.0
+offset_top = 240.0
+offset_right = 2550.0
+offset_bottom = 280.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="Suelo13" type="ColorRect" parent="Visible" unique_id=38309199]
+offset_left = 2550.0
+offset_top = 100.0
+offset_right = 2650.0
+offset_bottom = 140.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="SueloRampa14" type="Polygon2D" parent="Visible" unique_id=2106529079]
+color = Color(0.4, 0.36, 0.33, 1)
+polygon = PackedVector2Array(2650, 100, 2850, 200, 2850, 240, 2650, 140)
+
+[node name="Suelo15" type="ColorRect" parent="Visible" unique_id=887494708]
+offset_left = 2850.0
+offset_top = 200.0
+offset_right = 3020.0
+offset_bottom = 240.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="ParedEste16" type="ColorRect" parent="Visible" unique_id=135847978]
+offset_left = 3000.0
+offset_top = -260.0
+offset_right = 3020.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="Trampas" type="Node2D" parent="." unique_id=1976277479]
+
+[node name="AcidoLago1" parent="Trampas" unique_id=1178712626 instance=ExtResource("3_nuom1")]
+position = Vector2(500, 180)
+Width = 1200.0
+
+[node name="AcidoLago2" parent="Trampas" unique_id=334576839 instance=ExtResource("3_nuom1")]
+position = Vector2(1850, 180)
+Width = 700.0
+
+[node name="Enemigos" type="Node2D" parent="." unique_id=1283348666]
+
+[node name="BandidoCuerda" parent="Enemigos" unique_id=559948893 instance=ExtResource("4_3c1wq")]
+position = Vector2(1140, 134)
+RopePath = NodePath("../../Objetos/Cuerda3")
+
+[node name="BatEnemySmall" parent="Enemigos" unique_id=685681292 instance=ExtResource("5_rf8r5")]
+position = Vector2(2100, -100)
+
+[node name="@CharacterBody2D@10" parent="Enemigos" unique_id=63847511 instance=ExtResource("5_rf8r5")]
+position = Vector2(2380, -80)
+
+[node name="Objetos" type="Node2D" parent="." unique_id=217440596]
+
+[node name="Cuerda1" parent="Objetos" unique_id=1197456918 instance=ExtResource("6_ur0lk")]
+position = Vector2(640, -140)
+Length = 230.0
+
+[node name="Cuerda2" parent="Objetos" unique_id=1009888663 instance=ExtResource("6_ur0lk")]
+position = Vector2(890, -140)
+Length = 230.0
+PhaseOffset = 3.1415927
+
+[node name="Cuerda3" parent="Objetos" unique_id=815251617 instance=ExtResource("6_ur0lk")]
+position = Vector2(1140, -140)
+Length = 230.0
+
+[node name="Cuerda4" parent="Objetos" unique_id=1406785812 instance=ExtResource("6_ur0lk")]
+position = Vector2(1470, -140)
+Length = 230.0
+PhaseOffset = 3.1415927
+
+[node name="CuerdaHorizontal" parent="Objetos" unique_id=269145282 instance=ExtResource("7_ae0s8")]
+position = Vector2(1840, -20)
+Length = 720.0
+
+[node name="HaciaMina05" parent="." unique_id=2116574566 instance=ExtResource("8_4qfcd")]
+position = Vector2(15, -53)
+TargetScenePath = "res://scenes/world/Mapas/Mina/Mina05_Capataz.tscn"
+TargetSpawnPosition = Vector2(2530, 110)
+Width = 30.0
+Height = 200.0
+
+[node name="HaciaMina07" parent="." unique_id=626363268 instance=ExtResource("8_4qfcd")]
+position = Vector2(2985, 147)
+TargetScenePath = "res://scenes/world/Mapas/Mina/Mina07_Vagoneta.tscn"
+TargetSpawnPosition = Vector2(170, -40)
+Width = 30.0
+Height = 200.0
+
+[node name="Player" parent="." unique_id=1867495339 instance=ExtResource("9_2ilhk")]
+position = Vector2(170, -40)

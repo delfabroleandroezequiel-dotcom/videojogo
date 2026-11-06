@@ -37,10 +37,10 @@ public partial class LooseMineCart : Node2D
 	[Export] public Vector2 ZoneOffset = new(0f, -40f);
 	[Export] public Vector2 ZoneSize = new(120f, 120f);
 	[Export] public float WarningTime = 0.6f;
-	[Export] public float StartSpeed = 60f;
+	[Export] public float StartSpeed = 110f;
 	[Export] public float MaxSpeed = 420f;
 	[Export] public float SlopeGravity = 700f;
-	[Export] public float Friction = 20f;
+	[Export] public float Friction = 8f;
 	// Below this on a flat/uphill it just stops where it is and breaks (spent).
 	[Export] public float StallSpeed = 25f;
 	[Export] public float RespawnDelay = 1.5f;

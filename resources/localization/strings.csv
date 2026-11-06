@@ -459,3 +459,6 @@ AMB_BANDIDOS_1,Rápido. Lo que pese poco y valga mucho.,Quick. Whatever weighs l
 AMB_BANDIDOS_2,Esta caja no abre.,This box won't open.,Esta caixa não abre.
 AMB_BANDIDOS_3,Callaos. Algo se mueve en el bosque.,Quiet. Something's moving in the forest.,Quietos. Algo se mexe na floresta.
 AMB_BANDIDOS_4,"Si nos alcanzan los de arriba, no hará falta ninguna caja.","If the ones up north catch us, no box will matter.","Se os lá de cima nos alcançarem, nenhuma caixa vai importar."
+MINA_ZONA_NOMBRE,La Mina,The Mine,A Mina
+MINA_ITEM_GUANTES_NAME,Guantes de minero,Miner's Gloves,Luvas de mineiro
+MINA_ITEM_GUANTES_DESC,"Cuero curtido con resina. Con ellos podés agarrarte de las cuerdas colgantes y balancearte.","Resin-tanned leather. With them you can grab hanging ropes and swing from them.","Couro curtido com resina. Com elas você pode agarrar cordas penduradas e se balançar."
