@@ -481,3 +481,6 @@ CIN_ESPADA_10,"Tómala.","Take it.","Pegue."
 CIN_ESPADA_11,"Pesa más que la de madera. Así tiene que ser.","It's heavier than the wooden one. That's how it should be.","Pesa mais que a de madeira. É assim que tem que ser."
 CIN_ESPADA_12,"Las caravanas salen al alba.","The caravans leave at dawn.","As caravanas partem ao amanhecer."
 CIN_ESPADA_13,"Esta vez, no te quedes mirando.","This time, don't just stand there watching.","Desta vez, não fique só olhando."
+MINA_ZONA_NOMBRE,La Mina,The Mine,A Mina
+MINA_ITEM_GUANTES_NAME,Guantes de minero,Miner's Gloves,Luvas de mineiro
+MINA_ITEM_GUANTES_DESC,"Cuero curtido con resina. Con ellos podés agarrarte de las cuerdas colgantes y balancearte.","Resin-tanned leather. With them you can grab hanging ropes and swing from them.","Couro curtido com resina. Com elas você pode agarrar cordas penduradas e se balançar."

@@ -52,7 +52,8 @@ Nix ──► BosqueLobos1 ──► BosqueLobos2 (CORTADO: bandidos)
 ### Zona 2: La Mina · DECIDIDO
 - Otra zona **grande**, con **otra ambientación**, a la que se llega después de matar al jefe de la Cueva.
 - Sale a la superficie por la entrada de mina de **BosqueLobos6**.
-- Todavía no existe ningún mapa.
+- **Greybox hecho (2026-11-05):** `Mapas/Mina/Mina01`–`Mina09` + `Mina02b`, bajada en diagonal a la derecha; detalle en `DisenoNiveles.md` §6b. Sin conectar: oeste de Mina01 → InteriorCueva, arriba de Mina09 (montacargas) → BosqueLobos6.
+- **Llave (PROPUESTA):** los **Guantes de minero** (`item_guantes_minero`, habilidad `rope_swing`) en Mina05: cuerdas que se balancean. Cerraduras sembradas: cuerdas de Mina03, cornisa de doble salto en Mina01, muro cargado en Mina04.
 - **PENDIENTE:** ¿tiene su propio jefe? ¿Qué ambientación (rieles, vagonetas, andamios, minerales, mineros)? ¿Qué enemigos?
 
 - **Espada de madera (2026-11-02):** la partida empieza con el ítem `item_espada_madera` (daño 1 por golpe, no rompe la postura). Es el bloqueo natural de la Cueva antes de partir: se puede entrar, pero no le sacás nada a nadie. Arthur da `item_espada_arthur` al empezar el capítulo 2 (la mañana después de la visita). **Falta la escena que la entrega.**
@@ -100,7 +101,7 @@ Nix ─ BL1 ─ BL2 ✖ BL3 ─ BL4 ─ BL5 ─ BL6 ─ Ullatorp ─ BL7 ─ BL8
 |---|---|---|---|---|
 | Nix + cueva | Kit base | Atajo por la cueva | Camino a Ullatorp cortado por bandidos | DECIDIDO |
 | La Cueva (cuevas 1-11) | Derrotar al jefe | Subida a la Mina | ? | DECIDIDO (falta el jefe) |
-| La Mina | ? | Salida a BosqueLobos6 | ? | PENDIENTE |
+| La Mina | Guantes de minero (cuerdas, propuesta) | Salida a BosqueLobos6 por el montacargas mayor | Cuerdas sobre ácido en Mina03 | GREYBOX |
 | Ullatorp | Doble salto (entrenamiento) | — | Camino a Enterbill (BosqueLobos 7-9) cortado por una gran roca | DECIDIDO |
 | Vuelta por el bosque → BosqueLobos3 | — | Bifurcación al desierto | La bifurcación ya se vio al principio, desde el otro lado | DECIDIDO |
 | Choza de Ovre + Pirámide | Ataque cargado (espada encantada) | Volvés a BosqueLobos 7-9 y rompés la gran roca → Enterbill | La gran roca, más paredes agrietadas en la Cueva, la Mina y el bosque | DECIDIDO |
