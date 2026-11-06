@@ -22,6 +22,13 @@
 [ext_resource type="Script" path="res://scripts/world/cinematica/StepStartQuest.cs" id="enc_step"]
 [ext_resource type="Resource" path="res://resources/quests/encargo_arthur.tres" id="enc_quest"]
 [ext_resource type="Resource" path="res://resources/items/pescado_ayer.tres" id="enc_pescado"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/StepCall.cs" id="esp_call"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/StepParallel.cs" id="esp_par"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/StepGiveItem.cs" id="esp_give"]
+[ext_resource type="Script" path="res://scripts/world/cinematica/StepWait.cs" id="esp_wait"]
+[ext_resource type="Resource" path="res://resources/items/espada_arthur.tres" id="esp_arthur"]
+[ext_resource type="Resource" path="res://resources/items/espada_madera.tres" id="esp_madera"]
+[ext_resource type="Texture2D" path="res://assets/sprites/iconos/espada_arthur.png" id="esp_icono"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(816.4462, 29.750008)
@@ -100,6 +107,141 @@ script = ExtResource("34_move")
 Actor = NodePath("../Arthur")
 TargetX = 120.0
 Speed = 115.0
+
+[sub_resource type="Resource" id="Espada_negro"]
+script = ExtResource("31_fade")
+ToBlack = true
+Duration = 0.0
+
+[sub_resource type="Resource" id="Espada_mostrar"]
+script = ExtResource("esp_call")
+Target = NodePath("../EspadaEnLaMesa")
+Method = "show"
+
+[sub_resource type="Resource" id="Espada_arthurAlFuego"]
+script = ExtResource("35_face")
+Actor = NodePath("../Arthur")
+Target = NodePath("../MarcoMesa")
+
+[sub_resource type="Resource" id="Espada_planoGeneral"]
+script = ExtResource("33_cam")
+Target = NodePath("../MarcoGeneral")
+Zoom = 1.0
+WaitSeconds = 0.0
+
+[sub_resource type="Resource" id="Espada_aclarar"]
+script = ExtResource("31_fade")
+ToBlack = false
+Duration = 1.2
+
+[sub_resource type="Resource" id="Espada_puerta"]
+script = ExtResource("36_say")
+SpeakerKeys = PackedStringArray("NPC_ARTHUR_NAME")
+LineKeys = PackedStringArray("CIN_ESPADA_1")
+
+[sub_resource type="Resource" id="Espada_arthurALaMesa"]
+script = ExtResource("34_move")
+Actor = NodePath("../Arthur")
+TargetX = -95.0
+Speed = 110.0
+
+[sub_resource type="Resource" id="Espada_delfradALaMesa"]
+script = ExtResource("34_move")
+TargetX = 45.0
+Speed = 110.0
+
+[sub_resource type="Resource" id="Espada_caminan"]
+script = ExtResource("esp_par")
+Steps = [SubResource("Espada_arthurALaMesa"), SubResource("Espada_delfradALaMesa")]
+
+[sub_resource type="Resource" id="Espada_arthurMira"]
+script = ExtResource("35_face")
+Actor = NodePath("../Arthur")
+
+[sub_resource type="Resource" id="Espada_delfradMira"]
+script = ExtResource("35_face")
+Target = NodePath("../Arthur")
+
+[sub_resource type="Resource" id="Espada_enfrentados"]
+script = ExtResource("esp_par")
+Steps = [SubResource("Espada_arthurMira"), SubResource("Espada_delfradMira")]
+
+[sub_resource type="Resource" id="Espada_planoMedio"]
+script = ExtResource("33_cam")
+Target = NodePath("../MarcoMesa")
+Zoom = 1.25
+WaitSeconds = 0.6
+
+[sub_resource type="Resource" id="Espada_parado"]
+script = ExtResource("36_say")
+SpeakerKeys = PackedStringArray("NPC_ARTHUR_NAME", "NPC_ARTHUR_NAME", "NPC_ARTHUR_NAME", "NPC_DELFRAD_NAME", "NPC_ARTHUR_NAME")
+LineKeys = PackedStringArray("CIN_ESPADA_2", "CIN_ESPADA_3", "CIN_ESPADA_4", "CIN_ESPADA_5", "CIN_ESPADA_6")
+ExtraPauses = PackedFloat32Array(0.0, 0.4, 0.0, 1.0, 1.6)
+
+[sub_resource type="Resource" id="Espada_inserto"]
+script = ExtResource("33_cam")
+Target = NodePath("../EspadaEnLaMesa")
+Zoom = 1.6
+WaitSeconds = 1.0
+
+[sub_resource type="Resource" id="Espada_entrega"]
+script = ExtResource("36_say")
+SpeakerKeys = PackedStringArray("NPC_ARTHUR_NAME", "NPC_ARTHUR_NAME", "NPC_DELFRAD_NAME", "NPC_ARTHUR_NAME")
+LineKeys = PackedStringArray("CIN_ESPADA_7", "CIN_ESPADA_8", "CIN_ESPADA_9", "CIN_ESPADA_10")
+ExtraPauses = PackedFloat32Array(0.0, 0.0, 0.6)
+
+[sub_resource type="Resource" id="Espada_seLaLleva"]
+script = ExtResource("esp_call")
+Target = NodePath("../EspadaEnLaMesa")
+Method = "hide"
+
+[sub_resource type="Resource" id="Espada_cambio"]
+script = ExtResource("esp_give")
+Gives = ExtResource("esp_arthur")
+Takes = ExtResource("esp_madera")
+
+[sub_resource type="Resource" id="Espada_planoMedio2"]
+script = ExtResource("33_cam")
+Target = NodePath("../MarcoMesa")
+Zoom = 1.3
+WaitSeconds = 0.8
+
+[sub_resource type="Resource" id="Espada_caravanas"]
+script = ExtResource("36_say")
+SpeakerKeys = PackedStringArray("NPC_ARTHUR_NAME")
+LineKeys = PackedStringArray("CIN_ESPADA_11", "CIN_ESPADA_12", "CIN_ESPADA_13")
+ExtraPauses = PackedFloat32Array(0.4, 1.5)
+
+[sub_resource type="Resource" id="Espada_sostener"]
+script = ExtResource("esp_wait")
+Seconds = 1.5
+
+[sub_resource type="Resource" id="Espada_arthurVentana"]
+script = ExtResource("35_face")
+Actor = NodePath("../Arthur")
+Target = NodePath("../MarcoVentana")
+
+[sub_resource type="Resource" id="Espada_espalda"]
+script = ExtResource("esp_wait")
+Seconds = 1.0
+
+[sub_resource type="Resource" id="Espada_cierre"]
+script = ExtResource("31_fade")
+ToBlack = true
+Duration = 1.8
+
+[sub_resource type="Resource" id="Espada_camaraVuelve"]
+script = ExtResource("33_cam")
+WaitSeconds = 0.0
+
+[sub_resource type="Resource" id="Espada_silencio"]
+script = ExtResource("esp_wait")
+Seconds = 0.8
+
+[sub_resource type="Resource" id="Espada_abrir"]
+script = ExtResource("31_fade")
+ToBlack = false
+Duration = 1.2
 
 [node name="Casa1" type="Node2D" unique_id=2000000001]
 script = ExtResource("2_bootstrap")
@@ -185,3 +327,27 @@ script = ExtResource("30_cine")
 Steps = [SubResource("Paso_negro"), SubResource("Paso_enLaCama"), SubResource("Paso_acostado"), SubResource("Paso_espera"), SubResource("Paso_aclarar"), SubResource("Paso_camaraArthur"), SubResource("Paso_arthurVa"), SubResource("Paso_arthurMira"), SubResource("Paso_camaraVuelve"), SubResource("Paso_dialogo"), SubResource("Paso_encargo"), SubResource("Paso_seLevanta"), SubResource("Paso_bajaDeLaCama"), SubResource("Paso_arthurVuelve")]
 PlayOnStart = true
 PersistenceId = "cine_casa_apertura"
+
+[node name="MarcoGeneral" type="Marker2D" parent="."]
+position = Vector2(110, 60)
+
+[node name="MarcoMesa" type="Marker2D" parent="."]
+position = Vector2(-27, 60)
+
+[node name="MarcoVentana" type="Marker2D" parent="."]
+position = Vector2(-186, 40)
+
+[node name="EspadaEnLaMesa" type="Sprite2D" parent="."]
+visible = false
+z_index = 1
+position = Vector2(-27, 66)
+rotation = 0.785398
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("esp_icono")
+
+[node name="CinematicaEspada" type="Node" parent="."]
+script = ExtResource("30_cine")
+Steps = [SubResource("Espada_negro"), SubResource("Espada_mostrar"), SubResource("Espada_arthurAlFuego"), SubResource("Espada_planoGeneral"), SubResource("Espada_aclarar"), SubResource("Espada_puerta"), SubResource("Espada_caminan"), SubResource("Espada_enfrentados"), SubResource("Espada_planoMedio"), SubResource("Espada_parado"), SubResource("Espada_inserto"), SubResource("Espada_entrega"), SubResource("Espada_seLaLleva"), SubResource("Espada_cambio"), SubResource("Espada_planoMedio2"), SubResource("Espada_caravanas"), SubResource("Espada_sostener"), SubResource("Espada_arthurVentana"), SubResource("Espada_espalda"), SubResource("Espada_cierre"), SubResource("Espada_camaraVuelve"), SubResource("Espada_silencio"), SubResource("Espada_abrir")]
+PlayOnStart = true
+PersistenceId = "cine_casa_espada"
+RequiresQuestCompleted = "carro_morlok"

@@ -20,4 +20,7 @@ public partial class StepCall : CinematicStep
 			target.Call(Method);
 		return Task.CompletedTask;
 	}
+
+	// The character's own beat may change the world (walk off, open a door): it still happens.
+	public override void Skip(Cinematic cinematic) => Run(cinematic);
 }

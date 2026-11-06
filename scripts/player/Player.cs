@@ -1527,12 +1527,14 @@ public partial class Player : CharacterBody2D
 	[Export] public float CutscenePushDeceleration = 900f;
 	private bool _cutsceneHold;
 	private float _cutscenePushX;
+	private float _cutsceneWalkX;
 
 	public void HoldForCutscene(bool hold)
 	{
 		SetHudHiddenForCutscene(hold);
 		_cutsceneHold = hold;
 		_cutscenePushX = 0f;
+		_cutsceneWalkX = 0f;
 		if (!hold)
 		{
 			_cutsceneFocus = null;
@@ -1606,6 +1608,26 @@ public partial class Player : CharacterBody2D
 
 	public void CutscenePush(float velocityX) => _cutscenePushX = velocityX;
 
+	// A cinematic walking the held player (StepMove with an empty Actor): a steady horizontal
+	// speed with the run animation, facing that way; 0 stops and goes back to idle.
+	public void CutsceneWalk(float velocityX)
+	{
+		if (!_cutsceneHold)
+			return;
+		_cutsceneWalkX = velocityX;
+		CutsceneFace(velocityX);
+		_sprite.Play(TorchAnim(Mathf.IsZeroApprox(velocityX) ? "idle" : "run"));
+	}
+
+	// Turns the held player toward a direction (sign of `direction`; 0 = leave as is).
+	public void CutsceneFace(float direction)
+	{
+		if (Mathf.Abs(direction) < 0.01f)
+			return;
+		_facingRight = direction > 0f;
+		_visual.Scale = new Vector2(_facingRight ? 1 : -1, 1f);
+	}
+
 	// A horizontal shove with no hop (e.g. a boss roar's blast of air): rides the knockback slot.
 	public void Shove(float velocityX, float duration)
 	{
@@ -1634,7 +1656,7 @@ public partial class Player : CharacterBody2D
 	{
 		float dt = (float)delta;
 		_cutscenePushX = Mathf.MoveToward(_cutscenePushX, 0f, CutscenePushDeceleration * dt);
-		Velocity = new Vector2(_cutscenePushX, IsOnFloor() ? 0f : Velocity.Y + Gravity * dt);
+		Velocity = new Vector2(_cutscenePushX + _cutsceneWalkX, IsOnFloor() ? 0f : Velocity.Y + Gravity * dt);
 		MoveAndSlide();
 		UpdateCameraLook(delta);
 	}

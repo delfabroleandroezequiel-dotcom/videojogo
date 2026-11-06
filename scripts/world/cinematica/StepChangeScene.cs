@@ -15,4 +15,6 @@ public partial class StepChangeScene : CinematicStep
 			cinematic.GetTree().CallDeferred(SceneTree.MethodName.ChangeSceneToFile, ScenePath);
 		return Task.CompletedTask;
 	}
+
+	public override void Skip(Cinematic cinematic) => Run(cinematic);
 }

@@ -95,11 +95,20 @@ En 2D no hay lentes ni ángulos: los planos se arman con **zoom + punto de foco 
   - Los pasos se ejecutan en orden y el mundo no se pausa.
   - Se dispara con `PlayOnStart`, desde código o con un trigger.
   - `PlayOnce` + `PersistenceId` la guardan como vista por partida.
+  - `RequiresQuestCompleted` (2026-11-05): solo se reproduce si esa quest está terminada. Sirve para una escena de más adelante en un mapa que se visita antes (la espada de Arthur en Casa1, después del carro de Morlok).
+  - **Saltear** (2026-11-05): mantener **Saltar** (`SkipAction`, por defecto `jump`) durante 1.2 s (`SkipHoldSeconds`). Abajo a la derecha aparece un anillo que se llena y el texto "Mantén Saltar para omitir" (`CIN_SALTEAR`); cualquier botón lo muestra 2.5 s para que el jugador sepa que existe. Un botón que ya venía apretado al empezar no cuenta.
+    - Al saltear: negro corto (0.25 s), se corta la voz y el diálogo, y cada paso que falta aplica su **estado final** (`CinematicStep.Skip`): los actores quedan en su marca, la quest o el ítem se entregan, el cambio de escena ocurre. Después vuelve de negro, salvo que la escena termine en negro.
+    - Una cinemática salteada **cuenta como vista**: `PlayOnce` no la repite.
+    - `Skippable = false` solo para unos segundos que no se pueden resumir. Por defecto todas se saltean.
+    - Paso nuevo: si hace algo que tiene que quedar (dar algo, mover a alguien), sobreescribir `Skip`. Si solo es tiempo, cámara o una línea, no hace falta.
 - **Pasos:**
   - `StepSay`: diálogo; avanza con botón o con `AutoAdvanceSeconds`.
-  - `StepMove`: un NPC camina a un nodo o a una X. El jugador no se mueve.
+  - `StepMove`: un actor camina a un nodo o a una X. **Con `Actor` vacío camina el jugador** (2026-11-05): sigue retenido, pero se mueve con su física y su animación de correr (`Player.CutsceneWalk`). `Animation`/`EndAnimation` no se le aplican.
+  - `StepParallel` (2026-11-05): corre varios pasos a la vez (un NPC camina mientras el otro habla, los dos caminan juntos a la mesa). `WaitForAll = false` sigue apenas termina el primero.
+  - `StepGiveItem` (2026-11-05): da un ítem y/o saca otro (`Gives`/`Takes`). Las espadas se equipan solas. Si se repite, no duplica nada.
   - `StepAnimate`: reproduce una animación y espera opcionalmente a que termine.
-  - `StepFace`: gira a alguien hacia otro.
+  - `StepFace`: gira a alguien hacia otro. **También gira al jugador** (Actor vacío).
+  - `StepCall`: llama un método sin argumentos de un nodo (por ejemplo `show`/`hide` de un objeto en escena).
   - `StepCamera`: foco, peso y zoom; sin `Target` vuelve al jugador.
   - `StepWait`, `StepShake`, `StepFade`: pausa, temblor, fundido a negro o desde negro.
   - `StepBlur`: desenfoque para mareo o desmayo.
@@ -110,6 +119,10 @@ En 2D no hay lentes ni ángulos: los planos se arman con **zoom + punto de foco 
   - `NarracionApertura`: narración en negro, al estilo del libro.
   - `CinematicaAtaque` en `Llamas_BosqueLobos2` (2026-11-02): abre en negro con Delfrad tirado, cae un meteoro a su lado, se levanta (la caída al revés) y la cámara mira hacia Nix. Unos 9 s, sin líneas. Se ve una vez por partida.
   - `CinematicaRecuerdo` en `Llamas_Casa1` (2026-11-02, rehecha 2026-11-03): la casa en llamas por dentro **no se muestra**. Abrir la puerta en `Llamas_Nix` funde a negro, `Llamas_Casa1` es solo ese negro (1.8 s de silencio) y se abre `Casa1` de mañana con Arthur. **Ahí se pasa al Nix actual (el recuerdo).** La versión anterior (Delfrad mira la casa y cae) se descartó: el usuario prefirió cortar al abrir la puerta.
+  - `CinematicaEspada` en Casa1 (2026-11-05): **Arthur le da su espada a Delfrad**. Cierra el capítulo 1. Ocurre al entrar a casa con "El carro de Morlok" terminado, esa misma noche.
+    - **Qué cambia:** Arthur deja de tratarlo como a un chico y lo deja ir.
+    - **Puesta:** abre desde negro en plano general. Arthur está junto al fuego, de espaldas a la puerta, y la espada está sobre la mesa. "Cierra la puerta." Caminan juntos a la mesa (`StepParallel`, el jugador con `StepMove`), quedan enfrentados (Arthur a la izquierda, Delfrad a la derecha, del lado de la puerta). Plano medio sobre la mesa: el tajo del cuchillo en la de madera, "¿Te quedaste parado?" y la confesión de Arthur ("yo también... la primera vez", 1.6 s de silencio). Inserto de la espada (zoom 1.6). Entrega: la espada desaparece de la mesa, `StepGiveItem` cambia la de madera por la de Arthur. Cierre: "Las caravanas salen al alba" → 1.5 s → "Esta vez, no te quedes mirando" (paga la línea de la mañana, `CINE_CASA_4`). Arthur se da vuelta hacia la ventana y funde a negro 1.8 s.
+    - Unos 55 s. Claves `CIN_ESPADA_1..13`.
 - **Pasos nuevos:** `StepAnimate.Backwards` (una caída al revés se lee como levantarse), `StepMeteor` (un meteoro inofensivo con tiempo propio) y `StepActorOffset` (corre el dibujo de un actor sin mover su cuerpo, para acostarlo en una cama o bajarlo de un salto; puede esconder la capa).
 - **`CinematicaApertura` en Casa1:** Delfrad arranca acostado en la cama (dibujo corrido 55, -46, sin capa) y se levanta después de la última línea de Arthur.
 
@@ -125,10 +138,9 @@ En 2D no hay lentes ni ángulos: los planos se arman con **zoom + punto de foco 
 ## 7. Lo que falta en las herramientas (sumar cuando una escena lo pida)
 
 - Pasos de **Música** (entrar, cruzar, cortar) y **Sonido** (con ambiente).
-- **Saltear** la cinemática manteniendo un botón.
-- **Pasos en paralelo**: por ejemplo, caminar mientras habla. Hoy `StepMove` con `WaitUntilArrived = false` cubre el caso simple.
+- ~~Saltear manteniendo un botón~~, ~~pasos en paralelo~~ y ~~mover al jugador~~: hechos el 2026-11-05 (ver §6).
 - **Cámara con curva y duración propias**, independientes del suavizado de la cámara del jugador.
-- **Mover al jugador** dentro de la cinemática (hoy solo NPCs).
+- Un **gesto de entrega** (pasar un objeto de mano en mano). Hoy se resuelve con el objeto sobre la mesa, un inserto y `StepCall hide` (ver `CinematicaEspada`).
 - **Aparecer y desaparecer actores**, y **emotes** o efectos sobre un personaje (signo de exclamación, lágrima, brillo).
 - Que el **pulso de las franjas** y el **zoom** acompañen los momentos fuertes.
 

@@ -3,7 +3,7 @@ using Godot;
 
 namespace Metroidvania.World;
 
-// Turns an actor to look at a target (empty Target = the player).
+// Turns an actor to look at a target (empty Actor or Target = the player).
 [GlobalClass]
 public partial class StepFace : CinematicStep
 {
@@ -14,11 +14,19 @@ public partial class StepFace : CinematicStep
 	{
 		Node2D actor = cinematic.Resolve(Actor);
 		Node2D target = cinematic.Resolve(Target);
-		if (actor is null || target is null || actor == cinematic.Player)
+		if (actor is null || target is null || actor == target)
 			return Task.CompletedTask;
-		if (actor is Npc npc)
-			cinematic.TakeControl(npc);
-		Cinematic.FaceActor(actor, target.GlobalPosition.X - actor.GlobalPosition.X);
+		float direction = target.GlobalPosition.X - actor.GlobalPosition.X;
+		if (actor is Metroidvania.Player.Player player)
+			player.CutsceneFace(direction);
+		else
+		{
+			if (actor is Npc npc)
+				cinematic.TakeControl(npc);
+			Cinematic.FaceActor(actor, direction);
+		}
 		return Task.CompletedTask;
 	}
+
+	public override void Skip(Cinematic cinematic) => Run(cinematic);
 }

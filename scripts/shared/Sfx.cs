@@ -128,6 +128,18 @@ public static class Sfx
 
 	public static bool IsVoicePlaying => GodotObject.IsInstanceValid(_voicePlayer) && (bool)_voicePlayer.Get("playing");
 
+	// Cuts the current voice line (a skipped cinematic), with the usual short fade.
+	public static void StopVoice()
+	{
+		if (!GodotObject.IsInstanceValid(_voicePlayer))
+			return;
+		Node previous = _voicePlayer;
+		_voicePlayer = null;
+		Tween fadeOut = previous.CreateTween();
+		fadeOut.TweenProperty(previous, "volume_db", VoiceSilentDb, VoiceFadeOut);
+		fadeOut.TweenCallback(Callable.From(previous.QueueFree));
+	}
+
 	private static readonly string[] VoiceExtensions = { ".wav", ".mp3", ".ogg" };
 
 	private static AudioStream LoadVoiceStream(string locale, string key)

@@ -394,6 +394,14 @@ public partial class SaveManager : Node
 		GameConfig.Instance.Achievements.CheckTriggers();
 	}
 
+	// Takes an item away for good (the wooden sword once Arthur's replaces it), stackable or not.
+	public void RemoveItem(string id)
+	{
+		_collectedItems.Remove(id);
+		_itemCounts.Remove(id);
+		_equippedRings.Remove(id);
+	}
+
 	public IReadOnlyList<string> GetEquippedRings() => _equippedRings;
 
 	public bool EquipRing(string id)

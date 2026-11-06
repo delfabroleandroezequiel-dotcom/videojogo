@@ -99,6 +99,13 @@ public partial class DialogueBox : CanvasLayer
 			Advance();
 	}
 
+	// A skipped cinematic: close at once, no more lines or voices (whoever opened it is told).
+	public void SkipToEnd()
+	{
+		if (_isOpen)
+			Close();
+	}
+
 	// While locked the player can't advance or skip; whoever opened the box drives it (a narration
 	// that moves on as each voice line ends). The continue hint is hidden meanwhile.
 	public bool InputLocked

@@ -52,6 +52,12 @@ public partial class StepLogo : CinematicStep
 		};
 		layer.AddChild(rect);
 		cinematic.AddChild(layer);
+		// Skipped: the card and its music go at once (the skip's black covers the rest).
+		cinematic.SkipStarted += () =>
+		{
+			if (GodotObject.IsInstanceValid(layer))
+				layer.QueueFree();
+		};
 
 		AudioStreamPlayer player = null;
 		if (Music is not null)
@@ -72,6 +78,8 @@ public partial class StepLogo : CinematicStep
 		show.TweenMethod(Callable.From<float>(SetBlur), StartBlur, 0f, FocusTime).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
 
 		await cinematic.WaitSeconds(hold);
+		if (!GodotObject.IsInstanceValid(layer) || layer.IsQueuedForDeletion())
+			return;
 
 		Tween hide = cinematic.CreateTween().SetParallel();
 		hide.TweenProperty(rect, "modulate:a", 0f, FadeOut).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.In);
@@ -79,6 +87,8 @@ public partial class StepLogo : CinematicStep
 		if (player is not null)
 			hide.TweenProperty(player, "volume_db", -60f, FadeOut).SetEase(Tween.EaseType.In);
 		await cinematic.ToSignal(hide, Tween.SignalName.Finished);
+		if (!GodotObject.IsInstanceValid(layer))
+			return;
 
 		player?.Stop();
 		// The black stays until the scene changes; only the logo and the music go.

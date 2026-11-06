@@ -11,4 +11,7 @@ public partial class StepCode : CinematicStep
 	public Func<Task> Action;
 
 	public override Task Run(Cinematic cinematic) => Action?.Invoke() ?? Task.CompletedTask;
+
+	// Skipped: the code still runs (a phase change's music must start), without being waited for.
+	public override void Skip(Cinematic cinematic) => _ = Action?.Invoke();
 }

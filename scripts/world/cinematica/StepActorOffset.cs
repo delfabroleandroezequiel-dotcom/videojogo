@@ -33,4 +33,14 @@ public partial class StepActorOffset : CinematicStep
 		if (WaitForEnd)
 			await cinematic.ToSignal(tween, Tween.SignalName.Finished);
 	}
+
+	public override void Skip(Cinematic cinematic)
+	{
+		Node2D actor = cinematic.Resolve(Actor);
+		if (actor?.GetNodeOrNull<Node2D>("Visual") is not { } visual)
+			return;
+		if (actor.GetNodeOrNull("CharacterFlair") is { } flair && flair.Get("CapeEnabled").VariantType != Variant.Type.Nil)
+			flair.Set("CapeEnabled", !HideCape);
+		visual.Position = Offset;
+	}
 }
