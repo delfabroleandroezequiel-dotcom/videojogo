@@ -44,6 +44,28 @@ Cuando toque combate, trabajo como **diseñador de combate y jefes de juegos de 
 - **Postura:** los golpes rompen la postura y eso abre la ejecución. Solo `MeleeEnemy` se estremece; el resto tiene hiperarmadura hasta que cada uno tenga su reacción propia. Los jefes no se ejecutan.
 - **Enemigos que reaccionaban a la guardia sostenida** (Bandido1/6/7, elfos, GhostWarrior2): con el parry de 0.2 s esa lógica casi no se activa. Conviene que reaccionen a un **parry fallado**.
 
+### Guerreros de Enterbill y Radem (2026-11-05)
+
+Catorce soldados de los dos reinos del libro, hechos con PixelLab (estilo del prota, lienzo de 96x80, escala 1.12-1.2). Cada uno tiene su `.cs` y su kit; comparten solo la plumbing de `GuerreroReino` (ver `IAEnemigos.md`). Escenas en `scenes/world/Enemigos/Guerrero*.tscn` y corredor de prueba en `scenes/world/Mapas/PruebaGuerreros.tscn`.
+
+- **Enterbill (azul): disciplina de castillo.** Escudos, distancia, ritmo medido. Lee el parry: no golpea contra un parry abierto (sostiene el amague) y castiga el parry fallado.
+  - **Escudero:** escudo torre. De frente no se mueve ni se estremece y resta daño. Contra un parry abierto empuja con el escudo; contra un parry fallado tira el tajo al instante.
+  - **Lancero:** pelea a la distancia de la lanza. Estocada larga con paso adelante; si te metés adentro, barrido bajo que hay que saltar.
+  - **Ballestero:** un virote pesado con puntería anticipada y una recarga larga, que es la ventana para castigarlo. Si lo encimás, salta hacia atrás.
+  - **Caballero:** combo de tres tiempos (hachazo, pausa, corte y estocada). Si rodaste o dasheaste, en la pausa espera a que termine tu esquive y recién ahí golpea.
+  - **Alabardero:** barrido amplio de cerca. De lejos levanta la alabarda y la clava en el piso, y una onda baja corre hacia adelante.
+  - **Capitán:** **Orden** al verte ("Hold the line!"): alerta a los enemigos cercanos y les baja el cooldown ×0.65 durante 8 s, con un anillo azul sobre cada uno. Duelista: estocada y corte en diagonal, con finta contra el parry.
+  - **Maza:** hiperarmadura. Mazazo al piso con una onda a los dos lados, y puñetazo de broquel rápido si fallás un golpe pegado a él.
+- **Radem (rojo): presión del desierto.** Armas curvas, carreras, saltos y castigo a la salida de tu esquive.
+  - **Cimitarras:** entra en dash con una ráfaga de cuatro cortes; si le parreás el segundo, corta la ráfaga. Arranca justo cuando termina tu dash y después salta hacia atrás.
+  - **Jabalinero:** jabalina en arco hacia donde vas a estar (`ProyectilArqueado`, se clava donde falla). De cerca, dos pinchazos rápidos.
+  - **Hachero:** hiperarmadura. Carga en línea recta de lejos, giro con el hacha que pega adelante y atrás, y hachazo al piso.
+  - **Khopesh:** escudo redondo. El gancho, si te agarra, te tira hacia él y encadena un corte. Si golpeás su escudo de frente, contraataca enseguida (Radem no espera).
+  - **Arquero:** flecha rápida y plana. Si te quedás quieto o te cubrís, tira una flecha incendiaria en arco que deja fuego en el piso.
+  - **Mangual:** molinete sobre la cabeza mientras avanza (castiga saltarle encima) y después revienta la bola contra el piso.
+  - **Campeón:** dos estocadas de tridente (si le parreás la primera, no sigue). De lejos salta adonde vas a estar y clava el tridente, con una onda baja.
+- **Voces:** `Voice/EnterbillA` (sargento curtido, "Admiral Action"), `EnterbillB` (caballero joven, "Kaisserkrieger"), `RademA` ("Villain", áspero) y `RademB` ("Leónidas", con acento). Cada una tiene Golpeado 1-3, Muerte 1-2, **Alerta 1-2** (al verte, una sola voz por vez en pantalla) y **Ataque 1** (35 % de los ataques); EnterbillA suma **Orden 1-2**, que usa el Capitán. Todas en inglés, como las demás voces del juego.
+
 ---
 
 ## 4. Reglas de jefes
@@ -128,4 +150,5 @@ Cuando toque combate, trabajo como **diseñador de combate y jefes de juegos de 
 | 2026-10-28 | Joystick: A saltar, X atacar, B rodar, Y curar, LB parry, RB dash, LT clon, RT cargado, L3 golpe en carrera, R3 espada voladora, cruceta ↑ interactuar / ↓ barra rápida / ← invocar / → cambiar clon, Back inventario, Start pausa | Reasignación del joystick |
 | 2026-10-30 | La cura se aplica al terminar la animación; un golpe real la cancela y la carga se pierde | Pedido del autor |
 | 2026-11-02 | Hitboxes de los melee de Cueva 1–11 medidos contra el dibujo: pegan en el cuadro del golpe y su borde lejano queda a 0–14 px de la punta del arma; las estelas se ajustaron a ese alcance salvo las de Bandido1, calcadas del arte | Pedido del autor |
+| 2026-11-05 | 14 guerreros de Enterbill (azul, disciplina, leen el parry) y Radem (rojo, presión, castigan el fin del esquive), con PixelLab y voces ElevenLabs con alerta y gritos de ataque. Corredor `PruebaGuerreros` | Pedido del autor |
 | 2026-11-02 | Arañas comunes con el Monster (2) de Fantasy Monsters Pack: violeta la normal, carmesí la oscura; mueren con animación, sin explosión. Jefes araña con el mismo sprite a escala 6.5: `SpiderBoss` violeta, `SpiderBossArena` carmesí; explotan al morir | Pedido del autor |

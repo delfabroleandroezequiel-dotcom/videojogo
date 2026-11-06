@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dvhjpd4q7p824"
+path="res://.godot/imported/Alerta 1.mp3-dd87b23f7cc90af463b1127afef7c0e5.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/RademA/Alerta 1.mp3"
+dest_files=["res://.godot/imported/Alerta 1.mp3-dd87b23f7cc90af463b1127afef7c0e5.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

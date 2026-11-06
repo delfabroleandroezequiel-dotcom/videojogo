@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bt0c0isu5qn3s"
+path="res://.godot/imported/Ataque 1.mp3-f3d827e39aaa9adf8edcbf441e7c9e07.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/RademA/Ataque 1.mp3"
+dest_files=["res://.godot/imported/Ataque 1.mp3-f3d827e39aaa9adf8edcbf441e7c9e07.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

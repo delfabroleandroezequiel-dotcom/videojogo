@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://mbdyk1a6cwis"
+path="res://.godot/imported/Orden 2.mp3-51ed4888af74b2e6b45f86c1d178209f.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/EnterbillA/Orden 2.mp3"
+dest_files=["res://.godot/imported/Orden 2.mp3-51ed4888af74b2e6b45f86c1d178209f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dgxgx4h1n0g4j"
+path="res://.godot/imported/Muerte 2.mp3-5b55eb29c2921f31ca71d9424296dd16.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/EnterbillB/Muerte 2.mp3"
+dest_files=["res://.godot/imported/Muerte 2.mp3-5b55eb29c2921f31ca71d9424296dd16.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

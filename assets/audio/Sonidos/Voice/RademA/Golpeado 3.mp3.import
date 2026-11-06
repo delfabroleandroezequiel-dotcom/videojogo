@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bvgbpkedhjhdb"
+path="res://.godot/imported/Golpeado 3.mp3-8ea59deb3a76b5462285ad98fbfe7e0d.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/RademA/Golpeado 3.mp3"
+dest_files=["res://.godot/imported/Golpeado 3.mp3-8ea59deb3a76b5462285ad98fbfe7e0d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
