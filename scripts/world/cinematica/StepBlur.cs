@@ -20,4 +20,7 @@ public partial class StepBlur : CinematicStep
 		if (WaitForEnd)
 			await cinematic.ToSignal(tween, Tween.SignalName.Finished);
 	}
+
+	public override void Skip(Cinematic cinematic) =>
+		cinematic.BlurMaterial().SetShaderParameter("strength", Strength);
 }

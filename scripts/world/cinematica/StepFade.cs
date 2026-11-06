@@ -23,4 +23,7 @@ public partial class StepFade : CinematicStep
 		tween.TweenProperty(rect, "color:a", alpha, Duration);
 		await cinematic.ToSignal(tween, Tween.SignalName.Finished);
 	}
+
+	// The skip itself hides behind black; this decides whether it comes back out of it.
+	public override void Skip(Cinematic cinematic) => cinematic.SkipFadeAlpha = ToBlack ? 1f : 0f;
 }

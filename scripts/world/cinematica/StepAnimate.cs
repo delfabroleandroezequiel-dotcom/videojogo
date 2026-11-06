@@ -33,4 +33,24 @@ public partial class StepAnimate : CinematicStep
 		if (GodotObject.IsInstanceValid(sprite) && !string.IsNullOrEmpty(ThenAnimation))
 			sprite.Play(ThenAnimation);
 	}
+
+	// Skipped: straight to the pose it ends in.
+	public override void Skip(Cinematic cinematic)
+	{
+		AnimatedSprite2D sprite = Cinematic.SpriteOf(cinematic.Resolve(Actor));
+		if (sprite?.SpriteFrames is null || !sprite.SpriteFrames.HasAnimation(Animation))
+			return;
+		bool looping = sprite.SpriteFrames.GetAnimationLoop(Animation);
+		if (WaitForEnd && !looping && !string.IsNullOrEmpty(ThenAnimation))
+		{
+			sprite.Play(ThenAnimation);
+			return;
+		}
+		sprite.Play(Animation);
+		if (!looping)
+		{
+			sprite.Frame = Backwards ? 0 : sprite.SpriteFrames.GetFrameCount(Animation) - 1;
+			sprite.Pause();
+		}
+	}
 }

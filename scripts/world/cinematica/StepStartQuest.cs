@@ -26,4 +26,6 @@ public partial class StepStartQuest : CinematicStep
 			inventory.CollectItem(GivesItem);
 		return Task.CompletedTask;
 	}
+
+	public override void Skip(Cinematic cinematic) => Run(cinematic);
 }
