@@ -1169,7 +1169,8 @@ public partial class Player : CharacterBody2D
 		_healChargesLabel.Visible = false;
 		_healFlask.ChargesChanged += (current, max) => potionBar.SetCharges(current, max);
 		potionBar.SetCharges(_healFlask.CurrentCharges, _healFlask.MaxCharges);
-		LocaleManager.Instance.LocaleChanged += _ => UpdateHealChargesLabel(_healFlask.CurrentCharges, _healFlask.MaxCharges);
+		// One named handler (not lambdas) so _ExitTree can unsubscribe it from the autoload.
+		LocaleManager.Instance.LocaleChanged += OnLocaleChanged;
 
 		SaveManager.Instance.GoldChanged += UpdateGoldLabel;
 		UpdateGoldLabel(SaveManager.Instance.Gold);
@@ -1186,7 +1187,6 @@ public partial class Player : CharacterBody2D
 		GetNode("HUD").AddChild(_quickSlotHud);
 		CreateAura();
 		_goldLabel.Visible = false;
-		LocaleManager.Instance.LocaleChanged += _ => UpdateGoldLabel(SaveManager.Instance.Gold);
 
 		// Bastón mini HUD: 5 slot squares in the bottom-left corner of the HUD layer.
 		if (BastonSummonsEnabled)
@@ -1194,7 +1194,6 @@ public partial class Player : CharacterBody2D
 			_summonHud = new Metroidvania.UI.ShadowSlotsHud { Name = "ShadowSlotsHud" };
 			GetNode("HUD").AddChild(_summonHud);
 			SaveManager.Instance.ShadowUsesChanged += UpdateSummonLabel;
-			LocaleManager.Instance.LocaleChanged += _ => UpdateSummonLabel();
 			UpdateSummonLabel();
 		}
 
@@ -1205,11 +1204,6 @@ public partial class Player : CharacterBody2D
 		_shadowSpellHud.Build(System.Array.ConvertAll(OfferedShadowSpells, spell => ShadowSpellNameKeys[(int)spell]));
 		_shadowSpellHud.Refresh(OfferedShadowSpellIndex());
 		_shadowSpellHud.Visible = _abilities.Has(PlayerAbilities.Spell);
-		LocaleManager.Instance.LocaleChanged += _ =>
-		{
-			if (IsInstanceValid(_shadowSpellHud))
-				_shadowSpellHud.Refresh(OfferedShadowSpellIndex());
-		};
 
 		// Tornado variant picker, just above the Bastón row.
 		if (SaveManager.Instance.SessionTornadoVariant is int savedVariant
@@ -1220,11 +1214,20 @@ public partial class Player : CharacterBody2D
 		_tornadoHud.Build(TornadoVariantNameKeys);
 		_tornadoHud.Refresh((int)_tornadoVariant);
 		_tornadoHud.Visible = _abilities.Has(PlayerAbilities.TornadoSpell);
-		LocaleManager.Instance.LocaleChanged += _ =>
-		{
-			if (IsInstanceValid(_tornadoHud))
-				_tornadoHud.Refresh((int)_tornadoVariant);
-		};
+	}
+
+	private void OnLocaleChanged(string _)
+	{
+		if (!IsInstanceValid(this) || !IsInsideTree())
+			return;
+		UpdateHealChargesLabel(_healFlask.CurrentCharges, _healFlask.MaxCharges);
+		UpdateGoldLabel(SaveManager.Instance.Gold);
+		if (BastonSummonsEnabled)
+			UpdateSummonLabel();
+		if (IsInstanceValid(_shadowSpellHud))
+			_shadowSpellHud.Refresh(OfferedShadowSpellIndex());
+		if (IsInstanceValid(_tornadoHud))
+			_tornadoHud.Refresh((int)_tornadoVariant);
 	}
 
 	private void CreateAura()
@@ -1289,12 +1292,17 @@ public partial class Player : CharacterBody2D
 
 	public override void _ExitTree()
 	{
-		// SaveManager is an autoload that outlives this player.
+		// SaveManager and LocaleManager are autoloads that outlive this player: a handler left behind
+		// keeps calling into this freed player's HUD (ObjectDisposedException on its gold Label as soon
+		// as gold changes in the next scene).
 		if (SaveManager.Instance is not null)
 		{
 			SaveManager.Instance.ShadowUsesChanged -= UpdateSummonLabel;
 			SaveManager.Instance.EcosChanged -= OnEcosChanged;
+			SaveManager.Instance.GoldChanged -= UpdateGoldLabel;
 		}
+		if (LocaleManager.Instance is not null)
+			LocaleManager.Instance.LocaleChanged -= OnLocaleChanged;
 	}
 
 	// ── Bastón summons ──

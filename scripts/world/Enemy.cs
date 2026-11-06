@@ -195,8 +195,24 @@ public partial class Enemy : CharacterBody2D
 		if (_parryCount < ParriesToStun)
 			return;
 		_parryCount = 0;
-		Stun();
+		StunDeferred();
 		PlayStunSfx();
+	}
+
+	// Parries and poise breaks arrive from inside a hitbox's body_entered callback, where Godot
+	// refuses physics-state changes (Freeze disables processing and the attack hitbox). Stunning a
+	// frame later avoids "Disabling a CollisionObject node during a physics callback".
+	private void StunDeferred()
+	{
+		IsStunned = true;
+		Callable.From(() =>
+		{
+			// Killed by the same hit (Died already ended the stun): don't freeze a corpse.
+			if (IsInstanceValid(this) && IsInsideTree() && Stats.CurrentHealth > 0)
+				Stun();
+			else
+				IsStunned = false;
+		}).CallDeferred();
 	}
 
 	// Parry chain and poise break share it; a hollow (Robo de sombra) is a different beat and stays
@@ -224,7 +240,7 @@ public partial class Enemy : CharacterBody2D
 		_poise = MaxPoise;
 		_parryCount = 0;
 		_flinchTimer = 0f;
-		Stun();
+		StunDeferred();
 		PlayStunSfx();
 		return true;
 	}
