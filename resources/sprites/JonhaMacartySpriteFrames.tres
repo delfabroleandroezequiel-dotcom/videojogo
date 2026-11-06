@@ -1,0 +1,42 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Jonha/idle_0.png" id="j0"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Jonha/idle_1.png" id="j1"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Jonha/idle_2.png" id="j2"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Jonha/idle_3.png" id="j3"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Jonha/idle_4.png" id="j4"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Jonha/idle_5.png" id="j5"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Jonha/idle_6.png" id="j6"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Jonha/idle_7.png" id="j7"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": ExtResource("j0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("j1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("j2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("j3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("j4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("j5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("j6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("j7")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 7.0
+}]
