@@ -1829,11 +1829,20 @@ public partial class Player : CharacterBody2D
 	// Hands on the rungs: centred on a vertical ladder, hanging under a horizontal one (its rungs
 	// at hand height, the body below).
 	[Export] public float HorizontalLadderHangOffset = 26f;
+	// How far from a side-on ladder's centre the player climbs (its rungs reach toward him).
+	[Export] public float SideLadderStandOff = 10f;
 
 	private void SnapToLadder()
 	{
 		if (_ladder is null)
 			return;
+		if (_ladder.DeCostado)
+		{
+			// Beside the ladder, facing it, hands on its rungs.
+			_facingRight = _ladder.MiraDerecha;
+			GlobalPosition = new Vector2(_ladder.GlobalPosition.X - (_ladder.MiraDerecha ? 1f : -1f) * SideLadderStandOff, GlobalPosition.Y);
+			return;
+		}
 		GlobalPosition = _ladder.Horizontal
 			? new Vector2(GlobalPosition.X, _ladder.GlobalPosition.Y + HorizontalLadderHangOffset)
 			: new Vector2(_ladder.GlobalPosition.X, GlobalPosition.Y);
@@ -2331,7 +2340,8 @@ public partial class Player : CharacterBody2D
 				float climbInput = (Input.IsActionPressed("move_down") ? 1f : 0f) - (Input.IsActionPressed("move_up") ? 1f : 0f);
 				velocity.Y = climbInput * ClimbSpeed;
 
-				float climbDirection = Input.GetAxis("move_left", "move_right");
+				// A side-on ladder holds him to its face: no sideways drift, always facing it.
+				float climbDirection = _ladder is { DeCostado: true } ? 0f : Input.GetAxis("move_left", "move_right");
 				velocity.X = climbDirection * Speed * ClimbHorizontalSpeedMultiplier;
 				if (climbDirection != 0)
 					_facingRight = climbDirection > 0;
@@ -2964,15 +2974,18 @@ public partial class Player : CharacterBody2D
 			// keep the side-view ladder clip, frozen on its grip pose when not moving.
 			bool movingY = Mathf.Abs(Velocity.Y) > 0.01f;
 			bool movingX = Mathf.Abs(velocityX) > 0.01f;
-			string climbAnim = !_sprite.SpriteFrames.HasAnimation("climb_up") ? "ladder_climb"
+			// Side-on ladder: the pack's side-view climb (frozen on its grip pose when still, below).
+			string climbAnim = _ladder is { DeCostado: true } && _sprite.SpriteFrames.HasAnimation("trepar_costado") ? "trepar_costado"
+				: _ladder is { DeCostado: true } || !_sprite.SpriteFrames.HasAnimation("climb_up") ? "ladder_climb"
 				: movingY ? "climb_up"
 				: movingX ? "climb_side"
 				: "climb_idle";
 			if (_sprite.Animation != climbAnim)
 				_sprite.Play(climbAnim);
-			_sprite.SpeedScale = climbAnim != "ladder_climb" || movingX || movingY ? 1f : 0f;
+			bool freezesWhenStill = climbAnim is "ladder_climb" or "trepar_costado";
+			_sprite.SpeedScale = !freezesWhenStill || movingX || movingY ? 1f : 0f;
 			// Going down runs the climb backwards instead of climbing up in place.
-			if (climbAnim == "climb_up" && Velocity.Y > 0f)
+			if (climbAnim is "climb_up" or "trepar_costado" && Velocity.Y > 0f)
 				_sprite.SpeedScale = -1f;
 
 			_walkPhase += Mathf.Abs(Velocity.Y) * (float)delta * 0.3f;
