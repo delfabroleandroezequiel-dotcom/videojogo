@@ -50,6 +50,8 @@ public partial class BurningMap : Node
 	[Export] public Vector2 FireScale = new(1.7f, 1.7f);
 	// No set-dressing fire this close (in x) to where the player arrives and respawns.
 	[Export] public float FireClearance = 160f;
+	// Damage per tick of the ground fires (0 = set dressing only, as they were until 2026-11-06).
+	[Export] public int FireTickDamage = 4;
 	// Closed exits get a column of black smoke so the dead end reads from afar.
 	[Export] public bool SmokeOnClosedExits = true;
 
@@ -74,7 +76,63 @@ public partial class BurningMap : Node
 
 	static BurningMap() => Rng.Randomize();
 
-	public override void _Ready() => Callable.From(Setup).CallDeferred();
+	public override void _Ready()
+	{
+		AddToGroup(GroupName);
+		StartEscapeMusic();
+		Callable.From(Setup).CallDeferred();
+	}
+
+	// ── Escape music ──
+	// One track across the whole run (Llamas_BosqueLobos2 → BosqueLobos1 → Nix): the player lives
+	// under the root, not in a map, so walking between burning maps never restarts it. Each map's own
+	// music (Nix's calm theme, inherited) is silenced. It fades out once the new scene has no burning
+	// map — the burning house (Llamas_Casa1) keeps the cinematic's silence.
+	[Export] public AudioStream EscapeMusic;
+	[Export] public float EscapeMusicDb = -4f;
+	private const string GroupName = "burning_map";
+	private const string DefaultEscapeMusic = "res://assets/audio/Musica/Llamas/HuidaLlamas.mp3";
+	private static AudioStreamPlayer _escapePlayer;
+
+	private void StartEscapeMusic()
+	{
+		if (GetTree().CurrentScene?.GetNodeOrNull<AudioStreamPlayer>("Music") is { } mapMusic)
+			mapMusic.QueueFree();
+		Node sceneRoot = GetParent();
+		if (sceneRoot?.GetNodeOrNull<AudioStreamPlayer>("Music") is { } ownMusic)
+			ownMusic.QueueFree();
+
+		AudioStream stream = EscapeMusic ?? GD.Load<AudioStream>(DefaultEscapeMusic);
+		if (stream is null)
+			return;
+		if (IsInstanceValid(_escapePlayer) && _escapePlayer.Stream == stream)
+			return;
+		if (stream is AudioStreamMP3 mp3)
+			mp3.Loop = true;
+		// Deferred: when the game boots straight into this map the root is still adding its children
+		// and refuses add_child ("Parent node is busy setting up children"), so the music never started.
+		var player = new AudioStreamPlayer { Stream = stream, VolumeDb = -40f, Bus = "Master", ProcessMode = ProcessModeEnum.Always, Autoplay = true };
+		float targetDb = EscapeMusicDb;
+		player.TreeEntered += () => player.CreateTween().TweenProperty(player, "volume_db", targetDb, 1.5f);
+		_escapePlayer = player;
+		GetTree().Root.CallDeferred(Node.MethodName.AddChild, player);
+	}
+
+	public override void _ExitTree()
+	{
+		if (!IsInstanceValid(_escapePlayer))
+			return;
+		SceneTree tree = GetTree();
+		AudioStreamPlayer player = _escapePlayer;
+		tree.CreateTimer(0.4f).Timeout += () =>
+		{
+			if (!IsInstanceValid(player) || tree.GetNodesInGroup(GroupName).Count > 0)
+				return;
+			Tween fade = player.CreateTween();
+			fade.TweenProperty(player, "volume_db", -60f, 1.2f);
+			fade.TweenCallback(Callable.From(player.QueueFree));
+		};
+	}
 
 	private Node Map => GetParent();
 
@@ -208,7 +266,7 @@ public partial class BurningMap : Node
 			Vector2? ground = GroundBelow(world, new Vector2(x, top));
 			if (ground is null || FireScene.Instantiate() is not Node2D fire)
 				continue;
-			fire.Set("TickDamage", 0);
+			fire.Set("TickDamage", FireTickDamage);
 			fire.Set("HoldDuration", 99999f);
 			fire.Scale = FireScale * Rng.RandfRange(0.8f, 1.25f);
 			Map.AddChild(fire);

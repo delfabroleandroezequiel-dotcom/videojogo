@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/TavernGuest2.tscn" id="5_m7xmo"]
 [ext_resource type="PackedScene" uid="uid://d8tq20x6upcu" path="res://scenes/world/Npc.tscn" id="5_npc"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/TavernGuest3.tscn" id="6_bfv42"]
-[ext_resource type="SpriteFrames" uid="uid://cloak0rirad5q" path="res://assets/external/gandalfhardcore/npc/GoddessNpcSpriteFrames.tres" id="6_goddess_frames"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/OstigadaSpriteFrames.tres" id="6_goddess_frames"]
 [ext_resource type="Resource" uid="uid://beqplhalhp4r6" path="res://resources/camera/ClosedRoomCamera.tres" id="7_camera_profile"]
 [ext_resource type="SpriteFrames" uid="uid://bvkqlsyfqh51m" path="res://resources/sprites/TavernBartenderSpriteFrames.tres" id="8_isvp4"]
 [ext_resource type="Texture2D" uid="uid://bnxhpt62p5fd2" path="res://scenes/world/MesonOstigadobarra.png" id="9_o0uk4"]
