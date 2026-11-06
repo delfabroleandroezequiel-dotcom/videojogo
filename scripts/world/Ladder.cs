@@ -14,13 +14,17 @@ public partial class Ladder : Area2D
 	// Default matches Escalera.png; other ladder textures override it per scene.
 	[Export] public Rect2 TileSourceRect = new(438, 0, 164, 340);
 
+	// Lies along X instead of Y (Length is then its width): the player hangs at its height and
+	// shuffles sideways (climb_side) — a ladder laid across a wall or a gap. Down or jump lets go.
+	[Export] public bool Horizontal;
+
 	public override void _Ready()
 	{
 		var collision = GetNode<CollisionShape2D>("CollisionShape2D");
 		if (collision.Shape is RectangleShape2D shape)
 		{
 			var sizedShape = (RectangleShape2D)shape.Duplicate();
-			sizedShape.Size = new Vector2(Width, Length);
+			sizedShape.Size = Horizontal ? new Vector2(Length, Width) : new Vector2(Width, Length);
 			collision.Shape = sizedShape;
 		}
 
@@ -39,6 +43,9 @@ public partial class Ladder : Area2D
 		float tileHeight = TileSourceRect.Size.Y * scale;
 		int tileCount = Mathf.Max(1, Mathf.CeilToInt(Length / tileHeight));
 		float startY = -Length * 0.5f;
+		// The same vertical strip, turned on its side for a horizontal ladder.
+		var strip = new Node2D { Name = "Visual", Rotation = Horizontal ? Mathf.Pi / 2f : 0f };
+		AddChild(strip);
 
 		for (int i = 0; i < tileCount; i++)
 		{
@@ -56,7 +63,7 @@ public partial class Ladder : Area2D
 				Scale = new Vector2(scale, scale),
 				Position = new Vector2(-VisualWidth * 0.5f, startY + i * tileHeight),
 			};
-			AddChild(sprite);
+			strip.AddChild(sprite);
 		}
 	}
 

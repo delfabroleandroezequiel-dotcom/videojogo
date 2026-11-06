@@ -1826,6 +1826,19 @@ public partial class Player : CharacterBody2D
 		return true;
 	}
 
+	// Hands on the rungs: centred on a vertical ladder, hanging under a horizontal one (its rungs
+	// at hand height, the body below).
+	[Export] public float HorizontalLadderHangOffset = 26f;
+
+	private void SnapToLadder()
+	{
+		if (_ladder is null)
+			return;
+		GlobalPosition = _ladder.Horizontal
+			? new Vector2(GlobalPosition.X, _ladder.GlobalPosition.Y + HorizontalLadderHangOffset)
+			: new Vector2(_ladder.GlobalPosition.X, GlobalPosition.Y);
+	}
+
 	public void EnterLadder(Ladder ladder)
 	{
 		_ladder = ladder;
@@ -2268,7 +2281,7 @@ public partial class Player : CharacterBody2D
 			_latchLadderOnSpawnTimer = 0f;
 			_isClimbing = true;
 			velocity = Vector2.Zero;
-			GlobalPosition = new Vector2(_ladder.GlobalPosition.X, GlobalPosition.Y);
+			SnapToLadder();
 		}
 
 		if (_ladder != null)
@@ -2279,7 +2292,7 @@ public partial class Player : CharacterBody2D
 			if (!_isClimbing && _ladderGrabLockout <= 0f && Input.IsActionPressed("move_up"))
 			{
 				_isClimbing = true;
-				GlobalPosition = new Vector2(_ladder.GlobalPosition.X, GlobalPosition.Y);
+				SnapToLadder();
 			}
 		}
 		else
@@ -2293,6 +2306,25 @@ public partial class Player : CharacterBody2D
 			{
 				// Hold position on the rungs while swinging.
 				velocity = Vector2.Zero;
+			}
+			else if (_ladder is { Horizontal: true })
+			{
+				// Hanging from a horizontal ladder: only sideways; down lets go.
+				velocity.Y = 0f;
+				float side = Input.GetAxis("move_left", "move_right");
+				velocity.X = side * Speed * ClimbHorizontalSpeedMultiplier;
+				if (side != 0)
+					_facingRight = side > 0;
+				if (Input.IsActionJustPressed("move_down"))
+				{
+					_isClimbing = false;
+					_ladderGrabLockout = LadderJumpLockoutDuration;
+				}
+				else if (_attackBufferTimer > 0f && !_attacking && _sprite.SpriteFrames.HasAnimation("ladder_attack"))
+				{
+					_attackBufferTimer = 0f;
+					LadderAttack();
+				}
 			}
 			else
 			{
