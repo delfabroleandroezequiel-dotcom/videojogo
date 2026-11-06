@@ -1,0 +1,210 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/attack_0.png" id="1_bauso"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/attack_1.png" id="2_s51h8"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/attack_2.png" id="3_neeiy"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/attack_3.png" id="4_14xdg"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/attack_4.png" id="5_f8i0i"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/attack_5.png" id="6_3oijr"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/attack_6.png" id="7_gn1fl"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/attack_7.png" id="8_fy2lt"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/attack_8.png" id="9_c4ku4"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/death_0.png" id="10_0rmto"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/death_1.png" id="11_cecwe"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/death_2.png" id="12_4ygt3"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/death_3.png" id="13_g6dpu"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/death_4.png" id="14_gvowk"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/death_5.png" id="15_7wbja"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/death_6.png" id="16_7nujn"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/death_7.png" id="17_kemvk"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/death_8.png" id="18_uo8i2"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/hurt_0.png" id="19_as3bj"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/hurt_1.png" id="20_s1ew4"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/hurt_2.png" id="21_ssq58"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/hurt_3.png" id="22_e50ko"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/hurt_4.png" id="23_nyini"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/idle_0.png" id="24_glbey"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/idle_1.png" id="25_iwpel"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/idle_2.png" id="26_wrpme"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/idle_3.png" id="27_ib5oi"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/idle_4.png" id="28_p1qxj"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/walk_0.png" id="29_x804m"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/walk_1.png" id="30_ttjoq"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/walk_2.png" id="31_aeb8f"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/walk_3.png" id="32_1ubwa"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/walk_4.png" id="33_18t0r"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/walk_5.png" id="34_4ctt2"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/walk_6.png" id="35_ef022"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/walk_7.png" id="36_m60iw"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/EnterbillEscudero/walk_8.png" id="37_0yvc6"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_bauso")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_s51h8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_neeiy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_14xdg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_f8i0i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_3oijr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_gn1fl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_fy2lt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_c4ku4")
+}],
+"loop": 0,
+"name": &"attack",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_0rmto")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_cecwe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_4ygt3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_g6dpu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_gvowk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_7wbja")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_7nujn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_kemvk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_uo8i2")
+}],
+"loop": 0,
+"name": &"death",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_as3bj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_s1ew4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_ssq58")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_e50ko")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_nyini")
+}],
+"loop": 0,
+"name": &"hurt",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("24_glbey")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_iwpel")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_wrpme")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_ib5oi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_p1qxj")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("29_x804m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_ttjoq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_aeb8f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_1ubwa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_18t0r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_4ctt2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_ef022")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_m60iw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_0yvc6")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("29_x804m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_ttjoq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_aeb8f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_1ubwa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_18t0r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_4ctt2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_ef022")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_m60iw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_0yvc6")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 10.0
+}]

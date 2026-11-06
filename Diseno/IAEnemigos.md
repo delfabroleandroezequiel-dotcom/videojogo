@@ -29,6 +29,8 @@ Documento vivo con todo lo que hace falta para diseñar o tocar la IA de un enem
 | `EnemyCombatCoordinator` | `scripts/world/EnemyCombatCoordinator.cs` | Cupo de atacantes simultáneos: `TryAcquireAttackSlot` / `ReleaseAttackSlot` (si no hay cupo, esperar). |
 | Parry → stun | `Enemy.RegisterParried` | Con `ParriesToStun` parries (un parry perfecto cuenta 2) se aturde `StunDuration`, y se lo puede ejecutar. |
 | Poise | `Enemy.TakePoiseDamage` | Postura que se rompe con golpes; el flinch solo aplica a `MeleeEnemy`, el resto tiene hiperarmadura. |
+| `GuerreroReino` | `scripts/world/GuerreroReino.cs` | Base abstracta de los guerreros de Enterbill y Radem (subclase de `MeleeEnemy`). No tiene movimientos propios: cada soldado define `Kit()`. Aporta el ciclo del ataque (cupo, cooldown + `ExtraCooldown`, corte limpio si lo aturden, ejecutan o estremecen) y `Wait()`, que devuelve `false` en esos casos. También `Strike(anim, desde, hasta, cuadroGolpe, alcance, tamaño, ...)` (el hitbox se prende solo en el cuadro dibujado, con forma propia por instancia), `Telegraph`, `Lunge`, la estela en el color del reino, `ShieldUp` + `FrontShieldDefense` (escudo frontal) y las voces "Alerta" (al verte) y "Ataque". |
+| `ProyectilArqueado` | `scripts/world/ProyectilArqueado.cs` | Proyectil con gravedad, sin sprite (asta `Line2D` y punta `Polygon2D`): se clava donde falla y, con `GroundFireScene`, deja fuego. Lo usan la jabalina y la flecha incendiaria. |
 | `GroundSlamFx` | `scripts/world/GroundSlamFx.cs` | `Impact`, `Chip`, `EarthSpikes`, `WarningCrack`, `BeginFissure`, con paleta (`BandidoCorpulento.Palette` = roca). |
 | Estela neón tipo dash | `Metroidvania.Player.NeonSilhouette` | Silueta aditiva de un cuadro (afterimages), igual que el dash del protagonista. |
 | Velo berserk | `Metroidvania.Player.BerserkerVeil` | Pantalla roja que late; se agrega a la escena y `Release()` lo quita. |
@@ -66,6 +68,22 @@ Documento vivo con todo lo que hace falta para diseñar o tocar la IA de un enem
   - A distancia te salta encima (salto apuntado con anticipación) y, en berserk, usa el leap.
   - En rango elige por puntaje entre tajo y torbellino.
 - **Fases de Arthur:** Intro → Calentamiento (pasivo) → En serio (rugido, IA completa) → Berserk (velo rojo, temblor enorme, salto con martillazo, leap con lanzamiento de maza y picada, tercer golpe por arriba).
+
+### Guerreros de Enterbill y Radem (`Guerrero*.cs`, sobre `GuerreroReino`)
+- **Lecturas usadas:**
+  - `IsBlockingToward`: sostener el amague (Lancero, Ballestero, Capitán) o empujar con el escudo (Escudero).
+  - `WhiffedParryToward`: castigo rápido (Escudero, Capitán, Campeón).
+  - `IsRolling`/`IsDashing`: el Caballero espera a que termine tu esquive.
+  - `Dash.SinceDashEnded`: las Cimitarras entran al salir de tu dash.
+  - `Whiff.JustWhiffed`: el puñetazo del Maza.
+  - Velocidad del jugador: Jabalinero y Arquero apuntan adonde vas a estar; el Arquero tira fuego si te quedás quieto.
+- **Pipeline de arte:**
+  - Diseño con `create_image_pro_flash` a 64x64, centrado en un lienzo de 96x80 (sobra lugar para las armas largas).
+  - Animaciones con `animate_image_pixminimax` (1 generación cada una; da mejores tajos que `animate_image`).
+  - `tools/guerreros_spriteframes.gd` arma los SpriteFrames y mide el alcance por cuadro.
+  - **Ojo:** la descarga de un job **todavía en proceso** devuelve una imagen igual; esperá `wait_for_jobs` antes de bajarla.
+- **Posición del sprite:** `y = 34 - 40 * escala` (los pies quedan al fondo del lienzo de 80).
+- **Prueba:** un script headless por guerrero (jugador real con 100000 de vida) verifica que detecte, se mueva, ataque, pegue, hable, se estremezca (con un golpe de postura chico; uno grande aturde) y muera. También se probaron la orden del Capitán con aliados y la carga del corredor.
 
 ### Otros con IA propia, para consultar
 - **Bandido5:** salto y explosiones con `GroundSlamFx`.

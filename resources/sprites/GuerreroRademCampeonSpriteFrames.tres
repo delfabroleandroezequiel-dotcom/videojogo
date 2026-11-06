@@ -1,0 +1,267 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack_0.png" id="1_hnwk3"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack_1.png" id="2_lim2c"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack_2.png" id="3_7rpyn"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack_3.png" id="4_cqli0"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack_4.png" id="5_f1vwp"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack_5.png" id="6_xkj5w"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack_6.png" id="7_4rbdr"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack_7.png" id="8_mr60s"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack_8.png" id="9_pwqo6"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack_9.png" id="10_l8me6"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack_10.png" id="11_n2dh4"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack_11.png" id="12_gow0q"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack_12.png" id="13_qjwmv"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack2_0.png" id="14_liddp"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack2_1.png" id="15_srgnk"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack2_2.png" id="16_h44qw"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack2_3.png" id="17_r87ua"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack2_4.png" id="18_25ai2"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack2_5.png" id="19_vlsmi"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack2_6.png" id="20_mdh3m"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack2_7.png" id="21_6ohgi"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/attack2_8.png" id="22_mew5r"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/death_0.png" id="23_v7tfq"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/death_1.png" id="24_3hrxr"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/death_2.png" id="25_igrab"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/death_3.png" id="26_dgkrn"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/death_4.png" id="27_uckhl"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/death_5.png" id="28_yho5l"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/death_6.png" id="29_e6ryr"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/death_7.png" id="30_tvyjj"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/death_8.png" id="31_rtw2t"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/hurt_0.png" id="32_pci3l"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/hurt_1.png" id="33_o1qaa"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/hurt_2.png" id="34_o0604"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/hurt_3.png" id="35_1dpuq"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/hurt_4.png" id="36_8n638"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/idle_0.png" id="37_oehcv"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/idle_1.png" id="38_uu82h"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/idle_2.png" id="39_pqf4m"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/idle_3.png" id="40_20y1b"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/idle_4.png" id="41_b5rba"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/walk_0.png" id="42_ij8p4"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/walk_1.png" id="43_ycm6g"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/walk_2.png" id="44_f35md"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/walk_3.png" id="45_sojkh"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/walk_4.png" id="46_xyj2k"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/walk_5.png" id="47_1nvc8"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/walk_6.png" id="48_ujisu"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/walk_7.png" id="49_tdyt0"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademCampeon/walk_8.png" id="50_vcn3h"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hnwk3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_lim2c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7rpyn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_cqli0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_f1vwp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_xkj5w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_4rbdr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_mr60s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_pwqo6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_l8me6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_n2dh4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_gow0q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_qjwmv")
+}],
+"loop": 0,
+"name": &"attack",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_liddp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_srgnk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_h44qw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_r87ua")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_25ai2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_vlsmi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_mdh3m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_6ohgi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_mew5r")
+}],
+"loop": 0,
+"name": &"attack2",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("23_v7tfq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_3hrxr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_igrab")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_dgkrn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_uckhl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_yho5l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_e6ryr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_tvyjj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_rtw2t")
+}],
+"loop": 0,
+"name": &"death",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("32_pci3l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_o1qaa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_o0604")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_1dpuq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_8n638")
+}],
+"loop": 0,
+"name": &"hurt",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("37_oehcv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_uu82h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_pqf4m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_20y1b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_b5rba")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("42_ij8p4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_ycm6g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_f35md")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_sojkh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_xyj2k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_1nvc8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_ujisu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_tdyt0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_vcn3h")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("42_ij8p4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_ycm6g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_f35md")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_sojkh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_xyj2k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_1nvc8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_ujisu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_tdyt0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_vcn3h")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 10.0
+}]

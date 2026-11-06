@@ -1,0 +1,226 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/attack_0.png" id="1_j375s"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/attack_1.png" id="2_r8w3w"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/attack_2.png" id="3_gejh2"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/attack_3.png" id="4_hox6e"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/attack_4.png" id="5_hm2ur"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/attack_5.png" id="6_xw23l"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/attack_6.png" id="7_raljy"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/attack_7.png" id="8_u6xoi"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/attack_8.png" id="9_bcvrl"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/attack_9.png" id="10_xx71n"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/attack_10.png" id="11_eoneo"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/attack_11.png" id="12_qjg6x"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/attack_12.png" id="13_eg87c"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/death_0.png" id="14_n7ah3"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/death_1.png" id="15_3vg55"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/death_2.png" id="16_ui2d4"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/death_3.png" id="17_wlyym"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/death_4.png" id="18_oiff8"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/death_5.png" id="19_wht4w"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/death_6.png" id="20_elu3i"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/death_7.png" id="21_wsa44"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/death_8.png" id="22_v2pdp"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/hurt_0.png" id="23_dcrxa"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/hurt_1.png" id="24_xjgim"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/hurt_2.png" id="25_gw7j4"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/hurt_3.png" id="26_qgyk8"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/hurt_4.png" id="27_6lh42"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/idle_0.png" id="28_1kui0"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/idle_1.png" id="29_xldb0"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/idle_2.png" id="30_abx50"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/idle_3.png" id="31_mdywm"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/idle_4.png" id="32_vn4pe"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/walk_0.png" id="33_jp6qy"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/walk_1.png" id="34_6jjc2"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/walk_2.png" id="35_w1gay"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/walk_3.png" id="36_x8uo0"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/walk_4.png" id="37_cjdaq"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/walk_5.png" id="38_eo1ha"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/walk_6.png" id="39_wuqgm"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/walk_7.png" id="40_t4iv5"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Guerreros/RademMangual/walk_8.png" id="41_rwc7i"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_j375s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_r8w3w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_gejh2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_hox6e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_hm2ur")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_xw23l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_raljy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_u6xoi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_bcvrl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_xx71n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_eoneo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_qjg6x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_eg87c")
+}],
+"loop": 0,
+"name": &"attack",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_n7ah3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_3vg55")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_ui2d4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_wlyym")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_oiff8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_wht4w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_elu3i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_wsa44")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_v2pdp")
+}],
+"loop": 0,
+"name": &"death",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("23_dcrxa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_xjgim")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_gw7j4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_qgyk8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_6lh42")
+}],
+"loop": 0,
+"name": &"hurt",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("28_1kui0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_xldb0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_abx50")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_mdywm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_vn4pe")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("33_jp6qy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_6jjc2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_w1gay")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_x8uo0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_cjdaq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_eo1ha")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_wuqgm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_t4iv5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_rwc7i")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("33_jp6qy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_6jjc2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_w1gay")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_x8uo0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_cjdaq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_eo1ha")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_wuqgm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_t4iv5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_rwc7i")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 10.0
+}]

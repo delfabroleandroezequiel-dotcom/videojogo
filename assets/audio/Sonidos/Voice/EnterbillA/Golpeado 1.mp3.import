@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://lmfosswjga8n"
+path="res://.godot/imported/Golpeado 1.mp3-8a3021f5b3eb6aa3fd04598398e19971.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/EnterbillA/Golpeado 1.mp3"
+dest_files=["res://.godot/imported/Golpeado 1.mp3-8a3021f5b3eb6aa3fd04598398e19971.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
