@@ -93,6 +93,7 @@
 [ext_resource type="SpriteFrames" path="res://resources/sprites/NixTomoJuegoSpriteFrames.tres" id="pob_tomo"]
 [ext_resource type="Texture2D" uid="uid://b21ubcwf4tahu" path="res://assets/sprites/deco/pixellab/nix/TroncoCarnicero.png" id="pob_TroncoCarnicero"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/TobiasSpriteFrames.tres" id="tobias_frames"]
+[ext_resource type="Script" path="res://scripts/world/VozAmbiente.cs" id="voz_amb_ninos"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn06r"]
 size = Vector2(67, 11.360123)
@@ -15902,3 +15903,13 @@ CustomSpriteFrames = ExtResource("pob_halvar")
 CustomSpriteYOffset = 2.0
 CustomSpriteScale = Vector2(1.158, 1.158)
 CollisionSize = Vector2(30, 64)
+
+[node name="CharlaNinos" type="Node2D" parent="."]
+position = Vector2(4808, 400)
+script = ExtResource("voz_amb_ninos")
+LineKeys = PackedStringArray("AMB_NINOS_A1", "AMB_NINOS_A2", "AMB_NINOS_A3", "AMB_NINOS_A4", "-", "AMB_NINOS_B1", "AMB_NINOS_B2", "AMB_NINOS_B3", "AMB_NINOS_B4")
+Speakers = Array[NodePath]([NodePath("../NpcPip"), NodePath("../NpcTomo"), NodePath("../NpcPip"), NodePath("../NpcTomo"), NodePath(""), NodePath("../NpcTomo"), NodePath("../NpcPip"), NodePath("../NpcTomo"), NodePath("../NpcPip")])
+MinInterval = 7.0
+MaxInterval = 14.0
+HearDistance = 650.0
+SubtitleHeight = 70.0

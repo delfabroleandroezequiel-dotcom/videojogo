@@ -286,7 +286,7 @@ UI_SHOP_NO_GOLD,No te alcanza el oro,Not enough gold,Ouro insuficiente
 UI_SHOP_SOLD_OUT,No queda más,Sold out,Esgotado
 UI_SHOP_SOLD_OUT_TAG,Agotado,Sold out,Esgotado
 UI_SHOP_ALREADY_OWNED,Ya lo tenés,You already have it,Você já tem
-NPC_MERCADER_NAME,Mercader,Merchant,Mercador
+NPC_MERCADER_NAME,Jonha Macarty,Jonha Macarty,Jonha Macarty
 NPC_MERCADER_L1,"Llaves, chucherías, cosas que no vas a encontrar en otro lado. Mirá tranquilo.","Keys, trinkets, things you won't find anywhere else. Take your time.","Chaves, bugigangas, coisas que você não vai achar em outro lugar. Fique à vontade."
 UI_CLONE_BASIC,"Básico","Basic","Básico"
 UI_CLONE_DECOY,"Señuelo","Decoy","Isca"
@@ -459,3 +459,11 @@ AMB_BANDIDOS_1,Rápido. Lo que pese poco y valga mucho.,Quick. Whatever weighs l
 AMB_BANDIDOS_2,Esta caja no abre.,This box won't open.,Esta caixa não abre.
 AMB_BANDIDOS_3,Callaos. Algo se mueve en el bosque.,Quiet. Something's moving in the forest.,Quietos. Algo se mexe na floresta.
 AMB_BANDIDOS_4,"Si nos alcanzan los de arriba, no hará falta ninguna caja.","If the ones up north catch us, no box will matter.","Se os lá de cima nos alcançarem, nenhuma caixa vai importar."
+AMB_NINOS_A1,"¡Ríndete, Aragost! ¡La espada del rey no perdona!","Surrender, Aragost! The king's sword shows no mercy!","Renda-se, Aragost! A espada do rei não perdoa!"
+AMB_NINOS_A2,¡Aragost no se rinde nunca! ¡Grrr!,Aragost never surrenders! Grrr!,Aragost nunca se rende! Grrr!
+AMB_NINOS_A3,"¡Eso no vale, me pegaste en los dedos!","That's not fair, you hit my fingers!","Isso não vale, você acertou meus dedos!"
+AMB_NINOS_A4,Los reyes de verdad no lloran.,Real kings don't cry.,Reis de verdade não choram.
+AMB_NINOS_B1,Ahora yo soy Rhodas.,Now I'm Rhodas.,Agora eu sou o Rhodas.
+AMB_NINOS_B2,"No, tú eres el malo. Siempre eres el malo.","No, you're the bad guy. You're always the bad guy.","Não, você é o vilão. Você é sempre o vilão."
+AMB_NINOS_B3,"¿Y qué fue a buscar Rhodas a Arkal, eh? ¡Ni sabes!","And what did Rhodas go looking for in Arkal, huh? You don't even know!","E o que o Rhodas foi buscar em Arkal, hein? Você nem sabe!"
+AMB_NINOS_B4,¡Un tesoro! ...Creo.,Treasure! ...I think.,Um tesouro! ...Acho.
