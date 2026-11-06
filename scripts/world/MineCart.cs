@@ -75,6 +75,9 @@ public partial class MineCart : AnimatableBody2D
 	private Node2D _visual;
 	private Node2D _tilt;
 	private readonly List<Node2D> _wheels = new();
+	private const string CartArtPath = "res://assets/sprites/deco/pixellab/mina/Vagoneta.png";
+	// Centre of the lantern's lit pixels in Vagoneta.png.
+	private static readonly Vector2 CartLampPixel = new(85.6f, 12.1f);
 	private Sprite2D _lampGlow;
 	private PointLight2D _lampLight;
 	private CpuParticles2D _sparks;
@@ -322,37 +325,21 @@ public partial class MineCart : AnimatableBody2D
 		_tilt = new Node2D { Name = "Inclinacion" };
 		_visual.AddChild(_tilt);
 
-		var iron = new Color(0.27f, 0.25f, 0.27f);
-		var rust = new Color(0.45f, 0.24f, 0.13f);
-		float w = Width / 2f;
-		float top = -DeckHeight;
-		// Tub: wider at the top, like a real mine car.
-		_tilt.AddChild(new Polygon2D
+		// PixelLab mine cart (Vagoneta.png, wheels and lantern drawn in), scaled to Width and standing
+		// with its wheels on the rail (y = 0). The player rides inside the tub: the deck collision sits
+		// below the rim on purpose.
+		var art = GD.Load<Texture2D>(CartArtPath);
+		float k = Width / art.GetWidth();
+		_tilt.AddChild(new Sprite2D
 		{
-			Polygon = new[] { new Vector2(-w, top), new Vector2(w, top), new Vector2(w - 8f, -8f), new Vector2(-w + 8f, -8f) },
-			Color = iron,
+			Texture = art,
+			TextureFilter = TextureFilterEnum.Nearest,
+			Scale = new Vector2(k, k),
+			Position = new Vector2(0f, -art.GetHeight() * k / 2f),
 		});
-		_tilt.AddChild(new Polygon2D
-		{
-			Polygon = new[] { new Vector2(-w + 4f, top + 5f), new Vector2(w - 4f, top + 5f), new Vector2(w - 9f, -12f), new Vector2(-w + 9f, -12f) },
-			Color = rust,
-		});
-		_tilt.AddChild(new Line2D { Points = new[] { new Vector2(-w - 2f, top), new Vector2(w + 2f, top) }, Width = 3f, DefaultColor = iron.Lightened(0.35f) });
-		foreach (float x in new[] { -w * 0.4f, 0f, w * 0.4f })
-			_tilt.AddChild(new Line2D { Points = new[] { new Vector2(x, top + 3f), new Vector2(x * 0.9f, -9f) }, Width = 2f, DefaultColor = iron.Darkened(0.3f) });
 
-		foreach (float x in new[] { -w + 16f, w - 16f })
-		{
-			var wheel = new Node2D { Position = new Vector2(x, -6f) };
-			wheel.AddChild(new Polygon2D { Polygon = Circle(6f, 10), Color = new Color(0.15f, 0.15f, 0.17f) });
-			wheel.AddChild(new Line2D { Points = new[] { new Vector2(-5f, 0f), new Vector2(5f, 0f) }, Width = 1.5f, DefaultColor = new Color(0.5f, 0.5f, 0.55f) });
-			_tilt.AddChild(wheel);
-			_wheels.Add(wheel);
-		}
-
-		// Lamp on a post: the "it's about to move" tell (blinks while boarding) and a light for dark mines.
-		var lampPos = new Vector2(w - 6f, top - 14f);
-		_tilt.AddChild(new Line2D { Points = new[] { new Vector2(w - 6f, top), lampPos }, Width = 2f, DefaultColor = iron });
+		// The "it's about to move" tell (blinks while boarding) and a light for dark mines, on the art's lantern.
+		var lampPos = (CartLampPixel - new Vector2(art.GetWidth() / 2f, art.GetHeight())) * k;
 		_lampGlow = new Sprite2D { Texture = Dot, Material = Additive, Position = lampPos, Scale = Vector2.One * 0.14f, Modulate = new Color(1f, 0.7f, 0.3f) };
 		_tilt.AddChild(_lampGlow);
 		if (!Engine.IsEditorHint())
@@ -368,7 +355,7 @@ public partial class MineCart : AnimatableBody2D
 				Lifetime = 0.35f,
 				Position = new Vector2(0f, -2f),
 				EmissionShape = CpuParticles2D.EmissionShapeEnum.Rectangle,
-				EmissionRectExtents = new Vector2(w - 12f, 1f),
+				EmissionRectExtents = new Vector2(Width / 2f - 12f, 1f),
 				Direction = new Vector2(-1f, -0.6f),
 				Spread = 30f,
 				InitialVelocityMin = 60f,

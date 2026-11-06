@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BandidoDagas.tscn" id="6_rdc61"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido5Garrote.tscn" id="7_0l50a"]
 [ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="8_arfct"]
+[ext_resource type="Texture2D" uid="uid://i8eotbkn68bn" path="res://assets/sprites/deco/pixellab/mina/EscalaSoga.png" id="escala_soga"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Chest.tscn" id="9_42dj6"]
 [ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="10_ftmls"]
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="11_70y7s"]
@@ -302,6 +303,7 @@ position = Vector2(1250, 560)
 [node name="Objetos" type="Node2D" parent="." unique_id=1563691813]
 
 [node name="EscaleraVuelta" parent="Objetos" unique_id=1601643818 instance=ExtResource("8_arfct")]
+LadderTexture = ExtResource("escala_soga")
 position = Vector2(345, 300)
 Length = 600.0
 

@@ -45,7 +45,12 @@ public partial class ExplosiveBarrel : StaticBody2D
 	private State _state = State.Idle;
 	private float _fallSpeed;
 	private Node2D _visual;
-	private Polygon2D _hazardBand;
+	private Sprite2D _barrelSprite;
+	private const string BarrelArtPath = "res://assets/sprites/deco/pixellab/mina/BarrilExplosivo.png";
+	// Measured on BarrilExplosivo.png (47x49): barrel body rows and the fuse's top.
+	private const float BarrelBodyTopPx = 14f;
+	private const float BarrelBodyBottomPx = 47f;
+	private static readonly Vector2 BarrelFuseTipPx = new(30f, 1f);
 	private Node2D _fuseSpark;
 	private CpuParticles2D _fuseParticles;
 
@@ -84,8 +89,8 @@ public partial class ExplosiveBarrel : StaticBody2D
 
 		// Swells and flashes faster and faster until it goes.
 		Tween flash = CreateTween().SetLoops();
-		flash.TweenProperty(_hazardBand, "color", new Color(1f, 0.85f, 0.4f), 0.06f);
-		flash.TweenProperty(_hazardBand, "color", new Color(0.75f, 0.12f, 0.08f), 0.06f);
+		flash.TweenProperty(_barrelSprite, "modulate", new Color(2.2f, 1.7f, 1.1f), 0.06f);
+		flash.TweenProperty(_barrelSprite, "modulate", Colors.White, 0.06f);
 		Tween swell = CreateTween();
 		swell.TweenProperty(_visual, "scale", new Vector2(1.08f, 1.05f), fuse).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.In);
 		Tween shake = CreateTween().SetLoops();
@@ -197,62 +202,21 @@ public partial class ExplosiveBarrel : StaticBody2D
 		_visual = new Node2D { Name = "Visual" };
 		AddChild(_visual);
 
-		Color wood = _woodColor;
-		Color dark = wood.Darkened(0.45f);
-		Color light = wood.Lightened(0.22f);
-		var iron = new Color(0.22f, 0.22f, 0.25f, 1f);
-
-		// Body: a slightly bulging barrel silhouette.
-		var outline = new System.Collections.Generic.List<Vector2>();
-		const int steps = 10;
-		for (int i = 0; i <= steps; i++)
+		// PixelLab powder keg (BarrilExplosivo.png: red band, skull, fuse), scaled so its body is H
+		// tall and standing with the body's bottom on y = 0 (the loose powder grains spill just below).
+		var art = GD.Load<Texture2D>(BarrelArtPath);
+		float k = H / (BarrelBodyBottomPx - BarrelBodyTopPx);
+		_barrelSprite = new Sprite2D
 		{
-			float t = i / (float)steps;
-			float bulge = Mathf.Sin(t * Mathf.Pi) * 3f;
-			outline.Add(new Vector2(-W / 2f + 2f - bulge, -t * H));
-		}
-		for (int i = steps; i >= 0; i--)
-		{
-			float t = i / (float)steps;
-			float bulge = Mathf.Sin(t * Mathf.Pi) * 3f;
-			outline.Add(new Vector2(W / 2f - 2f + bulge, -t * H));
-		}
-		_visual.AddChild(new Polygon2D { Polygon = outline.ToArray(), Color = wood });
-
-		// Staves: vertical seams following the bulge, outer ones shaded.
-		for (int s = -2; s <= 2; s++)
-		{
-			float x = s * 5.2f;
-			var seam = new Vector2[steps + 1];
-			for (int i = 0; i <= steps; i++)
-			{
-				float t = i / (float)steps;
-				seam[i] = new Vector2(x * (1f + Mathf.Sin(t * Mathf.Pi) * 0.18f), -t * H);
-			}
-			_visual.AddChild(new Line2D { Points = seam, Width = 1f, DefaultColor = dark with { A = 0.8f } });
-		}
-		_visual.AddChild(new Polygon2D { Polygon = new[] { new Vector2(-W / 2f - 1f, 0f), new Vector2(-W / 2f + 5f, 0f), new Vector2(-W / 2f + 4f, -H), new Vector2(-W / 2f + 2f, -H) }, Color = dark with { A = 0.55f } });
-		_visual.AddChild(new Line2D { Points = new[] { new Vector2(W / 2f - 6f, -4f), new Vector2(W / 2f - 5f, -H / 2f), new Vector2(W / 2f - 6f, -H + 4f) }, Width = 2f, DefaultColor = light with { A = 0.55f } });
-
-		// Iron hoops top and bottom, and the red hazard band in the middle (flashes when lit).
-		foreach (float y in new[] { -4f, -H + 4f })
-			_visual.AddChild(new Line2D { Points = new[] { new Vector2(-W / 2f + 1f, y), new Vector2(W / 2f - 1f, y) }, Width = 3f, DefaultColor = iron });
-		float bandY = -H / 2f;
-		_hazardBand = new Polygon2D
-		{
-			Polygon = new[] { new Vector2(-W / 2f - 0.5f, bandY - 4f), new Vector2(W / 2f + 0.5f, bandY - 4f), new Vector2(W / 2f + 0.5f, bandY + 4f), new Vector2(-W / 2f - 0.5f, bandY + 4f) },
-			Color = new Color(0.75f, 0.12f, 0.08f),
+			Texture = art,
+			TextureFilter = TextureFilterEnum.Nearest,
+			Scale = new Vector2(k, k),
+			Position = new Vector2(0f, (art.GetHeight() / 2f - BarrelBodyBottomPx) * k),
 		};
-		_visual.AddChild(_hazardBand);
-		// Painted skull-ish warning mark: a pale diamond on the band.
-		_visual.AddChild(new Polygon2D { Polygon = new[] { new Vector2(0f, bandY - 3.5f), new Vector2(3.5f, bandY), new Vector2(0f, bandY + 3.5f), new Vector2(-3.5f, bandY) }, Color = new Color(0.95f, 0.88f, 0.7f) });
+		_visual.AddChild(_barrelSprite);
+		Vector2 fuseTip = (BarrelFuseTipPx - new Vector2(art.GetWidth() / 2f, BarrelBodyBottomPx)) * k;
 
-		// Lid and the fuse sticking out of the bung.
-		_visual.AddChild(new Polygon2D { Polygon = Ellipse(W / 2f - 2f, 2.5f, new Vector2(0f, -H), 12), Color = light.Darkened(0.1f) });
-		var fusePoints = new[] { new Vector2(4f, -H - 1f), new Vector2(6f, -H - 6f), new Vector2(9f, -H - 9f) };
-		_visual.AddChild(new Line2D { Points = fusePoints, Width = 1.5f, DefaultColor = new Color(0.2f, 0.18f, 0.15f) });
-
-		_fuseSpark = new Node2D { Name = "FuseSpark", Position = fusePoints[^1], Visible = false };
+		_fuseSpark = new Node2D { Name = "FuseSpark", Position = fuseTip, Visible = false };
 		_fuseSpark.AddChild(new Sprite2D { Texture = Dot, Material = Additive, Scale = Vector2.One * 0.1f, Modulate = new Color(1f, 0.75f, 0.3f) });
 		_fuseSpark.AddChild(new PointLight2D { Texture = Dot, TextureScale = 0.9f, Energy = 0.9f, Color = new Color(1f, 0.6f, 0.25f) });
 		_fuseParticles = new CpuParticles2D

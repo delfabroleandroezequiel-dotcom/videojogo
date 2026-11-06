@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/RataPlaga.tscn" id="5_igh6m"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/MurcielagoChico.tscn" id="6_ajtup"]
 [ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="7_ejs54"]
+[ext_resource type="Texture2D" uid="uid://i8eotbkn68bn" path="res://assets/sprites/deco/pixellab/mina/EscalaSoga.png" id="escala_soga"]
 [ext_resource type="PackedScene" path="res://scenes/world/Lever.tscn" id="8_sdkjw"]
 [ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="9_dfeu8"]
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="10_ssvae"]
@@ -376,6 +377,7 @@ position = Vector2(1930, 40)
 [node name="Objetos" type="Node2D" parent="." unique_id=372048390]
 
 [node name="EscaleraChimenea" parent="Objetos" unique_id=1022354926 instance=ExtResource("7_ejs54")]
+LadderTexture = ExtResource("escala_soga")
 position = Vector2(1720, -90)
 Length = 620.0
 

@@ -1,4 +1,5 @@
 using Godot;
+using Metroidvania.Shared;
 
 namespace Metroidvania.World;
 
@@ -16,8 +17,15 @@ public partial class Lever : Area2D
 
 	[Signal] public delegate void ActivatedEventHandler();
 
+	// The two handle positions (PixelLab art, one the mirror of the other). Each pull flips between
+	// them — "in/out" — so a repeatable lever reads as thrown back and forth; a SingleUse one stays thrown.
+	[Export] public Texture2D OffTexture;
+	[Export] public Texture2D OnTexture;
+
 	private Elevator _elevator;
 	private Polygon2D _handle;
+	private Sprite2D _sprite;
+	private bool _thrown;
 	private Label _interactPrompt;
 	private bool _playerInRange;
 	private bool _activated;
@@ -28,6 +36,7 @@ public partial class Lever : Area2D
 			_elevator = GetNode<Elevator>(ElevatorPath);
 
 		_handle = GetNodeOrNull<Polygon2D>("Handle");
+		_sprite = GetNodeOrNull<Sprite2D>("Sprite");
 		_interactPrompt = GetNode<Label>("InteractPrompt");
 		_interactPrompt.Visible = false;
 
@@ -50,8 +59,14 @@ public partial class Lever : Area2D
 	private void Activate()
 	{
 		_activated = true;
+		_thrown = SingleUse || !_thrown;
 		if (_handle is not null)
-			_handle.RotationDegrees = -40f;
+			_handle.RotationDegrees = _thrown ? -40f : 0f;
+		if (_sprite is not null && OffTexture is not null && OnTexture is not null)
+		{
+			_sprite.Texture = _thrown ? OnTexture : OffTexture;
+			Sfx.PlayIfExistsAt(this, "World/Doors", "Chest Close");
+		}
 
 		if (_elevator is not null)
 		{

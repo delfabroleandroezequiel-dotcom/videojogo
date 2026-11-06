@@ -50,7 +50,7 @@ public partial class LooseMineCart : Node2D
 	// Draw the rail? Off when it shares a rail already drawn by another cart.
 	[Export] public bool DrawRail = true;
 
-	private const float W = 52f;
+	private const float W = 58f; // = VagonetaSuelta.png width (was 52 with the old polygon cart)
 	private const float H = 34f;
 
 	private enum State { Waiting, Warning, Rolling, Gone }
@@ -245,22 +245,16 @@ public partial class LooseMineCart : Node2D
 		AddChild(_cart);
 		_tilt = new Node2D();
 		_cart.AddChild(_tilt);
-		var iron = new Color(0.25f, 0.23f, 0.25f);
 		float w = W / 2f;
-		_tilt.AddChild(new Polygon2D
+		// PixelLab ore-loaded cart (VagonetaSuelta.png) at 1:1 — the art is W wide and its tub is H
+		// tall, the ore heaped over the rim — wheels on the rail (y = 0).
+		var art = GD.Load<Texture2D>("res://assets/sprites/deco/pixellab/mina/VagonetaSuelta.png");
+		_tilt.AddChild(new Sprite2D
 		{
-			Polygon = new[] { new Vector2(-w, -H), new Vector2(w, -H), new Vector2(w - 6f, -7f), new Vector2(-w + 6f, -7f) },
-			Color = iron,
+			Texture = art,
+			TextureFilter = TextureFilterEnum.Nearest,
+			Position = new Vector2(0f, -art.GetHeight() / 2f),
 		});
-		// Ore heaped over the rim.
-		_tilt.AddChild(new Polygon2D
-		{
-			Polygon = new[] { new Vector2(-w + 3f, -H), new Vector2(-w + 12f, -H - 7f), new Vector2(-2f, -H - 10f), new Vector2(10f, -H - 6f), new Vector2(w - 3f, -H) },
-			Color = new Color(0.45f, 0.4f, 0.36f),
-		});
-		_tilt.AddChild(new Line2D { Points = new[] { new Vector2(-w - 2f, -H), new Vector2(w + 2f, -H) }, Width = 3f, DefaultColor = new Color(0.5f, 0.3f, 0.18f) });
-		foreach (float x in new[] { -w + 11f, w - 11f })
-			_tilt.AddChild(new Polygon2D { Polygon = Circle(5.5f, 10, new Vector2(x, -5f)), Color = new Color(0.13f, 0.13f, 0.15f) });
 		_lamp = new Sprite2D { Texture = Dot, Material = Additive, Position = new Vector2(-w + 4f, -H + 6f), Scale = Vector2.One * 0.1f, Modulate = new Color(0.4f, 0.05f, 0.05f) };
 		_tilt.AddChild(_lamp);
 	}

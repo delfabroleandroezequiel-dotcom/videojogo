@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ladder_main"]
 
 [ext_resource type="Script" path="res://scripts/world/Ladder.cs" id="1_script"]
-[ext_resource type="Texture2D" path="res://assets/sprites/deco/escalera.png" id="2_texture"]
+[ext_resource type="Texture2D" uid="uid://5km5c25fdlex" path="res://assets/sprites/deco/pixellab/mina/EscaleraMadera.png" id="2_texture"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ladder"]
 size = Vector2(20, 128)
@@ -11,7 +11,8 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_script")
 LadderTexture = ExtResource("2_texture")
-TileSourceRect = Rect2(433, 256, 160, 1088)
+TileSourceRect = Rect2(0, 0, 28, 51)
+VisualWidth = 34.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ladder")
