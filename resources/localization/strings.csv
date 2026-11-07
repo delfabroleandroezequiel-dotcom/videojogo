@@ -484,3 +484,5 @@ CIN_ESPADA_13,"Esta vez, no te quedes mirando.","This time, don't just stand the
 MINA_ZONA_NOMBRE,La Mina,The Mine,A Mina
 MINA_ITEM_GUANTES_NAME,Guantes de minero,Miner's Gloves,Luvas de mineiro
 MINA_ITEM_GUANTES_DESC,"Cuero curtido con resina. Con ellos podés agarrarte de las cuerdas colgantes y balancearte.","Resin-tanned leather. With them you can grab hanging ropes and swing from them.","Couro curtido com resina. Com elas você pode agarrar cordas penduradas e se balançar."
+PENSAR_SOGA_SIN_GUANTES_1,"Si me cuelgo sin guantes, me voy a resbalar.","If I grab that rope bare-handed, I'll just slip off.","Se eu me pendurar sem luvas, vou escorregar."
+PENSAR_SOGA_SIN_GUANTES_2,"Esta cuerda me pelaría las manos... Necesito algo para agarrarla bien.","This rope would tear my hands raw... I need something to grip it with.","Essa corda ia esfolar minhas mãos... Preciso de algo pra segurar firme."

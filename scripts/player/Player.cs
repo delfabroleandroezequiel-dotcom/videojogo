@@ -1527,6 +1527,28 @@ public partial class Player : CharacterBody2D
 		if (chance >= 1f || GD.Randf() < chance)
 			Sfx.PlayIfExistsAt(this, VoiceCategory, key);
 	}
+
+	// Self-talk when the player tries a traversal they don't have yet, so a locked mechanic reads as
+	// "not yet" instead of a bug (e.g. jumping at a rope two hundred times without the gloves). Each
+	// array holds translation keys, spoken in rotation (voice from Voces/<locale>/<KEY>.mp3 + a
+	// floating subtitle). ThoughtCooldown keeps it from nagging on every touch.
+	[Export] public string[] MissingRopeSwingThoughts = { "PENSAR_SOGA_SIN_GUANTES_1", "PENSAR_SOGA_SIN_GUANTES_2" };
+	[Export] public float ThoughtCooldown = 8f;
+	[Export] public float ThoughtHeight = 95f;
+	private float _thoughtCooldownTimer;
+	private int _thoughtIndex;
+
+	public void SayThought(string[] keys)
+	{
+		if (keys == null || keys.Length == 0 || _thoughtCooldownTimer > 0f || Sfx.IsVoicePlaying)
+			return;
+		string key = keys[_thoughtIndex++ % keys.Length];
+		AudioStream stream = Sfx.LoadVoice(key);
+		float length = stream is null ? 2.5f : (float)stream.GetLength();
+		Sfx.PlayVoice(this, key, this);
+		FloatingSubtitle.Show(this, key, length, ThoughtHeight);
+		_thoughtCooldownTimer = ThoughtCooldown + length;
+	}
 	private bool _poisonTinted;
 
 	// Mini-cinematic lock (e.g. a boss waking up and roaring): no input, idle pose, gravity still
@@ -2468,6 +2490,8 @@ public partial class Player : CharacterBody2D
 			_rope = _ropeInZone;
 			_isSwinging = true;
 		}
+		else if (!_isSwinging && _ropeInZone != null && !IsOnFloor() && !_abilities.Has(PlayerAbilities.RopeSwing))
+			SayThought(MissingRopeSwingThoughts);
 
 		if (_isSwinging)
 		{
@@ -2505,6 +2529,8 @@ public partial class Player : CharacterBody2D
 
 		if (_ledgeGrabLockout > 0f)
 			_ledgeGrabLockout -= (float)delta;
+		if (_thoughtCooldownTimer > 0f)
+			_thoughtCooldownTimer -= (float)delta;
 
 		if (_isLedgeClimbing)
 		{

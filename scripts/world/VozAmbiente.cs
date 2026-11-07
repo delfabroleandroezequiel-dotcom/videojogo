@@ -144,53 +144,8 @@ public partial class VozAmbiente : Node2D
 			player.Play();
 		}
 		if (ShowSubtitles)
-			ShowSubtitle(speaker, LineKeys[index], length);
+			FloatingSubtitle.Show(speaker, LineKeys[index], length, SubtitleHeight);
 
 		await ToSignal(GetTree().CreateTimer(length), SceneTreeTimer.SignalName.Timeout);
-	}
-
-	// Small outlined line over the speaker's head, fading in and out with the clip. It lives in the
-	// scene (not under the speaker) so a scaled or mirrored speaker doesn't stretch or flip the text,
-	// and follows the speaker each frame. SubtitleHeight is measured from the speaker's origin.
-	private void ShowSubtitle(Node2D speaker, string key, float length)
-	{
-		if (GetTree().CurrentScene is not Node scene)
-			return;
-		var label = new Label
-		{
-			Text = TranslationServer.Translate(key),
-			HorizontalAlignment = HorizontalAlignment.Center,
-			AutowrapMode = TextServer.AutowrapMode.WordSmart,
-			CustomMinimumSize = new Vector2(260f, 0f),
-			Size = new Vector2(260f, 0f),
-			Modulate = new Color(1f, 1f, 1f, 0f),
-			ZIndex = 20,
-			AutoTranslateMode = AutoTranslateModeEnum.Disabled,
-		};
-		label.AddThemeFontSizeOverride("font_size", 11);
-		label.AddThemeColorOverride("font_color", new Color(0.95f, 0.9f, 0.78f));
-		label.AddThemeColorOverride("font_outline_color", new Color(0f, 0f, 0f, 0.9f));
-		label.AddThemeConstantOverride("outline_size", 4);
-		label.GrowVertical = Control.GrowDirection.Begin;
-		scene.AddChild(label);
-		void Follow()
-		{
-			if (IsInstanceValid(speaker) && IsInstanceValid(label))
-				label.GlobalPosition = speaker.GlobalPosition + new Vector2(-130f, -SubtitleHeight);
-		}
-		Follow();
-		Callable follow = Callable.From(Follow);
-		GetTree().Connect(SceneTree.SignalName.ProcessFrame, follow);
-		label.TreeExiting += () =>
-		{
-			if (GetTree() is SceneTree tree && tree.IsConnected(SceneTree.SignalName.ProcessFrame, follow))
-				tree.Disconnect(SceneTree.SignalName.ProcessFrame, follow);
-		};
-
-		Tween tween = label.CreateTween();
-		tween.TweenProperty(label, "modulate:a", 1f, 0.2f);
-		tween.TweenInterval(Mathf.Max(0.4f, length - 0.2f));
-		tween.TweenProperty(label, "modulate:a", 0f, 0.4f);
-		tween.TweenCallback(Callable.From(label.QueueFree));
 	}
 }
