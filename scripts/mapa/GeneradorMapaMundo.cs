@@ -43,15 +43,21 @@ public partial class GeneradorMapaMundo : RefCounted
 		var config = ResourceLoader.Load<MapaMundoConfig>(rutaConfig) ?? new MapaMundoConfig();
 		var mapa = new MapaMundo();
 		var colocadas = new Dictionary<string, SalaMapa>();
-		var pendientesRegion = new Queue<string>(config.Raices);
+		// Each pending region remembers where it was reached from (null for config roots), so once it's
+		// laid out it can be moved into the one shared world next to that door or edge.
+		var pendientesRegion = new Queue<(string escena, SalaMapa desde, Salida salida)>(
+			config.Raices.Select(r => (r, (SalaMapa)null, (Salida)null)));
 
 		while (pendientesRegion.Count > 0)
 		{
-			string raiz = pendientesRegion.Dequeue();
+			(string raiz, SalaMapa desde, Salida entrada) = pendientesRegion.Dequeue();
 			if (colocadas.ContainsKey(raiz) || Excluida(config, raiz) || Leer(raiz) is not Sala salaRaiz)
 				continue;
 			string region = RegionDe(raiz);
+			if (mapa.Salas.Any(s => s.Region == region))
+				region += "_" + System.IO.Path.GetFileNameWithoutExtension(raiz); // same folder, unlinked part
 			var cola = new Queue<string>();
+			int primera = mapa.Salas.Count;
 			Colocar(mapa, colocadas, config, salaRaiz, region, Ajuste(config, raiz));
 			cola.Enqueue(raiz);
 
@@ -75,7 +81,7 @@ public partial class GeneradorMapaMundo : RefCounted
 					{
 						am.Puertas = am.Puertas.Append(am.Origen + salida.Pos).ToArray();
 						if (!colocadas.ContainsKey(destino))
-							pendientesRegion.Enqueue(destino);
+							pendientesRegion.Enqueue((destino, am, salida));
 						continue;
 					}
 
@@ -91,6 +97,8 @@ public partial class GeneradorMapaMundo : RefCounted
 					cola.Enqueue(destino);
 				}
 			}
+
+			UbicarEnElMundo(mapa, primera, salaRaiz, region, desde, entrada, config);
 		}
 
 		ReportarSolapes(mapa);
@@ -136,6 +144,75 @@ public partial class GeneradorMapaMundo : RefCounted
 		if (min == aba)
 			return new Vector2(p.X - salida.Spawn.X, ra.End.Y - rb.Position.Y);
 		return new Vector2(p.X - salida.Spawn.X, ra.Position.Y - rb.End.Y);
+	}
+
+	// Moves a just-built region (rooms from index `primera` on, still in its own coordinates) into the
+	// shared world. Through a door its entry spawn lands on the door (a cave right under its mouth);
+	// walking across a folder edge, it sits against that edge like any neighbour. If that spot is
+	// taken by another region, it slides away — down first (zones behind doors tend to go down),
+	// then sideways, then up — to the nearest free place. A one-room region behind a door (a house,
+	// the church) is an interior: not drawn, only its door, where the player's marker goes.
+	private void UbicarEnElMundo(MapaMundo mapa, int primera, Sala raiz, string region, SalaMapa desde,
+		Salida entrada, MapaMundoConfig config)
+	{
+		List<SalaMapa> nuevas = mapa.Salas.Skip(primera).ToList();
+		if (desde == null)
+			return; // a config root keeps its own coordinates
+
+		SalaMapa salaRaiz = nuevas[0];
+		Vector2 puerta = desde.Origen + entrada.Pos;
+		if (entrada.Interactuar && nuevas.Count == 1)
+		{
+			salaRaiz.Interior = true;
+			salaRaiz.PuertaMundo = puerta;
+			Desplazar(salaRaiz, puerta - (salaRaiz.Origen + entrada.Spawn));
+			return;
+		}
+
+		Vector2 base_ = entrada.Interactuar
+			? puerta - (salaRaiz.Origen + entrada.Spawn)
+			: PosicionContigua(desde, entrada, raiz) - salaRaiz.Origen;
+		var ocupadas = mapa.Salas.Take(primera).Where(s => !s.Interior).Select(s => s.Rect).ToList();
+
+		Vector2 elegido = base_;
+		const float paso = 160f;
+		for (int k = 0; k <= 400; k++)
+		{
+			Vector2[] intentos = k == 0
+				? new[] { Vector2.Zero }
+				: new[] { new Vector2(0f, k), new Vector2(k, 0f), new Vector2(-k, 0f), new Vector2(0f, -k) };
+			bool libre = false;
+			foreach (Vector2 dir in intentos)
+			{
+				Vector2 prueba = base_ + dir * paso;
+				if (nuevas.All(s => ocupadas.All(o => !SePisan(new Rect2(s.Rect.Position + prueba, s.Rect.Size), o))))
+				{
+					elegido = prueba;
+					libre = true;
+					break;
+				}
+			}
+			if (libre)
+				break;
+		}
+		if (elegido != base_)
+			_reporte.AppendLine($"MOVIDA    región {region}: corrida {(elegido - base_).Round()} px de su entrada para no pisar otra zona");
+		foreach (SalaMapa s in nuevas)
+			Desplazar(s, elegido);
+	}
+
+	private static bool SePisan(Rect2 a, Rect2 b)
+	{
+		Rect2 inter = a.Intersection(b);
+		return inter.Size.X > 32f && inter.Size.Y > 32f;
+	}
+
+	private static void Desplazar(SalaMapa s, Vector2 d)
+	{
+		s.Origen += d;
+		s.Rect = new Rect2(s.Rect.Position + d, s.Rect.Size);
+		s.Hogueras = s.Hogueras.Select(h => h + d).ToArray();
+		s.Puertas = s.Puertas.Select(p => p + d).ToArray();
 	}
 
 	private void ReportarSolapes(MapaMundo mapa)

@@ -17,4 +17,8 @@ public partial class SalaMapa : Resource
 	[Export] public Vector2[] Hogueras = System.Array.Empty<Vector2>();
 	// Region coordinates of "interact" exits (doors, cave mouths) leading to another region.
 	[Export] public Vector2[] Puertas = System.Array.Empty<Vector2>();
+	// A one-room place behind a door (house, church): not drawn on the map; while inside, the
+	// player's marker sits on its door (PuertaMundo) in the room outside.
+	[Export] public bool Interior;
+	[Export] public Vector2 PuertaMundo;
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Metroidvania.Mapa;
 using Metroidvania.Save;
@@ -20,7 +21,7 @@ public partial class MapaPanel : Control
 	[Export] public float Margen = 70f;
 	// Zoom range relative to "whole region fits the screen" (1).
 	[Export] public float ZoomMinimo = 0.5f;
-	[Export] public float ZoomMaximo = 12f;
+	[Export] public float ZoomMaximo = 60f;
 	// Per wheel notch / per second held (keys, triggers).
 	[Export] public float PasoZoomRueda = 1.15f;
 	[Export] public float ZoomPorSegundo = 2.5f;
@@ -40,6 +41,8 @@ public partial class MapaPanel : Control
 	private SalaMapa _actual;
 	private Vector2 _jugador;
 	private Rect2 _total;
+	private Rect2 _regionActual;
+	private readonly Dictionary<string, Rect2> _regiones = new();
 	// View state, in region (world) coordinates: the point shown at the screen centre, and the zoom
 	// on top of the fit-to-screen scale.
 	private Vector2 _centroVista;
@@ -81,8 +84,10 @@ public partial class MapaPanel : Control
 	{
 		_mapa ??= ResourceLoader.Exists(RutaMapa) ? ResourceLoader.Load<MapaMundo>(RutaMapa) : null;
 		Refrescar();
-		_zoom = 1f;
-		_centroVista = _total.GetCenter();
+		// Opens framed on the region you're in; zoom out (down to the whole visited world at 1x
+		// and below) to see where it sits among the others.
+		_zoom = Mathf.Clamp(EscalaPara(_regionActual) / Mathf.Max(0.000001f, EscalaPara(_total)), ZoomMinimo, ZoomMaximo);
+		_centroVista = _regionActual.GetCenter();
 		Visible = true;
 	}
 
@@ -117,20 +122,30 @@ public partial class MapaPanel : Control
 		}
 		_aviso.Visible = false;
 
+		// The whole world you've walked: every visited room of every region (interiors aside).
 		SaveManager save = SaveManager.Instance;
 		foreach (SalaMapa sala in _mapa.Salas)
-			if (sala.Region == _actual.Region && (sala == _actual || save == null || save.IsSceneVisited(sala.Escena)))
+			if (!sala.Interior && (sala == _actual || save == null || save.IsSceneVisited(sala.Escena)))
 				_visibles.Add(sala);
 
-		_total = _visibles[0].Rect;
-		foreach (SalaMapa s in _visibles)
-			_total = _total.Merge(s.Rect);
-
-		string claveRegion = "MAPA_REGION_" + _actual.Region.ToUpperInvariant();
-		string nombre = TranslationServer.Translate(claveRegion);
-		_titulo.Text = nombre == claveRegion ? _actual.Region : nombre;
-
 		_jugador = GetTree().GetFirstNodeInGroup("player") is Node2D p ? _actual.Origen + p.GlobalPosition : _actual.Rect.GetCenter();
+		if (_actual.Interior)
+			_jugador = _actual.PuertaMundo;
+
+		_total = new Rect2(_jugador, Vector2.Zero);
+		_regionActual = new Rect2(_jugador, Vector2.Zero);
+		_regiones.Clear();
+		foreach (SalaMapa s in _visibles)
+		{
+			_total = _total.Merge(s.Rect);
+			_regiones[s.Region] = _regiones.TryGetValue(s.Region, out Rect2 r) ? r.Merge(s.Rect) : s.Rect;
+		}
+		// Inside a house, "your region" is the one around its door.
+		SalaMapa fuera = _actual.Interior ? _visibles.FirstOrDefault(s => s.Rect.HasPoint(_jugador)) : _actual;
+		if (fuera != null && _regiones.TryGetValue(fuera.Region, out Rect2 propia))
+			_regionActual = propia;
+
+		_titulo.Text = NombreRegion(fuera?.Region ?? _actual.Region);
 		QueueRedraw();
 	}
 
@@ -138,14 +153,28 @@ public partial class MapaPanel : Control
 
 	// Scale at zoom 1: the whole visited region fits the area left between title and footer. Capped
 	// so a lone small room doesn't fill the screen.
-	private float EscalaBase()
+	private float EscalaPara(Rect2 r)
 	{
 		Vector2 area = Size - new Vector2(Margen * 2f, Margen * 2f + 40f);
-		float s = Mathf.Min(area.X / Mathf.Max(1f, _total.Size.X), area.Y / Mathf.Max(1f, _total.Size.Y));
+		float s = Mathf.Min(area.X / Mathf.Max(1f, r.Size.X), area.Y / Mathf.Max(1f, r.Size.Y));
 		return Mathf.Min(s, 0.12f);
 	}
 
-	private float Escala => EscalaBase() * _zoom;
+	private float Escala => EscalaPara(_total) * _zoom;
+
+	private static string NombreRegion(string region)
+	{
+		string clave = "MAPA_REGION_" + region.ToUpperInvariant();
+		string nombre = TranslationServer.Translate(clave);
+		return nombre == clave ? region : nombre;
+	}
+
+	// A steady, distinct tint per region (hue from its name) so zones read apart on one map.
+	private Color TonoRegion(string region, Color baseColor)
+	{
+		float hue = (Mathf.PosMod(region.GetHashCode(), 997) / 997f);
+		return baseColor.Lerp(Color.FromHsv(hue, 0.45f, baseColor.V + 0.15f, baseColor.A), 0.35f);
+	}
 	private Vector2 CentroPantalla => Size / 2f + new Vector2(0f, 10f);
 	private Vector2 APantalla(Vector2 mundo) => CentroPantalla + (mundo - _centroVista) * Escala;
 	private Vector2 AMundo(Vector2 pantalla) => _centroVista + (pantalla - CentroPantalla) / Escala;
@@ -240,9 +269,23 @@ public partial class MapaPanel : Control
 		foreach (SalaMapa s in _visibles)
 		{
 			Rect2 r = APantalla(s.Rect);
-			DrawRect(r, s == _actual ? ColorSalaActual : ColorSala);
-			DrawRect(r, ColorBorde, false, 2f);
+			DrawRect(r, s == _actual ? ColorSalaActual : TonoRegion(s.Region, ColorSala));
+			DrawRect(r, ColorBorde, false, Mathf.Clamp(escala * 15f, 1f, 2f));
 		}
+
+		// Region names over their rooms (only once the region is big enough on screen to label).
+		Font fuente = ThemeDB.FallbackFont;
+		foreach ((string region, Rect2 rr) in _regiones)
+		{
+			Rect2 r = APantalla(rr);
+			if (r.Size.X < 60f)
+				continue;
+			string nombre = NombreRegion(region);
+			Vector2 medida = fuente.GetStringSize(nombre, HorizontalAlignment.Left, -1, 14);
+			Vector2 pos = new(r.GetCenter().X - medida.X / 2f, r.Position.Y - 8f);
+			DrawString(fuente, pos, nombre, HorizontalAlignment.Left, -1, 14, new Color(1f, 1f, 1f, 0.75f));
+		}
+
 		// Icons grow a little with zoom, but stay readable when zoomed out.
 		float icono = Mathf.Clamp(escala * 40f, 4f, 9f);
 		foreach (SalaMapa s in _visibles)
