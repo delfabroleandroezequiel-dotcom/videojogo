@@ -44,6 +44,10 @@ public partial class CeilingCollapse : Node2D
 	[Export] public float Knockback = 360f;
 	[Export] public string PersistenceId = "";
 	[Export] public int Seed = 3;
+	// Pixel art for the rotten beam and the rubble slab (PixelLab, mine kit). The opaque part of each
+	// texture is fitted to the beam span / to Width x RubbleHeight. Null = the old procedural look.
+	[Export] public Texture2D BeamTexture = GD.Load<Texture2D>("res://assets/sprites/deco/pixellab/mina/VigaPodrida.png");
+	[Export] public Texture2D RubbleTexture = GD.Load<Texture2D>("res://assets/sprites/deco/pixellab/mina/Escombro.png");
 
 	private enum State { Armed, Warning, Falling, Landed }
 
@@ -196,7 +200,15 @@ public partial class CeilingCollapse : Node2D
 	{
 		var wood = new Color(0.38f, 0.25f, 0.14f);
 		// The rotten crossbeam spanning the stretch, with a crack that glows during the warning.
-		AddChild(new Line2D { Points = new[] { new Vector2(-_width / 2f - 10f, 6f), new Vector2(_width / 2f + 10f, 6f) }, Width = 10f, DefaultColor = wood });
+		if (BeamTexture is not null)
+		{
+			Sprite2D beam = FittedSprite(BeamTexture, _width + 20f, 0f);
+			beam.Position = new Vector2(0f, 6f);
+			beam.ZIndex = 1; // in front of the slab it's holding up
+			AddChild(beam);
+		}
+		else
+			AddChild(new Line2D { Points = new[] { new Vector2(-_width / 2f - 10f, 6f), new Vector2(_width / 2f + 10f, 6f) }, Width = 10f, DefaultColor = wood });
 		_beamCrack = new Line2D
 		{
 			Points = new[] { new Vector2(-14f, 2f), new Vector2(-4f, 8f), new Vector2(3f, 3f), new Vector2(12f, 9f) },
@@ -228,6 +240,13 @@ public partial class CeilingCollapse : Node2D
 	private Node2D BuildSlab()
 	{
 		var slab = new Node2D { Name = "Losa" };
+		if (RubbleTexture is not null)
+		{
+			Sprite2D rubble = FittedSprite(RubbleTexture, _width, RubbleHeight);
+			rubble.Position = new Vector2(0f, RubbleHeight / 2f);
+			slab.AddChild(rubble);
+			return slab;
+		}
 		var rng = new RandomNumberGenerator { Seed = (ulong)Seed };
 		// Irregular top edge, flat bottom, filled with a darker base and a few chunk outlines.
 		var pts = new System.Collections.Generic.List<Vector2> { new(-_width / 2f, RubbleHeight) };
@@ -249,6 +268,25 @@ public partial class CeilingCollapse : Node2D
 			slab.AddChild(new Polygon2D { Polygon = rock, Color = new Color(0.5f, 0.46f, 0.42f) });
 		}
 		return slab;
+	}
+
+	// Centred sprite showing only the texture's opaque area, scaled to `width` wide and `height` tall
+	// (height 0 = keep the art's proportions).
+	private static Sprite2D FittedSprite(Texture2D texture, float width, float height)
+	{
+		Rect2I used = texture.GetImage().GetUsedRect();
+		if (used.Size.X == 0)
+			used = new Rect2I(Vector2I.Zero, (Vector2I)texture.GetSize());
+		float sx = width / used.Size.X;
+		float sy = height > 0f ? height / used.Size.Y : sx;
+		return new Sprite2D
+		{
+			Texture = texture,
+			RegionEnabled = true,
+			RegionRect = used,
+			Scale = new Vector2(sx, sy),
+			TextureFilter = TextureFilterEnum.Nearest,
+		};
 	}
 
 	public override void _Draw()

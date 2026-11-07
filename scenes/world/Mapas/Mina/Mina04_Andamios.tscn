@@ -1,6 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bfo8dd3w87yif"]
 
-[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="1_hlcyk"]
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_hlcyk"]
 [ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_mmcpw"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MuroCargado.tscn" id="3_rytx7"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/DerrumbeTecho.tscn" id="4_ndysa"]
@@ -8,10 +8,11 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BandidoDagas.tscn" id="6_rdc61"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido5Garrote.tscn" id="7_0l50a"]
 [ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="8_arfct"]
-[ext_resource type="Texture2D" uid="uid://i8eotbkn68bn" path="res://assets/sprites/deco/pixellab/mina/EscalaSoga.png" id="escala_soga"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Chest.tscn" id="9_42dj6"]
-[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="10_ftmls"]
-[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="11_70y7s"]
+[ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="10_ftmls"]
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="11_70y7s"]
+[ext_resource type="Texture2D" uid="uid://i8eotbkn68bn" path="res://assets/sprites/deco/pixellab/mina/EscalaSoga.png" id="escala_soga"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/AndamioMina.tscn" id="andamio_mina"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsxbt"]
 size = Vector2(2440, 20)
@@ -39,18 +40,6 @@ size = Vector2(700, 210)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_otast"]
 size = Vector2(700, 390)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_khcuy"]
-size = Vector2(240, 12)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bp4ic"]
-size = Vector2(260, 12)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hvjt7"]
-size = Vector2(240, 12)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hba0g"]
-size = Vector2(180, 12)
 
 [node name="Mina04_Andamios" type="Node2D" unique_id=1363883823]
 script = ExtResource("1_hlcyk")
@@ -107,29 +96,6 @@ shape = SubResource("RectangleShape2D_4t6a2")
 position = Vector2(2070, -45)
 shape = SubResource("RectangleShape2D_otast")
 
-[node name="PlataformasOneWay" type="StaticBody2D" parent="." unique_id=72319153]
-collision_layer = 49
-
-[node name="Andamio7" type="CollisionShape2D" parent="PlataformasOneWay" unique_id=1322268898]
-position = Vector2(520, 126)
-shape = SubResource("RectangleShape2D_khcuy")
-one_way_collision = true
-
-[node name="Andamio10" type="CollisionShape2D" parent="PlataformasOneWay" unique_id=874179502]
-position = Vector2(830, 246)
-shape = SubResource("RectangleShape2D_bp4ic")
-one_way_collision = true
-
-[node name="Andamio13" type="CollisionShape2D" parent="PlataformasOneWay" unique_id=1706584147]
-position = Vector2(1140, 366)
-shape = SubResource("RectangleShape2D_hvjt7")
-one_way_collision = true
-
-[node name="Andamio16" type="CollisionShape2D" parent="PlataformasOneWay" unique_id=787651346]
-position = Vector2(1390, 476)
-shape = SubResource("RectangleShape2D_hba0g")
-one_way_collision = true
-
 [node name="Visible" type="Node2D" parent="." unique_id=1963075066]
 z_index = -5
 
@@ -172,90 +138,6 @@ offset_right = 1720.0
 offset_bottom = 640.0
 color = Color(0.4, 0.36, 0.33, 1)
 
-[node name="Andamio7" type="ColorRect" parent="Visible" unique_id=765622962]
-offset_left = 400.0
-offset_top = 120.0
-offset_right = 640.0
-offset_bottom = 132.0
-color = Color(0.46, 0.31, 0.17, 1)
-
-[node name="AndamioPata8" type="ColorRect" parent="Visible" unique_id=879996176]
-offset_left = 408.0
-offset_top = 132.0
-offset_right = 412.0
-offset_bottom = 192.0
-color = Color(0.299, 0.2015, 0.1105, 1)
-
-[node name="AndamioPata9" type="ColorRect" parent="Visible" unique_id=1226867384]
-offset_left = 628.0
-offset_top = 132.0
-offset_right = 632.0
-offset_bottom = 192.0
-color = Color(0.299, 0.2015, 0.1105, 1)
-
-[node name="Andamio10" type="ColorRect" parent="Visible" unique_id=414158046]
-offset_left = 700.0
-offset_top = 240.0
-offset_right = 960.0
-offset_bottom = 252.0
-color = Color(0.46, 0.31, 0.17, 1)
-
-[node name="AndamioPata11" type="ColorRect" parent="Visible" unique_id=617093842]
-offset_left = 708.0
-offset_top = 252.0
-offset_right = 712.0
-offset_bottom = 312.0
-color = Color(0.299, 0.2015, 0.1105, 1)
-
-[node name="AndamioPata12" type="ColorRect" parent="Visible" unique_id=840629228]
-offset_left = 948.0
-offset_top = 252.0
-offset_right = 952.0
-offset_bottom = 312.0
-color = Color(0.299, 0.2015, 0.1105, 1)
-
-[node name="Andamio13" type="ColorRect" parent="Visible" unique_id=2118507063]
-offset_left = 1020.0
-offset_top = 360.0
-offset_right = 1260.0
-offset_bottom = 372.0
-color = Color(0.46, 0.31, 0.17, 1)
-
-[node name="AndamioPata14" type="ColorRect" parent="Visible" unique_id=910748918]
-offset_left = 1028.0
-offset_top = 372.0
-offset_right = 1032.0
-offset_bottom = 432.0
-color = Color(0.299, 0.2015, 0.1105, 1)
-
-[node name="AndamioPata15" type="ColorRect" parent="Visible" unique_id=1307150044]
-offset_left = 1248.0
-offset_top = 372.0
-offset_right = 1252.0
-offset_bottom = 432.0
-color = Color(0.299, 0.2015, 0.1105, 1)
-
-[node name="Andamio16" type="ColorRect" parent="Visible" unique_id=224505830]
-offset_left = 1300.0
-offset_top = 470.0
-offset_right = 1480.0
-offset_bottom = 482.0
-color = Color(0.46, 0.31, 0.17, 1)
-
-[node name="AndamioPata17" type="ColorRect" parent="Visible" unique_id=946683226]
-offset_left = 1308.0
-offset_top = 482.0
-offset_right = 1312.0
-offset_bottom = 542.0
-color = Color(0.299, 0.2015, 0.1105, 1)
-
-[node name="AndamioPata18" type="ColorRect" parent="Visible" unique_id=862791745]
-offset_left = 1468.0
-offset_top = 482.0
-offset_right = 1472.0
-offset_bottom = 542.0
-color = Color(0.299, 0.2015, 0.1105, 1)
-
 [node name="TechoTunel19" type="ColorRect" parent="Visible" unique_id=1422878715]
 offset_left = 1500.0
 offset_top = -240.0
@@ -276,6 +158,29 @@ offset_top = -240.0
 offset_right = 2420.0
 offset_bottom = 150.0
 color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="Andamios" type="Node2D" parent="."]
+z_index = -4
+
+[node name="AndamioMina1" parent="Andamios" instance=ExtResource("andamio_mina")]
+position = Vector2(520, 120)
+Width = 240.0
+LegHeight = 72.0
+
+[node name="AndamioMina2" parent="Andamios" instance=ExtResource("andamio_mina")]
+position = Vector2(830, 240)
+Width = 260.0
+LegHeight = 72.0
+
+[node name="AndamioMina3" parent="Andamios" instance=ExtResource("andamio_mina")]
+position = Vector2(1140, 360)
+Width = 240.0
+LegHeight = 72.0
+
+[node name="AndamioMina4" parent="Andamios" instance=ExtResource("andamio_mina")]
+position = Vector2(1390, 470)
+Width = 180.0
+LegHeight = 72.0
 
 [node name="Trampas" type="Node2D" parent="." unique_id=1739721075]
 
@@ -303,9 +208,10 @@ position = Vector2(1250, 560)
 [node name="Objetos" type="Node2D" parent="." unique_id=1563691813]
 
 [node name="EscaleraVuelta" parent="Objetos" unique_id=1601643818 instance=ExtResource("8_arfct")]
-LadderTexture = ExtResource("escala_soga")
 position = Vector2(345, 300)
 Length = 600.0
+LadderTexture = ExtResource("escala_soga")
+DeCostado = true
 
 [node name="CofreNicho" parent="Objetos" unique_id=947326603 instance=ExtResource("9_42dj6")]
 position = Vector2(210, 600)
