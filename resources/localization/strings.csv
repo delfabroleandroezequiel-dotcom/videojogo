@@ -489,7 +489,7 @@ PENSAR_SOGA_SIN_GUANTES_2,"Esta cuerda me pelaría las manos... Necesito algo pa
 UI_PAUSE_MAP,Mapa,Map,Mapa
 UI_MAPA_TITULO,Mapa,Map,Mapa
 UI_MAPA_SIN_DATOS,No hay mapa de este lugar.,There's no map of this place.,Não há mapa deste lugar.
-UI_MAPA_VOLVER,M / Esc / B para volver,M / Esc / B to go back,M / Esc / B para voltar
+UI_MAPA_VOLVER,"Rueda / + - / gatillos: zoom   ·   arrastrar / mover: desplazar   ·   M / Esc / B: volver","Wheel / + - / triggers: zoom   ·   drag / move: pan   ·   M / Esc / B: back","Roda / + - / gatilhos: zoom   ·   arrastar / mover: deslocar   ·   M / Esc / B: voltar"
 MAPA_REGION_NIX,Nix y el Bosque de Lobos,Nix and the Wolf Forest,Nix e a Floresta dos Lobos
 MAPA_REGION_CUEVA1,Cuevas del Bosque de Lobos,Wolf Forest Caves,Cavernas da Floresta dos Lobos
 MAPA_REGION_ARBOL1,Interior del Árbol,Inside the Tree,Interior da Árvore
