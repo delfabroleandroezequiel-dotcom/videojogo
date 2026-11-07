@@ -43,6 +43,13 @@ public partial class MineCart : AnimatableBody2D
 	[Export] public float Width = 112f;
 	[Export] public float DeckHeight = 30f;
 
+	// Side walls of the tub (height above the deck) so a ride doesn't end with one careless step;
+	// a full jump still clears them. Only solid while the cart is boarding/rolling — parked, you can
+	// step on and off from either side.
+	[Export] public float WallHeight = 48f;
+	// Draw order of the cart art over the player (Player.tscn z_index = 1), so the rider looks inside the tub.
+	[Export] public int ArtZIndex = 2;
+
 	[Export] public float BoardDelay = 0.6f;
 	[Export] public float StartSpeed = 90f;
 	[Export] public float MinSpeed = 70f;
@@ -128,6 +135,7 @@ public partial class MineCart : AnimatableBody2D
 		Vector2 before = Position;
 
 		UpdateRider();
+		UpdateWalls();
 
 		switch (_state)
 		{
@@ -314,6 +322,35 @@ public partial class MineCart : AnimatableBody2D
 		shape.Shape = new RectangleShape2D { Size = new Vector2(Width, 10f) };
 		shape.Position = new Vector2(0f, -DeckHeight + 5f);
 		shape.OneWayCollision = true;
+
+		_walls.Clear();
+		foreach (float side in new[] { -1f, 1f })
+		{
+			string name = side < 0f ? "ParedIzquierda" : "ParedDerecha";
+			GetNodeOrNull<Node>(name)?.Free();
+			var wall = new CollisionShape2D
+			{
+				Name = name,
+				Shape = new RectangleShape2D { Size = new Vector2(6f, WallHeight) },
+				Position = new Vector2(side * (Width / 2f - 3f), -DeckHeight - WallHeight / 2f),
+				Disabled = true,
+			};
+			AddChild(wall);
+			_walls.Add(wall);
+		}
+	}
+
+	private readonly List<CollisionShape2D> _walls = new();
+	private bool _wallsOn;
+
+	private void UpdateWalls()
+	{
+		bool on = _state != State.Parked;
+		if (on == _wallsOn)
+			return;
+		_wallsOn = on;
+		foreach (CollisionShape2D wall in _walls)
+			wall.SetDeferred(CollisionShape2D.PropertyName.Disabled, !on);
 	}
 
 	private void BuildVisual()
@@ -334,13 +371,14 @@ public partial class MineCart : AnimatableBody2D
 		{
 			Texture = art,
 			TextureFilter = TextureFilterEnum.Nearest,
+			ZIndex = ArtZIndex,
 			Scale = new Vector2(k, k),
 			Position = new Vector2(0f, -art.GetHeight() * k / 2f),
 		});
 
 		// The "it's about to move" tell (blinks while boarding) and a light for dark mines, on the art's lantern.
 		var lampPos = (CartLampPixel - new Vector2(art.GetWidth() / 2f, art.GetHeight())) * k;
-		_lampGlow = new Sprite2D { Texture = Dot, Material = Additive, Position = lampPos, Scale = Vector2.One * 0.14f, Modulate = new Color(1f, 0.7f, 0.3f) };
+		_lampGlow = new Sprite2D { Texture = Dot, Material = Additive, Position = lampPos, Scale = Vector2.One * 0.14f, Modulate = new Color(1f, 0.7f, 0.3f), ZIndex = ArtZIndex + 1 };
 		_tilt.AddChild(_lampGlow);
 		if (!Engine.IsEditorHint())
 		{
