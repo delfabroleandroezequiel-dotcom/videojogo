@@ -63,12 +63,12 @@
 [ext_resource type="Texture2D" uid="uid://djvo87gao7gkj" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v3)/MainChar_SideClimb_StaticStand.png" id="t_climb_idle"]
 [ext_resource type="Texture2D" uid="uid://kr3hxwd5d5oe" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v3)/MainChar_SideClimb.png" id="t_climb_side"]
 [ext_resource type="Texture2D" uid="uid://2wf8htla7bbf" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v1)/Desenvainar_PixelLab.png" id="t_iai"]
-[ext_resource type="Texture2D" uid="uid://djqg6oojomys0" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v1)/TreparCostado_PixelLab.png" id="t_trepar_costado"]
 [ext_resource type="Texture2D" uid="uid://dbu77aapbjwoc" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v1)/Block_Alta_PixelLab.png" id="t_parry_alta"]
 [ext_resource type="Texture2D" uid="uid://cw1tsnkpuyp45" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v1)/Block_Baja_PixelLab.png" id="t_parry_baja"]
 [ext_resource type="Texture2D" uid="uid://b25ktsbqifdp8" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v1)/Air_Jump_PixelLab.png" id="t_salto_pl"]
 [ext_resource type="Texture2D" uid="uid://cwjpsb5gi1eh7" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v1)/Sigilo_PixelLab.png" id="t_sigilo"]
 [ext_resource type="Texture2D" uid="uid://f1ajijg7xqf8" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v1)/Death_SinEspada.png" id="t_sinespada"]
+[ext_resource type="Texture2D" uid="uid://djqg6oojomys0" path="res://assets/external/Chars/MainCharacter(FullPack)/MainCharacter(FullPack-v1)/TreparCostado_PixelLab.png" id="t_trepar_costado"]
 
 [sub_resource type="AtlasTexture" id="a179"]
 atlas = ExtResource("t26")
@@ -2246,6 +2246,38 @@ region = Rect2(3840, 0, 192, 128)
 atlas = ExtResource("t54")
 region = Rect2(4032, 0, 192, 128)
 
+[sub_resource type="AtlasTexture" id="tc0"]
+atlas = ExtResource("t_trepar_costado")
+region = Rect2(0, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="tc1"]
+atlas = ExtResource("t_trepar_costado")
+region = Rect2(192, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="tc2"]
+atlas = ExtResource("t_trepar_costado")
+region = Rect2(384, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="tc3"]
+atlas = ExtResource("t_trepar_costado")
+region = Rect2(576, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="tc4"]
+atlas = ExtResource("t_trepar_costado")
+region = Rect2(768, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="tc5"]
+atlas = ExtResource("t_trepar_costado")
+region = Rect2(960, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="tc6"]
+atlas = ExtResource("t_trepar_costado")
+region = Rect2(1152, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="tc7"]
+atlas = ExtResource("t_trepar_costado")
+region = Rect2(1344, 0, 192, 128)
+
 [sub_resource type="AtlasTexture" id="a468"]
 atlas = ExtResource("t58")
 region = Rect2(0, 0, 192, 128)
@@ -2341,38 +2373,6 @@ region = Rect2(384, 0, 192, 128)
 [sub_resource type="AtlasTexture" id="a491"]
 atlas = ExtResource("t60")
 region = Rect2(576, 0, 192, 128)
-
-[sub_resource type="AtlasTexture" id="tc0"]
-atlas = ExtResource("t_trepar_costado")
-region = Rect2(0, 0, 192, 128)
-
-[sub_resource type="AtlasTexture" id="tc1"]
-atlas = ExtResource("t_trepar_costado")
-region = Rect2(192, 0, 192, 128)
-
-[sub_resource type="AtlasTexture" id="tc2"]
-atlas = ExtResource("t_trepar_costado")
-region = Rect2(384, 0, 192, 128)
-
-[sub_resource type="AtlasTexture" id="tc3"]
-atlas = ExtResource("t_trepar_costado")
-region = Rect2(576, 0, 192, 128)
-
-[sub_resource type="AtlasTexture" id="tc4"]
-atlas = ExtResource("t_trepar_costado")
-region = Rect2(768, 0, 192, 128)
-
-[sub_resource type="AtlasTexture" id="tc5"]
-atlas = ExtResource("t_trepar_costado")
-region = Rect2(960, 0, 192, 128)
-
-[sub_resource type="AtlasTexture" id="tc6"]
-atlas = ExtResource("t_trepar_costado")
-region = Rect2(1152, 0, 192, 128)
-
-[sub_resource type="AtlasTexture" id="tc7"]
-atlas = ExtResource("t_trepar_costado")
-region = Rect2(1344, 0, 192, 128)
 
 [resource]
 animations = [{
@@ -4335,6 +4335,35 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("tc0")
+}, {
+"duration": 1.0,
+"texture": SubResource("tc1")
+}, {
+"duration": 1.0,
+"texture": SubResource("tc2")
+}, {
+"duration": 1.0,
+"texture": SubResource("tc3")
+}, {
+"duration": 1.0,
+"texture": SubResource("tc4")
+}, {
+"duration": 1.0,
+"texture": SubResource("tc5")
+}, {
+"duration": 1.0,
+"texture": SubResource("tc6")
+}, {
+"duration": 1.0,
+"texture": SubResource("tc7")
+}],
+"loop": 1,
+"name": &"trepar_costado",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("a468")
 }, {
 "duration": 1.0,
@@ -4419,33 +4448,4 @@ animations = [{
 "loop": 1,
 "name": &"wall_hang",
 "speed": 6.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("tc0")
-}, {
-"duration": 1.0,
-"texture": SubResource("tc1")
-}, {
-"duration": 1.0,
-"texture": SubResource("tc2")
-}, {
-"duration": 1.0,
-"texture": SubResource("tc3")
-}, {
-"duration": 1.0,
-"texture": SubResource("tc4")
-}, {
-"duration": 1.0,
-"texture": SubResource("tc5")
-}, {
-"duration": 1.0,
-"texture": SubResource("tc6")
-}, {
-"duration": 1.0,
-"texture": SubResource("tc7")
-}],
-"loop": true,
-"name": &"trepar_costado",
-"speed": 10.0
 }]

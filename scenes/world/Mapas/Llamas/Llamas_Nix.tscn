@@ -13,6 +13,12 @@ ZoneName = ""
 [node name="Player" parent="." index="22" unique_id=1962161526]
 position = Vector2(4802.8877, 413.91656)
 
+[node name="CasaEntranceTrigger" parent="." index="33" unique_id=2000000201]
+Iluminado = true
+
+[node name="CookingArea" parent="." index="73" unique_id=1891858985]
+position = Vector2(710, 419)
+
 [node name="MapaEnLlamas" type="Node" parent="." index="90" unique_id=601800009]
 script = ExtResource("2_llamas")
 WeatherScene = ExtResource("3_clima")
