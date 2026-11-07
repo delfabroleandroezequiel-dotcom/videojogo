@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
 [ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_camera"]
+[ext_resource type="Texture2D" uid="uid://c436qrtvfjdrp" path="res://scenes/world/Mapas/MontaniaExtrania1.png" id="3_0iw4q"]
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="3_player"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MiniCorridor.tscn" id="4_corridor"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GiganteEnsamblado.tscn" id="5_gigante"]
@@ -23,6 +24,11 @@ offset_top = -3200.0
 offset_right = 4220.0
 offset_bottom = 720.0
 color = Color(0.09, 0.1, 0.13, 1)
+
+[node name="MontaniaExtrania1" type="Sprite2D" parent="Fondo" unique_id=1149382599]
+position = Vector2(1981.5001, 1898.125)
+scale = Vector2(2.4684331, 3.3757045)
+texture = ExtResource("3_0iw4q")
 
 [node name="Greybox" type="Node2D" parent="." unique_id=2067534221]
 
@@ -49,6 +55,7 @@ position = Vector2(1800, -917)
 
 [node name="Player" parent="." unique_id=1759786178 instance=ExtResource("3_player")]
 position = Vector2(200, -40)
+BaseMaxStamina = 1000
 
 [node name="MiniCorridor2" parent="." unique_id=920566434 instance=ExtResource("4_corridor")]
 position = Vector2(801, -371)
@@ -60,155 +67,157 @@ position = Vector2(559, -227)
 Climbable = true
 OneWay = true
 
-[node name="Escalada" type="Node2D" parent="."]
+[node name="Escalada" type="Node2D" parent="." unique_id=953445717]
+visible = false
 
-[node name="Escalon01" parent="Escalada" instance=ExtResource("6_plataforma")]
+[node name="Escalon01" parent="Escalada" unique_id=1830170791 instance=ExtResource("6_plataforma")]
 position = Vector2(1300, -120)
 Length = 140.0
 
-[node name="Escalon02" parent="Escalada" instance=ExtResource("6_plataforma")]
+[node name="Escalon02" parent="Escalada" unique_id=977970579 instance=ExtResource("6_plataforma")]
 position = Vector2(1560, -240)
 Length = 140.0
 
-[node name="Escalon03" parent="Escalada" instance=ExtResource("6_plataforma")]
+[node name="Escalon03" parent="Escalada" unique_id=964546304 instance=ExtResource("6_plataforma")]
 position = Vector2(1300, -360)
 Length = 140.0
 
-[node name="Escalon04" parent="Escalada" instance=ExtResource("6_plataforma")]
+[node name="Escalon04" parent="Escalada" unique_id=670384862 instance=ExtResource("6_plataforma")]
 position = Vector2(1560, -480)
 Length = 140.0
 
-[node name="Escalon05" parent="Escalada" instance=ExtResource("6_plataforma")]
+[node name="Escalon05" parent="Escalada" unique_id=1020144769 instance=ExtResource("6_plataforma")]
 position = Vector2(1300, -600)
 Length = 140.0
 
-[node name="Escalon06" parent="Escalada" instance=ExtResource("6_plataforma")]
+[node name="Escalon06" parent="Escalada" unique_id=1398697022 instance=ExtResource("6_plataforma")]
 position = Vector2(1560, -720)
 Length = 140.0
 
-[node name="Escalon07" parent="Escalada" instance=ExtResource("6_plataforma")]
+[node name="Escalon07" parent="Escalada" unique_id=248237208 instance=ExtResource("6_plataforma")]
 position = Vector2(1300, -840)
 Length = 140.0
 
-[node name="Escalon08" parent="Escalada" instance=ExtResource("6_plataforma")]
+[node name="Escalon08" parent="Escalada" unique_id=2035297128 instance=ExtResource("6_plataforma")]
 position = Vector2(1560, -960)
 Length = 140.0
 
-[node name="Escalon09" parent="Escalada" instance=ExtResource("6_plataforma")]
+[node name="Escalon09" parent="Escalada" unique_id=978493880 instance=ExtResource("6_plataforma")]
 position = Vector2(1300, -1080)
 Length = 140.0
 
-[node name="Escalon10" parent="Escalada" instance=ExtResource("6_plataforma")]
+[node name="Escalon10" parent="Escalada" unique_id=444898328 instance=ExtResource("6_plataforma")]
 position = Vector2(1560, -1200)
 Length = 140.0
 
-[node name="Escalon11" parent="Escalada" instance=ExtResource("6_plataforma")]
+[node name="Escalon11" parent="Escalada" unique_id=336156091 instance=ExtResource("6_plataforma")]
 position = Vector2(1300, -1320)
 Length = 140.0
 
-[node name="Escalon12" parent="Escalada" instance=ExtResource("6_plataforma")]
+[node name="Escalon12" parent="Escalada" unique_id=740555791 instance=ExtResource("6_plataforma")]
 position = Vector2(1560, -1440)
 Length = 140.0
 
-[node name="Escalon13" parent="Escalada" instance=ExtResource("6_plataforma")]
+[node name="Escalon13" parent="Escalada" unique_id=840796199 instance=ExtResource("6_plataforma")]
 position = Vector2(1300, -1560)
 Length = 140.0
 
-[node name="Escalon14" parent="Escalada" instance=ExtResource("6_plataforma")]
+[node name="Escalon14" parent="Escalada" unique_id=2068327987 instance=ExtResource("6_plataforma")]
 position = Vector2(1560, -1680)
 Length = 140.0
 
-[node name="Escalon15" parent="Escalada" instance=ExtResource("6_plataforma")]
+[node name="Escalon15" parent="Escalada" unique_id=965304995 instance=ExtResource("6_plataforma")]
 position = Vector2(1300, -1800)
 Length = 140.0
 
-[node name="RepisaOjos" parent="Escalada" instance=ExtResource("6_plataforma")]
+[node name="RepisaOjos" parent="Escalada" unique_id=1983330340 instance=ExtResource("6_plataforma")]
 position = Vector2(1580, -1920)
 Length = 360.0
 
-[node name="Visible" type="Node2D" parent="."]
+[node name="Visible" type="Node2D" parent="." unique_id=1120495680]
+visible = false
 z_index = -1
 
-[node name="VisSuelo" type="Polygon2D" parent="Visible"]
+[node name="VisSuelo" type="Polygon2D" parent="Visible" unique_id=1552921694]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(-20, 0, 3620, 0, 3620, 60, -20, 60)
 
-[node name="VisParedIzquierda" type="Polygon2D" parent="Visible"]
+[node name="VisParedIzquierda" type="Polygon2D" parent="Visible" unique_id=397198688]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(-40, -2500, 0, -2500, 0, 20, -40, 20)
 
-[node name="VisParedDerecha" type="Polygon2D" parent="Visible"]
+[node name="VisParedDerecha" type="Polygon2D" parent="Visible" unique_id=627548187]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(3560, -2500, 3600, -2500, 3600, 20, 3560, 20)
 
-[node name="VisMiniCorridor2" type="Polygon2D" parent="Visible"]
+[node name="VisMiniCorridor2" type="Polygon2D" parent="Visible" unique_id=1677398842]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(801, -371, 897, -371, 897, -339, 801, -339)
 
-[node name="VisMiniCorridor" type="Polygon2D" parent="Visible"]
+[node name="VisMiniCorridor" type="Polygon2D" parent="Visible" unique_id=618850563]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(559, -227, 655, -227, 655, -195, 559, -195)
 
-[node name="VisEscalon01" type="Polygon2D" parent="Visible"]
+[node name="VisEscalon01" type="Polygon2D" parent="Visible" unique_id=360350211]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(1300, -120, 1440, -120, 1440, -96, 1300, -96)
 
-[node name="VisEscalon02" type="Polygon2D" parent="Visible"]
+[node name="VisEscalon02" type="Polygon2D" parent="Visible" unique_id=34009918]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(1560, -240, 1700, -240, 1700, -216, 1560, -216)
 
-[node name="VisEscalon03" type="Polygon2D" parent="Visible"]
+[node name="VisEscalon03" type="Polygon2D" parent="Visible" unique_id=151249913]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(1300, -360, 1440, -360, 1440, -336, 1300, -336)
 
-[node name="VisEscalon04" type="Polygon2D" parent="Visible"]
+[node name="VisEscalon04" type="Polygon2D" parent="Visible" unique_id=1206893755]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(1560, -480, 1700, -480, 1700, -456, 1560, -456)
 
-[node name="VisEscalon05" type="Polygon2D" parent="Visible"]
+[node name="VisEscalon05" type="Polygon2D" parent="Visible" unique_id=1897577187]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(1300, -600, 1440, -600, 1440, -576, 1300, -576)
 
-[node name="VisEscalon06" type="Polygon2D" parent="Visible"]
+[node name="VisEscalon06" type="Polygon2D" parent="Visible" unique_id=1703661059]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(1560, -720, 1700, -720, 1700, -696, 1560, -696)
 
-[node name="VisEscalon07" type="Polygon2D" parent="Visible"]
+[node name="VisEscalon07" type="Polygon2D" parent="Visible" unique_id=317584294]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(1300, -840, 1440, -840, 1440, -816, 1300, -816)
 
-[node name="VisEscalon08" type="Polygon2D" parent="Visible"]
+[node name="VisEscalon08" type="Polygon2D" parent="Visible" unique_id=1925207077]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(1560, -960, 1700, -960, 1700, -936, 1560, -936)
 
-[node name="VisEscalon09" type="Polygon2D" parent="Visible"]
+[node name="VisEscalon09" type="Polygon2D" parent="Visible" unique_id=571754878]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(1300, -1080, 1440, -1080, 1440, -1056, 1300, -1056)
 
-[node name="VisEscalon10" type="Polygon2D" parent="Visible"]
+[node name="VisEscalon10" type="Polygon2D" parent="Visible" unique_id=1516264475]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(1560, -1200, 1700, -1200, 1700, -1176, 1560, -1176)
 
-[node name="VisEscalon11" type="Polygon2D" parent="Visible"]
+[node name="VisEscalon11" type="Polygon2D" parent="Visible" unique_id=740474629]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(1300, -1320, 1440, -1320, 1440, -1296, 1300, -1296)
 
-[node name="VisEscalon12" type="Polygon2D" parent="Visible"]
+[node name="VisEscalon12" type="Polygon2D" parent="Visible" unique_id=1074978810]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(1560, -1440, 1700, -1440, 1700, -1416, 1560, -1416)
 
-[node name="VisEscalon13" type="Polygon2D" parent="Visible"]
+[node name="VisEscalon13" type="Polygon2D" parent="Visible" unique_id=135244416]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(1300, -1560, 1440, -1560, 1440, -1536, 1300, -1536)
 
-[node name="VisEscalon14" type="Polygon2D" parent="Visible"]
+[node name="VisEscalon14" type="Polygon2D" parent="Visible" unique_id=1549549923]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(1560, -1680, 1700, -1680, 1700, -1656, 1560, -1656)
 
-[node name="VisEscalon15" type="Polygon2D" parent="Visible"]
+[node name="VisEscalon15" type="Polygon2D" parent="Visible" unique_id=1425865965]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(1300, -1800, 1440, -1800, 1440, -1776, 1300, -1776)
 
-[node name="VisRepisaOjos" type="Polygon2D" parent="Visible"]
+[node name="VisRepisaOjos" type="Polygon2D" parent="Visible" unique_id=742286234]
 color = Color(0.42, 0.43, 0.48, 1)
 polygon = PackedVector2Array(1580, -1920, 1940, -1920, 1940, -1896, 1580, -1896)
