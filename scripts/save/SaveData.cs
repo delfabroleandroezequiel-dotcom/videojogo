@@ -14,6 +14,8 @@ public class SaveData
 	public List<string> UnlockedAbilities { get; set; } = new();
 	public List<string> DefeatedBosses { get; set; } = new();
 	public List<string> LitSavePoints { get; set; } = new();
+	// Map scenes entered at least once — the world map (MapaMundo) shows only these rooms.
+	public List<string> VisitedScenes { get; set; } = new();
 	public List<string> ActiveQuests { get; set; } = new();
 	public List<string> CompletedQuests { get; set; } = new();
 	public Dictionary<string, int> QuestProgress { get; set; } = new();

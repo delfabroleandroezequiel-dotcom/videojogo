@@ -486,3 +486,14 @@ MINA_ITEM_GUANTES_NAME,Guantes de minero,Miner's Gloves,Luvas de mineiro
 MINA_ITEM_GUANTES_DESC,"Cuero curtido con resina. Con ellos podés agarrarte de las cuerdas colgantes y balancearte.","Resin-tanned leather. With them you can grab hanging ropes and swing from them.","Couro curtido com resina. Com elas você pode agarrar cordas penduradas e se balançar."
 PENSAR_SOGA_SIN_GUANTES_1,"Si me cuelgo sin guantes, me voy a resbalar.","If I grab that rope bare-handed, I'll just slip off.","Se eu me pendurar sem luvas, vou escorregar."
 PENSAR_SOGA_SIN_GUANTES_2,"Esta cuerda me pelaría las manos... Necesito algo para agarrarla bien.","This rope would tear my hands raw... I need something to grip it with.","Essa corda ia esfolar minhas mãos... Preciso de algo pra segurar firme."
+UI_PAUSE_MAP,Mapa,Map,Mapa
+UI_MAPA_TITULO,Mapa,Map,Mapa
+UI_MAPA_SIN_DATOS,No hay mapa de este lugar.,There's no map of this place.,Não há mapa deste lugar.
+UI_MAPA_VOLVER,M / Esc / B para volver,M / Esc / B to go back,M / Esc / B para voltar
+MAPA_REGION_NIX,Nix y el Bosque de Lobos,Nix and the Wolf Forest,Nix e a Floresta dos Lobos
+MAPA_REGION_CUEVA1,Cuevas del Bosque de Lobos,Wolf Forest Caves,Cavernas da Floresta dos Lobos
+MAPA_REGION_ARBOL1,Interior del Árbol,Inside the Tree,Interior da Árvore
+MAPA_REGION_CRIPTA,La Cripta,The Crypt,A Cripta
+MAPA_REGION_QUEBRADA,La Quebrada,The Ravine,A Ravina
+MAPA_REGION_MINA,La Mina,The Mine,A Mina
+MAPA_REGION_SIMA,La Sima,The Chasm,O Abismo

@@ -156,3 +156,13 @@ Decorar o poner enemigos antes de cerrar la geometría obliga a rehacerlo cada v
 | 2026-10-25 | Objetivo principal: que se sienta metroidvania y no plataformero | Ruta de dos actos |
 | 2026-10-28 | Atmósfera compartida por bioma (`AtmosferaBosqueLobos.tscn`) | BosqueLobos 1 a 6 |
 | 2026-11-05 | La Mina en greybox (10 escenas): vagonetas, grisú como trampa y como dinamita, cuerdas en contrafase, guantes de minero como llave | Pedido del autor |
+| 2026-11-07 | Mapa del mundo estilo Afterimage, generado desde las escenas (sala entera al visitarla, una región por carpeta o por puerta, M para abrirlo); ver §10 | Pedido del autor |
+
+## 10. Mapa del mundo (generado)
+
+- **El mapa no se dibuja a mano.** `tools/generar_mapa_mundo.gd` (`GeneradorMapaMundo.cs`) lee cada escena de `Mapas/` y escribe `resources/mapa/MapaMundo.tres`. El tamaño de cada sala sale de los `CameraLimit*` del LevelBootstrap; si faltan, de la geometría. Cada sala se pega al borde de la sala desde la que se llega, alineando la salida con el `TargetSpawnPosition`.
+- **Regiones:** cada carpeta es una zona (Cueva1, Quebrada, Cripta...). Las escenas sueltas en `Mapas/` forman la región de su raíz (Nix). Una salida con `RequireInteract` (puerta, boca de cueva) o que cambia de carpeta abre otra región y se marca como puerta.
+- **Correrlo cada vez que se conectan o se mueven mapas:** `godot --headless --path . --script res://tools/generar_mapa_mundo.gd`. El reporte es una herramienta de diseño: **CONFLICTO** = un circuito que no cierra geométricamente, **SOLAPE** = dos salas que se pisan, **ROTA** = destino inexistente, **SUELTA** = zona sin conexión desde las raíces.
+- **Ajustes a mano** en `resources/mapa/MapaMundoConfig.tres`: `Raices`, `Excluir` y `AjustesPosicion` (escena → desplazamiento). Se respetan al regenerar.
+- **En el juego:** cada sala aparece entera la primera vez que se entra (`SaveData.VisitedScenes`). Se abre con M o desde el menú de pausa. El nombre de cada región va en `MAPA_REGION_<CARPETA>` en `strings.csv`.
+- **Estado al 2026-11-07:** 63 salas en 16 regiones. La Quebrada (circuito 01→05 que vuelve a la 01), las salas del Árbol, la Cripta 2↔3 y la Cueva 7↔8 tienen circuitos que no cierran. La Mina y la Sima todavía no están conectadas.

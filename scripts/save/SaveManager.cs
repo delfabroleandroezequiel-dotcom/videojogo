@@ -51,6 +51,7 @@ public partial class SaveManager : Node
 	private readonly HashSet<string> _defeatedBosses = new();
 	private readonly HashSet<string> _defeatedCommonEnemies = new();
 	private readonly HashSet<string> _litSavePoints = new();
+	private readonly HashSet<string> _visitedScenes = new();
 	private readonly HashSet<string> _unlockedAbilities = new();
 	private readonly HashSet<string> _collectedItems = new();
 	private readonly HashSet<string> _collectedPickups = new();
@@ -286,6 +287,11 @@ public partial class SaveManager : Node
 	public void MarkSavePointLit(string id) => _litSavePoints.Add(id);
 	public IReadOnlyCollection<string> GetLitSavePoints() => _litSavePoints;
 
+	// World map: a room appears whole the first time you walk in (marked by LevelBootstrap).
+	public bool IsSceneVisited(string scenePath) => _visitedScenes.Contains(scenePath);
+	public void MarkSceneVisited(string scenePath) { if (!string.IsNullOrEmpty(scenePath)) _visitedScenes.Add(scenePath); }
+	public IReadOnlyCollection<string> GetVisitedScenes() => _visitedScenes;
+
 	// Permanent, unlike common-enemy defeats — once a cutscene plays it never plays again for
 	// this save, even after resting/reloading (same lifetime as LitSavePoints/DefeatedBosses).
 	public bool IsCutscenePlayed(string id) => _playedCutscenes.Contains(id);
@@ -431,6 +437,7 @@ public partial class SaveManager : Node
 		_defeatedBosses.Clear();
 		_defeatedCommonEnemies.Clear();
 		_litSavePoints.Clear();
+		_visitedScenes.Clear();
 		_unlockedAbilities.Clear();
 		_collectedItems.Clear();
 		_equippedRings.Clear();
@@ -535,6 +542,10 @@ public partial class SaveManager : Node
 		_litSavePoints.Clear();
 		foreach (string savePointId in PendingLoad.LitSavePoints)
 			_litSavePoints.Add(savePointId);
+
+		_visitedScenes.Clear();
+		foreach (string scenePath in PendingLoad.VisitedScenes ?? new())
+			_visitedScenes.Add(scenePath);
 
 		_playedCutscenes.Clear();
 		foreach (string cutsceneId in PendingLoad.PlayedCutscenes)

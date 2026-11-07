@@ -1,0 +1,473 @@
+[gd_resource type="Resource" script_class="MapaMundo" format=3]
+
+[ext_resource type="Script" path="res://scripts/mapa/SalaMapa.cs" id="1_qo618"]
+[ext_resource type="Script" path="res://scripts/mapa/MapaMundo.cs" id="2_1dk0n"]
+
+[sub_resource type="Resource" id="Resource_nhnjp"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Nix.tscn"
+Region = "Nix"
+Rect = Rect2(-1638, -200, 6960, 850)
+Puertas = PackedVector2Array(1717, 463, 1143, 463, 2788, 463, 4197, 463, -1048, 455)
+
+[sub_resource type="Resource" id="Resource_k7va5"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/MarNix.tscn"
+Region = "Nix"
+Rect = Rect2(-4975, 75, 3337, 621)
+Origen = Vector2(-3310, 290)
+Puertas = PackedVector2Array(-4577, 367)
+
+[sub_resource type="Resource" id="Resource_oe25t"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/BosqueLobos1.tscn"
+Region = "Nix"
+Rect = Rect2(5322, 203, 1760, 450)
+Origen = Vector2(5322, 203)
+Puertas = PackedVector2Array(6822, 493, 7057, 493)
+
+[sub_resource type="Resource" id="Resource_vefpm"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/BosqueLobos2.tscn"
+Region = "Nix"
+Rect = Rect2(7082, 230, 1760, 450)
+Origen = Vector2(7082, 230)
+Puertas = PackedVector2Array(8124, 520)
+
+[sub_resource type="Resource" id="Resource_bwdxv"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/BosqueLobos3.tscn"
+Region = "Nix"
+Rect = Rect2(8842, 257, 1760, 450)
+Origen = Vector2(8842, 257)
+Puertas = PackedVector2Array(9729, 547)
+
+[sub_resource type="Resource" id="Resource_qfm07"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/BosqueLobos4.tscn"
+Region = "Nix"
+Rect = Rect2(10602, 284, 1760, 450)
+Origen = Vector2(10602, 284)
+
+[sub_resource type="Resource" id="Resource_3jw4y"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/BosqueLobos5.tscn"
+Region = "Nix"
+Rect = Rect2(12362, 311, 1760, 450)
+Origen = Vector2(12362, 311)
+
+[sub_resource type="Resource" id="Resource_kedxv"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/BosqueLobos6.tscn"
+Region = "Nix"
+Rect = Rect2(14122, 138, 1760, 650)
+Origen = Vector2(14122, 338)
+
+[sub_resource type="Resource" id="Resource_lfma7"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/MesonOstigado.tscn"
+Region = "MesonOstigado"
+Rect = Rect2(-1100, -650, 2200, 1300)
+Puertas = PackedVector2Array(-357.02, 107.1)
+
+[sub_resource type="Resource" id="Resource_grwff"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Casa1.tscn"
+Region = "Casa1"
+Rect = Rect2(-1100, -650, 2200, 1300)
+Puertas = PackedVector2Array(306, 98.685)
+
+[sub_resource type="Resource" id="Resource_c1l8j"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Iglesia1.tscn"
+Region = "Iglesia1"
+Rect = Rect2(-449, -246, 898, 596)
+Puertas = PackedVector2Array(405, 215, -304, 215)
+
+[sub_resource type="Resource" id="Resource_kq3us"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/InteriorEstablo.tscn"
+Region = "InteriorEstablo"
+Rect = Rect2(-1100, -650, 2200, 1300)
+Puertas = PackedVector2Array(-313, 62)
+
+[sub_resource type="Resource" id="Resource_k2x12"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/InteriorMuelleNix.tscn"
+Region = "InteriorMuelleNix"
+Rect = Rect2(-1100, -650, 2200, 1300)
+Puertas = PackedVector2Array(-313, 33)
+
+[sub_resource type="Resource" id="Resource_jh8rr"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/InteriorMuelle.tscn"
+Region = "InteriorMuelle"
+Rect = Rect2(-1100, -758, 2200, 1408)
+Puertas = PackedVector2Array(-35.2, 68.8)
+
+[sub_resource type="Resource" id="Resource_fu1m8"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Cueva1/InteriorCueva1.tscn"
+Region = "Cueva1"
+Rect = Rect2(0, 0, 1536, 1024)
+Puertas = PackedVector2Array(-81, 906)
+
+[sub_resource type="Resource" id="Resource_n684q"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Cueva1/InteriorCueva2.tscn"
+Region = "Cueva1"
+Rect = Rect2(1536, 376.58997, 1536, 1024)
+Origen = Vector2(1561, 695.58997)
+
+[sub_resource type="Resource" id="Resource_3vdqq"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Cueva1/InteriorCueva3.tscn"
+Region = "Cueva1"
+Rect = Rect2(1549.3579, 1400.59, 1421, 1024)
+Origen = Vector2(1574.3579, 1719.59)
+
+[sub_resource type="Resource" id="Resource_g22ol"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Cueva1/InteriorCueva4.tscn"
+Region = "Cueva1"
+Rect = Rect2(2312.358, 2424.5898, 1637, 1024)
+Origen = Vector2(2438.358, 2743.5898)
+
+[sub_resource type="Resource" id="Resource_iotcx"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Cueva1/InteriorCueva5.tscn"
+Region = "Cueva1"
+Rect = Rect2(3949.358, 2454.5898, 1536, 1024)
+Origen = Vector2(3949.358, 2454.5898)
+Hogueras = PackedVector2Array(5265.358, 3035.5898)
+
+[sub_resource type="Resource" id="Resource_4u6xy"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Cueva1/InteriorCueva6.tscn"
+Region = "Cueva1"
+Rect = Rect2(5485.358, 2127.5898, 2914, 1024)
+Origen = Vector2(5485.358, 2127.5898)
+
+[sub_resource type="Resource" id="Resource_kp5qv"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Cueva1/InteriorCueva7.tscn"
+Region = "Cueva1"
+Rect = Rect2(8399.357, 2669.5898, 1595, 720)
+Origen = Vector2(8384.357, 3189.5898)
+
+[sub_resource type="Resource" id="Resource_1fw7j"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Cueva1/InteriorCueva8.tscn"
+Region = "Cueva1"
+Rect = Rect2(5399.3574, 2129.5898, 3000, 1160)
+Origen = Vector2(8299.357, 3129.5898)
+Hogueras = PackedVector2Array(8059.3574, 3129.5898)
+
+[sub_resource type="Resource" id="Resource_dm7j2"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Cueva1/InteriorCueva9.tscn"
+Region = "Cueva1"
+Rect = Rect2(9994.357, 2171.5898, 3000, 1160)
+Origen = Vector2(10094.357, 3171.5898)
+Puertas = PackedVector2Array(12879.357, 2471.5898)
+
+[sub_resource type="Resource" id="Resource_t6wc4"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Cueva1/InteriorCueva10.tscn"
+Region = "Cueva1"
+Rect = Rect2(9294.357, 1309.5898, 4019, 1360)
+Origen = Vector2(9434.357, 2509.5898)
+Hogueras = PackedVector2Array(9734.357, 2509.5898)
+Puertas = PackedVector2Array(13326.357, 1879.5898)
+
+[sub_resource type="Resource" id="Resource_bucq2"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Cueva1/InteriorCueva11.tscn"
+Region = "Cueva1"
+Rect = Rect2(9020.357, 3389.5898, 768, 2160)
+Origen = Vector2(9124.357, 3689.5898)
+Hogueras = PackedVector2Array(9234.357, 3689.5898)
+Puertas = PackedVector2Array(9749.357, 5389.59)
+
+[sub_resource type="Resource" id="Resource_0fub1"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/CaminoDesierto.tscn"
+Region = "CaminoDesierto"
+Rect = Rect2(0, 0, 1774, 550)
+Puertas = PackedVector2Array(32, 259, 1734, 290)
+
+[sub_resource type="Resource" id="Resource_t4fdc"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/CaminoDesierto1.tscn"
+Region = "CaminoDesierto"
+Rect = Rect2(-1774, 30, 1774, 550)
+Origen = Vector2(-1774, 30)
+Puertas = PackedVector2Array(-869, 320)
+
+[sub_resource type="Resource" id="Resource_y3y2v"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Arbol1/InteriorArbolBosqueLobos2.tscn"
+Region = "Arbol1"
+Rect = Rect2(-768, -592, 1524, 1020)
+Puertas = PackedVector2Array(-770, 308)
+
+[sub_resource type="Resource" id="Resource_trug2"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Arbol1/InteriorArbolBosqueLobos2_5.tscn"
+Region = "Arbol1"
+Rect = Rect2(-860, 428, 1809, 1289)
+Origen = Vector2(-7, 1275)
+
+[sub_resource type="Resource" id="Resource_b2gkk"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Arbol1/InteriorArbolBosqueLobos2_8.tscn"
+Region = "Arbol1"
+Rect = Rect2(-2342, -818, 1574, 1022)
+Origen = Vector2(-1521, -394)
+Puertas = PackedVector2Array(-2118, -88)
+
+[sub_resource type="Resource" id="Resource_nged6"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Arbol1/InteriorArbolBosqueLobos2_3.tscn"
+Region = "Arbol1"
+Rect = Rect2(952, -1702, 1542, 1110)
+Origen = Vector2(1773, -1190)
+Puertas = PackedVector2Array(1176, -884)
+
+[sub_resource type="Resource" id="Resource_i75sk"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Arbol1/InteriorArbolBosqueLobos2_6.tscn"
+Region = "Arbol1"
+Rect = Rect2(-335, -438, 1432, 866)
+Origen = Vector2(362, -14)
+Puertas = PackedVector2Array(-235, 292)
+
+[sub_resource type="Resource" id="Resource_jk65u"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Arbol1/InteriorArbolBosqueLobos2_4.tscn"
+Region = "Arbol1"
+Rect = Rect2(-3862, 204, 1361, 1022)
+Origen = Vector2(-3257, 628)
+
+[sub_resource type="Resource" id="Resource_ylfbu"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Arbol1/InteriorArbolBosqueLobos2_9.tscn"
+Region = "Arbol1"
+Rect = Rect2(-749, -592, 1542, 1022)
+Origen = Vector2(37, -168)
+
+[sub_resource type="Resource" id="Resource_r6o3w"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Arbol1/InteriorArbolBosqueLobos2_7.tscn"
+Region = "Arbol1"
+Rect = Rect2(-1366, 428, 2068, 1289)
+Origen = Vector2(-254, 1275)
+Puertas = PackedVector2Array(-918, 1107, -1606, 931)
+
+[sub_resource type="Resource" id="Resource_mkv8i"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Arbol1/InteriorArbolBosqueLobos2_10.tscn"
+Region = "Arbol1"
+Rect = Rect2(-1726, -622, 977, 2027)
+Origen = Vector2(-1589, -198)
+Puertas = PackedVector2Array(-1271, 1451)
+
+[sub_resource type="Resource" id="Resource_fg8qv"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Cripta/Cripta1_Escalera.tscn"
+Region = "Cripta"
+Rect = Rect2(-20, -340, 1340, 1920)
+Hogueras = PackedVector2Array(1200, 960)
+Puertas = PackedVector2Array(1285, -53)
+
+[sub_resource type="Resource" id="Resource_fksfc"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Cripta/Cripta2_Osario.tscn"
+Region = "Cripta"
+Rect = Rect2(-2460, 827, 2440, 900)
+Origen = Vector2(-2440, 1267)
+
+[sub_resource type="Resource" id="Resource_g32gc"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Cripta/Cripta3_Sepulcro.tscn"
+Region = "Cripta"
+Rect = Rect2(940, 1580, 1860, 840)
+Origen = Vector2(960, 2060)
+
+[sub_resource type="Resource" id="Resource_sdvhb"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Quebrada/Quebrada10_Colector.tscn"
+Region = "Quebrada"
+Rect = Rect2(-20, -720, 2840, 1260)
+Hogueras = PackedVector2Array(550, 0)
+Puertas = PackedVector2Array(15, -53)
+
+[sub_resource type="Resource" id="Resource_h3vt8"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Quebrada/Quebrada01_Cruce.tscn"
+Region = "Quebrada"
+Rect = Rect2(-1020, -2340, 2440, 1620)
+Origen = Vector2(-1000, -1260)
+Hogueras = PackedVector2Array(-380, -1260)
+
+[sub_resource type="Resource" id="Resource_23kha"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Quebrada/Quebrada11_Compuertas.tscn"
+Region = "Quebrada"
+Rect = Rect2(1850, 540, 3040, 1000)
+Origen = Vector2(1870, 1200)
+
+[sub_resource type="Resource" id="Resource_dh4fb"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Quebrada/Quebrada12_Desague.tscn"
+Region = "Quebrada"
+Rect = Rect2(2820, 247, 2440, 1000)
+Origen = Vector2(2840, 1207)
+
+[sub_resource type="Resource" id="Resource_sn37v"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Quebrada/Quebrada02_Empalizada.tscn"
+Region = "Quebrada"
+Rect = Rect2(1420, -2073, 2840, 1180)
+Origen = Vector2(1440, -1273)
+
+[sub_resource type="Resource" id="Resource_qd3aj"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Quebrada/Quebrada06_BocaMina.tscn"
+Region = "Quebrada"
+Rect = Rect2(-3460, -1713, 2440, 840)
+Origen = Vector2(-3440, -1273)
+Hogueras = PackedVector2Array(-1540, -1273)
+
+[sub_resource type="Resource" id="Resource_vabim"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Quebrada/Quebrada13_BaseCampanario.tscn"
+Region = "Quebrada"
+Rect = Rect2(-2460, -2593, 1440, 1040)
+Origen = Vector2(-2440, -1593)
+Hogueras = PackedVector2Array(-1440, -1593)
+
+[sub_resource type="Resource" id="Resource_k8upu"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Quebrada/Quebrada05_TiendaJefe.tscn"
+Region = "Quebrada"
+Rect = Rect2(1420, -2540, 2040, 800)
+Origen = Vector2(1440, -1780)
+
+[sub_resource type="Resource" id="Resource_sp71y"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Quebrada/Quebrada09_CamaraReina.tscn"
+Region = "Quebrada"
+Rect = Rect2(625, -2940, 2040, 600)
+Origen = Vector2(645, -2380)
+
+[sub_resource type="Resource" id="Resource_qwm7u"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Quebrada/Quebrada03_Atalaya.tscn"
+Region = "Quebrada"
+Rect = Rect2(4260, -2966, 1640, 1400)
+Origen = Vector2(4280, -1606)
+
+[sub_resource type="Resource" id="Resource_tks01"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Quebrada/Quebrada16_Guarida.tscn"
+Region = "Quebrada"
+Rect = Rect2(1600, -893, 2240, 760)
+Origen = Vector2(1620, -173)
+Hogueras = PackedVector2Array(3620, -273)
+
+[sub_resource type="Resource" id="Resource_qjvj2"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Quebrada/Quebrada07_Galeria.tscn"
+Region = "Quebrada"
+Rect = Rect2(-6100, -1606, 2640, 840)
+Origen = Vector2(-6080, -1126)
+
+[sub_resource type="Resource" id="Resource_r2sxy"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Quebrada/Quebrada14_Pendulos.tscn"
+Region = "Quebrada"
+Rect = Rect2(-2080, -3713, 2440, 1120)
+Origen = Vector2(-2060, -2913)
+
+[sub_resource type="Resource" id="Resource_gmvuo"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Quebrada/Quebrada15_CimaCampanario.tscn"
+Region = "Quebrada"
+Rect = Rect2(-5700, -2546, 3240, 860)
+Origen = Vector2(-5680, -1906)
+
+[sub_resource type="Resource" id="Resource_8nb7v"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Quebrada/Quebrada04_Emboscada.tscn"
+Region = "Quebrada"
+Rect = Rect2(-1620, -2233, 3040, 640)
+Origen = Vector2(-1600, -1793)
+
+[sub_resource type="Resource" id="Resource_7w7ny"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Quebrada/Quebrada08_Nido.tscn"
+Region = "Quebrada"
+Rect = Rect2(2665, -2833, 1840, 1440)
+Origen = Vector2(2685, -1433)
+
+[sub_resource type="Resource" id="Resource_gq3ue"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/CaminoNieve.tscn"
+Region = "CaminoNieve"
+Rect = Rect2(0, 0, 1774, 550)
+Puertas = PackedVector2Array(40, 290, 1734, 290)
+
+[sub_resource type="Resource" id="Resource_rscf3"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/HabitacionRecompensaSpider.tscn"
+Region = "HabitacionRecompensaSpider"
+Rect = Rect2(-585, -369, 1285, 853)
+Puertas = PackedVector2Array(621, -440)
+
+[sub_resource type="Resource" id="Resource_hq0h8"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/SpiderBossArena.tscn"
+Region = "HabitacionRecompensaSpider"
+Rect = Rect2(-2246, -413, 1661, 959)
+Origen = Vector2(-1387, 62)
+
+[sub_resource type="Resource" id="Resource_ora3f"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/InteriorCuevaBosqueLobos4.tscn"
+Region = "HabitacionRecompensaSpider"
+Rect = Rect2(-3612, -1180, 1366, 1165)
+Origen = Vector2(-2888, -583)
+
+[sub_resource type="Resource" id="Resource_nwvu3"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/InteriorCuevaBosqueLobos2.tscn"
+Region = "HabitacionRecompensaSpider"
+Rect = Rect2(-7243, -1778, 3631, 1526)
+Origen = Vector2(-6792, -987)
+Puertas = PackedVector2Array(-3460, -1337)
+
+[sub_resource type="Resource" id="Resource_sb8ca"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/InteriorCuevaBosqueLobos1.tscn"
+Region = "HabitacionRecompensaSpider"
+Rect = Rect2(-11290.341, -5474, 5786, 3696)
+Origen = Vector2(-10996.341, -4128)
+Puertas = PackedVector2Array(-9478.341, -4125)
+
+[sub_resource type="Resource" id="Resource_ymp5q"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/Raices1.tscn"
+Region = "Raices1"
+Rect = Rect2(-768, -458, 1536, 970)
+
+[sub_resource type="Resource" id="Resource_00eqh"]
+script = ExtResource("1_qo618")
+Escena = "res://scenes/world/Mapas/MuelleNieve.tscn"
+Region = "MuelleNieve"
+Rect = Rect2(0, -100, 1672, 600)
+Puertas = PackedVector2Array(40, 250)
+
+[resource]
+script = ExtResource("2_1dk0n")
+Salas = Array[ExtResource("1_qo618")]([SubResource("Resource_nhnjp"), SubResource("Resource_k7va5"), SubResource("Resource_oe25t"), SubResource("Resource_vefpm"), SubResource("Resource_bwdxv"), SubResource("Resource_qfm07"), SubResource("Resource_3jw4y"), SubResource("Resource_kedxv"), SubResource("Resource_lfma7"), SubResource("Resource_grwff"), SubResource("Resource_c1l8j"), SubResource("Resource_kq3us"), SubResource("Resource_k2x12"), SubResource("Resource_jh8rr"), SubResource("Resource_fu1m8"), SubResource("Resource_n684q"), SubResource("Resource_3vdqq"), SubResource("Resource_g22ol"), SubResource("Resource_iotcx"), SubResource("Resource_4u6xy"), SubResource("Resource_kp5qv"), SubResource("Resource_1fw7j"), SubResource("Resource_dm7j2"), SubResource("Resource_t6wc4"), SubResource("Resource_bucq2"), SubResource("Resource_0fub1"), SubResource("Resource_t4fdc"), SubResource("Resource_y3y2v"), SubResource("Resource_trug2"), SubResource("Resource_b2gkk"), SubResource("Resource_nged6"), SubResource("Resource_i75sk"), SubResource("Resource_jk65u"), SubResource("Resource_ylfbu"), SubResource("Resource_r6o3w"), SubResource("Resource_mkv8i"), SubResource("Resource_fg8qv"), SubResource("Resource_fksfc"), SubResource("Resource_g32gc"), SubResource("Resource_sdvhb"), SubResource("Resource_h3vt8"), SubResource("Resource_23kha"), SubResource("Resource_dh4fb"), SubResource("Resource_sn37v"), SubResource("Resource_qd3aj"), SubResource("Resource_vabim"), SubResource("Resource_k8upu"), SubResource("Resource_sp71y"), SubResource("Resource_qwm7u"), SubResource("Resource_tks01"), SubResource("Resource_qjvj2"), SubResource("Resource_r2sxy"), SubResource("Resource_gmvuo"), SubResource("Resource_8nb7v"), SubResource("Resource_7w7ny"), SubResource("Resource_gq3ue"), SubResource("Resource_rscf3"), SubResource("Resource_hq0h8"), SubResource("Resource_ora3f"), SubResource("Resource_nwvu3"), SubResource("Resource_sb8ca"), SubResource("Resource_ymp5q"), SubResource("Resource_00eqh")])

@@ -49,6 +49,7 @@ public partial class LevelBootstrap : Node
 		Engine.TimeScale = 1.0;
 
 		_player = GetNode<Player.Player>("Player");
+		SaveManager.Instance.MarkSceneVisited(SceneFilePath);
 		ApplyCameraConfig();
 		AddChild(new LacquerLayer { Name = "CapaLaqueado", ScenePath = SceneFilePath });
 		DecoRocaViva.Apply(this);
@@ -240,6 +241,7 @@ public partial class LevelBootstrap : Node
 		data.UnlockedAbilities.AddRange(abilities.GetUnlocked());
 		data.DefeatedBosses.AddRange(SaveManager.Instance.GetDefeatedBosses());
 		data.LitSavePoints.AddRange(SaveManager.Instance.GetLitSavePoints());
+		data.VisitedScenes.AddRange(SaveManager.Instance.GetVisitedScenes());
 		data.PlayedCutscenes.AddRange(SaveManager.Instance.GetPlayedCutscenes());
 		data.OpenedGates.AddRange(SaveManager.Instance.GetOpenedGates());
 		data.BrokenWalls.AddRange(SaveManager.Instance.GetBrokenWalls());
