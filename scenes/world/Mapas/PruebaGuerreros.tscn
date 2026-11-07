@@ -1,10 +1,8 @@
-[gd_scene format=4]
+[gd_scene format=4 uid="uid://dpg5svb6cl612"]
 
 [ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
 [ext_resource type="Texture2D" uid="uid://dacxvqhmjtif3" path="res://assets/backgrounds/ArenaEntrenamiento.png" id="2_fondo"]
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="3_player"]
-[ext_resource type="PackedScene" path="res://scenes/world/others/ArthurEntrenamiento.tscn" id="4_arthur"]
-[ext_resource type="PackedScene" path="res://scenes/ui/TutorialHint.tscn" id="5_cartel"]
 [ext_resource type="Environment" path="res://resources/rendering/NixPostProcess.tres" id="6_postprocess"]
 [ext_resource type="Material" path="res://resources/shaders/VignetteMaterial.tres" id="7_vineta"]
 [ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="8_parallax"]
@@ -15,35 +13,21 @@
 [ext_resource type="Texture2D" uid="uid://cb8gyivleynt" path="res://resources/particles/SoftDotGradient.tres" id="13_punto"]
 [ext_resource type="Texture2D" uid="uid://1qd0nimfqvj7" path="res://assets/external/Fondos/bosque/_PNG/MainLevBuild.png" id="14_wukck"]
 [ext_resource type="Texture2D" uid="uid://74874siup48v" path="res://assets/external/Fondos/village/_PNG/MainLevBuild.png" id="15_ijn3y"]
-[ext_resource type="Script" uid="uid://b4mh5jpghto4i" path="res://scripts/world/ModoJoven.cs" id="16_modojoven"]
-[ext_resource type="Material" uid="uid://d271wg8v2yf63" path="res://resources/sprites/MainCharPaletteJoven.tres" id="17_paletajoven"]
-[ext_resource type="Script" uid="uid://xgmrwepxxu8g" path="res://scripts/world/cinematica/CinematicStep.cs" id="19_ophxd"]
 [ext_resource type="Texture2D" uid="uid://cdt7lw0n22xtk" path="res://scenes/world/Mapas/2ccb8fdd-d546-4a36-a32c-61ba82558f57.png" id="29_17bou"]
-[ext_resource type="Script" uid="uid://cy3ah6bjntr48" path="res://scripts/world/cinematica/Cinematic.cs" id="40_cine"]
-[ext_resource type="Script" uid="uid://beggpaio2806q" path="res://scripts/world/cinematica/StepAnimate.cs" id="41_anim"]
-[ext_resource type="Script" uid="uid://c55xouyt2ph2s" path="res://scripts/world/cinematica/StepFace.cs" id="43_face"]
-[ext_resource type="Script" uid="uid://clggpxxhsgjgx" path="res://scripts/world/cinematica/StepCamera.cs" id="44_cam"]
-[ext_resource type="Script" uid="uid://clnqaevrbiax8" path="res://scripts/world/cinematica/StepSay.cs" id="45_say"]
-[ext_resource type="Script" uid="uid://dcv2d7xik7jcd" path="res://scripts/world/cinematica/StepFade.cs" id="46_fade"]
-[ext_resource type="Script" uid="uid://drhhq2kanh0q6" path="res://scripts/world/cinematica/StepWait.cs" id="47_wait"]
-[ext_resource type="Script" uid="uid://1xocw14oy8uq" path="res://scripts/world/cinematica/StepChangeScene.cs" id="48_cambio"]
-[ext_resource type="Script" uid="uid://cymp4pxb7upih" path="res://scripts/world/cinematica/StepMemoryClose.cs" id="49_recuerdo"]
-[ext_resource type="Script" uid="uid://c177qajgundr4" path="res://scripts/world/cinematica/StepCall.cs" id="50_llamada"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroEnterbillEscudero.tscn" id="pg_EnterbillEscudero"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroEnterbillLancero.tscn" id="pg_EnterbillLancero"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroEnterbillAlabardero.tscn" id="pg_EnterbillAlabardero"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroEnterbillBallestero.tscn" id="pg_EnterbillBallestero"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroEnterbillCaballero.tscn" id="pg_EnterbillCaballero"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroEnterbillAlabardero.tscn" id="pg_EnterbillAlabardero"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroEnterbillCapitan.tscn" id="pg_EnterbillCapitan"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroEnterbillEscudero.tscn" id="pg_EnterbillEscudero"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroEnterbillLancero.tscn" id="pg_EnterbillLancero"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroEnterbillMaza.tscn" id="pg_EnterbillMaza"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroRademCimitarras.tscn" id="pg_RademCimitarras"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroRademJabalinero.tscn" id="pg_RademJabalinero"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroRademHachero.tscn" id="pg_RademHachero"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroRademKhopesh.tscn" id="pg_RademKhopesh"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroRademMangual.tscn" id="pg_RademMangual"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroRademArquero.tscn" id="pg_RademArquero"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroRademCampeon.tscn" id="pg_RademCampeon"]
-
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroRademCimitarras.tscn" id="pg_RademCimitarras"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroRademHachero.tscn" id="pg_RademHachero"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroRademJabalinero.tscn" id="pg_RademJabalinero"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroRademKhopesh.tscn" id="pg_RademKhopesh"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GuerreroRademMangual.tscn" id="pg_RademMangual"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_piso"]
 size = Vector2(7000, 60)
@@ -7926,79 +7910,6 @@ texture = ExtResource("15_ijn3y")
 sources/0 = SubResource("TileSetAtlasSource_fg4e5")
 sources/1 = SubResource("TileSetAtlasSource_5n23v")
 
-[sub_resource type="Resource" id="Derrota_rodillas"]
-script = ExtResource("41_anim")
-Actor = null
-Animation = "crouch"
-WaitForEnd = true
-ThenAnimation = ""
-
-[sub_resource type="Resource" id="Derrota_arthurMira"]
-script = ExtResource("43_face")
-Actor = NodePath("../Arthur")
-Target = null
-
-[sub_resource type="Resource" id="Derrota_camara"]
-script = ExtResource("44_cam")
-Target = NodePath("../Arthur")
-Weight = 0.5
-Zoom = 1.25
-WaitSeconds = 0.8
-
-[sub_resource type="Resource" id="Derrota_acerca"]
-script = ExtResource("44_cam")
-Target = NodePath("../Arthur")
-Weight = 0.5
-Zoom = 1.5
-WaitSeconds = 0.0
-
-[sub_resource type="Resource" id="Derrota_dialogo"]
-script = ExtResource("45_say")
-SpeakerKeys = PackedStringArray("NPC_ARTHUR_NAME", "NPC_DELFRAD_NAME", "NPC_ARTHUR_NAME")
-LineKeys = PackedStringArray("DERROTA_ARTHUR_1", "DERROTA_ARTHUR_2", "DERROTA_ARTHUR_3")
-ExtraPauses = PackedFloat32Array(0, 0, 1.6)
-
-[sub_resource type="Resource" id="Derrota_seVa"]
-script = ExtResource("50_llamada")
-Target = NodePath("../Arthur")
-Method = "WalkAway"
-
-[sub_resource type="Resource" id="Derrota_abre"]
-script = ExtResource("44_cam")
-Target = NodePath("../Arthur")
-Weight = 0.3
-Zoom = 1.1
-WaitSeconds = 0.0
-
-[sub_resource type="Resource" id="Derrota_arranca"]
-script = ExtResource("47_wait")
-Seconds = 0.6
-
-[sub_resource type="Resource" id="Derrota_cena"]
-script = ExtResource("45_say")
-SpeakerKeys = PackedStringArray("NPC_ARTHUR_NAME")
-LineKeys = PackedStringArray("DERROTA_ARTHUR_4")
-
-[sub_resource type="Resource" id="Derrota_silencio"]
-script = ExtResource("47_wait")
-Seconds = 0.3
-
-[sub_resource type="Resource" id="Derrota_recuerdo"]
-script = ExtResource("49_recuerdo")
-Duration = 5.0
-
-[sub_resource type="Resource" id="Derrota_negro"]
-script = ExtResource("46_fade")
-Duration = 1.0
-
-[sub_resource type="Resource" id="Derrota_espera"]
-script = ExtResource("47_wait")
-Seconds = 0.6
-
-[sub_resource type="Resource" id="Derrota_narracion"]
-script = ExtResource("48_cambio")
-ScenePath = "res://scenes/world/Mapas/NarracionApertura.tscn"
-
 [node name="PruebaGuerreros" type="Node2D" unique_id=184419749]
 script = ExtResource("1_bootstrap")
 ScenePath = "res://scenes/world/Mapas/PruebaGuerreros.tscn"
@@ -8117,7 +8028,7 @@ position = Vector2(3300, 0)
 shape = SubResource("RectangleShape2D_pared")
 
 [node name="Player" parent="." unique_id=1787488026 instance=ExtResource("3_player")]
-position = Vector2(-3100, 250)
+position = Vector2(-461, -11)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=2036434641]
 z_index = 3
@@ -8130,81 +8041,144 @@ position = Vector2(9.536743e-07, 40)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("29_17bou")
 
-[node name="Suelo0" type="Sprite2D" parent="."]
+[node name="Suelo0" type="Sprite2D" parent="." unique_id=2068111385]
 z_index = -1
 position = Vector2(-2763, 40)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("29_17bou")
 
-[node name="Suelo1" type="Sprite2D" parent="."]
+[node name="Suelo1" type="Sprite2D" parent="." unique_id=1586742620]
 z_index = -1
 position = Vector2(-1842, 40)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("29_17bou")
 
-[node name="Suelo2" type="Sprite2D" parent="."]
+[node name="Suelo2" type="Sprite2D" parent="." unique_id=183852191]
 z_index = -1
 position = Vector2(-921, 40)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("29_17bou")
 
-[node name="Suelo4" type="Sprite2D" parent="."]
+[node name="Suelo4" type="Sprite2D" parent="." unique_id=133793536]
 z_index = -1
 position = Vector2(921, 40)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("29_17bou")
 
-[node name="Suelo5" type="Sprite2D" parent="."]
+[node name="Suelo5" type="Sprite2D" parent="." unique_id=32549538]
 z_index = -1
 position = Vector2(1842, 40)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("29_17bou")
 
-[node name="Suelo6" type="Sprite2D" parent="."]
+[node name="Suelo6" type="Sprite2D" parent="." unique_id=598717274]
 z_index = -1
 position = Vector2(2763, 40)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("29_17bou")
 
+[node name="GuerreroEnterbillEscudero" parent="." unique_id=1455701786 instance=ExtResource("pg_EnterbillEscudero")]
+position = Vector2(-41.204773, 244.80676)
+AliadoDelJugador = true
 
-[node name="GuerreroEnterbillEscudero" parent="." instance=ExtResource("pg_EnterbillEscudero")]
-position = Vector2(-2600, 258)
+[node name="GuerreroEnterbillLancero" parent="." unique_id=1635159058 instance=ExtResource("pg_EnterbillLancero")]
+position = Vector2(-306.214, 246.9924)
+AliadoDelJugador = true
 
-[node name="GuerreroEnterbillLancero" parent="." instance=ExtResource("pg_EnterbillLancero")]
-position = Vector2(-2470, 258)
+[node name="GuerreroEnterbillBallestero" parent="." unique_id=1116751457 instance=ExtResource("pg_EnterbillBallestero")]
+position = Vector2(-273.97577, 238.24983)
+AliadoDelJugador = true
 
-[node name="GuerreroEnterbillBallestero" parent="." instance=ExtResource("pg_EnterbillBallestero")]
-position = Vector2(-2300, 258)
+[node name="GuerreroEnterbillCaballero" parent="." unique_id=1575239045 instance=ExtResource("pg_EnterbillCaballero")]
+position = Vector2(-201.84953, 247.53882)
+AliadoDelJugador = true
 
-[node name="GuerreroEnterbillCaballero" parent="." instance=ExtResource("pg_EnterbillCaballero")]
-position = Vector2(-1750, 258)
+[node name="GuerreroEnterbillAlabardero" parent="." unique_id=1078461706 instance=ExtResource("pg_EnterbillAlabardero")]
+position = Vector2(-73.44302, 247.53882)
+AliadoDelJugador = true
 
-[node name="GuerreroEnterbillAlabardero" parent="." instance=ExtResource("pg_EnterbillAlabardero")]
-position = Vector2(-1620, 258)
+[node name="GuerreroEnterbillCapitan" parent="." unique_id=1849324136 instance=ExtResource("pg_EnterbillCapitan")]
+position = Vector2(-152.67258, 246.9924)
+AliadoDelJugador = true
 
-[node name="GuerreroEnterbillCapitan" parent="." instance=ExtResource("pg_EnterbillCapitan")]
-position = Vector2(-1000, 258)
+[node name="GuerreroEnterbillEscudero2" parent="." unique_id=395534748 instance=ExtResource("pg_EnterbillEscudero")]
+position = Vector2(-41.204773, 244.80676)
+AliadoDelJugador = true
 
-[node name="GuerreroEnterbillMaza" parent="." instance=ExtResource("pg_EnterbillMaza")]
-position = Vector2(-870, 258)
+[node name="GuerreroEnterbillLancero2" parent="." unique_id=931419558 instance=ExtResource("pg_EnterbillLancero")]
+position = Vector2(-306.214, 246.9924)
+AliadoDelJugador = true
 
-[node name="GuerreroRademCimitarras" parent="." instance=ExtResource("pg_RademCimitarras")]
-position = Vector2(300, 258)
+[node name="GuerreroEnterbillBallestero2" parent="." unique_id=215466487 instance=ExtResource("pg_EnterbillBallestero")]
+position = Vector2(-273.97577, 238.24983)
+AliadoDelJugador = true
 
-[node name="GuerreroRademJabalinero" parent="." instance=ExtResource("pg_RademJabalinero")]
-position = Vector2(480, 258)
+[node name="GuerreroEnterbillCaballero2" parent="." unique_id=1617718920 instance=ExtResource("pg_EnterbillCaballero")]
+position = Vector2(-201.84953, 247.53882)
+AliadoDelJugador = true
 
-[node name="GuerreroRademHachero" parent="." instance=ExtResource("pg_RademHachero")]
-position = Vector2(1050, 258)
+[node name="GuerreroEnterbillAlabardero2" parent="." unique_id=702258462 instance=ExtResource("pg_EnterbillAlabardero")]
+position = Vector2(-73.44302, 247.53882)
+AliadoDelJugador = true
 
-[node name="GuerreroRademKhopesh" parent="." instance=ExtResource("pg_RademKhopesh")]
+[node name="GuerreroEnterbillCapitan2" parent="." unique_id=739821839 instance=ExtResource("pg_EnterbillCapitan")]
+position = Vector2(-152.67258, 246.9924)
+AliadoDelJugador = true
+
+[node name="GuerreroEnterbillMaza" parent="." unique_id=1917095224 instance=ExtResource("pg_EnterbillMaza")]
+position = Vector2(-114, 250)
+AliadoDelJugador = true
+
+[node name="GuerreroRademCimitarras" parent="." unique_id=299845767 instance=ExtResource("pg_RademCimitarras")]
+position = Vector2(279, 257)
+
+[node name="GuerreroRademJabalinero" parent="." unique_id=1008661722 instance=ExtResource("pg_RademJabalinero")]
+position = Vector2(358.9428, 255.75255)
+
+[node name="GuerreroRademHachero" parent="." unique_id=1438550759 instance=ExtResource("pg_RademHachero")]
+position = Vector2(165, 250)
+
+[node name="GuerreroRademHachero2" parent="." unique_id=78542775 instance=ExtResource("pg_RademHachero")]
+position = Vector2(119, 249)
+
+[node name="GuerreroRademHachero3" parent="." unique_id=734956233 instance=ExtResource("pg_RademHachero")]
+position = Vector2(70, 248)
+
+[node name="GuerreroRademKhopesh" parent="." unique_id=1865298563 instance=ExtResource("pg_RademKhopesh")]
 position = Vector2(1180, 258)
 
-[node name="GuerreroRademMangual" parent="." instance=ExtResource("pg_RademMangual")]
+[node name="GuerreroRademMangual" parent="." unique_id=998984845 instance=ExtResource("pg_RademMangual")]
 position = Vector2(1700, 258)
 
-[node name="GuerreroRademArquero" parent="." instance=ExtResource("pg_RademArquero")]
-position = Vector2(1850, 258)
+[node name="GuerreroRademArquero" parent="." unique_id=1908837701 instance=ExtResource("pg_RademArquero")]
+position = Vector2(447.67007, 249.93437)
 
-[node name="GuerreroRademCampeon" parent="." instance=ExtResource("pg_RademCampeon")]
+[node name="GuerreroRademArquero2" parent="." unique_id=1167149285 instance=ExtResource("pg_RademArquero")]
+position = Vector2(399.67007, 247.02528)
+
+[node name="GuerreroRademArquero3" parent="." unique_id=1638864850 instance=ExtResource("pg_RademArquero")]
+position = Vector2(463.67007, 251.38893)
+
+[node name="GuerreroRademCampeon" parent="." unique_id=133750139 instance=ExtResource("pg_RademCampeon")]
+position = Vector2(2600, 258)
+
+[node name="GuerreroRademHachero4" parent="." unique_id=1634922594 instance=ExtResource("pg_RademHachero")]
+position = Vector2(70, 248)
+
+[node name="GuerreroRademKhopesh2" parent="." unique_id=242972269 instance=ExtResource("pg_RademKhopesh")]
+position = Vector2(1180, 258)
+
+[node name="GuerreroRademMangual2" parent="." unique_id=1119593091 instance=ExtResource("pg_RademMangual")]
+position = Vector2(1700, 258)
+
+[node name="GuerreroRademArquero4" parent="." unique_id=1366002151 instance=ExtResource("pg_RademArquero")]
+position = Vector2(447.67007, 249.93437)
+
+[node name="GuerreroRademArquero5" parent="." unique_id=1538217939 instance=ExtResource("pg_RademArquero")]
+position = Vector2(399.67007, 247.02528)
+
+[node name="GuerreroRademArquero6" parent="." unique_id=972970152 instance=ExtResource("pg_RademArquero")]
+position = Vector2(463.67007, 251.38893)
+
+[node name="GuerreroRademCampeon2" parent="." unique_id=884634316 instance=ExtResource("pg_RademCampeon")]
 position = Vector2(2600, 258)
