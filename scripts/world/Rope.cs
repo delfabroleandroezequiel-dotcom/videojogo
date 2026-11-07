@@ -27,19 +27,20 @@ public partial class Rope : Node2D
 	[Export] public float VisualWidth = 5f;
 	[Export] public Texture2D RopeTexture;
 
-	// The source art is a bright golden tan that reads too warm/loud against a dark cave — this
-	// multiplies it down instead of editing the source PNGs, so it stays easy to re-tune per rope.
-	[Export] public Color TintColor = new(0.55f, 0.55f, 0.55f, 1f);
+	// Multiplies the art (the old painted rope needed 0.55 to calm its golden tan; the pixel-art
+	// pieces are already in the mine palette). Still handy to re-tune one rope.
+	[Export] public Color TintColor = Colors.White;
 
-	// The frayed knotted end (ropeabajo.png) — rendered at the free end, oriented with the last
+	// The frayed knotted end (SogaPunta.png) — rendered at the free end, oriented with the last
 	// segment. Optional: leave null for a plain cut-off tiled end.
 	[Export] public Texture2D BottomCapTexture;
-	[Export] public float BottomCapVisualWidth = 9f;
+	[Export] public float BottomCapVisualWidth = 7f;
 
-	// Both source sheets have a lot of transparent padding around the actual rope art, same idea
-	// as Ladder's TileSourceRect — cropped from the actual rope.png / ropeabajo.png dimensions.
-	private static readonly Rect2 TileSourceRect = new(386, 26, 252, 1488);
-	private static readonly Rect2 BottomCapSourceRect = new(312, 126, 456, 1232);
+	// Where the rope art sits in its texture (same idea as Ladder's TileSourceRect). Defaults fit the
+	// PixelLab pixel-art pieces (Soga.png: a 5x16 twist that repeats every 4 rows; SogaPunta.png:
+	// knot + frayed end), drawn 1:1 at VisualWidth 5 / BottomCapVisualWidth 7.
+	[Export] public Rect2 TileSourceRect = new(0, 0, 5, 16);
+	[Export] public Rect2 BottomCapSourceRect = new(0, 0, 7, 27);
 
 	private int PointCount => SegmentCount + 1;
 	private float SegmentLength => Length / SegmentCount;
@@ -212,8 +213,9 @@ public partial class Rope : Node2D
 		// out to SegmentLength tall. Without this, stretching the full multi-twist crop down to a
 		// single short segment would squash 8 twists into one, unrecognizable.
 		float scale = VisualWidth / TileSourceRect.Size.X;
-		_segmentSourceHeight = Mathf.Min(SegmentLength / scale, TileSourceRect.Size.Y);
-		var segmentRegion = new Rect2(TileSourceRect.Position, new Vector2(TileSourceRect.Size.X, _segmentSourceHeight));
+		// The tile repeats (TextureRepeat), so each segment shows exactly its own length of rope and
+		// picks up the pattern where the previous one left off — no squashed or restarting twists.
+		_segmentSourceHeight = SegmentLength / scale;
 
 		_segmentSprites = new Sprite2D[SegmentCount];
 		for (int i = 0; i < SegmentCount; i++)
@@ -221,8 +223,10 @@ public partial class Rope : Node2D
 			var sprite = new Sprite2D
 			{
 				Texture = RopeTexture,
+				TextureRepeat = TextureRepeatEnum.Enabled,
 				RegionEnabled = true,
-				RegionRect = segmentRegion,
+				RegionRect = new Rect2(TileSourceRect.Position + new Vector2(0f, i * _segmentSourceHeight),
+					new Vector2(TileSourceRect.Size.X, _segmentSourceHeight)),
 				Centered = false,
 				Offset = new Vector2(-TileSourceRect.Size.X * 0.5f, 0f),
 				Scale = new Vector2(scale, scale),

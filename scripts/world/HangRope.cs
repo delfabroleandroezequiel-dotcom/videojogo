@@ -14,10 +14,10 @@ public partial class HangRope : Node2D
 {
 	public enum RopeColorPreset { Natural, Red, Blue, Green, Gold, Black, Custom }
 
-	private const string TexturePath = "res://assets/sprites/deco/rope.png";
+	private const string TexturePath = "res://assets/sprites/deco/pixellab/Soga.png";
 
-	// Same crop as Rope.TileSourceRect: the column of rope.png that actually contains the rope.
-	private static readonly Rect2I TileSourceRect = new(386, 26, 252, 1488);
+	// The whole PixelLab rope tile (same art as Rope.TileSourceRect), 5 px wide, 1:1 at VisualWidth 5.
+	private static readonly Rect2I TileSourceRect = new(0, 0, 5, 16);
 
 	private static readonly Dictionary<RopeColorPreset, Color> PresetColors = new()
 	{
