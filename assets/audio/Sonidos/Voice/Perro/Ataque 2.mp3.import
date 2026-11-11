@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cgf62d3wci58x"
+path="res://.godot/imported/Ataque 2.mp3-ab7270bd0414c2dd9ff5f464ba81e3df.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/Perro/Ataque 2.mp3"
+dest_files=["res://.godot/imported/Ataque 2.mp3-ab7270bd0414c2dd9ff5f464ba81e3df.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

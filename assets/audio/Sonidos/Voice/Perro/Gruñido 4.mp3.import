@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://djqbc3no1703y"
+path="res://.godot/imported/Gruñido 4.mp3-cef0ac958ddb5d8fc2eab753f7d79f38.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/Perro/Gruñido 4.mp3"
+dest_files=["res://.godot/imported/Gruñido 4.mp3-cef0ac958ddb5d8fc2eab753f7d79f38.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

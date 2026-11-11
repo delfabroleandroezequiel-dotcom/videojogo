@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c40og3e26qd2d"
+path="res://.godot/imported/Furia 3.mp3-9c0854569a4c868d9a90bf7d8a036e34.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/JefeLoboFuego/Furia 3.mp3"
+dest_files=["res://.godot/imported/Furia 3.mp3-9c0854569a4c868d9a90bf7d8a036e34.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

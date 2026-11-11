@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://r7ppe1gahm2a"
+path="res://.godot/imported/Mordida 1.mp3-44832e0480d3f82bb81c814f345a20bc.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/JefeLoboFuego/Mordida 1.mp3"
+dest_files=["res://.godot/imported/Mordida 1.mp3-44832e0480d3f82bb81c814f345a20bc.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

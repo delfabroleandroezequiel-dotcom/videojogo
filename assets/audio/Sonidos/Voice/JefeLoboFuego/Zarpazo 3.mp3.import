@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://g343x6b1vqa3"
+path="res://.godot/imported/Zarpazo 3.mp3-42cc7c97942322d3409b976c3785cbe0.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/JefeLoboFuego/Zarpazo 3.mp3"
+dest_files=["res://.godot/imported/Zarpazo 3.mp3-42cc7c97942322d3409b976c3785cbe0.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

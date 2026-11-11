@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ck00kmloj4d4h"
+path="res://.godot/imported/Muerte 2.mp3-0e55769167111963466d9889649569b2.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/Perro/Muerte 2.mp3"
+dest_files=["res://.godot/imported/Muerte 2.mp3-0e55769167111963466d9889649569b2.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

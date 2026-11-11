@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bv5dh7amc3ycb"
+path="res://.godot/imported/Golpeado 2.mp3-afcd4c8d3dc4c6110e90024bd7de7997.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/Perro/Golpeado 2.mp3"
+dest_files=["res://.godot/imported/Golpeado 2.mp3-afcd4c8d3dc4c6110e90024bd7de7997.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cq7g8wwx8ovo7"
+path="res://.godot/imported/Olfateo 2.mp3-ec1e72894a142617c016a1c633746870.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/JefeLoboFuego/Olfateo 2.mp3"
+dest_files=["res://.godot/imported/Olfateo 2.mp3-ec1e72894a142617c016a1c633746870.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://6v4r8falh03k"
+path="res://.godot/imported/Muerte 1.mp3-87da7e0111ce503ddc094b1ea47609ac.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/Lobo/Muerte 1.mp3"
+dest_files=["res://.godot/imported/Muerte 1.mp3-87da7e0111ce503ddc094b1ea47609ac.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cqvatmox2u3pr"
+path="res://.godot/imported/Llamas 3.mp3-29e7a692a0d1ed7ecfb5d2816cd734ed.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/JefeLoboFuego/Llamas 3.mp3"
+dest_files=["res://.godot/imported/Llamas 3.mp3-29e7a692a0d1ed7ecfb5d2816cd734ed.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

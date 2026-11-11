@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ckg1kilnuvol8"
+path="res://.godot/imported/Ataque 3.mp3-c07df68a8845cfca12ac01a21038da73.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/LoboGrande/Ataque 3.mp3"
+dest_files=["res://.godot/imported/Ataque 3.mp3-c07df68a8845cfca12ac01a21038da73.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

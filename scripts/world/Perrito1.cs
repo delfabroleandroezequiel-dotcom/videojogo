@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
+using Metroidvania.Shared;
 
 namespace Metroidvania.World;
 
@@ -126,6 +127,22 @@ public partial class Perrito1 : MeleeEnemy
 	private EnemySlashTrail _upperFang;
 	private EnemySlashTrail _lowerFang;
 	private bool _jawSnapped;
+
+	// ── Sounds ──
+	// The bark/growl come from the enemy's own VoiceCategory folder (Voice/Perro for this scene),
+	// so a wolf reusing this kit just points the export at its own folder. Barking on every single
+	// lunge reads as a yappy toy, hence the chance; the jaw clack always plays — it sells the hit.
+	[Export] public string BiteSoundCategory = "Combat/Mordida";
+	[Export] public string BiteSoundKey = "Mordida";
+	[Export(PropertyHint.Range, "0,1")] public float AttackBarkChance = 0.5f;
+	private const float AttackBarkMaxSeconds = 0.7f;
+	private const float BiteSoundMaxSeconds = 0.45f;
+
+	private void PlayVoice(string key, float maxSeconds)
+	{
+		if (!string.IsNullOrEmpty(VoiceCategory))
+			Sfx.PlayIfExistsAt(this, VoiceCategory, key, maxSeconds: maxSeconds);
+	}
 
 	private static readonly RandomNumberGenerator Rng = new();
 
@@ -450,6 +467,7 @@ public partial class Perrito1 : MeleeEnemy
 		if (_jawSnapped || !Attacking || Sprite.Animation != "attack1" || Sprite.Frame != JawSnapFrame)
 			return;
 		_jawSnapped = true;
+		Sfx.PlayIfExistsAt(this, BiteSoundCategory, BiteSoundKey, maxSeconds: BiteSoundMaxSeconds);
 
 		Vector2 mouth = MouthInVisual();
 		Vector2 center = mouth - new Vector2(JawSnapRadius, 0f);
@@ -499,6 +517,8 @@ public partial class Perrito1 : MeleeEnemy
 		HoldTelegraphFrame("attack1");
 		Sprite.Frame = AttackTelegraphFrame;
 		Telegraph(PounceTelegraph);
+		// The crouch before the leap gets a growl: an audible tell for the longer, riskier attack.
+		PlayVoice("Gruñido", PounceTelegraph + 0.3f);
 
 		try
 		{
@@ -574,6 +594,8 @@ public partial class Perrito1 : MeleeEnemy
 
 		ClearTelegraph();
 		Sprite.Play("attack1");
+		if (Rng.Randf() < AttackBarkChance)
+			PlayVoice("Ataque", AttackBarkMaxSeconds);
 		_lungeDirection = FacingRight ? 1f : -1f;
 		_isLunging = true;
 		_ribbonEmitting = true;

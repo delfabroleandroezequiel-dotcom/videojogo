@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://7okm4e7ndyxt"
+path="res://.godot/imported/Gruñido 1.mp3-dee34cd637c431c1611eaacb116e8a1e.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/Lobo/Gruñido 1.mp3"
+dest_files=["res://.godot/imported/Gruñido 1.mp3-dee34cd637c431c1611eaacb116e8a1e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dktfiajvv0oys"
+path="res://.godot/imported/Mordida 2.mp3-705237191ff7c7b9d74f410301ee50d7.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Combat/Mordida/Mordida 2.mp3"
+dest_files=["res://.godot/imported/Mordida 2.mp3-705237191ff7c7b9d74f410301ee50d7.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
