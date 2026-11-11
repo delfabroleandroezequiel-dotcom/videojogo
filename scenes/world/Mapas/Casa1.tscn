@@ -28,6 +28,7 @@
 [ext_resource type="Script" path="res://scripts/world/cinematica/StepWait.cs" id="esp_wait"]
 [ext_resource type="Resource" path="res://resources/items/espada_arthur.tres" id="esp_arthur"]
 [ext_resource type="Resource" path="res://resources/items/espada_madera.tres" id="esp_madera"]
+[ext_resource type="Resource" path="res://resources/items/red_arthur.tres" id="enc_red"]
 [ext_resource type="Texture2D" path="res://assets/sprites/iconos/espada_arthur.png" id="esp_icono"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
@@ -174,9 +175,9 @@ WaitSeconds = 0.6
 
 [sub_resource type="Resource" id="Espada_parado"]
 script = ExtResource("36_say")
-SpeakerKeys = PackedStringArray("NPC_ARTHUR_NAME", "NPC_ARTHUR_NAME", "NPC_ARTHUR_NAME", "NPC_DELFRAD_NAME", "NPC_ARTHUR_NAME")
-LineKeys = PackedStringArray("CIN_ESPADA_2", "CIN_ESPADA_3", "CIN_ESPADA_4", "CIN_ESPADA_5", "CIN_ESPADA_6")
-ExtraPauses = PackedFloat32Array(0.0, 0.4, 0.0, 1.0, 1.6)
+SpeakerKeys = PackedStringArray("NPC_ARTHUR_NAME", "NPC_ARTHUR_NAME", "NPC_DELFRAD_NAME", "NPC_ARTHUR_NAME", "NPC_ARTHUR_NAME", "NPC_ARTHUR_NAME", "NPC_DELFRAD_NAME", "NPC_ARTHUR_NAME")
+LineKeys = PackedStringArray("CIN_ESPADA_RETO_1", "CIN_ESPADA_RETO_2", "CIN_ESPADA_RETO_3", "CIN_ESPADA_2", "CIN_ESPADA_3", "CIN_ESPADA_4", "CIN_ESPADA_5", "CIN_ESPADA_6")
+ExtraPauses = PackedFloat32Array(0.0, 0.8, 0.6, 0.0, 0.4, 0.0, 1.0, 1.6)
 
 [sub_resource type="Resource" id="Espada_inserto"]
 script = ExtResource("33_cam")
@@ -320,6 +321,9 @@ position = Vector2(-348, 21)
 position = Vector2(351, 14)
 
 [node name="Arthur" parent="." instance=ExtResource("20_arthur")]
+QuestStepQuestId = "encargo_arthur"
+QuestStepTakesItem = ExtResource("enc_red")
+QuestStepLines = PackedStringArray("ARTHUR_RED_1", "ARTHUR_RED_2")
 position = Vector2(215, 91)
 
 [node name="CinematicaApertura" type="Node" parent="."]
@@ -351,3 +355,4 @@ Steps = [SubResource("Espada_negro"), SubResource("Espada_mostrar"), SubResource
 PlayOnStart = true
 PersistenceId = "cine_casa_espada"
 RequiresQuestCompleted = "carro_morlok"
+AlsoRequiresQuestsCompleted = PackedStringArray("encargo_arthur")

@@ -201,21 +201,21 @@ NPC_MUJERGUERRERA_L1,He recorrido medio reino con esta espada. Todavía no me fa
 NPC_LANCERA_NAME,Lancera,Spearwoman,Lanceira
 NPC_LANCERA_L1,Mi lanza no falla a distancia. Nunca dejes que se acerquen demasiado.,My spear doesn't miss at range. Never let them get too close.,Minha lança não erra à distância. Nunca deixe que se aproximem demais.
 NPC_VIKINGO_NAME,Vikingo,Viking,Viking
-NPC_VIKINGO_L1,Vine del norte cruzando los mares helados. Aquí el clima es tibio, casi molesto.,I came from the north across the frozen seas. The weather here is warm, almost annoying.,Vim do norte cruzando os mares gelados. Aqui o clima é ameno, quase incômodo.
+NPC_VIKINGO_L1,"Vine del norte cruzando los mares helados. Aquí el clima es tibio, casi molesto.","I came from the north across the frozen seas. The weather here is warm, almost annoying.","Vim do norte cruzando os mares gelados. Aqui o clima é ameno, quase incômodo."
 NPC_NINJA_NAME,Ninja Errante,Wandering Ninja,Ninja Errante
 NPC_NINJA_L1,No pregunto quién me contrata. Solo cumplo el trabajo y desaparezco.,I don't ask who hires me. I just get the job done and disappear.,Não pergunto quem me contrata. Só cumpro o trabalho e desapareço.
 NPC_HECHICERO2_NAME,Hechicero de la Llama Oscura,Dark Flame Sorcerer,Feiticeiro da Chama Sombria
 NPC_HECHICERO2_L1,Esta llama no quema... consume. Aléjate si valoras tu alma.,This flame doesn't burn... it consumes. Stay back if you value your soul.,Esta chama não queima... consome. Afaste-se se valoriza sua alma.
 NPC_BANDITPESADO_NAME,Bandido Pesado,Heavy Bandit,Bandido Pesado
-NPC_BANDITPESADO_L1,Antes andaba con una banda más grande. Ahora somos dos, pero rendimos por diez.,I used to run with a bigger crew. Now it's just the two of us, but we're worth ten.,Antes eu andava com uma gangue maior. Agora somos só nós dois, mas valemos por dez.
+NPC_BANDITPESADO_L1,"Antes andaba con una banda más grande. Ahora somos dos, pero rendimos por diez.","I used to run with a bigger crew. Now it's just the two of us, but we're worth ten.","Antes eu andava com uma gangue maior. Agora somos só nós dois, mas valemos por dez."
 NPC_BANDITLIGERO_NAME,Bandido Ligero,Light Bandit,Bandido Ligeiro
-NPC_BANDITLIGERO_L1,Yo distraigo, él golpea. Así nos ganamos la vida.,I distract, he hits. That's how we make a living.,Eu distraio, ele bate. É assim que ganhamos a vida.
+NPC_BANDITLIGERO_L1,"Yo distraigo, él golpea. Así nos ganamos la vida.","I distract, he hits. That's how we make a living.","Eu distraio, ele bate. É assim que ganhamos a vida."
 NPC_BANDITASESINO_NAME,Bandido Asesino,Assassin Bandit,Bandido Assassino
 NPC_BANDITASESINO_L1,Ni me vas a ver venir. Esa es la idea.,You won't see me coming. That's the point.,Você nem vai me ver chegando. Essa é a ideia.
 NPC_BANDITCORPULENTO_NAME,Bandido Corpulento,Brawny Bandit,Bandido Corpulento
-NPC_BANDITCORPULENTO_L1,Con este puño no hace falta arma.,With this fist, I don't need a weapon.,Com esse punho, não preciso de arma.
+NPC_BANDITCORPULENTO_L1,"Con este puño no hace falta arma.","With this fist, I don't need a weapon.","Com esse punho, não preciso de arma."
 NPC_BANDITINCENDIARIO_NAME,Bandido Incendiario,Torcher Bandit,Bandido Incendiário
-NPC_BANDITINCENDIARIO_L1,Todo lo que toco, termina en cenizas.,Everything I touch ends up ash.,Tudo que eu toco vira cinzas.
+NPC_BANDITINCENDIARIO_L1,"Todo lo que toco, termina en cenizas.","Everything I touch ends up ash.","Tudo que eu toco vira cinzas."
 NPC_BANDITSALVAJE_NAME,Bandido Salvaje,Wild Bandit,Bandido Selvagem
 NPC_BANDITSALVAJE_L1,No sigo órdenes de nadie. Solo instinto.,I don't follow orders. Just instinct.,Não sigo ordens de ninguém. Só instinto.
 NPC_GUERRERONECROPOLIS_NAME,Guerrero de la Necrópolis,Necropolis Warrior,Guerreiro da Necrópole
@@ -231,7 +231,7 @@ NPC_SAQUEADOR_L1,Este hacha ha abierto más puertas que cualquier llave.,This ax
 NPC_FUSILERO_NAME,Fusilero,Rifleman,Fuzileiro
 NPC_FUSILERO_L1,Consigo un arma como esta y de repente todos quieren negociar.,Get a gun like this and suddenly everyone wants to negotiate.,Consigo uma arma dessas e de repente todo mundo quer negociar.
 NPC_MATON_NAME,Matón,Thug,Capanga
-NPC_MATON_L1,No es personal. Bueno, a veces sí.,It's not personal. Well, sometimes it is.,Não é pessoal. Bom, às vezes é.
+NPC_MATON_L1,"No es personal. Bueno, a veces sí.","It's not personal. Well, sometimes it is.","Não é pessoal. Bom, às vezes é."
 NPC_NIGROMANTE_NAME,Nigromante,Necromancer,Necromante
 NPC_NIGROMANTE_L1,Los muertos no se quejan del sueldo. Por eso prefiero su compañía.,The dead don't complain about pay. That's why I prefer their company.,Os mortos não reclamam do salário. Por isso prefiro a companhia deles.
 NPC_AVENTURERO_NAME,Aventurero,Adventurer,Aventureiro
@@ -251,30 +251,34 @@ NPC_CABALLEROBLINDADO_L1,Esta armadura pesa más que mis remordimientos. Y ya es
 NPC_ARQUEROENCAPUCHADO_NAME,Arquero Encapuchado,Hooded Archer,Arqueiro Encapuzado
 NPC_ARQUEROENCAPUCHADO_L1,Ya te tenía en la mira antes de que llegaras.,I had you in my sights before you even arrived.,Já estava te mirando antes de você chegar.
 NPC_HEROE_NAME,Héroe,Hero,Herói
-NPC_HEROE_L1,Todo pueblo necesita un héroe. Por ahora, con escuchar ya ayudo.,Every town needs a hero. For now, just listening helps.,Todo povoado precisa de um herói. Por enquanto, já ajudo escutando.
+NPC_HEROE_L1,"Todo pueblo necesita un héroe. Por ahora, con escuchar ya ayudo.","Every town needs a hero. For now, just listening helps.","Todo povoado precisa de um herói. Por enquanto, já ajudo escutando."
 NPC_CABALLEROENCAPUCHADO_NAME,Caballero Encapuchado,Hooded Knight,Cavaleiro Encapuzado
 NPC_CABALLEROENCAPUCHADO_L1,Mi espada brilla sola. Yo solo trato de no cortarme.,My sword glows on its own. I just try not to cut myself.,Minha espada brilha sozinha. Eu só tento não me cortar.
 NPC_HERRERO_NAME,Herrero,Blacksmith,Ferreiro
-NPC_HERRERO_L1,El acero no miente. El fuego tampoco, pero quema más.,Steel doesn't lie. Fire doesn't either, but it burns more.,O aço não mente. O fogo também não, mas queima mais.
+NPC_HERRERO_L1,"El acero no miente. El fuego tampoco, pero quema más.","Steel doesn't lie. Fire doesn't either, but it burns more.","O aço não mente. O fogo também não, mas queima mais."
 NPC_CARNICERO_NAME,Carnicero,Butcher,Açougueiro
-NPC_CARNICERO_L1,Fresco de esta mañana. No pregunto de dónde vino, y usted tampoco debería.,Fresh from this morning. I don't ask where it came from, and neither should you.,Fresco desta manhã. Não pergunto de onde veio, e você também não deveria.
+NPC_CARNICERO_L1,"Fresco de esta mañana. No pregunto de dónde vino, y usted tampoco debería.","Fresh from this morning. I don't ask where it came from, and neither should you.","Fresco desta manhã. Não pergunto de onde veio, e você também não deveria."
 NPC_CANTINERO_NAME,Cantinero,Bartender,Barman
 NPC_CANTINERO_L1,Mi hijo Gransin... hace días que no sé nada de él. Se metió en las minas de la cueva y no volvió. ¿Podrías ir a buscarlo?,My son Gransin... I haven't heard from him in days. He went into the cave mines and never came back. Could you go look for him?,Meu filho Gransin... faz dias que não tenho notícias dele. Ele entrou nas minas da caverna e não voltou. Você poderia ir procurá-lo?
-NPC_CANTINERO_INPROGRESS_L1,¿Todavía no hay señales de Gransin? Por favor, encontralo.,Still no sign of Gransin? Please find him.,Ainda nenhum sinal do Gransin? Por favor, encontre-o.
+NPC_CANTINERO_INPROGRESS_L1,"¿Todavía no hay señales de Gransin? Por favor, encontralo.","Still no sign of Gransin? Please find him.","Ainda nenhum sinal do Gransin? Por favor, encontre-o."
 NPC_CANTINERO_COMPLETED_L1,Gracias por traer a mi hijo de vuelta. No sé cómo pagarte esto.,Thank you for bringing my son back. I don't know how to repay you for this.,Obrigado por trazer meu filho de volta. Não sei como te agradecer por isso.
 NPC_GRANSIN_NAME,Gransin,Gransin,Gransin
-NPC_GRANSIN_RESCUED_L1,¡Gracias al cielo! Pensé que nadie vendría. Sácame de aquí, por favor.,Thank goodness! I thought no one would come. Please get me out of here.,Graças a Deus! Pensei que ninguém viria. Por favor me tire daqui.
+NPC_GRANSIN_RESCUED_L1,"¡Gracias al cielo! Pensé que nadie vendría. Sácame de aquí, por favor.","Thank goodness! I thought no one would come. Please get me out of here.","Graças a Deus! Pensei que ninguém viria. Por favor me tire daqui."
 NPC_GRANSIN_SPIDER_ALIVE_L1,¡Huye de aquí! Ese demonio te matará.,Get out of here! That demon will kill you.,Fuja daqui! Aquele demônio vai te matar.
 NPC_GRANSIN_SPIDER_ALIVE_L2,Dile a mi padre que no me busque.,Tell my father not to come looking for me.,Diga ao meu pai que não me procure.
+CIN_ARANA_VOZ,"Una voz","A voice","Uma voz"
+CIN_ARANA_GRANSIN_1,"¿Hay... alguien ahí?","Is... is someone there?","Tem... alguém aí?"
+CIN_ARANA_GRANSIN_2,"¿Se... terminó? ¡Acá! ¡Estoy acá adentro!","Is it... over? Here! I'm in here!","Acabou...? Aqui! Estou aqui dentro!"
+BOSS_ARANA_NOMBRE,"La Tejedora","The Weaver","A Tecelã"
 NPC_GRANSIN_BAR_L1,Mi padre no deja de invitarme tragos desde que volví. No me quejo.,My father hasn't stopped buying me drinks since I got back. Not complaining.,Meu pai não para de me pagar bebidas desde que voltei. Não que eu me importe.
 NPC_PARROQUIANO1_NAME,Parroquiano,Tavern Regular,Frequentador
 NPC_PARROQUIANO1_L1,*bebe sin levantar la vista*,*drinks without looking up*,*bebe sem levantar os olhos*
 NPC_PARROQUIANO2_NAME,Parroquiano,Tavern Regular,Frequentador
-NPC_PARROQUIANO2_L1,Otra ronda. Y no me pregunte por qué, ya sabe por qué.,Another round. And don't ask me why, you already know why.,Mais uma rodada. E não me pergunte por quê, você já sabe.
+NPC_PARROQUIANO2_L1,"Otra ronda. Y no me pregunte por qué, ya sabe por qué.","Another round. And don't ask me why, you already know why.","Mais uma rodada. E não me pergunte por quê, você já sabe."
 NPC_PARROQUIANO3_NAME,Parroquiano,Tavern Regular,Frequentador
 NPC_PARROQUIANO3_L1,Escuché que hay un dragón cerca. O era un perro grande. Ya no me acuerdo.,I heard there's a dragon nearby. Or maybe it was a big dog. I don't remember anymore.,Ouvi dizer que tem um dragão por perto. Ou era um cachorro grande. Já não me lembro.
 NPC_VENDEDORA_NAME,Vendedora,Vendor,Vendedora
-NPC_VENDEDORA_L1,Fruta fresca, buen precio, y ni una palabra sobre dónde la conseguí.,Fresh fruit, good price, and not a word about where I got it.,Frutas frescas, bom preço, e nem uma palavra sobre onde as consegui.
+NPC_VENDEDORA_L1,"Fruta fresca, buen precio, y ni una palabra sobre dónde la conseguí.","Fresh fruit, good price, and not a word about where I got it.","Frutas frescas, bom preço, e nem uma palavra sobre onde as consegui."
 ITEM_KEY_TEST_NAME,Llave de barrera,Barrier Key,Chave de barreira
 ITEM_KEY_TEST_DESC,Abre una barrera de energía sellada. Se gasta al usarla.,Opens a sealed energy barrier. Used up on use.,Abre uma barreira de energia selada. É gasta ao usar.
 UI_SHOP_GOLD,Oro: {0},Gold: {0},Ouro: {0}
@@ -381,6 +385,9 @@ NPC_TOBIAS_NAME,Tobías,Tobías,Tobías
 NPC_TOBIAS_L1,"El mar estuvo tranquilo esta semana. Decile a tu padre que mañana salimos temprano.","The sea's been calm this week. Tell your father we head out early tomorrow.","O mar esteve calmo esta semana. Diga ao seu pai que amanhã saímos cedo."
 NPC_TOBIAS_L2,"Antes salíamos más lejos... antes de que cerraran el paso del este.","We used to sail farther out... before they closed the eastern passage.","Antes íamos mais longe... antes de fecharem a passagem do leste."
 NPC_TOBIAS_L3,"Tu padre no siempre fue pescador, muchacho. Pero eso que te lo cuente él.","Your father wasn't always a fisherman, lad. But let him be the one to tell you.","Seu pai nem sempre foi pescador, rapaz. Mas deixe que ele mesmo te conte."
+NPC_TOBIAS_POST_L1,"Dicen que ahí arriba había lobos muertos de miedo.","They say the wolves up there were scared half to death.","Dizem que lá em cima os lobos estavam mortos de medo."
+NPC_TOBIAS_POST_L2,"Los lobos siempre estuvieron, muchacho. Lo que no estaba es lo que ahora espanta a los lobos.","The wolves were always there, lad. What wasn't there before is whatever scares the wolves now.","Os lobos sempre estiveram lá, rapaz. O que não estava é o que agora espanta os lobos."
+NPC_TOBIAS_POST_L3,"Y a esos pobres diablos del desierto, si a eso vamos.","And those poor devils from the desert too, come to that.","E aqueles pobres diabos do deserto também, se formos ver."
 QUEST_CARRO_MORLOK_TITLE,El carro de Morlok,Morlok's Cart,A carroça de Morlok
 QUEST_CARRO_MORLOK_DESC,El carro de Morlok no llegó de Ullatorp. Alathea teme que a Leomax le pasó algo en el camino del bosque.,Morlok's cart never arrived from Ullatorp. Alathea fears something happened to Leomax on the forest road.,A carroça de Morlok não chegou de Ullatorp. Alathea teme que algo tenha acontecido com Leomax na estrada da floresta.
 QUEST_CARRO_MORLOK_OBJECTIVE,Recuperar el libro de cuentas de Morlok,Recover Morlok's ledger,Recuperar o livro de contas de Morlok
@@ -394,8 +401,9 @@ NPC_ALATHEA_CARRO_L1,"Delfrad. Justo tú, el que nunca llega a tiempo a nada.","
 NPC_ALATHEA_CARRO_L2,El carro de mi padre tenía que llegar ayer de Ullatorp. Y nada.,My father's cart was due from Ullatorp yesterday. Nothing.,A carroça do meu pai devia ter chegado ontem de Ullatorp. E nada.
 NPC_ALATHEA_CARRO_L3,Leomax no se atrasa nunca. Ni con tormenta.,Leomax is never late. Not even in a storm.,Leomax nunca se atrasa. Nem com tempestade.
 NPC_ALATHEA_CARRO_L4,"Ve a mirar el camino del bosque. Si mi padre va solo, no vuelve.","Go check the forest road. If my father goes alone, he won't come back.","Vá olhar a estrada da floresta. Se meu pai for sozinho, não volta."
-NPC_ALATHEA_CARRO_PROG,"¿Sigues aquí? El bosque empieza al final del pueblo, por si lo olvidaste.","Still here? The forest starts at the end of town, in case you forgot.","Ainda aqui? A floresta começa no fim da vila, caso tenha esquecido."
-NPC_ALATHEA_CARRO_DONE,Lo encontraste. Supongo que tendré que dejar de burlarme de ti... un rato.,You found it. I suppose I'll have to stop mocking you... for a while.,Você encontrou. Acho que vou ter que parar de zombar de você... um pouco.
+NPC_ALATHEA_CARRO_PROG,"Mi padre ya te contó, ¿no? Entonces no te quedes ahí: el bosque empieza al final del pueblo.","My father already told you, didn't he? Then don't just stand there. The forest starts at the end of town.","Meu pai já te contou, não é? Então não fique aí parado: a floresta começa no fim da vila."
+NPC_ALATHEA_CARRO_DONE,"Para alguien con un palo, no estuvo mal. Igual me debes la cerveza.","Not bad, for someone with a stick. You still owe me that ale.","Nada mal, para alguém com um pedaço de pau. Mesmo assim, você me deve a cerveja."
+NPC_ALATHEA_CARRO_AFTER,"Leomax dice que gritabas como un chico que se quema. Yo no dije nada.","Leomax says you screamed like a kid who got burned. I didn't say a thing.","O Leomax diz que você gritava como um menino que se queimou. Eu não disse nada."
 NPC_MORLOK_NAME,Morlok,Morlok,Morlok
 NPC_MORLOK_CARRO_L1,"Mi carro, con todo lo de Ullatorp, y Leomax... no aparecen.","My cart, with everything from Ullatorp, and Leomax... they never showed up.","Minha carroça, com tudo de Ullatorp, e o Leomax... não aparecem."
 NPC_MORLOK_CARRO_L2,"Iría yo mismo, pero Alathea no me deja salir del puesto.","I'd go myself, but Alathea won't let me leave the stall.","Eu iria pessoalmente, mas Alathea não me deixa sair da barraca."
@@ -403,6 +411,9 @@ NPC_MORLOK_CARRO_L3,"Si vas al bosque, tráeme al menos mi libro de cuentas.","I
 NPC_MORLOK_CARRO_PROG,"Ese libro tiene las cuentas de medio Nix. Tráelo, por favor.",That ledger holds the accounts of half of Nix. Please bring it back.,"Esse livro tem as contas de meio Nix. Traga-o, por favor."
 NPC_MORLOK_CARRO_DONE1,¡Mi libro! Y Leomax vivo... Te debo más de lo que anoto aquí.,My ledger! And Leomax alive... I owe you more than I write in here.,Meu livro! E o Leomax vivo... Te devo mais do que anoto aqui.
 NPC_MORLOK_CARRO_DONE2,Es de Ullatorp. La lana de allá no deja pasar el agua.,It's from Ullatorp. The wool there keeps the water out.,É de Ullatorp. A lã de lá não deixa a água passar.
+NPC_MORLOK_CARRO_DONE3,"Mi hija lleva dos años contándome que miras los carros. Tómala. Así no pareces un pescador cuando llegues.","My daughter has spent two years telling me you watch the carts. Take it. That way you won't look like a fisherman when you get there.","Faz dois anos que minha filha me conta que você fica olhando as carroças. Pegue. Assim você não parece um pescador quando chegar."
+NPC_MORLOK_CARRO_DONE4,"Y si vas para allá, muchacho, no te la lleves. Te lo pido yo. Dile que no.","And if you do go, lad, don't take her with you. I'm the one asking. Tell her no.","E se você for para lá, rapaz, não a leve. Sou eu que te peço. Diga que não."
+NPC_MORLOK_CARRO_AFTER,"Leomax ya camina. Con una tabla en la pierna, pero camina.","Leomax is walking again. With a board on his leg, but walking.","O Leomax já anda. Com uma tábua na perna, mas anda."
 NPC_BRUNO_NAME,Leomax,Leomax,Leomax
 NPC_BRUNO_HERIDO_L1,Nos cortaron el paso. Más arriba hay otros. Muchos más.,They cut us off. There are more further up. Many more.,Cortaram nosso caminho. Mais acima há outros. Muitos mais.
 NPC_BRUNO_HERIDO_L2,"Son del desierto, ¿qué hacen aquí? Andaban como si los corrieran.","They're from the desert, what are they doing here? Like something was chasing them.","São do deserto, o que fazem aqui? Andavam como se fugissem de algo."
@@ -419,7 +430,12 @@ UI_INV_TABS_HINT,Q / E: pestañas,Q / E: tabs,Q / E: abas
 UI_INV_EQUIPPED_TAG,Equipado,Equipped,Equipado
 QUEST_ENCARGO_TITLE,El encargo de Arthur,Arthur's Errand,A encomenda de Arthur
 QUEST_ENCARGO_DESC,Arthur te pidió llevarle el pescado de ayer a Bram y pasar por lo de Garrik a buscar la red.,Arthur asked you to take yesterday's fish to Bram and pick up the net from Garrik's.,Arthur pediu que você levasse o peixe de ontem para o Bram e buscasse a rede com o Garrik.
-QUEST_ENCARGO_OBJECTIVE,Entregar el pescado a Bram y buscar la red de Garrik,Deliver the fish to Bram and fetch the net from Garrik,Entregar o peixe ao Bram e buscar a rede com o Garrik
+QUEST_ENCARGO_OBJECTIVE,"Entregar el pescado a Bram, buscar la red de Garrik y llevársela a Arthur","Deliver the fish to Bram, fetch the net from Garrik and bring it to Arthur","Entregar o peixe ao Bram, buscar a rede com o Garrik e levá-la ao Arthur"
+QUEST_TOAST_NEW,"Nueva misión: {0}","New quest: {0}","Nova missão: {0}"
+QUEST_TOAST_PROGRESS,"{0}  {1}/{2}","{0}  {1}/{2}","{0}  {1}/{2}"
+QUEST_TOAST_DONE,"Misión completada: {0}","Quest completed: {0}","Missão concluída: {0}"
+ARTHUR_RED_1,"La red. Bien.","The net. Good.","A rede. Bom."
+ARTHUR_RED_2,"Garrik anuda mejor que yo. No se lo digas.","Garrik ties a better knot than I do. Don't tell him.","O Garrik dá nós melhores que eu. Não conte a ele."
 QUEST_ENCARGO_REWARD,Unas monedas de Bram (pocas),A few coins from Bram (not many),Algumas moedas do Bram (poucas)
 ITEM_PESCADO_AYER_NAME,Pescado de ayer,Yesterday's Fish,Peixe de ontem
 ITEM_PESCADO_AYER_DESC,"Un atado envuelto en papel. Huele a ayer, y Bram lo va a notar.","A paper-wrapped bundle. It smells like yesterday, and Bram will notice.","Um embrulho de papel. Cheira a ontem, e o Bram vai perceber."
@@ -467,8 +483,27 @@ AMB_NINOS_B1,Ahora yo soy Rhodas.,Now I'm Rhodas.,Agora eu sou o Rhodas.
 AMB_NINOS_B2,"No, tú eres el malo. Siempre eres el malo.","No, you're the bad guy. You're always the bad guy.","Não, você é o vilão. Você é sempre o vilão."
 AMB_NINOS_B3,"¿Y qué fue a buscar Rhodas a Arkal, eh? ¡Ni sabes!","And what did Rhodas go looking for in Arkal, huh? You don't even know!","E o que o Rhodas foi buscar em Arkal, hein? Você nem sabe!"
 AMB_NINOS_B4,¡Un tesoro! ...Creo.,Treasure! ...I think.,Um tesouro! ...Acho.
+AMB_GARRIK_1,"Herraduras para caravanas que no pasan.","Horseshoes for caravans that never come.","Ferraduras para caravanas que não passam."
+AMB_GARRIK_2,"Todo se rompe en este pueblo menos el yunque.","Everything in this village breaks except the anvil.","Tudo nesta vila quebra, menos a bigorna."
+AMB_GARRIK_3,"Arthur venía a mirar cómo templaba. Hace años que no.","Arthur used to come watch me temper. Not for years now.","O Arthur vinha me ver temperar. Faz anos que não vem."
+AMB_GARRIK_4,"Nadie quiere buen acero hasta que lo necesita.","Nobody wants good steel until they need it.","Ninguém quer aço bom até precisar dele."
+AMB_BRAM_1,"¡Cordero! Del último cordero, pero cordero.","Lamb! The last lamb, but lamb.","Cordeiro! Do último cordeiro, mas cordeiro."
+AMB_BRAM_2,"Si el ganado no baja, el precio sube. Así es la cosa.","If the cattle don't come down, the price goes up. That's how it is.","Se o gado não desce, o preço sobe. É assim que é."
+AMB_BRAM_3,"Toma, perro. Por lo menos tú no regateas.","Here, dog. At least you don't haggle.","Toma, cachorro. Pelo menos você não pechincha."
+AMB_BRAM_4,"¿Pescado otra vez? En este pueblo vamos a terminar comiendo red.","Fish again? In this village we'll end up eating the nets.","Peixe de novo? Nesta vila vamos acabar comendo rede."
+AMB_SELA_1,"Hoy tampoco.","Not today either.","Hoje também não."
+AMB_SELA_2,"Le dije que esperara a la caravana.","I told him to wait for the caravan.","Eu disse para ele esperar a caravana."
+AMB_SELA_3,"Si llega alguien del norte, avísenme.","If anyone comes from the north, let me know.","Se chegar alguém do norte, me avisem."
+AMB_SELA_4,"Un mes...","A month...","Um mês..."
+AMB_HALVAR_1,"Un solo guardia para todo Nix.","One guard for all of Nix.","Um só guarda para Nix inteira."
+AMB_HALVAR_2,"Este casco era de mi padre. A él tampoco le quedaba.","This helmet was my father's. It didn't fit him either.","Este elmo era do meu pai. Nele também não servia."
+AMB_HALVAR_3,"Humo al norte... será una quema.","Smoke to the north... must be a field burning.","Fumaça ao norte... deve ser uma queimada."
+AMB_HALVAR_4,"Que nadie salga sin avisarme.","Nobody leaves without telling me.","Que ninguém saia sem me avisar."
 CIN_SALTEAR,"Mantén Saltar para omitir","Hold Jump to skip","Segure Pular para pular a cena"
 CIN_ESPADA_1,"Cierra la puerta.","Close the door.","Feche a porta."
+CIN_ESPADA_RETO_1,"Morlok vino a darme las gracias.","Morlok came by to thank me.","O Morlok veio me agradecer."
+CIN_ESPADA_RETO_2,"Fuiste al bosque con un palo.","You went into the forest with a stick.","Você foi para a floresta com um pedaço de pau."
+CIN_ESPADA_RETO_3,"Alguien tenía que ir.","Someone had to go.","Alguém tinha que ir."
 CIN_ESPADA_2,"Muéstrame esa espada.","Show me that sword.","Me mostre essa espada."
 CIN_ESPADA_3,"Un cuchillo. Se clavó justo aquí.","A knife. It bit right here.","Uma faca. Cravou bem aqui."
 CIN_ESPADA_4,"¿Te quedaste parado?","You froze?","Você ficou parado?"
@@ -486,6 +521,7 @@ MINA_ITEM_GUANTES_NAME,Guantes de minero,Miner's Gloves,Luvas de mineiro
 MINA_ITEM_GUANTES_DESC,"Cuero curtido con resina. Con ellos podés agarrarte de las cuerdas colgantes y balancearte.","Resin-tanned leather. With them you can grab hanging ropes and swing from them.","Couro curtido com resina. Com elas você pode agarrar cordas penduradas e se balançar."
 PENSAR_SOGA_SIN_GUANTES_1,"Si me cuelgo sin guantes, me voy a resbalar.","If I grab that rope bare-handed, I'll just slip off.","Se eu me pendurar sem luvas, vou escorregar."
 PENSAR_SOGA_SIN_GUANTES_2,"Esta cuerda me pelaría las manos... Necesito algo para agarrarla bien.","This rope would tear my hands raw... I need something to grip it with.","Essa corda ia esfolar minhas mãos... Preciso de algo pra segurar firme."
+PENSAR_CUEVA_ENTRADA_1,"Hay olor a muerte en este lugar.","There's a smell of death in this place.","Há cheiro de morte neste lugar."
 UI_PAUSE_MAP,Mapa,Map,Mapa
 UI_MAPA_TITULO,Mapa,Map,Mapa
 UI_MAPA_SIN_DATOS,No hay mapa de este lugar.,There's no map of this place.,Não há mapa deste lugar.
@@ -497,3 +533,14 @@ MAPA_REGION_CRIPTA,La Cripta,The Crypt,A Cripta
 MAPA_REGION_QUEBRADA,La Quebrada,The Ravine,A Ravina
 MAPA_REGION_MINA,La Mina,The Mine,A Mina
 MAPA_REGION_SIMA,La Sima,The Chasm,O Abismo
+NPC_ESFIANER_NAME,"Esfianer","Esfianer","Esfianer"
+NPC_ESFIANER_L1,"¡Un rostro amable! Ven, siéntate. Me llamo Esfianer, escolta de caravanas.","A friendly face! Come, sit. I'm Esfianer, caravan escort.","Um rosto amigo! Venha, sente-se. Sou Esfianer, escolta de caravanas."
+NPC_ESFIANER_L2,"¿La armadura? Rosa, sí. Que me vean venir de lejos: así nadie se pierde.","The armor? Pink, yes. Let them see me coming from afar. Nobody gets lost.","A armadura? Rosa, sim. Que me vejam chegar de longe: assim ninguém se perde."
+NPC_ESFIANER_L3,"Tres semanas varado. El camino del norte está tomado, pero no por mucho.","Three weeks stuck here. The north road's been taken, but not for long.","Três semanas preso aqui. A estrada do norte foi tomada, mas não por muito tempo."
+NPC_ESFIANER_L4,"¿La Gran Guerra? Dicen que fue por oro, que Aragost saqueaba los pueblos.","The Great War? They say it was about gold, that Aragost plundered our towns.","A Grande Guerra? Dizem que foi por ouro, que Aragost saqueava nossas vilas."
+NPC_ESFIANER_L5,"Yo prefiero otras historias: las de los que vuelven a casa.","I prefer other stories. The ones about people who make it home.","Prefiro outras histórias: as de quem volta para casa."
+NPC_ESFIANER_L6,"Si un día sales al camino, búscame. Dos espadas cuidan mejor que una.","If you ever take to the road, find me. Two swords guard better than one.","Se um dia você pegar a estrada, me procure. Duas espadas protegem melhor que uma."
+AMB_ALATHEA_TORRE_1,"¡Cuida a Leomax! Yo te cubro desde aquí arriba.","Watch over Leomax! I've got you covered from up here.","Cuide do Leomax! Eu te cubro daqui de cima."
+AMB_ALATHEA_TORRE_2,"¿Con un palo, Delfrad? Tú distráelos, que yo apunto.","With a stick, Delfrad? You keep them busy, I'll aim.","Com um pedaço de pau, Delfrad? Você os distrai, eu miro."
+AMB_ALATHEA_TORRE_3,"¡Agáchate! Esta va para el del hacha.","Duck! This one's for the axe guy.","Abaixa! Esta é para o do machado."
+AMB_ALATHEA_TORRE_4,"¡Eso es! Me debes una cerveza.","That's it! You owe me an ale.","Isso! Você me deve uma cerveja."

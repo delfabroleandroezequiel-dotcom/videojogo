@@ -27,6 +27,7 @@
 [ext_resource type="SpriteFrames" path="res://resources/sprites/NixLeomaxHeridoSpriteFrames.tres" id="cm_bruno"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CarrozaVolcada.tscn" id="cm_carroza"]
 [ext_resource type="Resource" path="res://resources/items/libro_cuentas_morlok.tres" id="cm_libro"]
+[ext_resource type="Script" path="res://scripts/world/QuestGate.cs" id="qg_script"]
 [ext_resource type="Script" uid="uid://ca3by7a2nprbd" path="res://scripts/world/LootEntry.cs" id="cm_lootscript"]
 [ext_resource type="PackedScene" uid="uid://d8tq20x6upcu" path="res://scenes/world/Npc.tscn" id="cm_npc"]
 [ext_resource type="PackedScene" path="res://scenes/world/ItemPickup.tscn" id="cm_pickup"]
@@ -36,6 +37,8 @@
 [ext_resource type="Texture2D" uid="uid://daiqdmitovqwu" path="res://assets/sprites/deco/pixellab/bosque/Rocas.png" id="dpl_Rocas"]
 [ext_resource type="Texture2D" uid="uid://bl37jt8inbx1p" path="res://assets/sprites/deco/pixellab/bosque/Tocon.png" id="dpl_Tocon"]
 [ext_resource type="Script" uid="uid://4mtch3ihux0j" path="res://scripts/world/VozAmbiente.cs" id="voz_amb"]
+[ext_resource type="Script" path="res://scripts/world/ArqueraTorre.cs" id="alt_script"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/AlatheaPixelLabSpriteFrames.tres" id="alt_frames"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h48re"]
 load_path = "res://.godot/imported/ChatGPT_Image_12_jul_2026__17_14_53-removebg-preview.png-d59d64ce255041962d0d7588581fe35a.ctex"
@@ -12973,6 +12976,8 @@ texture = ExtResource("dpl_Tocon")
 offset = Vector2(0, -29)
 
 [node name="CarroDeMorlok" type="Node2D" parent="." unique_id=527568863]
+script = ExtResource("qg_script")
+QuestId = "carro_morlok"
 
 [node name="CarrozaVolcada" parent="CarroDeMorlok" unique_id=2015755046 instance=ExtResource("cm_carroza")]
 position = Vector2(1026, 311)
@@ -13009,3 +13014,20 @@ Speakers = [NodePath("../BandidoHacha"), NodePath("../BandidoDagas"), NodePath("
 MinInterval = 7.0
 MaxInterval = 14.0
 HearDistance = 650.0
+
+[node name="AlatheaTorre" type="Node2D" parent="CarroDeMorlok"]
+position = Vector2(305, 56)
+script = ExtResource("alt_script")
+Frames = ExtResource("alt_frames")
+QuestId = "carro_morlok"
+Damage = 12
+Cooldown = 2.4
+
+[node name="CharlaAlathea" type="Node2D" parent="CarroDeMorlok/AlatheaTorre"]
+script = ExtResource("voz_amb")
+LineKeys = PackedStringArray("AMB_ALATHEA_TORRE_1", "AMB_ALATHEA_TORRE_2", "AMB_ALATHEA_TORRE_3", "AMB_ALATHEA_TORRE_4")
+MinInterval = 7.0
+MaxInterval = 12.0
+HearDistance = 900.0
+MaxDistance = 1100.0
+SubtitleHeight = 50.0

@@ -33,6 +33,7 @@
 [ext_resource type="Material" path="res://resources/shaders/CobwebSway.tres" id="cobweb_sway"]
 [ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="luz_gradiente"]
 [ext_resource type="Material" path="res://resources/shaders/RamaCuevaSway.tres" id="rama_sway"]
+[ext_resource type="Script" path="res://scripts/world/PensamientoAlEntrar.cs" id="pensar_entrar"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1600, 64)
@@ -4526,5 +4527,10 @@ color = Color(0.7, 0.8, 1, 1)
 energy = 0.9
 texture = ExtResource("luz_gradiente")
 texture_scale = 1.2
+
+[node name="PensamientoEntrada" type="Node" parent="."]
+script = ExtResource("pensar_entrar")
+ThoughtKeys = PackedStringArray("PENSAR_CUEVA_ENTRADA_1")
+PersistenceId = "cueva1_entrada"
 
 [editable path="CookingArea"]

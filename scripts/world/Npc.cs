@@ -12,6 +12,9 @@ public partial class Npc : CharacterBody2D
 	[Export] public string[] DialogueLines = { "NPC_DEFAULT_LINE" };
 	[Export] public string[] InProgressDialogueLines = { "NPC_DEFAULT_IN_PROGRESS" };
 	[Export] public string[] CompletedDialogueLines = { "NPC_DEFAULT_COMPLETED" };
+	// Said on later visits, once the quest was already handed in (empty = repeat CompletedDialogueLines):
+	// the thanks and the reward are a one-time moment, not something to hear every time.
+	[Export] public string[] AfterCompletedDialogueLines = { };
 	[Export] public NpcDialogueStage[] StageDialogues = { };
 
 	// Only meaningful on an ambient NPC (Quest left empty) — takes priority over StageDialogues
@@ -19,6 +22,11 @@ public partial class Npc : CharacterBody2D
 	// just fall back to the normal story-stage/default line at that tier.
 	[Export] public string[] LoveDialogueLines = { };
 	[Export] public string[] HateDialogueLines = { };
+
+	// Ambient NPC whose small talk changes once some other quest wraps up (Tobías talks about the
+	// frightened wolves after "El carro de Morlok"). Checked after reputation, before story stage.
+	[Export] public string AfterQuestId = "";
+	[Export] public string[] AfterQuestDialogueLines = { };
 
 	[Export] public Quest Quest;
 	[Export] public bool GrantsOwnObjective = true;
@@ -43,6 +51,9 @@ public partial class Npc : CharacterBody2D
 	// placements instead of writing a one-off script per NPC that moves around.
 	[Export] public string DisappearWhenQuestCompleted = "";
 	[Export] public string AppearOnlyWhenQuestCompleted = "";
+	// Away while this quest is running (started, not completed): she's out doing her part of it
+	// somewhere else (Alathea on BosqueLobos1's watchtower during "El carro de Morlok").
+	[Export] public string HideWhileQuestActive = "";
 
 	// For an NPC that can be reached before the boss holding them is dead (a shortcut into their
 	// room): while that boss is alive they say these lines instead and the quest logic is skipped
@@ -83,6 +94,13 @@ public partial class Npc : CharacterBody2D
 		}
 
 		if (!string.IsNullOrEmpty(AppearOnlyWhenQuestCompleted) && !QuestManager.Instance.IsCompleted(AppearOnlyWhenQuestCompleted))
+		{
+			QueueFree();
+			return;
+		}
+
+		if (!string.IsNullOrEmpty(HideWhileQuestActive) && QuestManager.Instance.IsActive(HideWhileQuestActive)
+			&& !QuestManager.Instance.IsCompleted(HideWhileQuestActive))
 		{
 			QueueFree();
 			return;
@@ -217,7 +235,8 @@ public partial class Npc : CharacterBody2D
 
 		if (QuestManager.Instance.IsCompleted(Quest.Id))
 		{
-			DialogueBox.Instance.Show(NpcName, CompletedDialogueLines, null, this);
+			DialogueBox.Instance.Show(NpcName,
+				AfterCompletedDialogueLines.Length > 0 ? AfterCompletedDialogueLines : CompletedDialogueLines, null, this);
 			return;
 		}
 
@@ -283,6 +302,10 @@ public partial class Npc : CharacterBody2D
 			return LoveDialogueLines;
 		if (tier == ReputationTier.Hate && HateDialogueLines.Length > 0)
 			return HateDialogueLines;
+
+		if (!string.IsNullOrEmpty(AfterQuestId) && AfterQuestDialogueLines.Length > 0
+			&& QuestManager.Instance.IsCompleted(AfterQuestId))
+			return AfterQuestDialogueLines;
 
 		if (StageDialogues is null || StageDialogues.Length == 0)
 			return DialogueLines;

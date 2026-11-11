@@ -36,6 +36,65 @@ public partial class QuestLog : CanvasLayer
 		QuestManager.Instance.QuestStarted += _ => RefreshIfOpen();
 		QuestManager.Instance.QuestProgressUpdated += (_, _, _) => RefreshIfOpen();
 		QuestManager.Instance.QuestCompleted += _ => RefreshIfOpen();
+
+		BuildToast();
+		QuestManager.Instance.QuestStarted += id => Toast("QUEST_TOAST_NEW", id);
+		QuestManager.Instance.QuestProgressUpdated += (id, current, target) =>
+		{
+			// The last step is announced by QuestCompleted, right after this.
+			if (current < target)
+				Toast("QUEST_TOAST_PROGRESS", id, current, target);
+		};
+		QuestManager.Instance.QuestCompleted += id => Toast("QUEST_TOAST_DONE", id);
+	}
+
+	// ---- Toast: a short line at the top of the screen when a quest starts, advances or ends, so the
+	// player knows the errand counted without opening the log. Queued, one at a time.
+	private Label _toast;
+	private readonly System.Collections.Generic.Queue<string> _toastQueue = new();
+	private bool _toastBusy;
+
+	private void BuildToast()
+	{
+		_toast = new Label
+		{
+			HorizontalAlignment = HorizontalAlignment.Center,
+			AnchorLeft = 0f, AnchorRight = 1f, OffsetTop = 64f, OffsetBottom = 110f,
+			Modulate = new Color(1f, 1f, 1f, 0f),
+			MouseFilter = Control.MouseFilterEnum.Ignore,
+		};
+		_toast.AddThemeFontOverride("font", GD.Load<Font>("res://resources/ui/JekyriaFont.res"));
+		_toast.AddThemeFontSizeOverride("font_size", 22);
+		_toast.AddThemeColorOverride("font_color", new Color(0.95f, 0.82f, 0.45f));
+		_toast.AddThemeColorOverride("font_outline_color", new Color(0f, 0f, 0f, 0.9f));
+		_toast.AddThemeConstantOverride("outline_size", 6);
+		AddChild(_toast);
+	}
+
+	private void Toast(string formatKey, string questId, int current = 0, int target = 0)
+	{
+		Quest quest = QuestManager.Instance.GetQuestInfo(questId);
+		if (quest is null || string.IsNullOrEmpty(quest.Title))
+			return;
+		string title = TranslationServer.Translate(quest.Title);
+		_toastQueue.Enqueue(string.Format(TranslationServer.Translate(formatKey), title, current, target));
+		if (!_toastBusy)
+			_ = PlayToasts();
+	}
+
+	private async System.Threading.Tasks.Task PlayToasts()
+	{
+		_toastBusy = true;
+		while (_toastQueue.Count > 0 && IsInsideTree())
+		{
+			_toast.Text = _toastQueue.Dequeue();
+			Tween tween = CreateTween().SetPauseMode(Tween.TweenPauseMode.Process);
+			tween.TweenProperty(_toast, "modulate:a", 1f, 0.35f);
+			tween.TweenInterval(2.4f);
+			tween.TweenProperty(_toast, "modulate:a", 0f, 0.6f);
+			await ToSignal(tween, Tween.SignalName.Finished);
+		}
+		_toastBusy = false;
 	}
 
 	public override void _UnhandledInput(InputEvent @event)

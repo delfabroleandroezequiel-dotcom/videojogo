@@ -20,9 +20,26 @@
 [ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Raices.png" id="dpl_Raices"]
 [ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/Rocas.png" id="dpl_Rocas"]
 [ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/bosque/TroncoCaido.png" id="dpl_TroncoCaido"]
+[ext_resource type="Texture2D" uid="uid://du77fmdo4mxcb" path="res://assets/sprites/deco/Cueva/Carretas rotas cubiertas de musgo.png" id="bar_carretas"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BandidoArquero.tscn" id="bar_arquero"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/FogataBandidos.tscn" id="bar_fogata"]
+[ext_resource type="PackedScene" path="res://scenes/world/others/Cuervo.tscn" id="bar_cuervo"]
+[ext_resource type="Texture2D" uid="uid://d24xms8u32udn" path="res://resources/lighting/PointLightGradient.tres" id="bar_luz"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1774, 56)
+
+[sub_resource type="RectangleShape2D" id="Barricada_muro"]
+size = Vector2(30, 1210)
+
+[sub_resource type="RectangleShape2D" id="Barricada_techoIzq"]
+size = Vector2(122, 10)
+
+[sub_resource type="RectangleShape2D" id="Barricada_techoDer"]
+size = Vector2(174, 10)
+
+[sub_resource type="RectangleShape2D" id="Barricada_borde"]
+size = Vector2(6, 30)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_810g8"]
 texture = ExtResource("13_or5jt")
@@ -3867,3 +3884,81 @@ texture_filter = 1
 scale = Vector2(1.4, 1.4)
 texture = ExtResource("dpl_Rocas")
 offset = Vector2(0, -31)
+
+[node name="CanvasModulate" parent="AtmosferaBosqueLobos" index="2"]
+color = Color(0.56, 0.52, 0.6, 1)
+
+[node name="Barricada" type="Node2D" parent="."]
+
+[node name="CarretasRotas" type="Sprite2D" parent="Barricada"]
+z_index = 1
+position = Vector2(1156, 79)
+scale = Vector2(0.29, 0.29)
+texture = ExtResource("bar_carretas")
+centered = false
+
+[node name="Colision" type="StaticBody2D" parent="Barricada"]
+
+[node name="Muro" type="CollisionShape2D" parent="Barricada/Colision"]
+position = Vector2(1220, -298)
+shape = SubResource("Barricada_muro")
+
+[node name="TechoIzq" type="CollisionShape2D" parent="Barricada/Colision"]
+position = Vector2(1298, 180)
+shape = SubResource("Barricada_techoIzq")
+
+[node name="TechoIzqBordeA" type="CollisionShape2D" parent="Barricada/Colision"]
+position = Vector2(1240, 160)
+shape = SubResource("Barricada_borde")
+
+[node name="TechoIzqBordeB" type="CollisionShape2D" parent="Barricada/Colision"]
+position = Vector2(1356, 160)
+shape = SubResource("Barricada_borde")
+
+[node name="TechoDer" type="CollisionShape2D" parent="Barricada/Colision"]
+position = Vector2(1547, 139)
+shape = SubResource("Barricada_techoDer")
+
+[node name="TechoDerBordeA" type="CollisionShape2D" parent="Barricada/Colision"]
+position = Vector2(1463, 119)
+shape = SubResource("Barricada_borde")
+
+[node name="TechoDerBordeB" type="CollisionShape2D" parent="Barricada/Colision"]
+position = Vector2(1631, 119)
+shape = SubResource("Barricada_borde")
+
+[node name="FarolIzq" type="PointLight2D" parent="Barricada"]
+position = Vector2(1240, 225)
+color = Color(1, 0.72, 0.35, 1)
+energy = 1.1
+texture = ExtResource("bar_luz")
+texture_scale = 1.2
+
+[node name="FarolArriba" type="PointLight2D" parent="Barricada"]
+position = Vector2(1353, 144)
+color = Color(1, 0.72, 0.35, 1)
+energy = 1.1
+texture = ExtResource("bar_luz")
+texture_scale = 1.2
+
+[node name="FarolDer" type="PointLight2D" parent="Barricada"]
+position = Vector2(1462, 169)
+color = Color(1, 0.72, 0.35, 1)
+energy = 1.1
+texture = ExtResource("bar_luz")
+texture_scale = 1.2
+
+[node name="ArqueroBarricadaIzq" parent="Barricada" instance=ExtResource("bar_arquero")]
+position = Vector2(1300, 130)
+
+[node name="ArqueroBarricadaDer" parent="Barricada" instance=ExtResource("bar_arquero")]
+position = Vector2(1547, 90)
+
+[node name="FogataCampamento" parent="Barricada" instance=ExtResource("bar_fogata")]
+position = Vector2(760, 307)
+
+[node name="CuervoCima" parent="Barricada" instance=ExtResource("bar_cuervo")]
+position = Vector2(1397, 91)
+
+[node name="CuervoDer" parent="Barricada" instance=ExtResource("bar_cuervo")]
+position = Vector2(1600, 125)

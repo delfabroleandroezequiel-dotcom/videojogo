@@ -65,6 +65,7 @@
 [ext_resource type="Resource" path="res://resources/quests/carro_morlok.tres" id="cm_quest"]
 [ext_resource type="Texture2D" uid="uid://bmeutsyc06bj" path="res://assets/sprites/deco/pixellab/nix/Abrevadero.png" id="dpl_Abrevadero"]
 [ext_resource type="Texture2D" uid="uid://bh2dtu5sktmq2" path="res://assets/sprites/deco/pixellab/nix/Bote.png" id="dpl_Bote"]
+[ext_resource type="Texture2D" uid="uid://puvv8dutt4lp" path="res://assets/sprites/deco/pixellab/nix/CajonesVerdura.png" id="dpl_CajonesVerdura"]
 [ext_resource type="Texture2D" uid="uid://80ximfc8p8bm" path="res://assets/sprites/deco/pixellab/nix/Carreta.png" id="dpl_Carreta"]
 [ext_resource type="Texture2D" uid="uid://dp8x4gywauj7f" path="res://assets/sprites/deco/pixellab/nix/Cartel.png" id="dpl_Cartel"]
 [ext_resource type="Texture2D" uid="uid://dgk2k23x2bwmw" path="res://assets/sprites/deco/pixellab/nix/Fardos.png" id="dpl_Fardos"]
@@ -74,11 +75,11 @@
 [ext_resource type="Texture2D" uid="uid://b7edu5jhqhree" path="res://assets/sprites/deco/pixellab/nix/Lena.png" id="dpl_Lena"]
 [ext_resource type="Texture2D" uid="uid://obcuakm80w80" path="res://assets/sprites/deco/pixellab/nix/Macetas.png" id="dpl_Macetas"]
 [ext_resource type="Texture2D" uid="uid://bx38qnq0iunl2" path="res://assets/sprites/deco/pixellab/nix/Pozo.png" id="dpl_Pozo"]
-[ext_resource type="Texture2D" uid="uid://jmp0qtovfsy6" path="res://assets/sprites/deco/pixellab/nix/PuestoMercado.png" id="dpl_PuestoMercado"]
 [ext_resource type="Texture2D" uid="uid://bs3yi63sjkbrg" path="res://assets/sprites/deco/pixellab/nix/RedPesca.png" id="dpl_RedPesca"]
 [ext_resource type="Texture2D" uid="uid://bjdgske08gpx2" path="res://assets/sprites/deco/pixellab/nix/TablonAnuncios.png" id="dpl_TablonAnuncios"]
 [ext_resource type="Texture2D" uid="uid://ckixdv5prvhim" path="res://assets/sprites/deco/pixellab/nix/Tendedero.png" id="dpl_Tendedero"]
 [ext_resource type="Texture2D" uid="uid://nh0y8jrb1s1" path="res://assets/sprites/deco/pixellab/nix/Valla.png" id="dpl_Valla"]
+[ext_resource type="Texture2D" uid="uid://d2nn423gowjkw" path="res://assets/sprites/deco/pixellab/nix/Verduleria.png" id="dpl_Verduleria"]
 [ext_resource type="Texture2D" uid="uid://drctggwcif6j2" path="res://assets/sprites/deco/pixellab/nix/Yunque.png" id="dpl_Yunque"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/NixGarrikHerreroSpriteFrames.tres" id="enc_garrik"]
 [ext_resource type="Resource" path="res://resources/items/pescado_ayer.tres" id="enc_pescado"]
@@ -93,7 +94,7 @@
 [ext_resource type="SpriteFrames" path="res://resources/sprites/NixTomoJuegoSpriteFrames.tres" id="pob_tomo"]
 [ext_resource type="Texture2D" uid="uid://b21ubcwf4tahu" path="res://assets/sprites/deco/pixellab/nix/TroncoCarnicero.png" id="pob_TroncoCarnicero"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/TobiasSpriteFrames.tres" id="tobias_frames"]
-[ext_resource type="Script" path="res://scripts/world/VozAmbiente.cs" id="voz_amb_ninos"]
+[ext_resource type="Script" uid="uid://4mtch3ihux0j" path="res://scripts/world/VozAmbiente.cs" id="voz_amb_ninos"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn06r"]
 size = Vector2(67, 11.360123)
@@ -15561,7 +15562,7 @@ position = Vector2(-265, 444)
 position = Vector2(-1400, 351)
 
 [node name="NpcHerrero" parent="." unique_id=1257441973 instance=ExtResource("6_npc")]
-position = Vector2(3650, 428)
+position = Vector2(816, 435)
 NpcName = "NPC_GARRIK_NAME"
 DialogueLines = PackedStringArray("NPC_HERRERO_L1")
 QuestStepQuestId = "encargo_arthur"
@@ -15633,6 +15634,8 @@ centered = false
 position = Vector2(-880, 428)
 NpcName = "NPC_TOBIAS_NAME"
 DialogueLines = PackedStringArray("NPC_TOBIAS_L1", "NPC_TOBIAS_L2", "NPC_TOBIAS_L3")
+AfterQuestId = "carro_morlok"
+AfterQuestDialogueLines = PackedStringArray("NPC_TOBIAS_POST_L1", "NPC_TOBIAS_POST_L2", "NPC_TOBIAS_POST_L3", "NPC_TOBIAS_L3")
 CustomSpriteFrames = ExtResource("tobias_frames")
 CustomSpriteYOffset = 2.0
 CustomSpriteScale = Vector2(1.158, 1.158)
@@ -15675,11 +15678,20 @@ energy = 1.1
 texture = ExtResource("dpl_glow")
 texture_scale = 0.8
 
-[node name="PuestoMercado" type="Sprite2D" parent="DecoPixelLab" unique_id=141728375]
+[node name="VerduleriaMorlok" type="Sprite2D" parent="DecoPixelLab" unique_id=1730452311]
+z_index = -1
 texture_filter = 1
-position = Vector2(537, 466)
+position = Vector2(3798, 459)
 scale = Vector2(1.4, 1.4)
-texture = ExtResource("dpl_PuestoMercado")
+texture = ExtResource("dpl_Verduleria")
+offset = Vector2(0, -33)
+
+[node name="CajonesVerduraMorlok" type="Sprite2D" parent="DecoPixelLab" unique_id=1730452312]
+z_index = -1
+texture_filter = 1
+position = Vector2(3872.9998, 464)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("dpl_CajonesVerdura")
 offset = Vector2(0, -31)
 
 [node name="Lena" type="Sprite2D" parent="DecoPixelLab" unique_id=503832732]
@@ -15705,7 +15717,7 @@ offset = Vector2(0, -25)
 
 [node name="Yunque" type="Sprite2D" parent="DecoPixelLab" unique_id=985132793]
 texture_filter = 1
-position = Vector2(3684, 466)
+position = Vector2(852, 465)
 texture = ExtResource("dpl_Yunque")
 offset = Vector2(0, -31)
 
@@ -15739,7 +15751,7 @@ offset = Vector2(0, -30)
 
 [node name="Gallinero" type="Sprite2D" parent="DecoPixelLab" unique_id=786150221]
 texture_filter = 1
-position = Vector2(3317, 466)
+position = Vector2(3297, 461)
 scale = Vector2(1.4, 1.4)
 texture = ExtResource("dpl_Gallinero")
 offset = Vector2(0, -30)
@@ -15781,7 +15793,7 @@ offset = Vector2(0, -25)
 
 [node name="Macetas2" type="Sprite2D" parent="DecoPixelLab" unique_id=147278322]
 texture_filter = 1
-position = Vector2(4717, 466)
+position = Vector2(4509.9995, 463.99997)
 scale = Vector2(1.4, 1.4)
 texture = ExtResource("dpl_Macetas")
 offset = Vector2(0, -30)
@@ -15831,24 +15843,27 @@ texture = ExtResource("pob_PuestoPescado")
 offset = Vector2(0, -31)
 
 [node name="NpcAlathea" parent="." unique_id=623933349 instance=ExtResource("6_npc")]
-position = Vector2(640, 428)
+position = Vector2(4842, 430)
 NpcName = "NPC_ALATHEA_NAME"
 DialogueLines = PackedStringArray("NPC_ALATHEA_CARRO_L1", "NPC_ALATHEA_CARRO_L2", "NPC_ALATHEA_CARRO_L3", "NPC_ALATHEA_CARRO_L4")
 InProgressDialogueLines = PackedStringArray("NPC_ALATHEA_CARRO_PROG")
 CompletedDialogueLines = PackedStringArray("NPC_ALATHEA_CARRO_DONE")
+AfterCompletedDialogueLines = PackedStringArray("NPC_ALATHEA_CARRO_AFTER")
 Quest = ExtResource("cm_quest")
 GrantsOwnObjective = false
+HideWhileQuestActive = "carro_morlok"
 CustomSpriteFrames = ExtResource("cm_alathea")
 CustomSpriteYOffset = 2.0
 CustomSpriteScale = Vector2(1.158, 1.158)
 CollisionSize = Vector2(30, 64)
 
 [node name="NpcMorlok" parent="." unique_id=1380617496 instance=ExtResource("6_npc")]
-position = Vector2(450, 428)
+position = Vector2(3786, 428)
 NpcName = "NPC_MORLOK_NAME"
 DialogueLines = PackedStringArray("NPC_MORLOK_CARRO_L1", "NPC_MORLOK_CARRO_L2", "NPC_MORLOK_CARRO_L3")
 InProgressDialogueLines = PackedStringArray("NPC_MORLOK_CARRO_PROG")
-CompletedDialogueLines = PackedStringArray("NPC_MORLOK_CARRO_DONE1", "NPC_MORLOK_CARRO_DONE2")
+CompletedDialogueLines = PackedStringArray("NPC_MORLOK_CARRO_DONE1", "NPC_MORLOK_CARRO_DONE2", "NPC_MORLOK_CARRO_DONE3", "NPC_MORLOK_CARRO_DONE4")
+AfterCompletedDialogueLines = PackedStringArray("NPC_MORLOK_CARRO_AFTER")
 Quest = ExtResource("cm_quest")
 GrantsOwnObjective = false
 CustomSpriteFrames = ExtResource("cm_morlok")
@@ -15904,12 +15919,56 @@ CustomSpriteYOffset = 2.0
 CustomSpriteScale = Vector2(1.158, 1.158)
 CollisionSize = Vector2(30, 64)
 
-[node name="CharlaNinos" type="Node2D" parent="."]
+[node name="CharlaNinos" type="Node2D" parent="." unique_id=1450953589]
 position = Vector2(4808, 400)
 script = ExtResource("voz_amb_ninos")
 LineKeys = PackedStringArray("AMB_NINOS_A1", "AMB_NINOS_A2", "AMB_NINOS_A3", "AMB_NINOS_A4", "-", "AMB_NINOS_B1", "AMB_NINOS_B2", "AMB_NINOS_B3", "AMB_NINOS_B4")
-Speakers = Array[NodePath]([NodePath("../NpcPip"), NodePath("../NpcTomo"), NodePath("../NpcPip"), NodePath("../NpcTomo"), NodePath(""), NodePath("../NpcTomo"), NodePath("../NpcPip"), NodePath("../NpcTomo"), NodePath("../NpcPip")])
+Speakers = [NodePath("../NpcPip"), NodePath("../NpcTomo"), NodePath("../NpcPip"), NodePath("../NpcTomo"), NodePath(""), NodePath("../NpcTomo"), NodePath("../NpcPip"), NodePath("../NpcTomo"), NodePath("../NpcPip")]
 MinInterval = 7.0
 MaxInterval = 14.0
 HearDistance = 650.0
+SubtitleHeight = 70.0
+
+[node name="VozGarrik" type="Node2D" parent="." unique_id=1831047712]
+position = Vector2(816, 400)
+script = ExtResource("voz_amb_ninos")
+LineKeys = PackedStringArray("AMB_GARRIK_1", "AMB_GARRIK_2", "AMB_GARRIK_3", "AMB_GARRIK_4")
+Speakers = [NodePath("../NpcHerrero"), NodePath("../NpcHerrero"), NodePath("../NpcHerrero"), NodePath("../NpcHerrero")]
+Conversation = false
+MinInterval = 10.0
+MaxInterval = 18.0
+HearDistance = 450.0
+SubtitleHeight = 70.0
+
+[node name="VozBram" type="Node2D" parent="." unique_id=1831047713]
+position = Vector2(-537, 400)
+script = ExtResource("voz_amb_ninos")
+LineKeys = PackedStringArray("AMB_BRAM_1", "AMB_BRAM_2", "AMB_BRAM_3", "AMB_BRAM_4")
+Speakers = [NodePath("../NpcCarnicero"), NodePath("../NpcCarnicero"), NodePath("../NpcCarnicero"), NodePath("../NpcCarnicero")]
+Conversation = false
+MinInterval = 10.0
+MaxInterval = 18.0
+HearDistance = 450.0
+SubtitleHeight = 70.0
+
+[node name="VozSela" type="Node2D" parent="." unique_id=1831047714]
+position = Vector2(-1090, 400)
+script = ExtResource("voz_amb_ninos")
+LineKeys = PackedStringArray("AMB_SELA_1", "AMB_SELA_2", "AMB_SELA_3", "AMB_SELA_4")
+Speakers = [NodePath("../NpcSela"), NodePath("../NpcSela"), NodePath("../NpcSela"), NodePath("../NpcSela")]
+Conversation = false
+MinInterval = 12.0
+MaxInterval = 20.0
+HearDistance = 400.0
+SubtitleHeight = 70.0
+
+[node name="VozHalvar" type="Node2D" parent="." unique_id=1831047715]
+position = Vector2(5080, 400)
+script = ExtResource("voz_amb_ninos")
+LineKeys = PackedStringArray("AMB_HALVAR_1", "AMB_HALVAR_2", "AMB_HALVAR_3", "AMB_HALVAR_4")
+Speakers = [NodePath("../NpcHalvar"), NodePath("../NpcHalvar"), NodePath("../NpcHalvar"), NodePath("../NpcHalvar")]
+Conversation = false
+MinInterval = 10.0
+MaxInterval = 18.0
+HearDistance = 450.0
 SubtitleHeight = 70.0

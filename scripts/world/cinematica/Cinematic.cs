@@ -26,6 +26,9 @@ public partial class Cinematic : Node
 	// Only plays once this quest is completed ("" = always): a scene that belongs to a later point
 	// of the story in a map the player visits before (Arthur's sword, in Casa1 after Morlok's cart).
 	[Export] public string RequiresQuestCompleted = "";
+	// More quests that must also be completed (Arthur's sword also waits for his errand, so doing the
+	// cart first doesn't close the chapter with the fish still in your pocket).
+	[Export] public string[] AlsoRequiresQuestsCompleted = { };
 
 	// Holding SkipAction for SkipHoldSeconds skips the rest: a short black, every remaining step's
 	// end state applied at once (CinematicStep.Skip), and the cinematic still counts as seen, so
@@ -60,6 +63,23 @@ public partial class Cinematic : Node
 	{
 		if (PlayOnStart)
 			Callable.From(() => { _ = Play(); }).CallDeferred();
+
+		// A scene waiting on a quest also starts the moment that quest is handed in while the player
+		// is already here (giving Arthur the net in Casa1 with the cart already done), once the
+		// dialogue that completed it is closed.
+		if (PlayOnStart && Metroidvania.Quests.QuestManager.Instance is { } quests
+			&& (!string.IsNullOrEmpty(RequiresQuestCompleted) || AlsoRequiresQuestsCompleted.Length > 0))
+			quests.QuestCompleted += OnAnyQuestCompleted;
+	}
+
+	private async void OnAnyQuestCompleted(string questId)
+	{
+		if (!CanPlay)
+			return;
+		while (IsInstanceValid(this) && IsInsideTree() && Metroidvania.UI.DialogueBox.Instance?.IsOpen == true)
+			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+		if (IsInstanceValid(this) && IsInsideTree())
+			await Play();
 	}
 
 	private string Id => string.IsNullOrEmpty(PersistenceId) ? GetPath().ToString() : PersistenceId;
@@ -67,7 +87,11 @@ public partial class Cinematic : Node
 	public bool CanPlay =>
 		!Playing
 		&& !(PlayOnce && SaveManager.Instance.IsCutscenePlayed(Id))
-		&& (string.IsNullOrEmpty(RequiresQuestCompleted) || Metroidvania.Quests.QuestManager.Instance.IsCompleted(RequiresQuestCompleted));
+		&& QuestDone(RequiresQuestCompleted)
+		&& System.Array.TrueForAll(AlsoRequiresQuestsCompleted ?? System.Array.Empty<string>(), QuestDone);
+
+	private static bool QuestDone(string questId) =>
+		string.IsNullOrEmpty(questId) || Metroidvania.Quests.QuestManager.Instance.IsCompleted(questId);
 
 	public async Task Play()
 	{
@@ -193,6 +217,8 @@ public partial class Cinematic : Node
 	{
 		if (_running)
 			Playing = false;
+		if (Metroidvania.Quests.QuestManager.Instance is { } quests)
+			quests.QuestCompleted -= OnAnyQuestCompleted;
 	}
 
 	private void Release()
