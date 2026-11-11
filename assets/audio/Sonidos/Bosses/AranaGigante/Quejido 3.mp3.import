@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://8s5ikdb0705w"
+path="res://.godot/imported/Quejido 3.mp3-862711f5dfa4f70e1e333a3c77287581.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Bosses/AranaGigante/Quejido 3.mp3"
+dest_files=["res://.godot/imported/Quejido 3.mp3-862711f5dfa4f70e1e333a3c77287581.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

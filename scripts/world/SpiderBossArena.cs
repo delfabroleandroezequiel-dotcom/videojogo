@@ -42,6 +42,9 @@ public partial class SpiderBossArena : SpiderBoss
 	[Export] public float ExplosionActiveDuration = 0.35f;
 	[Export] public int ExplosionDamage = 35;
 	[Export] public float ExplosionRadius = 70f;
+	// The hit circle starts this small and grows to ExplosionRadius over ExplosionActiveDuration,
+	// following the smoke cloud's own growth.
+	[Export] public float ExplosionStartRadius = 20f;
 	[Export] public string MarkerFramesPath = "res://resources/sprites/Pj3MagicOrbLargeGreenSpriteFrames.tres";
 	[Export] public string ExplosionFramesPath = "res://resources/sprites/SmokePoisonSpriteFrames.tres";
 	[Export] public string ExplosionAnimation = "smoke_poison";
@@ -57,6 +60,11 @@ public partial class SpiderBossArena : SpiderBoss
 	[Export] public float ExplosionFlashScale = 3f;
 	[Export] public float ExplosionFlashDuration = 0.3f;
 
+	// Waits buried and still (no spit, no brood, no poison bursts) until Awaken() — the entrance
+	// cinematic wakes it, so nothing hits the player while they can't move.
+	[Export] public bool StartDormant = false;
+	public bool Dormant { get; private set; }
+
 	private int _currentPhase = 1;
 	private bool _explosionLoopStarted;
 	private readonly List<Node2D> _activeFallingSpiders = new();
@@ -68,6 +76,11 @@ public partial class SpiderBossArena : SpiderBoss
 	// RatEnemy (whose only offense IS contact), a player brushing against the spider's body
 	// shouldn't also chip damage on top of all that.
 	protected override bool ContactDamageEnabled => false;
+
+	// No melee at all (user, 2026-11-09): whatever AttackRange the arena instance sets, Boss.cs may
+	// call Attack() when the player is close — this spider never swings. Its offense is the spit,
+	// the poison bursts and the spiderlings.
+	protected override void Attack(bool isCombo = false) { }
 
 	protected override float WebSpitCooldownMultiplier => _currentPhase >= 1 && _currentPhase <= PhaseWebSpitCooldownMultiplier.Length
 		? PhaseWebSpitCooldownMultiplier[_currentPhase - 1]
@@ -81,6 +94,83 @@ public partial class SpiderBossArena : SpiderBoss
 
 		_rng.Randomize();
 		LockFacingLeft();
+		SetupWeight();
+		Stats.HitTaken += _ => OnHitForPoise();
+		if (StartDormant)
+		{
+			Dormant = true;
+			PlayIfPresent(SleepAnimation);
+			return;
+		}
+		InitFallingSpiders();
+		RunExplosions();
+	}
+
+	// Asleep = SleepAnimation looping (PixelLab "dormida": lying flat, breathing). WakeUp() plays
+	// WakeAnimation (the lie-down clip reversed: it pushes itself up onto its legs) once; Waking
+	// stays true until it ends, so the cinematic can hold its lunge and the AI can't start mid-rise.
+	[Export] public string SleepAnimation = "dormida";
+	[Export] public string WakeAnimation = "despertar";
+	public bool Waking { get; private set; }
+	private bool _wokeUp;
+
+	public void WakeUp()
+	{
+		if (_wokeUp || IsQueuedForRemoval)
+			return;
+		_wokeUp = true;
+		if (Sprite?.SpriteFrames?.HasAnimation(WakeAnimation) != true)
+			return;
+		Waking = true;
+		Sprite.Play(WakeAnimation);
+		WakeFx();
+		Sprite.AnimationFinished += OnWakeFinished;
+	}
+
+	private void OnWakeFinished()
+	{
+		Sprite.AnimationFinished -= OnWakeFinished;
+		Waking = false;
+	}
+
+	private void PlayIfPresent(string animation)
+	{
+		if (Sprite?.SpriteFrames?.HasAnimation(animation) == true)
+			Sprite.Play(animation);
+	}
+
+	// Dies where it stands: the death clip (non-looping, holds on its last frame) instead of Boss's
+	// explosion + removal, so the body stays in the arena until the scene unloads. On reload the
+	// boss is already marked defeated and Boss.cs skips it, as before.
+	protected override void OnDefeated()
+	{
+		if (Sprite?.SpriteFrames?.HasAnimation("death") != true)
+		{
+			base.OnDefeated();
+			return;
+		}
+		Metroidvania.Save.SaveManager.Instance.MarkBossDefeated(PersistenceId);
+		SpawnLoot();
+		_actionId++;
+		EndAction();
+		EndStun();
+		_moveTween?.Kill();
+		if (Visual is not null)
+			Visual.Position = Vector2.Zero;
+		DisableForDeath();
+		Waking = false;
+		Sprite.SelfModulate = Colors.White;
+		Sprite.Play("death");
+		DeathSequence();
+	}
+
+	public void Awaken()
+	{
+		if (!Dormant || IsQueuedForRemoval)
+			return;
+		WakeUp();
+		Dormant = false;
+		AwakenFx();
 		InitFallingSpiders();
 		RunExplosions();
 	}
@@ -89,17 +179,25 @@ public partial class SpiderBossArena : SpiderBoss
 	{
 		if (IsQueuedForRemoval)
 			return;
+		if (Dormant || Waking)
+		{
+			LockFacingLeft();
+			return;
+		}
+
+		// Stunned, or a phase attack (stomp, leap, dive, web) running: it drives itself.
+		if (PhasesOwnFrame((float)delta))
+			return;
 
 		base._PhysicsProcess(delta);
 		if (IsQueuedForRemoval)
 			return;
 
-		// Simulates being chained/trapped facing one direction — Boss.cs's own physics step just
-		// turned FacingRight/Visual.Scale toward wherever the player is, so this has to re-lock it
-		// every frame (not just once in _Ready) to actually hold.
-		LockFacingLeft();
-
+		// Buried: simulates being trapped facing one direction — Boss.cs's own physics step just
+		// turned FacingRight/Visual.Scale toward wherever the player is, so this re-locks it every
+		// frame. Once free (phase 3) it turns to face the player instead.
 		UpdatePhase();
+		PhasesAfterBase();
 	}
 
 	private void LockFacingLeft()
@@ -116,7 +214,10 @@ public partial class SpiderBossArena : SpiderBoss
 			return;
 
 		_currentPhase = newPhase;
+		PhaseFx();
 		TopUpFallingSpiders();
+		if (_currentPhase >= 3 && !_free)
+			BreakFree();
 	}
 
 	private float CurrentExplosionInterval => _currentPhase >= 1 && _currentPhase <= PhaseExplosionInterval.Length
@@ -154,6 +255,13 @@ public partial class SpiderBossArena : SpiderBoss
 		Node instance = FallingSpiderScene.Instantiate();
 		if (instance is Enemy summoned)
 			summoned.GrantsEcos = false;
+		// The boss's spiderlings only bite and pounce (user, 2026-11-09): no poison spit, so the
+		// boss's own spit and bursts stay the only ranged threats. Other dark spiders keep theirs.
+		if (instance is SpiderEnemy spiderling)
+		{
+			spiderling.PoisonSpitScene = null;
+			spiderling.SpitChance = 0f;
+		}
 		GetTree().CurrentScene.AddChild(instance);
 		if (instance is not Node2D spider2D)
 			return;
@@ -169,6 +277,7 @@ public partial class SpiderBossArena : SpiderBoss
 		float offsetX = side * FallingSpiderSpawnRadiusX * (1 + slot / 2);
 		spider2D.GlobalPosition = anchor + new Vector2(offsetX, -FallingSpiderSpawnHeight);
 		_activeFallingSpiders.Add(spider2D);
+		FallWarning(spider2D);
 
 		Stats spiderStats = spider2D.GetNodeOrNull<Stats>("Stats");
 		if (spiderStats is not null)
@@ -221,7 +330,8 @@ public partial class SpiderBossArena : SpiderBoss
 			if (!IsInstanceValid(this) || IsQueuedForRemoval)
 				return;
 
-			if (!PlayerDetected)
+			// Phase 3 drops the bursts (the fight is about its dives and webs now); none while stunned.
+			if (!PlayerDetected || _currentPhase >= 3 || Stunned)
 				continue;
 
 			Node2D player = EnemyTargeting.Current(GetTree());
@@ -240,6 +350,7 @@ public partial class SpiderBossArena : SpiderBoss
 			GetTree().CurrentScene.AddChild(marker);
 			marker.GlobalPosition = markPosition;
 			marker.Play("marker");
+			Node2D warning = BurstWarning(markPosition, ExplosionTelegraphDuration);
 
 			// Child of the marker so it's freed automatically with marker.QueueFree() below.
 			marker.AddChild(new PointLight2D
@@ -252,15 +363,24 @@ public partial class SpiderBossArena : SpiderBoss
 
 			await ToSignal(GetTree().CreateTimer(ExplosionTelegraphDuration), SceneTreeTimer.SignalName.Timeout);
 			marker.QueueFree();
+			if (IsInstanceValid(warning))
+				warning.QueueFree();
 			if (!IsInstanceValid(this) || IsQueuedForRemoval)
 				return;
 
 			VfxSpawner.SpawnAt(this, markPosition, ExplosionFramesPath, ExplosionAnimation);
 			SpawnExplosionFlash(markPosition);
+			BurstImpactFx(markPosition);
 
+			// The hit grows with the cloud instead of being full size from frame 0: smoke_poison's
+			// visible half-width (measured) is ~15 px on its first frame, ~50 at 0.25 s and ~70 at
+			// 0.55 s, so a 70 px circle from the start hurt well outside the drawing.
 			Hazard hazard = Hazard.CreateArea(this, instantKill: false, damage: ExplosionDamage, knockbackForce: 260f);
 			hazard.GlobalPosition = markPosition;
-			hazard.AddChild(new CollisionShape2D { Shape = new CircleShape2D { Radius = ExplosionRadius } });
+			var burstShape = new CircleShape2D { Radius = ExplosionStartRadius };
+			hazard.AddChild(new CollisionShape2D { Shape = burstShape });
+			hazard.CreateTween().TweenProperty(burstShape, "radius", ExplosionRadius, ExplosionActiveDuration)
+				.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
 
 			await ToSignal(GetTree().CreateTimer(ExplosionActiveDuration), SceneTreeTimer.SignalName.Timeout);
 			if (IsInstanceValid(hazard))

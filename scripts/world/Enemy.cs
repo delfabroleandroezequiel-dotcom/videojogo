@@ -570,7 +570,7 @@ public partial class Enemy : CharacterBody2D
 
 	// Shared by every non-exploding death: stops AI/attacks, collisions, contact damage, the attack
 	// hitbox and the stat bars while the body is still on screen.
-	private void DisableForDeath()
+	protected void DisableForDeath()
 	{
 		IsQueuedForRemoval = true;
 		// The corpse stays in the tree, so drop it from "enemy" or companions (CompanionNpc) keep targeting it.

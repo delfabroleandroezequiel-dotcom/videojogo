@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b61e4x4nk5i7u"
+path="res://.godot/imported/Muerte 1.mp3-0a7813aff952cee83d97d185003e0bdb.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Bosses/AranaGigante/Muerte 1.mp3"
+dest_files=["res://.godot/imported/Muerte 1.mp3-0a7813aff952cee83d97d185003e0bdb.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

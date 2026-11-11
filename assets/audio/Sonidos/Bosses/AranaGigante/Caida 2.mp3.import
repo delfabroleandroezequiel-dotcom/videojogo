@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bmekyukd6poqw"
+path="res://.godot/imported/Caida 2.mp3-77f1a82f16d638e39792dec6eb9bf883.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Bosses/AranaGigante/Caida 2.mp3"
+dest_files=["res://.godot/imported/Caida 2.mp3-77f1a82f16d638e39792dec6eb9bf883.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

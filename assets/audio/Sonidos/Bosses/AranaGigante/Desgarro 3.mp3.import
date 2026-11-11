@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d1bihcpmfembl"
+path="res://.godot/imported/Desgarro 3.mp3-64a6aa9fcd1987f4c9d927c99525f675.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Bosses/AranaGigante/Desgarro 3.mp3"
+dest_files=["res://.godot/imported/Desgarro 3.mp3-64a6aa9fcd1987f4c9d927c99525f675.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

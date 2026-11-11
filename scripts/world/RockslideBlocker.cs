@@ -19,8 +19,14 @@ public partial class RockslideBlocker : Node2D
 		if (TriggerEnemyPath is null || TriggerEnemyPath.IsEmpty)
 			return;
 
-		if (GetNodeOrNull<Enemy>(TriggerEnemyPath) is Enemy enemy)
-			enemy.Stats.Died += OnTriggerDied;
+		// Already beaten in this save: the boss frees itself in its own _Ready (Stats never set), so the
+		// way must already be open instead of waiting on a death that will never fire.
+		if (GetNodeOrNull<Enemy>(TriggerEnemyPath) is not Enemy enemy || enemy.IsQueuedForDeletion() || enemy.Stats is null)
+		{
+			QueueFree();
+			return;
+		}
+		enemy.Stats.Died += OnTriggerDied;
 	}
 
 	private void OnTriggerDied()

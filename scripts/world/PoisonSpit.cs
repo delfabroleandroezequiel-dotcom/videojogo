@@ -21,6 +21,11 @@ public partial class PoisonSpit : Area2D
 	[Export] public string PuddleTargetGroup = "player";
 	[Export(PropertyHint.Layers2DPhysics)] public uint PuddleCollisionMask;
 
+	// Off = a parried (reflected) glob leaves no puddle anywhere (the arena spider's spit).
+	[Export] public bool PuddleWhenReflected = true;
+	// Fired when a parried glob lands on a body (the boss that spat it can react, e.g. get stunned).
+	public event System.Action<Node2D> ReflectedHit;
+
 	private Vector2 _velocity;
 	private Stats _shooterStats;
 	private bool _splattered;
@@ -67,6 +72,8 @@ public partial class PoisonSpit : Area2D
 			targetStats.TakeDamage(ContactDamage, isProjectile: true, element: DamageElement.Poison);
 			if (body.HasMethod("ApplyPoison"))
 				body.Call("ApplyPoison", PoisonTickDamage, PoisonTickInterval, PoisonDuration);
+			if (_reflected)
+				ReflectedHit?.Invoke(body);
 			Splatter(GlobalPosition);
 		}
 		else if (body is StaticBody2D staticBody)
@@ -84,7 +91,7 @@ public partial class PoisonSpit : Area2D
 			return;
 		_splattered = true;
 
-		if (PuddleScene is not null)
+		if (PuddleScene is not null && (PuddleWhenReflected || !_reflected))
 		{
 			// Deferred: Splatter can run from inside the BodyEntered physics callback, and adding
 			// a new collision-carrying node (the puddle is an Area2D) synchronously mid-query-flush

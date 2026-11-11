@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c7881hv46i2o2"
+path="res://.godot/imported/Rugido 1.mp3-c1947a3fe19cd01e280ead4c1a382069.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Bosses/AranaGigante/Rugido 1.mp3"
+dest_files=["res://.godot/imported/Rugido 1.mp3-c1947a3fe19cd01e280ead4c1a382069.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

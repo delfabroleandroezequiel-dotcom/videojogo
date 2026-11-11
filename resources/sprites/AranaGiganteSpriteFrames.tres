@@ -66,6 +66,23 @@
 [ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AranaGigante/death_10.png" id="t64"]
 [ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AranaGigante/death_11.png" id="t65"]
 [ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AranaGigante/death_12.png" id="t66"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AranaGigante/dormirse_0.png" id="d0"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AranaGigante/dormirse_1.png" id="d1"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AranaGigante/dormirse_2.png" id="d2"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AranaGigante/dormirse_3.png" id="d3"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AranaGigante/dormirse_4.png" id="d4"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AranaGigante/dormirse_5.png" id="d5"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AranaGigante/dormirse_6.png" id="d6"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AranaGigante/dormirse_7.png" id="d7"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AranaGigante/dormirse_8.png" id="d8"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AranaGigante/dormirse_9.png" id="d9"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AranaGigante/dormirse_10.png" id="d10"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AranaGigante/dormida_0.png" id="s0"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AranaGigante/dormida_1.png" id="s1"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AranaGigante/dormida_2.png" id="s2"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AranaGigante/dormida_3.png" id="s3"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AranaGigante/dormida_4.png" id="s4"]
+[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/AranaGigante/dormida_5.png" id="s5"]
 
 [resource]
 animations = [{
@@ -301,4 +318,103 @@ animations = [{
 "loop": false,
 "name": &"death",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("s0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("s1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("s2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("s3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("s4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("s5")
+}],
+"loop": true,
+"name": &"dormida",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("d0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("d1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("d2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("d3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("d4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("d5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("d6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("d7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("d8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("d9")
+}, {
+"duration": 1.0,
+"texture": ExtResource("d10")
+}],
+"loop": false,
+"name": &"dormirse",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("d10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("d9")
+}, {
+"duration": 1.0,
+"texture": ExtResource("d8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("d7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("d6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("d5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("d4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("d3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("d2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("d1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("d0")
+}],
+"loop": false,
+"name": &"despertar",
+"speed": 12.0
 }]

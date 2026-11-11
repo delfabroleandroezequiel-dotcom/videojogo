@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://nibw3l2j4x4e"
+path="res://.godot/imported/Carga 3.mp3-4d542dd6ba887a71da4cbc451f97fe31.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Bosses/AranaGigante/Carga 3.mp3"
+dest_files=["res://.godot/imported/Carga 3.mp3-4d542dd6ba887a71da4cbc451f97fe31.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

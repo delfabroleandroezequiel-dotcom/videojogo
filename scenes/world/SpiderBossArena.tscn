@@ -28,3 +28,6 @@ color = Color(0.55, 0.85, 0.55, 1)
 energy = 1.0
 texture = ExtResource("4_glow_tex")
 texture_scale = 3.0
+
+[node name="Stats" parent="." index="4"]
+MaxHealth = 440

@@ -11,6 +11,8 @@ public partial class MusicCrossfader : Node
 	[Export] public float VolumeDb = -6f;
 	[Export] public float DuckDb = -9f;
 	[Export] public float DuckSpeedDb = 30f;
+	// Pitch of the playing track (a boss's last phase plays its theme a touch faster and higher).
+	public float PitchScale { get; set; } = 1f;
 
 	private const float SilentDb = -60f;
 
@@ -57,6 +59,8 @@ public partial class MusicCrossfader : Node
 		_duck = Mathf.MoveToward(_duck, target, (float)delta * DuckSpeedDb / Mathf.Max(-DuckDb, 1f));
 		if (IsInstanceValid(_current))
 			_current.VolumeDb = GainToDb(_fadeGain) + VolumeDb + DuckDb * _duck;
+		if (IsInstanceValid(_current) && !Mathf.IsEqualApprox(_current.PitchScale, PitchScale))
+			_current.PitchScale = PitchScale;
 	}
 
 	private void FadeOutCurrent(float fadeSeconds)

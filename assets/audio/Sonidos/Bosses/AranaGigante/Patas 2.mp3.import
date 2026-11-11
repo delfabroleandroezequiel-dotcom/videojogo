@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dq6rtuxcb6rgi"
+path="res://.godot/imported/Patas 2.mp3-255aae0cf0a55860e71e2ac11717105d.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Bosses/AranaGigante/Patas 2.mp3"
+dest_files=["res://.godot/imported/Patas 2.mp3-255aae0cf0a55860e71e2ac11717105d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

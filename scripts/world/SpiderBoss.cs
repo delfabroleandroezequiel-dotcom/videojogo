@@ -182,13 +182,20 @@ public partial class SpiderBoss : Boss
 		}
 	}
 
+	// Hooks for SpiderBossArena's own spit FX/sounds; empty here so this encounter stays as it was.
+	protected virtual float SpitWindupDuration => WebSpitReleaseDelay;
+	protected virtual void OnSpitWindup(float duration) { }
+	protected virtual void OnSpitReleased(PoisonSpit spit) { }
+
 	private async void SpitWeb(Vector2 targetPosition)
 	{
 		_isWebSpitting = true;
 		_webSpitCooldownTimer = WebSpitCooldown * WebSpitCooldownMultiplier;
-		Telegraph(WebSpitReleaseDelay);
+		float windup = SpitWindupDuration;
+		Telegraph(windup);
+		OnSpitWindup(windup);
 
-		await ToSignal(GetTree().CreateTimer(WebSpitReleaseDelay), SceneTreeTimer.SignalName.Timeout);
+		await ToSignal(GetTree().CreateTimer(windup), SceneTreeTimer.SignalName.Timeout);
 		if (!IsInstanceValid(this) || IsQueuedForRemoval)
 			return;
 
@@ -198,6 +205,7 @@ public partial class SpiderBoss : Boss
 		// ArcGravity is 0 on PoisonSpitBoss.tscn, so this straight-line velocity is the whole
 		// trajectory — no lob, just a direct spit toward wherever the player was at release time.
 		spit.Launch((targetPosition - GlobalPosition).Normalized() * PoisonSpitSpeed, Stats);
+		OnSpitReleased(spit);
 
 		await ToSignal(GetTree().CreateTimer(WebSpitRecoverDuration), SceneTreeTimer.SignalName.Timeout);
 		if (IsInstanceValid(this))
