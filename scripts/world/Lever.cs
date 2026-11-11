@@ -15,6 +15,11 @@ public partial class Lever : Area2D
 	// interact afterwards. Elevator call-levers should stay repeatable, so this defaults off.
 	[Export] public bool SingleUse;
 
+	// Palanca a espadazo (cart rides): an attack swung within GolpeAlcance px throws it, no interact
+	// needed — you hit it in passing. The attack input isn't consumed, so the swing still plays.
+	[Export] public bool GolpeConArma;
+	[Export] public float GolpeAlcance = 90f;
+
 	[Signal] public delegate void ActivatedEventHandler();
 
 	// The two handle positions (PixelLab art, one the mirror of the other). Each pull flips between
@@ -37,6 +42,9 @@ public partial class Lever : Area2D
 
 		_handle = GetNodeOrNull<Polygon2D>("Handle");
 		_sprite = GetNodeOrNull<Sprite2D>("Sprite");
+		// An instance can swap the art (mirrored rooms: OffTexture = the right-leaning handle).
+		if (_sprite is not null && OffTexture is not null)
+			_sprite.Texture = OffTexture;
 		_interactPrompt = GetNode<Label>("InteractPrompt");
 		_interactPrompt.Visible = false;
 
@@ -54,6 +62,14 @@ public partial class Lever : Area2D
 			Activate();
 			GetViewport().SetInputAsHandled();
 		}
+	}
+
+	public override void _Process(double delta)
+	{
+		if (!GolpeConArma || (SingleUse && _activated) || !Input.IsActionJustPressed("attack"))
+			return;
+		if (GetTree().GetFirstNodeInGroup("player") is Node2D p && p.GlobalPosition.DistanceTo(GlobalPosition) <= GolpeAlcance)
+			Activate();
 	}
 
 	private void Activate()

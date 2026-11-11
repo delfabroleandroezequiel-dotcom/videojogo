@@ -4,3 +4,6 @@
 
 [node name="Vagoneta" type="AnimatableBody2D"]
 script = ExtResource("1_script")
+Width = 136.0
+DeckHeight = 36.0
+WallHeight = 58.0

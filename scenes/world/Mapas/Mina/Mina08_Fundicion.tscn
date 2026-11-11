@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Lever.tscn" id="10_8212b"]
 [ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="11_e0ib3"]
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="12_thjtf"]
+[ext_resource type="Texture2D" uid="uid://e6jnxynx321k" path="res://assets/sprites/deco/pixellab/mina/PalancaDerecha.png" id="tx_palanca_der"]
+[ext_resource type="Texture2D" uid="uid://b4quybk4qhk7i" path="res://assets/sprites/deco/pixellab/mina/PalancaIzquierda.png" id="tx_palanca_izq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1f1if"]
 size = Vector2(20, 240)
@@ -65,54 +67,54 @@ color = Color(0.07, 0.06, 0.06, 1)
 
 [node name="Colisiones" type="StaticBody2D" parent="." unique_id=711411623]
 
-[node name="ParedOeste1" type="CollisionShape2D" parent="Colisiones" unique_id=310111968]
-position = Vector2(-10, -120)
+[node name="ParedEste1" type="CollisionShape2D" parent="Colisiones" unique_id=310111968]
+position = Vector2(2810, -120)
 shape = SubResource("RectangleShape2D_1f1if")
 
 [node name="Suelo2" type="CollisionShape2D" parent="Colisiones" unique_id=777259772]
-position = Vector2(200, 20)
+position = Vector2(2600, 20)
 shape = SubResource("RectangleShape2D_kljn6")
 
-[node name="LavaParedIzq3" type="CollisionShape2D" parent="Colisiones" unique_id=527921101]
-position = Vector2(410, 140)
+[node name="LavaParedDer3" type="CollisionShape2D" parent="Colisiones" unique_id=527921101]
+position = Vector2(2390, 140)
 shape = SubResource("RectangleShape2D_krga1")
 
-[node name="LavaParedDer4" type="CollisionShape2D" parent="Colisiones" unique_id=210412456]
-position = Vector2(1170, 140)
+[node name="LavaParedIzq4" type="CollisionShape2D" parent="Colisiones" unique_id=210412456]
+position = Vector2(1630, 140)
 shape = SubResource("RectangleShape2D_g7u6w")
 
 [node name="LavaFondo5" type="CollisionShape2D" parent="Colisiones" unique_id=961409458]
-position = Vector2(790, 260)
+position = Vector2(2010, 260)
 shape = SubResource("RectangleShape2D_wx7af")
 
 [node name="Techo6" type="CollisionShape2D" parent="Colisiones" unique_id=571082924]
-position = Vector2(740, -260)
+position = Vector2(2060, -260)
 shape = SubResource("RectangleShape2D_kieya")
 
 [node name="TechoRampa7" type="CollisionPolygon2D" parent="Colisiones" unique_id=1382276783]
-polygon = PackedVector2Array(1500, -280, 1600, -30, 1600, 10, 1500, -240)
+polygon = PackedVector2Array(1300, -240, 1200, 10, 1200, -30, 1300, -280)
 
 [node name="Techo8" type="CollisionShape2D" parent="Colisiones" unique_id=1243178465]
-position = Vector2(2210, -10)
+position = Vector2(590, -10)
 shape = SubResource("RectangleShape2D_e6tkr")
 
 [node name="RepisaPalanca9" type="CollisionShape2D" parent="Colisiones" unique_id=1570060168]
-position = Vector2(1330, 170)
+position = Vector2(1470, 170)
 shape = SubResource("RectangleShape2D_p2b2o")
 
 [node name="GaleriaRampa10" type="CollisionPolygon2D" parent="Colisiones" unique_id=1226201257]
-polygon = PackedVector2Array(1500, 60, 1750, 200, 1750, 240, 1500, 100)
+polygon = PackedVector2Array(1300, 100, 1050, 240, 1050, 200, 1300, 60)
 
 [node name="Galeria11" type="CollisionShape2D" parent="Colisiones" unique_id=1946714835]
-position = Vector2(1870, 220)
+position = Vector2(930, 220)
 shape = SubResource("RectangleShape2D_vjj5d")
 
 [node name="RocaBajoGaleria12" type="CollisionShape2D" parent="Colisiones" unique_id=745509566]
-position = Vector2(2160, 260)
+position = Vector2(640, 260)
 shape = SubResource("RectangleShape2D_1vo4x")
 
 [node name="Suelo13" type="CollisionShape2D" parent="Colisiones" unique_id=1883341346]
-position = Vector2(2425, 220)
+position = Vector2(375, 220)
 shape = SubResource("RectangleShape2D_nwwa8")
 
 [node name="PlataformasOneWay" type="StaticBody2D" parent="." unique_id=402904481]
@@ -121,145 +123,148 @@ collision_layer = 49
 [node name="Visible" type="Node2D" parent="." unique_id=1451358100]
 z_index = -5
 
-[node name="ParedOeste1" type="ColorRect" parent="Visible" unique_id=2010722649]
-offset_left = -20.0
+[node name="ParedEste1" type="ColorRect" parent="Visible" unique_id=2010722649]
+offset_left = 2800.0
 offset_top = -240.0
+offset_right = 2820.0
 color = Color(0.4, 0.36, 0.33, 1)
 
 [node name="Suelo2" type="ColorRect" parent="Visible" unique_id=1935903679]
-offset_left = -20.0
-offset_right = 420.0
+offset_left = 2380.0
+offset_right = 2820.0
 offset_bottom = 40.0
 color = Color(0.4, 0.36, 0.33, 1)
 
-[node name="LavaParedIzq3" type="ColorRect" parent="Visible" unique_id=633673169]
-offset_left = 400.0
-offset_right = 420.0
+[node name="LavaParedDer3" type="ColorRect" parent="Visible" unique_id=633673169]
+offset_left = 2380.0
+offset_right = 2400.0
 offset_bottom = 280.0
 color = Color(0.4, 0.36, 0.33, 1)
 
-[node name="LavaParedDer4" type="ColorRect" parent="Visible" unique_id=1717876710]
-offset_left = 1160.0
-offset_right = 1180.0
+[node name="LavaParedIzq4" type="ColorRect" parent="Visible" unique_id=1717876710]
+offset_left = 1620.0
+offset_right = 1640.0
 offset_bottom = 280.0
 color = Color(0.4, 0.36, 0.33, 1)
 
 [node name="LavaFondo5" type="ColorRect" parent="Visible" unique_id=755336293]
-offset_left = 420.0
+offset_left = 1640.0
 offset_top = 240.0
-offset_right = 1160.0
+offset_right = 2380.0
 offset_bottom = 280.0
 color = Color(0.4, 0.36, 0.33, 1)
 
 [node name="Techo6" type="ColorRect" parent="Visible" unique_id=1431017342]
-offset_left = -20.0
+offset_left = 1300.0
 offset_top = -280.0
-offset_right = 1500.0
+offset_right = 2820.0
 offset_bottom = -240.0
 color = Color(0.4, 0.36, 0.33, 1)
 
 [node name="TechoRampa7" type="Polygon2D" parent="Visible" unique_id=885272859]
 color = Color(0.4, 0.36, 0.33, 1)
-polygon = PackedVector2Array(1500, -280, 1600, -30, 1600, 10, 1500, -240)
+polygon = PackedVector2Array(1300, -240, 1200, 10, 1200, -30, 1300, -280)
 
 [node name="Techo8" type="ColorRect" parent="Visible" unique_id=849885947]
-offset_left = 1600.0
+offset_left = -20.0
 offset_top = -30.0
-offset_right = 2820.0
+offset_right = 1200.0
 offset_bottom = 10.0
 color = Color(0.4, 0.36, 0.33, 1)
 
 [node name="RepisaPalanca9" type="ColorRect" parent="Visible" unique_id=632763342]
-offset_left = 1160.0
+offset_left = 1300.0
 offset_top = 60.0
-offset_right = 1500.0
+offset_right = 1640.0
 offset_bottom = 280.0
 color = Color(0.4, 0.36, 0.33, 1)
 
 [node name="GaleriaRampa10" type="Polygon2D" parent="Visible" unique_id=1376116227]
 color = Color(0.4, 0.36, 0.33, 1)
-polygon = PackedVector2Array(1500, 60, 1750, 200, 1750, 240, 1500, 100)
+polygon = PackedVector2Array(1300, 100, 1050, 240, 1050, 200, 1300, 60)
 
 [node name="Galeria11" type="ColorRect" parent="Visible" unique_id=1579846957]
-offset_left = 1750.0
+offset_left = 810.0
 offset_top = 200.0
-offset_right = 1990.0
+offset_right = 1050.0
 offset_bottom = 240.0
 color = Color(0.4, 0.36, 0.33, 1)
 
 [node name="RocaBajoGaleria12" type="ColorRect" parent="Visible" unique_id=503553099]
-offset_left = 1500.0
+offset_left = -20.0
 offset_top = 240.0
-offset_right = 2820.0
+offset_right = 1300.0
 offset_bottom = 280.0
 color = Color(0.4, 0.36, 0.33, 1)
 
 [node name="Suelo13" type="ColorRect" parent="Visible" unique_id=270521289]
-offset_left = 2030.0
+offset_left = -20.0
 offset_top = 200.0
-offset_right = 2820.0
+offset_right = 770.0
 offset_bottom = 240.0
 color = Color(0.4, 0.36, 0.33, 1)
 
 [node name="Trampas" type="Node2D" parent="." unique_id=134626361]
 
 [node name="Lava" parent="Trampas" unique_id=221201079 instance=ExtResource("3_ia4e2")]
-position = Vector2(420, 200)
+position = Vector2(1640, 200)
 Width = 740.0
 Depth = 40.0
 AcidColor = Color(1, 0.45, 0.1, 1)
 
 [node name="GrisuGaleria" parent="Trampas" unique_id=1589403879 instance=ExtResource("4_2qcey")]
-position = Vector2(1790, 110)
+position = Vector2(1010, 110)
 Size = Vector2(420, 180)
 Mode = 1
 StartsFull = true
 BlastRadius = 260.0
-SparkOffset = Vector2(-500, -500)
+SparkOffset = Vector2(500, -500)
 
 [node name="TaponEscombro" parent="Trampas" unique_id=1133281635 instance=ExtResource("5_40qru")]
-position = Vector2(2010, 105)
+position = Vector2(790, 105)
 Size = Vector2(40, 190)
 PersistenceId = "mina08_escombro"
 
 [node name="VagonetaMecha" parent="Trampas" unique_id=1433381982 instance=ExtResource("6_utwu4")]
-position = Vector2(1420, 60)
-RailPoints = PackedVector2Array(0, 0, 80, 0, 330, 140, 570, 140)
+position = Vector2(1380, 60)
+RailPoints = PackedVector2Array(0, 0, -80, 0, -330, 140, -570, 140)
 Release = 2
 RespawnDelay = 2.5
 
 [node name="Enemigos" type="Node2D" parent="." unique_id=65647423]
 
 [node name="RataPlaga" parent="Enemigos" unique_id=355165239 instance=ExtResource("7_ge0pt")]
-position = Vector2(2300, 160)
+position = Vector2(500, 160)
 
 [node name="Bandido7" parent="Enemigos" unique_id=878766442 instance=ExtResource("8_tmpw6")]
-position = Vector2(2550, 160)
+position = Vector2(250, 160)
 
 [node name="Objetos" type="Node2D" parent="." unique_id=563700839]
 
 [node name="CuerdaLava" parent="Objetos" unique_id=2144808758 instance=ExtResource("9_2j4ps")]
-position = Vector2(440, -80)
+position = Vector2(1660, -80)
 Length = 700.0
 
 [node name="PalancaFreno" parent="Objetos" unique_id=1444239445 instance=ExtResource("10_8212b")]
-position = Vector2(1280, 48)
+position = Vector2(1520, 48)
+OffTexture = ExtResource("tx_palanca_der")
+OnTexture = ExtResource("tx_palanca_izq")
 
 [node name="HaciaMina07" parent="." unique_id=2116574566 instance=ExtResource("11_e0ib3")]
-position = Vector2(15, -53)
-TargetScenePath = "res://scenes/world/Mapas/Mina/Mina07_Vagoneta.tscn"
-TargetSpawnPosition = Vector2(4230, 460)
+position = Vector2(2785, -53)
+TargetScenePath = "res://scenes/world/Mapas/Mina/Mina07b_Persecucion.tscn"
+TargetSpawnPosition = Vector2(150, 280)
 Width = 30.0
 Height = 200.0
 
 [node name="HaciaMina09" parent="." unique_id=1230910023 instance=ExtResource("11_e0ib3")]
-position = Vector2(2785, 147)
+position = Vector2(15, 147)
 TargetScenePath = "res://scenes/world/Mapas/Mina/Mina09_Montacargas.tscn"
-TargetSpawnPosition = Vector2(170, -40)
+TargetSpawnPosition = Vector2(1630, -40)
 Width = 30.0
 Height = 200.0
 
 [node name="Player" parent="." unique_id=1867495339 instance=ExtResource("12_thjtf")]
-position = Vector2(170, -40)
+position = Vector2(2630, -40)
 
 [connection signal="Activated" from="Objetos/PalancaFreno" to="Trampas/VagonetaMecha" method="Activate"]

@@ -39,6 +39,41 @@ public partial class MineCart : AnimatableBody2D
 		set { _railPoints = value ?? System.Array.Empty<Vector2>(); QueueRedraw(); }
 	}
 
+	// Saltos: indices of RailPoints segments (i = point i → i+1) with NO rail under them — lay those
+	// points as a low arc over a pit and the cart hops it (slope physics: slower up, faster down).
+	// The cart never brakes inside one.
+	[Export] public int[] TramosSalto = System.Array.Empty<int>();
+
+	// Cambio de vía: an alternative stretch that replaces RailPoints[DesvioDesde..DesvioHasta] (the
+	// fork and rejoin points stay on the main rail). CambiarVia() (a Lever) throws the switch while
+	// the cart is still before the fork. -1 = no switch.
+	[Export] public Vector2[] RailDesvio = System.Array.Empty<Vector2>();
+	[Export] public int DesvioDesde = -1;
+	[Export] public int DesvioHasta = -1;
+
+	// Long rides: when the rider is lost mid-ride the cart brakes (Frenada px/s²) and waits there for
+	// them, instead of ReturnWhenEmpty's roll-back home. Use with ReturnWhenEmpty = false.
+	[Export] public bool EsperarAlJinete;
+	[Export] public float Frenada = 450f;
+
+	// Salto con el jinete (DKC): jumping off the deck makes the cart hop too, lower than the player's
+	// own jump (so the rider always lands back in the tub). With it, TramosSalto stop being drawn arcs:
+	// they are real pits with no rail, and a cart that is not airborne over one falls in.
+	[Export] public bool SaltaConJinete;
+	[Export] public float SaltoVelocidad = 360f;
+	[Export] public float SaltoGravedad = 1100f;
+	// Coyote time over a pit edge (s): the cart rolls on thin air this long before it drops.
+	[Export] public float SaltoTolerancia = 0.12f;
+
+	// The rail just ends (broken bridge, collapsed track): the cart rolls off the far end and falls,
+	// crashing a moment later.
+	[Export] public bool CaeAlFinal;
+
+	// Cambio de vagoneta: an empty cart on a parallel rail that sets off when the leader passes it and
+	// keeps level with it (same screen X), so the rider can jump across. Once someone boards it, it
+	// runs on its own physics.
+	[Export] public NodePath Acompanar;
+
 	// Deck width (the player stands on its top edge, DeckHeight above the rail).
 	[Export] public float Width = 112f;
 	[Export] public float DeckHeight = 30f;
@@ -71,10 +106,30 @@ public partial class MineCart : AnimatableBody2D
 	public float Distance => _distance;
 	public float RailLength => _railLength;
 
-	private enum State { Parked, Boarding, Rolling }
+	private enum State { Parked, Boarding, Rolling, Falling, Gone }
+
+	private bool _airborne;
+	private float _hopY;
+	private float _hopVel;
+	private bool _riderWasStanding;
+	private Vector2 _fallVel;
+	private float _fallTimer;
+	private MineCart _leader;
+	private bool _leaderStarted;
+
+	public bool IsFalling => _state == State.Falling || _state == State.Gone;
 
 	private State _state = State.Parked;
+	private Vector2[] _path = System.Array.Empty<Vector2>();
+	private bool[] _pathGaps = System.Array.Empty<bool>();
+	private bool _onBranch;
+	private float _forkDistance;
+	private bool _braking;
+	private float _facing = 1f;
+	private Node2D _mainRails;
+	private Node2D _branchRails;
 	private float _distance;
+	private Vector2 _railPos;
 	private float _railLength;
 	private float _timer;
 	private float _emptyTimer;
@@ -110,19 +165,125 @@ public partial class MineCart : AnimatableBody2D
 			return;
 
 		_origin = Position;
-		_railLength = MineRail.Length(_railPoints);
+		RebuildPath();
 		_distance = StartAtEnd == 1 ? _railLength : 0f;
 		Direction = StartAtEnd == 1 ? -1 : 1;
-		Position = _origin + MineRail.Sample(_railPoints, _distance, out _);
+		_railPos = _origin + MineRail.Sample(_path, _distance, out Vector2 startTangent);
+		Position = _railPos;
+		if (Mathf.Abs(startTangent.X) > 0.01f)
+			_facing = Mathf.Sign(startTangent.X * Direction);
 
 		// The rails stay in the level, not on the cart: built next to it in the parent's space.
+		// With a switch (RailDesvio) both branches are laid; the one not in use is drawn dimmed.
 		Node parent = GetParent();
 		Callable.From(() =>
 		{
-			Node2D rails = MineRail.BuildVisual(parent, _railPoints, Name + "_Rieles");
-			rails.Position = _origin;
+			_mainRails = MineRail.BuildVisual(parent, _railPoints, GapFlags(_railPoints.Length - 1, TramosSalto), Name + "_Rieles");
+			_mainRails.Position = _origin;
+			if (HasBranch)
+			{
+				_branchRails = MineRail.BuildVisual(parent, BranchVisualPoints(), null, Name + "_RielesDesvio");
+				_branchRails.Position = _origin;
+			}
+			UpdateSwitchVisual();
 		}).CallDeferred();
 		BuildDeckZone();
+		if (Acompanar != null && !Acompanar.IsEmpty)
+			_leader = GetNodeOrNull<MineCart>(Acompanar);
+	}
+
+	// ── Path: main rail, optional switch branch, jump gaps ─────────────────────────────────────
+
+	private bool HasBranch => RailDesvio != null && RailDesvio.Length > 0 && DesvioDesde >= 0 && DesvioHasta > DesvioDesde && DesvioHasta < _railPoints.Length;
+
+	private static bool[] GapFlags(int segments, int[] gaps)
+	{
+		var flags = new bool[Mathf.Max(0, segments)];
+		if (gaps != null)
+			foreach (int i in gaps)
+				if (i >= 0 && i < flags.Length)
+					flags[i] = true;
+		return flags;
+	}
+
+	// The branch as its own polyline: fork point → RailDesvio → rejoin point.
+	private Vector2[] BranchVisualPoints()
+	{
+		var pts = new List<Vector2> { _railPoints[DesvioDesde] };
+		pts.AddRange(RailDesvio);
+		pts.Add(_railPoints[DesvioHasta]);
+		return pts.ToArray();
+	}
+
+	// Effective path = main rail, or main[0..DesvioDesde] + RailDesvio + main[DesvioHasta..] when the
+	// switch is thrown. The prefix is shared, so switching before the fork never moves the cart.
+	private void RebuildPath()
+	{
+		bool[] mainGaps = GapFlags(_railPoints.Length - 1, TramosSalto);
+		if (!_onBranch || !HasBranch)
+		{
+			_path = _railPoints;
+			_pathGaps = mainGaps;
+		}
+		else
+		{
+			var pts = new List<Vector2>();
+			var gaps = new List<bool>();
+			for (int i = 0; i <= DesvioDesde; i++)
+			{
+				pts.Add(_railPoints[i]);
+				if (i < DesvioDesde)
+					gaps.Add(mainGaps[i]);
+			}
+			foreach (Vector2 p in RailDesvio)
+			{
+				pts.Add(p);
+				gaps.Add(false);
+			}
+			for (int i = DesvioHasta; i < _railPoints.Length; i++)
+			{
+				gaps.Add(i == DesvioHasta ? false : mainGaps[i - 1]);
+				pts.Add(_railPoints[i]);
+			}
+			_path = pts.ToArray();
+			_pathGaps = gaps.ToArray();
+		}
+		_railLength = MineRail.Length(_path);
+		if (HasBranch)
+			_forkDistance = MineRail.Length(_railPoints[..(DesvioDesde + 1)]);
+	}
+
+	// Lever (Activated → here): throws the switch, but only while the cart hasn't reached the fork
+	// on its way out — once past it, the lever just clacks.
+	public void CambiarVia()
+	{
+		if (!HasBranch)
+			return;
+		if (_distance > _forkDistance - 1f)
+		{
+			Sfx.PlayIfExistsAt(this, "World/Doors", "Chest Close");
+			return;
+		}
+		_onBranch = !_onBranch;
+		RebuildPath();
+		UpdateSwitchVisual();
+		Sfx.PlayAt(this, "World/Mining", "mine", 900f);
+	}
+
+	private void UpdateSwitchVisual()
+	{
+		if (!HasBranch)
+			return;
+		if (_mainRails != null && IsInstanceValid(_mainRails))
+			_mainRails.Modulate = _onBranch ? new Color(1f, 1f, 1f, 0.35f) : Colors.White;
+		if (_branchRails != null && IsInstanceValid(_branchRails))
+			_branchRails.Modulate = _onBranch ? Colors.White : new Color(1f, 1f, 1f, 0.35f);
+	}
+
+	private bool InGap()
+	{
+		int seg = MineRail.SegmentAt(_path, _distance);
+		return seg >= 0 && seg < _pathGaps.Length && _pathGaps[seg];
 	}
 
 	// ── Physics ────────────────────────────────────────────────────────────────────────────────
@@ -132,7 +293,9 @@ public partial class MineCart : AnimatableBody2D
 		if (Engine.IsEditorHint())
 			return;
 		float dt = (float)delta;
-		Vector2 before = Position;
+		// Measured on the rail, not from Position: with SyncToPhysics Godot puts Position back to the
+		// last physics state right after it is set, so Position - before would always read zero.
+		Vector2 before = _railPos;
 
 		UpdateRider();
 		UpdateWalls();
@@ -141,6 +304,16 @@ public partial class MineCart : AnimatableBody2D
 		{
 			case State.Parked:
 				RailVelocity = Vector2.Zero;
+				// Companion cart: sets off the moment the leader draws level with it (or at once if it
+				// starts behind, to chase it down).
+				if (_leader != null && !_leaderStarted && IsInstanceValid(_leader) && _leader.IsRolling
+					&& Mathf.Abs(_leader.RailVelocity.X) > 1f
+					&& (_leader.GlobalPosition.X - GlobalPosition.X) * Mathf.Sign(_leader.RailVelocity.X) >= 0f)
+				{
+					_leaderStarted = true;
+					Depart();
+					break;
+				}
 				bool onDeck = RiderStandingOnDeck();
 				// Just arrived with a rider: they have to step off onto the ground before it'll leave again,
 				// otherwise it would bounce straight back the moment it stops.
@@ -184,13 +357,52 @@ public partial class MineCart : AnimatableBody2D
 						_lostTimer = 0f;
 					}
 				}
+				// EsperarAlJinete (long rides): instead, brake to a stop where the rider was lost (never
+				// mid-jump) and wait there; stepping back on carries on in the same direction.
+				else if (EsperarAlJinete && !_riderAttached)
+				{
+					_lostTimer += dt;
+					_braking = _lostTimer > 0.5f && !InGap();
+				}
 				else
+				{
 					_lostTimer = 0f;
+					_braking = false;
+				}
+				if (_leader != null)
+					FollowLeader();
 				Roll(dt);
+				if (SaltaConJinete && _state == State.Rolling)
+					UpdateHop(dt);
+				if (_braking && Speed <= 1f && _state == State.Rolling)
+				{
+					_state = State.Parked;
+					_braking = false;
+					_lostTimer = 0f;
+					_arrivedWithRider = false;
+					_waitForRiderToLeave = false;
+					RailVelocity = Vector2.Zero;
+					Sfx.PlayAt(this, "World/Mining", "mine", 900f);
+				}
 				break;
-		}
 
-		Vector2 moved = Position - before;
+			case State.Falling:
+				_fallTimer += dt;
+				_fallVel.Y += 1400f * dt;
+				_railPos += _fallVel * dt;
+				Position = _railPos;
+				if (_tilt != null)
+					_tilt.Rotation += (_fallVel.X < 0f ? -1f : 1f) * 2.5f * dt;
+				if (_fallTimer > 1.1f)
+					Crash();
+				return;
+
+			case State.Gone:
+				return;
+		}
+		_riderWasStanding = RiderStandingOnDeck();
+
+		Vector2 moved = _railPos - before;
 		// Airborne rider above the deck: carry them along with the cart's own frame.
 		if (_riderAttached && _rider != null && IsInstanceValid(_rider) && !_rider.IsOnFloor() && moved != Vector2.Zero)
 			_rider.MoveAndCollide(moved);
@@ -214,20 +426,35 @@ public partial class MineCart : AnimatableBody2D
 
 	private void Roll(float dt)
 	{
-		MineRail.Sample(_railPoints, _distance, out Vector2 tangent);
+		MineRail.Sample(_path, _distance, out Vector2 tangent);
 		Vector2 travel = tangent * Direction;
-		Speed += SlopeGravity * travel.Y * dt - Friction * dt;
-		Speed = Mathf.Clamp(Speed, MinSpeed, MaxSpeed);
+		if (_braking)
+			Speed = Mathf.MoveToward(Speed, 0f, Frenada * dt);
+		else if (_leader != null)
+		{
+			// Companion: FollowLeader already set the speed.
+		}
+		else
+		{
+			Speed += SlopeGravity * travel.Y * dt - Friction * dt;
+			Speed = Mathf.Clamp(Speed, MinSpeed, MaxSpeed);
+		}
 
 		_distance += Speed * Direction * dt;
 		bool arrived = false;
 		if (_distance >= _railLength) { _distance = _railLength; arrived = true; }
 		if (_distance <= 0f) { _distance = 0f; arrived = true; }
 
-		Vector2 target = _origin + MineRail.Sample(_railPoints, _distance, out _);
-		RailVelocity = (target - Position) / Mathf.Max(dt, 0.0001f);
-		Position = target;
+		Vector2 target = _origin + MineRail.Sample(_path, _distance, out _);
+		RailVelocity = (target - _railPos) / Mathf.Max(dt, 0.0001f);
+		_railPos = target;
+		Position = target + new Vector2(0f, _hopY);
 
+		if (arrived && CaeAlFinal && Direction == 1)
+		{
+			StartFalling();
+			return;
+		}
 		if (arrived)
 		{
 			_state = State.Parked;
@@ -241,6 +468,94 @@ public partial class MineCart : AnimatableBody2D
 				p.ShakeCamera(4f, 0.2f);
 			EmitSignal(SignalName.Arrived, Direction);
 		}
+	}
+
+	// ── Salto, caída, acompañante ──────────────────────────────────────────────────────────────
+
+	private void UpdateHop(float dt)
+	{
+		// The rider just left the deck going up (a jump, not a fall): the cart hops with them.
+		if (!_airborne && _riderWasStanding && _rider != null && IsInstanceValid(_rider) && !_rider.IsOnFloor() && _rider.Velocity.Y < -150f)
+		{
+			_airborne = true;
+			_hopVel = -SaltoVelocidad;
+			Sfx.PlayAt(this, "World/Mining", "mine", 1300f);
+		}
+		if (_airborne)
+		{
+			_hopVel += SaltoGravedad * dt;
+			_hopY += _hopVel * dt;
+			if (_hopY >= 0f)
+			{
+				_hopY = 0f;
+				_airborne = false;
+				if (InGap())
+				{
+					StartFalling();
+					return;
+				}
+				_shake = 3f;
+			}
+		}
+		else if (InGap())
+		{
+			// Coyote time: a jump a hair late, just past the edge, still hops the cart.
+			_gapGrace += dt;
+			if (_gapGrace > SaltoTolerancia)
+			{
+				StartFalling();
+				return;
+			}
+		}
+		else
+			_gapGrace = 0f;
+		Position = _railPos + new Vector2(0f, _hopY);
+	}
+
+	private float _gapGrace;
+
+	private void StartFalling()
+	{
+		_state = State.Falling;
+		_fallVel = RailVelocity + new Vector2(0f, _airborne ? _hopVel : 0f);
+		_railPos = Position;
+		_airborne = false;
+		_hopY = 0f;
+		_fallTimer = 0f;
+		_riderAttached = false;
+		if (_sparks != null)
+			_sparks.Emitting = false;
+		Sfx.PlayAt(this, "World/Doors", "Portcullis Gate");
+	}
+
+	private void Crash()
+	{
+		_state = State.Gone;
+		RailVelocity = Vector2.Zero;
+		GroundSlamFx.Impact(GetParent(), GlobalPosition, 1f);
+		Sfx.PlayAt(this, "World/Mining", "mine", 1100f);
+		if (GetTree().GetFirstNodeInGroup("player") is Metroidvania.Player.Player p && p.GlobalPosition.DistanceTo(GlobalPosition) < 700f)
+			p.ShakeCamera(6f, 0.3f);
+		Visible = false;
+		foreach (Node child in GetChildren())
+			if (child is CollisionShape2D c)
+				c.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+	}
+
+	// Keep level with the leader (same X) until someone boards this cart.
+	private void FollowLeader()
+	{
+		if (_riderAttached || !IsInstanceValid(_leader) || _leader.IsFalling)
+		{
+			_leader = null;
+			return;
+		}
+		MineRail.Sample(_path, _distance, out Vector2 tangent);
+		float tx = Mathf.Max(0.2f, Mathf.Abs(tangent.X));
+		float dx = (_leader.GlobalPosition.X - GlobalPosition.X) * Mathf.Sign(tangent.X * Direction);
+		// Catch up (or wait) at most 150 px/s faster/slower than the leader: a cart that starts behind
+		// reads as chasing it down instead of teleporting alongside.
+		Speed = Mathf.Max(0f, (Mathf.Abs(_leader.RailVelocity.X) + Mathf.Clamp(dx * 4f, -150f, 150f)) / tx);
 	}
 
 	// Call levers (Lever.Activated → here): summon the parked, empty cart to that end of the rail.
@@ -411,7 +726,14 @@ public partial class MineCart : AnimatableBody2D
 	{
 		if (_tilt == null)
 			return;
-		MineRail.Sample(_railPoints, _distance, out Vector2 tangent);
+		MineRail.Sample(_path.Length > 0 ? _path : _railPoints, _distance, out Vector2 tangent);
+		// Tilt follows the slope only; a rail laid leftwards would otherwise flip the cart ~180°.
+		// The art faces where it's going (lantern in front), so it's mirrored when rolling left.
+		if (tangent.X < 0f)
+			tangent = -tangent;
+		if (_state == State.Rolling && Mathf.Abs(RailVelocity.X) > 1f)
+			_facing = Mathf.Sign(RailVelocity.X);
+		_tilt.Scale = new Vector2(_facing, 1f);
 		_tilt.Rotation = Mathf.LerpAngle(_tilt.Rotation, tangent.Angle(), Mathf.Min(1f, dt * 10f));
 		foreach (Node2D wheel in _wheels)
 			wheel.Rotation += moved.Length() * Direction / 6f;
@@ -431,6 +753,8 @@ public partial class MineCart : AnimatableBody2D
 			return;
 		// Editor gizmo: the rail it will follow.
 		DrawPolyline(_railPoints, new Color(0.6f, 0.9f, 1f, 0.8f), 2f);
+		if (HasBranch)
+			DrawPolyline(BranchVisualPoints(), new Color(1f, 0.85f, 0.4f, 0.8f), 2f);
 	}
 
 	private static Vector2[] Circle(float r, int steps)

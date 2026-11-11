@@ -21,7 +21,8 @@ public partial class CartAmbush : Node2D
 	[Export] public AmbushKind Kind = AmbushKind.DropOnCart;
 	[Export] public int Count = 1;
 	[Export] public float Spacing = 40f;
-	// Only trigger while riding in this direction (+1 = towards the rail end).
+	// Only trigger while riding this way across the screen (+1 = rightwards, -1 = leftwards), so it
+	// works the same on rails laid either way.
 	[Export] public int Direction = 1;
 	[Export] public float DropHeight = 180f;
 	[Export] public float AheadDistance = 360f;
@@ -41,7 +42,7 @@ public partial class CartAmbush : Node2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (_done || _cart == null || EnemyScene == null || !_cart.IsRolling || _cart.Direction != Direction)
+		if (_done || _cart == null || EnemyScene == null || !_cart.IsRolling || Mathf.Sign(_cart.RailVelocity.X) != Direction)
 			return;
 		float x = _cart.GlobalPosition.X;
 		bool passed = Direction > 0 ? x >= GlobalPosition.X : x <= GlobalPosition.X;

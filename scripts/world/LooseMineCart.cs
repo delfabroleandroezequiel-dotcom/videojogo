@@ -159,7 +159,10 @@ public partial class LooseMineCart : Node2D
 	{
 		Vector2 p = MineRail.Sample(_railPoints, _distance, out Vector2 tangent);
 		_cart.Position = p;
-		_tilt.Rotation = tangent.Angle();
+		// Rail running leftwards: mirror the cart instead of rotating it ~180° (it would ride upside down).
+		bool left = tangent.X < 0f;
+		_tilt.Scale = new Vector2(left ? -1f : 1f, 1f);
+		_tilt.Rotation = (left ? -tangent : tangent).Angle();
 	}
 
 	private void HitEnemies()

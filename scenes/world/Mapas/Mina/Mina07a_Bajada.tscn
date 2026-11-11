@@ -1,0 +1,515 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_camara"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PozaAcido.tscn" id="3_acido"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/VigaBaja.tscn" id="4_viga"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/EmboscadaVagoneta.tscn" id="5_emboscada"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Bandido5Punos.tscn" id="6_punos"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/MurcielagoChico.tscn" id="7_murcielago"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/BandidoArquero.tscn" id="8_arquero"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Vagoneta.tscn" id="9_vagoneta"]
+[ext_resource type="PackedScene" path="res://scenes/world/Lever.tscn" id="10_palanca"]
+[ext_resource type="PackedScene" path="res://scenes/world/SavePoint.tscn" id="11_hoguera"]
+[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="12_transicion"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="13_player"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Estalactita.tscn" id="14_estalactita"]
+[ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="15_escalera"]
+[ext_resource type="PackedScene" path="res://scenes/world/ItemPickup.tscn" id="16_item"]
+[ext_resource type="Resource" path="res://resources/items/guantes_minero.tres" id="17_guantes"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/mina/EscalaSoga.png" id="18_escala_soga"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/mina/PalancaIzquierda.png" id="tx_palanca_izq"]
+[ext_resource type="Texture2D" path="res://assets/sprites/deco/pixellab/mina/PalancaDerecha.png" id="tx_palanca_der"]
+
+[node name="Mina07a_Bajada" type="Node2D"]
+script = ExtResource("1_bootstrap")
+ScenePath = "res://scenes/world/Mapas/Mina/Mina07a_Bajada.tscn"
+CameraProfile = ExtResource("2_camara")
+CameraLimitLeft = -20
+CameraLimitRight = 7920
+CameraLimitTop = -420
+CameraLimitBottom = 1400
+
+[node name="Fondo" type="ColorRect" parent="."]
+z_index = -50
+offset_left = -620.0
+offset_top = -1020.0
+offset_right = 8540.0
+offset_bottom = 2000.0
+color = Color(0.07, 0.06, 0.06, 1)
+
+[node name="Colisiones" type="StaticBody2D" parent="."]
+
+[node name="Estacion1" type="CollisionPolygon2D" parent="Colisiones"]
+polygon = PackedVector2Array(-20, 0, 600, 0, 600, 160, -20, 160)
+
+[node name="Estacion2" type="CollisionPolygon2D" parent="Colisiones"]
+polygon = PackedVector2Array(7480, 960, 7920, 960, 7920, 1120, 7480, 1120)
+
+[node name="ParedOeste" type="CollisionPolygon2D" parent="Colisiones"]
+polygon = PackedVector2Array(-20, -420, 0, -420, 0, -210, -20, -210)
+
+[node name="ParedEste" type="CollisionPolygon2D" parent="Colisiones"]
+polygon = PackedVector2Array(7900, -420, 7920, -420, 7920, 750, 7900, 750)
+
+[node name="Visible" type="Node2D" parent="."]
+z_index = -5
+
+[node name="Estacion1" type="Polygon2D" parent="Visible"]
+color = Color(0.4, 0.36, 0.33, 1)
+polygon = PackedVector2Array(-20, 0, 600, 0, 600, 160, -20, 160)
+
+[node name="Estacion2" type="Polygon2D" parent="Visible"]
+color = Color(0.4, 0.36, 0.33, 1)
+polygon = PackedVector2Array(7480, 960, 7920, 960, 7920, 1120, 7480, 1120)
+
+[node name="ParedOeste" type="Polygon2D" parent="Visible"]
+color = Color(0.4, 0.36, 0.33, 1)
+polygon = PackedVector2Array(-20, -420, 0, -420, 0, -210, -20, -210)
+
+[node name="ParedEste" type="Polygon2D" parent="Visible"]
+color = Color(0.4, 0.36, 0.33, 1)
+polygon = PackedVector2Array(7900, -420, 7920, -420, 7920, 750, 7900, 750)
+
+[node name="Techo1" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(520, -390, 900, -390, 900, -330, 520, -330)
+
+[node name="Techo2" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(900, -390, 1500, -250, 1500, -190, 900, -330)
+
+[node name="Techo3" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(1500, -250, 1700, -250, 1700, -190, 1500, -190)
+
+[node name="Techo4" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(1700, -250, 1830, -250, 1830, -190, 1700, -190)
+
+[node name="Techo5" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(1830, -250, 2300, -250, 2300, -190, 1830, -190)
+
+[node name="Techo6" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(2300, -250, 2800, -50, 2800, 10, 2300, -190)
+
+[node name="Techo7" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(2800, -50, 3000, -50, 3000, 10, 2800, 10)
+
+[node name="Techo8" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(3000, -50, 3130, -50, 3130, 10, 3000, 10)
+
+[node name="Techo9" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(3130, -50, 3480, -50, 3480, 10, 3130, 10)
+
+[node name="Techo10" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(3480, -50, 3610, -50, 3610, 10, 3480, 10)
+
+[node name="Techo11" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(3610, -50, 3800, -50, 3800, 10, 3610, 10)
+
+[node name="Techo12" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(3800, -50, 4400, 190, 4400, 250, 3800, 10)
+
+[node name="Techo13" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(4400, 190, 4620, 190, 4620, 250, 4400, 250)
+
+[node name="Techo14" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(4620, 190, 4760, 190, 4760, 250, 4620, 250)
+
+[node name="Techo15" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(4760, 190, 5000, 190, 5000, 250, 4760, 250)
+
+[node name="Techo16" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(5000, 190, 5500, 370, 5500, 430, 5000, 250)
+
+[node name="Techo17" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(5500, 370, 5700, 370, 5700, 430, 5500, 430)
+
+[node name="Techo18" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(5700, 370, 5830, 370, 5830, 430, 5700, 430)
+
+[node name="Techo19" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(5830, 370, 5950, 370, 5950, 430, 5830, 430)
+
+[node name="Techo20" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(5950, 370, 6080, 370, 6080, 430, 5950, 430)
+
+[node name="Techo21" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(6080, 370, 6400, 370, 6400, 430, 6080, 430)
+
+[node name="Techo22" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(6400, 370, 6900, 570, 6900, 630, 6400, 430)
+
+[node name="Techo23" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(6900, 570, 7100, 570, 7100, 630, 6900, 630)
+
+[node name="Techo24" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(7100, 570, 7230, 570, 7230, 630, 7100, 630)
+
+[node name="Techo25" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(7230, 570, 7500, 570, 7500, 630, 7230, 630)
+
+[node name="TechoEstacion-20" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(-20, -390, 600, -390, 600, -330, -20, -330)
+
+[node name="TechoEstacion7480" type="Polygon2D" parent="Visible"]
+color = Color(0.3, 0.27, 0.25, 1)
+polygon = PackedVector2Array(7480, 570, 7920, 570, 7920, 630, 7480, 630)
+
+[node name="Decoracion" type="Node2D" parent="."]
+z_index = -6
+
+[node name="Caballete1" type="ColorRect" parent="Decoracion"]
+offset_left = 556.0
+offset_top = 4.0
+offset_right = 564.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete2" type="ColorRect" parent="Decoracion"]
+offset_left = 716.0
+offset_top = 4.0
+offset_right = 724.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete3" type="ColorRect" parent="Decoracion"]
+offset_left = 936.0
+offset_top = 13.33
+offset_right = 944.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete4" type="ColorRect" parent="Decoracion"]
+offset_left = 1096.0
+offset_top = 50.67
+offset_right = 1104.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete5" type="ColorRect" parent="Decoracion"]
+offset_left = 1256.0
+offset_top = 88.0
+offset_right = 1264.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete6" type="ColorRect" parent="Decoracion"]
+offset_left = 1416.0
+offset_top = 125.33
+offset_right = 1424.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete7" type="ColorRect" parent="Decoracion"]
+offset_left = 1536.0
+offset_top = 144.0
+offset_right = 1544.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete8" type="ColorRect" parent="Decoracion"]
+offset_left = 1866.0
+offset_top = 144.0
+offset_right = 1874.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete9" type="ColorRect" parent="Decoracion"]
+offset_left = 2026.0
+offset_top = 144.0
+offset_right = 2034.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete10" type="ColorRect" parent="Decoracion"]
+offset_left = 2186.0
+offset_top = 144.0
+offset_right = 2194.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete11" type="ColorRect" parent="Decoracion"]
+offset_left = 2336.0
+offset_top = 160.0
+offset_right = 2344.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete12" type="ColorRect" parent="Decoracion"]
+offset_left = 2496.0
+offset_top = 224.0
+offset_right = 2504.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete13" type="ColorRect" parent="Decoracion"]
+offset_left = 2656.0
+offset_top = 288.0
+offset_right = 2664.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete14" type="ColorRect" parent="Decoracion"]
+offset_left = 2836.0
+offset_top = 344.0
+offset_right = 2844.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete15" type="ColorRect" parent="Decoracion"]
+offset_left = 3166.0
+offset_top = 344.0
+offset_right = 3174.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete16" type="ColorRect" parent="Decoracion"]
+offset_left = 3326.0
+offset_top = 344.0
+offset_right = 3334.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete17" type="ColorRect" parent="Decoracion"]
+offset_left = 3646.0
+offset_top = 344.0
+offset_right = 3654.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete18" type="ColorRect" parent="Decoracion"]
+offset_left = 3836.0
+offset_top = 360.0
+offset_right = 3844.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete19" type="ColorRect" parent="Decoracion"]
+offset_left = 3996.0
+offset_top = 424.0
+offset_right = 4004.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete20" type="ColorRect" parent="Decoracion"]
+offset_left = 4156.0
+offset_top = 488.0
+offset_right = 4164.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete21" type="ColorRect" parent="Decoracion"]
+offset_left = 4316.0
+offset_top = 552.0
+offset_right = 4324.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete22" type="ColorRect" parent="Decoracion"]
+offset_left = 4436.0
+offset_top = 584.0
+offset_right = 4444.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete23" type="ColorRect" parent="Decoracion"]
+offset_left = 4796.0
+offset_top = 584.0
+offset_right = 4804.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete24" type="ColorRect" parent="Decoracion"]
+offset_left = 4956.0
+offset_top = 584.0
+offset_right = 4964.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete25" type="ColorRect" parent="Decoracion"]
+offset_left = 5036.0
+offset_top = 598.4
+offset_right = 5044.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete26" type="ColorRect" parent="Decoracion"]
+offset_left = 5196.0
+offset_top = 656.0
+offset_right = 5204.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete27" type="ColorRect" parent="Decoracion"]
+offset_left = 5356.0
+offset_top = 713.6
+offset_right = 5364.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete28" type="ColorRect" parent="Decoracion"]
+offset_left = 5536.0
+offset_top = 764.0
+offset_right = 5544.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete29" type="ColorRect" parent="Decoracion"]
+offset_left = 5866.0
+offset_top = 764.0
+offset_right = 5874.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete30" type="ColorRect" parent="Decoracion"]
+offset_left = 6116.0
+offset_top = 764.0
+offset_right = 6124.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete31" type="ColorRect" parent="Decoracion"]
+offset_left = 6276.0
+offset_top = 764.0
+offset_right = 6284.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete32" type="ColorRect" parent="Decoracion"]
+offset_left = 6436.0
+offset_top = 780.0
+offset_right = 6444.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete33" type="ColorRect" parent="Decoracion"]
+offset_left = 6596.0
+offset_top = 844.0
+offset_right = 6604.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete34" type="ColorRect" parent="Decoracion"]
+offset_left = 6756.0
+offset_top = 908.0
+offset_right = 6764.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete35" type="ColorRect" parent="Decoracion"]
+offset_left = 6936.0
+offset_top = 964.0
+offset_right = 6944.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete36" type="ColorRect" parent="Decoracion"]
+offset_left = 7266.0
+offset_top = 964.0
+offset_right = 7274.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Caballete37" type="ColorRect" parent="Decoracion"]
+offset_left = 7426.0
+offset_top = 964.0
+offset_right = 7434.0
+offset_bottom = 1270.0
+color = Color(0.36, 0.24, 0.14, 1)
+
+[node name="Trampas" type="Node2D" parent="."]
+
+[node name="Mar" parent="Trampas" instance=ExtResource("3_acido")]
+position = Vector2(-620, 1260)
+Width = 9140.0
+Depth = 140.0
+InstantKill = true
+
+[node name="VigaBaja1" parent="Trampas" instance=ExtResource("4_viga")]
+position = Vector2(2060, 70)
+HangLength = 230.0
+
+[node name="VigaBaja2" parent="Trampas" instance=ExtResource("4_viga")]
+position = Vector2(3290, 270)
+HangLength = 230.0
+
+[node name="VigaBaja3" parent="Trampas" instance=ExtResource("4_viga")]
+position = Vector2(3740, 270)
+HangLength = 230.0
+
+[node name="VigaBaja4" parent="Trampas" instance=ExtResource("4_viga")]
+position = Vector2(4150, 366)
+HangLength = 230.0
+
+[node name="VigaBaja5" parent="Trampas" instance=ExtResource("4_viga")]
+position = Vector2(6260, 690)
+HangLength = 230.0
+
+[node name="VigaBaja6" parent="Trampas" instance=ExtResource("4_viga")]
+position = Vector2(6700, 766)
+HangLength = 230.0
+
+[node name="Estalactita1" parent="Trampas" instance=ExtResource("14_estalactita")]
+position = Vector2(5150, 304)
+
+[node name="Estalactita2" parent="Trampas" instance=ExtResource("14_estalactita")]
+position = Vector2(5300, 358)
+
+[node name="Estalactita3" parent="Trampas" instance=ExtResource("14_estalactita")]
+position = Vector2(5450, 412)
+
+[node name="Enemigos" type="Node2D" parent="."]
+
+[node name="Objetos" type="Node2D" parent="."]
+
+[node name="Vagoneta" parent="Objetos" instance=ExtResource("9_vagoneta")]
+position = Vector2(520, 0)
+RailPoints = PackedVector2Array(0, 0, 380, 0, 980, 140, 1180, 140, 1310, 140, 1780, 140, 2280, 340, 2480, 340, 2610, 340, 2960, 340, 3090, 340, 3280, 340, 3880, 580, 4100, 580, 4240, 580, 4480, 580, 4980, 760, 5180, 760, 5310, 760, 5430, 760, 5560, 760, 5880, 760, 6380, 960, 6580, 960, 6710, 960, 6980, 960)
+TramosSalto = PackedInt32Array(3, 7, 9, 13, 17, 19, 23)
+SaltaConJinete = true
+ReturnWhenEmpty = false
+StartSpeed = 150.0
+
+[node name="Hoguera" parent="." instance=ExtResource("11_hoguera")]
+position = Vector2(300, 0)
+
+[node name="HaciaHabitacionGransin" parent="." instance=ExtResource("12_transicion")]
+position = Vector2(15, -53)
+TargetScenePath = "res://scenes/world/Mapas/HabitacionRecompensaSpider.tscn"
+TargetSpawnPosition = Vector2(620, 350)
+Width = 30.0
+Height = 200.0
+
+[node name="HaciaMina07b" parent="." instance=ExtResource("12_transicion")]
+position = Vector2(7905, 907)
+TargetScenePath = "res://scenes/world/Mapas/Mina/Mina07b_Persecucion.tscn"
+TargetSpawnPosition = Vector2(220, -40)
+Width = 30.0
+Height = 200.0
+
+[node name="Player" parent="." instance=ExtResource("13_player")]
+position = Vector2(170, -40)

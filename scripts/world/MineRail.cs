@@ -42,10 +42,32 @@ public static class MineRail
 		return points[^1];
 	}
 
+	// Index of the segment (point i → i+1) at `distance` along the rail; -1 for an empty rail.
+	public static int SegmentAt(Vector2[] points, float distance)
+	{
+		if (points.Length < 2)
+			return -1;
+		float remaining = Mathf.Max(0f, distance);
+		for (int i = 1; i < points.Length; i++)
+		{
+			float segment = points[i - 1].DistanceTo(points[i]);
+			if (remaining <= segment || i == points.Length - 1)
+				return i - 1;
+			remaining -= segment;
+		}
+		return points.Length - 2;
+	}
+
 	// Two rail lines a hair apart (side view: the near and the far rail) plus sleepers every
 	// SleeperSpacing px, all as plain Line2D children of `parent`. Points are in parent space.
-	public static Node2D BuildVisual(Node parent, Vector2[] points, string name = "Rieles")
+	public static Node2D BuildVisual(Node parent, Vector2[] points, string name = "Rieles") => BuildVisual(parent, points, null, name);
+
+	// Same, leaving out the segments flagged in `gaps` (jumps: no steel, no sleepers, a broken
+	// rail end on each side).
+	public static Node2D BuildVisual(Node parent, Vector2[] points, bool[] gaps, string name)
 	{
+		if (gaps != null && System.Array.IndexOf(gaps, true) >= 0)
+			return BuildBroken(parent, points, gaps, name);
 		var root = new Node2D { Name = name, ZIndex = -2 };
 		parent.AddChild(root);
 		if (points.Length < 2)
@@ -70,5 +92,45 @@ public static class MineRail
 		root.AddChild(new Line2D { Points = points, Width = 2f, DefaultColor = steel.Darkened(0.35f), Position = new Vector2(0f, 2f) });
 		root.AddChild(new Line2D { Points = points, Width = 2f, DefaultColor = steel });
 		return root;
+	}
+
+	// Rail split into runs at the gap segments: each run is laid like a normal rail; at every gap
+	// edge a bent, snapped-off rail end sticks out a little over the pit.
+	private static Node2D BuildBroken(Node parent, Vector2[] points, bool[] gaps, string name)
+	{
+		var root = new Node2D { Name = name, ZIndex = -2 };
+		parent.AddChild(root);
+		var steel = new Color(0.55f, 0.56f, 0.6f, 1f);
+		var run = new System.Collections.Generic.List<Vector2> { points[0] };
+		for (int i = 0; i < points.Length - 1; i++)
+		{
+			bool gap = i < gaps.Length && gaps[i];
+			if (!gap)
+			{
+				run.Add(points[i + 1]);
+				continue;
+			}
+			if (run.Count >= 2)
+				LayRun(root, run.ToArray());
+			// Snapped rail end pointing into the gap.
+			Vector2 t = (points[i + 1] - points[i]).Normalized();
+			if (i == 0 || !gaps[i - 1])
+				root.AddChild(new Line2D { Points = new[] { points[i], points[i] + t * 10f + new Vector2(0f, 5f) }, Width = 2f, DefaultColor = steel });
+			run.Clear();
+			run.Add(points[i + 1]);
+			// …and the other side's, pointing back.
+			bool nextGap = i + 1 < gaps.Length && gaps[i + 1];
+			if (!nextGap)
+				root.AddChild(new Line2D { Points = new[] { points[i + 1], points[i + 1] - t * 10f + new Vector2(0f, 5f) }, Width = 2f, DefaultColor = steel });
+		}
+		if (run.Count >= 2)
+			LayRun(root, run.ToArray());
+		return root;
+	}
+
+	private static void LayRun(Node2D root, Vector2[] run)
+	{
+		Node2D sub = BuildVisual(root, run, null, "Tramo");
+		sub.ZIndex = 0;
 	}
 }

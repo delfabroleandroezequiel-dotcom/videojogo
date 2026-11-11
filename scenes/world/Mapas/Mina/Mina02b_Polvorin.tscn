@@ -53,28 +53,28 @@ color = Color(0.07, 0.06, 0.06, 1)
 position = Vector2(450, -240)
 shape = SubResource("RectangleShape2D_a5wny")
 
-[node name="ParedOeste2" type="CollisionShape2D" parent="Colisiones" unique_id=1032043905]
-position = Vector2(-10, -90)
+[node name="ParedEste2" type="CollisionShape2D" parent="Colisiones" unique_id=1032043905]
+position = Vector2(910, -90)
 shape = SubResource("RectangleShape2D_klqdk")
 
-[node name="ParedEste3" type="CollisionShape2D" parent="Colisiones" unique_id=727231580]
-position = Vector2(910, -90)
+[node name="ParedOeste3" type="CollisionShape2D" parent="Colisiones" unique_id=727231580]
+position = Vector2(-10, -90)
 shape = SubResource("RectangleShape2D_i28eh")
 
 [node name="Suelo4" type="CollisionShape2D" parent="Colisiones" unique_id=354273760]
-position = Vector2(190, 20)
+position = Vector2(710, 20)
 shape = SubResource("RectangleShape2D_x53q6")
 
 [node name="Suelo5" type="CollisionShape2D" parent="Colisiones" unique_id=982489623]
-position = Vector2(700, 20)
+position = Vector2(200, 20)
 shape = SubResource("RectangleShape2D_7hcc6")
 
-[node name="BocaChimeneaIzq6" type="CollisionShape2D" parent="Colisiones" unique_id=227210272]
-position = Vector2(390, 130)
+[node name="BocaChimeneaDer6" type="CollisionShape2D" parent="Colisiones" unique_id=227210272]
+position = Vector2(510, 130)
 shape = SubResource("RectangleShape2D_db2py")
 
-[node name="BocaChimeneaDer7" type="CollisionShape2D" parent="Colisiones" unique_id=374672210]
-position = Vector2(490, 130)
+[node name="BocaChimeneaIzq7" type="CollisionShape2D" parent="Colisiones" unique_id=374672210]
+position = Vector2(410, 130)
 shape = SubResource("RectangleShape2D_hrea2")
 
 [node name="PlataformasOneWay" type="StaticBody2D" parent="." unique_id=1412435648]
@@ -90,74 +90,75 @@ offset_right = 920.0
 offset_bottom = -220.0
 color = Color(0.4, 0.36, 0.33, 1)
 
-[node name="ParedOeste2" type="ColorRect" parent="Visible" unique_id=1478232350]
-offset_left = -20.0
-offset_top = -220.0
-offset_bottom = 40.0
-color = Color(0.4, 0.36, 0.33, 1)
-
-[node name="ParedEste3" type="ColorRect" parent="Visible" unique_id=438371911]
+[node name="ParedEste2" type="ColorRect" parent="Visible" unique_id=1478232350]
 offset_left = 900.0
 offset_top = -220.0
 offset_right = 920.0
 offset_bottom = 40.0
 color = Color(0.4, 0.36, 0.33, 1)
 
-[node name="Suelo4" type="ColorRect" parent="Visible" unique_id=892726512]
+[node name="ParedOeste3" type="ColorRect" parent="Visible" unique_id=438371911]
 offset_left = -20.0
-offset_right = 400.0
+offset_top = -220.0
+offset_right = 0.0
 offset_bottom = 40.0
 color = Color(0.4, 0.36, 0.33, 1)
 
-[node name="Suelo5" type="ColorRect" parent="Visible" unique_id=1734948714]
-offset_left = 480.0
+[node name="Suelo4" type="ColorRect" parent="Visible" unique_id=892726512]
+offset_left = 500.0
 offset_right = 920.0
 offset_bottom = 40.0
 color = Color(0.4, 0.36, 0.33, 1)
 
-[node name="BocaChimeneaIzq6" type="ColorRect" parent="Visible" unique_id=374114810]
-offset_left = 380.0
+[node name="Suelo5" type="ColorRect" parent="Visible" unique_id=1734948714]
+offset_left = -20.0
+offset_right = 420.0
+offset_bottom = 40.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="BocaChimeneaDer6" type="ColorRect" parent="Visible" unique_id=374114810]
+offset_left = 500.0
 offset_top = 40.0
-offset_right = 400.0
+offset_right = 520.0
 offset_bottom = 220.0
 color = Color(0.4, 0.36, 0.33, 1)
 
-[node name="BocaChimeneaDer7" type="ColorRect" parent="Visible" unique_id=159539792]
-offset_left = 480.0
+[node name="BocaChimeneaIzq7" type="ColorRect" parent="Visible" unique_id=159539792]
+offset_left = 400.0
 offset_top = 40.0
-offset_right = 500.0
+offset_right = 420.0
 offset_bottom = 220.0
 color = Color(0.4, 0.36, 0.33, 1)
 
 [node name="Trampas" type="Node2D" parent="." unique_id=1969224114]
 
 [node name="Barril1" parent="Trampas" unique_id=2045368879 instance=ExtResource("3_s5g0r")]
-position = Vector2(660, 0)
+position = Vector2(240, 0)
 
 [node name="Barril2" parent="Trampas" unique_id=1638498737 instance=ExtResource("3_s5g0r")]
-position = Vector2(700, 0)
+position = Vector2(200, 0)
 
 [node name="Barril3" parent="Trampas" unique_id=1188424122 instance=ExtResource("3_s5g0r")]
-position = Vector2(240, 0)
+position = Vector2(660, 0)
 
 [node name="Enemigos" type="Node2D" parent="." unique_id=1963984115]
 
 [node name="RataPlaga" parent="Enemigos" unique_id=1536100599 instance=ExtResource("4_4o1uc")]
-position = Vector2(300, -40)
+position = Vector2(600, -40)
 
 [node name="Objetos" type="Node2D" parent="." unique_id=779556991]
 
 [node name="MejoraFrasco" parent="Objetos" unique_id=136849880 instance=ExtResource("5_8on2s")]
-position = Vector2(820, -30)
+position = Vector2(80, -30)
 Item = ExtResource("6_rw6tk")
 
 [node name="BajarAMina02" parent="." unique_id=2116574566 instance=ExtResource("7_tqk7t")]
-position = Vector2(440, 170)
+position = Vector2(460, 170)
 TargetScenePath = "res://scenes/world/Mapas/Mina/Mina02_Grisu.tscn"
-TargetSpawnPosition = Vector2(1720, -300)
+TargetSpawnPosition = Vector2(1080, -300)
 SpawnOnLadder = true
 Width = 80.0
 Height = 40.0
 
 [node name="Player" parent="." unique_id=1867495339 instance=ExtResource("8_sy6gh")]
-position = Vector2(580, -40)
+position = Vector2(320, -40)

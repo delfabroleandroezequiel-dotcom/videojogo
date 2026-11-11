@@ -33,12 +33,23 @@ public partial class MineScaffold : Node2D
 	private static readonly Rect2 MidCap = new(31, 11, 12, 17);
 	private static readonly Rect2 PostShaft = new(31, 30, 12, 15);
 	private static readonly Rect2 PostFoot = new(146, 50, 12, 16);
-	private static readonly Rect2 Brace = new(43, 26, 103, 32);
+	private static readonly Rect2 Brace = new(43, 28, 103, 30); // starts below the deck's underside row
 	private const float CapTop = -4f;
 	private const float PostWidth = 12f;
 	// Where the end posts sit inside the caps (sheet x 31 - 25 and 166 - 158).
 	private const float LeftPostInset = 6f;
 	private const float RightPostInset = 8f;
+
+	// Posts reach down to whatever floor is under each of them at runtime (one ray per post on
+	// FloorMask), so a scaffold never floats; LegHeight is then only the editor preview and the
+	// fallback when nothing is found within MaxLegHeight. Off = every post is exactly LegHeight.
+	[Export] public bool ToFloor = true;
+	[Export] public float MaxLegHeight = 2000f;
+	[Export(PropertyHint.Layers2DPhysics)] public uint FloorMask = 1;
+	// Vertical distance between stacked braces on tall legs (they zigzag down the bay).
+	[Export] public float BraceSpacing = 64f;
+
+	private float[] _legs;
 
 	public override void _Ready()
 	{
@@ -53,28 +64,56 @@ public partial class MineScaffold : Node2D
 			OneWayCollision = true,
 		});
 		AddChild(body);
+		SetPhysicsProcess(ToFloor);
 	}
+
+	// First physics frame: the space has every static body registered by now.
+	public override void _PhysicsProcess(double delta)
+	{
+		SetPhysicsProcess(false);
+		if (Engine.IsEditorHint())
+			return;
+		float[] xs = PostXs(out _, out _);
+		_legs = new float[xs.Length];
+		PhysicsDirectSpaceState2D space = GetWorld2D().DirectSpaceState;
+		for (int i = 0; i < xs.Length; i++)
+		{
+			Vector2 from = ToGlobal(new Vector2(xs[i] + PostWidth / 2f, DeckHeight + 2f));
+			var query = PhysicsRayQueryParameters2D.Create(from, from + new Vector2(0f, MaxLegHeight), FloorMask);
+			Godot.Collections.Dictionary hit = space.IntersectRay(query);
+			_legs[i] = hit.Count > 0
+				? Mathf.Max(DeckHeight + 8f, ToLocal((Vector2)hit["position"]).Y)
+				: _legHeight;
+		}
+		QueueRedraw();
+	}
+
+	private float[] PostXs(out int bays, out float bayStep)
+	{
+		float firstPost = -_width / 2f + LeftPostInset;
+		float lastPost = _width / 2f - RightPostInset - PostWidth;
+		bays = Mathf.Max(1, Mathf.CeilToInt((lastPost - firstPost) / _maxBay));
+		bayStep = (lastPost - firstPost) / bays;
+		var xs = new float[bays + 1];
+		for (int i = 0; i <= bays; i++)
+			xs[i] = Mathf.Round(firstPost + bayStep * i);
+		return xs;
+	}
+
+	private float Leg(int i) => _legs is not null && i < _legs.Length ? _legs[i] : _legHeight;
 
 	public override void _Draw()
 	{
 		if (_texture is null)
 			return;
 		float left = -_width / 2f, right = _width / 2f;
-		float firstPost = left + LeftPostInset;
-		float lastPost = right - RightPostInset - PostWidth;
-		int bays = Mathf.Max(1, Mathf.CeilToInt((lastPost - firstPost) / _maxBay));
-		float bayStep = (lastPost - firstPost) / bays;
+		float[] xs = PostXs(out int bays, out _);
 
 		for (int i = 0; i <= bays; i++)
 		{
-			float x = Mathf.Round(firstPost + bayStep * i);
-			DrawPost(x);
+			DrawPost(xs[i], Leg(i));
 			if (_braces && i < bays)
-			{
-				float x2 = Mathf.Round(firstPost + bayStep * (i + 1));
-				var to = new Rect2(x + PostWidth, DeckHeight - 1f, x2 - x - PostWidth, Mathf.Min(Brace.Size.Y, _legHeight - DeckHeight - 8f));
-				DrawTextureRectRegion(_texture, to, Brace);
-			}
+				DrawBraces(xs[i] + PostWidth, xs[i + 1], Mathf.Min(Leg(i), Leg(i + 1)));
 		}
 
 		for (float x = left; x < right; x += DeckTile.Size.X)
@@ -84,14 +123,33 @@ public partial class MineScaffold : Node2D
 		}
 
 		for (int i = 1; i < bays; i++)
-			DrawTextureRectRegion(_texture, new Rect2(Mathf.Round(firstPost + bayStep * i), CapTop, MidCap.Size), MidCap);
+			DrawTextureRectRegion(_texture, new Rect2(xs[i], CapTop, MidCap.Size), MidCap);
 		DrawTextureRectRegion(_texture, new Rect2(left, CapTop, LeftCap.Size), LeftCap);
 		DrawTextureRectRegion(_texture, new Rect2(right - RightCap.Size.X, CapTop, RightCap.Size), RightCap);
 	}
 
-	private void DrawPost(float x)
+	// The sheet's diagonal brace stretched across one bay, repeated every BraceSpacing down the
+	// legs and mirrored every other row so tall scaffolds read as a zigzag of cross bracing.
+	private void DrawBraces(float x1, float x2, float leg)
 	{
-		float footTop = _legHeight - PostFoot.Size.Y;
+		float bottom = leg - PostFoot.Size.Y;
+		float spacing = Mathf.Max(Brace.Size.Y + 8f, BraceSpacing);
+		int row = 0;
+		for (float y = DeckHeight - 1f; y < bottom - 8f; y += spacing, row++)
+		{
+			float h = Mathf.Min(Brace.Size.Y, bottom - y);
+			if (h < 12f)
+				break;
+			if (row % 2 == 1)
+				DrawSetTransform(new Vector2(x1 + x2, 0f), 0f, new Vector2(-1f, 1f));
+			DrawTextureRectRegion(_texture, new Rect2(x1, y, x2 - x1, h), Brace);
+			DrawSetTransform(Vector2.Zero, 0f, Vector2.One);
+		}
+	}
+
+	private void DrawPost(float x, float leg)
+	{
+		float footTop = leg - PostFoot.Size.Y;
 		for (float y = DeckHeight; y < footTop; y += PostShaft.Size.Y)
 		{
 			float h = Mathf.Min(PostShaft.Size.Y, footTop - y);
