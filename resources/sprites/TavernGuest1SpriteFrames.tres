@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Taberna/Parroquiano1/idle_2.png" id="f2"]
 [ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Taberna/Parroquiano1/idle_3.png" id="f3"]
 [ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Taberna/Parroquiano1/idle_4.png" id="f4"]
-[ext_resource type="Texture2D" path="res://assets/external/Chars/PixelLab/Taberna/Parroquiano1/idle_5.png" id="f5"]
 
 [resource]
 animations = [{
@@ -24,9 +23,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("f4")
-}, {
-"duration": 1.0,
-"texture": ExtResource("f5")
 }],
 "loop": true,
 "name": &"idle",
