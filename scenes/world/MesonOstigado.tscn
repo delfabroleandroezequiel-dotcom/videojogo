@@ -15,6 +15,7 @@
 [ext_resource type="Resource" path="res://resources/quests/rescue_gransin.tres" id="10_gransinquest"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Merchant.tscn" id="14_bfv42"]
 [ext_resource type="Script" path="res://scripts/world/VozAmbiente.cs" id="voz_amb"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/EsfianerSpriteFrames.tres" id="esf_frames"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(816.4462, 24.48)
@@ -64,14 +65,14 @@ shape = SubResource("RectangleShape2D_bn06r")
 one_way_collision = true
 
 [node name="TavernGuest1" parent="." unique_id=1205701924 instance=ExtResource("4_fnkqi")]
-position = Vector2(-164, 56)
+position = Vector2(-164, 53)
 
 [node name="TavernGuest2" parent="." unique_id=1070819981 instance=ExtResource("5_m7xmo")]
-position = Vector2(-42, 51)
-scale = Vector2(2.059, 2.059)
+position = Vector2(-42, 72)
 
 [node name="TavernGuest3" parent="." unique_id=427580685 instance=ExtResource("6_bfv42")]
-position = Vector2(-258, 51)
+position = Vector2(-258, 49)
+flip_h = true
 
 [node name="ReturnTransition" parent="." unique_id=893934910 instance=ExtResource("4_transition")]
 position = Vector2(-357.02, 107.1)
@@ -117,6 +118,14 @@ NpcName = "NPC_OSTIGADA_NAME"
 DialogueLines = PackedStringArray("NPC_OSTIGADA_L1", "NPC_OSTIGADA_L2")
 CustomSpriteFrames = ExtResource("6_goddess_frames")
 CustomSpriteYOffset = -5.4
+
+[node name="Esfianer" parent="." unique_id=1730452301 instance=ExtResource("5_npc")]
+position = Vector2(-110, 40)
+NpcName = "NPC_ESFIANER_NAME"
+DialogueLines = PackedStringArray("NPC_ESFIANER_L1", "NPC_ESFIANER_L2", "NPC_ESFIANER_L3", "NPC_ESFIANER_L4", "NPC_ESFIANER_L5", "NPC_ESFIANER_L6")
+CustomSpriteFrames = ExtResource("esf_frames")
+CustomSpriteScale = Vector2(1.158, 1.158)
+CollisionSize = Vector2(30, 64)
 
 [node name="Player" parent="." unique_id=695195560 instance=ExtResource("1_player")]
 position = Vector2(-263, -5)
