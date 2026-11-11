@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b3hvvw553xaas"
+path="res://.godot/imported/Golpe Recibido 2.mp3-6b9a60f338b0ef7a8d727f86484f68ed.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Combat/GolpeRecibido/Golpe Recibido 2.mp3"
+dest_files=["res://.godot/imported/Golpe Recibido 2.mp3-6b9a60f338b0ef7a8d727f86484f68ed.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

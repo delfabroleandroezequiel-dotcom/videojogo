@@ -17,6 +17,8 @@ public partial class Player : CharacterBody2D
 	// current behavior (direction always drives velocity.X, grounded or not).
 	[Export] public bool AirControl = true;
 	[Export] public float JumpVelocity = -400f;
+	// Debug invincibility toggled with F5 (see _PhysicsProcess); LevelBootstrap re-applies it per map.
+	public static bool DebugGodMode;
 	[Export] public float Gravity = 900f;
 	// Heavier fall: gravity is scaled up once the jump starts coming down, so the rise keeps its
 	// height but the drop lands "like lead" instead of a symmetric floaty arc. 1 = old behavior.
@@ -577,6 +579,10 @@ public partial class Player : CharacterBody2D
 		_dashBufferTimer = 0f;
 		_rollBufferTimer = 0f;
 	}
+	// Wrapped up (the arena spider's cocoon): snared AND no attack, parry or flask; the attack
+	// button is read by whoever trapped him instead (mash to break free). ReleaseSnare frees him.
+	public bool Atrapado { get; set; }
+	public void ReleaseSnare() => _snareTimer = 0f;
 	public bool IsRolling => _isRolling;
 	// Drinking the heal flask (read by enemies that punish healing, e.g. MushroomBoss).
 	public bool IsHealing => _healing;
@@ -1119,14 +1125,20 @@ public partial class Player : CharacterBody2D
 		healthBar.SetRatio((float)_stats.CurrentHealth / _stats.MaxHealth);
 		staminaBar.SetRatio((float)_stats.CurrentStamina / _stats.MaxStamina);
 		_stats.HitTaken += (isProjectile) => FlashHit(_visual, new Color(1f, 0.2f, 0.2f));
-		// Throttled: rapid damage ticks (burn streams) would otherwise grunt on every tick.
+		// Every hit lands on the body (a flesh/leather thud, no voice); the voice only now and then,
+		// cut to its first bite. A grunt on every hit of a combo turned into a chain of moans.
 		_stats.HitTaken += (isProjectile) =>
 		{
 			ulong now = Time.GetTicksMsec();
-			if (now - _lastGruntMsec < GruntMinIntervalMsec)
+			if (now - _lastImpactMsec >= ImpactMinIntervalMsec)
+			{
+				_lastImpactMsec = now;
+				Sfx.PlayIfExistsAt(this, HurtImpactCategory, HurtImpactKey);
+			}
+			if (now - _lastGruntMsec < (ulong)(HurtVoiceMinInterval * 1000f) || GD.Randf() > HurtVoiceChance)
 				return;
 			_lastGruntMsec = now;
-			VoiceBark(HurtVoiceKey);
+			Sfx.PlayIfExistsAt(this, VoiceCategory, HurtVoiceKey, maxSeconds: HurtVoiceMaxSeconds);
 		};
 		// Getting hit while steering a summon snaps control back to the body.
 		_stats.HitTaken += (isProjectile) => EndSummonControl();
@@ -1508,7 +1520,16 @@ public partial class Player : CharacterBody2D
 	private float _burnTimer;
 	private float _burnLinger = 0.6f;
 	private ulong _lastGruntMsec;
-	private const ulong GruntMinIntervalMsec = 400;
+	private ulong _lastImpactMsec;
+	// Burn/poison ticks would otherwise thud on every tick.
+	private const ulong ImpactMinIntervalMsec = 150;
+	[ExportGroup("Golpe recibido")]
+	[Export] public string HurtImpactCategory = "Combat/GolpeRecibido";
+	[Export] public string HurtImpactKey = "Golpe Recibido";
+	[Export(PropertyHint.Range, "0,1")] public float HurtVoiceChance = 0.33f;
+	[Export] public float HurtVoiceMinInterval = 1.6f;
+	[Export] public float HurtVoiceMaxSeconds = 0.35f;
+	[ExportGroup("")]
 
 	// Whose voice the body makes (folder under Sonidos/). A scene can swap it — ModoJoven gives the
 	// young Delfrad his own. Keys missing from the folder are simply silent, so a voice set doesn't
@@ -2091,8 +2112,14 @@ public partial class Player : CharacterBody2D
 		if (OS.HasFeature("debug") && Input.IsActionJustPressed("debug_infinite_jump"))
 			_infiniteJumpDebug = !_infiniteJumpDebug;
 
+		// F5 (debug builds): GodMode, not ExternalInvulnerable — dodge/wind-shield i-frames reset that
+		// one when they end, and unparryable traps ignore it. Static so it survives scene changes.
 		if (OS.HasFeature("debug") && Input.IsActionJustPressed("debug_invincible"))
-			_stats.ExternalInvulnerable = !_stats.ExternalInvulnerable;
+		{
+			DebugGodMode = !DebugGodMode;
+			_stats.GodMode = DebugGodMode;
+			GD.Print("[debug] Invencible: ", DebugGodMode ? "SI" : "NO");
+		}
 
 		// While a scene transition is fading/loading, this (old-scene) player keeps falling through
 		// a pit exit — that fall must not count as a death (see SceneFader.IsChangingScene).
@@ -2183,7 +2210,7 @@ public partial class Player : CharacterBody2D
 		_rollBufferTimer = Mathf.Max(0f, _rollBufferTimer - (float)delta);
 		_jumpBufferTimer = Mathf.Max(0f, _jumpBufferTimer - (float)delta);
 		_snareTimer = Mathf.Max(0f, _snareTimer - (float)delta);
-		if (Input.IsActionJustPressed("attack"))
+		if (Input.IsActionJustPressed("attack") && !Atrapado)
 			_attackBufferTimer = InputBufferWindow;
 		if (Input.IsActionJustPressed("dash"))
 			_dashBufferTimer = InputBufferWindow;
@@ -2854,7 +2881,7 @@ public partial class Player : CharacterBody2D
 			&& !_isDashing && !_isRolling && !_isRunThrusting && !_isCharging)
 			CastShadowSummon();
 
-		if (Input.IsActionJustPressed("heal") && !_attacking && !_healing && !_isDashing && !_isRolling)
+		if (Input.IsActionJustPressed("heal") && !Atrapado && !_attacking && !_healing && !_isDashing && !_isRolling)
 			UseHealFlask();
 
 		if (Input.IsActionJustPressed("quick_cycle"))
@@ -3200,7 +3227,7 @@ public partial class Player : CharacterBody2D
 		_parryBufferTimer = Mathf.Max(0f, _parryBufferTimer - dt);
 		if (_sinceParryOpened < float.MaxValue)
 			_sinceParryOpened += dt;
-		if (Input.IsActionJustPressed("block"))
+		if (Input.IsActionJustPressed("block") && !Atrapado)
 			_parryBufferTimer = ParryInputBuffer;
 
 		// The buffer only bridges the player's own busy states (attack, roll, dash...) — a press

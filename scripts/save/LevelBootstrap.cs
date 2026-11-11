@@ -55,7 +55,7 @@ public partial class LevelBootstrap : Node
 		DecoRocaViva.Apply(this);
 		_player.GetNode<CanvasLayer>("HUD").Visible = !HideHud;
 		_player.FreeElementCycle = FreeElementCycle;
-		_player.GetNode<Stats>("Stats").GodMode = PlayerGodMode;
+		_player.GetNode<Stats>("Stats").GodMode = PlayerGodMode || Metroidvania.Player.Player.DebugGodMode;
 		_player.GetNode<CanvasItem>("HUD/QuickSlotHud").Visible = !HideQuickBar;
 		// Only exists while the Bastón summons are on (Player.BastonSummonsEnabled).
 		if (_player.GetNodeOrNull<CanvasItem>("HUD/ShadowSlotsHud") is CanvasItem summonSlots)

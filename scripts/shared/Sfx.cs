@@ -208,8 +208,19 @@ public static class Sfx
 				matches.Add(file);
 		}
 
-		return matches.Count == 0 ? null : matches[Rng.Next(matches.Count)];
+		if (matches.Count == 0)
+			return null;
+		// Never the same variant twice in a row: a repeated grunt or hit is what makes it sound canned.
+		string lastKey = folder + "/" + key;
+		LastPicked.TryGetValue(lastKey, out string last);
+		if (matches.Count > 1 && last is not null)
+			matches.Remove(last);
+		string pick = matches[Rng.Next(matches.Count)];
+		LastPicked[lastKey] = pick;
+		return pick;
 	}
+
+	private static readonly Dictionary<string, string> LastPicked = new();
 
 	private static bool IsNumberedVariant(string nameNoExt, string key)
 	{
