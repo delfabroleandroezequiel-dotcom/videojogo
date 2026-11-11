@@ -51,6 +51,7 @@ Para cada uno: qué quiere, qué lo hace humano y cuál es su **pago** más adel
 | **Pip y Tomo** | Dos chicos que juegan a la "Gran Guerra" con espadas de madera | Que Delfrad les enseñe un golpe | Eco de Delfrad niño. En el presente, una espada de madera tirada en el barro |
 | **Lio y Edda** | Los amigos de Delfrad del Mesón (en el libro hay amigos sin nombre) | Que Delfrad no se olvide de ellos | Se quedan en Nix y vuelven en "Nix, la última resistencia" (Acto 2): muertes con peso, porque ya los conocimos |
 | **Leomax el carretero** | Conductor del carro de Morlok, herido en el borde del bosque | Volver a casa | Testigo de los bandidos: "Llevaban un emblema… no era de por acá" |
+| **Esfianer** (hecho 2026-11-10) | Mercenario que cuida caravanas a Ullatorp, varado en el Mesón porque los bandidos tomaron el camino del norte. Armadura rosa, parche en el ojo, pelo gris, machete | Volver al norte | Cuenta la **versión oficial** de la Gran Guerra (oro, saqueos de Aragost) y le da a Delfrad un destino: Enterbill. Lo volvés a cruzar en Ullatorp |
 
 ---
 
@@ -75,7 +76,7 @@ Nadie dice "hay bandidos" de una. Cada vecino aporta una pieza y el jugador arma
 - **Pasos:**
   1. Hablar con **Alathea** en el mercado: el carro de su padre debía llegar ayer.
   2. Hablar con **Morlok** (quiere ir él; Alathea no lo deja; Delfrad se ofrece).
-  3. Ir al borde del bosque con **Alathea** (acompañante o encuentro allá).
+  3. Ir al borde del bosque con **Alathea** (acompañante o encuentro allá). **Ubicación (2026-11-10):** Morlok y Alathea están cerca de la entrada de Nix (x ~4830 y ~4985, junto a Halvar), con la **verdulería de Morlok** detrás de él (`Verduleria.png` y `CajonesVerdura.png`, PixelLab). Mientras la quest está activa Alathea no está en el pueblo (`Npc.HideWhileQuestActive`): se fue a la atalaya; la quest se entrega a Morlok. **Hecho (2026-11-10):** Alathea espera arriba de la atalaya de BosqueLobos1 y dispara a los bandidos mientras habla (`ArqueraTorre`, solo mientras la quest está activa). Con la espada de madera Delfrad los distrae; ella los baja (2 flechas cada uno). Frases: "¡Cuida a Leomax! Yo te cubro desde aquí arriba.", "¿Con un palo, Delfrad? Tú distráelos, que yo apunto.", "¡Agáchate! Esta va para el del hacha.", "¡Eso es! Me debes una cerveza."
   4. Encontrar el **carro volcado** y a **Leomax herido**.
   5. Pelear con **2 o 3 malvivientes** que están saqueando. Es la primera pelea "de verdad" después del entrenamiento con Arthur.
   6. Recuperar el **libro de cuentas de Morlok** y **el trozo de tela con el emblema**.

@@ -51,16 +51,17 @@ Nix ──► BosqueLobos1 ──► BosqueLobos2 (CORTADO: bandidos)
 
 ### Zona 2: La Mina · DECIDIDO
 - Otra zona **grande**, con **otra ambientación**, a la que se llega después de matar al jefe de la Cueva.
-- Sale a la superficie por la entrada de mina de **BosqueLobos6**.
-- **Greybox hecho (2026-11-05):** `Mapas/Mina/Mina01`–`Mina09` + `Mina02b`, bajada en diagonal a la derecha; detalle en `DisenoNiveles.md` §6b. Sin conectar: oeste de Mina01 → InteriorCueva, arriba de Mina09 (montacargas) → BosqueLobos6.
+- Sale a la superficie por la entrada de mina de **BosqueLobos6**: **Mina01_Bocamina → `Entradamina` de BosqueLobos6** (conectado 2026-11-09). Desde BosqueLobos6 se sigue a Ullatorp.
+- **Recorrido (2026-11-09):** InteriorCueva7 (hueco) → arena de la araña → habitación de Gransin → viaje en vagoneta Mina07a/b/c → se sube Mina06 → Mina01 → BosqueLobos6. Ramal desde 07b: Mina08 → Mina09 (montacargas; su salida de arriba sigue pendiente). Detalle en `DisenoNiveles.md` §6b.
 - **Llave (PROPUESTA):** los **Guantes de minero** (`item_guantes_minero`, habilidad `rope_swing`) en Mina05: cuerdas que se balancean. Cerraduras sembradas: cuerdas de Mina03, cornisa de doble salto en Mina01, muro cargado en Mina04.
 - **PENDIENTE:** ¿tiene su propio jefe? ¿Qué ambientación (rieles, vagonetas, andamios, minerales, mineros)? ¿Qué enemigos?
 
-- **Espada de madera (2026-11-02):** la partida empieza con el ítem `item_espada_madera` (daño 1 por golpe, no rompe la postura). Es el bloqueo natural de la Cueva antes de partir: se puede entrar, pero no le sacás nada a nadie. Arthur da `item_espada_arthur` al empezar el capítulo 2 (la mañana después de la visita). **Falta la escena que la entrega.**
+- **Espada de madera (2026-11-02):** la partida empieza con el ítem `item_espada_madera` (daño 1 por golpe, no rompe la postura). Es el bloqueo natural de la Cueva antes de partir: se puede entrar, pero no le sacás nada a nadie. Arthur da `item_espada_arthur` en `CinematicaEspada` (Casa1), al volver con "El carro de Morlok" terminado: **cierra el capítulo 1**, sin cambio de mañana a noche (2026-11-10).
 - **Personaje base:** sin ataque cargado y sin doble salto en todo el tramo.
 - **Bloqueo:** el camino de superficie a Ullatorp está cortado por bandidos muy fuertes que te matan de un golpe.
 - **Desvío obligado:** desde BosqueLobos1 se entra a la cueva, se conecta con las minas y se sale por la entrada de mina de BosqueLobos6, ya del otro lado del bloqueo.
 - **Bandidos:** en BosqueLobos2 (el camino queda cortado ahí), así el desvío saltea del 2 al 5.
+- **Barricada de carretas (2026-11-10, hecho):** en BosqueLobos2, antes de la salida al este, una pila de carretas rotas cubiertas de musgo (`Carretas rotas cubiertas de musgo.png`, escala 0.29, ~233 px de alto) con un muro invisible hasta el cielo: no se puede saltar ni con doble salto. **No se abre en todo el Acto 1.** Arriba, dos **bandidos arqueros** en los techos de las carretas tiran a quien se acerque (las flechas pasan por encima del muro). Mapa más hostil: luz más oscura solo en BL2 (override del `CanvasModulate` de `AtmosferaBosqueLobos`), faroles de las carretas con luz, fogata del campamento y cuervos arriba de la pila.
 - **Idea para después:** volver desde el 6 hacia atrás y cruzarse con los bandidos desde el otro lado.
 
 ---

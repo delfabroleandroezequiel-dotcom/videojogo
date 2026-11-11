@@ -1,6 +1,6 @@
 # YouTube — guía del canal Jekyria
 
-Documento vivo. **Leerlo antes de planear, guionar, empaquetar o analizar cualquier video o short del canal** y sumarle lo que se aprenda con cada publicación. Última actualización: 2026-11-01.
+Documento vivo. **Leerlo antes de planear, guionar, empaquetar o analizar cualquier video o short del canal** y sumarle lo que se aprenda con cada publicación. Última actualización: 2026-11-11.
 
 ---
 
@@ -16,6 +16,8 @@ Cada vez que toque el canal, trabajo con el rol de **estratega de contenido y ed
 - **Honestidad.** Nada de clickbait que el video no cumpla. Un gancho honesto que retiene le gana a uno exagerado que espanta a los 5 segundos.
 - **Constancia sobre viralidad.** Un canal nuevo crece por acumulación: cada video le dice al algoritmo a quién mostrar el siguiente.
 - **Los datos mandan, pero los propios.** Los "benchmarks" de internet son orientativos. La referencia real es comparar cada video con los anteriores del mismo canal.
+
+**Producción:** armar los shorts y videos (guion, voz, montaje, subtítulos, entrega) es tarea del perfil **Jefe de Marketing**, en `Diseno/JefeMarketing.md`. Este documento decide qué hacer y guarda los datos; aquel decide cómo se hace.
 
 ---
 
@@ -210,6 +212,14 @@ En los dos se aplica la lección del devlog de Malenia: el jefe famoso tiene que
   - **El jefe "más grande que Radiance" arrancó como los backstabs** en su primer día, y con otro formato: comparación de tamaño con un jefe famoso de un metroidvania 2D. Encaja con la regla de superlativos medibles y visibles (el "gigante" de Bozz Killer) y con que Hollow Knight tracciona más que los soulslike 3D en shorts. Volver a mirarlo a las 48 h.
   - **Siguientes shorts:** priorizar momentos grandes y visibles (ejecuciones, el desenvainar iai, el Gigante trepable, la explosión de la hoguera) y comparaciones con jefes 2D famosos (Hollow Knight, Blasphemous, Cuphead). Evitar mecánicas sutiles como protagonistas.
   - **Sigue pendiente:** los 4 shorts están sin descripción en Studio.
+- **"La ESCENA que convierte a Calamardo…" (Bozz Killer, 9:39, publicado el 9 nov 2026 18:00; captura del 2026-11-11, ~41 h):** primer largo fuera de jefes desde Breaking Bad. 305 impresiones, **CTR 3.6%**, 25 vistas, 1.4 h, 0 suscriptores, 6 me gusta, 1 comentario. Fuentes: exploración 76%, canales de usuario 8%, búsqueda 8%, sugeridos 4%, otras 4% (las externas son 100% Creator Studio, o sea el autor mirándolo).
+  - **Retención excepcional:** 70% promedio reproducido (6:46 de 9:39), curva plana en ~80% de punta a punta, sin caída en el final. La señal limpia es el embudo de impresiones: **10 vistas interesadas de desconocidos con 5:40 de media (~59%)**, igual que el largo de 29K (~60%). Los picos por encima de 100% y los 9 "usuarios únicos" (dato todavía incompleto, rayado en el gráfico) sugieren que parte de las 25 vistas son repeticiones propias: no leer el 70% como cifra exacta.
+  - **Distribución:** las impresiones siguen subiendo casi en línea recta a las 41 h, sin aplanarse. Menos impresiones que el jefe pequeño a la misma edad (536), pero mejor CTR (3.6% contra 2.1%). Con menos de 1.000 impresiones el CTR todavía es ruido.
+  - **Lectura:** tercer largo seguido (ATERRADOR, jefe pequeño, Calamardo) donde **el contenido retiene por encima de lo habitual y el techo lo pone la distribución**. La edición ya no es el cuello de botella; lo son el tema y el empaque. No tocar miniatura ni título hasta pasar ~1.000 impresiones; mirar de nuevo a los 7 y a los 28–30 días.
+- **Short "Jefes de Sonic" (Bozz Killer, quiz "¿Qué tanto sabes de Sonic?", 0:10, publicado el 10 nov 2026 10:12; captura del 11 nov 12:23, ~26 h):** 14.6K vistas (+1.7K sobre el rendimiento habitual), 6.8K vistas interesadas (~47%), 25.3 h, **+29 suscriptores**, duración media 0:12 de 0:10 (~120%). **Se quedaron a mirar: 74.9%** (descartado 25.1%), arriba del 70.9% mensual del canal y muy arriba del 52.3% del primer short de Jekyria. Fuentes: feed de Shorts 13.9K (~95%), búsqueda 464, otras 234.
+  - **Olas visibles en "últimas 48 h":** un empujón chico en las primeras ~2 h, una pausa, la ola grande entre las horas ~10 y 15 (pico ~1.5K/h), una bajada, y **una ola nueva subiendo** al momento de la captura. Confirma que en shorts las pruebas llegan cada pocas horas, cada una más grande si la anterior respondió.
+  - **Convierte ~4.6 veces mejor a suscriptores que el promedio del canal:** 1 cada ~500 vistas, contra 1 cada ~2.300.
+  - **Lectura:** Sonic se suma a las franquicias masivas (Mario, Cuphead) y va camino a esa franja (~28K de mediana), con una ola todavía activa. Mirar a las 48–72 h. Para Jekyria refuerza la idea del quiz "¿De qué jefe salió este ataque?" (sección 7, shorts de Bozz Killer).
 - **El canal secundario viejo (~94 suscriptores)** no está penalizado: tuvo un pico con shorts del juego (2–3K en julio) y se murió por falta de constancia.
 
 ---

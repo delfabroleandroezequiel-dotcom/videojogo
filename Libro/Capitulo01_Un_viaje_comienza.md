@@ -180,11 +180,13 @@ Alathea levantó el libro de cuentas de su padre de un charco y lo sacudió con 
 
 Miré hacia el norte. Unos pasos más allá, el camino subía entre los árboles y se perdía en la sombra. Era por donde pasaba la caravana. Era por donde yo llevaba años pensando irme. Me pareció que allá arriba, muy lejos, había una columna de humo, y que no era humo de ninguna chimenea.
 
-Tardamos hasta el anochecer en llevar a Leomax de vuelta sobre la lona, tirando de ella entre los dos. Halvar nos vio venir desde la puerta. No preguntó nada. Se quitó el casco, se quedó mirando dentro como si allí estuviera lo que tenía que hacer, y volvió a ponérselo.
+Tardamos lo que quedaba de la tarde en llevar a Leomax de vuelta sobre la lona, tirando de ella entre los dos. A mitad de camino me empezaron a temblar las manos. No por el peso. Había vuelto a ver a aquel hombre tirado en el suelo, buscando el cuchillo con la mano. Tenía la edad de Lio. Yo había tenido la espada levantada. Y me di cuenta de que no sabía qué hubiera hecho con ella si Alathea no hubiera tirado. Ella me vio parar y no dijo nada. Agarró la lona por mi lado también, hasta que pude volver a agarrarla.
+
+Halvar nos vio venir desde la puerta. No preguntó nada. Se quitó el casco, se quedó mirando dentro como si allí estuviera lo que tenía que hacer, y volvió a ponérselo.
 
 ---
 
-A Morlok le pareció que debía pagarme. Era la única manera que conocía de decir cualquier cosa. Leomax ya estaba en la cama, con el hermano Aldric rezándole al lado y una tabla atada a la pierna. El libro de cuentas se secaba sobre el fogón. Morlok fue a la trastienda, volvió con una tela gris doblada y me la puso en los brazos sin mirarme.
+A Morlok le pareció que debía pagarme. Era la única manera que conocía de decir cualquier cosa. Leomax ya estaba en la cama, con el hermano Aldric rezándole al lado y una tabla atada a la pierna. El libro de cuentas se secaba junto al fogón. Morlok fue a la trastienda, volvió con una tela gris doblada y me la puso en los brazos sin mirarme.
 
 —Es de Ullatorp. La lana de allá no deja pasar el agua.
 
@@ -194,19 +196,43 @@ Era una capa de viaje. Era lo más caro que me habían dado en la vida. Levanté
 
 Le prometí que sí. Fue una promesa fácil, porque todavía no pensaba irme ese año.
 
-Esa noche fui al Mesón de Nix. No quería volver a casa. Le había llevado la red a mi padre, le había contado lo del carro, y él había dejado de comer y me había mirado la espada de madera con el tajo del cuchillo clavado en ella. Pasó el pulgar por la marca.
+---
 
-—¿Te quedaste parado?
+No quería volver a casa todavía. Bajé al muelle con la capa doblada bajo el brazo, porque me daba vergüenza ponérmela, y encontré a Tobías sentado junto a su bote, remendando una red que no necesitaba remiendo. Siempre estaba ahí, y aun así siempre me asustaba, porque no hacía ningún ruido.
 
-—¿Cómo sabes?
+—Dicen que ahí arriba había lobos muertos de miedo —dijo, sin levantar la vista.
 
-—Termina de comer —dijo, y no volvió a hablar.
+—No vi lobos.
 
-En el Mesón estaban Lio y Edda, por supuesto, y Ostigada detrás del mostrador contando jarros como si alguien se los fuera a robar. La cerveza de Nix era agria y la recuerdo todavía en la lengua. Conté lo de los ladrones, y al contarlo eran cinco, y mi espada no estaba hecha de madera. Lio me hizo repetir el golpe de la rodilla tres veces, de pie sobre el banco.
+—No, claro. —Chupó una pipa apagada—. Los lobos siempre estuvieron, muchacho. Lo que no estaba es lo que ahora espanta a los lobos. Y a esos pobres diablos del desierto, si a eso vamos. —Miró el mar, que esa tarde estaba quieto como un plato. Se quedó un rato callado. Fue lo más largo que le oí decir en toda mi vida—. Tu padre no siempre fue pescador. Ve a tu casa.
 
-—Te vas a ir —dijo Edda.
+No fui a mi casa. Fui al Mesón.
 
-No lo dijo como pregunta. Hacía rato que me estaba mirando la capa. Era la persona más inteligente que conocí en Nix, y creo que en cualquier otra parte, y nunca salió de allí.
+---
+
+En el Mesón de Nix estaban Lio y Edda, por supuesto, y Ostigada detrás del mostrador contando jarros como si alguien se los fuera a robar. La cerveza de Nix era agria y la recuerdo todavía en la lengua. Conté lo de los ladrones, y al contarlo eran cinco, y mi espada no estaba hecha de madera. Lio me hizo repetir el golpe de la rodilla tres veces, de pie sobre el banco.
+
+En la mesa del rincón había un hombre que no era de Nix. Lo supe antes de verle la cara, porque llevaba una armadura rosa. No rosa como una flor: rosa como algo que alguna vez fue rojo y se pasó demasiados veranos en el camino. Tenía un parche en un ojo, el pelo gris atado en la nuca y un machete apoyado contra la pared, al alcance de la mano. Se rio con el golpe de la rodilla más fuerte que Lio.
+
+—¡Un rostro amable! —dijo, y me empujó un banco con la bota—. Ven, siéntate. Me llamo Esfianer, escolta de caravanas.
+
+Le miré la armadura más de lo que era educado.
+
+—Rosa, sí. Que me vean venir de lejos: así nadie se pierde. —Se encogió de hombros—. Tres semanas varado en este pueblo. El camino del norte está tomado, pero no por mucho.
+
+Yo nunca había hablado con alguien que viniera de tan lejos, así que le pregunté lo único que se me ocurrió preguntarle a un soldado. Le pregunté por la Gran Guerra.
+
+—¿La Gran Guerra? —Bebió—. Dicen que fue por oro. Que Aragost saqueaba los pueblos. —Lo dijo como se dice la hora, como lo decía todo el mundo, y yo lo creí como lo creía todo el mundo—. Yo prefiero otras historias, muchacho. Las de los que vuelven a casa.
+
+Cuando me levanté para irme, me puso una mano en el brazo.
+
+—Si un día sales al camino, búscame. Dos espadas cuidan mejor que una.
+
+Edda me estaba mirando la capa. Hacía rato que la miraba.
+
+—Te vas a ir —dijo.
+
+No lo dijo como pregunta. Era la persona más inteligente que conocí en Nix, y creo que en cualquier otra parte, y nunca salió de allí.
 
 —Algún día —dije.
 
@@ -216,78 +242,62 @@ No lo dijo como pregunta. Hacía rato que me estaba mirando la capa. Era la pers
 
 —Cuídate de ti mismo, Delfrad. Es lo único peligroso que has visto en tu vida.
 
-Nos reímos hasta que Ostigada nos echó. Salí a la calle borracho y orgulloso, con la capa sobre los hombros, y había empezado a llover. Todavía no me temblaban las manos. Me temblaron más tarde, a la altura de la casa de Tobías. Tuve que parar y apoyarme en la pared, porque había vuelto a ver a aquel hombre tirado en el suelo, buscando el cuchillo con la mano. Tenía la edad de Lio. Yo había tenido la espada levantada. Y me di cuenta de que no sabía qué hubiera hecho con ella si Alathea no hubiera tirado.
-
-Tobías estaba sentado bajo el alero, en la oscuridad, sin hacer ningún ruido. Por eso siempre me asustaba.
-
-—Dicen que ahí arriba había lobos muertos de miedo —dijo.
-
-—No vi lobos.
-
-—No, claro. —Chupó una pipa apagada—. Los lobos siempre estuvieron, muchacho. Lo que no estaba es lo que ahora espanta a los lobos. Y a esos pobres diablos del desierto, si a eso vamos. —Se quedó un rato callado. Fue lo más largo que le oí decir en toda mi vida—. Tu padre no siempre fue pescador. Vete a dormir.
+Nos reímos hasta que Ostigada nos echó.
 
 ---
 
-Cuando llegué a casa, la luz seguía encendida y mi padre estaba en la mesa, arreglando un anzuelo. Me miró la capa. No dijo nada. Me saqué las botas en silencio, como hacía desde los doce años, y ya tenía un pie en la escalera cuando tocaron a la puerta.
+Cuando llegué a casa, mi padre estaba de espaldas a la puerta, junto al fuego. No se dio vuelta.
 
-Tocaron tres veces, despacio. En Nix nadie tocaba así. En Nix la gente entraba gritando tu nombre.
+—Cierra la puerta.
 
-Mi padre se quedó con el anzuelo en el aire.
+La cerré. Sobre la mesa había algo largo envuelto en un paño viejo, y el paño tenía polvo en los pliegues, un polvo gris y fino que yo conocía: el de debajo de su cama, donde yo tenía prohibido meterme desde que era chico.
 
-—Abre —dijo.
+—Morlok vino a darme las gracias.
 
-Había un hombre en la lluvia, con una túnica marrón empapada y la capucha tan baja que no le vi la cara, solo el agua que le caía de la tela. No me saludó. Pasó a mi lado como quien entra en una casa que ya conoce, y al pasar sentí un olor raro, a piedra vieja, a sótano. Algo le brillaba debajo de la túnica, a la altura del cuello. Lo miré un segundo y tuve que apartar la vista, como cuando uno mira el sol en el agua.
+No supe qué contestar a eso. Él se dio vuelta.
 
-Mi padre no se levantó. Tampoco se sorprendió. Eso fue lo primero que me llamó la atención.
+—Fuiste al bosque con un palo.
 
-—Delfrad. Ve a ver si Tobías aseguró el bote.
+—Alguien tenía que ir.
 
-Tobías aseguraba el bote desde antes de que yo naciera, y acababa de dejarlo bajo un alero con una pipa apagada. Volví a ponerme las botas, salí, cerré, di la vuelta a la casa bajo la lluvia y me agaché junto a la puerta de atrás, donde la madera tiene una rendija que yo conocía de cuando era chico y escuchaba si iba a haber postre.
+Me miró un rato largo. Después fue hasta la mesa, y yo fui con él, y quedamos uno a cada lado, como en la arena.
 
-Veía la mesa, la vela, las manos de mi padre. Al otro hombre no.
+—Muéstrame esa espada.
 
-—Temo traer malas noticias, Arthur.
+Le di la de madera. La giró bajo la luz de la ventana hasta encontrar el tajo, y pasó el pulgar por la marca.
 
-Era una voz gastada, muy tranquila. Era la voz de alguien que ya ha dicho esto antes en su cabeza, muchas veces, durante todo un camino largo.
+—Un cuchillo —dijo—. Se clavó justo aquí.
 
-—Tienen que ser muy malas para que te dignes a venir hasta aquí.
+—¿Te quedaste parado?
 
-—Hubo gente en tu bosque, me han dicho.
+—¿Cómo lo sabes?
 
-—Hoy. Mi hijo les rompió los dientes.
+—Porque yo también me quedé parado. —Dejó la espada de madera sobre la mesa, con mucho cuidado, como si todavía pudiera romperse—. La primera vez.
 
-—Es solo el principio. Huyen, Arthur. Todos los que estaban al norte huyen. Y cuando huyen, ya es tarde para... —Una silla crujió. Pasó un rato largo, y yo creí que no iba a decir nada más, y sentí la lluvia bajándome por la nuca, bajo aquella capa que no dejaba pasar el agua.
+Nunca me había hablado de una primera vez. Esperé a que dijera de qué, o cuándo, o contra quién. No lo dijo.
 
-—Lo han encontrado.
+—Esta ya no te sirve para lo que viene. —Apartó el paño.
 
-Conocía todas las caras de mi padre. Lo había visto discutir con Bram, lo había visto partirme el labio sin querer, lo había visto enterrar a un amigo. Esa cara yo no la conocía. El anzuelo se le había clavado en el pulgar, y una gota de sangre le bajaba por la mano hasta la mesa, y no se daba cuenta.
+Era una espada de verdad. No tenía adornos ni piedras, solo una hoja recta y una empuñadura gastada por una mano que no era la mía. Brillaba como brillan las cosas que alguien ha aceitado todos los años aunque nadie las use.
 
-—¿Quiénes?
+—Esa la forjó Garrik. Hace años que no ve la luz.
 
-—Creemos que ellos.
+—Papá, yo no puedo...
 
-La vela se movió. Mi padre miró la puerta de adelante. Miró la escalera. Miró, durante un momento que me dejó sin aire, la pared detrás de la cual yo estaba agachado, aunque creo que estaba mirando otra cosa, algo mucho más lejos.
+—Tómala.
 
-—Sabes lo que va a pasar —dijo.
+La tomé. Me dobló la muñeca hacia abajo, y tuve que agarrarla con las dos manos.
 
-—Lo sé. El rey no va a hacer nada; no quiere oír hablar de guerras. Deberían irse lejos. Tú y el muchacho. Esta misma semana.
+—Pesa más que la de madera —dijo mi padre—. Así tiene que ser.
 
-—Mi vida está aquí. No me voy a ir. —Lo dijo igual que cuando me decía que levantara la guardia—. Si el rey no quiere oír, iré a decírselo en la cara.
+Se dio vuelta hacia la ventana. Por ahí se veía el camino que salía del pueblo, el de las caravanas, y yo supe que él lo estaba mirando igual que yo lo había mirado toda la vida.
 
-—Bogarth no es su padre.
+—Las caravanas salen al alba.
 
-—No. Por suerte, o por desgracia.
+No dijo nada más durante un rato tan largo que creí que había terminado.
 
-Nadie dijo nada más. Oí la silla y corrí a dar la vuelta, con las botas llenas de barro. Cuando volví a entrar a decir que el bote estaba bien, el hombre ya se había ido, y la puerta de adelante estaba abierta y entraba la lluvia. Mi padre seguía sentado. Se había sacado el anzuelo. Se chupó el pulgar y me miró.
+—Esta vez, no te quedes mirando.
 
-—¿Estaba bien amarrado?
+Si solo le hubiera preguntado. Lo he pensado cada día de estos treinta y cinco años. Tenía las preguntas en la boca: *¿por qué un pescador guarda debajo de la cama una espada que forjó Garrik?, ¿cuál fue la primera vez?, ¿contra quién?* Esa misma tarde había visto a un hombre mirar sus propios dientes en el barro, y había vuelto a casa creyéndome mayor. Pero nunca había visto a mi padre darme algo que le costara, y descubrí esa tarde que no sabía qué se hace con eso. Era más fácil pensar que eran cosas de viejos soldados.
 
-—Sí.
-
-—Bien.
-
-Si solo le hubiera preguntado. Lo he pensado cada día de estos treinta y cinco años. Tenía la pregunta en la boca: *¿quién era?, ¿qué encontraron?, ¿quiénes son ellos?* Esa misma tarde había visto a un hombre mirar sus propios dientes en el barro, y había vuelto a casa creyéndome mayor. Pero nunca había visto a mi padre asustado, y descubrí esa noche que no estaba preparado para verlo. Era más fácil pensar que eran cosas de viejos soldados.
-
-Subí a acostarme sin decir nada.
-
-No dormí. Él tampoco. Lo oí caminar abajo durante horas, de la ventana a la mesa y de la mesa a la ventana. Y de madrugada, cuando ya casi había dejado de llover, oí un ruido que no había oído nunca en todos los años que llevaba viviendo en esa casa: el de algo muy pesado arrastrándose por el piso, debajo de su cama.
+No le pregunté nada. Me quedé con la espada en las manos, y él con la vista en el camino, y ninguno de los dos se movió durante mucho tiempo.
