@@ -25,6 +25,8 @@
 [ext_resource type="SpriteFrames" uid="uid://w2vrtn1ekg4" path="res://resources/sprites/CrystalFallSpriteFrames.tres" id="24_crystalframes"]
 [ext_resource type="Material" uid="uid://cnrbsejsgoy25" path="res://resources/particles/LightningSparkProcess.tres" id="25_sword_spark_process"]
 [ext_resource type="PackedScene" path="res://scenes/ui/BarraVidaJefe.tscn" id="30_bossbar"]
+[ext_resource type="Script" path="res://scripts/player/CapaProta.cs" id="31_capa"]
+[ext_resource type="Texture2D" path="res://assets/sprites/capa/capa.png" id="32_capa_tex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
 size = Vector2(32, 64)
@@ -104,6 +106,11 @@ target_position = Vector2(18, 0)
 collision_mask = 16
 
 [node name="Visual" type="Node2D" parent="." unique_id=2040902481]
+
+[node name="Capa" type="Node2D" parent="Visual" unique_id=1785520311]
+position = Vector2(-11, -19)
+script = ExtResource("31_capa")
+Textura = ExtResource("32_capa_tex")
 
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual" unique_id=1202741970]
 position = Vector2(-2, -6.2)
