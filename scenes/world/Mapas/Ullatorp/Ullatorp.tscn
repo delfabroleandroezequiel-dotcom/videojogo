@@ -1,0 +1,188 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="bootstrap"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="camera"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/world/SavePoint.tscn" id="savepoint"]
+[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="transition"]
+
+[sub_resource type="RectangleShape2D" id="Rect_suelo"]
+size = Vector2(7040, 80)
+
+[sub_resource type="RectangleShape2D" id="Rect_pared"]
+size = Vector2(40, 1200)
+
+[node name="Ullatorp" type="Node2D"]
+script = ExtResource("bootstrap")
+ScenePath = "res://scenes/world/Mapas/Ullatorp/Ullatorp.tscn"
+ZoneName = "ULLATORP"
+CameraProfile = ExtResource("camera")
+CameraLimitLeft = 0
+CameraLimitRight = 6960
+CameraLimitTop = -700
+CameraLimitBottom = 200
+
+[node name="Fondo" type="ColorRect" parent="."]
+z_index = -50
+offset_left = -400
+offset_top = -1000
+offset_right = 7400
+offset_bottom = 600
+color = Color(0.09, 0.1, 0.13, 1)
+
+[node name="Colisiones" type="StaticBody2D" parent="."]
+
+[node name="Suelo" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(3480, 40)
+shape = SubResource("Rect_suelo")
+
+[node name="ParedOeste" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(-20, -560)
+shape = SubResource("Rect_pared")
+
+[node name="ParedEste" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(6980, -560)
+shape = SubResource("Rect_pared")
+
+[node name="Visible" type="Node2D" parent="."]
+z_index = -5
+
+[node name="Suelo" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_right = 7000
+offset_bottom = 80
+color = Color(0.32, 0.33, 0.36, 1)
+
+[node name="Edificios" type="Node2D" parent="."]
+z_index = -10
+
+[node name="PuertaOeste" type="ColorRect" parent="Edificios"]
+offset_left = 520
+offset_top = -260
+offset_right = 600
+offset_bottom = 0
+color = Color(0.2, 0.21, 0.25, 1)
+
+[node name="Taberna" type="ColorRect" parent="Edificios"]
+offset_left = 1200
+offset_top = -220
+offset_right = 1560
+offset_bottom = 0
+color = Color(0.17, 0.18, 0.22, 1)
+
+[node name="Tienda" type="ColorRect" parent="Edificios"]
+offset_left = 1900
+offset_top = -180
+offset_right = 2180
+offset_bottom = 0
+color = Color(0.17, 0.18, 0.22, 1)
+
+[node name="Herreria" type="ColorRect" parent="Edificios"]
+offset_left = 2500
+offset_top = -200
+offset_right = 2800
+offset_bottom = 0
+color = Color(0.17, 0.18, 0.22, 1)
+
+[node name="CasaGranthin" type="ColorRect" parent="Edificios"]
+offset_left = 4100
+offset_top = -200
+offset_right = 4400
+offset_bottom = 0
+color = Color(0.17, 0.18, 0.22, 1)
+
+[node name="PatioEntrenamiento" type="ColorRect" parent="Edificios"]
+offset_left = 4900
+offset_top = -140
+offset_right = 5600
+offset_bottom = 0
+color = Color(0.14, 0.15, 0.18, 1)
+
+[node name="PuertaEste" type="ColorRect" parent="Edificios"]
+offset_left = 6360
+offset_top = -260
+offset_right = 6440
+offset_bottom = 0
+color = Color(0.2, 0.21, 0.25, 1)
+
+[node name="Carteles" type="Node2D" parent="."]
+
+[node name="CartelPuertaOeste" type="Label" parent="Carteles"]
+offset_left = 480
+offset_top = -300
+offset_right = 640
+offset_bottom = -276
+text = "Puerta oeste"
+horizontal_alignment = 1
+
+[node name="CartelTaberna" type="Label" parent="Carteles"]
+offset_left = 1280
+offset_top = -260
+offset_right = 1480
+offset_bottom = -236
+text = "Taberna"
+horizontal_alignment = 1
+
+[node name="CartelTienda" type="Label" parent="Carteles"]
+offset_left = 1940
+offset_top = -220
+offset_right = 2140
+offset_bottom = -196
+text = "Tienda"
+horizontal_alignment = 1
+
+[node name="CartelHerreria" type="Label" parent="Carteles"]
+offset_left = 2550
+offset_top = -240
+offset_right = 2750
+offset_bottom = -216
+text = "Herrería"
+horizontal_alignment = 1
+
+[node name="CartelPlaza" type="Label" parent="Carteles"]
+offset_left = 3300
+offset_top = -140
+offset_right = 3700
+offset_bottom = -116
+text = "Plaza / hoguera"
+horizontal_alignment = 1
+
+[node name="CartelCasaGranthin" type="Label" parent="Carteles"]
+offset_left = 4100
+offset_top = -240
+offset_right = 4400
+offset_bottom = -216
+text = "Casa de Granthin"
+horizontal_alignment = 1
+
+[node name="CartelPatio" type="Label" parent="Carteles"]
+offset_left = 4950
+offset_top = -180
+offset_right = 5550
+offset_bottom = -156
+text = "Patio de entrenamiento (doble salto)"
+horizontal_alignment = 1
+
+[node name="CartelPuertaEste" type="Label" parent="Carteles"]
+offset_left = 6260
+offset_top = -300
+offset_right = 6540
+offset_bottom = -276
+text = "Puerta este → BosqueLobos7"
+horizontal_alignment = 1
+
+[node name="Hoguera" parent="." instance=ExtResource("savepoint")]
+position = Vector2(3500, 0)
+
+[node name="HaciaBosqueLobos6" parent="." instance=ExtResource("transition")]
+position = Vector2(15, -53)
+TargetScenePath = "res://scenes/world/Mapas/BosqueLobos6.tscn"
+TargetSpawnPosition = Vector2(1400, 263)
+Width = 30
+Height = 200
+
+[node name="ConexionPendiente_BosqueLobos7" type="Marker2D" parent="."]
+position = Vector2(6940, -40)
+
+[node name="Player" parent="." instance=ExtResource("player")]
+position = Vector2(160, -40)

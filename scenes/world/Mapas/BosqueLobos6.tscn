@@ -7501,6 +7501,13 @@ RequireInteract = true
 Width = 90.0
 Height = 100.0
 
+[node name="HaciaUllatorp" parent="." unique_id=1778843009 instance=ExtResource("11_transition")]
+position = Vector2(1510, 230)
+TargetScenePath = "res://scenes/world/Mapas/Ullatorp/Ullatorp.tscn"
+TargetSpawnPosition = Vector2(160, -40)
+Width = 10.0
+Height = 200.0
+
 [node name="Monticuloroca" type="Sprite2D" parent="." unique_id=1311829065]
 position = Vector2(573, 214)
 scale = Vector2(0.2, 0.2)
