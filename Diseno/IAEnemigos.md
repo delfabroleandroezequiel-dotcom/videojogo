@@ -1,6 +1,6 @@
 # IA de enemigos — guía de referencia
 
-Documento vivo con todo lo que hace falta para diseñar o tocar la IA de un enemigo. Última actualización: 2026-10-27.
+Documento vivo con todo lo que hace falta para diseñar o tocar la IA de un enemigo. Última actualización: 2026-11-11.
 
 ---
 
@@ -30,6 +30,7 @@ Documento vivo con todo lo que hace falta para diseñar o tocar la IA de un enem
 | Parry → stun | `Enemy.RegisterParried` | Con `ParriesToStun` parries (un parry perfecto cuenta 2) se aturde `StunDuration`, y se lo puede ejecutar. |
 | Poise | `Enemy.TakePoiseDamage` | Postura que se rompe con golpes; el flinch solo aplica a `MeleeEnemy`, el resto tiene hiperarmadura. |
 | `GuerreroReino` | `scripts/world/GuerreroReino.cs` | Base abstracta de los guerreros de Enterbill y Radem (subclase de `MeleeEnemy`). No tiene movimientos propios: cada soldado define `Kit()`. Aporta el ciclo del ataque (cupo, cooldown + `ExtraCooldown`, corte limpio si lo aturden, ejecutan o estremecen) y `Wait()`, que devuelve `false` en esos casos. También `Strike(anim, desde, hasta, cuadroGolpe, alcance, tamaño, ...)` (el hitbox se prende solo en el cuadro dibujado, con forma propia por instancia), `Telegraph`, `Lunge`, la estela en el color del reino, `ShieldUp` + `FrontShieldDefense` (escudo frontal) y las voces "Alerta" (al verte) y "Ataque". |
+| `LoboBase` | `scripts/world/Lobos/LoboBase.cs` | Base abstracta de los lobos (subclase de `MeleeEnemy`). Sin movimientos propios: cada lobo define `Kit()`. Aporta el ciclo del ataque (cupo, cooldown, `NextCooldown` para un lobo que solo se reposicionó, corte limpio si lo aturden), `Bite()` (estocada con mordida medida por cuadro: `BiteHitFrame`, `BiteReach`, `BiteY`) y `Pounce()` (salto apuntado), `RushIn`, `HopBack`, merodeo con amagos (`ProwlMoveX`), `Think()` por cuadro para reacciones, la manada (`PackMates`, `Hasten`, `Scare`), esconderse (`SetHidden`: invisible e invulnerable) con `TryTeleportTo` (piso a la misma altura, sin paredes en medio) y efectos procedurales (`SpawnPuffs`, `SpawnGlow`, `SpawnRing`). |
 | `ProyectilArqueado` | `scripts/world/ProyectilArqueado.cs` | Proyectil con gravedad, sin sprite (asta `Line2D` y punta `Polygon2D`): se clava donde falla y, con `GroundFireScene`, deja fuego. Lo usan la jabalina y la flecha incendiaria. |
 | `GroundSlamFx` | `scripts/world/GroundSlamFx.cs` | `Impact`, `Chip`, `EarthSpikes`, `WarningCrack`, `BeginFissure`, con paleta (`BandidoCorpulento.Palette` = roca). |
 | Estela neón tipo dash | `Metroidvania.Player.NeonSilhouette` | Silueta aditiva de un cuadro (afterimages), igual que el dash del protagonista. |
@@ -84,6 +85,16 @@ Documento vivo con todo lo que hace falta para diseñar o tocar la IA de un enem
   - **Ojo:** la descarga de un job **todavía en proceso** devuelve una imagen igual; esperá `wait_for_jobs` antes de bajarla.
 - **Posición del sprite:** `y = 34 - 40 * escala` (los pies quedan al fondo del lienzo de 80).
 - **Prueba:** un script headless por guerrero (jugador real con 100000 de vida) verifica que detecte, se mueva, ataque, pegue, hable, se estremezca (con un golpe de postura chico; uno grande aturde) y muera. También se probaron la orden del Capitán con aliados y la carga del corredor.
+
+### Lobos (`scripts/world/Lobos/Lobo*.cs`, sobre `LoboBase`)
+- **Lecturas usadas:**
+  - `TargetBackTurned` (el jugador mira para el otro lado): el Negro entra a morder por detrás.
+  - `Whiff.JustWhiffed`: castigo del Rojizo y del Negro.
+  - Velocidad del jugador: el Desierto sale un poco adelante de adonde corrés; el Podrido apunta la arcada adonde vas.
+  - Golpes recibidos seguidos: la Sombra se esfuma.
+- **Arte:** cuadros de PixelLab de 112x64 mirando a la derecha, en `assets/external/Chars/PixelLab/Lobos/<Lobo>/<anim>/`. Escala 1.2. El tamaño del cuerpo, la posición del sprite (pies en el borde de la colisión) y la boca se midieron con el bbox de alfa de idle y de bite (receta en §5); la hitbox de la mordida entra en `BiteHitFrame`, el cuadro donde la boca llega más lejos.
+- **Ojo:** la animación `burrow` termina en cuadros vacíos y `smoke` tiene 3 cuadros vacíos en el medio: son el momento escondido.
+- **Prueba:** un script headless por lobo (jugador real con `GodMode`, golpes contados con `HitDealt` de la hitbox del lobo porque con GodMode no salta `HitTaken`) verifica que se mueva, use su movimiento propio, pegue y muera; el Alfa se prueba con un Gris al lado. También un render real de los diez parados en el piso junto al protagonista.
 
 ### Otros con IA propia, para consultar
 - **Bandido5:** salto y explosiones con `GroundSlamFx`.

@@ -1,0 +1,126 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Lobos/LoboRojizo.tscn" id="l_LoboRojizo"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Lobos/LoboNegro.tscn" id="l_LoboNegro"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Lobos/LoboNieve.tscn" id="l_LoboNieve"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Lobos/LoboPodrido.tscn" id="l_LoboPodrido"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Lobos/LoboMusgo.tscn" id="l_LoboMusgo"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Lobos/LoboDesierto.tscn" id="l_LoboDesierto"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Lobos/LoboSombra.tscn" id="l_LoboSombra"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Lobos/LoboTerrible.tscn" id="l_LoboTerrible"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Lobos/LoboGris.tscn" id="l_LoboGris"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Lobos/LoboViejoAlfa.tscn" id="l_LoboViejoAlfa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_piso"]
+size = Vector2(3400, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pared"]
+size = Vector2(60, 1000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_muro"]
+size = Vector2(40, 70)
+
+[node name="PruebaLobos" type="Node2D"]
+script = ExtResource("1_bootstrap")
+ScenePath = "res://scenes/world/Mapas/PruebaLobos.tscn"
+CameraLimitLeft = -1700
+CameraLimitRight = 1700
+CameraLimitTop = -200
+CameraLimitBottom = 383
+HideQuickBar = true
+HideSummonSlots = true
+
+[node name="Fondo" type="ColorRect" parent="."]
+z_index = -10
+offset_left = -1700.0
+offset_top = -300.0
+offset_right = 1700.0
+offset_bottom = 400.0
+color = Color(0.16, 0.18, 0.22, 1)
+
+[node name="Piso" type="StaticBody2D" parent="."]
+position = Vector2(0, 322)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Piso"]
+shape = SubResource("RectangleShape2D_piso")
+
+[node name="Dibujo" type="ColorRect" parent="Piso"]
+offset_left = -1700.0
+offset_top = -30.0
+offset_right = 1700.0
+offset_bottom = 60.0
+color = Color(0.38, 0.4, 0.44, 1)
+
+[node name="ParedIzquierda" type="StaticBody2D" parent="."]
+position = Vector2(-1630, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedIzquierda"]
+shape = SubResource("RectangleShape2D_pared")
+
+[node name="Dibujo" type="ColorRect" parent="ParedIzquierda"]
+offset_left = -30.0
+offset_top = -500.0
+offset_right = 30.0
+offset_bottom = 500.0
+color = Color(0.38, 0.4, 0.44, 1)
+
+[node name="ParedDerecha" type="StaticBody2D" parent="."]
+position = Vector2(1630, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedDerecha"]
+shape = SubResource("RectangleShape2D_pared")
+
+[node name="Dibujo" type="ColorRect" parent="ParedDerecha"]
+offset_left = -30.0
+offset_top = -500.0
+offset_right = 30.0
+offset_bottom = 500.0
+color = Color(0.38, 0.4, 0.44, 1)
+
+[node name="MuroTerrible" type="StaticBody2D" parent="."]
+position = Vector2(640, 257)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MuroTerrible"]
+shape = SubResource("RectangleShape2D_muro")
+
+[node name="Dibujo" type="ColorRect" parent="MuroTerrible"]
+offset_left = -20.0
+offset_top = -35.0
+offset_right = 20.0
+offset_bottom = 35.0
+color = Color(0.38, 0.4, 0.44, 1)
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(-1450, 250)
+
+[node name="LoboRojizo" parent="." instance=ExtResource("l_LoboRojizo")]
+position = Vector2(-1150, 276)
+
+[node name="LoboNegro" parent="." instance=ExtResource("l_LoboNegro")]
+position = Vector2(-870, 273)
+
+[node name="LoboNieve" parent="." instance=ExtResource("l_LoboNieve")]
+position = Vector2(-590, 278)
+
+[node name="LoboPodrido" parent="." instance=ExtResource("l_LoboPodrido")]
+position = Vector2(-310, 278)
+
+[node name="LoboMusgo" parent="." instance=ExtResource("l_LoboMusgo")]
+position = Vector2(-30, 278)
+
+[node name="LoboDesierto" parent="." instance=ExtResource("l_LoboDesierto")]
+position = Vector2(250, 273)
+
+[node name="LoboSombra" parent="." instance=ExtResource("l_LoboSombra")]
+position = Vector2(530, 277)
+
+[node name="LoboTerrible" parent="." instance=ExtResource("l_LoboTerrible")]
+position = Vector2(810, 271)
+
+[node name="LoboGris" parent="." instance=ExtResource("l_LoboGris")]
+position = Vector2(1210, 278)
+
+[node name="LoboViejoAlfa" parent="." instance=ExtResource("l_LoboViejoAlfa")]
+position = Vector2(1300, 275)
