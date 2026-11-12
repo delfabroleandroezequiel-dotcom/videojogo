@@ -25,6 +25,7 @@ public partial class SettingsPanel : Control
 	private Control _displayPanel;
 	private VBoxContainer _resolutionList;
 	private Button _fullscreenButton;
+	private Button _hudButton;
 
 	public override void _Ready()
 	{
@@ -48,6 +49,8 @@ public partial class SettingsPanel : Control
 		_resolutionList = GetNode<VBoxContainer>("DisplayPanel/DVBox/ResolutionList");
 		_fullscreenButton = GetNode<Button>("DisplayPanel/DVBox/FullscreenButton");
 		_fullscreenButton.Pressed += OnFullscreenToggled;
+		_hudButton = GetNode<Button>("DisplayPanel/DVBox/HudButton");
+		_hudButton.Pressed += OnHudToggled;
 		GetNode<Button>("DisplayPanel/DVBox/BackButton").Pressed += CloseSubPanels;
 
 		BuildBindingRows();
@@ -133,6 +136,7 @@ public partial class SettingsPanel : Control
 		_mainView.Visible = false;
 		_displayPanel.Visible = true;
 		RefreshFullscreenLabel();
+		RefreshHudLabel();
 	}
 
 	private void CloseSubPanels()
@@ -159,6 +163,18 @@ public partial class SettingsPanel : Control
 	{
 		_fullscreenButton.Text = TranslationServer.Translate(
 			GameConfig.Instance.IsFullscreen ? "UI_DISPLAY_FULLSCREEN_ON" : "UI_DISPLAY_FULLSCREEN_OFF");
+	}
+
+	private void OnHudToggled()
+	{
+		GameConfig.Instance.SetHudHidden(!GameConfig.Instance.HudHidden);
+		RefreshHudLabel();
+	}
+
+	private void RefreshHudLabel()
+	{
+		_hudButton.Text = TranslationServer.Translate(
+			GameConfig.Instance.HudHidden ? "UI_DISPLAY_HUD_OFF" : "UI_DISPLAY_HUD_ON");
 	}
 
 	private void BuildResolutionRows()

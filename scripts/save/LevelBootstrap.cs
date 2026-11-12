@@ -53,7 +53,8 @@ public partial class LevelBootstrap : Node
 		ApplyCameraConfig();
 		AddChild(new LacquerLayer { Name = "CapaLaqueado", ScenePath = SceneFilePath });
 		DecoRocaViva.Apply(this);
-		_player.GetNode<CanvasLayer>("HUD").Visible = !HideHud;
+		_player.MapHidesHud = HideHud;
+		_player.RefreshHudVisibility();
 		_player.FreeElementCycle = FreeElementCycle;
 		_player.GetNode<Stats>("Stats").GodMode = PlayerGodMode || Metroidvania.Player.Player.DebugGodMode;
 		_player.GetNode<CanvasItem>("HUD/QuickSlotHud").Visible = !HideQuickBar;

@@ -143,6 +143,22 @@ public partial class GameConfig : Node
 
 	public Vector2I GetWindowSize() => DisplayServer.WindowGetSize();
 
+	// Display option "HUD: No" — hides the player's whole HUD (bars, quick slots, boss bar) for clean
+	// recordings. The Player listens to HudHiddenChanged; a map's own LevelBootstrap.HideHud still applies.
+	public bool HudHidden { get; private set; }
+	public event System.Action HudHiddenChanged;
+
+	public void SetHudHidden(bool hidden)
+	{
+		HudHidden = hidden;
+		HudHiddenChanged?.Invoke();
+
+		ConfigFile config = new();
+		config.Load(ConfigPath);
+		config.SetValue(DisplaySection, "hide_hud", hidden);
+		config.Save(ConfigPath);
+	}
+
 	public void SetFullscreen(bool enabled)
 	{
 		DisplayServer.WindowSetMode(enabled ? DisplayServer.WindowMode.Fullscreen : DisplayServer.WindowMode.Windowed);
@@ -188,6 +204,8 @@ public partial class GameConfig : Node
 
 		if (config.GetValue(DisplaySection, "fullscreen", false).AsBool())
 			DisplayServer.WindowSetMode(DisplayServer.WindowMode.Fullscreen);
+
+		HudHidden = config.GetValue(DisplaySection, "hide_hud", false).AsBool();
 	}
 
 	// project.godot binds actions by physical_keycode (layout-independent), so remaps

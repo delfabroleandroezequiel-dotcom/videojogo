@@ -971,6 +971,11 @@ public partial class Player : CharacterBody2D
 
 	public override void _Ready()
 	{
+		if (GameConfig.Instance is not null)
+		{
+			GameConfig.Instance.HudHiddenChanged += RefreshHudVisibility;
+			RefreshHudVisibility();
+		}
 		_hitbox = GetNode<Hitbox>("AttackHitbox");
 		_hitboxShape = GetNode<CollisionShape2D>("AttackHitbox/CollisionShape2D").Shape as RectangleShape2D;
 		_hitboxBaseSize = _hitboxShape.Size;
@@ -1315,6 +1320,8 @@ public partial class Player : CharacterBody2D
 		}
 		if (LocaleManager.Instance is not null)
 			LocaleManager.Instance.LocaleChanged -= OnLocaleChanged;
+		if (GameConfig.Instance is not null)
+			GameConfig.Instance.HudHiddenChanged -= RefreshHudVisibility;
 	}
 
 	// ── Bastón summons ──
@@ -1614,10 +1621,20 @@ public partial class Player : CharacterBody2D
 		}
 		else if (!hide && _cutsceneHold)
 		{
-			if (_hudHiddenByCutscene)
+			if (_hudHiddenByCutscene && GameConfig.Instance?.HudHidden != true)
 				hud.Visible = true;
 			_hudHiddenByCutscene = false;
 		}
+	}
+
+	// Set by LevelBootstrap from the map's HideHud. Combined with the "HUD: No" display option.
+	public bool MapHidesHud;
+
+	public void RefreshHudVisibility()
+	{
+		if (_cutsceneHold || GetNodeOrNull<CanvasLayer>("HUD") is not { } hud)
+			return;
+		hud.Visible = !MapHidesHud && GameConfig.Instance?.HudHidden != true;
 	}
 
 	// Cinema bars: black strips sliding in from the top and bottom while a cutscene holds the player.
@@ -2119,6 +2136,15 @@ public partial class Player : CharacterBody2D
 			DebugGodMode = !DebugGodMode;
 			_stats.GodMode = DebugGodMode;
 			GD.Print("[debug] Invencible: ", DebugGodMode ? "SI" : "NO");
+		}
+
+		// F7 (debug builds): recording mode, hides the mouse cursor for clean captures. MouseMode is
+		// engine-global, so it survives scene changes; clicks still work in menus while hidden.
+		if (OS.HasFeature("debug") && Input.IsActionJustPressed("debug_hide_cursor"))
+		{
+			bool hide = Input.MouseMode != Input.MouseModeEnum.Hidden;
+			Input.MouseMode = hide ? Input.MouseModeEnum.Hidden : Input.MouseModeEnum.Visible;
+			GD.Print("[debug] Cursor oculto: ", hide ? "SI" : "NO");
 		}
 
 		// While a scene transition is fading/loading, this (old-scene) player keeps falling through
