@@ -1,0 +1,272 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/MurcielagoChico.tscn" id="bat"]
+[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="bootstrap"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="camera"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/VagonetaSuelta.tscn" id="cart"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Chest.tscn" id="chest"]
+[ext_resource type="PackedScene" path="res://scenes/world/Door.tscn" id="door"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/HangRope.tscn" id="hang"]
+[ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="ladder"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PlacaDePresion.tscn" id="plate"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PozaAcido.tscn" id="pool"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Rope.tscn" id="rope"]
+[ext_resource type="PackedScene" path="res://scenes/world/SavePoint.tscn" id="savepoint"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ThornVine.tscn" id="thorn"]
+[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="transition"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Vine.tscn" id="vine"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MuroCargado.tscn" id="wallc"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ProceduralWater.tscn" id="water"]
+
+[sub_resource type="RectangleShape2D" id="Rect_20x130"]
+size = Vector2(20, 130)
+
+[sub_resource type="RectangleShape2D" id="Rect_20x460"]
+size = Vector2(20, 460)
+
+[sub_resource type="RectangleShape2D" id="Rect_2600x40"]
+size = Vector2(2600, 40)
+
+[sub_resource type="RectangleShape2D" id="Rect_360x20"]
+size = Vector2(360, 20)
+
+[sub_resource type="RectangleShape2D" id="Rect_360x40"]
+size = Vector2(360, 40)
+
+[sub_resource type="RectangleShape2D" id="Rect_440x40"]
+size = Vector2(440, 40)
+
+[sub_resource type="RectangleShape2D" id="Rect_500x40"]
+size = Vector2(500, 40)
+
+[sub_resource type="RectangleShape2D" id="Rect_940x40"]
+size = Vector2(940, 40)
+
+[node name="Mina13_Fosos" type="Node2D"]
+script = ExtResource("bootstrap")
+ScenePath = "res://scenes/world/Mapas/Mina/Mina13_Fosos.tscn"
+CameraProfile = ExtResource("camera")
+CameraLimitLeft = 0
+CameraLimitRight = 2600
+CameraLimitTop = -420
+CameraLimitBottom = 200
+
+[node name="Fondo" type="ColorRect" parent="."]
+z_index = -50
+offset_left = -600
+offset_top = -1020
+offset_right = 3200
+offset_bottom = 800
+color = Color(0.09, 0.08, 0.07, 1)
+
+[node name="Colisiones" type="StaticBody2D" parent="."]
+
+[node name="PlataformasOneWay" type="StaticBody2D" parent="."]
+collision_layer = 49
+
+[node name="Visible" type="Node2D" parent="."]
+z_index = -5
+
+[node name="Trampas" type="Node2D" parent="."]
+
+[node name="Enemigos" type="Node2D" parent="."]
+
+[node name="Objetos" type="Node2D" parent="."]
+
+[node name="Marcadores" type="Node2D" parent="."]
+
+[node name="Carteles" type="Node2D" parent="."]
+z_index = 10
+
+[node name="ParedOeste" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(-10, -190)
+shape = SubResource("Rect_20x460")
+
+[node name="Suelo1" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(250, 20)
+shape = SubResource("Rect_500x40")
+
+[node name="Bloque1" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(490, 105)
+shape = SubResource("Rect_20x130")
+
+[node name="Foso1Fondo" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(680, 160)
+shape = SubResource("Rect_360x20")
+
+[node name="Bloque2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(870, 105)
+shape = SubResource("Rect_20x130")
+
+[node name="Suelo2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(1080, 20)
+shape = SubResource("Rect_440x40")
+
+[node name="Bloque3" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(1290, 105)
+shape = SubResource("Rect_20x130")
+
+[node name="Foso2Fondo" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(1480, 160)
+shape = SubResource("Rect_360x20")
+
+[node name="Bloque4" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(1670, 105)
+shape = SubResource("Rect_20x130")
+
+[node name="Suelo3" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(2130, 20)
+shape = SubResource("Rect_940x40")
+
+[node name="TechoBajo1" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(680, -130)
+shape = SubResource("Rect_360x40")
+
+[node name="TechoBajo2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(1480, -130)
+shape = SubResource("Rect_360x40")
+
+[node name="Techo" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(1300, -400)
+shape = SubResource("Rect_2600x40")
+
+[node name="ParedEste" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(2610, -190)
+shape = SubResource("Rect_20x460")
+
+[node name="ParedOeste" type="ColorRect" parent="Visible"]
+offset_left = -20
+offset_top = -420
+offset_right = 0
+offset_bottom = 40
+color = Color(0.36, 0.31, 0.26, 1)
+
+[node name="Suelo1" type="ColorRect" parent="Visible"]
+offset_left = 0
+offset_top = 0
+offset_right = 500
+offset_bottom = 40
+color = Color(0.36, 0.31, 0.26, 1)
+
+[node name="Bloque1" type="ColorRect" parent="Visible"]
+offset_left = 480
+offset_top = 40
+offset_right = 500
+offset_bottom = 170
+color = Color(0.36, 0.31, 0.26, 1)
+
+[node name="Foso1Fondo" type="ColorRect" parent="Visible"]
+offset_left = 500
+offset_top = 150
+offset_right = 860
+offset_bottom = 170
+color = Color(0.36, 0.31, 0.26, 1)
+
+[node name="Bloque2" type="ColorRect" parent="Visible"]
+offset_left = 860
+offset_top = 40
+offset_right = 880
+offset_bottom = 170
+color = Color(0.36, 0.31, 0.26, 1)
+
+[node name="Suelo2" type="ColorRect" parent="Visible"]
+offset_left = 860
+offset_top = 0
+offset_right = 1300
+offset_bottom = 40
+color = Color(0.36, 0.31, 0.26, 1)
+
+[node name="Bloque3" type="ColorRect" parent="Visible"]
+offset_left = 1280
+offset_top = 40
+offset_right = 1300
+offset_bottom = 170
+color = Color(0.36, 0.31, 0.26, 1)
+
+[node name="Foso2Fondo" type="ColorRect" parent="Visible"]
+offset_left = 1300
+offset_top = 150
+offset_right = 1660
+offset_bottom = 170
+color = Color(0.36, 0.31, 0.26, 1)
+
+[node name="Bloque4" type="ColorRect" parent="Visible"]
+offset_left = 1660
+offset_top = 40
+offset_right = 1680
+offset_bottom = 170
+color = Color(0.36, 0.31, 0.26, 1)
+
+[node name="Suelo3" type="ColorRect" parent="Visible"]
+offset_left = 1660
+offset_top = 0
+offset_right = 2600
+offset_bottom = 40
+color = Color(0.36, 0.31, 0.26, 1)
+
+[node name="TechoBajo1" type="ColorRect" parent="Visible"]
+offset_left = 500
+offset_top = -150
+offset_right = 860
+offset_bottom = -110
+color = Color(0.36, 0.31, 0.26, 1)
+
+[node name="TechoBajo2" type="ColorRect" parent="Visible"]
+offset_left = 1300
+offset_top = -150
+offset_right = 1660
+offset_bottom = -110
+color = Color(0.36, 0.31, 0.26, 1)
+
+[node name="Techo" type="ColorRect" parent="Visible"]
+offset_left = 0
+offset_top = -420
+offset_right = 2600
+offset_bottom = -380
+color = Color(0.36, 0.31, 0.26, 1)
+
+[node name="ParedEste" type="ColorRect" parent="Visible"]
+offset_left = 2600
+offset_top = -420
+offset_right = 2620
+offset_bottom = 40
+color = Color(0.36, 0.31, 0.26, 1)
+
+[node name="Cartel1" type="Label" parent="Carteles"]
+offset_left = 780
+offset_top = -330
+offset_right = 1380
+offset_bottom = -306
+text = "pide DASH EN EL AIRE · fosos de 360 px con techo bajo (ajustar ancho al probar)"
+horizontal_alignment = 1
+
+[node name="Acido1" parent="Trampas" instance=ExtResource("pool")]
+position = Vector2(500, 60)
+Width = 360
+Depth = 80
+
+[node name="Acido2" parent="Trampas" instance=ExtResource("pool")]
+position = Vector2(1300, 60)
+Width = 360
+Depth = 80
+
+[node name="Murcielago1" parent="Enemigos" instance=ExtResource("bat")]
+position = Vector2(1080, -200)
+
+[node name="HaciaMina12" parent="." instance=ExtResource("transition")]
+position = Vector2(15, -53)
+TargetScenePath = "res://scenes/world/Mapas/Mina/Mina12_Inundada.tscn"
+TargetSpawnPosition = Vector2(2240, -40)
+Width = 30
+Height = 200
+
+[node name="HaciaMina14" parent="." instance=ExtResource("transition")]
+position = Vector2(2585, -53)
+TargetScenePath = "res://scenes/world/Mapas/Mina/Mina14_Corazon.tscn"
+TargetSpawnPosition = Vector2(160, -40)
+Width = 30
+Height = 200
+
+[node name="Player" parent="." instance=ExtResource("player")]
+position = Vector2(160, -40)

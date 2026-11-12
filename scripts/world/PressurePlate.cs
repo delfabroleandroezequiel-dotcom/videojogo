@@ -24,6 +24,10 @@ public partial class PressurePlate : Node2D
 	[Export] public float Delay = 0.15f;
 	[Export] public bool OneShot = true;
 	[Export] public bool PressedByEnemies;
+	// Shadow puzzles: a plate only the steered shadow (ShadowPuppet, group "sombra") can weigh, or one
+	// only the body can (PressedBySombra off) — the counterweight puzzle needs both kinds.
+	[Export] public bool PressedByPlayer = true;
+	[Export] public bool PressedBySombra;
 
 	private float _width = 40f;
 	[Export]
@@ -78,8 +82,21 @@ public partial class PressurePlate : Node2D
 		{
 			if (body is CharacterBody2D character && !character.IsOnFloor())
 				continue;
-			if (body.IsInGroup("player") || (PressedByEnemies && body.IsInGroup("enemy")))
+			if ((PressedByPlayer && body.IsInGroup("player")) || (PressedByEnemies && body.IsInGroup("enemy")))
 				return true;
+		}
+		// The shadow has no collision layer, so the trigger can't see it: check by position instead
+		// (standing on the floor, centre within the plate's width, body origin just above the plate).
+		if (PressedBySombra)
+		{
+			foreach (Node node in GetTree().GetNodesInGroup("sombra"))
+			{
+				if (node is not CharacterBody2D sombra || !sombra.IsOnFloor())
+					continue;
+				Vector2 d = sombra.GlobalPosition - GlobalPosition;
+				if (Mathf.Abs(d.X) <= _width / 2f && d.Y > -90f && d.Y < 10f)
+					return true;
+			}
 		}
 		return false;
 	}

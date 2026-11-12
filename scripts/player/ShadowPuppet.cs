@@ -66,6 +66,9 @@ public partial class ShadowPuppet : CharacterBody2D
 		_explosionRadius = explosionRadius;
 		_explosionDamage = explosionDamage;
 		_facingRight = facingRight;
+		// Lets shadow-only mechanisms find it (PressurePlate.PressedBySombra) without giving it a
+		// collision layer that enemies or the player would bump into.
+		AddToGroup("sombra");
 
 		CollisionLayer = 0;
 		CollisionMask = collisionMask;

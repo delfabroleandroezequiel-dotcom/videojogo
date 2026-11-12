@@ -94,6 +94,22 @@ Nix ─ BL1 ─ BL2 ✖ BL3 ─ BL4 ─ BL5 ─ BL6 ─ Ullatorp ─ BL7 ─ BL8
 - **Material existente:** sprite `Mapas/piramide.png`, pack de desierto GandalfHardcore (32x32), mapas `CaminoDesierto` y `CaminoDesierto1`.
 - **PENDIENTE:** ¿jefe guardando el núcleo? ¿El núcleo se ve antes de poder agarrarlo?
 
+### Zona: Las Raíces · GREYBOX (2026-11-11)
+
+- **Cuándo:** después de la Mina y de Ullatorp, así que llegás con **guantes de minero y doble salto**. El doble salto ya no sirve de cerradura acá.
+- **Entrada:** la que ya existía: después del jefe hongo, `InteriorArbolBosqueLobos2_10` te hace caer en **Raices1**. La zona sigue **a la izquierda** de Raices1 (salida en su borde oeste, arriba de la pared de espinas).
+- **Cómo se recorre:** casi sin piso. Abajo hay barro (te devuelve al último piso firme) o espinas (matan). Te movés con lianas, cuerdas que se balancean, sogas horizontales y raíces chicas, inclinadas o que se hunden.
+- **Lore:** es adonde se fueron los lobos, lo que se nota en los rastros del camino (eco de Tobías: "lobos muertos de miedo"). Los lobos de la comunidad son **neutrales y asustados**: gruñen y se esconden, y no atacan salvo que los ataques.
+- **Jefe:** el **Lobo de Fuego** guarda la entrada a la comunidad. Se diseña paso a paso con el autor antes de programarlo.
+- **Cerraduras para más adelante:** raíces que corta la **Espada de Dios** (secreto en Raices09).
+- **Atajo:** una liana larga en la comunidad (Raices13) te devuelve a Raices1.
+- Detalle por sala: `DisenoNiveles.md` §6c.
+
+### Zona: La Mina Honda (vuelta atrás) · GREYBOX (2026-11-11)
+
+- 5 salas (Mina10-14) que salen de la **cornisa de doble salto de Mina01**. Cada una pide una habilidad que no tenés la primera vez: doble salto, ataque cargado, nado y dash en el aire. La última combina las cuatro, guarda un premio grande y tiene un atajo a Mina03. Detrás de ella, **Mina15_Contrapeso** es un puzzle de **Sombra** (placa del cuerpo + placa del clon manipulable), así que se resuelve recién después de Arkal.
+- **Ojo:** el nado y el dash en el aire todavía no tienen un punto de obtención decidido (ver la tabla de abajo). Las salas quedan armadas esperando esas llaves.
+
 ---
 
 ## 3. Llaves y cerraduras por tramo
@@ -146,7 +162,7 @@ Nix ─ BL1 ─ BL2 ✖ BL3 ─ BL4 ─ BL5 ─ BL6 ─ Ullatorp ─ BL7 ─ BL8
 - [ ] BosqueLobos1 y BosqueLobos3 tienen salida a `CaminoDesierto`; en la ruta el desierto viene después de Ullatorp, así que hay que cerrarlas o cambiarlas en este tramo.
 - [ ] `Player.tscn` arranca con todas las habilidades activas; para el Acto 1 hay que apagar al menos doble salto y cargado.
 - [ ] Verificar que las cuevas 1 a 11 se puedan pasar con el personaje base (se hicieron con todo el kit).
-- [ ] Falta el mapa de Ullatorp.
+- [x] Mapa de Ullatorp: greybox hecho el 2026-11-11 (`Mapas/Ullatorp/Ullatorp.tscn`). Corredor plano del largo de Nix (~7000 px), sin arte. Se entra desde el borde este de BosqueLobos6 (`HaciaUllatorp`, contra la pared derecha, antes de la roca). Tiene marcadores de puerta oeste, taberna, tienda, herrería, plaza con hoguera, casa de Granthin, patio de entrenamiento y puerta este. La salida a BosqueLobos7 queda como `ConexionPendiente_BosqueLobos7`.
 
 ---
 

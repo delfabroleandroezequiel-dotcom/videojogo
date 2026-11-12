@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ThornVine.tscn" id="8_x8b6h"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Vine.tscn" id="9_tpeef"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/GhostWarrior2.tscn" id="10_wd0ak"]
+[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="11_transicion"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1536, 60)
@@ -17409,3 +17410,10 @@ Sway = true
 
 [node name="GhostWarrior2" parent="." unique_id=313672215 instance=ExtResource("10_wd0ak")]
 position = Vector2(-152, 312)
+
+[node name="HaciaRaices02" parent="." instance=ExtResource("11_transicion")]
+position = Vector2(-755, -330)
+TargetScenePath = "res://scenes/world/Mapas/Raices/Raices02_Enredo.tscn"
+TargetSpawnPosition = Vector2(2440, -40)
+Width = 20.0
+Height = 140.0

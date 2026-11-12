@@ -134,6 +134,42 @@ Decorar o poner enemigos antes de cerrar la geometría obliga a rehacerlo cada v
 - **Puentes largos planos** frenan el carro a la velocidad mínima (fricción): darles una bajada suave, y no subir después de un momento fuerte (10 s a 70 px/s se sienten eternos).
 - **Generador:** `generar_mina07v3.pl` (scratch de la sesión del 2026-11-09) arma las tres escenas desde arrays de vía; un piloto headless (`viaje_mina07v3.gd`) recorre cada tramo saltando, agachándose y pegándole a la palanca.
 
+## 6c. Zonas: Mina Honda y Raíces (greybox, 2026-11-11)
+
+Generadas con `gen_mina_raices.pl` (scratch de la sesión del 2026-11-11). Todas las transiciones se probaron sin pantalla: cada punto de aparición deja al jugador parado y no rebota. **Todavía no se recorrieron jugando**: los saltos y las cuerdas están medidos con las reglas de abajo, pero hay que probarlos.
+
+**Mina Honda** (`Mapas/Mina/`, de izquierda a derecha). Se entra **interactuando en la cornisa alta de Mina01**.
+
+| Sala | Pide | Forma |
+|---|---|---|
+| Mina10_Galeria | Doble salto | Pozo de 1300 px que se sube con repisas cada 150 px; murciélagos |
+| Mina11_Derrumbe | Ataque cargado | Galería baja con 3 `MuroCargado`; una vagoneta se suelta cuando llegás al último |
+| Mina12_Inundada | Nado | Pileta con una roca que baja hasta el agua: hay que bucear por debajo |
+| Mina13_Fosos | Dash en el aire | Dos fosos de ácido de 360 px con techo bajo encima (ajustar el ancho al probar) |
+| Mina14_Corazon | Las cuatro | Escalón de 150, muro cargado bajo techo, pileta con roca, foso; cofre de 500 y **atajo a Mina03** (interactuar) |
+| Mina15_Contrapeso | **Sombra** (clon manipulable) | Puzzle de contrapeso: la **placa del cuerpo** abre la reja solo mientras estás encima. Detrás de la reja, la **placa de sombra** (solo la pisa el clon) abre la trampilla de una bóveda con un cofre de 800. Solución: pararse en la placa, lanzar el clon (el cuerpo queda arrodillado y sigue pesando) y llevarlo hasta la otra placa. Sin trampa de encierro: el cuerpo nunca puede pasar la reja |
+
+**Sombra en placas (código, 2026-11-11):** `PressurePlate` tiene `PressedByPlayer` (por defecto sí) y `PressedBySombra`. El clon manipulable (`ShadowPuppet`) se suma al grupo `sombra`. Como el clon no tiene capa de colisión, la placa lo busca por posición (de pie, dentro del ancho de la placa). Probado sin pantalla con un cuerpo de prueba en el grupo; el clon real no se probó jugando.
+
+**Raíces** (`Mapas/Raices/`, hacia la izquierda desde Raices1). El barro es `PozaAcido` en marrón (te devuelve al piso firme) y las espinas son `ThornVine` (matan).
+
+| # | Sala | Forma | Estrella |
+|---|---|---|---|
+| 02 | Enredo | horizontal | 6 cuerdas en contrafase con un islote, espinas en el techo; cachorro (marcador) |
+| 03 | Pozo | vertical hacia abajo | Repisas de una vía y lianas que se mecen; espinas en las paredes |
+| 04 | Cuna | sala | Hoguera y rampa |
+| 05 | Pantano | horizontal | Raíces chicas sobre el barro, soga horizontal de 650 px, raíces inclinadas |
+| 06 | Columpios | caverna alta | Dos cuerdas bajas y después cuerdas altas (doble salto); islote alto |
+| 07 | Espinas vivas | horizontal | 6 cuerdas con espinas colgando entre ellas; murciélagos en lugar de pájaros |
+| 08 | Chimenea | vertical hacia arriba | Repisas cada 160 px (doble salto) y una liana; espinas en la pared |
+| 09 | Árbol hueco | sala | Raíz de la **Espada de Dios** que tapa un nicho con cofre; arañas (marcadores) |
+| 10 | Rastro | horizontal con bajada | Pozo de barro, hoguera, lobos neutrales (marcadores) |
+| 11 | Antesala | sala | Vacía a propósito: huellas quemadas |
+| 12 | Arena del Lobo de Fuego | arena | Dos repisas; jefe pendiente de diseño (marcador) |
+| 13 | Comunidad | santuario | Hoguera sobre una loma, lobos y loba vieja (marcadores); **atajo a Raices1** (liana, interactuar) |
+
+**Pendiente de código** (marcado con carteles en cada sala): raíces que se hunden, espinas que se retraen, pájaros que te tiran de la liana, arañas colgadas, lobos neutrales, el Lobo de Fuego.
+
 ---
 
 ## 7. Lo que el autor rechazó (no repetir)
@@ -173,6 +209,8 @@ Decorar o poner enemigos antes de cerrar la geometría obliga a rehacerlo cada v
 | 2026-11-07 | La Mina baja hacia la izquierda (espejada entera); Mina07 pasa a ser un viaje largo obligado arriba de la vagoneta | Pedido del autor |
 | 2026-11-09 | La vagoneta pasa a ser la entrada de la Mina (desde la habitación de Gransin) y después se sube hasta la boca; viaje partido en 3 tramos con hoguera, muerte al caerse, salto con el carro, cambio de vagoneta; fuera las vagonetas de frente | Pedido del autor ("las vagonetas de frente son malísimas") |
 | 2026-11-07 | Mapa del mundo estilo Afterimage, generado desde las escenas (sala entera al visitarla, una región por carpeta o por puerta, M para abrirlo); ver §10 | Pedido del autor |
+| 2026-11-11 | Mina Honda: 5 salas de vuelta atrás desde la cornisa de Mina01, cada una pide una habilidad posterior. Raíces: 12 mapas hacia la izquierda de Raices1, con lianas y poco piso, terminan en la comunidad de los lobos (neutrales) tras el Lobo de Fuego (§6c) | Pedido del autor |
+| 2026-11-11 | Ullatorp es un pueblo "normal": un corredor plano del largo de Nix (`Mapas/Ullatorp/Ullatorp.tscn`), sin barrios en altura ni pista de obstáculos en el mapa. Greybox sin arte, conectado al borde este de BosqueLobos6 | Pedido del autor |
 
 ## 10. Mapa del mundo (generado)
 

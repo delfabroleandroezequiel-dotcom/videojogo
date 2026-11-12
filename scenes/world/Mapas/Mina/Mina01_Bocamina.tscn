@@ -344,5 +344,13 @@ TargetSpawnPosition = Vector2(2630, -40)
 Width = 30.0
 Height = 200.0
 
+[node name="HaciaMina10" parent="." instance=ExtResource("6_0j8tw")]
+position = Vector2(1420, 100)
+TargetScenePath = "res://scenes/world/Mapas/Mina/Mina10_Galeria.tscn"
+TargetSpawnPosition = Vector2(160, -40)
+RequireInteract = true
+Width = 80.0
+Height = 100.0
+
 [node name="Player" parent="." unique_id=1867495339 instance=ExtResource("7_00whq")]
 position = Vector2(2400, -40)
