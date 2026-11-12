@@ -546,3 +546,7 @@ AMB_ALATHEA_TORRE_1,"¡Cuida a Leomax! Yo te cubro desde aquí arriba.","Watch o
 AMB_ALATHEA_TORRE_2,"¿Con un palo, Delfrad? Tú distráelos, que yo apunto.","With a stick, Delfrad? You keep them busy, I'll aim.","Com um pedaço de pau, Delfrad? Você os distrai, eu miro."
 AMB_ALATHEA_TORRE_3,"¡Agáchate! Esta va para el del hacha.","Duck! This one's for the axe guy.","Abaixa! Esta é para o do machado."
 AMB_ALATHEA_TORRE_4,"¡Eso es! Me debes una cerveza.","That's it! You owe me an ale.","Isso! Você me deve uma cerveja."
+NPC_LIO_NAME,Lio,Lio,Lio
+NPC_LIO_L1,"¡Delfrad! ¿Otra vez te tiró Arthur? Tienes arena hasta en las orejas.","Delfrad! Did Arthur knock you down again? You've got sand in your ears.","Delfrad! O Arthur te derrubou de novo? Tem areia até nas orelhas."
+NPC_EDDA_NAME,Edda,Edda,Edda
+NPC_EDDA_L1,"Sigues contando los carros del norte, ¿no? Se te nota en la cara.","Still counting the carts from the north, aren't you? It's written all over your face.","Ainda contando as carroças do norte, né? Dá para ver na sua cara."

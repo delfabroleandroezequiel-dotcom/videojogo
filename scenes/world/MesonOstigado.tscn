@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Merchant.tscn" id="14_bfv42"]
 [ext_resource type="Script" path="res://scripts/world/VozAmbiente.cs" id="voz_amb"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/EsfianerSpriteFrames.tres" id="esf_frames"]
-
+[ext_resource type="SpriteFrames" path="res://resources/sprites/NixLioSpriteFrames.tres" id="lio_frames"]
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(816.4462, 24.48)
 
@@ -125,6 +125,15 @@ NpcName = "NPC_ESFIANER_NAME"
 DialogueLines = PackedStringArray("NPC_ESFIANER_L1", "NPC_ESFIANER_L2", "NPC_ESFIANER_L3", "NPC_ESFIANER_L4", "NPC_ESFIANER_L5", "NPC_ESFIANER_L6")
 CustomSpriteFrames = ExtResource("esf_frames")
 CustomSpriteScale = Vector2(1.158, 1.158)
+CollisionSize = Vector2(30, 64)
+
+[node name="Lio" parent="." instance=ExtResource("5_npc")]
+position = Vector2(320, 40)
+NpcName = "NPC_LIO_NAME"
+DialogueLines = PackedStringArray("NPC_LIO_L1")
+CustomSpriteFrames = ExtResource("lio_frames")
+CustomSpriteScale = Vector2(1.158, 1.158)
+CustomSpriteYOffset = 2.0
 CollisionSize = Vector2(30, 64)
 
 [node name="Player" parent="." unique_id=695195560 instance=ExtResource("1_player")]
