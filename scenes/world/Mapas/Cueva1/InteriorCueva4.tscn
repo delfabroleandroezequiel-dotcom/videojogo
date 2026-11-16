@@ -7106,3 +7106,10 @@ ParallaxFactor = Vector2(0, -0.03)
 FollowCamera = true
 ShiftOffsetOnly = true
 OffsetAnchor = Vector2(1871, 198)
+
+[node name="HaciaCampamento" parent="." instance=ExtResource("18_flaol")]
+position = Vector2(15, 532)
+TargetScenePath = "res://scenes/world/Mapas/Cueva1/CuevaCampamento.tscn"
+TargetSpawnPosition = Vector2(1300, -40)
+Width = 30.0
+Height = 200.0

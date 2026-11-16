@@ -25,8 +25,16 @@ public partial class ArqueraTorre : Node2D
 	[Export] public float ArrowSpeed = 620f;
 	[Export] public Color ArrowColor = new(1f, 0.85f, 0.45f, 1f);
 	[Export] public string QuestId = "";
+	// Only exists while this boss is alive, and slips away when it dies (Alathea on a ledge over
+	// the spider). Empty = no boss gate.
+	[Export] public string BossAliveId = "";
+	// After this many arrows she leaves (fades out); 0 = no limit. The hunting-horn call uses it so
+	// she eases a fight instead of winning it.
+	[Export] public int MaxShots;
 
 	private AnimatedSprite2D _sprite;
+	private int _shotsFired;
+	private bool _leaving;
 	private float _cooldown = 0.8f;
 	private bool _shooting;
 	private Node2D _target;
@@ -35,6 +43,11 @@ public partial class ArqueraTorre : Node2D
 	{
 		if (!string.IsNullOrEmpty(QuestId) && Metroidvania.Quests.QuestManager.Instance is { } quests
 			&& (!quests.IsActive(QuestId) || quests.IsCompleted(QuestId)))
+		{
+			QueueFree();
+			return;
+		}
+		if (!string.IsNullOrEmpty(BossAliveId) && Metroidvania.Save.SaveManager.Instance.IsBossDefeated(BossAliveId))
 		{
 			QueueFree();
 			return;
@@ -56,8 +69,14 @@ public partial class ArqueraTorre : Node2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (_sprite == null || _shooting)
+		if (_sprite == null || _shooting || _leaving)
 			return;
+		if ((MaxShots > 0 && _shotsFired >= MaxShots)
+			|| (!string.IsNullOrEmpty(BossAliveId) && Metroidvania.Save.SaveManager.Instance.IsBossDefeated(BossAliveId)))
+		{
+			Leave();
+			return;
+		}
 		_cooldown -= (float)delta;
 		if (_cooldown > 0f)
 			return;
@@ -98,6 +117,24 @@ public partial class ArqueraTorre : Node2D
 		GetTree().CurrentScene.AddChild(arrow);
 		arrow.GlobalPosition = origin;
 		Sfx.PlayAt(this, "Combat/Bow", "Bow Attack");
+		_shotsFired++;
+	}
+
+	// Fades out and frees: out of arrows, or the boss she came for is dead.
+	private void Leave()
+	{
+		_leaving = true;
+		Tween tween = CreateTween();
+		tween.TweenInterval(0.6f);
+		tween.TweenProperty(this, "modulate:a", 0f, 0.8f);
+		tween.TweenCallback(Callable.From(QueueFree));
+	}
+
+	// Fades her in where she's called (the hunting horn), instead of popping into place.
+	public void FadeIn()
+	{
+		Modulate = new Color(1f, 1f, 1f, 0f);
+		CreateTween().TweenProperty(this, "modulate:a", 1f, 0.5f);
 	}
 }
 

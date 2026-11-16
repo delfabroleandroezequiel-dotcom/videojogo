@@ -39,6 +39,9 @@
 [ext_resource type="Script" uid="uid://4mtch3ihux0j" path="res://scripts/world/VozAmbiente.cs" id="voz_amb"]
 [ext_resource type="Script" path="res://scripts/world/ArqueraTorre.cs" id="alt_script"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/AlatheaPixelLabSpriteFrames.tres" id="alt_frames"]
+[ext_resource type="Script" path="res://scripts/world/Lobos/LobosHuyendo.cs" id="lh_script"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/Lobos/LoboGrisSpriteFrames.tres" id="lh_gris"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/Lobos/LoboMusgoSpriteFrames.tres" id="lh_musgo"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h48re"]
 load_path = "res://.godot/imported/ChatGPT_Image_12_jul_2026__17_14_53-removebg-preview.png-d59d64ce255041962d0d7588581fe35a.ctex"
@@ -13031,3 +13034,7 @@ MaxInterval = 12.0
 HearDistance = 900.0
 MaxDistance = 1100.0
 SubtitleHeight = 50.0
+
+[node name="LobosHuyendo" type="Node2D" parent="."]
+script = ExtResource("lh_script")
+Frames = Array[SpriteFrames]([ExtResource("lh_gris"), ExtResource("lh_musgo")])

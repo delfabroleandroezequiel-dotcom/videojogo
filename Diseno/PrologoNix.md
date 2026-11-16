@@ -24,7 +24,7 @@ Propuesta del 2026-10-27, en estado **BORRADOR para aprobar**. Escrita con el pe
 ### Día 2 — La partida
 6. **Arthur le da su espada** (cinemática): "Andá a conocer el reino. Vive tu destino". Es el padre echándolo para protegerlo, aunque el jugador todavía no lo sabe.
 7. **El camino del norte está cerrado:** la guardia no deja salir por el camino de Ullatorp. Es el bloqueo de bandidos que obliga al desvío por la Cueva (Tramo 1, ya decidido).
-8. **La puerta del pueblo:** Delfrad mira atrás (cámara lenta, música) y Alathea lo alcanza corriendo: "¿Acaso piensas partir sin nadie que te acompañe?".
+8. **La puerta del pueblo:** Delfrad mira atrás (cámara lenta, música) y Alathea lo alcanza corriendo: "¿Acaso piensas partir sin nadie que te acompañe?". **Decidido 2026-11-15:** él cumple la promesa a Morlok y le dice que no, y ella se va enojada. En el libro lo sigue y lo alcanza en la boca de la cueva; le da el **cuerno de caza** al separarse, cuando se lleva a Capulino a Nix. En el juego no lo acompaña y da el cuerno en la sala de Capulino.
 
 ---
 
@@ -47,7 +47,7 @@ Para cada uno: qué quiere, qué lo hace humano y cuál es su **pago** más adel
 ### Nuevos
 | Personaje | Quién es | Quiere | Pago |
 |---|---|---|---|
-| **Sela** | Pescadera viuda a medias: su marido fue a Ullatorp hace un mes y no volvió | Noticias de él | El jugador lo encuentra en el camino (muerto o cautivo), y es la cara humana de los bandidos. Su casa aparece en la huida del presente |
+| **Sela** | Pescadera viuda a medias: su marido **Capulino** fue a Ullatorp hace un mes y no volvió | Noticias de él | **Decidido 2026-11-15:** Capulino está cautivo de los bandidos en la Cueva, detrás de la araña; al rescatarlo da los guantes de minero, y su botín robado (con el anillo) se le devuelve a Sela. Su casa aparece en la huida del presente |
 | **Pip y Tomo** | Dos chicos que juegan a la "Gran Guerra" con espadas de madera | Que Delfrad les enseñe un golpe | Eco de Delfrad niño. En el presente, una espada de madera tirada en el barro |
 | **Lio y Edda** | Los amigos de Delfrad del Mesón (en el libro hay amigos sin nombre) | Que Delfrad no se olvide de ellos | Se quedan en Nix y vuelven en "Nix, la última resistencia" (Acto 2): muertes con peso, porque ya los conocimos |
 | **Leomax el carretero** | Conductor del carro de Morlok, herido en el borde del bosque | Volver a casa | Testigo de los bandidos: "Llevaban un emblema… no era de por acá" |
@@ -89,7 +89,7 @@ Nadie dice "hay bandidos" de una. Cada vecino aporta una pieza y el jugador arma
 
 ## 6. Decisiones pendientes del autor
 
-1. **Gransin:** en el juego es hijo del cantinero de Nix (quest de rescate en la cueva); en el libro es de Ullatorp, hijo de Granthin. **Propuesta:** volver al libro. Gransin se conoce en Ullatorp, y la quest de la cueva rescata a **Morlok** (cautivo de los bandidos), lo que encaja con "El carro de Morlok".
+1. **Gransin:** **resuelto 2026-11-15.** Vuelve al libro: se lo conoce en Ullatorp, hijo de Granthin. El cautivo de la cueva pasa a ser **Capulino**, el marido de Sela.
 2. **Nombre del mesón:** en el libro hay un "Mesón de Nix" en Nix y un "Mesón Ostigado" en Ullatorp; en el juego, el `MesonOstigado` está en Nix. **Propuesta:** el de Nix pasa a ser "Mesón de Nix", con Ostigada como dueña. "Ostigado" queda para Ullatorp.
 3. **Registro:** algunas líneas de Nix usan voseo ("Sentate", "comé", "llevate") y otras "tú". El libro usa "tú". **Elegir uno** para todo el juego (o voseo solo como rasgo de algunos personajes).
 4. **Arthur de pelo blanco en la casa** frente al joven de pelo negro del entrenamiento: confirmar la edad que queremos mostrar (entre el entrenamiento a los 15 y la partida a los 17 pasan solo 2 años).

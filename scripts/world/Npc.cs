@@ -28,6 +28,23 @@ public partial class Npc : CharacterBody2D
 	[Export] public string AfterQuestId = "";
 	[Export] public string[] AfterQuestDialogueLines = { };
 
+	// Small talk that changes once the player holds some item (the villagers after Arthur's sword:
+	// the road is closed, Tobías remembers the miners' cave). Checked before the quest logic, so it
+	// also overrides a finished quest's after-lines; a still-running quest of this NPC wins.
+	[Export] public string AfterItemId = "";
+	[Export] public string[] AfterItemDialogueLines = { };
+
+	// Hands GiftItem over the first time the player talks here (once per save) and says GiftLines
+	// (Alathea giving her grandfather's hunting horn in Capulino's room).
+	[Export] public Metroidvania.Items.Item GiftItem;
+	[Export] public string[] GiftLines = { };
+	// Gone on later visits once the gift was handed over (she's already off with Capulino).
+	[Export] public bool DisappearAfterGift;
+
+	// Handed out when this NPC's Quest is completed by talking to them (the ring back to Capulino).
+	[Export] public Metroidvania.Items.Item QuestCompleteGivesItem;
+	[Export] public int QuestCompleteGold;
+
 	[Export] public Quest Quest;
 	[Export] public bool GrantsOwnObjective = true;
 	// Handed to the player the moment this NPC starts its Quest (Arthur's fish for Bram).
@@ -54,6 +71,8 @@ public partial class Npc : CharacterBody2D
 	// Away while this quest is running (started, not completed): she's out doing her part of it
 	// somewhere else (Alathea on BosqueLobos1's watchtower during "El carro de Morlok").
 	[Export] public string HideWhileQuestActive = "";
+	// Only there once this boss is dead (Alathea turns up in Capulino's room after the spider).
+	[Export] public string AppearOnlyWhenBossDefeated = "";
 
 	// For an NPC that can be reached before the boss holding them is dead (a shortcut into their
 	// room): while that boss is alive they say these lines instead and the quest logic is skipped
@@ -94,6 +113,19 @@ public partial class Npc : CharacterBody2D
 		}
 
 		if (!string.IsNullOrEmpty(AppearOnlyWhenQuestCompleted) && !QuestManager.Instance.IsCompleted(AppearOnlyWhenQuestCompleted))
+		{
+			QueueFree();
+			return;
+		}
+
+		if (DisappearAfterGift && GiftItem is not null
+			&& SaveManager.Instance.IsPickupCollected($"gift:{GiftItem.Id}:{_persistenceId}"))
+		{
+			QueueFree();
+			return;
+		}
+
+		if (!string.IsNullOrEmpty(AppearOnlyWhenBossDefeated) && !SaveManager.Instance.IsBossDefeated(AppearOnlyWhenBossDefeated))
 		{
 			QueueFree();
 			return;
@@ -227,6 +259,18 @@ public partial class Npc : CharacterBody2D
 		if (TryQuestStep())
 			return;
 
+		if (TryGift())
+			return;
+
+		bool questRunning = Quest is not null && QuestManager.Instance.IsActive(Quest.Id)
+			&& !QuestManager.Instance.IsCompleted(Quest.Id);
+		if (!questRunning && !string.IsNullOrEmpty(AfterItemId) && AfterItemDialogueLines.Length > 0
+			&& SaveManager.Instance.HasItem(AfterItemId))
+		{
+			DialogueBox.Instance.Show(NpcName, AfterItemDialogueLines, null, this);
+			return;
+		}
+
 		if (Quest is null)
 		{
 			DialogueBox.Instance.Show(NpcName, GetCurrentDialogueLines(), null, this);
@@ -244,7 +288,7 @@ public partial class Npc : CharacterBody2D
 		{
 			if (QuestManager.Instance.IsObjectiveMet(Quest))
 			{
-				QuestManager.Instance.CompleteQuest(Quest.Id);
+				CompleteOwnQuest();
 				DialogueBox.Instance.Show(NpcName, CompletedDialogueLines, null, this);
 			}
 			else
@@ -263,13 +307,37 @@ public partial class Npc : CharacterBody2D
 
 		if (QuestManager.Instance.IsObjectiveMet(Quest))
 		{
-			QuestManager.Instance.CompleteQuest(Quest.Id);
+			CompleteOwnQuest();
 			DialogueBox.Instance.Show(NpcName, CompletedDialogueLines, null, this);
 		}
 		else
 		{
 			DialogueBox.Instance.Show(NpcName, DialogueLines, null, this);
 		}
+	}
+
+	private void CompleteOwnQuest()
+	{
+		QuestManager.Instance.CompleteQuest(Quest.Id);
+		if (QuestCompleteGivesItem is not null)
+			GetPlayerInventory()?.CollectItem(QuestCompleteGivesItem);
+		if (QuestCompleteGold > 0)
+			SaveManager.Instance.AddGold(QuestCompleteGold);
+	}
+
+	private bool TryGift()
+	{
+		if (GiftItem is null)
+			return false;
+		string doneKey = $"gift:{GiftItem.Id}:{_persistenceId}";
+		if (SaveManager.Instance.IsPickupCollected(doneKey))
+			return false;
+		GetPlayerInventory()?.CollectItem(GiftItem);
+		SaveManager.Instance.MarkPickupCollected(doneKey);
+		if (GiftItem.Type == Metroidvania.Items.ItemType.Consumable)
+			SaveManager.Instance.AssignQuickSlot(GiftItem.Id);
+		DialogueBox.Instance.Show(NpcName, GiftLines, null, this);
+		return true;
 	}
 
 	private Metroidvania.Items.PlayerInventory GetPlayerInventory() =>

@@ -42,6 +42,10 @@ public partial class Item : Resource
 	[Export] public DamageElement ImbueElement = DamageElement.Normal;
 	[Export] public float ImbueDuration = 60f;
 
+	// Consumable that is never used up: blowing it calls Alathea to the nearest PuntoAlathea of a
+	// boss arena (the hunting horn). Held as a count of 1 so it lives in the quick bar.
+	[Export] public bool CallsAlly;
+
 	// Weapons: the most a single hit can deal (0 = no limit, the player's own AttackPower) and whether
 	// its hits wear down an enemy's poise.
 	[Export] public int WeaponDamageCap;

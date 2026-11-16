@@ -1956,6 +1956,33 @@ public partial class Player : CharacterBody2D
 			_lastReleasedRope = null;
 	}
 
+	// True while hanging off something: a swinging rope, a hand-over-hand rope, a ladder or vine.
+	public bool EstaAgarrado => _isSwinging || _isHanging || _isClimbing;
+
+	// Knocks the player off whatever they hang from (the Raíces birds), with a small push so they
+	// fall clear instead of re-grabbing the same rope on the next frame.
+	public void SoltarAgarre(float pushX)
+	{
+		if (_isSwinging)
+		{
+			_isSwinging = false;
+			_lastReleasedRope = _rope;
+			_rope = null;
+		}
+		if (_isHanging)
+		{
+			_isHanging = false;
+			_droppedHangRope = _hangRopeInZone;
+		}
+		if (_isClimbing)
+		{
+			_isClimbing = false;
+			_ladderGrabLockout = LadderJumpLockoutDuration;
+		}
+		Velocity = new Vector2(pushX, 0f);
+		_jumpCount = 1;
+	}
+
 	public void EnterHangRope(HangRope rope)
 	{
 		_hangRopeInZone = rope;
@@ -6015,6 +6042,8 @@ public partial class Player : CharacterBody2D
 		if (item is null || item.Type != ItemType.Consumable || _isTransforming || _isDead
 			|| SaveManager.Instance.GetItemCount(item.Id) <= 0)
 			return false;
+		if (item.CallsAlly)
+			return Metroidvania.World.PuntoAlathea.TryCall(this);
 		if (item.ImbueElement == DamageElement.Normal)
 			return false;
 		SaveManager.Instance.ConsumeItem(item.Id);

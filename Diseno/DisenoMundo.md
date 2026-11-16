@@ -52,8 +52,12 @@ Nix ──► BosqueLobos1 ──► BosqueLobos2 (CORTADO: bandidos)
 ### Zona 2: La Mina · DECIDIDO
 - Otra zona **grande**, con **otra ambientación**, a la que se llega después de matar al jefe de la Cueva.
 - Sale a la superficie por la entrada de mina de **BosqueLobos6**: **Mina01_Bocamina → `Entradamina` de BosqueLobos6** (conectado 2026-11-09). Desde BosqueLobos6 se sigue a Ullatorp.
-- **Recorrido (2026-11-09):** InteriorCueva7 (hueco) → arena de la araña → habitación de Gransin → viaje en vagoneta Mina07a/b/c → se sube Mina06 → Mina01 → BosqueLobos6. Ramal desde 07b: Mina08 → Mina09 (montacargas; su salida de arriba sigue pendiente). Detalle en `DisenoNiveles.md` §6b.
-- **Llave (PROPUESTA):** los **Guantes de minero** (`item_guantes_minero`, habilidad `rope_swing`) en Mina05: cuerdas que se balancean. Cerraduras sembradas: cuerdas de Mina03, cornisa de doble salto en Mina01, muro cargado en Mina04.
+- **Recorrido (2026-11-09):** InteriorCueva7 (hueco) → arena de la araña → habitación de Capulino (`HabitacionRecompensaSpider`) → viaje en vagoneta Mina07a/b/c → se sube Mina06 → Mina01 → BosqueLobos6. Ramal desde 07b: Mina08 → Mina09 (montacargas; su salida de arriba sigue pendiente). Detalle en `DisenoNiveles.md` §6b.
+- **Llave (DECIDIDO 2026-11-15):** los **Guantes de minero** (`item_guantes_minero`, habilidad `rope_swing`) los da **Capulino**, el marido de Sela, al rescatarlo detrás de la araña. Los bandidos ponían a los cautivos a cavar el pozo hacia la Mina (por eso la compuerta con candados y por eso Capulino tiene guantes). Cerraduras sembradas: cuerdas de Mina03, cornisa de doble salto en Mina01, muro cargado en Mina04. **Hecho en el juego:** Sela da la quest `rescate_capulino` y Capulino entrega los guantes en `HabitacionRecompensaSpider`. Los guantes que estaban al final de Mina07c quedan como respaldo: desaparecen solos si ya los tenés (por si alguien no habla con Capulino).
+- **Vuelta atrás a la Cueva (DECIDIDO 2026-11-15):** cuerdas a la vista en la Cueva que no se pueden usar la primera vez; con los guantes se vuelve y se llega al **botín que los bandidos le robaron a Capulino** (con su anillo de casado). Llevárselo a Sela en Nix da recompensa.
+- **Alathea con el cuerno de caza (DECIDIDO 2026-11-15):** no acompaña al jugador. En la puerta de Nix discute con Delfrad y se va (sin cuerno). Reaparece en la sala de Capulino (`HabitacionRecompensaSpider`): se lo lleva a Nix y te da el **cuerno de caza**. Desde los jefes de la Mina en adelante, en arenas con un punto alto, soplarlo la hace aparecer ahí y disparar (reutiliza `ArqueraTorre`). Un uso por intento y pocas flechas: alivia, no regala la pelea. **Opcional:** contra la araña, Alathea fija en una cornisa disparando, porque en el libro pelean juntos. En el libro (cap. 2) ella sí recorre la Cueva con Delfrad. Por construir.
+- **Hecho en el juego (2026-11-16):** cuerno de caza = `item_cuerno_caza` (consumible que no se gasta, `Item.CallsAlly`); se sopla con la barra rápida y lo atiende el `PuntoAlathea` de la arena (un `ArqueraTorre` con 6 flechas que se va sola, una vez por visita, solo con el jefe vivo; si no hay punto, "Nadie contesta."). Puntos puestos en los jefes calavera (`InteriorArbolBosqueLobos2_4`) y hongo (`_2_9`) porque la Mina todavía no tiene jefes: **hay que ponerlos en lugares altos a ojo** (hoy están a la altura del jugador). Contra la araña, `AlatheaCornisa` fija en (-610, 362), sin cornisa real: revisar. Botín: sala `CuevaCampamento` (greybox) desde InteriorCueva4 (puerta en (15, 532)), con 4 cuerdas sobre ácido y el anillo de Capulino. Ojo: en builds de debug las cuerdas funcionan siempre aunque no tengas los guantes.
+- **Gransin (DECIDIDO 2026-11-15):** se conoce en **Ullatorp**, hijo de Granthin. Deja de ser hijo del cantinero de Nix y de estar cautivo en la Cueva.
 - **PENDIENTE:** ¿tiene su propio jefe? ¿Qué ambientación (rieles, vagonetas, andamios, minerales, mineros)? ¿Qué enemigos?
 
 - **Espada de madera (2026-11-02):** la partida empieza con el ítem `item_espada_madera` (daño 1 por golpe, no rompe la postura). Es el bloqueo natural de la Cueva antes de partir: se puede entrar, pero no le sacás nada a nadie. Arthur da `item_espada_arthur` en `CinematicaEspada` (Casa1), al volver con "El carro de Morlok" terminado: **cierra el capítulo 1**, sin cambio de mañana a noche (2026-11-10).
@@ -101,8 +105,10 @@ Nix ─ BL1 ─ BL2 ✖ BL3 ─ BL4 ─ BL5 ─ BL6 ─ Ullatorp ─ BL7 ─ BL8
 - **Cómo se recorre:** casi sin piso. Abajo hay barro (te devuelve al último piso firme) o espinas (matan). Te movés con lianas, cuerdas que se balancean, sogas horizontales y raíces chicas, inclinadas o que se hunden.
 - **Lore:** es adonde se fueron los lobos, lo que se nota en los rastros del camino (eco de Tobías: "lobos muertos de miedo"). Los lobos de la comunidad son **neutrales y asustados**: gruñen y se esconden, y no atacan salvo que los ataques.
 - **Jefe:** el **Lobo de Fuego** guarda la entrada a la comunidad. Se diseña paso a paso con el autor antes de programarlo.
-- **Cerraduras para más adelante:** raíces que corta la **Espada de Dios** (secreto en Raices09).
+- **Estructura (v2, 2026-11-12):** circuito con hub en la Cuna (Raices04, hoguera). El bucle Cuna → Pantano → Columpios → copa del Pantano vuelve a la Cuna por una reja que se abre de un solo lado. Segunda hoguera en el Rastro (Raices10).
+- **Cerraduras para más adelante:** cofre a 420 px en Raices02 (**dash en el aire**), cueva con **muro cargado** en Raices03, estanque en Raices10 (**nado**: cofre y túnel pendiente), placa de **Sombra** en Raices11, raíz trepable en Raices08 hacia la superficie (**trepar raíces, Acto 2**), raíz de la **Espada de Dios** en Raices09.
 - **Atajo:** una liana larga en la comunidad (Raices13) te devuelve a Raices1.
+- **Mundo continuo:** además de Raices1, la zona tiene dos salidas pendientes (superficie desde la Chimenea y túnel inundado desde el Rastro) para engancharla a otras zonas.
 - Detalle por sala: `DisenoNiveles.md` §6c.
 
 ### Zona: La Mina Honda (vuelta atrás) · GREYBOX (2026-11-11)
@@ -118,7 +124,8 @@ Nix ─ BL1 ─ BL2 ✖ BL3 ─ BL4 ─ BL5 ─ BL6 ─ Ullatorp ─ BL7 ─ BL8
 |---|---|---|---|---|
 | Nix + cueva | Kit base | Atajo por la cueva | Camino a Ullatorp cortado por bandidos | DECIDIDO |
 | La Cueva (cuevas 1-11) | Derrotar al jefe | Subida a la Mina | ? | DECIDIDO (falta el jefe) |
-| La Mina | Guantes de minero (cuerdas, propuesta) | Salida a BosqueLobos6 por el montacargas mayor | Cuerdas sobre ácido en Mina03 | GREYBOX |
+| Rescate de Capulino (tras la araña) | Guantes de minero (cuerdas) | La Mina; vuelta a la Cueva por el botín de Capulino | Cuerdas a la vista en la Cueva y sobre ácido en Mina03 | DECIDIDO |
+| La Mina | — | Salida a BosqueLobos6 por el montacargas mayor | Cornisa de doble salto en Mina01, muro cargado en Mina04 | GREYBOX |
 | Ullatorp | Doble salto (entrenamiento) | — | Camino a Enterbill (BosqueLobos 7-9) cortado por una gran roca | DECIDIDO |
 | Vuelta por el bosque → BosqueLobos3 | — | Bifurcación al desierto | La bifurcación ya se vio al principio, desde el otro lado | DECIDIDO |
 | Choza de Ovre + Pirámide | Ataque cargado (espada encantada) | Volvés a BosqueLobos 7-9 y rompés la gran roca → Enterbill | La gran roca, más paredes agrietadas en la Cueva, la Mina y el bosque | DECIDIDO |

@@ -455,6 +455,55 @@ NPC_GARRIK_ENCARGO_3,Dile a Arthur que pase un día. Hace mucho que no hablamos 
 NPC_SELA_NAME,Sela,Sela,Sela
 NPC_SELA_L1,Tú que andas por el camino. ¿Pasó alguien de Ullatorp?,"You, who walk the road. Did anyone come through from Ullatorp?",Você que anda pela estrada. Passou alguém de Ullatorp?
 NPC_SELA_L2,"Mi marido salió hace un mes, Delfrad. Un mes.","My husband left a month ago, Delfrad. A month.","Meu marido saiu faz um mês, Delfrad. Um mês."
+NPC_SELA_L3,"Si lo ves, dile que lo estoy esperando. Que no es lo mismo.","If you see him, tell him I'm waiting. It's not the same thing.","Se o vir, diga que estou esperando. Não é a mesma coisa."
+NPC_SELA_INPROGRESS_L1,¿Todavía nada? Él sabe volver. Siempre supo.,Still nothing? He knows the way back. He always did.,Ainda nada? Ele sabe voltar. Sempre soube.
+NPC_SELA_COMPLETED_L1,"Volvió. Flaco, pero volvió.","He came back. Thin, but he came back.","Ele voltou. Magro, mas voltou."
+NPC_SELA_COMPLETED_L2,Le di de comer tres veces y sigue con hambre.,I've fed him three times and he's still hungry.,Já dei comida três vezes e ele continua com fome.
+NPC_SELA_AFTER_L1,Dice que le quitaron el anillo. Como si me importara el anillo.,He says they took his ring. As if I cared about the ring.,Diz que levaram o anel dele. Como se eu me importasse com o anel.
+NPC_CAPULINO_NAME,Capulino,Capulino,Capulino
+NPC_CAPULINO_L1,¿Sela? ¿Está bien? ¿Qué dijo?,Sela? Is she all right? What did she say?,Sela? Ela está bem? O que ela disse?
+NPC_CAPULINO_L2,Nos ponían a cavar. Buscaban salir por debajo de las lomas.,They had us digging. They wanted a way out under the hills.,Nos faziam cavar. Queriam sair por baixo das colinas.
+NPC_CAPULINO_L3,Toma mis guantes. Por ahí no se sale sin agarrarse de algo.,Take my gloves. You won't get out that way without holding on to something.,Fique com minhas luvas. Por ali não se sai sem se agarrar em algo.
+NPC_CAPULINO_L4,"Se llevaron el anillo. Si lo encuentras... lo demás no me importa.","They took my ring. If you find it... I don't care about the rest.","Levaram meu anel. Se você achar... o resto não me importa."
+NPC_CAPULINO_SPIDER_ALIVE_L1,¡No te acerques al pozo! Eso no se muere.,Stay away from the pit! That thing doesn't die.,Não chegue perto do poço! Aquilo não morre.
+NPC_CAPULINO_SPIDER_ALIVE_L2,"Dile a Sela... no, no le digas nada.","Tell Sela... no, don't tell her anything.","Diga à Sela... não, não diga nada."
+NPC_CAPULINO_NIX_L1,Todavía sueño con la pala.,I still dream about the shovel.,Ainda sonho com a pá.
+QUEST_RESCATE_CAPULINO_TITLE,El marido de Sela,Sela's husband,O marido de Sela
+QUEST_RESCATE_CAPULINO_DESC,Sela no sabe nada de Capulino desde hace un mes. Salió hacia Ullatorp y no volvió.,Sela hasn't heard from Capulino in a month. He left for Ullatorp and never came back.,Sela não tem notícias de Capulino há um mês. Ele partiu para Ullatorp e não voltou.
+QUEST_RESCATE_CAPULINO_OBJECTIVE,Encontrar a Capulino,Find Capulino,Encontrar Capulino
+QUEST_RESCATE_CAPULINO_REWARD,Guantes de minero.,Miner's gloves.,Luvas de mineiro.
+NPC_CANTINERO_AMB_L1,"Malvivientes, dicen. Gente del desierto, tan al sur... no tiene sentido.","Outlaws, they say. Desert folk, this far south... makes no sense.","Bandidos, dizem. Gente do deserto, tão ao sul... não faz sentido."
+NPC_HALVAR_ESPADA_1,"Nadie sale por el camino del norte. Ni tú, Delfrad.","Nobody takes the north road. Not even you, Delfrad.","Ninguém sai pela estrada do norte. Nem você, Delfrad."
+NPC_HALVAR_ESPADA_2,Arriba de la segunda loma pusieron carretas atravesadas. Con arqueros encima.,Past the second hill they've laid carts across the road. With archers on top.,Depois da segunda colina puseram carroças atravessadas. Com arqueiros em cima.
+NPC_HALVAR_ESPADA_3,"El que se acerca, no vuelve a bajar.","Whoever gets close doesn't come back down.","Quem se aproxima não volta a descer."
+NPC_TOBIAS_ESPADA_1,"Cuando yo era muchacho, los de la mina no subían por el camino.","When I was a boy, the miners didn't take the road.","Quando eu era rapaz, os mineiros não subiam pela estrada."
+NPC_TOBIAS_ESPADA_2,Bajaban por la cueva del bosque y salían del otro lado de las lomas.,They went down through the forest cave and came out past the hills.,Desciam pela caverna do bosque e saíam do outro lado das colinas.
+NPC_TOBIAS_ESPADA_3,Halvar dice que está cerrada. Cerrada no es lo mismo que tapada.,Halvar says it's closed. Closed isn't the same as sealed.,Halvar diz que está fechada. Fechada não é o mesmo que tapada.
+NPC_ESFIANER_ESPADA_1,"¿Esa espada es tuya? Entonces ya somos dos esperando.","That sword's yours? Then there are two of us waiting.","Essa espada é sua? Então já somos dois esperando."
+NPC_ESFIANER_ESPADA_2,"Tres semanas comiendo pescado, muchacho. Tres semanas.","Three weeks eating fish, lad. Three weeks.","Três semanas comendo peixe, rapaz. Três semanas."
+NPC_ESFIANER_ESPADA_3,"Si encuentras otro camino al norte, avísame. Yo voy detrás.","If you find another way north, tell me. I'll be right behind you.","Se achar outro caminho para o norte, me avise. Eu vou atrás."
+NPC_ALATHEA_ESPADA_1,¿Acaso piensas partir sin nadie que te acompañe?,Were you really planning to leave without anyone along?,Por acaso pensa partir sem ninguém para te acompanhar?
+NPC_ALATHEA_ESPADA_2,"¿Que no? ¿Me dices que no a mí? Te salvé la vida ayer, Delfrad.","No? You're telling me no? I saved your life yesterday, Delfrad.","Não? Está dizendo não para mim? Salvei sua vida ontem, Delfrad."
+NPC_ALATHEA_ESPADA_3,"...Fue mi padre, ¿no? Viejo testarudo.","...It was my father, wasn't it? Stubborn old man.","...Foi meu pai, não foi? Velho teimoso."
+NPC_ALATHEA_ESPADA_4,Tú prometiste que no ibas a llevarme. Yo no prometí nada.,You promised not to take me. I didn't promise anything.,Você prometeu que não ia me levar. Eu não prometi nada.
+NPC_ALATHEA_CUERNO_1,Él no llega solo a Nix. Yo lo llevo.,He won't make it to Nix alone. I'll take him.,Ele não chega sozinho a Nix. Eu o levo.
+NPC_ALATHEA_CUERNO_2,Tú no vuelves. Lo sé desde que te vi contar los carros.,You're not coming back. I've known since I saw you counting the carts.,Você não volta. Sei disso desde que te vi contar as carroças.
+NPC_ALATHEA_CUERNO_3,"Era de mi abuelo. Si me necesitas, soplas.","It was my grandfather's. If you need me, blow it.","Era do meu avô. Se precisar de mim, sopre."
+NPC_ALATHEA_CUERNO_4,Y me debes dos cervezas.,And you owe me two beers.,E você me deve duas cervejas.
+ITEM_CUERNO_CAZA_NAME,Cuerno de caza,Hunting horn,Corneta de caça
+ITEM_CUERNO_CAZA_DESC,"Cuerno de buey del abuelo de Alathea, con la boca de cobre. Soplado durante un combate contra un jefe, ella aparece en un lugar alto y dispara unas flechas. Una vez por combate.","Ox horn that belonged to Alathea's grandfather, with a copper mouth. Blown during a boss fight, she appears somewhere high and looses a few arrows. Once per fight.","Corneta de boi do avô de Alathea, com bocal de cobre. Soprada durante um combate contra um chefe, ela aparece num lugar alto e dispara algumas flechas. Uma vez por combate."
+CUERNO_SIN_RESPUESTA,Nadie contesta.,No one answers.,Ninguém responde.
+CUERNO_ALATHEA_LLEGA,¿Otra vez metido en un pozo?,Down a pit again?,De novo enfiado num poço?
+ITEM_ANILLO_CAPULINO_NAME,Anillo de Capulino,Capulino's ring,Anel de Capulino
+ITEM_ANILLO_CAPULINO_DESC,"Un anillo de casado, de hierro, enorme. Se lo quitaron a Capulino con un cuchillo de cocina.","A huge iron wedding ring. They took it off Capulino with a kitchen knife.","Um anel de casamento de ferro, enorme. Tiraram de Capulino com uma faca de cozinha."
+NPC_CAPULINO_ANILLO_L1,"El anillo, muchacho. Si lo encuentras, lo demás no me importa.","The ring, lad. If you find it, I don't care about the rest.","O anel, rapaz. Se achar, o resto não me importa."
+NPC_CAPULINO_ANILLO_L2,"Lo guardaron arriba, donde duermen ellos. Donde hay cuerdas.","They kept it up where they sleep. Where the ropes are.","Guardaram lá em cima, onde eles dormem. Onde tem cordas."
+NPC_CAPULINO_ANILLO_DONE_1,...Es el mío. Mira cómo lo dejaron.,...It's mine. Look what they did to it.,...É o meu. Olha como deixaram.
+NPC_CAPULINO_ANILLO_DONE_2,"Toma. No es mucho, pero es lo que me dejaron.","Here. It isn't much, but it's what they left me.","Tome. Não é muito, mas é o que me deixaram."
+QUEST_ANILLO_CAPULINO_TITLE,El anillo de Capulino,Capulino's ring,O anel de Capulino
+QUEST_ANILLO_CAPULINO_DESC,Los bandidos le robaron el anillo de casado a Capulino y lo guardaron donde duermen en la Cueva. Donde hay cuerdas.,The bandits stole Capulino's wedding ring and kept it where they sleep in the Cave. Where the ropes are.,Os bandidos roubaram o anel de casamento de Capulino e guardaram onde dormem na Caverna. Onde tem cordas.
+QUEST_ANILLO_CAPULINO_OBJECTIVE,Encontrar el anillo de Capulino,Find Capulino's ring,Encontrar o anel de Capulino
+QUEST_ANILLO_CAPULINO_REWARD,Lo que le quedó a Capulino.,What Capulino had left.,O que restou a Capulino.
 NPC_PIP_NAME,Pip,Pip,Pip
 NPC_PIP_L1,¡Soy el rey Rhodas! Y él es Aragost el Temible.,I'm King Rhodas! And he's Aragost the Terrible.,"Eu sou o rei Rhodas! E ele é Aragost, o Terrível."
 NPC_TOMO_NAME,Tomo,Tomo,Tomo
@@ -550,3 +599,11 @@ NPC_LIO_NAME,Lio,Lio,Lio
 NPC_LIO_L1,"¡Delfrad! ¿Otra vez te tiró Arthur? Tienes arena hasta en las orejas.","Delfrad! Did Arthur knock you down again? You've got sand in your ears.","Delfrad! O Arthur te derrubou de novo? Tem areia até nas orelhas."
 NPC_EDDA_NAME,Edda,Edda,Edda
 NPC_EDDA_L1,"Sigues contando los carros del norte, ¿no? Se te nota en la cara.","Still counting the carts from the north, aren't you? It's written all over your face.","Ainda contando as carroças do norte, né? Dá para ver na sua cara."
+NPC_ARTEMISA_NAME,Artemisa,Artemisa,Artemisa
+BOSS_ARTEMISA_NOMBRE,"Artemisa, la Hoja Carmesí","Artemisa, the Crimson Blade","Artemisa, a Lâmina Carmesim"
+CIN_ARTEMISA_1,"Esperé aquí... tanto tiempo. Mi armadura olvidó el calor... y mi sangre, su color.","I waited here... for so long. My armour forgot its warmth... and my blood, its colour.","Esperei aqui... por tanto tempo. Minha armadura esqueceu o calor... e meu sangue, a sua cor."
+CIN_ARTEMISA_1B,"Uno tras otro vinieron... uno tras otro cayeron. Y él... nunca volvió.","One after another they came... one after another they fell. And he... never returned.","Um após o outro vieram... um após o outro caíram. E ele... nunca voltou."
+CIN_ARTEMISA_2,"Escúchame bien. Soy Artemisa, la Hoja Carmesí... y ninguna batalla me ha visto caer.","Heed me. I am Artemisa, the Crimson Blade... and no battle has ever seen me fall.","Escute bem. Sou Artemisa, a Lâmina Carmesim... e nenhuma batalha jamais me viu cair."
+CIN_ARTEMISA_FASE,"Deja que tu carne... florezca en carmesí.","Let your flesh... bloom in crimson.","Deixe que sua carne... floresça em carmesim."
+CIN_ARTEMISA_MUERTE,"Tu fuerza... me recuerda a la suya.","Your strength... it reminds me of his.","Sua força... me lembra a dele."
+CIN_ARTEMISA_MUERTE_2,"Perdóname... ya no puedo seguir esperándote.","Forgive me... I can wait for you no longer.","Perdoe-me... já não posso continuar a te esperar."

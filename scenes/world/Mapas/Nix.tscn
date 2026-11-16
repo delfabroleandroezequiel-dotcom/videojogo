@@ -63,6 +63,9 @@
 [ext_resource type="SpriteFrames" path="res://resources/sprites/NixBrunoSpriteFrames.tres" id="cm_bruno"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/NixMorlokSpriteFrames.tres" id="cm_morlok"]
 [ext_resource type="Resource" path="res://resources/quests/carro_morlok.tres" id="cm_quest"]
+[ext_resource type="Resource" path="res://resources/quests/rescate_capulino.tres" id="sela_quest"]
+[ext_resource type="Resource" path="res://resources/quests/anillo_capulino.tres" id="anillo_quest"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/NixCapulinoSpriteFrames.tres" id="pob_capulino"]
 [ext_resource type="Texture2D" uid="uid://bmeutsyc06bj" path="res://assets/sprites/deco/pixellab/nix/Abrevadero.png" id="dpl_Abrevadero"]
 [ext_resource type="Texture2D" uid="uid://bh2dtu5sktmq2" path="res://assets/sprites/deco/pixellab/nix/Bote.png" id="dpl_Bote"]
 [ext_resource type="Texture2D" uid="uid://puvv8dutt4lp" path="res://assets/sprites/deco/pixellab/nix/CajonesVerdura.png" id="dpl_CajonesVerdura"]
@@ -15589,14 +15592,21 @@ CustomSpriteYOffset = -16.5
 CustomSpriteScale = Vector2(1.158, 1.158)
 CollisionSize = Vector2(30, 64)
 
-[node name="NpcGransin" parent="." unique_id=475770780 instance=ExtResource("6_npc")]
-position = Vector2(2060, 430)
-NpcName = "NPC_GRANSIN_NAME"
-DialogueLines = PackedStringArray("NPC_GRANSIN_BAR_L1")
-AppearOnlyWhenQuestCompleted = "rescue_gransin"
-CustomSpriteFrames = ExtResource("54_guardianix")
-CustomSpriteScale = Vector2(1.7073, 1.7073)
-CollisionSize = Vector2(44, 64)
+[node name="NpcCapulino" parent="." unique_id=475770780 instance=ExtResource("6_npc")]
+position = Vector2(-1030, 428)
+NpcName = "NPC_CAPULINO_NAME"
+DialogueLines = PackedStringArray("NPC_CAPULINO_ANILLO_L1", "NPC_CAPULINO_ANILLO_L2")
+InProgressDialogueLines = PackedStringArray("NPC_CAPULINO_ANILLO_L1")
+CompletedDialogueLines = PackedStringArray("NPC_CAPULINO_ANILLO_DONE_1", "NPC_CAPULINO_ANILLO_DONE_2")
+AfterCompletedDialogueLines = PackedStringArray("NPC_CAPULINO_NIX_L1")
+Quest = ExtResource("anillo_quest")
+GrantsOwnObjective = false
+QuestCompleteGold = 150
+AppearOnlyWhenQuestCompleted = "rescate_capulino"
+CustomSpriteFrames = ExtResource("pob_capulino")
+CustomSpriteYOffset = 2.0
+CustomSpriteScale = Vector2(1.3, 1.3)
+CollisionSize = Vector2(40, 64)
 
 [node name="SecoyaSalida" type="Sprite2D" parent="." unique_id=526714556]
 z_index = -1
@@ -15637,6 +15647,8 @@ NpcName = "NPC_TOBIAS_NAME"
 DialogueLines = PackedStringArray("NPC_TOBIAS_L1", "NPC_TOBIAS_L2", "NPC_TOBIAS_L3")
 AfterQuestId = "carro_morlok"
 AfterQuestDialogueLines = PackedStringArray("NPC_TOBIAS_POST_L1", "NPC_TOBIAS_POST_L2", "NPC_TOBIAS_POST_L3", "NPC_TOBIAS_L3")
+AfterItemId = "item_espada_arthur"
+AfterItemDialogueLines = PackedStringArray("NPC_TOBIAS_ESPADA_1", "NPC_TOBIAS_ESPADA_2", "NPC_TOBIAS_ESPADA_3")
 CustomSpriteFrames = ExtResource("tobias_frames")
 CustomSpriteYOffset = 2.0
 CustomSpriteScale = Vector2(1.158, 1.158)
@@ -15853,6 +15865,8 @@ AfterCompletedDialogueLines = PackedStringArray("NPC_ALATHEA_CARRO_AFTER")
 Quest = ExtResource("cm_quest")
 GrantsOwnObjective = false
 HideWhileQuestActive = "carro_morlok"
+AfterItemId = "item_espada_arthur"
+AfterItemDialogueLines = PackedStringArray("NPC_ALATHEA_ESPADA_1", "NPC_ALATHEA_ESPADA_2", "NPC_ALATHEA_ESPADA_3", "NPC_ALATHEA_ESPADA_4")
 CustomSpriteFrames = ExtResource("cm_alathea")
 CustomSpriteYOffset = 2.0
 CustomSpriteScale = Vector2(1.158, 1.158)
@@ -15885,7 +15899,12 @@ CollisionSize = Vector2(30, 64)
 [node name="NpcSela" parent="." unique_id=1467354664 instance=ExtResource("6_npc")]
 position = Vector2(-1090, 428)
 NpcName = "NPC_SELA_NAME"
-DialogueLines = PackedStringArray("NPC_SELA_L1", "NPC_SELA_L2")
+DialogueLines = PackedStringArray("NPC_SELA_L1", "NPC_SELA_L2", "NPC_SELA_L3")
+InProgressDialogueLines = PackedStringArray("NPC_SELA_INPROGRESS_L1")
+CompletedDialogueLines = PackedStringArray("NPC_SELA_COMPLETED_L1", "NPC_SELA_COMPLETED_L2")
+AfterCompletedDialogueLines = PackedStringArray("NPC_SELA_AFTER_L1")
+Quest = ExtResource("sela_quest")
+GrantsOwnObjective = false
 CustomSpriteFrames = ExtResource("pob_sela")
 CustomSpriteYOffset = 2.0
 CustomSpriteScale = Vector2(1.158, 1.158)
@@ -15924,6 +15943,8 @@ CollisionSize = Vector2(24, 48)
 position = Vector2(5080, 428)
 NpcName = "NPC_HALVAR_NAME"
 DialogueLines = PackedStringArray("NPC_HALVAR_L1")
+AfterItemId = "item_espada_arthur"
+AfterItemDialogueLines = PackedStringArray("NPC_HALVAR_ESPADA_1", "NPC_HALVAR_ESPADA_2", "NPC_HALVAR_ESPADA_3")
 CustomSpriteFrames = ExtResource("pob_halvar")
 CustomSpriteYOffset = 2.0
 CustomSpriteScale = Vector2(1.158, 1.158)

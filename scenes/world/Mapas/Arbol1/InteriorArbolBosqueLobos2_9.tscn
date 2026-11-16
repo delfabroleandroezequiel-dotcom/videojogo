@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://1qd0nimfqvj7" path="res://assets/external/Fondos/bosque/_PNG/MainLevBuild.png" id="8_duyie"]
 [ext_resource type="Texture2D" uid="uid://d2v6fnc1sjgwl" path="res://scenes/world/Mapas/raices2.png" id="9_0nhea"]
 [ext_resource type="Script" uid="uid://krksx73xr6n7" path="res://scripts/world/ParallaxFollow.cs" id="91_parallaxfollow"]
+[ext_resource type="Script" path="res://scripts/world/PuntoAlathea.cs" id="pa_script"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/AlatheaPixelLabSpriteFrames.tres" id="pa_frames"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1918, 56)
@@ -8465,3 +8467,9 @@ z_index = 10
 position = Vector2(-600, 87)
 rotation = 4.712389
 texture = ExtResource("9_0nhea")
+
+[node name="PuntoAlathea" type="Node2D" parent="."]
+position = Vector2(390, 233)
+script = ExtResource("pa_script")
+BossId = "mushroom_boss_interior_arbol_2_9"
+Frames = ExtResource("pa_frames")

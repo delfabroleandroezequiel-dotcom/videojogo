@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Item" format=3]
+
+[ext_resource type="Script" uid="uid://c7k8nu6e2htri" path="res://scripts/items/Item.cs" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+Id = "item_anillo_capulino"
+ItemName = "ITEM_ANILLO_CAPULINO_NAME"
+Description = "ITEM_ANILLO_CAPULINO_DESC"
+Type = 2

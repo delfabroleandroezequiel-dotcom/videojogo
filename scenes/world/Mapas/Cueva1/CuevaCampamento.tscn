@@ -1,0 +1,151 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="1_boot"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="2_cam"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PozaAcido.tscn" id="3_acido"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Rope.tscn" id="4_cuerda"]
+[ext_resource type="PackedScene" path="res://scenes/world/ItemPickup.tscn" id="5_pickup"]
+[ext_resource type="Resource" path="res://resources/items/anillo_capulino.tres" id="6_anillo"]
+[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="7_transicion"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="8_player"]
+
+[sub_resource type="RectangleShape2D" id="Rect_techo"]
+size = Vector2(1440, 40)
+
+[sub_resource type="RectangleShape2D" id="Rect_cornisa"]
+size = Vector2(320, 540)
+
+[sub_resource type="RectangleShape2D" id="Rect_fondo"]
+size = Vector2(800, 40)
+
+[sub_resource type="RectangleShape2D" id="Rect_paredOeste"]
+size = Vector2(20, 280)
+
+[sub_resource type="RectangleShape2D" id="Rect_paredEste"]
+size = Vector2(20, 120)
+
+[node name="CuevaCampamento" type="Node2D"]
+script = ExtResource("1_boot")
+ScenePath = "res://scenes/world/Mapas/Cueva1/CuevaCampamento.tscn"
+CameraProfile = ExtResource("2_cam")
+CameraLimitLeft = -20
+CameraLimitRight = 1420
+CameraLimitTop = -320
+CameraLimitBottom = 560
+
+[node name="Fondo" type="ColorRect" parent="."]
+z_index = -50
+offset_left = -620.0
+offset_top = -920.0
+offset_right = 2020.0
+offset_bottom = 1160.0
+color = Color(0.07, 0.06, 0.06, 1)
+
+[node name="Colisiones" type="StaticBody2D" parent="."]
+
+[node name="Techo" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(700, -300)
+shape = SubResource("Rect_techo")
+
+[node name="CornisaOeste" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(140, 270)
+shape = SubResource("Rect_cornisa")
+
+[node name="CornisaEste" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(1260, 270)
+shape = SubResource("Rect_cornisa")
+
+[node name="FondoPozo" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(700, 520)
+shape = SubResource("Rect_fondo")
+
+[node name="ParedOeste" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(-10, -140)
+shape = SubResource("Rect_paredOeste")
+
+[node name="ParedEste" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(1410, -220)
+shape = SubResource("Rect_paredEste")
+
+[node name="Visible" type="Node2D" parent="."]
+z_index = -5
+
+[node name="Techo" type="ColorRect" parent="Visible"]
+offset_left = -20.0
+offset_top = -320.0
+offset_right = 1420.0
+offset_bottom = -280.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="CornisaOeste" type="ColorRect" parent="Visible"]
+offset_left = -20.0
+offset_right = 300.0
+offset_bottom = 540.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="CornisaEste" type="ColorRect" parent="Visible"]
+offset_left = 1100.0
+offset_right = 1420.0
+offset_bottom = 540.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="FondoPozo" type="ColorRect" parent="Visible"]
+offset_left = 300.0
+offset_top = 500.0
+offset_right = 1100.0
+offset_bottom = 540.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="ParedOeste" type="ColorRect" parent="Visible"]
+offset_left = -20.0
+offset_top = -280.0
+offset_bottom = 0.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="ParedEste" type="ColorRect" parent="Visible"]
+offset_left = 1400.0
+offset_top = -280.0
+offset_right = 1420.0
+offset_bottom = -160.0
+color = Color(0.4, 0.36, 0.33, 1)
+
+[node name="Trampas" type="Node2D" parent="."]
+
+[node name="Acido" parent="Trampas" instance=ExtResource("3_acido")]
+position = Vector2(300, 440)
+Width = 800.0
+Depth = 60.0
+
+[node name="Objetos" type="Node2D" parent="."]
+
+[node name="Cuerda1" parent="Objetos" instance=ExtResource("4_cuerda")]
+position = Vector2(980, -280)
+Length = 220.0
+
+[node name="Cuerda2" parent="Objetos" instance=ExtResource("4_cuerda")]
+position = Vector2(810, -280)
+Length = 220.0
+PhaseOffset = 3.1416
+
+[node name="Cuerda3" parent="Objetos" instance=ExtResource("4_cuerda")]
+position = Vector2(640, -280)
+Length = 220.0
+
+[node name="Cuerda4" parent="Objetos" instance=ExtResource("4_cuerda")]
+position = Vector2(470, -280)
+Length = 220.0
+PhaseOffset = 3.1416
+
+[node name="AnilloCapulino" parent="Objetos" instance=ExtResource("5_pickup")]
+position = Vector2(110, -20)
+Item = ExtResource("6_anillo")
+
+[node name="HaciaCueva4" parent="." instance=ExtResource("7_transicion")]
+position = Vector2(1385, -53)
+TargetScenePath = "res://scenes/world/Mapas/Cueva1/InteriorCueva4.tscn"
+TargetSpawnPosition = Vector2(80, 590)
+Width = 30.0
+Height = 200.0
+
+[node name="Player" parent="." instance=ExtResource("8_player")]
+position = Vector2(1300, -40)
