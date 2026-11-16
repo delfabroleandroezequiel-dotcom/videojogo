@@ -1,6 +1,6 @@
 # Cinemáticas — guía de dirección
 
-Documento vivo. **Leerlo antes de armar o tocar cualquier cinemática** y sumarle lo que se aprenda en cada una. Última actualización: 2026-10-28.
+Documento vivo. **Leerlo antes de armar o tocar cualquier cinemática** y sumarle lo que se aprenda en cada una. Última actualización: 2026-11-13.
 
 ---
 
@@ -124,6 +124,18 @@ En 2D no hay lentes ni ángulos: los planos se arman con **zoom + punto de foco 
     - **Puesta:** abre desde negro en plano general. Arthur está junto al fuego, de espaldas a la puerta, y la espada está sobre la mesa. "Cierra la puerta." Caminan juntos a la mesa (`StepParallel`, el jugador con `StepMove`), quedan enfrentados (Arthur a la izquierda, Delfrad a la derecha, del lado de la puerta). Plano medio sobre la mesa: el tajo del cuchillo en la de madera, "¿Te quedaste parado?" y la confesión de Arthur ("yo también... la primera vez", 1.6 s de silencio). Inserto de la espada (zoom 1.6). Entrega: la espada desaparece de la mesa, `StepGiveItem` cambia la de madera por la de Arthur. Cierre: "Las caravanas salen al alba" → 1.5 s → "Esta vez, no te quedes mirando" (paga la línea de la mañana, `CINE_CASA_4`). Arthur se da vuelta hacia la ventana y funde a negro 1.8 s.
     - Unos 55 s. Claves `CIN_ESPADA_1..13`.
   - `CinematicaEntradaArana` en SpiderBossArena (2026-11-10): **la araña carmesí recibe a Delfrad**. Qué cambia: Delfrad entiende que cayó en la guarida de algo que no lo puede alcanzar, pero que lo tiene encerrado igual. La araña está **enterrada bajo el derrumbe** (`Pedrasboss`), no encadenada. Beats: cae y aterriza (1.4 s) → plano general, zoom 0.85 → voz apagada de Gransin detrás de las rocas, "¿Hay... alguien ahí?" (corte J, voz con paso bajos y eco) → Delfrad mira hacia las rocas → silencio → primer plano de la cara (1.3 s quieto; se probaron ojos dibujados por código encima y el autor los rechazó: "parecen Paint") → plano abierto, la araña se lanza y el derrumbe la frena (`DerrumbeForcejeo.Tug`) → nombre en pantalla ("La Tejedora", provisorio), música del jefe y empieza la pelea (`SpiderBossArena.Awaken`; hasta ahí está dormida y no ataca). Unos 11 s. Si ya se vio, `EntradaArana` hace una versión de 2 s sin quitar el control; si la araña ya está muerta, no corre.
+  - `EntradaArtemisa` (armada por código en `ArtemisaBoss`, 2026-11-13, versión 2 "re triste"): **Delfrad entiende que entró a la sala de alguien que lleva siglos esperando a alguien que no vuelve, y que nunca perdió.**
+    - **Umbral:** al cruzarlo no suena nada (se sacó el rastrillo el 2026-11-13: era el sonido de la vagoneta y tapaba la armadura; lo imponente es ella al levantarse), la luz de la arena baja a rojo frío en 2,5 s (`ArenaModulatePath`), empieza una lluvia lenta de pétalos escarlata y se enciende su halo, que es la única luz cálida de la sala. La cámara se queda 1,1 s en Delfrad: es su momento de "ya entré".
+    - **Plano general** (zoom 0.85, 1.6 s) con ella de rodillas bajo los pétalos. Delfrad camina despacio (70) hasta quedar a 300 px.
+    - **Primer plano** (zoom 1.7). Habla de rodillas, hacia el piso: a los muertos, no a él. Primera línea: "Esperé aquí... tanto tiempo. Mi armadura olvidó el calor... y mi sangre, su color." (1 s). Segunda: "Uno tras otro vinieron... uno tras otro cayeron. Y él... nunca volvió." (1.6 s de silencio).
+    - **Se levanta con la armadura:** un tintineo de cota de malla por cuadro (`Stone Chain Walk`). Al quedar de pie: golpe de placas (`Stone Chain Land`), temblor, polvo a los lados y pétalos. Después suena la lanza (`Sword Unsheath`), el sprite se enciende dorado y un destello de cuatro puntas brilla en el casco.
+    - **Plano medio:** "Escúchame bien. Soy Artemisa, la Hoja Carmesí... y ninguna batalla me ha visto caer." Después, nombre, música y pelea.
+    - **Duración:** unos 32 s en headless con tiempos de lectura. Con voz suele ser más corta. Si se siente larga, recortar primero la caminata.
+    - En la pelea, cada paso suena a armadura (`Stone Chain Run`, cada 0.3 s).
+    - **Cambio de fase:** "Deja que tu carne... florezca en carmesí."
+    - **Muerte:** "Tu fuerza... me recuerda a la suya." (1.4 s) "Perdóname... ya no puedo seguir esperándote." Al caer dejan de caer los pétalos y su halo se apaga en 2.5 s.
+    - **Las líneas** imitan la cadencia de Malenia (espera, cadáveres, nunca derrotada, florecer, el ser amado), pero no son traducciones.
+    - **Voces:** van en `assets/audio/Voces/en/CIN_ARTEMISA_*.mp3` y suenan solas por clave. Pendientes: ElevenLabs dio error el 2026-11-13.
 - **Pasos nuevos:** `StepAnimate.Backwards` (una caída al revés se lee como levantarse), `StepMeteor` (un meteoro inofensivo con tiempo propio) y `StepActorOffset` (corre el dibujo de un actor sin mover su cuerpo, para acostarlo en una cama o bajarlo de un salto; puede esconder la capa).
 - **`CinematicaApertura` en Casa1:** Delfrad arranca acostado en la cama (dibujo corrido 55, -46, sin capa) y se levanta después de la última línea de Arthur.
 

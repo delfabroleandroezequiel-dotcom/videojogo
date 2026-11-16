@@ -1,291 +1,331 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://ckgba0jwf886q"]
 
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/MurcielagoChico.tscn" id="bat"]
-[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="bootstrap"]
+[ext_resource type="PackedScene" uid="uid://524kpvop7d8i" path="res://scenes/world/Enemigos/MurcielagoChico.tscn" id="bat"]
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="bootstrap"]
 [ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="camera"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/VagonetaSuelta.tscn" id="cart"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Chest.tscn" id="chest"]
-[ext_resource type="PackedScene" path="res://scenes/world/Door.tscn" id="door"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/HangRope.tscn" id="hang"]
-[ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="ladder"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PlacaDePresion.tscn" id="plate"]
-[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/EspinasRetractiles.tscn" id="espr"]
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="player"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PozaAcido.tscn" id="pool"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Rope.tscn" id="rope"]
-[ext_resource type="PackedScene" path="res://scenes/world/SavePoint.tscn" id="savepoint"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ThornVine.tscn" id="thorn"]
-[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="transition"]
+[ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="transition"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Vine.tscn" id="vine"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MuroCargado.tscn" id="wallc"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ProceduralWater.tscn" id="water"]
 
-[sub_resource type="RectangleShape2D" id="Rect_1000x40"]
-size = Vector2(1000, 40)
+[sub_resource type="RectangleShape2D" id="Rect_20x2580"]
+size = Vector2(20, 2580)
 
-[sub_resource type="RectangleShape2D" id="Rect_1020x20"]
-size = Vector2(1020, 20)
+[sub_resource type="RectangleShape2D" id="Rect_880x20"]
+size = Vector2(880, 20)
+
+[sub_resource type="RectangleShape2D" id="Rect_60x20"]
+size = Vector2(60, 20)
+
+[sub_resource type="RectangleShape2D" id="Rect_1100x40"]
+size = Vector2(1100, 40)
+
+[sub_resource type="RectangleShape2D" id="Rect_400x40"]
+size = Vector2(400, 40)
+
+[sub_resource type="RectangleShape2D" id="Rect_350x40"]
+size = Vector2(350, 40)
+
+[sub_resource type="RectangleShape2D" id="Rect_100x40"]
+size = Vector2(100, 40)
+
+[sub_resource type="RectangleShape2D" id="Rect_420x40"]
+size = Vector2(420, 40)
 
 [sub_resource type="RectangleShape2D" id="Rect_200x14"]
 size = Vector2(200, 14)
 
-[sub_resource type="RectangleShape2D" id="Rect_20x2200"]
-size = Vector2(20, 2200)
-
-[sub_resource type="RectangleShape2D" id="Rect_250x40"]
-size = Vector2(250, 40)
-
-[sub_resource type="RectangleShape2D" id="Rect_300x40"]
-size = Vector2(300, 40)
-
-[node name="Raices08_Chimenea" type="Node2D"]
+[node name="Raices08_Chimenea" type="Node2D" unique_id=735495774]
 script = ExtResource("bootstrap")
 ScenePath = "res://scenes/world/Mapas/Raices/Raices08_Chimenea.tscn"
 ZoneName = "LAS RAÍCES"
 CameraProfile = ExtResource("camera")
 CameraLimitLeft = 0
-CameraLimitRight = 1000
-CameraLimitTop = -320
+CameraLimitRight = 1100
+CameraLimitTop = -700
 CameraLimitBottom = 1880
 
-[node name="Fondo" type="ColorRect" parent="."]
+[node name="Fondo" type="ColorRect" parent="." unique_id=993720251]
 z_index = -50
-offset_left = -600
-offset_top = -920
-offset_right = 1600
-offset_bottom = 2480
+offset_left = -600.0
+offset_top = -1300.0
+offset_right = 1700.0
+offset_bottom = 2480.0
 color = Color(0.05, 0.08, 0.05, 1)
 
-[node name="Colisiones" type="StaticBody2D" parent="."]
+[node name="Colisiones" type="StaticBody2D" parent="." unique_id=179617621]
 
-[node name="PlataformasOneWay" type="StaticBody2D" parent="."]
+[node name="ParedOeste" type="CollisionShape2D" parent="Colisiones" unique_id=875751165]
+position = Vector2(-10, 590)
+shape = SubResource("Rect_20x2580")
+
+[node name="ParedEste" type="CollisionShape2D" parent="Colisiones" unique_id=1192541107]
+position = Vector2(1110, 590)
+shape = SubResource("Rect_20x2580")
+
+[node name="TechoOeste" type="CollisionShape2D" parent="Colisiones" unique_id=400116456]
+position = Vector2(440, -710)
+shape = SubResource("Rect_880x20")
+
+[node name="TechoEste" type="CollisionShape2D" parent="Colisiones" unique_id=1225834277]
+position = Vector2(1090, -710)
+shape = SubResource("Rect_60x20")
+
+[node name="Fondo" type="CollisionShape2D" parent="Colisiones" unique_id=1880501654]
+position = Vector2(550, 1860)
+shape = SubResource("Rect_1100x40")
+
+[node name="RepisaEntrada" type="CollisionShape2D" parent="Colisiones" unique_id=412660409]
+position = Vector2(900, 1820)
+shape = SubResource("Rect_400x40")
+
+[node name="Descanso" type="CollisionShape2D" parent="Colisiones" unique_id=871528326]
+position = Vector2(625, 1370)
+shape = SubResource("Rect_350x40")
+
+[node name="DescansoRampa" type="CollisionPolygon2D" parent="Colisiones" unique_id=1624524731]
+polygon = PackedVector2Array(800, 1350, 1000, 1250, 1000, 1290, 800, 1390)
+
+[node name="RepisaRampa" type="CollisionShape2D" parent="Colisiones" unique_id=1398406518]
+position = Vector2(1050, 1270)
+shape = SubResource("Rect_100x40")
+
+[node name="RepisaSalida" type="CollisionShape2D" parent="Colisiones" unique_id=980050852]
+position = Vector2(210, -40)
+shape = SubResource("Rect_420x40")
+
+[node name="PlataformasOneWay" type="StaticBody2D" parent="." unique_id=336768322]
 collision_layer = 49
 
-[node name="Visible" type="Node2D" parent="."]
-z_index = -5
-
-[node name="Trampas" type="Node2D" parent="."]
-
-[node name="Enemigos" type="Node2D" parent="."]
-
-[node name="Objetos" type="Node2D" parent="."]
-
-[node name="Marcadores" type="Node2D" parent="."]
-
-[node name="Carteles" type="Node2D" parent="."]
-z_index = 10
-
-[node name="ParedOeste" type="CollisionShape2D" parent="Colisiones"]
-position = Vector2(-10, 780)
-shape = SubResource("Rect_20x2200")
-
-[node name="ParedEste" type="CollisionShape2D" parent="Colisiones"]
-position = Vector2(1010, 780)
-shape = SubResource("Rect_20x2200")
-
-[node name="Techo" type="CollisionShape2D" parent="Colisiones"]
-position = Vector2(510, -330)
-shape = SubResource("Rect_1020x20")
-
-[node name="Fondo" type="CollisionShape2D" parent="Colisiones"]
-position = Vector2(500, 1860)
-shape = SubResource("Rect_1000x40")
-
-[node name="RepisaEntrada" type="CollisionShape2D" parent="Colisiones"]
-position = Vector2(850, 1820)
-shape = SubResource("Rect_300x40")
-
-[node name="RepisaSalida" type="CollisionShape2D" parent="Colisiones"]
-position = Vector2(125, -40)
-shape = SubResource("Rect_250x40")
-
-[node name="Repisa1" type="CollisionShape2D" parent="PlataformasOneWay"]
+[node name="Repisa1" type="CollisionShape2D" parent="PlataformasOneWay" unique_id=1890412643]
 position = Vector2(550, 1657)
 shape = SubResource("Rect_200x14")
 one_way_collision = true
 
-[node name="Repisa2" type="CollisionShape2D" parent="PlataformasOneWay"]
-position = Vector2(250, 1497)
+[node name="Repisa2" type="CollisionShape2D" parent="PlataformasOneWay" unique_id=58264373]
+position = Vector2(250, 1507)
 shape = SubResource("Rect_200x14")
 one_way_collision = true
 
-[node name="Repisa3" type="CollisionShape2D" parent="PlataformasOneWay"]
-position = Vector2(550, 1337)
+[node name="Repisa3" type="CollisionShape2D" parent="PlataformasOneWay" unique_id=1610187036]
+position = Vector2(650, 647)
 shape = SubResource("Rect_200x14")
 one_way_collision = true
 
-[node name="Repisa4" type="CollisionShape2D" parent="PlataformasOneWay"]
-position = Vector2(650, 907)
+[node name="Repisa4" type="CollisionShape2D" parent="PlataformasOneWay" unique_id=388070394]
+position = Vector2(350, 507)
 shape = SubResource("Rect_200x14")
 one_way_collision = true
 
-[node name="Repisa5" type="CollisionShape2D" parent="PlataformasOneWay"]
-position = Vector2(350, 747)
+[node name="Repisa5" type="CollisionShape2D" parent="PlataformasOneWay" unique_id=275171914]
+position = Vector2(650, 367)
 shape = SubResource("Rect_200x14")
 one_way_collision = true
 
-[node name="Repisa6" type="CollisionShape2D" parent="PlataformasOneWay"]
-position = Vector2(650, 587)
+[node name="Repisa6" type="CollisionShape2D" parent="PlataformasOneWay" unique_id=1430522383]
+position = Vector2(350, 227)
 shape = SubResource("Rect_200x14")
 one_way_collision = true
 
-[node name="Repisa7" type="CollisionShape2D" parent="PlataformasOneWay"]
-position = Vector2(350, 427)
+[node name="Repisa7" type="CollisionShape2D" parent="PlataformasOneWay" unique_id=805141266]
+position = Vector2(650, 87)
 shape = SubResource("Rect_200x14")
 one_way_collision = true
 
-[node name="Repisa8" type="CollisionShape2D" parent="PlataformasOneWay"]
-position = Vector2(650, 267)
-shape = SubResource("Rect_200x14")
-one_way_collision = true
+[node name="Visible" type="Node2D" parent="." unique_id=675374367]
+z_index = -5
 
-[node name="Repisa9" type="CollisionShape2D" parent="PlataformasOneWay"]
-position = Vector2(350, 107)
-shape = SubResource("Rect_200x14")
-one_way_collision = true
-
-[node name="ParedOeste" type="ColorRect" parent="Visible"]
-offset_left = -20
-offset_top = -320
-offset_right = 0
-offset_bottom = 1880
+[node name="ParedOeste" type="ColorRect" parent="Visible" unique_id=373015454]
+offset_left = -20.0
+offset_top = -700.0
+offset_bottom = 1880.0
 color = Color(0.3, 0.22, 0.14, 1)
 
-[node name="ParedEste" type="ColorRect" parent="Visible"]
-offset_left = 1000
-offset_top = -320
-offset_right = 1020
-offset_bottom = 1880
+[node name="ParedEste" type="ColorRect" parent="Visible" unique_id=634529568]
+offset_left = 1100.0
+offset_top = -700.0
+offset_right = 1120.0
+offset_bottom = 1880.0
 color = Color(0.3, 0.22, 0.14, 1)
 
-[node name="Techo" type="ColorRect" parent="Visible"]
-offset_left = 0
-offset_top = -340
-offset_right = 1020
-offset_bottom = -320
+[node name="TechoOeste" type="ColorRect" parent="Visible" unique_id=1089756154]
+offset_top = -720.0
+offset_right = 880.0
+offset_bottom = -700.0
 color = Color(0.3, 0.22, 0.14, 1)
 
-[node name="Fondo" type="ColorRect" parent="Visible"]
-offset_left = 0
-offset_top = 1840
-offset_right = 1000
-offset_bottom = 1880
+[node name="TechoEste" type="ColorRect" parent="Visible" unique_id=1606980023]
+offset_left = 1060.0
+offset_top = -720.0
+offset_right = 1120.0
+offset_bottom = -700.0
 color = Color(0.3, 0.22, 0.14, 1)
 
-[node name="RepisaEntrada" type="ColorRect" parent="Visible"]
-offset_left = 700
-offset_top = 1800
-offset_right = 1000
-offset_bottom = 1840
+[node name="Fondo" type="ColorRect" parent="Visible" unique_id=92502516]
+offset_top = 1840.0
+offset_right = 1100.0
+offset_bottom = 1880.0
 color = Color(0.3, 0.22, 0.14, 1)
 
-[node name="Repisa1" type="ColorRect" parent="Visible"]
-offset_left = 450
-offset_top = 1650
-offset_right = 650
-offset_bottom = 1664
-color = Color(0.45, 0.34, 0.18, 1)
-
-[node name="Repisa2" type="ColorRect" parent="Visible"]
-offset_left = 150
-offset_top = 1490
-offset_right = 350
-offset_bottom = 1504
-color = Color(0.45, 0.34, 0.18, 1)
-
-[node name="Repisa3" type="ColorRect" parent="Visible"]
-offset_left = 450
-offset_top = 1330
-offset_right = 650
-offset_bottom = 1344
-color = Color(0.45, 0.34, 0.18, 1)
-
-[node name="Repisa4" type="ColorRect" parent="Visible"]
-offset_left = 550
-offset_top = 900
-offset_right = 750
-offset_bottom = 914
-color = Color(0.45, 0.34, 0.18, 1)
-
-[node name="Repisa5" type="ColorRect" parent="Visible"]
-offset_left = 250
-offset_top = 740
-offset_right = 450
-offset_bottom = 754
-color = Color(0.45, 0.34, 0.18, 1)
-
-[node name="Repisa6" type="ColorRect" parent="Visible"]
-offset_left = 550
-offset_top = 580
-offset_right = 750
-offset_bottom = 594
-color = Color(0.45, 0.34, 0.18, 1)
-
-[node name="Repisa7" type="ColorRect" parent="Visible"]
-offset_left = 250
-offset_top = 420
-offset_right = 450
-offset_bottom = 434
-color = Color(0.45, 0.34, 0.18, 1)
-
-[node name="Repisa8" type="ColorRect" parent="Visible"]
-offset_left = 550
-offset_top = 260
-offset_right = 750
-offset_bottom = 274
-color = Color(0.45, 0.34, 0.18, 1)
-
-[node name="Repisa9" type="ColorRect" parent="Visible"]
-offset_left = 250
-offset_top = 100
-offset_right = 450
-offset_bottom = 114
-color = Color(0.45, 0.34, 0.18, 1)
-
-[node name="RepisaSalida" type="ColorRect" parent="Visible"]
-offset_left = 0
-offset_top = -60
-offset_right = 250
-offset_bottom = -20
+[node name="RepisaEntrada" type="ColorRect" parent="Visible" unique_id=1671009467]
+offset_left = 700.0
+offset_top = 1800.0
+offset_right = 1100.0
+offset_bottom = 1840.0
 color = Color(0.3, 0.22, 0.14, 1)
 
-[node name="Cartel1" type="Label" parent="Carteles"]
-offset_left = 200
-offset_top = -250
-offset_right = 800
-offset_bottom = -226
-text = "CHIMENEA · subir con doble salto y liana (espinas que se retraen: pendiente)"
-horizontal_alignment = 1
+[node name="Repisa1" type="ColorRect" parent="Visible" unique_id=2099587787]
+offset_left = 450.0
+offset_top = 1650.0
+offset_right = 650.0
+offset_bottom = 1664.0
+color = Color(0.45, 0.34, 0.18, 1)
 
-[node name="Barro1" parent="Trampas" instance=ExtResource("pool")]
+[node name="Repisa2" type="ColorRect" parent="Visible" unique_id=1259364718]
+offset_left = 150.0
+offset_top = 1500.0
+offset_right = 350.0
+offset_bottom = 1514.0
+color = Color(0.45, 0.34, 0.18, 1)
+
+[node name="Descanso" type="ColorRect" parent="Visible" unique_id=1117445968]
+offset_left = 450.0
+offset_top = 1350.0
+offset_right = 800.0
+offset_bottom = 1390.0
+color = Color(0.3, 0.22, 0.14, 1)
+
+[node name="DescansoRampa" type="Polygon2D" parent="Visible" unique_id=1884658034]
+color = Color(0.3, 0.22, 0.14, 1)
+polygon = PackedVector2Array(800, 1350, 1000, 1250, 1000, 1290, 800, 1390)
+
+[node name="RepisaRampa" type="ColorRect" parent="Visible" unique_id=1555365489]
+offset_left = 1000.0
+offset_top = 1250.0
+offset_right = 1100.0
+offset_bottom = 1290.0
+color = Color(0.3, 0.22, 0.14, 1)
+
+[node name="Repisa3" type="ColorRect" parent="Visible" unique_id=1838232011]
+offset_left = 550.0
+offset_top = 640.0
+offset_right = 750.0
+offset_bottom = 654.0
+color = Color(0.45, 0.34, 0.18, 1)
+
+[node name="Repisa4" type="ColorRect" parent="Visible" unique_id=1085206425]
+offset_left = 250.0
+offset_top = 500.0
+offset_right = 450.0
+offset_bottom = 514.0
+color = Color(0.45, 0.34, 0.18, 1)
+
+[node name="Repisa5" type="ColorRect" parent="Visible" unique_id=380263695]
+offset_left = 550.0
+offset_top = 360.0
+offset_right = 750.0
+offset_bottom = 374.0
+color = Color(0.45, 0.34, 0.18, 1)
+
+[node name="Repisa6" type="ColorRect" parent="Visible" unique_id=1957112815]
+offset_left = 250.0
+offset_top = 220.0
+offset_right = 450.0
+offset_bottom = 234.0
+color = Color(0.45, 0.34, 0.18, 1)
+
+[node name="Repisa7" type="ColorRect" parent="Visible" unique_id=1722916924]
+offset_left = 550.0
+offset_top = 80.0
+offset_right = 750.0
+offset_bottom = 94.0
+color = Color(0.45, 0.34, 0.18, 1)
+
+[node name="RepisaSalida" type="ColorRect" parent="Visible" unique_id=1929108195]
+offset_top = -60.0
+offset_right = 420.0
+offset_bottom = -20.0
+color = Color(0.3, 0.22, 0.14, 1)
+
+[node name="RaizTrepable" type="ColorRect" parent="Visible" unique_id=711143237]
+offset_left = 900.0
+offset_top = -700.0
+offset_right = 1060.0
+offset_bottom = 80.0
+color = Color(0.25, 0.45, 0.2, 0.85)
+
+[node name="Trampas" type="Node2D" parent="." unique_id=992536014]
+
+[node name="Barro1" parent="Trampas" unique_id=72595853 instance=ExtResource("pool")]
 position = Vector2(0, 1780)
-Width = 700
-Depth = 60
+Width = 700.0
 AcidColor = Color(0.42, 0.3, 0.12, 1)
 
-[node name="Liana1" parent="Objetos" instance=ExtResource("vine")]
-position = Vector2(800, 900)
+[node name="EspinasRetractiles1" parent="Trampas" unique_id=14254876 instance=ExtResource("espr")]
+position = Vector2(0, 1415)
+Length = 380
+
+[node name="EspinasRetractiles2" parent="Trampas" unique_id=2093116237 instance=ExtResource("espr")]
+position = Vector2(1100, 980)
+rotation = 3.1416
+Length = 300
+Phase = 1.2
+
+[node name="EspinasRetractiles3" parent="Trampas" unique_id=756651401 instance=ExtResource("espr")]
+position = Vector2(0, 300)
 Length = 400
+Phase = 2.4
+
+[node name="Enemigos" type="Node2D" parent="." unique_id=1332819521]
+
+[node name="Murcielago1" parent="Enemigos" unique_id=2039878613 instance=ExtResource("bat")]
+position = Vector2(600, 1000)
+
+[node name="Objetos" type="Node2D" parent="." unique_id=951378326]
+
+[node name="Liana1" parent="Objetos" unique_id=1669517616 instance=ExtResource("vine")]
+position = Vector2(900, 700)
+Length = 500.0
 Sway = true
 
-[node name="Espinas1" parent="Trampas" instance=ExtResource("thorn")]
-position = Vector2(970, 200)
-rotation = 1.5708
-Width = 1400
-VineScale = 0.3
+[node name="Marcadores" type="Node2D" parent="." unique_id=135988255]
 
-[node name="HaciaRaices07" parent="." instance=ExtResource("transition")]
-position = Vector2(985, 1747)
+[node name="ConexionPendiente_Superficie" type="Marker2D" parent="Marcadores" unique_id=637668190]
+position = Vector2(980, -680)
+
+[node name="Carteles" type="Node2D" parent="." unique_id=2016040859]
+z_index = 10
+
+[node name="Cartel1" type="Label" parent="Carteles" unique_id=643318196]
+offset_left = 250.0
+offset_top = -400.0
+offset_right = 850.0
+offset_bottom = -376.0
+text = "CHIMENEA · subir · espinas que salen de las paredes"
+horizontal_alignment = 1
+
+[node name="Cartel2" type="Label" parent="Carteles" unique_id=2015788385]
+offset_left = 680.0
+offset_top = -300.0
+offset_right = 1280.0
+offset_bottom = -276.0
+text = "raíz trepable hacia la superficie (Acto 2)"
+horizontal_alignment = 1
+
+[node name="HaciaRaices07" parent="." unique_id=1822385991 instance=ExtResource("transition")]
+position = Vector2(1085, 1747)
 TargetScenePath = "res://scenes/world/Mapas/Raices/Raices07_EspinasVivas.tscn"
 TargetSpawnPosition = Vector2(160, -40)
-Width = 30
-Height = 200
+Width = 30.0
+Height = 200.0
 
-[node name="HaciaRaices09" parent="." instance=ExtResource("transition")]
+[node name="HaciaRaices09" parent="." unique_id=1874631668 instance=ExtResource("transition")]
 position = Vector2(15, -113)
 TargetScenePath = "res://scenes/world/Mapas/Raices/Raices09_ArbolHueco.tscn"
-TargetSpawnPosition = Vector2(1440, -40)
-Width = 30
-Height = 200
+TargetSpawnPosition = Vector2(1640, -440)
+Width = 30.0
+Height = 200.0
 
-[node name="Player" parent="." instance=ExtResource("player")]
-position = Vector2(840, 1760)
+[node name="Player" parent="." unique_id=483516545 instance=ExtResource("player")]
+position = Vector2(534, 1306)

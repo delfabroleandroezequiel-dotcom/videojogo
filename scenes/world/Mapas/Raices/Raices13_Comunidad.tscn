@@ -1,32 +1,28 @@
 [gd_scene format=3]
 
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/MurcielagoChico.tscn" id="bat"]
 [ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="bootstrap"]
 [ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="camera"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/VagonetaSuelta.tscn" id="cart"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Chest.tscn" id="chest"]
-[ext_resource type="PackedScene" path="res://scenes/world/Door.tscn" id="door"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/HangRope.tscn" id="hang"]
-[ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="ladder"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PlacaDePresion.tscn" id="plate"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Lobos/LoboGris.tscn" id="lobogris"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Lobos/LoboMusgo.tscn" id="lobomusgo"]
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="player"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PozaAcido.tscn" id="pool"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Rope.tscn" id="rope"]
 [ext_resource type="PackedScene" path="res://scenes/world/SavePoint.tscn" id="savepoint"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ThornVine.tscn" id="thorn"]
 [ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="transition"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Vine.tscn" id="vine"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MuroCargado.tscn" id="wallc"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ProceduralWater.tscn" id="water"]
 
-[sub_resource type="RectangleShape2D" id="Rect_20x740"]
-size = Vector2(20, 740)
+[sub_resource type="RectangleShape2D" id="Rect_20x1040"]
+size = Vector2(20, 1040)
 
 [sub_resource type="RectangleShape2D" id="Rect_2400x40"]
 size = Vector2(2400, 40)
 
 [sub_resource type="RectangleShape2D" id="Rect_2420x20"]
 size = Vector2(2420, 20)
+
+[sub_resource type="RectangleShape2D" id="Rect_250x14"]
+size = Vector2(250, 14)
+
+[sub_resource type="RectangleShape2D" id="Rect_600x40"]
+size = Vector2(600, 40)
 
 [node name="Raices13_Comunidad" type="Node2D"]
 script = ExtResource("bootstrap")
@@ -35,13 +31,13 @@ ZoneName = "LAS RAÍCES"
 CameraProfile = ExtResource("camera")
 CameraLimitLeft = 0
 CameraLimitRight = 2400
-CameraLimitTop = -700
+CameraLimitTop = -1000
 CameraLimitBottom = 120
 
 [node name="Fondo" type="ColorRect" parent="."]
 z_index = -50
 offset_left = -600
-offset_top = -1300
+offset_top = -1600
 offset_right = 3000
 offset_bottom = 720
 color = Color(0.05, 0.08, 0.05, 1)
@@ -66,15 +62,15 @@ z_index = -5
 z_index = 10
 
 [node name="ParedOeste" type="CollisionShape2D" parent="Colisiones"]
-position = Vector2(-10, -330)
-shape = SubResource("Rect_20x740")
+position = Vector2(-10, -480)
+shape = SubResource("Rect_20x1040")
 
 [node name="ParedEste" type="CollisionShape2D" parent="Colisiones"]
-position = Vector2(2410, -330)
-shape = SubResource("Rect_20x740")
+position = Vector2(2410, -480)
+shape = SubResource("Rect_20x1040")
 
 [node name="Techo" type="CollisionShape2D" parent="Colisiones"]
-position = Vector2(1210, -710)
+position = Vector2(1210, -1010)
 shape = SubResource("Rect_2420x20")
 
 [node name="Suelo" type="CollisionShape2D" parent="Colisiones"]
@@ -84,25 +80,39 @@ shape = SubResource("Rect_2400x40")
 [node name="Loma" type="CollisionPolygon2D" parent="Colisiones"]
 polygon = PackedVector2Array(800,0, 1000,-60, 1400,-60, 1600,0)
 
+[node name="Pena" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(1200, -500)
+shape = SubResource("Rect_600x40")
+
+[node name="Repisa1" type="CollisionShape2D" parent="PlataformasOneWay"]
+position = Vector2(1825, -143)
+shape = SubResource("Rect_250x14")
+one_way_collision = true
+
+[node name="Repisa2" type="CollisionShape2D" parent="PlataformasOneWay"]
+position = Vector2(2075, -283)
+shape = SubResource("Rect_250x14")
+one_way_collision = true
+
 [node name="ParedOeste" type="ColorRect" parent="Visible"]
 offset_left = -20
-offset_top = -700
+offset_top = -1000
 offset_right = 0
 offset_bottom = 40
 color = Color(0.3, 0.22, 0.14, 1)
 
 [node name="ParedEste" type="ColorRect" parent="Visible"]
 offset_left = 2400
-offset_top = -700
+offset_top = -1000
 offset_right = 2420
 offset_bottom = 40
 color = Color(0.3, 0.22, 0.14, 1)
 
 [node name="Techo" type="ColorRect" parent="Visible"]
 offset_left = 0
-offset_top = -720
+offset_top = -1020
 offset_right = 2420
-offset_bottom = -700
+offset_bottom = -1000
 color = Color(0.3, 0.22, 0.14, 1)
 
 [node name="Suelo" type="ColorRect" parent="Visible"]
@@ -116,12 +126,33 @@ color = Color(0.3, 0.22, 0.14, 1)
 color = Color(0.3, 0.22, 0.14, 1)
 polygon = PackedVector2Array(800,0, 1000,-60, 1400,-60, 1600,0)
 
+[node name="Repisa1" type="ColorRect" parent="Visible"]
+offset_left = 1700
+offset_top = -150
+offset_right = 1950
+offset_bottom = -136
+color = Color(0.45, 0.34, 0.18, 1)
+
+[node name="Repisa2" type="ColorRect" parent="Visible"]
+offset_left = 1950
+offset_top = -290
+offset_right = 2200
+offset_bottom = -276
+color = Color(0.45, 0.34, 0.18, 1)
+
+[node name="Pena" type="ColorRect" parent="Visible"]
+offset_left = 900
+offset_top = -520
+offset_right = 1500
+offset_bottom = -480
+color = Color(0.3, 0.22, 0.14, 1)
+
 [node name="Cartel1" type="Label" parent="Carteles"]
 offset_left = 900
-offset_top = -560
+offset_top = -900
 offset_right = 1500
-offset_bottom = -536
-text = "COMUNIDAD DE LOS LOBOS · santuario; lobos echados y la loba vieja (marcadores)"
+offset_bottom = -876
+text = "COMUNIDAD DE LOS LOBOS · santuario; madrigueras y la peña de la loba vieja"
 horizontal_alignment = 1
 
 [node name="Cartel2" type="Label" parent="Carteles"]
@@ -135,21 +166,28 @@ horizontal_alignment = 1
 [node name="Hoguera" parent="." instance=ExtResource("savepoint")]
 position = Vector2(1200, -60)
 
-[node name="LobaVieja" type="Marker2D" parent="Marcadores"]
-position = Vector2(1200, -100)
-
-[node name="Lobo1" type="Marker2D" parent="Marcadores"]
-position = Vector2(900, -40)
-
-[node name="Lobo2" type="Marker2D" parent="Marcadores"]
-position = Vector2(1500, -40)
-
-[node name="Lobo3" type="Marker2D" parent="Marcadores"]
-position = Vector2(1800, -40)
-
 [node name="Liana1" parent="Objetos" instance=ExtResource("vine")]
-position = Vector2(300, -700)
-Length = 640
+position = Vector2(1550, -560)
+Length = 500
+
+[node name="LobaVieja" type="Marker2D" parent="Marcadores"]
+position = Vector2(1200, -560)
+
+[node name="LoboGris1" parent="Enemigos" instance=ExtResource("lobogris")]
+position = Vector2(900, -30)
+Neutral = true
+
+[node name="LoboMusgo1" parent="Enemigos" instance=ExtResource("lobomusgo")]
+position = Vector2(1500, -30)
+Neutral = true
+
+[node name="LoboGris2" parent="Enemigos" instance=ExtResource("lobogris")]
+position = Vector2(1820, -180)
+Neutral = true
+
+[node name="Liana2" parent="Objetos" instance=ExtResource("vine")]
+position = Vector2(300, -1000)
+Length = 940
 
 [node name="HaciaRaices12" parent="." instance=ExtResource("transition")]
 position = Vector2(2385, -53)

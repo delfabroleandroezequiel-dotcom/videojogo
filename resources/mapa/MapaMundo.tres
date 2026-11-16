@@ -522,7 +522,7 @@ PuertaMundo = Vector2(10325, -907)
 script = ExtResource("1_qo618")
 Escena = "res://scenes/world/Mapas/Raices/Raices02_Enredo.tscn"
 Region = "Raices"
-Rect = Rect2(979.08984, -2967, 2600, 1060)
+Rect = Rect2(979.08984, -3327, 2600, 1420)
 Origen = Vector2(979.08984, -2347)
 Puertas = PackedVector2Array(3564.0898, -2400)
 
@@ -530,82 +530,82 @@ Puertas = PackedVector2Array(3564.0898, -2400)
 script = ExtResource("1_qo618")
 Escena = "res://scenes/world/Mapas/Raices/Raices03_Pozo.tscn"
 Region = "Raices"
-Rect = Rect2(-220.91016, -2680, 1200, 2360)
-Origen = Vector2(-220.91016, -2360)
+Rect = Rect2(-420.91016, -2680, 1400, 2420)
+Origen = Vector2(-420.91016, -2360)
 
 [sub_resource type="Resource" id="Resource_t2sra"]
 script = ExtResource("1_qo618")
 Escena = "res://scenes/world/Mapas/Raices/Raices04_Cuna.tscn"
 Region = "Raices"
-Rect = Rect2(-1620.9102, -923, 1400, 620)
-Origen = Vector2(-1620.9102, -423)
-Hogueras = PackedVector2Array(-1220.9102, -423)
+Rect = Rect2(-2020.9102, -1123, 1600, 840)
+Origen = Vector2(-2020.9102, -423)
+Hogueras = PackedVector2Array(-1670.9102, -423)
 
 [sub_resource type="Resource" id="Resource_a8c2x"]
 script = ExtResource("1_qo618")
 Escena = "res://scenes/world/Mapas/Raices/Raices05_Pantano.tscn"
 Region = "Raices"
-Rect = Rect2(-4420.91, -956, 2800, 740)
-Origen = Vector2(-4420.91, -436)
+Rect = Rect2(-4820.91, -1436, 2800, 1220)
+Origen = Vector2(-4820.91, -436)
 
 [sub_resource type="Resource" id="Resource_7225a"]
 script = ExtResource("1_qo618")
 Escena = "res://scenes/world/Mapas/Raices/Raices06_Columpios.tscn"
 Region = "Raices"
-Rect = Rect2(-7020.91, -1209, 2600, 1200)
-Origen = Vector2(-7020.91, -449)
+Rect = Rect2(-7420.91, -1549, 2600, 1540)
+Origen = Vector2(-7420.91, -449)
 
 [sub_resource type="Resource" id="Resource_smtcv"]
 script = ExtResource("1_qo618")
 Escena = "res://scenes/world/Mapas/Raices/Raices07_EspinasVivas.tscn"
 Region = "Raices"
-Rect = Rect2(-9620.91, -1242, 2600, 1060)
-Origen = Vector2(-9620.91, -622)
+Rect = Rect2(-10020.91, -1102, 2600, 1080)
+Origen = Vector2(-10020.91, -462)
 
 [sub_resource type="Resource" id="Resource_w7c1t"]
 script = ExtResource("1_qo618")
 Escena = "res://scenes/world/Mapas/Raices/Raices08_Chimenea.tscn"
 Region = "Raices"
-Rect = Rect2(-10620.91, -2755, 1000, 2200)
-Origen = Vector2(-10620.91, -2435)
+Rect = Rect2(-11120.91, -2975, 1100, 2580)
+Origen = Vector2(-11120.91, -2275)
 
 [sub_resource type="Resource" id="Resource_23j1u"]
 script = ExtResource("1_qo618")
 Escena = "res://scenes/world/Mapas/Raices/Raices09_ArbolHueco.tscn"
 Region = "Raices"
-Rect = Rect2(-12220.91, -3368, 1600, 960)
-Origen = Vector2(-12220.91, -2508)
+Rect = Rect2(-12920.91, -3048, 1800, 1200)
+Origen = Vector2(-12920.91, -1948)
 
 [sub_resource type="Resource" id="Resource_jijur"]
 script = ExtResource("1_qo618")
 Escena = "res://scenes/world/Mapas/Raices/Raices10_Rastro.tscn"
 Region = "Raices"
-Rect = Rect2(-14620.91, -3421, 2400, 800)
-Origen = Vector2(-14620.91, -2921)
-Hogueras = PackedVector2Array(-14020.91, -2771)
+Rect = Rect2(-15320.91, -2941, 2400, 1220)
+Origen = Vector2(-15320.91, -2041)
+Hogueras = PackedVector2Array(-13670.91, -2491)
 
 [sub_resource type="Resource" id="Resource_x22r5"]
 script = ExtResource("1_qo618")
 Escena = "res://scenes/world/Mapas/Raices/Raices11_Antesala.tscn"
 Region = "Raices"
-Rect = Rect2(-16420.91, -3384, 1800, 720)
-Origen = Vector2(-16420.91, -2784)
+Rect = Rect2(-17120.91, -2854, 1800, 1160)
+Origen = Vector2(-17120.91, -2054)
 
 [sub_resource type="Resource" id="Resource_y7fqu"]
 script = ExtResource("1_qo618")
 Escena = "res://scenes/world/Mapas/Raices/Raices12_ArenaLoboFuego.tscn"
 Region = "Raices"
-Rect = Rect2(-18020.91, -3417, 1600, 740)
-Origen = Vector2(-18020.91, -2797)
+Rect = Rect2(-18920.91, -2867, 1800, 920)
+Origen = Vector2(-18920.91, -2067)
 
 [sub_resource type="Resource" id="Resource_gy4hb"]
 script = ExtResource("1_qo618")
 Escena = "res://scenes/world/Mapas/Raices/Raices13_Comunidad.tscn"
 Region = "Raices"
-Rect = Rect2(-20420.91, -3510, 2400, 820)
-Origen = Vector2(-20420.91, -2810)
-Hogueras = PackedVector2Array(-19220.91, -2870)
-Puertas = PackedVector2Array(-20120.91, -2870)
+Rect = Rect2(-21320.91, -3080, 2400, 1120)
+Origen = Vector2(-21320.91, -2080)
+Hogueras = PackedVector2Array(-20120.91, -2140)
+Puertas = PackedVector2Array(-21020.91, -2140)
 
 [resource]
 script = ExtResource("2_1dk0n")

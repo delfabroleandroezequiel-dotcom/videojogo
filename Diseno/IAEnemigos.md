@@ -1,6 +1,6 @@
 # IA de enemigos — guía de referencia
 
-Documento vivo con todo lo que hace falta para diseñar o tocar la IA de un enemigo. Última actualización: 2026-11-11.
+Documento vivo con todo lo que hace falta para diseñar o tocar la IA de un enemigo. Última actualización: 2026-11-13.
 
 ---
 
@@ -95,6 +95,17 @@ Documento vivo con todo lo que hace falta para diseñar o tocar la IA de un enem
 - **Arte:** cuadros de PixelLab de 112x64 mirando a la derecha, en `assets/external/Chars/PixelLab/Lobos/<Lobo>/<anim>/`. Escala 1.2. El tamaño del cuerpo, la posición del sprite (pies en el borde de la colisión) y la boca se midieron con el bbox de alfa de idle y de bite (receta en §5); la hitbox de la mordida entra en `BiteHitFrame`, el cuadro donde la boca llega más lejos.
 - **Ojo:** la animación `burrow` termina en cuadros vacíos y `smoke` tiene 3 cuadros vacíos en el medio: son el momento escondido.
 - **Prueba:** un script headless por lobo (jugador real con `GodMode`, golpes contados con `HitDealt` de la hitbox del lobo porque con GodMode no salta `HitTaken`) verifica que se mueva, use su movimiento propio, pegue y muera; el Alfa se prueba con un Gris al lado. También un render real de los diez parados en el piso junto al protagonista.
+
+### Artemisa (`ArtemisaBoss.cs`) — jefa con cerebro por puntaje y memoria
+- **`Decide()` por cuadro libre:** puntúa cada ataque disponible (estocada, danza, escudo, ráfaga, cortes) con la situación: distancia, jugador en el aire, `IsParryRecovering` (parry gastado = abertura), `Whiff.JustWhiffed`, `Dash.SinceDashEnded` (salida del esquive), frasco (`IsHealing` → estocada inmediata), golpes recibidos hace poco. Penaliza repetir el último (−1.2) y el anteúltimo (−0.5) y suma ruido (0-0.8).
+- **Memoria del jugador:** `_parryHabit` sube cuando ve un parry abierto durante su aviso; `_evadeHabit` cuando él rueda o dashea contra sus golpes. Ambos se olvidan despacio (−0.03/s). El que parrea come más golpes de escudo (imparable) y cortes largos; el que rueda, más ráfagas con la 4.ª demorada.
+- **`Tell()`:** destello del cuerpo + estrella en la lanza; después **sostiene** mientras el parry está abierto o él está esquivando (hasta `maxDelay`) y suelta apenas se gasta. Así nunca tira dentro de los i-frames.
+- **Espaciado:** con el próximo ataque cargando espera a ~160 px, fuera del alcance de su espada; si él se queda lejos (`_farTimer`), sube el puntaje de la estocada.
+- **Guardia como reacción:** mientras el jugador está en un golpe (`IsAttacking`) y ella está libre, tira una vez por golpe para levantar el escudo (más probable con `_attackHabit`, que sube con cada golpe que le tira cerca). El bloqueo es `Stats.IncomingHitInterceptor` (solo de frente). Cada guardia decide al subir si va por el parry (`_guardGoesForParry`); si no, solo bloquea. **Ojo:** `WhiffWatcher.PlayerStartedSwing` dura un cuadro; si el enemigo está ocupado ese cuadro se lo pierde, así que para reaccionar hay que leer `IsAttacking` con una marca por golpe.
+- **Agarre:** `Player.Atrapado` + `Snare` lo inmovilizan; ella mueve `GlobalPosition` del jugador cada cuadro (y `Velocity = 0`). El daño sostenido saltea parry e i-frames con `TakeDamage(..., ignoreInvulnerability: true, armInvulnerability: false)` y el interceptor en null; siempre liberar en un `finally`.
+- **`DebugAI`** (inspector) imprime cada decisión con sus hábitos, y cada BLOCK/PARRY.
+- **Trampas de los tests:** teletransportar al jugador a la Y del jefe lo deja flotando y `MaxAirborneTime` lo mata a los ~17 s; mover solo la X. Seguir al jefe a distancia fija puede dejarlo del otro lado de una pared.
+- **Prueba:** `test_artemisa_ia.gd` (jugador con GodMode teletransportado cerca/lejos/encima cada 6 s, cuenta las animaciones que arranca y los `HitDealt`); la fase 2 se fuerza con `TakeDamage(480, false, 0, true, false)` a los 2 s y avanzando diálogos con `interact`; el robo de vida, con un jugador sin GodMode y 100000 de vida.
 
 ### Otros con IA propia, para consultar
 - **Bandido5:** salto y explosiones con `GroundSlamFx`.

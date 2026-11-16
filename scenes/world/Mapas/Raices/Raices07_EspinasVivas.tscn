@@ -1,26 +1,20 @@
 [gd_scene format=3]
 
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/MurcielagoChico.tscn" id="bat"]
 [ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="bootstrap"]
 [ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="camera"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/VagonetaSuelta.tscn" id="cart"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Chest.tscn" id="chest"]
-[ext_resource type="PackedScene" path="res://scenes/world/Door.tscn" id="door"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/HangRope.tscn" id="hang"]
-[ext_resource type="PackedScene" path="res://scenes/world/Ladder.tscn" id="ladder"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PlacaDePresion.tscn" id="plate"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/EspinasRetractiles.tscn" id="espr"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/PajaroRaices.tscn" id="pajaro"]
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="player"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PozaAcido.tscn" id="pool"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/RaizHundible.tscn" id="raizh"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Rope.tscn" id="rope"]
-[ext_resource type="PackedScene" path="res://scenes/world/SavePoint.tscn" id="savepoint"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ThornVine.tscn" id="thorn"]
 [ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="transition"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Vine.tscn" id="vine"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/MuroCargado.tscn" id="wallc"]
-[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/ProceduralWater.tscn" id="water"]
 
-[sub_resource type="RectangleShape2D" id="Rect_20x1060"]
-size = Vector2(20, 1060)
+[sub_resource type="RectangleShape2D" id="Rect_150x300"]
+size = Vector2(150, 300)
+
+[sub_resource type="RectangleShape2D" id="Rect_20x1080"]
+size = Vector2(20, 1080)
 
 [sub_resource type="RectangleShape2D" id="Rect_2600x40"]
 size = Vector2(2600, 40)
@@ -28,8 +22,8 @@ size = Vector2(2600, 40)
 [sub_resource type="RectangleShape2D" id="Rect_2620x20"]
 size = Vector2(2620, 20)
 
-[sub_resource type="RectangleShape2D" id="Rect_300x40"]
-size = Vector2(300, 40)
+[sub_resource type="RectangleShape2D" id="Rect_350x40"]
+size = Vector2(350, 40)
 
 [sub_resource type="RectangleShape2D" id="Rect_750x40"]
 size = Vector2(750, 40)
@@ -41,13 +35,13 @@ ZoneName = "LAS RAÍCES"
 CameraProfile = ExtResource("camera")
 CameraLimitLeft = 0
 CameraLimitRight = 2600
-CameraLimitTop = -620
+CameraLimitTop = -640
 CameraLimitBottom = 440
 
 [node name="Fondo" type="ColorRect" parent="."]
 z_index = -50
 offset_left = -600
-offset_top = -1220
+offset_top = -1240
 offset_right = 3200
 offset_bottom = 1040
 color = Color(0.05, 0.08, 0.05, 1)
@@ -72,62 +66,52 @@ z_index = -5
 z_index = 10
 
 [node name="ParedOeste" type="CollisionShape2D" parent="Colisiones"]
-position = Vector2(-10, -90)
-shape = SubResource("Rect_20x1060")
+position = Vector2(-10, -100)
+shape = SubResource("Rect_20x1080")
 
 [node name="ParedEste" type="CollisionShape2D" parent="Colisiones"]
-position = Vector2(2610, -90)
-shape = SubResource("Rect_20x1060")
+position = Vector2(2610, -100)
+shape = SubResource("Rect_20x1080")
 
 [node name="Techo" type="CollisionShape2D" parent="Colisiones"]
-position = Vector2(1310, -630)
+position = Vector2(1310, -650)
 shape = SubResource("Rect_2620x20")
-
-[node name="RepisaEntrada" type="CollisionShape2D" parent="Colisiones"]
-position = Vector2(2450, 20)
-shape = SubResource("Rect_300x40")
-
-[node name="RepisaSalida" type="CollisionShape2D" parent="Colisiones"]
-position = Vector2(375, 20)
-shape = SubResource("Rect_750x40")
 
 [node name="Fondo" type="CollisionShape2D" parent="Colisiones"]
 position = Vector2(1300, 420)
 shape = SubResource("Rect_2600x40")
 
+[node name="RepisaEntrada" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(2425, 20)
+shape = SubResource("Rect_350x40")
+
+[node name="IsloteMedio" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(1625, 150)
+shape = SubResource("Rect_150x300")
+
+[node name="RepisaSalida" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(375, 20)
+shape = SubResource("Rect_750x40")
+
 [node name="ParedOeste" type="ColorRect" parent="Visible"]
 offset_left = -20
-offset_top = -620
+offset_top = -640
 offset_right = 0
 offset_bottom = 440
 color = Color(0.3, 0.22, 0.14, 1)
 
 [node name="ParedEste" type="ColorRect" parent="Visible"]
 offset_left = 2600
-offset_top = -620
+offset_top = -640
 offset_right = 2620
 offset_bottom = 440
 color = Color(0.3, 0.22, 0.14, 1)
 
 [node name="Techo" type="ColorRect" parent="Visible"]
 offset_left = 0
-offset_top = -640
+offset_top = -660
 offset_right = 2620
-offset_bottom = -620
-color = Color(0.3, 0.22, 0.14, 1)
-
-[node name="RepisaEntrada" type="ColorRect" parent="Visible"]
-offset_left = 2300
-offset_top = 0
-offset_right = 2600
-offset_bottom = 40
-color = Color(0.3, 0.22, 0.14, 1)
-
-[node name="RepisaSalida" type="ColorRect" parent="Visible"]
-offset_left = 0
-offset_top = 0
-offset_right = 750
-offset_bottom = 40
+offset_bottom = -640
 color = Color(0.3, 0.22, 0.14, 1)
 
 [node name="Fondo" type="ColorRect" parent="Visible"]
@@ -137,61 +121,34 @@ offset_right = 2600
 offset_bottom = 440
 color = Color(0.3, 0.22, 0.14, 1)
 
+[node name="RepisaEntrada" type="ColorRect" parent="Visible"]
+offset_left = 2250
+offset_top = 0
+offset_right = 2600
+offset_bottom = 40
+color = Color(0.3, 0.22, 0.14, 1)
+
+[node name="IsloteMedio" type="ColorRect" parent="Visible"]
+offset_left = 1550
+offset_top = 0
+offset_right = 1700
+offset_bottom = 300
+color = Color(0.3, 0.22, 0.14, 1)
+
+[node name="RepisaSalida" type="ColorRect" parent="Visible"]
+offset_left = 0
+offset_top = 0
+offset_right = 750
+offset_bottom = 40
+color = Color(0.3, 0.22, 0.14, 1)
+
 [node name="Cartel1" type="Label" parent="Carteles"]
 offset_left = 1000
-offset_top = -560
+offset_top = -600
 offset_right = 1600
-offset_bottom = -536
-text = "ESPINAS VIVAS · espinas colgando entre cuerdas; pájaros que te tiran (murciélagos de reemplazo)"
+offset_bottom = -576
+text = "ESPINAS VIVAS · arriba: cuerdas, espinas del techo y pájaros · abajo: raíces que se hunden y espinas del barro"
 horizontal_alignment = 1
-
-[node name="Cuerda1" parent="Objetos" instance=ExtResource("rope")]
-position = Vector2(2150, -240)
-Length = 230
-PhaseOffset = 0.0
-
-[node name="Cuerda2" parent="Objetos" instance=ExtResource("rope")]
-position = Vector2(1900, -240)
-Length = 230
-PhaseOffset = 3.1416
-
-[node name="Cuerda3" parent="Objetos" instance=ExtResource("rope")]
-position = Vector2(1650, -240)
-Length = 230
-PhaseOffset = 0.0
-
-[node name="Cuerda4" parent="Objetos" instance=ExtResource("rope")]
-position = Vector2(1400, -240)
-Length = 230
-PhaseOffset = 3.1416
-
-[node name="Cuerda5" parent="Objetos" instance=ExtResource("rope")]
-position = Vector2(1150, -240)
-Length = 230
-PhaseOffset = 0.0
-
-[node name="Cuerda6" parent="Objetos" instance=ExtResource("rope")]
-position = Vector2(900, -240)
-Length = 230
-PhaseOffset = 3.1416
-
-[node name="Espinas1" parent="Trampas" instance=ExtResource("thorn")]
-position = Vector2(1775, -620)
-rotation = 1.5708
-Width = 470
-VineScale = 0.3
-
-[node name="Espinas2" parent="Trampas" instance=ExtResource("thorn")]
-position = Vector2(1275, -620)
-rotation = 1.5708
-Width = 470
-VineScale = 0.3
-
-[node name="Espinas3" parent="Trampas" instance=ExtResource("thorn")]
-position = Vector2(750, -420)
-rotation = 0.0000
-Width = 1550
-VineScale = 0.3
 
 [node name="Barro1" parent="Trampas" instance=ExtResource("pool")]
 position = Vector2(0, 300)
@@ -199,16 +156,83 @@ Width = 2600
 Depth = 100
 AcidColor = Color(0.42, 0.3, 0.12, 1)
 
-[node name="Murcielago1" parent="Enemigos" instance=ExtResource("bat")]
-position = Vector2(1530, -300)
+[node name="Cuerda1" parent="Objetos" instance=ExtResource("rope")]
+position = Vector2(2100, -240)
+Length = 230
+PhaseOffset = 0.0
 
-[node name="Murcielago2" parent="Enemigos" instance=ExtResource("bat")]
+[node name="Cuerda2" parent="Objetos" instance=ExtResource("rope")]
+position = Vector2(1850, -240)
+Length = 230
+PhaseOffset = 3.1416
+
+[node name="EspinasRetractiles1" parent="Trampas" instance=ExtResource("espr")]
+position = Vector2(1975, -640)
+rotation = 1.5708
+Length = 490
+Phase = 0
+
+[node name="Pajaro1" parent="Enemigos" instance=ExtResource("pajaro")]
+position = Vector2(1700, -320)
+
+[node name="RaizHundible1" parent="Objetos" instance=ExtResource("raizh")]
+position = Vector2(2150, 120)
+Width = 90
+
+[node name="RaizHundible2" parent="Objetos" instance=ExtResource("raizh")]
+position = Vector2(1950, 140)
+Width = 90
+
+[node name="RaizHundible3" parent="Objetos" instance=ExtResource("raizh")]
+position = Vector2(1760, 120)
+Width = 90
+
+[node name="EspinasRetractiles2" parent="Trampas" instance=ExtResource("espr")]
+position = Vector2(2050, 300)
+rotation = -1.5708
+Length = 220
+Phase = 0.8
+
+[node name="EspinasRetractiles3" parent="Trampas" instance=ExtResource("espr")]
+position = Vector2(1858, 300)
+rotation = -1.5708
+Length = 220
+Phase = 1.6
+
+[node name="Cuerda3" parent="Objetos" instance=ExtResource("rope")]
+position = Vector2(1400, -240)
+Length = 230
+PhaseOffset = 3.1416
+
+[node name="Cuerda4" parent="Objetos" instance=ExtResource("rope")]
+position = Vector2(1150, -240)
+Length = 230
+PhaseOffset = 0.0
+
+[node name="Cuerda5" parent="Objetos" instance=ExtResource("rope")]
+position = Vector2(900, -240)
+Length = 230
+PhaseOffset = 3.1416
+
+[node name="EspinasRetractiles4" parent="Trampas" instance=ExtResource("espr")]
+position = Vector2(1275, -640)
+rotation = 1.5708
+Length = 490
+Phase = 1.6
+
+[node name="EspinasRetractiles5" parent="Trampas" instance=ExtResource("espr")]
+position = Vector2(1025, -640)
+rotation = 1.5708
+Length = 490
+Phase = 0.8
+
+[node name="Pajaro2" parent="Enemigos" instance=ExtResource("pajaro")]
 position = Vector2(1020, -320)
 
 [node name="HaciaRaices06" parent="." instance=ExtResource("transition")]
 position = Vector2(2585, -53)
 TargetScenePath = "res://scenes/world/Mapas/Raices/Raices06_Columpios.tscn"
-TargetSpawnPosition = Vector2(160, -200)
+TargetSpawnPosition = Vector2(160, -40)
 Width = 30
 Height = 200
 

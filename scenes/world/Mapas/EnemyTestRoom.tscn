@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://b56iyefxyhuy5" path="res://scripts/world/EnemyTestRoomHealthBuff.cs" id="3_healthbuff"]
 [ext_resource type="Texture2D" uid="uid://b37c5fqvueq8p" path="res://assets/backgrounds/caminodesierto.png" id="4_mv8r7"]
+[ext_resource type="PackedScene" uid="uid://drser5bfbd5kp" path="res://scenes/world/Enemys/Perrito1.tscn" id="5_ttgj4"]
 [ext_resource type="Texture2D" uid="uid://caiex2pkvq11t" path="res://assets/sprites/deco/FondoOjo.png" id="6_fondoojo"]
-[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Lugia.tscn" id="8_lugia"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1400, 60)
@@ -6132,5 +6132,5 @@ z_index = -20
 position = Vector2(650, -52)
 texture = ExtResource("6_fondoojo")
 
-[node name="Lugia" parent="." unique_id=1416602537 instance=ExtResource("8_lugia")]
-position = Vector2(665, 385)
+[node name="Perrito1" parent="." unique_id=1079485317 instance=ExtResource("5_ttgj4")]
+position = Vector2(363, 396)

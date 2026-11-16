@@ -45,6 +45,14 @@ public abstract partial class LoboBase : MeleeEnemy
 	[Export] public float PounceMaxSpeedX = 330f;
 
 	// Between attacks it hovers at about this distance, feinting in and out.
+	// Las Raíces: wolves that fled into the roots. While Neutral they never attack: when the player
+	// comes within NeutralFearRadius they growl and back away. Hitting one (or a packmate within
+	// NeutralAlarmRadius) turns them hostile for good.
+	[ExportGroup("Neutral")]
+	[Export] public bool Neutral;
+	[Export] public float NeutralFearRadius = 230f;
+	[Export] public float NeutralAlarmRadius = 520f;
+
 	[ExportGroup("Merodeo")]
 	[Export] public float ProwlDistance = 130f;
 	[Export] public float ProwlSpeedFactor = 0.45f;
@@ -128,6 +136,38 @@ public abstract partial class LoboBase : MeleeEnemy
 		var hitCollision = AttackHitbox.GetNode<CollisionShape2D>("CollisionShape2D");
 		_hitShape = (RectangleShape2D)hitCollision.Shape.Duplicate();
 		hitCollision.Shape = _hitShape;
+
+		Stats.HitTaken += _ => BecomeHostile();
+	}
+
+	// Ends the neutral truce for this wolf and every neutral packmate close enough to see it.
+	public void BecomeHostile()
+	{
+		if (!Neutral || IsQueuedForRemoval)
+			return;
+		Neutral = false;
+		CanAttack = true;
+		Bark("Gruñido", 1.2f);
+		foreach (LoboBase mate in PackMates(NeutralAlarmRadius))
+			mate.BecomeHostile();
+	}
+
+	private float _neutralGrowlTimer;
+
+	private void UpdateNeutral(float dt)
+	{
+		CanAttack = false;
+		if (_neutralGrowlTimer > 0f)
+			_neutralGrowlTimer -= dt;
+		if (EnemyTargeting.Current(GetTree()) is not Node2D player
+			|| GlobalPosition.DistanceTo(player.GlobalPosition) > NeutralFearRadius)
+			return;
+		Scare(0.4f);
+		if (_neutralGrowlTimer <= 0f)
+		{
+			_neutralGrowlTimer = RandRange(2.5f, 4f);
+			Bark("Gruñido", 1.2f);
+		}
 	}
 
 	private EnemySlashTrail MakeFangTrail()
@@ -183,6 +223,12 @@ public abstract partial class LoboBase : MeleeEnemy
 			_scaredTimer -= dt;
 		if (_hasteTimer > 0f)
 			_hasteTimer -= dt;
+		if (Neutral)
+		{
+			UpdateNeutral(dt);
+			UpdateRibbon(dt);
+			return;
+		}
 		UpdateSpotted();
 		UpdateRibbon(dt);
 		if (!Attacking && !Hopping && !IsFlinching && !IsStunned && PlayerDetected)
@@ -294,7 +340,22 @@ public abstract partial class LoboBase : MeleeEnemy
 			return Mathf.MoveToward(currentVelocityX, 0f, MoveSpeed);
 		if (_scaredTimer > 0f)
 			return CanStepTo(-toward) ? -toward * MoveSpeed * 0.8f : Mathf.MoveToward(currentVelocityX, 0f, MoveSpeed);
+		// A neutral wolf never walks toward the player, it just holds its ground until it's scared off.
+		if (Neutral)
+			return Mathf.MoveToward(currentVelocityX, 0f, MoveSpeed);
 		return MoveX(player, distanceX, currentVelocityX, delta);
+	}
+
+	// A wolf that moves away from the player turns tail and runs that way instead of sliding
+	// backwards facing him (it looked like a moonwalk). Attacks, lunges, hops and flinches keep
+	// facing the player as before. Velocity is last frame's, which is plenty for a facing choice.
+	protected override bool DesiredFacingRight(Node2D player, float distanceX)
+	{
+		float vx = Velocity.X;
+		bool movingAway = Mathf.Abs(vx) > 5f && Mathf.Sign(vx) != Mathf.Sign(distanceX);
+		if (movingAway && !Attacking && _lungeTimer <= 0f && !Hopping && !IsFlinching)
+			return vx > 0f;
+		return distanceX >= 0;
 	}
 
 	// Per-wolf footwork; default = run in from afar, then prowl around ProwlDistance with feints.
@@ -314,7 +375,9 @@ public abstract partial class LoboBase : MeleeEnemy
 		{
 			float roll = Roll();
 			_prowlMove = roll < 0.3f ? 1 : roll < 0.6f ? -1 : 0;
-			_prowlTimer = RandRange(0.25f, 0.55f);
+			// Backing off is a real turn-and-trot (see DesiredFacingRight), so it lasts long enough
+			// to read instead of a quick flip back and forth.
+			_prowlTimer = _prowlMove < 0 ? RandRange(0.55f, 0.9f) : RandRange(0.25f, 0.55f);
 		}
 		if (abs < BiteRange * 0.7f && _prowlMove > 0)
 			_prowlMove = 0;

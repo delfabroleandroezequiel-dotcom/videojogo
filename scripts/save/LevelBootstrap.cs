@@ -37,6 +37,11 @@ public partial class LevelBootstrap : Node
 	[Export] public bool HideSummonSlots;
 	// Heal charges added to the player's progression count while in this map (e.g. a boss arena).
 	[Export] public int ExtraHealCharges;
+	// Test/boss arenas: the player gets the whole current kit here, unsaved (GrantForScene). The
+	// parked elemental spells are left out on purpose.
+	[Export] public bool GrantAllAbilities;
+	// Boss/test arenas: the player's max stamina × this while in the map (not saved).
+	[Export] public float PlayerStaminaMultiplier = 1f;
 
 	private Player.Player _player;
 
@@ -63,6 +68,25 @@ public partial class LevelBootstrap : Node
 			summonSlots.Visible = !HideSummonSlots;
 		if (ExtraHealCharges > 0)
 			_player.GetNode<HealFlask>("HealFlask").AddBonusCharges(ExtraHealCharges);
+		if (!Mathf.IsEqualApprox(PlayerStaminaMultiplier, 1f))
+		{
+			Stats playerStats = _player.GetNode<Stats>("Stats");
+			int extra = Mathf.RoundToInt(playerStats.MaxStamina * (PlayerStaminaMultiplier - 1f));
+			playerStats.ApplyBonus(0, extra, 0, 0);
+		}
+		if (GrantAllAbilities)
+		{
+			PlayerAbilities abilities = _player.GetNode<PlayerAbilities>("Abilities");
+			foreach (string id in new[]
+			{
+				PlayerAbilities.DoubleJump, PlayerAbilities.Dash, PlayerAbilities.Roll, PlayerAbilities.Spell,
+				PlayerAbilities.Spell2, PlayerAbilities.Sprint, PlayerAbilities.WallClimb, PlayerAbilities.RunThrust,
+				PlayerAbilities.Block, PlayerAbilities.ChargedAttack, PlayerAbilities.PoundAttack, PlayerAbilities.UpAttack,
+				PlayerAbilities.LedgeGrab, PlayerAbilities.ComboFinisher, PlayerAbilities.ComboFourth,
+				PlayerAbilities.FlyingSword, PlayerAbilities.RopeSwing, PlayerAbilities.Swim, PlayerAbilities.Torch,
+			})
+				abilities.GrantForScene(id);
+		}
 
 		if (!string.IsNullOrEmpty(ZoneName))
 			ZoneTitle.Instance.Show(ZoneName);

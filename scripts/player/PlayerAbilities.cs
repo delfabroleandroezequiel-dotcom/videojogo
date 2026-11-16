@@ -116,6 +116,11 @@ public partial class PlayerAbilities : Node
 
 		foreach (string abilityId in SaveManager.Instance.GetUnlockedAbilities())
 			Unlock(abilityId);
+
+		// Debug builds (running from the editor): the gloves (rope swing) are always on, unsaved, so
+		// rope rooms can be tested without earning them. Export builds are unaffected.
+		if (OS.HasFeature("debug"))
+			GrantForScene(RopeSwing);
 	}
 
 	public void Unlock(string abilityId)

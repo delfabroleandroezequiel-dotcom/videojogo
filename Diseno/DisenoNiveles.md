@@ -1,6 +1,6 @@
 # Diseño de niveles — guía del diseñador
 
-Documento vivo. **Leerlo antes de armar, generar o tocar cualquier mapa** (greybox, trampas, zonas nuevas, atajos, secretos) y sumarle lo que se aprenda en cada uno. Última actualización: 2026-11-05.
+Documento vivo. **Leerlo antes de armar, generar o tocar cualquier mapa** (greybox, trampas, zonas nuevas, atajos, secretos) y sumarle lo que se aprenda en cada uno. Última actualización: 2026-11-12.
 
 El mapa grande del mundo (actos, tramos, llaves y cerraduras) vive en **`Diseno/DisenoMundo.md`**. Este documento es el oficio de cada sala y cada zona.
 
@@ -153,22 +153,49 @@ Generadas con `gen_mina_raices.pl` (scratch de la sesión del 2026-11-11). Todas
 
 **Raíces** (`Mapas/Raices/`, hacia la izquierda desde Raices1). El barro es `PozaAcido` en marrón (te devuelve al piso firme) y las espinas son `ThornVine` (matan).
 
-| # | Sala | Forma | Estrella |
-|---|---|---|---|
-| 02 | Enredo | horizontal | 6 cuerdas en contrafase con un islote, espinas en el techo; cachorro (marcador) |
-| 03 | Pozo | vertical hacia abajo | Repisas de una vía y lianas que se mecen; espinas en las paredes |
-| 04 | Cuna | sala | Hoguera y rampa |
-| 05 | Pantano | horizontal | Raíces chicas sobre el barro, soga horizontal de 650 px, raíces inclinadas |
-| 06 | Columpios | caverna alta | Dos cuerdas bajas y después cuerdas altas (doble salto); islote alto |
-| 07 | Espinas vivas | horizontal | 6 cuerdas con espinas colgando entre ellas; murciélagos en lugar de pájaros |
-| 08 | Chimenea | vertical hacia arriba | Repisas cada 160 px (doble salto) y una liana; espinas en la pared |
-| 09 | Árbol hueco | sala | Raíz de la **Espada de Dios** que tapa un nicho con cofre; arañas (marcadores) |
-| 10 | Rastro | horizontal con bajada | Pozo de barro, hoguera, lobos neutrales (marcadores) |
-| 11 | Antesala | sala | Vacía a propósito: huellas quemadas |
-| 12 | Arena del Lobo de Fuego | arena | Dos repisas; jefe pendiente de diseño (marcador) |
-| 13 | Comunidad | santuario | Hoguera sobre una loma, lobos y loba vieja (marcadores); **atajo a Raices1** (liana, interactuar) |
+**v2 (2026-11-12): rehecha entera.** La v1 eran 12 tiras laterales de una sola altura, una entrada y una salida cada una ("lo más antimetroidvania que jamás vi"). La v2 es un circuito con hub, bucle a la hoguera, dos o tres pisos por sala y cerraduras sembradas. Generador: `gen_raices_v2.pl` + `rooms_raices.pl` (scratch de la sesión del 2026-11-12).
 
-**Pendiente de código** (marcado con carteles en cada sala): raíces que se hunden, espinas que se retraen, pájaros que te tiran de la liana, arañas colgadas, lobos neutrales, el Lobo de Fuego.
+```
+            R09 Árbol hueco ──► R10 Rastro (hoguera) ─ R11 ─ R12 Arena ─ R13 Comunidad ──atajo──► Raices1
+              ▲                   └ estanque (NADO) → cofre + túnel pendiente
+            R08 Chimenea ── raíz trepable (Acto 2) → superficie (pendiente)
+              ▲
+            R07 Espinas ◄── R06 Columpios ◄── R05 Pantano (abajo) ◄── R04 CUNA (hub, hoguera) ◄── R03 Pozo ◄── R02 ◄── Raices1
+                              │ (doble salto + cuerda alta)          ▲ reja que se abre desde la copa
+                              └──► R05 copa (arriba, baja hacia el este) ──┘
+```
+
+| # | Sala | Forma | Qué tiene y por qué |
+|---|---|---|---|
+| 02 | Enredo | horizontal de 2 pisos | Abajo: cuerdas en contrafase, islote, soga y raíz baja. Arriba (liana desde la entrada): copa, diagonal y mirador desde el que se ve un **cofre a 420 px: dash en el aire**. Del mirador caés al camino de abajo |
+| 03 | Pozo | vertical hacia abajo | Zigzag con repisas de una vía, dos lianas, rampa y labio. A mitad, una **cueva tapada por un muro cargado** con cofre, que se ve al bajar. Se sube de vuelta con doble salto |
+| 04 | Cuna | hub | Hoguera y 3 salidas: el pozo, el pantano y una repisa alta. La liana sube a una **reja cerrada desde el otro lado**: se abre con la palanca llegando por la copa del pantano |
+| 05 | Pantano | 2 pisos de una sola vía | Abajo (la ida): raíces que se hunden, soga y raíces inclinadas. Arriba (la vuelta, desde Columpios): copa que **baja hacia el este** con dos arañas, hasta la reja de la Cuna. De arriba podés caer abajo; de abajo no se sube |
+| 06 | Columpios | caverna alta | Abajo sigue la zona (cuerdas hacia el oeste). Desde el islote, tres repisas con doble salto y una cuerda alta hacia la repisa del este: **vuelta por la copa** |
+| 07 | Espinas vivas | 2 caminos al islote | Arriba: cuerdas con espinas que bajan del techo y pájaros. Abajo: raíces que se hunden con espinas que salen del barro. Final común con cuerdas |
+| 08 | Chimenea | vertical hacia arriba | Repisas alternadas, descanso con rampa y liana; espinas retráctiles en las dos paredes. Arriba, hueco en el techo con una **raíz trepable (Acto 2)** hacia la superficie (`ConexionPendiente_Superficie`) |
+| 09 | Árbol hueco | sala de 3 alturas | Entrás alto por el este, bajás entre arañas (ves el nicho de la **Espada de Dios**) y salís alto por el oeste trepando una liana |
+| 10 | Rastro | bajada en diagonal | 4 rellanos con rampas 2:1, hoguera y lobos neutrales. Abajo, un **estanque que solo se cruza nadando** (cofre + `ConexionPendiente_TunelNado`). Sin nado te hundís y salís por el escalón del oeste |
+| 11 | Antesala | sala con bóveda | Silencio y huellas quemadas. **Placa que solo pisa la Sombra**: abre la trampilla de una bóveda con cofre |
+| 12 | Arena del Lobo de Fuego | arena | Raíces bajas para saltar, repisas laterales y una alta ancha al centro. Jefe pendiente |
+| 13 | Comunidad | santuario | Loma con hoguera, dos madrigueras en altura, peña de la loba vieja (liana), lobos neutrales y la **liana del atajo a Raices1** |
+
+**Verificado sin pantalla (2026-11-12):** las 28 transiciones dejan al jugador parado sobre piso y fuera de la salida; un piloto con el jugador real probó 38 saltos (subidas con doble salto en 03, 06, 08, 09, 10, 12 y 13; huecos de la copa en 02 y 05) y que **el cofre del dash y la cueva del estanque no se alcanzan** con doble salto. El mapa del mundo cierra el bucle Cuna → Pantano → Columpios → copa → Cuna sin conflictos. **Sin probar jugando:** cuerdas, lianas, soga y la palanca de la reja.
+
+**Aprendido rehaciéndola:**
+- **El doble salto real sube 183 px**, el simple 92. Una repisa a 140-150 px entra con margen.
+- **No poner una repisa justo debajo de otra plataforma**: saltando desde ahí te golpeás la cabeza (pasó en el Pozo y en el Rastro). Hay que dejar el lugar del salto fuera de la plataforma de arriba.
+- **Dos salas unidas por dos pisos** tienen que tener el mismo desnivel en las dos: si en una el piso alto está 760 px arriba, en la otra también. Si no, el mapa del mundo marca CONFLICTO.
+- `tools/generar_mapa_mundo.gd` se cae en `_initialize` (`gchandle.is_released`); llamando al generador en el primer `_process` funciona.
+
+**Programado (2026-11-12, `scripts/world/Raices/`):**
+- `RaizHundible` (Raices05): plataforma que se hunde hacia el barro mientras estás parado (0,25 s de margen) y vuelve a subir cuando te bajás. Solo traslada en Y.
+- `EspinasRetractiles` (Raices07 desde el techo, Raices08 desde la pared): `ThornVine` que sale con ritmo fijo (adentro 1,6 s, aviso con temblor 0,5 s, afuera 1,2 s), con `Phase` para desfasar vecinas.
+- `AranaColgante` (Raices09): baja rápido de su hilo cuando pasás debajo, espera y sube lento; lastima al tocarla (no mata). Dibujada en código; todavía no se puede matar.
+- `PajaroRaices` (Raices07): murciélago teñido que solo se lanza mientras estás colgado (cuerda, soga, liana) y te suelta con `Player.SoltarAgarre`. Sin arte propio.
+- Lobos neutrales (Raices10 y 13): `LoboBase.Neutral`. No atacan: si te acercás a menos de 230 px gruñen y retroceden. Pegarle a uno lo vuelve hostil, junto con los neutrales a menos de 520 px.
+
+Probado sin pantalla (cada pieza por separado). **Sigue pendiente:** el Lobo de Fuego (se diseña con el autor) y la loba vieja.
 
 ---
 
@@ -181,6 +208,7 @@ Generadas con `gen_mina_raices.pl` (scratch de la sesión del 2026-11-11). Todas
 - **Decorar yo:** no entrego salas "terminadas" con decoración. Entrego herramientas de dispersión (Count + jitter) y piezas, y el autor elige.
 - **Galerías de cobertura:** en vista lateral, la primera columna tapa todas las flechas de atrás.
 - **Vagonetas sueltas de frente en el viaje en vagoneta** ("malísimas", 2026-11-09). Arriba del carro van pozos, vigas, enemigos que te persiguen o caen, palancas a espadazo y el cambio de vagoneta.
+- **Salas laterales planas en fila** (Raíces v1, 2026-11-12: "lo más antimetroidvania que jamás vi. Escenas laterales sin mucho esfuerzo"). Cada sala necesita varios pisos, más de un camino o salida, y su lugar en un bucle o una cerradura; la zona necesita un hub y por lo menos un atajo a la hoguera.
 
 ---
 
@@ -210,6 +238,7 @@ Generadas con `gen_mina_raices.pl` (scratch de la sesión del 2026-11-11). Todas
 | 2026-11-09 | La vagoneta pasa a ser la entrada de la Mina (desde la habitación de Gransin) y después se sube hasta la boca; viaje partido en 3 tramos con hoguera, muerte al caerse, salto con el carro, cambio de vagoneta; fuera las vagonetas de frente | Pedido del autor ("las vagonetas de frente son malísimas") |
 | 2026-11-07 | Mapa del mundo estilo Afterimage, generado desde las escenas (sala entera al visitarla, una región por carpeta o por puerta, M para abrirlo); ver §10 | Pedido del autor |
 | 2026-11-11 | Mina Honda: 5 salas de vuelta atrás desde la cornisa de Mina01, cada una pide una habilidad posterior. Raíces: 12 mapas hacia la izquierda de Raices1, con lianas y poco piso, terminan en la comunidad de los lobos (neutrales) tras el Lobo de Fuego (§6c) | Pedido del autor |
+| 2026-11-12 | Raíces v2: las 12 salas rehechas como circuito (hub en la Cuna, bucle por la copa del Pantano con reja de una vía, 2-3 pisos por sala, cerraduras de dash, cargado, nado, Sombra, raíz trepable y Espada de Dios) (§6c) | Rechazo del autor a la v1 |
 | 2026-11-11 | Ullatorp es un pueblo "normal": un corredor plano del largo de Nix (`Mapas/Ullatorp/Ullatorp.tscn`), sin barrios en altura ni pista de obstáculos en el mapa. Greybox sin arte, conectado al borde este de BosqueLobos6 | Pedido del autor |
 
 ## 10. Mapa del mundo (generado)

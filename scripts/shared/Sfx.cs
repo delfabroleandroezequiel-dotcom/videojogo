@@ -34,9 +34,9 @@ public static class Sfx
 	// camera — Play() above is non-positional and was fine as long as every caller was the player
 	// (always on/near camera), but that made hazards like ArrowTrap audible at full volume from
 	// anywhere on the map.
-	public static void PlayAt(Node2D context, string category, string key, float maxDistance = 900f)
+	public static void PlayAt(Node2D context, string category, string key, float maxDistance = 900f, float volumeDb = 0f)
 	{
-		PlayStreamAt(context, LoadVariant(category, key), maxDistance);
+		PlayStreamAt(context, LoadVariant(category, key), maxDistance, volumeDb: volumeDb);
 	}
 
 	// Drop files under res://assets/audio/Voces/<locale>/<key>.(wav|mp3|ogg) (locale = "es"/"en"/"pt")
@@ -268,7 +268,7 @@ public static class Sfx
 		player.Play();
 	}
 
-	private static void PlayStreamAt(Node2D context, AudioStream stream, float maxDistance, float maxSeconds = 0f)
+	private static void PlayStreamAt(Node2D context, AudioStream stream, float maxDistance, float maxSeconds = 0f, float volumeDb = 0f)
 	{
 		if (stream is null)
 			return;
@@ -276,6 +276,7 @@ public static class Sfx
 		var player = new AudioStreamPlayer2D
 		{
 			Stream = stream,
+			VolumeDb = volumeDb,
 			PitchScale = RandomPitch(),
 			ProcessMode = Node.ProcessModeEnum.Always,
 			GlobalPosition = context.GlobalPosition,
