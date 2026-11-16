@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://r3lav1jrbj5u"]
+
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="1_bootstrap"]
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/world/Enemigos/Artemisa.tscn" id="3_artemisa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_piso"]
+size = Vector2(2400, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pared"]
+size = Vector2(60, 1200)
+
+[node name="ArenaArtemisa" type="Node2D" unique_id=1772897455]
+script = ExtResource("1_bootstrap")
+ScenePath = "res://scenes/world/Mapas/ArenaArtemisa.tscn"
+CameraLimitLeft = -1200
+CameraLimitRight = 1200
+CameraLimitTop = -500
+CameraLimitBottom = 320
+GrantAllAbilities = true
+PlayerStaminaMultiplier = 5.0
+
+[node name="Fondo" type="ColorRect" parent="." unique_id=2111440824]
+z_index = -10
+offset_left = -1304.0
+offset_top = -649.0
+offset_right = 1296.0
+offset_bottom = 351.0
+color = Color(0.09, 0.05, 0.06, 1)
+
+[node name="Piso" type="StaticBody2D" parent="." unique_id=2132275001]
+position = Vector2(0, 290)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Piso" unique_id=359347238]
+shape = SubResource("RectangleShape2D_piso")
+
+[node name="Gris" type="ColorRect" parent="Piso" unique_id=1746313231]
+offset_left = -1200.0
+offset_top = -30.0
+offset_right = 1200.0
+offset_bottom = 30.0
+color = Color(0.32, 0.3, 0.3, 1)
+
+[node name="ParedIzquierda" type="StaticBody2D" parent="." unique_id=70889494]
+position = Vector2(-1230, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedIzquierda" unique_id=1076482001]
+shape = SubResource("RectangleShape2D_pared")
+
+[node name="ParedDerecha" type="StaticBody2D" parent="." unique_id=1364315638]
+position = Vector2(1230, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedDerecha" unique_id=1309891314]
+shape = SubResource("RectangleShape2D_pared")
+
+[node name="Player" parent="." unique_id=724676776 instance=ExtResource("2_player")]
+position = Vector2(-1000, 220)
+
+[node name="Artemisa" parent="." unique_id=794150052 instance=ExtResource("3_artemisa")]
+position = Vector2(250, 218)
+ArenaModulatePath = NodePath("../Penumbra")
+
+[node name="Penumbra" type="CanvasModulate" parent="." unique_id=549429913]

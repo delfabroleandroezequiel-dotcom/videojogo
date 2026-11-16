@@ -1,0 +1,51 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/ArtemisaBoss.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://b47a4kpptnpqi" path="res://scripts/shared/Stats.cs" id="2_stats"]
+[ext_resource type="PackedScene" uid="uid://ba6e10sx6t2c8" path="res://scenes/ui/StatBar.tscn" id="3_statbar"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/ArtemisaSpriteFrames.tres" id="4_frames"]
+[ext_resource type="Resource" path="res://resources/balance/enemies/artemisa.tres" id="5_profile"]
+[ext_resource type="AudioStream" uid="uid://ck0lplap7xj5t" path="res://assets/audio/Musica/Artemisa/ArtemisaFase1.mp3" id="6_musica1"]
+[ext_resource type="AudioStream" uid="uid://ct8gg11guq27n" path="res://assets/audio/Musica/Artemisa/ArtemisaFase2.mp3" id="7_musica2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cuerpo"]
+size = Vector2(36, 84)
+
+[node name="Artemisa" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_script")
+Profile = ExtResource("5_profile")
+BossNameKey = "BOSS_ARTEMISA_NOMBRE"
+BossMusic = ExtResource("6_musica1")
+BossMusicFase2 = ExtResource("7_musica2")
+VoiceCategory = "Voice/Artemisa"
+HurtVoiceChance = 0.35
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cuerpo")
+
+[node name="ContactArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea"]
+shape = SubResource("RectangleShape2D_cuerpo")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="Visual"]
+position = Vector2(8, -60.4)
+scale = Vector2(1.6, 1.6)
+sprite_frames = ExtResource("4_frames")
+animation = &"couch_idle"
+autoplay = "couch_idle"
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("2_stats")
+
+[node name="HealthBar" parent="." instance=ExtResource("3_statbar")]
+position = Vector2(0, 52)
+
+[node name="StaminaBar" parent="." instance=ExtResource("3_statbar")]
+position = Vector2(0, 58)
+FillColor = Color(0.2, 0.6, 1, 1)

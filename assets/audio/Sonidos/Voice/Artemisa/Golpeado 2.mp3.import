@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bn655a6a16tr2"
+path="res://.godot/imported/Golpeado 2.mp3-8634a42f4102f3fe6cf5b44a7fbe2c57.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/Voice/Artemisa/Golpeado 2.mp3"
+dest_files=["res://.godot/imported/Golpeado 2.mp3-8634a42f4102f3fe6cf5b44a7fbe2c57.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
