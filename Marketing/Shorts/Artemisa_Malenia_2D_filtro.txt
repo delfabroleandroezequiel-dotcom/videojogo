@@ -1,0 +1,29 @@
+[0:v]trim=start=31.45:end=32.370,setpts=(PTS-STARTPTS)/1.0,crop=480:853:640:20,scale=1080:1920:flags=lanczos,setsar=1,fps=60,eq=brightness=0.04:contrast=1.25:saturation=1.3,trim=duration=0.92,setpts=PTS-STARTPTS[v0];
+[0:a]atrim=start=31.45:end=32.370,asetpts=PTS-STARTPTS,atempo=1.0,volume=1.0,apad,atrim=duration=0.92,asetpts=PTS-STARTPTS[a0];
+[0:v]trim=start=34.50:end=36.130,setpts=(PTS-STARTPTS)/1.0,crop=480:853:1240:20,scale=1080:1920:flags=lanczos,setsar=1,fps=60,eq=brightness=0.04:contrast=1.25:saturation=1.3,trim=duration=1.63,setpts=PTS-STARTPTS[v1];
+[0:a]atrim=start=34.50:end=36.130,asetpts=PTS-STARTPTS,atempo=1.0,volume=0.12,apad,atrim=duration=1.63,asetpts=PTS-STARTPTS[a1];
+[0:v]trim=start=67.95:end=69.834,setpts=(PTS-STARTPTS)/1.2,crop=486:864:657:216,scale=1080:1920:flags=lanczos,setsar=1,fps=60,eq=brightness=0.04:contrast=1.25:saturation=1.3,trim=duration=1.57,setpts=PTS-STARTPTS[v2];
+[0:a]atrim=start=67.95:end=69.834,asetpts=PTS-STARTPTS,atempo=1.2,volume=1.0,apad,atrim=duration=1.57,asetpts=PTS-STARTPTS[a2];
+[0:v]trim=start=63.15:end=64.230,setpts=(PTS-STARTPTS)/1.2,crop=486:864:230:216,scale=1080:1920:flags=lanczos,setsar=1,fps=60,eq=brightness=0.04:contrast=1.25:saturation=1.3,trim=duration=0.90,setpts=PTS-STARTPTS[v3];
+[0:a]atrim=start=63.15:end=64.230,asetpts=PTS-STARTPTS,atempo=1.2,volume=1.0,apad,atrim=duration=0.90,asetpts=PTS-STARTPTS[a3];
+[0:v]trim=start=65.05:end=65.650,setpts=(PTS-STARTPTS)/1.2,crop=486:864:450:216,scale=1080:1920:flags=lanczos,setsar=1,fps=60,eq=brightness=0.04:contrast=1.25:saturation=1.3,trim=duration=0.50,setpts=PTS-STARTPTS[v4];
+[0:a]atrim=start=65.05:end=65.650,asetpts=PTS-STARTPTS,atempo=1.2,volume=1.0,apad,atrim=duration=0.50,asetpts=PTS-STARTPTS[a4];
+[0:v]trim=start=97.35:end=98.550,setpts=(PTS-STARTPTS)/1.2,crop=486:864:640:216,scale=1080:1920:flags=lanczos,setsar=1,fps=60,eq=brightness=0.04:contrast=1.25:saturation=1.3,trim=duration=1.00,setpts=PTS-STARTPTS[v5];
+[0:a]atrim=start=97.35:end=98.550,asetpts=PTS-STARTPTS,atempo=1.2,volume=1.0,apad,atrim=duration=1.00,asetpts=PTS-STARTPTS[a5];
+[0:v]trim=start=98.55:end=99.540,setpts=(PTS-STARTPTS)/0.6,crop=486:864:637:216,scale=1080:1920:flags=lanczos,setsar=1,fps=60,eq=brightness=0.04:contrast=1.25:saturation=1.3,trim=duration=1.65,setpts=PTS-STARTPTS[v6];
+[0:a]atrim=start=98.55:end=99.540,asetpts=PTS-STARTPTS,atempo=0.6,volume=1.0,apad,atrim=duration=1.65,asetpts=PTS-STARTPTS[a6];
+[0:v]trim=start=12.00:end=13.830,setpts=(PTS-STARTPTS)/1.0,crop=300:533:790:250,scale=1080:1920:flags=lanczos,setsar=1,fps=60,eq=brightness=0.04:contrast=1.25:saturation=1.3,trim=duration=1.83,setpts=PTS-STARTPTS[v7];
+[0:a]atrim=start=12.00:end=13.830,asetpts=PTS-STARTPTS,atempo=1.0,volume=0.35,apad,atrim=duration=1.83,asetpts=PTS-STARTPTS[a7];
+[v0][a0][v1][a1][v2][a2][v3][a3][v4][a4][v5][a5][v6][a6][v7][a7]concat=n=8:v=1:a=1[vcat][game];
+[1:a]atrim=0.15:1.02,asetpts=PTS-STARTPTS[vA];
+[1:a]atrim=1.12:4.30,asetpts=PTS-STARTPTS,adelay=920|920[vB];
+[1:a]atrim=4.30:7.25,asetpts=PTS-STARTPTS,adelay=4120|4120[vC];
+[vA][vB][vC]amix=inputs=3:normalize=0,volume=1.3,apad=whole_dur=10,atrim=0:10,asplit=2[voz][sc];
+[game]volume=1.1,apad=whole_dur=10,atrim=0:10[g];
+[g][sc]sidechaincompress=threshold=0.02:ratio=8:attack=15:release=350[gduck];
+[gduck][voz]amix=inputs=2:normalize=0,afade=t=out:st=9.7:d=0.3,loudnorm=I=-14:TP=-1:LRA=11[aout];
+[vcat]drawtext=fontfile=anton.ttf:text='HEED ME.':fontsize=110:fontcolor=white:borderw=9:bordercolor=black:x=(w-text_w)/2:y=520:enable='between(t,0,0.92)',
+drawtext=fontfile=anton.ttf:text='I AM ARTEMISA,':fontsize=100:fontcolor=white:borderw=9:bordercolor=black:x=(w-text_w)/2:y=520:enable='between(t,0.92,2.55)',
+drawtext=fontfile=anton.ttf:text='THE CRIMSON BLADE...':fontsize=96:fontcolor=0xFFD23C:borderw=9:bordercolor=black:x=(w-text_w)/2:y=520:enable='between(t,2.55,4.12)',
+drawtext=fontfile=anton.ttf:text='AND NO BATTLE':fontsize=100:fontcolor=white:borderw=9:bordercolor=black:x=(w-text_w)/2:y=520:enable='between(t,4.12,5.30)',
+drawtext=fontfile=anton.ttf:text='HAS EVER SEEN ME FALL.':fontsize=88:fontcolor=0xFFD23C:borderw=9:bordercolor=black:x=(w-text_w)/2:y=520:enable='between(t,5.30,7.25)'[vout]

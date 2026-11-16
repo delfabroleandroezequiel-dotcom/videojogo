@@ -194,6 +194,15 @@ Chris Zukowski (howtomarketagame) recomienda **abrir la página temprano**, apen
   - **Revisar la duración de cada pista:** el audio terminaba antes que el video.
   - **No tapar al prota con texto.**
   - **El cursor y el recorte apretado de cámara** son los dos defectos de la grabación que más se notan.
+- **2026-11-13, short de Artemisa ("Malenia in my 2D game"):**
+  - **La voz del propio jefe como narración** (idea del autor): su presentación calca la de Malenia, así que el gancho es el parecido y no hace falta Lily. Se usa el mp3 limpio de la voz (`assets/audio/Voces/en/`), cortado en tres pedazos para apretar las pausas, y el audio del juego baja a 0.12 en las tomas donde ella ya habla en la grabación (si no, se duplica la voz).
+  - **Una toma por frase de la voz**, y los subtítulos son sus palabras: cumple "todo lo que se lee, se escucha" sin narrador.
+  - **Arena oscura:** `eq=brightness=0.04:contrast=1.25:saturation=1.3` en todas las tomas; sin eso en el celular no se ve nada.
+  - **La cámara de pelea está muy lejos** (la jefa mide ~200 px): recorte 486×864 desde y=216 (deja afuera el HUD de arriba) en vez de 608×1080. En las cinemáticas, que están más cerca, 480×853 desde y=20, cortando por encima del cuadro de diálogo en español.
+  - **Evitar la esquina inferior derecha** (cartel de "Activar Windows" y casillas de la barra rápida): recortes con X ≤ ~1100.
+  - **ffmpeg 9 ya no tiene `-filter_complex_script`**: usar `-/filter_complex archivo.txt`.
+  - **Cierre en primer plano de la cara** de la cinemática (recorte 300×533, ×3.6), que además empalma con el primer cuadro (ella de rodillas → se levanta).
+  - El filtro completo quedó en `Marketing/Shorts/Artemisa_Malenia_2D_filtro.txt` (entradas: grabación y voz).
 
 ---
 
