@@ -183,7 +183,7 @@ public partial class Enemy : CharacterBody2D
 	}
 
 	// weight: a perfect parry counts as 2 toward the stun.
-	public void RegisterParried(int weight = 1)
+	public virtual void RegisterParried(int weight = 1)
 	{
 		if (ParriesToStun <= 0 || IsStunned || !CanBeExecuted)
 			return;

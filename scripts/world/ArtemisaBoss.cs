@@ -49,7 +49,9 @@ public partial class ArtemisaBoss : Enemy
 	[Export] public float AwakeDetectionRange = 3000f;
 	// Optional: the arena's CanvasModulate, dimmed to this colour as the player walks in.
 	[Export] public NodePath ArenaModulatePath;
-	[Export] public Color ArenaDimColor = new(0.42f, 0.3f, 0.33f, 1f);
+	// White = the hall keeps its light when she notices him (trying it without the dim, 2026-11-16;
+	// the previous reddish dusk was (0.78, 0.66, 0.68)).
+	[Export] public Color ArenaDimColor = new(1f, 1f, 1f, 1f);
 	[Export] public float ArenaDimSeconds = 2.5f;
 	// The petal rain over the arena: centred on her, this wide, starting this high above her.
 	[Export] public float PetalRainWidth = 1800f;
@@ -70,9 +72,32 @@ public partial class ArtemisaBoss : Enemy
 	// Prints every move she picks, blocks and parries to the output (for tuning).
 	[Export] public bool DebugAI;
 
+	[ExportGroup("Showcase (filming)")]
+	// For filming: the brain is switched off and she plays every move in a fixed order, one after
+	// another, walking in first when a move needs to be close. Phase one's reel, then (after
+	// ShowcaseLapsBeforePhaseTwo laps) the transformation, then phase two's reel on a loop.
+	// Stand still with F5 god mode; when she raises the shield, swing at her to film the parry.
+	[Export] public bool ShowcaseMode;
+	[Export] public float ShowcasePause = 1.4f;
+	// 0 = she stays in phase one (the transformation then only comes from damage, as normal).
+	[Export] public int ShowcaseLapsBeforePhaseTwo = 1;
+	// How long she walks toward the player for a close move before throwing it anyway.
+	[Export] public float ShowcaseWalkInTimeout = 3f;
+
 	[ExportGroup("Movement")]
 	[Export] public float EngageDistance = 120f;
 	[Export] public float PhaseTwoSpeedScale = 1.25f;
+	// Phase two's openings: extra seconds she stays spent after each big move (dance, phantoms,
+	// flying slash, plunge; Aeonia waits out its own bloom first, then 1.5× this). That's when
+	// you hit her.
+	[Export] public float PhaseTwoOpening = 0.7f;
+
+	[ExportGroup("Parry stagger")]
+	// Parries in a row (within ParryStaggerWindow of each other) that break her stance, in either
+	// phase: whatever she's doing stops and she's left reeling, wide open.
+	[Export] public int ParriesToStagger = 3;
+	[Export] public float ParryStaggerWindow = 4f;
+	[Export] public float StaggerDuration = 2.2f;
 	[Export] public float HurtDuration = 0.2f;
 
 	[ExportGroup("Spear (Malenia's slash chain)")]
@@ -82,7 +107,12 @@ public partial class ArtemisaBoss : Enemy
 	[Export] public float AttackRecovery = 0.45f;
 	// The hit area runs from the body out to the spear's measured reach (frame px × sprite scale).
 	[Export] public float SpriteScale = 1.6f;
+	// Phase two's body size relative to phase one (the goddess of rot is slighter).
+	[Export] public float PhaseTwoSize = 0.8f;
 	[Export] public float HitHeight = 70f;
+
+	private float SizeFactor => _phaseTwo ? PhaseTwoSize : 1f;
+	private float CurrentScale => SpriteScale * SizeFactor;
 	[Export] public float LungeSpeed = 160f;
 	// Chance of a battle cry (Voice/<VoiceCategory>/Ataque N) at the start of a combo.
 	[Export(PropertyHint.Range, "0,1")] public float AttackVoiceChance = 0.5f;
@@ -124,6 +154,11 @@ public partial class ArtemisaBoss : Enemy
 	[Export] public float DanceTell = 0.6f;
 	[Export] public Vector2 DanceLeap = new(160f, -560f);
 	[Export] public int DanceBursts = 3;
+	// Phase two's dance plays her slashing combo (e_3_atk) on a loop during each burst: these
+	// striking frames, at this speed.
+	[Export] public int DanceComboFirst = 3;
+	[Export] public int DanceComboLast = 15;
+	[Export] public float DanceComboFps = 28f;
 	[Export] public float DanceBurstSpeed = 600f;
 	[Export] public float DanceBurstDuration = 0.28f;
 	// Burst + gap = 1.0 s: one precise dash per burst (the player's dash cycle is 0.78 s).
@@ -171,6 +206,8 @@ public partial class ArtemisaBoss : Enemy
 	[Export] public float AeoniaDiveSpeed = 1100f;
 	[Export] public float AeoniaImpactRadius = 90f;
 	[Export] public float AeoniaBloomDelay = 1.1f;
+	// After the flower blooms she's spent for this long — slowed, heavy breathing: hit her now.
+	[Export] public float AeoniaOpening = 2.4f;
 	[Export] public float AeoniaBloomRadius = 210f;
 	[Export] public float AeoniaBloomMultiplier = 1.6f;
 	[Export] public float RotCloudDuration = 4.5f;
@@ -179,7 +216,6 @@ public partial class ArtemisaBoss : Enemy
 	[Export] public int PhantomCount = 4;
 	[Export] public float PhantomTell = 0.5f;
 	[Export] public float PhantomInterval = 0.6f;
-	[Export] public float PhantomOffset = 200f;
 	[Export] public float PhantomLungeLength = 440f;
 	[Export] public float PhantomMultiplier = 1f;
 	// Flying Slash: leap, sweeping arc in the air, then a diving thrust.
@@ -193,6 +229,13 @@ public partial class ArtemisaBoss : Enemy
 
 	[ExportGroup("Phase 2: scarlet bloom")]
 	[Export] public float PhaseTwoHealthRatio = 0.5f;
+	// Testing/filming: as soon as she's free after rising, she transforms (the full scarlet-bloom
+	// scene plays) and the whole fight is phase two.
+	[Export] public bool StartInPhaseTwo;
+	// Phase two never stands still: the sprite trembles a little all the time (px)…
+	[Export] public float PhaseTwoTremble = 1.3f;
+	// …and hard while she gathers power (Aeonia, the phantoms, the transformation).
+	[Export] public float ChargeTremble = 4.5f;
 	[Export] public float BloomRadius = 360f;
 	[Export] public float BloomDamageMultiplier = 2f;
 	[Export] public float BloomKnockback = 520f;
@@ -280,6 +323,8 @@ public partial class ArtemisaBoss : Enemy
 			return;
 		_rng.Randomize();
 		_baseMoveSpeed = MoveSpeed;
+		if (Sprite is not null)
+			_spriteBasePosition = Sprite.Position;
 		_spearShape = new RectangleShape2D { Size = new Vector2(100f, HitHeight) };
 		_spear = new Hitbox { Name = "LanzaHitbox", CollisionLayer = 0, CollisionMask = 2 };
 		_spear.AddChild(new CollisionShape2D { Name = "CollisionShape2D", Shape = _spearShape, Disabled = true });
@@ -463,8 +508,7 @@ public partial class ArtemisaBoss : Enemy
 		await Wait(0.6f);
 	}
 
-	// The armour catching the light: the whole sprite flares gold and a four-point glint flashes
-	// on the helmet.
+	// The armour catching the light: the whole sprite flares gold and the light swells at the helmet.
 	private void ArmourGleam()
 	{
 		if (Sprite is null)
@@ -475,37 +519,57 @@ public partial class ArtemisaBoss : Enemy
 		Glint(GleamOffset, GleamColor, 1f);
 	}
 
-	// A four-point star glint at `at` (Visual space, facing right): the tell of every attack.
+	// The tell of every attack: she lights up. No shape drawn — her whole body flares (HDR), a
+	// strong light washes over her and the floor around her, and a soft additive glow swells at
+	// `at` (Visual space, facing right) with a tall pillar of light through her, like the lit
+	// doorways (LevelTransition's LightBeam).
 	private void Glint(Vector2 at, Color color, float size)
 	{
-		var glint = new Node2D { Name = "Destello", Position = at, ZIndex = 8 };
-		foreach (float angle in new[] { 0f, 90f })
+		if (Sprite is not null)
 		{
-			var ray = new Line2D
-			{
-				Width = 3f * size,
-				DefaultColor = color,
-				Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add },
-				Points = new[] { new Vector2(-18f, 0f), new Vector2(18f, 0f) },
-				RotationDegrees = angle,
-			};
-			glint.AddChild(ray);
+			Color hot = new(1f + color.R * 1.4f, 1f + color.G * 1.4f, 1f + color.B * 1.4f, 1f);
+			Tween flare = Sprite.CreateTween();
+			flare.TweenProperty(Sprite, "self_modulate", hot, 0.06f);
+			flare.TweenProperty(Sprite, "self_modulate", Colors.White, 0.4f).SetEase(Tween.EaseType.Out);
 		}
-		var core = new PointLight2D
+
+		var gradient = GD.Load<Texture2D>("res://resources/lighting/PointLightGradient.tres");
+		var additive = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
+		var glow = new Node2D { Name = "Destello", Position = at, ZIndex = 8 };
+		var halo = new Sprite2D
+		{
+			Texture = gradient,
+			Material = additive,
+			Modulate = color with { A = 0.8f },
+			Scale = Vector2.One * 0.45f * size,
+		};
+		glow.AddChild(halo);
+		var beam = new Sprite2D
+		{
+			Texture = gradient,
+			Material = additive,
+			Modulate = color.Lerp(Colors.White, 0.35f) with { A = 0.6f },
+			Position = new Vector2(-at.X, -40f - at.Y),
+			Scale = new Vector2(0.3f * size, 2.6f),
+		};
+		glow.AddChild(beam);
+		var light = new PointLight2D
 		{
 			Color = color,
-			Energy = 1.6f,
-			TextureScale = 0.5f,
+			Energy = 3.2f * Mathf.Min(size, 1.6f),
+			TextureScale = 2.4f * size,
 			Texture = GD.Load<Texture2D>("res://resources/particles/SoftDotGradient.tres"),
 		};
-		glint.AddChild(core);
-		Visual.AddChild(glint);
-		glint.Scale = Vector2.One * 0.2f;
-		Tween tween = glint.CreateTween();
-		tween.TweenProperty(glint, "scale", Vector2.One * 1.3f, 0.12f).SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
-		tween.Parallel().TweenProperty(glint, "rotation_degrees", 45f, 0.5f);
-		tween.TweenProperty(glint, "scale", Vector2.Zero, 0.35f).SetEase(Tween.EaseType.In);
-		tween.TweenCallback(Callable.From(glint.QueueFree));
+		glow.AddChild(light);
+		Visual.AddChild(glow);
+		glow.Modulate = Colors.Transparent;
+		Tween tween = glow.CreateTween();
+		tween.TweenProperty(glow, "modulate:a", 1f, 0.06f);
+		tween.Parallel().TweenProperty(halo, "scale", Vector2.One * 0.8f * size, 0.12f).SetEase(Tween.EaseType.Out);
+		tween.TweenInterval(0.08f);
+		tween.TweenProperty(glow, "modulate:a", 0f, 0.4f).SetEase(Tween.EaseType.In);
+		tween.Parallel().TweenProperty(light, "energy", 0f, 0.4f);
+		tween.TweenCallback(Callable.From(glow.QueueFree));
 	}
 
 	// Grey dust puffing out to both sides from her feet.
@@ -637,6 +701,7 @@ public partial class ArtemisaBoss : Enemy
 		_parryHabit = Mathf.Max(0f, _parryHabit - dt * 0.03f);
 		_evadeHabit = Mathf.Max(0f, _evadeHabit - dt * 0.03f);
 		base._PhysicsProcess(delta);
+		UpdateTremble(dt);
 		// Armour clinking under every stride.
 		_armourStepTimer -= dt;
 		if (!_kneeling && IsOnFloor() && Mathf.Abs(Velocity.X) > 5f && _armourStepTimer <= 0f)
@@ -662,7 +727,7 @@ public partial class ArtemisaBoss : Enemy
 			return;
 		}
 		if (!_phaseStarted && !_busy && IsOnFloor()
-			&& (float)Stats.CurrentHealth / Mathf.Max(1, Stats.MaxHealth) <= PhaseTwoHealthRatio)
+			&& (StartInPhaseTwo || (float)Stats.CurrentHealth / Mathf.Max(1, Stats.MaxHealth) <= PhaseTwoHealthRatio))
 		{
 			_ = PhaseTransition();
 			return;
@@ -678,9 +743,270 @@ public partial class ArtemisaBoss : Enemy
 	// flask, how hard he's pressing her) plus what she has learned about how he defends, and never
 	// leans on the same move twice running.
 
+	private static readonly string[] ShowcaseReelOne =
+		{ "slash1", "slash2", "slash3", "rapid", "thrust", "bash", "guard", "grab", "dance" };
+	private static readonly string[] ShowcaseReelTwo =
+		{ "aeonia", "slash1", "rapid", "phantoms", "flying", "plunge", "dance", "grab", "thrust" };
+	private int _abortSerial;
+	private int _staggerParries;
+	private ulong _lastStaggerParryMsec;
+	private bool _staggered;
+
+	// The player reports every parry he lands on her (Player.ReportMeleeParry). Three in a row
+	// break her stance.
+	public override void RegisterParried(int weight = 1)
+	{
+		if (ParriesToStagger <= 0 || _staggered || _kneeling || IsQueuedForRemoval
+			|| (_phaseStarted && !_phaseTwo) || Stats.ExternalInvulnerable)
+			return;
+		ulong now = Time.GetTicksMsec();
+		if (now - _lastStaggerParryMsec > (ulong)(ParryStaggerWindow * 1000f))
+			_staggerParries = 0;
+		_lastStaggerParryMsec = now;
+		_staggerParries += Mathf.Max(1, weight);
+		_parryHabit = Mathf.Min(_parryHabit + 0.3f, 4f);
+		if (DebugAI)
+			GD.Print($"[Artemisa] parried {_staggerParries}/{ParriesToStagger}");
+		if (_staggerParries < ParriesToStagger)
+			return;
+		_staggerParries = 0;
+		// Parries arrive from inside a hit callback: stagger on the next frame.
+		Callable.From(() => { _ = Stagger(); }).CallDeferred();
+	}
+
+	// Stance broken: every move in flight is cut, she reels back and stays dazed — no shield, no
+	// counter — for StaggerDuration. No stars: she lights up and the hall jolts.
+	private async Task Stagger()
+	{
+		if (_staggered || !IsInstanceValid(this) || IsQueuedForRemoval)
+			return;
+		_staggered = true;
+		_abortSerial++;
+		_busy = true;
+		_guarding = false;
+		_spear.Deactivate();
+		_danceHitbox.Deactivate();
+		Gravity = _baseGravity;
+		SetMoveLight(ScarletGlow, 0f);
+		foreach (Node child in GetChildren())
+			if (child is Tendriles tendrils)
+				tendrils.Fade();
+		if (Sprite is not null)
+			Sprite.Rotation = 0f;
+		float dir = FacingRight ? 1f : -1f;
+		Velocity = new Vector2(-dir * 260f, Velocity.Y);
+		if (DebugAI)
+			GD.Print("[Artemisa] STAGGER");
+		Sfx.PlayAt(this, "Combat/Sword", "Sword Parry", 2000f, 4f);
+		Sfx.PlayIfExistsAt(this, VoiceCategory, "Golpeado", 2000f);
+		var player = PlayerReads.Find(this);
+		player?.ShakeCamera(14f, 0.35f);
+		ScreenFlash(new Color(1f, 0.9f, 0.75f, 0.3f), 0.1f);
+		Glint(new Vector2(0f, -40f), GleamColor, 1.8f);
+		SpawnPetals(GlobalPosition + new Vector2(0f, -40f), 40, 140f, 0.6f, inward: false);
+		Tremble(ChargeTremble, 0.5f);
+
+		string reel = _phaseTwo ? "e_take_hit" : "take_hit";
+		Sprite?.Play(reel);
+		float elapsed = 0f;
+		while (elapsed < StaggerDuration)
+		{
+			if (!await Wait(0f))
+				break;
+			elapsed += (float)GetPhysicsProcessDeltaTime();
+			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, 0f, 900f * (float)GetPhysicsProcessDeltaTime()), Velocity.Y);
+			// Dazed: the reel's last frames, swaying, after it has played once.
+			if (Sprite is not null && !Sprite.IsPlaying())
+			{
+				int frames = Sprite.SpriteFrames?.GetFrameCount(reel) ?? 1;
+				ShowFrame(reel, Mathf.Max(0, frames - 1 - (int)(elapsed * 3f) % 2));
+			}
+		}
+		_staggered = false;
+		_attackCooldownTimer = 0.4f;
+		if (IsInstanceValid(this) && !IsQueuedForRemoval)
+			await Recover(0.1f);
+	}
+
+	private Vector2 _spriteBasePosition;
+	private float _trembleTimer;
+	private float _trembleBoost;
+	private float _trembleBoostLeft;
+	private float _rotDriftTimer;
+
+	// Phase two is smaller: scale the sprite about the feet (the body's bottom edge, y = +42) so
+	// she stays standing on the floor. The tremble re-centres on the new base position.
+	private void ApplyPhaseTwoSize()
+	{
+		if (Sprite is null || Mathf.IsEqualApprox(PhaseTwoSize, 1f))
+			return;
+		const float feetY = 42f;
+		_spriteBasePosition = new Vector2(_spriteBasePosition.X * PhaseTwoSize, feetY + (_spriteBasePosition.Y - feetY) * PhaseTwoSize);
+		Sprite.Position = _spriteBasePosition;
+		Sprite.CreateTween().TweenProperty(Sprite, "scale", Vector2.One * CurrentScale, 0.2f).SetEase(Tween.EaseType.Out);
+	}
+
+	private bool _tired;
+
+	// Spent after a big move: the idle slowed right down, the body heaving with heavy breaths and
+	// sagging a little, the shiver of phase two almost gone, a few petals dropping off her.
+	// Returns false if cut short (a stagger, death).
+	private async Task<bool> Exhausted(float seconds)
+	{
+		if (Sprite is null)
+			return await Wait(seconds);
+		_tired = true;
+		if (DebugAI)
+			GD.Print($"[Artemisa] exhausted {seconds:0.0}s");
+		string idle = _phaseTwo ? "e_idle" : "idle";
+		Sprite.Play(idle);
+		Sprite.SpeedScale = 0.45f;
+		float elapsed = 0f;
+		float petalTimer = 0.3f;
+		bool finished = true;
+		while (elapsed < seconds)
+		{
+			if (!await Wait(0f))
+			{
+				finished = false;
+				break;
+			}
+			float step = (float)GetPhysicsProcessDeltaTime();
+			elapsed += step;
+			// Breathing: a slow heave, deeper at the start, settling as she recovers.
+			float depth = Mathf.Lerp(0.05f, 0.025f, elapsed / seconds);
+			float breath = Mathf.Sin(elapsed * 4.2f);
+			Sprite.Scale = new Vector2(CurrentScale * (1f - breath * depth * 0.3f), CurrentScale * (1f + breath * depth));
+			petalTimer -= step;
+			if (petalTimer <= 0f)
+			{
+				petalTimer = _rng.RandfRange(0.25f, 0.5f);
+				SpawnPetals(GlobalPosition + new Vector2(_rng.RandfRange(-15f, 15f), -40f), 2, 20f, 0.9f, inward: false);
+			}
+		}
+		if (IsInstanceValid(Sprite))
+		{
+			Sprite.SpeedScale = 1f;
+			Sprite.Scale = Vector2.One * CurrentScale;
+		}
+		_tired = false;
+		return finished;
+	}
+
+	// Extra tremble on top of phase two's constant one, for `seconds`.
+	private void Tremble(float amplitude, float seconds)
+	{
+		_trembleBoost = amplitude;
+		_trembleBoostLeft = seconds;
+	}
+
+	// Phase two's body: the sprite jitters (re-rolled every few frames, so it shivers rather than
+	// slides) and rot drifts off her.
+	private void UpdateTremble(float dt)
+	{
+		if (Sprite is null)
+			return;
+		_trembleBoostLeft -= dt;
+		if (_trembleBoostLeft <= 0f)
+			_trembleBoost = 0f;
+		// Tired: the constant shiver nearly stops and she sags a couple of pixels.
+		float amplitude = (_phaseTwo ? PhaseTwoTremble * (_tired ? 0.3f : 1f) : 0f) + _trembleBoost;
+		Vector2 basePosition = _spriteBasePosition + (_tired ? new Vector2(0f, 2f) : Vector2.Zero);
+		_trembleTimer -= dt;
+		if (_trembleTimer <= 0f)
+		{
+			_trembleTimer = 0.04f;
+			Sprite.Position = amplitude <= 0f
+				? basePosition
+				: basePosition + new Vector2(_rng.RandfRange(-amplitude, amplitude), _rng.RandfRange(-amplitude, amplitude) * 0.6f);
+		}
+		if (_phaseTwo && !IsQueuedForRemoval)
+		{
+			_rotDriftTimer -= dt;
+			if (_rotDriftTimer <= 0f)
+			{
+				_rotDriftTimer = _rng.RandfRange(0.12f, 0.3f);
+				SpawnPetals(GlobalPosition + new Vector2(_rng.RandfRange(-20f, 20f), _rng.RandfRange(-80f, -10f)), 2, 30f, 0.7f, inward: false);
+			}
+		}
+	}
+
+	private int _showcaseStep;
+	private int _showcaseLaps;
+	private float _showcaseWalkTimer;
+	// Counts only while she's free (Decide doesn't run mid-move), so it's a real gap between moves.
+	private float _showcasePauseLeft;
+
+	// The fixed filming reel (ShowcaseMode). Returns after starting at most one move.
+	private void ShowcaseDecide(Metroidvania.Player.Player player, float dt, float distance)
+	{
+		_showcasePauseLeft -= dt;
+		if (_showcasePauseLeft > 0f)
+			return;
+		if (!_phaseStarted && ShowcaseLapsBeforePhaseTwo > 0 && _showcaseLaps >= ShowcaseLapsBeforePhaseTwo)
+		{
+			_showcaseStep = 0;
+			_showcaseLaps = 0;
+			_aeoniaNext = false; // the phase-two reel opens with Aeonia itself
+			_ = PhaseTransition();
+			return;
+		}
+		string[] reel = _phaseTwo ? ShowcaseReelTwo : ShowcaseReelOne;
+		string move = reel[_showcaseStep % reel.Length];
+		// Close moves: walk in first (ComputeMoveX closes the gap while the cooldown is spent).
+		float reach = move switch
+		{
+			"slash1" or "slash2" or "slash3" or "rapid" => AttackRange,
+			"bash" => BashRange + 20f,
+			"guard" => GuardRange,
+			"grab" => GrabMaxRange,
+			"dance" => DanceMaxRange,
+			"flying" => FlyingSlashMaxRange,
+			"plunge" => PlungeMaxRange,
+			_ => float.MaxValue,
+		};
+		// She never walks closer than EngageDistance, so a shorter reach would only wait out the timeout.
+		reach = Mathf.Max(reach, EngageDistance + 10f);
+		if (distance > reach && _showcaseWalkTimer < ShowcaseWalkInTimeout)
+		{
+			_showcaseWalkTimer += dt;
+			return;
+		}
+		_showcaseWalkTimer = 0f;
+		_showcaseStep++;
+		if (_showcaseStep % reel.Length == 0)
+			_showcaseLaps++;
+		_showcasePauseLeft = ShowcasePause;
+		if (DebugAI)
+			GD.Print($"[Artemisa] showcase: {move}");
+		FaceTowardsPlayer();
+		string prefix = _phaseTwo ? "e_" : "";
+		switch (move)
+		{
+			case "thrust": _ = Thrust(healPunish: false); break;
+			case "dance": _ = WaterfowlDance(); break;
+			case "bash": _ = ShieldBash(); break;
+			case "guard": _ = Guard(); break;
+			case "grab": _ = Grab(); break;
+			case "aeonia": _ = ScarletAeonia(); break;
+			case "phantoms": _ = ScarletPhantoms(); break;
+			case "flying": _ = FlyingSlash(); break;
+			case "plunge": _ = ScarletPlunge(); break;
+			case "rapid": _ = RapidSlashes(); break;
+			case "slash1": _ = SpearAttack(prefix + "1_atk", "slash1"); break;
+			case "slash2": _ = SpearAttack(prefix + "2_atk", "slash2"); break;
+			default: _ = SpearAttack(prefix + "3_atk", "slash3"); break;
+		}
+	}
+
 	private void Decide(Metroidvania.Player.Player player, float dt)
 	{
 		float distance = Mathf.Abs(player.GlobalPosition.X - GlobalPosition.X);
+		if (ShowcaseMode)
+		{
+			ShowcaseDecide(player, dt, distance);
+			return;
+		}
 		bool healingNow = player.IsHealing && !_playerWasHealing;
 		_playerWasHealing = player.IsHealing;
 		_farTimer = distance > ThrustMinRange ? _farTimer + dt : 0f;
@@ -840,7 +1166,7 @@ public partial class ArtemisaBoss : Enemy
 				Velocity = new Vector2(0f, Velocity.Y);
 				if (live >= 0)
 				{
-					float reach = windows[live].Reach * SpriteScale;
+					float reach = windows[live].Reach * CurrentScale;
 					SpearOn(reach);
 					var target = PlayerReads.Find(this);
 					if (target is not null && Mathf.Abs(target.GlobalPosition.X - GlobalPosition.X) > reach * 0.7f)
@@ -972,7 +1298,7 @@ public partial class ArtemisaBoss : Enemy
 				if (!landed && f <= 5 && player is not null)
 				{
 					Vector2 rel = player.GlobalPosition - GlobalPosition;
-					if (rel.X * dir > -10f && rel.X * dir < 73f * SpriteScale && Mathf.Abs(rel.Y) < 60f
+					if (rel.X * dir > -10f && rel.X * dir < 73f * CurrentScale && Mathf.Abs(rel.Y) < 60f
 						&& HitUnparryable(player, 1f, GlobalPosition, BashKnockback))
 					{
 						landed = true;
@@ -1039,9 +1365,14 @@ public partial class ArtemisaBoss : Enemy
 			float speed = finalBurst ? DanceFinalBurstSpeed : DanceBurstSpeed;
 			float maxDuration = finalBurst ? DanceFinalBurstMaxTime : DanceBurstDuration;
 
+			// Phase two dances with her slashing combo (e_3_atk's striking frames, looped fast)
+			// instead of a held pose rotated along the burst.
 			ShowFrame(lungeAnim, human ? 0 : 4);
+			if (!human)
+				ShowFrame("e_3_atk", DanceComboFirst);
 			Velocity = direction.Normalized() * speed;
-			AimSpriteAlong(Velocity);
+			if (human)
+				AimSpriteAlong(Velocity);
 			_flurry.Play();
 			SpawnPetals(GlobalPosition + new Vector2(0f, -20f), 26, 120f, 0.5f, inward: false);
 			Sfx.PlayAt(this, "Combat/Sword", "Sword Attack", 2000f);
@@ -1058,6 +1389,11 @@ public partial class ArtemisaBoss : Enemy
 					return;
 				float step = (float)GetPhysicsProcessDeltaTime();
 				burstElapsed += step;
+				if (!human)
+				{
+					int span = DanceComboLast - DanceComboFirst + 1;
+					ShowFrame("e_3_atk", DanceComboFirst + (int)(burstElapsed * DanceComboFps) % span);
+				}
 				Afterimage(ScarletGlow);
 				if (!secondFlurry && burstElapsed >= DanceBurstDuration * 0.5f)
 				{
@@ -1084,7 +1420,8 @@ public partial class ArtemisaBoss : Enemy
 				float turn = Mathf.Clamp(Velocity.AngleTo(toPlayer), -maxTurn, maxTurn);
 				Velocity = Velocity.Rotated(turn).Normalized() * speed;
 				FaceTowards(player.GlobalPosition.X);
-				AimSpriteAlong(Velocity);
+				if (human)
+					AimSpriteAlong(Velocity);
 			}
 			_danceHitbox.Deactivate();
 			SetMoveLight(ScarletGlow, 0.5f);
@@ -1118,7 +1455,7 @@ public partial class ArtemisaBoss : Enemy
 			return;
 		Sfx.PlayAt(this, "Footsteps/Stone", "Stone Chain Land", 2000f);
 		SpawnDust(GlobalPosition + new Vector2(0f, 40f));
-		await Recover(DanceRecovery);
+		await Recover(DanceRecovery + (_phaseTwo ? PhaseTwoOpening : 0f));
 	}
 
 	// ── Shield guard, parry and riposte ─────────────────────────────────────────────────────
@@ -1214,7 +1551,7 @@ public partial class ArtemisaBoss : Enemy
 		if (!await PlayFrames(anim, human ? 1 : 1, 2, 18f))
 			return;
 		float dir = FacingRight ? 1f : -1f;
-		float reach = (human ? 104f : 134f) * SpriteScale;
+		float reach = (human ? 104f : 134f) * CurrentScale;
 		var player = PlayerReads.Find(this);
 		if (player is not null && Mathf.Abs(player.GlobalPosition.X - GlobalPosition.X) > reach * 0.7f)
 			Velocity = new Vector2(dir * LungeSpeed * 2f, Velocity.Y);
@@ -1298,7 +1635,7 @@ public partial class ArtemisaBoss : Enemy
 			string hold = human ? "projectile_atk" : "e_idle";
 			// Held up on the spear, above and a little behind her head.
 			Vector2 start = player.GlobalPosition;
-			Vector2 held = GlobalPosition + new Vector2(-dir * 10f, -125f);
+			Vector2 held = GlobalPosition + new Vector2(-dir * 10f, -125f * SizeFactor);
 			float tickEvery = 0.3f;
 			float liftTime = 0.25f;
 			float total = liftTime + tickEvery * GrabTicks + 0.15f;
@@ -1323,30 +1660,43 @@ public partial class ArtemisaBoss : Enemy
 				}
 			}
 
-			// The slam: down in front of her, hard.
+			// The throw: a short hitch higher up (she gathers him over her head), then hurled down in
+			// front of her, accelerating into the floor — he's thrown, not set down.
 			if (human)
 				ShowFrame(hold, 8);
-			Vector2 slamPoint = new(GlobalPosition.X + dir * 70f, GlobalPosition.Y);
+			Vector2 hitchFrom = player.GlobalPosition;
+			Vector2 hitch = hitchFrom + new Vector2(-dir * 12f, -34f);
+			float t = 0f;
+			while (t < 0.1f)
+			{
+				if (!IsInstanceValid(player) || !await Wait(0f))
+					return;
+				t += (float)GetPhysicsProcessDeltaTime();
+				player.GlobalPosition = hitchFrom.Lerp(hitch, Mathf.Ease(Mathf.Clamp(t / 0.1f, 0f, 1f), 0.4f));
+				player.Velocity = Vector2.Zero;
+			}
+			Vector2 slamPoint = new(GlobalPosition.X + dir * 80f, GlobalPosition.Y);
 			Vector2 from = player.GlobalPosition;
 			float slam = 0f;
-			while (slam < 0.12f)
+			while (slam < 0.09f)
 			{
 				if (!IsInstanceValid(player) || !await Wait(0f))
 					return;
 				slam += (float)GetPhysicsProcessDeltaTime();
-				player.GlobalPosition = from.Lerp(slamPoint, Mathf.Clamp(slam / 0.12f, 0f, 1f));
+				// Ease-in: slow off the top, fastest at the floor.
+				float k = Mathf.Clamp(slam / 0.09f, 0f, 1f);
+				player.GlobalPosition = from.Lerp(slamPoint, k * k);
 				player.Velocity = Vector2.Zero;
 			}
 			if (human)
 				ShowFrame(hold, 9);
 			DamageHeld(player, GrabSlamMultiplier);
 			BloodEffect.SpawnAt(this, player.GlobalPosition);
+			BloodEffect.SpawnAt(this, player.GlobalPosition + new Vector2(dir * 14f, -6f));
 			Sfx.PlayAt(this, "Footsteps/Stone", "Stone Chain Land", 2000f, RiseVolumeDb);
 			Sfx.PlayAt(this, "Combat/Sword", "Sword Impact Hit", 2000f);
-			player.ShakeCamera(13f, 0.4f);
-			SpawnRing(slamPoint + new Vector2(0f, 30f), 120f);
-			SpawnDust(slamPoint + new Vector2(0f, 38f));
-			SpawnPetals(slamPoint, 50, 160f, 0.8f, inward: false);
+			Vector2 ground = slamPoint + new Vector2(0f, 36f);
+			SlamImpact(player, ground, dir);
 		}
 		finally
 		{
@@ -1354,7 +1704,8 @@ public partial class ArtemisaBoss : Enemy
 			{
 				player.Atrapado = false;
 				player.ReleaseSnare();
-				player.ApplyKnockbackThroughBlock(new Vector2(dir, -0.4f).Normalized(), 380f);
+				// Bounced off the floor and sent tumbling away, low and far.
+				player.ApplyKnockbackThroughBlock(new Vector2(dir, -0.55f).Normalized(), 560f);
 			}
 		}
 		await Recover(0.7f);
@@ -1384,6 +1735,7 @@ public partial class ArtemisaBoss : Enemy
 		if (!BeginMove("aeonia"))
 			return;
 		_aeoniaCooldownTimer = AeoniaCooldown;
+		Tremble(ChargeTremble, 0.45f + AeoniaHover + 1.4f);
 		Sfx.PlayIfExistsAt(this, VoiceCategory, "Ataque", 2000f);
 		Sfx.PlayAt(this, "Magic", "Firebuff", 2000f);
 		var tendrils = new Tendriles { Color = RotColor, Position = new Vector2(0f, -40f) };
@@ -1445,6 +1797,8 @@ public partial class ArtemisaBoss : Enemy
 		Gravity = _baseGravity;
 		Velocity = Vector2.Zero;
 		SetMoveLight(RotColor, 0.6f);
+		// Landing: a harder shudder that settles while the flower opens.
+		Tremble(ChargeTremble * 1.4f, AeoniaBloomDelay);
 		Vector2 ground = GlobalPosition + new Vector2(0f, 38f);
 		HitPlayerAt(GlobalPosition + new Vector2(0f, -10f), AeoniaImpactRadius, 1.4f, false, 320f);
 		Sfx.PlayAt(this, "Footsteps/Stone", "Stone Chain Land", 2000f, RiseVolumeDb);
@@ -1460,7 +1814,9 @@ public partial class ArtemisaBoss : Enemy
 			flower.GlobalPosition = ground;
 		}
 		ShowFrame("e_idle", 0);
-		await Recover(0.9f);
+		if (!await Exhausted(AeoniaBloomDelay + AeoniaOpening))
+			return;
+		await Recover(0.1f);
 	}
 
 	// Scarlet Phantoms. She rises over a pool of rot and, one after another, phantoms of herself
@@ -1471,6 +1827,7 @@ public partial class ArtemisaBoss : Enemy
 		if (!BeginMove("phantoms"))
 			return;
 		_phantomsCooldownTimer = PhantomsCooldown;
+		Tremble(ChargeTremble * 0.7f, 0.4f + PhantomCount * PhantomInterval + PhantomTell + 0.6f);
 		Sfx.PlayIfExistsAt(this, VoiceCategory, "Ataque", 2000f);
 		SetMoveLight(RotColor, 1.5f);
 
@@ -1533,80 +1890,123 @@ public partial class ArtemisaBoss : Enemy
 		SpawnRing(GlobalPosition, 100f);
 		SpawnDust(GlobalPosition + new Vector2(0f, 40f));
 		SetMoveLight(RotColor, 0f);
-		await Recover(0.8f);
+		await Recover(0.8f + PhaseTwoOpening);
 	}
 
-	// One phantom: her silhouette in scarlet neon fades in beside him, aims, lunges through and fades.
+	// One phantom: it tears out of her own body (as Malenia's do), drifts off to one side of her
+	// while it aims at him, then lunges all the way through where he stands and fades.
 	private async Task Phantom(float side)
 	{
 		var player = PlayerReads.Find(this);
 		if (player is null || GetTree().CurrentScene is not Node scene || Sprite?.SpriteFrames is null)
 			return;
-		Vector2 start = player.GlobalPosition + new Vector2(side * PhantomOffset, -24f);
+		Vector2 body = GlobalPosition + new Vector2(0f, -20f);
+		// Where it settles beside her before lunging (a little uneven each time).
+		Vector2 perch = body + new Vector2(side * _rng.RandfRange(55f, 85f), _rng.RandfRange(-35f, 5f));
 		var ghost = new Sprite2D
 		{
 			Texture = Sprite.SpriteFrames.GetFrameTexture("e_air_atk", 3),
 			Material = Metroidvania.Player.NeonSilhouette.CreateMaterial(RotColor, 1.6f),
-			Modulate = new Color(1f, 1f, 1f, 0f),
-			Scale = new Vector2(-side * SpriteScale, SpriteScale),
+			Modulate = new Color(1f, 1f, 1f, 0.9f),
+			Scale = new Vector2(CurrentScale, CurrentScale),
 			ZIndex = 6,
 		};
 		scene.AddChild(ghost);
-		ghost.GlobalPosition = start + new Vector2(0f, -20f);
-		ghost.CreateTween().TweenProperty(ghost, "modulate:a", 0.85f, PhantomTell * 0.8f);
-		SpawnPetals(start, 16, 90f, PhantomTell, inward: true);
+		ghost.GlobalPosition = body;
+		Sfx.PlayAt(this, "Magic", "Firebuff", 2000f);
+		SpawnPetals(body, 14, 50f, 0.4f, inward: false);
+		FlashBody(RotColor, 0.15f);
 
-		// Tell: it takes shape and keeps re-aiming at him until the lunge.
+		// Tell: it peels away from her (leaving copies of itself on the way) and keeps re-aiming
+		// at him until the lunge.
 		float tell = 0f;
+		float copyTimer = 0f;
 		Vector2 direction = new(-side, 0f);
 		while (tell < PhantomTell)
 		{
 			if (!IsInsideTree() || !await Wait(0f) || !IsInstanceValid(ghost))
+			{
+				if (IsInstanceValid(ghost))
+					ghost.QueueFree();
 				return;
-			tell += (float)GetPhysicsProcessDeltaTime();
+			}
+			float step = (float)GetPhysicsProcessDeltaTime();
+			tell += step;
+			float peel = Mathf.Ease(Mathf.Clamp(tell / (PhantomTell * 0.55f), 0f, 1f), 0.35f);
+			ghost.GlobalPosition = body.Lerp(perch, peel);
+			copyTimer -= step;
+			if (peel < 1f && copyTimer <= 0f)
+			{
+				copyTimer = 0.03f;
+				PhantomCopy(ghost, scene);
+			}
 			player = PlayerReads.Find(this);
 			if (player is not null)
 			{
-				direction = (player.GlobalPosition + new Vector2(0f, -10f) - start).Normalized();
-				ghost.Rotation = side < 0f ? direction.Angle() : direction.Angle() - Mathf.Pi;
+				direction = (player.GlobalPosition + new Vector2(0f, -30f) - ghost.GlobalPosition).Normalized();
+				float facing = direction.X >= 0f ? 1f : -1f;
+				ghost.Scale = new Vector2(facing * CurrentScale, CurrentScale);
+				ghost.Rotation = facing > 0f ? direction.Angle() : direction.Angle() - Mathf.Pi;
 			}
 		}
 		Sfx.PlayAt(this, "Magic", "Wave Attack", 2000f);
-		Vector2 end = start + direction * PhantomLungeLength;
-		var streak = new Line2D
-		{
-			Points = new[] { start, start },
-			Width = 14f,
-			DefaultColor = RotColor,
-			Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add },
-			BeginCapMode = Line2D.LineCapMode.Round,
-			EndCapMode = Line2D.LineCapMode.Round,
-			ZIndex = 6,
-		};
-		scene.AddChild(streak);
+		Vector2 start = ghost.GlobalPosition - new Vector2(0f, -20f);
+		// Long enough to pass clean through him, wherever he is.
+		float length = player is null ? PhantomLungeLength
+			: Mathf.Max(PhantomLungeLength, start.DistanceTo(player.GlobalPosition) + 140f);
+		Vector2 end = start + direction * length;
+		float lungeTime = 0.14f * length / Mathf.Max(1f, PhantomLungeLength);
+		// The trail is the phantom itself: neon copies of her silhouette left behind along the
+		// lunge, each fading on its own, with rot petals shed along the way — no drawn line.
 		bool hit = false;
 		float lunge = 0f;
-		const float lungeTime = 0.14f;
+		copyTimer = 0f;
 		while (lunge < lungeTime)
 		{
 			if (!IsInsideTree() || !await Wait(0f) || !IsInstanceValid(ghost))
+			{
+				if (IsInstanceValid(ghost))
+					ghost.QueueFree();
 				return;
-			lunge += (float)GetPhysicsProcessDeltaTime();
+			}
+			float dt = (float)GetPhysicsProcessDeltaTime();
+			lunge += dt;
 			Vector2 at = start.Lerp(end, Mathf.Clamp(lunge / lungeTime, 0f, 1f));
 			ghost.GlobalPosition = at + new Vector2(0f, -20f);
-			streak.SetPointPosition(1, at);
+			copyTimer -= dt;
+			if (copyTimer <= 0f)
+			{
+				copyTimer = 0.018f;
+				PhantomCopy(ghost, scene);
+				SpawnPetals(at + new Vector2(0f, -20f), 3, 26f, 0.5f, inward: false);
+			}
 			player = PlayerReads.Find(this);
 			if (!hit && player is not null && DistanceToSegment(player.GlobalPosition + new Vector2(0f, -10f), start, at) < 42f)
 				hit = HitPlayerAt(player.GlobalPosition, 1f, PhantomMultiplier, false, 260f);
 		}
 		Tween fade = ghost.CreateTween();
 		fade.TweenProperty(ghost, "modulate:a", 0f, 0.25f);
-		fade.Parallel().TweenProperty(streak, "modulate:a", 0f, 0.3f);
-		fade.TweenCallback(Callable.From(() =>
+		fade.TweenCallback(Callable.From(ghost.QueueFree));
+	}
+
+	// One fading neon copy of a phantom where it is right now, nudged a little off its path so
+	// the trail frays instead of reading as a solid bar.
+	private void PhantomCopy(Sprite2D phantom, Node scene)
+	{
+		var copy = new Sprite2D
 		{
-			ghost.QueueFree();
-			streak.QueueFree();
-		}));
+			Texture = phantom.Texture,
+			Material = phantom.Material,
+			Scale = phantom.Scale,
+			Rotation = phantom.Rotation,
+			Modulate = new Color(1f, 1f, 1f, _rng.RandfRange(0.35f, 0.6f)),
+			ZIndex = phantom.ZIndex - 1,
+		};
+		scene.AddChild(copy);
+		copy.GlobalPosition = phantom.GlobalPosition + new Vector2(_rng.RandfRange(-4f, 4f), _rng.RandfRange(-5f, 5f));
+		Tween fade = copy.CreateTween();
+		fade.TweenProperty(copy, "modulate:a", 0f, _rng.RandfRange(0.2f, 0.4f));
+		fade.TweenCallback(Callable.From(copy.QueueFree));
 	}
 
 	// Flying Slash: a leap at him, a wide sweeping arc at the top, then a thrust diving down-forward.
@@ -1679,7 +2079,7 @@ public partial class ArtemisaBoss : Enemy
 		Sfx.PlayAt(this, "Footsteps/Stone", "Stone Chain Land", 2000f);
 		if (!await PlayFrames("e_air_atk", 5, 7, 14f))
 			return;
-		await Recover(0.6f);
+		await Recover(0.6f + PhaseTwoOpening);
 	}
 
 	// Scarlet Plunge: a high leap that comes down over him, the spear driven into the floor, and
@@ -1750,7 +2150,7 @@ public partial class ArtemisaBoss : Enemy
 			cloud.GlobalPosition = GlobalPosition + new Vector2(dir * 150f, 38f);
 		}
 		SetMoveLight(RotColor, 0f);
-		await Recover(0.8f);
+		await Recover(0.8f + PhaseTwoOpening);
 	}
 
 	// A burst of scarlet rot: flash, ring, embers.
@@ -1889,7 +2289,7 @@ public partial class ArtemisaBoss : Enemy
 		public float Delay = 1.1f;
 		public Color Color;
 		private readonly List<Node2D> _petals = new();
-		private Line2D _ring;
+		private ZonaRota _ring;
 		private PointLight2D _light;
 		private float _time;
 		private bool _bloomed;
@@ -1898,14 +2298,11 @@ public partial class ArtemisaBoss : Enemy
 		{
 			ZIndex = 4;
 			var additive = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add };
-			// The danger zone, flat on the ground (an ellipse: it's the floor seen from the side).
-			_ring = new Line2D { Width = 4f, DefaultColor = Color, Material = additive, Closed = true };
-			for (int i = 0; i < 48; i++)
-			{
-				float a = Mathf.Tau * i / 48f;
-				_ring.AddPoint(new Vector2(Mathf.Cos(a) * Radius, Mathf.Sin(a) * Radius * 0.18f));
-			}
+			// The danger zone on the ground: torn, crawling strands of rot (not a clean ellipse) with
+			// rot boiling up out of it — still readable as "this patch of floor".
+			_ring = new ZonaRota { Radius = Radius, Color = Color, Material = additive };
 			AddChild(_ring);
+			AddChild(RotEmbers(Radius, Color));
 			_light = new PointLight2D
 			{
 				Texture = GD.Load<Texture2D>("res://resources/particles/SoftDotGradient.tres"),
@@ -1940,7 +2337,11 @@ public partial class ArtemisaBoss : Enemy
 			float urgency = Mathf.Clamp(_time / Delay, 0f, 1f);
 			float pulse = 0.5f + 0.5f * Mathf.Sin(_time * Mathf.Lerp(8f, 26f, urgency));
 			_ring.Modulate = new Color(1f, 1f, 1f, 0.4f + 0.6f * pulse);
+			_ring.Chaos = 0.12f + 0.35f * urgency;
 			_light.Energy = 0.3f + 1.5f * urgency * pulse;
+			// The petals shiver harder as it nears.
+			foreach (Node2D petal in _petals)
+				petal.Position = new Vector2((float)GD.RandRange(-1.0, 1.0), (float)GD.RandRange(-1.0, 1.0)) * (1f + 4f * urgency);
 			if (_time < Delay)
 				return;
 			_bloomed = true;
@@ -1970,6 +2371,266 @@ public partial class ArtemisaBoss : Enemy
 				points[i] = new Vector2(x, y);
 			}
 			return points;
+		}
+	}
+
+	// Rot boiling up off a patch of floor: uneven embers rising and drifting.
+	private static GpuParticles2D RotEmbers(float halfWidth, Color color)
+	{
+		var gradient = new Gradient();
+		gradient.SetColor(0, color with { A = 0.9f });
+		gradient.SetColor(1, color with { A = 0f });
+		return new GpuParticles2D
+		{
+			Amount = 46,
+			Lifetime = 0.9f,
+			Randomness = 0.7f,
+			Texture = GD.Load<Texture2D>("res://resources/particles/SoftDotGradient.tres"),
+			Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add },
+			ProcessMaterial = new ParticleProcessMaterial
+			{
+				EmissionShape = ParticleProcessMaterial.EmissionShapeEnum.Box,
+				EmissionBoxExtents = new Vector3(halfWidth * 0.9f, 6f, 0f),
+				Direction = new Vector3(0f, -1f, 0f),
+				Spread = 25f,
+				InitialVelocityMin = 40f,
+				InitialVelocityMax = 150f,
+				Gravity = new Vector3(0f, -30f, 0f),
+				TurbulenceEnabled = true,
+				TurbulenceNoiseStrength = 3f,
+				TurbulenceInfluenceMin = 0.05f,
+				TurbulenceInfluenceMax = 0.2f,
+				ScaleMin = 0.15f,
+				ScaleMax = 0.6f,
+				ColorRamp = new GradientTexture1D { Gradient = gradient },
+			},
+			Position = new Vector2(0f, -4f),
+			Emitting = true,
+		};
+	}
+
+	// The ground patch of a rot attack, drawn as torn strands that re-tear every few frames:
+	// gaps, kinks, uneven widths. Flattened (it's the floor seen from the side).
+	private partial class ZonaRota : Node2D
+	{
+		public float Radius = 200f;
+		public Color Color;
+		// How much the radius wanders per point (fraction of Radius).
+		public float Chaos = 0.12f;
+		private float _redraw;
+
+		public override void _Process(double delta)
+		{
+			_redraw -= (float)delta;
+			if (_redraw > 0f)
+				return;
+			_redraw = 0.04f;
+			QueueRedraw();
+		}
+
+		public override void _Draw()
+		{
+			for (int strand = 0; strand < 3; strand++)
+			{
+				var run = new List<Vector2>();
+				float start = (float)GD.RandRange(0.0, Mathf.Tau);
+				int steps = 40;
+				for (int i = 0; i <= steps; i++)
+				{
+					// Random gaps: the strand tears.
+					if (GD.Randf() < 0.2f)
+					{
+						DrawRun(run, strand);
+						run.Clear();
+						continue;
+					}
+					float a = start + Mathf.Tau * i / steps;
+					float r = Radius * (1f + (float)GD.RandRange(-Chaos, Chaos)) - strand * (float)GD.RandRange(0.0, 18.0);
+					run.Add(new Vector2(Mathf.Cos(a) * r, Mathf.Sin(a) * r * 0.2f + (float)GD.RandRange(-3.0, 3.0)));
+				}
+				DrawRun(run, strand);
+			}
+		}
+
+		private void DrawRun(List<Vector2> run, int strand)
+		{
+			if (run.Count < 2)
+				return;
+			float width = (float)GD.RandRange(1.5, 5.0) - strand * 0.6f;
+			DrawPolyline(run.ToArray(), Color with { A = 0.9f - strand * 0.25f }, Mathf.Max(1f, width), true);
+		}
+	}
+
+	// The bud of the phase change: fleshy scarlet petals push up out of the floor and close around
+	// her, their edges never still (re-roughened every few frames); while she transforms inside it
+	// swells and shudders harder and harder, glowing from within; then it tears open.
+	private partial class CapulloRot : Node2D
+	{
+		public Color Color;
+		public float Height = 230f;
+		private readonly List<(Node2D Pivot, Polygon2D Shape, float Length, float Width, float Lean)> _petals = new();
+		private Sprite2D _glow;
+		private float _intensity = 0.15f;
+		private float _redraw;
+		private bool _burst;
+		private readonly RandomNumberGenerator _rng = new();
+
+		public override void _Ready()
+		{
+			_rng.Randomize();
+			_glow = new Sprite2D
+			{
+				Texture = GD.Load<Texture2D>("res://resources/lighting/PointLightGradient.tres"),
+				Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add },
+				Modulate = Color with { A = 0f },
+				Position = new Vector2(0f, -Height * 0.45f),
+				Scale = new Vector2(0.5f, 0.8f),
+				ZIndex = 1,
+			};
+			AddChild(_glow);
+			AddChild(RotEmbers(60f, Color));
+			int count = 9;
+			for (int i = 0; i < count; i++)
+			{
+				float baseX = Mathf.Lerp(-48f, 48f, i / (float)(count - 1)) + _rng.RandfRange(-6f, 6f);
+				// Alternate layers: some petals behind her, the rest in front (see-through).
+				bool front = i % 2 == 0;
+				float length = Height * _rng.RandfRange(0.82f, 1.05f);
+				var pivot = new Node2D
+				{
+					Position = new Vector2(baseX, 0f),
+					Scale = new Vector2(0.3f, 0f),
+					ZIndex = front ? 2 : -1,
+				};
+				var shape = new Polygon2D { Modulate = new Color(1f, 1f, 1f, front ? 0.82f : 1f) };
+				pivot.AddChild(shape);
+				AddChild(pivot);
+				_petals.Add((pivot, shape, length, length * _rng.RandfRange(0.3f, 0.4f), -baseX / 48f * 0.32f));
+			}
+			Reshape();
+		}
+
+		public void Grow(float seconds)
+		{
+			for (int i = 0; i < _petals.Count; i++)
+			{
+				Tween grow = _petals[i].Pivot.CreateTween();
+				grow.TweenInterval(i * 0.05f);
+				grow.TweenProperty(_petals[i].Pivot, "scale", Vector2.One, seconds).SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
+			}
+			CreateTween().TweenProperty(_glow, "modulate:a", 0.35f, seconds);
+		}
+
+		// She transforms inside: it swells and the shudder builds.
+		public void Charge()
+		{
+			CreateTween().TweenMethod(Callable.From<float>(v => _intensity = v), _intensity, 1f, 2.4f);
+			CreateTween().TweenProperty(this, "scale", new Vector2(1.12f, 1.08f), 2.4f).SetEase(Tween.EaseType.In);
+			CreateTween().TweenProperty(_glow, "modulate:a", 1f, 2.3f);
+		}
+
+		public void Burst()
+		{
+			_burst = true;
+			Tween tween = CreateTween().SetParallel();
+			foreach (var petal in _petals)
+			{
+				float side = petal.Pivot.Position.X >= 0f ? 1f : -1f;
+				tween.TweenProperty(petal.Pivot, "rotation", petal.Lean + side * _rng.RandfRange(0.9f, 1.5f), 0.3f).SetEase(Tween.EaseType.Out);
+				tween.TweenProperty(petal.Pivot, "position", petal.Pivot.Position + new Vector2(side * _rng.RandfRange(40f, 110f), _rng.RandfRange(-20f, 10f)), 0.35f);
+				tween.TweenProperty(petal.Pivot, "scale", Vector2.One * 1.4f, 0.35f);
+				tween.TweenProperty(petal.Pivot, "modulate:a", 0f, 0.45f);
+			}
+			tween.TweenProperty(_glow, "scale", new Vector2(2.2f, 2.2f), 0.2f);
+			tween.TweenProperty(_glow, "modulate:a", 0f, 0.5f);
+			tween.Chain().TweenCallback(Callable.From(QueueFree));
+		}
+
+		public override void _Process(double delta)
+		{
+			if (_burst)
+				return;
+			_redraw -= (float)delta;
+			if (_redraw > 0f)
+				return;
+			_redraw = 0.05f;
+			Reshape();
+		}
+
+		// Fresh rough edges and a fresh shiver for every petal, stronger as the intensity builds.
+		private void Reshape()
+		{
+			var dark = new Color(0.22f, 0.02f, 0.04f, 1f);
+			foreach (var petal in _petals)
+			{
+				petal.Pivot.Rotation = petal.Lean + _rng.RandfRange(-1f, 1f) * 0.06f * (0.3f + _intensity);
+				const int steps = 9;
+				var points = new Vector2[steps * 2];
+				var colors = new Color[steps * 2];
+				for (int k = 0; k < steps; k++)
+				{
+					float t = k / (float)(steps - 1);
+					float half = petal.Width * 0.5f * Mathf.Pow(Mathf.Sin(Mathf.Pi * Mathf.Min(t * 1.05f, 1f)), 0.7f);
+					float y = -petal.Length * t;
+					float rough = petal.Width * 0.12f * (0.4f + _intensity);
+					points[k] = new Vector2(-half - _rng.RandfRange(0f, rough), y + _rng.RandfRange(-3f, 3f));
+					points[steps * 2 - 1 - k] = new Vector2(half + _rng.RandfRange(0f, rough), y + _rng.RandfRange(-3f, 3f));
+					Color c = dark.Lerp(Color, Mathf.Pow(t, 0.7f));
+					colors[k] = c;
+					colors[steps * 2 - 1 - k] = c;
+				}
+				petal.Shape.Polygon = points;
+				petal.Shape.VertexColors = colors;
+			}
+		}
+	}
+
+	// A burst wave of rot: torn, jittering strands racing outward and breaking up — the
+	// replacement for a clean expanding ring.
+	private partial class OndaRota : Node2D
+	{
+		public float Radius = 120f;
+		public Color Color;
+		public float Duration = 0.5f;
+		private float _time;
+		private float _redraw;
+
+		public override void _Process(double delta)
+		{
+			_time += (float)delta;
+			if (_time >= Duration)
+			{
+				QueueFree();
+				return;
+			}
+			_redraw -= (float)delta;
+			if (_redraw > 0f)
+				return;
+			_redraw = 0.035f;
+			QueueRedraw();
+		}
+
+		public override void _Draw()
+		{
+			float p = Mathf.Clamp(_time / Duration, 0f, 1f);
+			float eased = 1f - Mathf.Pow(1f - p, 3f);
+			float r = Mathf.Lerp(Radius * 0.2f, Radius, eased);
+			float fade = 1f - p;
+			// Short shards flung along the wave front, each at its own radius and angle.
+			int shards = 26;
+			for (int i = 0; i < shards; i++)
+			{
+				if (GD.Randf() < 0.25f + 0.4f * p)
+					continue;
+				float a = Mathf.Tau * i / shards + (float)GD.RandRange(-0.12, 0.12);
+				float rr = r * (1f + (float)GD.RandRange(-0.22, 0.22));
+				float len = (float)GD.RandRange(0.18, 0.45) * Mathf.Tau / shards * rr;
+				Vector2 tangent = Vector2.Right.Rotated(a + Mathf.Pi / 2f);
+				Vector2 mid = Vector2.Right.Rotated(a) * rr;
+				Vector2 kink = mid + Vector2.Right.Rotated(a) * (float)GD.RandRange(-6.0, 6.0);
+				DrawPolyline(new[] { mid - tangent * len * 0.5f, kink, mid + tangent * len * 0.5f },
+					Color with { A = fade }, (float)GD.RandRange(2.0, 8.0) * fade + 1f, true);
+			}
 		}
 	}
 
@@ -2130,7 +2791,7 @@ public partial class ArtemisaBoss : Enemy
 		foreach (Stab stab in stabs)
 		{
 			float dir = FacingRight ? 1f : -1f;
-			float reach = stab.Reach * SpriteScale;
+			float reach = stab.Reach * CurrentScale;
 			for (int f = stab.From; f <= stab.To; f++)
 			{
 				ShowFrame(anim, f);
@@ -2306,22 +2967,61 @@ public partial class ArtemisaBoss : Enemy
 		Velocity = new Vector2(0f, Velocity.Y);
 		Stats.ExternalInvulnerable = true;
 		FaceTowardsPlayer();
-		Sprite?.Play("idle");
 		_music?.Stop(1.2f);
 
+		// Beat 1 — she breaks: reels, drops to one knee as she was when he found her, and the hall
+		// goes dark around her.
+		// Forced by StartInPhaseTwo at full health she isn't hurt: no reel, she just kneels.
+		bool hurt = !StartInPhaseTwo || Stats.CurrentHealth < Stats.MaxHealth;
+		if (hurt)
+		{
+			Sfx.PlayIfExistsAt(this, VoiceCategory, "Golpeado", 2000f);
+			Sprite?.Play("take_hit");
+		}
+		var arena = ArenaModulatePath is null || ArenaModulatePath.IsEmpty ? null : GetNodeOrNull<CanvasModulate>(ArenaModulatePath);
+		Color arenaColour = arena?.Color ?? Colors.White;
+		arena?.CreateTween().TweenProperty(arena, "color", arenaColour * new Color(0.45f, 0.4f, 0.42f, 1f), 1.4f);
+		if (!await Wait(0.35f))
+			return;
+		Sprite?.Play("couch_idle");
+		Sfx.PlayAt(this, "Footsteps/Stone", "Stone Chain Land", 2000f, RiseVolumeDb);
+		SpawnDust(GlobalPosition + new Vector2(0f, 40f));
+
+		// Beat 2 (held): a bud of scarlet rot pushes up out of the floor and closes around her while
+		// she speaks from inside it.
+		var bud = new CapulloRot { Color = RotColor, Height = 230f, Position = new Vector2(0f, 42f) };
+		AddChild(bud);
+		var player = PlayerReads.Find(this);
 		var scene = new Cinematic { Name = "FaseArtemisa", PlayOnce = false };
-		scene.Steps.Add(new StepCamera { Target = new NodePath(".."), Weight = 0.6f, Zoom = 1.35f, WaitSeconds = 0.5f });
-		scene.Steps.Add(new StepSay { SpeakerKeys = new[] { SpeakerKey }, LineKeys = PhaseLines, ExtraPauses = new[] { 0.6f } });
-		scene.Steps.Add(new StepCamera { WaitSeconds = 0.2f });
+		scene.Steps.Add(new StepCamera { Target = new NodePath(".."), Weight = 0.7f, Zoom = 1.5f, WaitSeconds = 0.5f });
+		scene.Steps.Add(new StepCode { Action = async () =>
+		{
+			bud.Grow(1.6f);
+			Tremble(ChargeTremble * 0.6f, 1.6f);
+			for (int i = 0; i < 8; i++)
+			{
+				player?.ShakeCamera(3f + i * 1.2f, 0.15f);
+				SpawnDust(GlobalPosition + new Vector2(_rng.RandfRange(-90f, 90f), 40f));
+				if (!await Wait(0.2f))
+					return;
+			}
+		} });
+		scene.Steps.Add(new StepSay { SpeakerKeys = new[] { SpeakerKey }, LineKeys = PhaseLines, ExtraPauses = new[] { 0.4f } });
+		scene.Steps.Add(new StepCamera { Target = new NodePath(".."), Weight = 0.5f, Zoom = 1.15f, WaitSeconds = 0.3f });
+		scene.Steps.Add(new StepCamera { WaitSeconds = 0.1f });
 		AddChild(scene);
 		await scene.Play();
 		if (IsInstanceValid(scene))
 			scene.QueueFree();
 		if (!IsInstanceValid(this) || IsQueuedForRemoval)
+		{
+			if (IsInstanceValid(bud))
+				bud.QueueFree();
 			return;
+		}
 
-		// The transform is the warning: petals drawn in toward her for its whole length, a red light
-		// swelling. The player has these ~2.5 s to get clear.
+		// Beat 3 (player free — the warning): inside the bud she transforms. It swells, shudders
+		// harder and harder, light builds, petals are sucked in. He has these ~2.5 s to get clear.
 		var light = new PointLight2D
 		{
 			Color = ScarletGlow,
@@ -2331,26 +3031,41 @@ public partial class ArtemisaBoss : Enemy
 			Position = new Vector2(0f, -50f),
 		};
 		AddChild(light);
-		light.CreateTween().TweenProperty(light, "energy", 2.2f, 2.3f);
+		light.CreateTween().TweenProperty(light, "energy", 3.2f, 2.3f);
+		Tremble(ChargeTremble, 2.8f);
+		bud.Charge();
 		Sprite?.Play("transform");
 		float petalTimer = 0f;
+		float rumbleTimer = 0f;
+		float charging = 0f;
 		while (Sprite is not null && Sprite.Animation == "transform" && Sprite.IsPlaying())
 		{
-			petalTimer -= (float)GetPhysicsProcessDeltaTime();
+			float step = (float)GetPhysicsProcessDeltaTime();
+			charging += step;
+			petalTimer -= step;
 			if (petalTimer <= 0f)
 			{
-				petalTimer = 0.25f;
-				SpawnPetals(GlobalPosition + new Vector2(0f, -50f), 14, BloomRadius, 0.6f, inward: true);
+				petalTimer = 0.2f;
+				SpawnPetals(GlobalPosition + new Vector2(0f, -50f), 16, BloomRadius, 0.6f, inward: true);
+			}
+			rumbleTimer -= step;
+			if (rumbleTimer <= 0f)
+			{
+				rumbleTimer = _rng.RandfRange(0.08f, 0.16f);
+				PlayerReads.Find(this)?.ShakeCamera(Mathf.Min(4f + charging * 5f, 15f), 0.12f);
 			}
 			if (!await Wait(0f))
+			{
+				if (IsInstanceValid(bud))
+					bud.QueueFree();
 				return;
+			}
 		}
 
+		// Beat 4 — the bloom: the bud tears open, the blast, and the goddess hangs in the air on
+		// scarlet wings for a breath before she comes down.
+		bud.Burst();
 		Bloom();
-		_phaseTwo = true;
-		MoveSpeed = _baseMoveSpeed * PhaseTwoSpeedScale;
-		Stats.ExternalInvulnerable = false;
-		light.CreateTween().TweenProperty(light, "energy", 0.6f, 0.8f);
 		if (_music is not null && BossMusicFase2 is not null)
 			_music.Play(BossMusicFase2, 0.3f);
 		else if (BossMusic is not null && _music is not null)
@@ -2358,6 +3073,33 @@ public partial class ArtemisaBoss : Enemy
 			_music.PitchScale = 1.06f;
 			_music.Play(BossMusic, 0.3f);
 		}
+		ScreenFlash(new Color(1f, 0.75f, 0.6f, 0.5f), 0.25f);
+		PlayerReads.Find(this)?.ShakeCamera(22f, 0.5f);
+		_phaseTwo = true;
+		ApplyPhaseTwoSize();
+		MoveSpeed = _baseMoveSpeed * PhaseTwoSpeedScale;
+		light.CreateTween().TweenProperty(light, "energy", 0.6f, 0.8f);
+		arena?.CreateTween().TweenProperty(arena, "color", arenaColour, 1.2f);
+		Gravity = 0f;
+		Sprite?.Play("e_sp_atk_loop");
+		float hover = 0f;
+		while (hover < 1.1f)
+		{
+			float step = (float)GetPhysicsProcessDeltaTime();
+			hover += step;
+			Velocity = new Vector2(0f, hover < 0.35f ? -170f : 0f);
+			if (_rng.Randf() < 0.3f)
+				SpawnPetals(GlobalPosition + new Vector2(_rng.RandfRange(-70f, 70f), _rng.RandfRange(-90f, -20f)), 3, 40f, 0.8f, inward: false);
+			if (!await Wait(0f))
+				return;
+		}
+		Gravity = _baseGravity;
+		Velocity = Vector2.Zero;
+		ShowFrame("e_down_loop", 0);
+		await WaitUntilLanded(1.5f);
+		Sfx.PlayAt(this, "Footsteps/Stone", "Stone Chain Land", 2000f, RiseVolumeDb);
+		SpawnDust(GlobalPosition + new Vector2(0f, 40f));
+		Stats.ExternalInvulnerable = false;
 		Sprite?.Play("e_idle");
 		_attackCooldownTimer = 0.8f;
 		_aeoniaNext = true;
@@ -2515,24 +3257,168 @@ public partial class ArtemisaBoss : Enemy
 	{
 		if (GetTree().CurrentScene is not Node scene)
 			return;
-		var ring = new Line2D
+		// No clean ring: a torn wave of shards plus embers flung out.
+		var wave = new OndaRota
 		{
-			Width = 16f,
-			DefaultColor = ScarletGlow,
-			Closed = true,
+			Radius = radius,
+			Color = _phaseTwo ? RotColor : ScarletGlow,
 			Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add },
 			ZIndex = 6,
 		};
-		for (int i = 0; i < 48; i++)
-			ring.AddPoint(Vector2.Right.Rotated(Mathf.Tau * i / 48f) * 40f);
-		scene.AddChild(ring);
-		ring.GlobalPosition = at;
-		Tween tween = ring.CreateTween();
-		tween.TweenProperty(ring, "scale", Vector2.One * (radius / 40f), 0.4f).From(Vector2.One * 0.2f)
-			.SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Cubic);
-		tween.Parallel().TweenProperty(ring, "modulate:a", 0f, 0.6f);
-		tween.Parallel().TweenProperty(ring, "width", 3f, 0.6f);
-		tween.TweenCallback(Callable.From(ring.QueueFree));
+		scene.AddChild(wave);
+		wave.GlobalPosition = at;
+		SpawnPetals(at, 18, radius, 0.45f, inward: false);
+	}
+
+	// The grab's slam into the floor: nothing tidy. A hard jolt and a rumble that dies out
+	// unevenly, the floor splitting in jagged cracks, chunks of stone thrown up and raining back,
+	// dust puffs going off around the hit at slightly different moments, a brief flash.
+	private void SlamImpact(Metroidvania.Player.Player player, Vector2 ground, float dir)
+	{
+		if (DebugAI)
+			GD.Print("[Artemisa] grab slam");
+		player.ShakeCamera(24f, 0.35f);
+		ScreenFlash(new Color(1f, 0.85f, 0.8f, 0.35f), 0.09f);
+		_ = Rumble(player, 0.9f);
+		SpawnCracks(ground);
+		SpawnDebris(ground, dir);
+		SpawnDust(ground);
+		_ = DelayedDust(ground);
+		SpawnPetals(ground + new Vector2(0f, -20f), 40, 150f, 0.7f, inward: false);
+	}
+
+	// Aftershocks: random kicks at random intervals, fading — not one smooth shake.
+	private async Task Rumble(Metroidvania.Player.Player player, float duration)
+	{
+		float elapsed = 0.25f;
+		while (elapsed < duration)
+		{
+			float gap = (float)_rng.RandfRange(0.05f, 0.11f);
+			if (!await Wait(gap) || !IsInstanceValid(player))
+				return;
+			elapsed += gap;
+			float fade = 1f - elapsed / duration;
+			player.ShakeCamera((float)_rng.RandfRange(6f, 14f) * fade, 0.1f);
+		}
+	}
+
+	private async Task DelayedDust(Vector2 ground)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			if (!await Wait((float)_rng.RandfRange(0.04f, 0.12f)))
+				return;
+			SpawnDust(ground + new Vector2((float)_rng.RandfRange(-90f, 90f), (float)_rng.RandfRange(-6f, 2f)));
+		}
+	}
+
+	// Jagged cracks running out along the floor both ways: random segment lengths and kinks,
+	// uneven widths, a few short branches; they linger a moment and fade.
+	private void SpawnCracks(Vector2 at)
+	{
+		if (GetTree().CurrentScene is not Node scene)
+			return;
+		var root = new Node2D { ZIndex = 4 };
+		scene.AddChild(root);
+		root.GlobalPosition = at;
+		var dark = new Color(0.06f, 0.04f, 0.04f, 0.95f);
+		var hot = new Color(1f, 0.45f, 0.35f, 0.55f);
+		int count = _rng.RandiRange(4, 6);
+		for (int c = 0; c < count; c++)
+		{
+			float side = c % 2 == 0 ? 1f : -1f;
+			float length = (float)_rng.RandfRange(70f, 190f);
+			var crack = new Line2D
+			{
+				Width = (float)_rng.RandfRange(2f, 5f),
+				DefaultColor = dark,
+				WidthCurve = new Curve(),
+			};
+			crack.WidthCurve.AddPoint(new Vector2(0f, 1f));
+			crack.WidthCurve.AddPoint(new Vector2(1f, 0.15f));
+			Vector2 p = new((float)_rng.RandfRange(-10f, 10f), 0f);
+			crack.AddPoint(p);
+			float run = 0f;
+			while (run < length)
+			{
+				float step = (float)_rng.RandfRange(8f, 24f);
+				run += step;
+				p += new Vector2(side * step, (float)_rng.RandfRange(-5f, 4f));
+				crack.AddPoint(p);
+				// The odd short branch splitting off.
+				if (_rng.Randf() < 0.18f)
+				{
+					var branch = new Line2D { Width = crack.Width * 0.5f, DefaultColor = dark };
+					branch.AddPoint(p);
+					branch.AddPoint(p + new Vector2(side * (float)_rng.RandfRange(8f, 22f), (float)_rng.RandfRange(-10f, 6f)));
+					root.AddChild(branch);
+				}
+			}
+			root.AddChild(crack);
+			// A thin hot glow along the first stretch of each crack, gone fast.
+			var glow = new Line2D
+			{
+				Width = crack.Width * 0.5f,
+				DefaultColor = hot,
+				Material = new CanvasItemMaterial { BlendMode = CanvasItemMaterial.BlendModeEnum.Add },
+			};
+			for (int i = 0; i < Mathf.Min(4, crack.GetPointCount()); i++)
+				glow.AddPoint(crack.GetPointPosition(i));
+			root.AddChild(glow);
+			glow.CreateTween().TweenProperty(glow, "modulate:a", 0f, 0.35f);
+		}
+		Tween tween = root.CreateTween();
+		tween.TweenInterval(1.1f);
+		tween.TweenProperty(root, "modulate:a", 0f, 0.7f);
+		tween.TweenCallback(Callable.From(root.QueueFree));
+	}
+
+	// Stone chunks: uneven sizes, spinning, thrown up mostly away from her and falling back hard.
+	private void SpawnDebris(Vector2 at, float dir)
+	{
+		if (GetTree().CurrentScene is not Node scene)
+			return;
+		var image = Image.CreateEmpty(3, 3, false, Image.Format.Rgba8);
+		image.Fill(Colors.White);
+		var chunk = ImageTexture.CreateFromImage(image);
+		var gradient = new Gradient();
+		gradient.SetColor(0, new Color(0.62f, 0.56f, 0.5f, 1f));
+		gradient.SetColor(1, new Color(0.3f, 0.26f, 0.24f, 0f));
+		for (int burst = 0; burst < 2; burst++)
+		{
+			var debris = new GpuParticles2D
+			{
+				Amount = burst == 0 ? 34 : 14,
+				Lifetime = 1.1f,
+				OneShot = true,
+				Explosiveness = 0.9f,
+				Randomness = 0.6f,
+				Texture = chunk,
+				ProcessMaterial = new ParticleProcessMaterial
+				{
+					// The big burst leans away from her; the second one sprays both ways.
+					Direction = burst == 0 ? new Vector3(dir * 0.45f, -1f, 0f) : new Vector3(0f, -1f, 0f),
+					Spread = burst == 0 ? 50f : 75f,
+					InitialVelocityMin = 180f,
+					InitialVelocityMax = burst == 0 ? 520f : 340f,
+					Gravity = new Vector3(0f, 1300f, 0f),
+					AngularVelocityMin = -720f,
+					AngularVelocityMax = 720f,
+					AngleMin = 0f,
+					AngleMax = 360f,
+					ScaleMin = 0.8f,
+					ScaleMax = 3.4f,
+					ColorRamp = new GradientTexture1D { Gradient = gradient },
+					EmissionShape = ParticleProcessMaterial.EmissionShapeEnum.Box,
+					EmissionBoxExtents = new Vector3(40f, 4f, 0f),
+				},
+				ZIndex = 6,
+				Emitting = true,
+			};
+			scene.AddChild(debris);
+			debris.GlobalPosition = at + new Vector2(0f, -4f);
+			debris.Finished += debris.QueueFree;
+		}
 	}
 
 	// ── Helpers ─────────────────────────────────────────────────────────────────────────────
@@ -2553,13 +3439,15 @@ public partial class ArtemisaBoss : Enemy
 	// Waits at least one physics frame (so Wait(0) is "next frame").
 	private async Task<bool> Wait(float seconds)
 	{
+		// A stagger bumps the serial: every move waiting right now gives up at once.
+		int serial = _abortSerial;
 		float elapsed = 0f;
 		do
 		{
 			if (!IsInsideTree())
 				return false;
 			await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
-			if (!IsInstanceValid(this) || IsQueuedForRemoval || !IsInsideTree())
+			if (!IsInstanceValid(this) || IsQueuedForRemoval || !IsInsideTree() || serial != _abortSerial)
 				return false;
 			elapsed += (float)GetPhysicsProcessDeltaTime();
 		} while (elapsed < seconds);

@@ -248,6 +248,9 @@ public partial class RosterSlot : Node2D
 					continue;
 				frameSize = tex.GetSize();
 				Rect2? r = UsedRect(tex.GetImage());
+				// A trimmed AtlasTexture's image has no margin, but it's drawn shifted by it.
+				if (r is not null && tex is AtlasTexture atlas)
+					r = new Rect2(r.Value.Position + atlas.Margin.Position, r.Value.Size);
 				if (r is not null)
 					used = used is null ? r : used.Value.Merge(r.Value);
 			}

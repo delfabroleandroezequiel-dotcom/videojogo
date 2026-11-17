@@ -189,6 +189,8 @@ public partial class Player : CharacterBody2D
 	[Export] public int RiposteStabFrame = 5;
 	// How close an enemy must be for a parried melee hit to be credited to it (see ReportMeleeParry).
 	[Export] public float ParryStunAttributionRange = 110f;
+	// A boss is credited with a parry from this many times further (long weapons, big bodies).
+	[Export] public float BossParryAttributionScale = 2.5f;
 	[Export] public float RollCooldown = 0.35f;
 	[Export] public int RollStaminaCost = 10;
 	[Export] public float RunThrustSpeed = 420f;
@@ -238,6 +240,9 @@ public partial class Player : CharacterBody2D
 	[Export] public bool InfiniteShadowEssence = true;
 	[Export] public float ParryEssenceGain = 12f;
 	[Export] public float PerfectParryEssenceGain = 30f;
+	// Stamina given back by a landed parry (melee or projectile).
+	[Export] public int ParryStaminaGain = 25;
+	[Export] public int PerfectParryStaminaGain = 40;
 	[Export] public float ShadowCloneEssenceCost = 35f;
 	[Export] public float ShadowSummonEssenceCost = 50f;
 	// Shadow marks (stacked on enemies by every shadow hit, see Enemy.AddShadowMark) are cashed in
@@ -3361,6 +3366,8 @@ public partial class Player : CharacterBody2D
 		Sfx.Play(this, "Combat/Sword", "Sword Parry");
 		_parryWindowTimer = Mathf.Max(_parryWindowTimer, ParryChainExtension);
 		AddShadowEssence(perfect ? PerfectParryEssenceGain : ParryEssenceGain);
+		// A parry pays for itself: stamina back, more for a perfect one.
+		_stats.RestoreStamina(perfect ? PerfectParryStaminaGain : ParryStaminaGain);
 		PlayParryFx(perfect);
 		_ = HitStop(perfect ? PerfectParryHitStopDuration : ParryHitStopDuration);
 		if (perfect)
@@ -3886,9 +3893,14 @@ public partial class Player : CharacterBody2D
 		float closest = ParryStunAttributionRange;
 		foreach (Node node in GetTree().GetNodesInGroup("enemy"))
 		{
-			if (node is not Metroidvania.World.Enemy enemy || !enemy.CanBeExecuted)
+			if (node is not Metroidvania.World.Enemy enemy || enemy.IsQueuedForDeletion() || enemy.Stats is not { CurrentHealth: > 0 })
 				continue;
-			float distance = enemy.GlobalPosition.DistanceTo(GlobalPosition);
+			// Bosses can't be executed, but they still count parries (each boss decides what a
+			// parry chain does to it); their weapons reach further, so they're credited from further.
+			bool boss = enemy.IsInGroup("boss");
+			if (!boss && !enemy.CanBeExecuted)
+				continue;
+			float distance = enemy.GlobalPosition.DistanceTo(GlobalPosition) / (boss ? BossParryAttributionScale : 1f);
 			if (distance < closest)
 			{
 				attacker = enemy;

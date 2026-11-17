@@ -14,6 +14,9 @@ const F := "res://resources/sprites/"
 var ENTRIES := [
 	["hero", "res://scenes/player/Player.tscn"],
 	["ally", S + "Enemigos/Gransin.tscn"], ["ally", F + "AlatheaSpriteFrames.tres"],
+	["ally", F + "AlatheaPixelLabSpriteFrames.tres"], ["ally", F + "ArthurSpriteFrames.tres"], ["ally", F + "TobiasSpriteFrames.tres"],
+	["ally", F + "MatheoSpriteFrames.tres"], ["ally", F + "EsfianerSpriteFrames.tres"],
+	["boss", S + "Enemigos/Artemisa.tscn"],
 	["boss", S + "SkeletonKingBoss.tscn"], ["boss", S + "Enemigos/MushroomBoss.tscn"], ["boss", S + "SpiderBoss.tscn"],
 	["boss", S + "BossLobo.tscn"], ["boss", S + "Boss.tscn"], ["boss", S + "Enemys/LargeSkullBoss.tscn"],
 	["boss", S + "Enemys/MountainEyeBoss.tscn"], ["boss", S + "Enemigos/Lugia.tscn"], ["boss", S + "Enemigos/LugiaVerde.tscn"],
@@ -77,6 +80,69 @@ var ENTRIES := [
 	["town", F + "TavernBartenderSpriteFrames.tres"], ["town", F + "TavernGuest1SpriteFrames.tres"], ["town", F + "TavernGuest2SpriteFrames.tres"],
 	["town", F + "TavernGuest3SpriteFrames.tres"], ["town", F + "MeatVendorSpriteFrames.tres"], ["town", F + "VendorSSWSpriteFrames.tres"],
 	["town", F + "BlacksmithNpcSSWSpriteFrames.tres"],
+	# ── 2026-11-16: everything made since the last roster pass ──
+	# Enemy scenes built on frames already listed above (they dedupe those frames entries).
+	["elf", S + "Enemigos/ElfAssassin.tscn"], ["elf", S + "Enemigos/ElfSwordsman.tscn"],
+	["dark", S + "Enemigos/Archidemonio.tscn"], ["dark", S + "Enemigos/ErizoSombrio.tscn"], ["dark", S + "Enemigos/HeraldoDeLaMuerte.tscn"],
+	["dark", S + "Enemigos/NacidoDeLaNoche.tscn"], ["dark", S + "Enemigos/Piromante.tscn"],
+	["undead", S + "Enemigos/CaballeroDeLaMuerte.tscn"], ["undead", S + "Enemigos/EsqueletoArquero.tscn"], ["undead", S + "Enemigos/EsqueletoGuerrero.tscn"],
+	["undead", S + "Enemigos/Fantasma.tscn"], ["undead", S + "Enemigos/GuardiaEsqueleto.tscn"], ["undead", S + "Enemigos/GuerreroNecropolis.tscn"],
+	["undead", S + "Enemigos/Nigromante.tscn"], ["undead", S + "Enemigos/NigromanteDeSangre.tscn"], ["undead", S + "Enemigos/HechiceroEspectral.tscn"],
+	["human", S + "Enemigos/CaballeroDelEscudo.tscn"], ["human", S + "Enemigos/Chaman.tscn"], ["human", S + "Enemigos/EspadachinErrante.tscn"],
+	["human", S + "Enemigos/GuerreroRojo.tscn"], ["human", S + "Enemigos/Paladin.tscn"], ["human", S + "Enemigos/RangerArcher.tscn"],
+	["desert", S + "Enemigos/BeduinoCactus.tscn"], ["desert", S + "Enemigos/BeduinoVidrio.tscn"], ["desert", S + "Enemigos/BichoArena.tscn"],
+	["desert", S + "Enemigos/Buitre.tscn"], ["desert", S + "Enemigos/Escorpion.tscn"], ["desert", S + "Enemigos/JineteCamello.tscn"],
+	["monster", S + "Enemigos/LimoAcido.tscn"], ["monster", S + "Enemigos/Mimico.tscn"], ["monster", S + "Enemigos/RataPlaga.tscn"],
+	["bandit", S + "Enemigos/Maton.tscn"], ["bandit", S + "Enemigos/Bandido6.tscn"], ["bandit", S + "Enemigos/Bandido7.tscn"],
+	# PixelLab bandit variants.
+	["bandit", S + "Enemigos/Bandido2Ballesta.tscn"], ["bandit", S + "Enemigos/Bandido2Escudo.tscn"], ["bandit", S + "Enemigos/Bandido2Lanza.tscn"],
+	["bandit", S + "Enemigos/Bandido3Baston.tscn"], ["bandit", S + "Enemigos/Bandido3DosEspadas.tscn"], ["bandit", S + "Enemigos/Bandido3Honda.tscn"],
+	["bandit", S + "Enemigos/Bandido4Bombas.tscn"], ["bandit", S + "Enemigos/Bandido4Hoz.tscn"], ["bandit", S + "Enemigos/Bandido4Latigo.tscn"],
+	["bandit", S + "Enemigos/Bandido5Cadena.tscn"], ["bandit", S + "Enemigos/Bandido5Garrote.tscn"], ["bandit", S + "Enemigos/Bandido5Punos.tscn"],
+	["bandit", S + "Enemigos/Bandido6Cerbatana.tscn"], ["bandit", S + "Enemigos/Bandido6Cimitarra.tscn"], ["bandit", S + "Enemigos/Bandido6Cuchillos.tscn"],
+	["bandit", S + "Enemigos/Bandido7Alabarda.tscn"], ["bandit", S + "Enemigos/Bandido7Escudo.tscn"], ["bandit", S + "Enemigos/Bandido7Mandoble.tscn"],
+	["bandit", S + "Enemigos/BandidoArquero.tscn"], ["bandit", S + "Enemigos/BandidoCuerda.tscn"], ["bandit", S + "Enemigos/BandidoDagas.tscn"],
+	["bandit", S + "Enemigos/BandidoHacha.tscn"], ["bandit", S + "Enemigos/CorpulentoHachaDoble.tscn"], ["bandit", S + "Enemigos/CorpulentoMangual.tscn"],
+	["bandit", S + "Enemigos/CorpulentoMartillo.tscn"],
+	# Enterbill / Radem soldiers.
+	["soldier", S + "Enemigos/GuerreroEnterbillAlabardero.tscn"], ["soldier", S + "Enemigos/GuerreroEnterbillBallestero.tscn"],
+	["soldier", S + "Enemigos/GuerreroEnterbillCaballero.tscn"], ["soldier", S + "Enemigos/GuerreroEnterbillCapitan.tscn"],
+	["soldier", S + "Enemigos/GuerreroEnterbillEscudero.tscn"], ["soldier", S + "Enemigos/GuerreroEnterbillLancero.tscn"],
+	["soldier", S + "Enemigos/GuerreroEnterbillMaza.tscn"],
+	["soldier", S + "Enemigos/GuerreroRademArquero.tscn"], ["soldier", S + "Enemigos/GuerreroRademCampeon.tscn"],
+	["soldier", S + "Enemigos/GuerreroRademCimitarras.tscn"], ["soldier", S + "Enemigos/GuerreroRademHachero.tscn"],
+	["soldier", S + "Enemigos/GuerreroRademJabalinero.tscn"], ["soldier", S + "Enemigos/GuerreroRademKhopesh.tscn"],
+	["soldier", S + "Enemigos/GuerreroRademMangual.tscn"],
+	# Wolves.
+	["wolf", S + "Enemigos/Lobos/LoboViejoAlfa.tscn"], ["wolf", S + "Enemigos/Lobos/LoboTerrible.tscn"], ["wolf", S + "Enemigos/Lobos/LoboGris.tscn"],
+	["wolf", S + "Enemigos/Lobos/LoboNegro.tscn"], ["wolf", S + "Enemigos/Lobos/LoboRojizo.tscn"], ["wolf", S + "Enemigos/Lobos/LoboMusgo.tscn"],
+	["wolf", S + "Enemigos/Lobos/LoboNieve.tscn"], ["wolf", S + "Enemigos/Lobos/LoboDesierto.tscn"], ["wolf", S + "Enemigos/Lobos/LoboPodrido.tscn"],
+	["wolf", S + "Enemigos/Lobos/LoboSombra.tscn"],
+	# Story NPCs: Nix, Ruined Town, the rest.
+	["npc", F + "ArthurViejoSpriteFrames.tres"], ["npc", F + "JonhaMacartySpriteFrames.tres"], ["giant", F + "LeonBarmanGiganteSpriteFrames.tres"],
+	["giant", F + "MujerCaraGiganteSpriteFrames.tres"],
+	["npc", F + "NixAldricSpriteFrames.tres"], ["npc", F + "NixBramSpriteFrames.tres"], ["npc", F + "NixBrunoSpriteFrames.tres"],
+	["npc", F + "NixCapulinoSpriteFrames.tres"], ["npc", F + "NixEddaSpriteFrames.tres"], ["npc", F + "NixGarrikSpriteFrames.tres"],
+	["npc", F + "NixHalvarSpriteFrames.tres"], ["npc", F + "NixLeomaxHeridoSpriteFrames.tres"], ["npc", F + "NixLioSpriteFrames.tres"],
+	["npc", F + "NixMorlokSpriteFrames.tres"], ["npc", F + "NixOstigadaSpriteFrames.tres"], ["npc", F + "NixPipSpriteFrames.tres"],
+	["npc", F + "NixSelaSpriteFrames.tres"], ["npc", F + "NixTomoSpriteFrames.tres"], ["npc", F + "NixUlfarSpriteFrames.tres"],
+	["npc", F + "RuinasGobernadorSpriteFrames.tres"], ["npc", F + "RuinasDetectiveSpriteFrames.tres"], ["npc", F + "RuinasViajeroPerdidoSpriteFrames.tres"],
+	["npc", F + "RuinasHerreroSpriteFrames.tres"], ["npc", F + "RuinasMercaderSpriteFrames.tres"], ["npc", F + "RuinasHerbolariaSpriteFrames.tres"],
+	["npc", F + "RuinasCocineroSpriteFrames.tres"], ["npc", F + "RuinasAldeano1SpriteFrames.tres"], ["npc", F + "RuinasAldeano2SpriteFrames.tres"],
+	["npc", F + "RuinasAldeano3SpriteFrames.tres"], ["npc", F + "RuinasAldeano4SpriteFrames.tres"],
+	# Ullatorp townsfolk (PixelLab) and their animals.
+	["npc", F + "Ullatorp/UllatorpGuiaSpriteFrames.tres", 1.158], ["npc", F + "Ullatorp/UllatorpGuardiaSpriteFrames.tres", 1.158],
+	["npc", F + "Ullatorp/UllatorpSacerdoteSpriteFrames.tres", 1.158], ["npc", F + "Ullatorp/UllatorpBardoSpriteFrames.tres", 1.158],
+	["npc", F + "Ullatorp/UllatorpMalabaristaSpriteFrames.tres", 1.158], ["npc", F + "Ullatorp/UllatorpVendedorSalchichasSpriteFrames.tres", 1.158],
+	["npc", F + "Ullatorp/UllatorpFloristaSpriteFrames.tres", 1.158], ["npc", F + "Ullatorp/UllatorpLenadorSpriteFrames.tres", 1.158],
+	["npc", F + "Ullatorp/UllatorpCampesinoSpriteFrames.tres", 1.158], ["npc", F + "Ullatorp/UllatorpBorrachoSpriteFrames.tres", 1.158],
+	["npc", F + "Ullatorp/UllatorpPanaderaSpriteFrames.tres", 1.158], ["npc", F + "Ullatorp/UllatorpAprendizSpriteFrames.tres", 1.158],
+	["npc", F + "Ullatorp/UllatorpNinoSpriteFrames.tres", 1.158], ["npc", F + "Ullatorp/UllatorpNinaSpriteFrames.tres", 1.158],
+	["npc", F + "Ullatorp/UllatorpAncianaSpriteFrames.tres", 1.158], ["npc", F + "Ullatorp/UllatorpDamaSpriteFrames.tres", 1.158],
+	["npc", F + "Ullatorp/UllatorpMineroSpriteFrames.tres", 1.158], ["npc", F + "Ullatorp/UllatorpLavanderaSpriteFrames.tres", 1.158],
+	["npc", F + "Ullatorp/UllatorpPastorSpriteFrames.tres", 1.158], ["npc", F + "Ullatorp/UllatorpCazadorSpriteFrames.tres", 1.158],
+	["animal", F + "Ullatorp/UllatorpPerroSpriteFrames.tres", 0.75], ["animal", F + "Ullatorp/UllatorpCabraSpriteFrames.tres", 0.8],
+	["animal", F + "Ullatorp/UllatorpCerdoSpriteFrames.tres", 0.95], ["animal", F + "Ullatorp/UllatorpGallinaSpriteFrames.tres", 0.5],
 ]
 
 var slot_script
@@ -111,6 +177,7 @@ func _spawn_all():
 			continue
 		if path.ends_with(".tscn"):
 			slot.Source = res
+			if path.ends_with("Mimico.tscn"): slot.Animation = "idle_transformed"
 		else:
 			slot.Frames = res
 			if path.ends_with("MonsterMimicSpriteFrames.tres"): slot.Animation = "idle_transformed"
@@ -127,14 +194,25 @@ func _finish():
 		if it.group == "hero":
 			ref_height = it.slot.ContentRect.size.y
 	# Frames used by scene entries → drop duplicate frames entries.
+	# Two scenes on the same frames (an old and a new enemy built on one sheet) keep the first.
 	var used := {}
+	var dup_scenes := {}
 	for it in items:
 		if it.path.ends_with(".tscn"):
+			var mine := []
 			for n in it.slot.get_node("_Preview/Figure").get_children():
 				if n is AnimatedSprite2D and n.sprite_frames != null:
-					used[n.sprite_frames.resource_path] = it.path
+					mine.append(n.sprite_frames.resource_path)
+			if not mine.is_empty() and mine.all(func(p): return used.has(p)):
+				print("DEDUP ", it.path.get_file(), " (in ", used[mine[0]].get_file(), ")")
+				dup_scenes[it.path] = true
+				continue
+			for p in mine:
+				used[p] = it.path
 	var kept := []
 	for it in items:
+		if dup_scenes.has(it.path):
+			continue
 		if not it.path.ends_with(".tscn") and used.has(it.path):
 			print("DEDUP ", it.path.get_file(), " (in ", used[it.path].get_file(), ")")
 			continue
@@ -145,10 +223,12 @@ func _finish():
 			if it.group == "animal": target = ref_height * 0.5
 			if it.group == "giant": target = ref_height * 3.2
 			it.slot.FigureScale = target / max(1.0, h)
-		# Showcase size: everyone 1.5x their in-game size so they fill the big steps (bosses
-		# and giants are already huge and stay as they are).
+		# Showcase size: everyone gets the same multiplier on their in-game size, picked in
+		# _write as the biggest that fits the whole roster (≤ FIGURE_MULT). Bosses and giants are
+		# already huge and stay as they are.
 		if it.group != "boss" and it.group != "giant":
-			it.slot.FigureScale = it.slot.FigureScale * FIGURE_MULT
+			it.base_scale = it.slot.FigureScale
+			it.base_w = it.slot.ContentRect.size.x
 		# Bosses and giants: capped so the front row doesn't bury two steps of figures behind it.
 		elif it.slot.ContentRect.size.y > BOSS_MAX_H:
 			it.slot.FigureScale = it.slot.FigureScale * BOSS_MAX_H / it.slot.ContentRect.size.y
@@ -218,121 +298,148 @@ const ROWS := [
 	[782, 30, 1745],
 ]
 const GAP := 10.0
-const FIGURE_MULT := 1.5
+const FIGURE_MULT := 1.5      # biggest showcase size (x in-game); shrunk until the whole roster fits
 const BOSS_MAX_H := 205.0
+# Two ranks per step, like a group photo: the back rank stands in the gaps of the front one, a
+# little further up the ledge's grass, darker and drawn behind. A step holds up to RANK_FILL x
+# its width of figures; a step that fits in one rank stays a single rank.
+const RANK_FILL := 1.8
+const BACK_RAISE := 12.0
+const BACK_TINT := "Color(0.68, 0.68, 0.75, 1)"
 
-func _write(out_path: String):
-	# Which groups go on which rows (top → bottom); anything that doesn't fit spills downward.
-	# Top row: the hero and allies. Rows 1-5: factions in this order, filled in sequence (a
-	# faction may wrap onto the next step). Ground: bosses + giants + whatever's left (beasts).
-	var order := ["elf", "dark", "bandit", "undead", "human", "desert", "town", "monster", "animal"]
-	var by_group := {}
-	for it in items:
-		if not by_group.has(it.group): by_group[it.group] = []
-		by_group[it.group].append(it)
+var lines := []
+var ext := []
+var ext_ids := {}
+var names := {}
+
+func _span(i: int) -> float:
+	return (ROWS[i][2] - ROWS[i][1]) * BG_SCALE
+
+func _width(it, mult: float) -> float:
+	return (it.base_w * mult if it.has("base_w") else it.slot.ContentRect.size.x) + GAP
+
+# Fills steps 1..5 in faction order at this size, spilling onto the ground's free width;
+# returns the rows, or [] if the roster doesn't fit.
+func _fill(queue: Array, mult: float, ground_free: float) -> Array:
 	var rows := []
 	for i in ROWS.size(): rows.append([])
-	rows[0].append_array(by_group.get("ally", []))
-	rows[0].append_array(by_group.get("hero", []))
-	var queue := []
-	for g in order:
-		queue.append_array(by_group.get(g, []))
+	var last := ROWS.size() - 1
 	var row_i := 1
 	var used := 0.0
 	for it in queue:
-		var w: float = it.slot.ContentRect.size.x + GAP
-		while row_i < ROWS.size() - 1 and used + w > (ROWS[row_i][2] - ROWS[row_i][1]) * BG_SCALE:
+		var w := _width(it, mult)
+		while used + w > (_span(row_i) * RANK_FILL if row_i < last else ground_free):
+			if row_i == last:
+				return []
 			row_i += 1
 			used = 0.0
 		rows[row_i].append(it)
 		used += w
-	rows[ROWS.size() - 1].append_array(by_group.get("giant", []))
-	rows[ROWS.size() - 1].append_array(by_group.get("boss", []))
-	# Hero in the middle of the top row: allies either side.
-	var top: Array = rows[0]
-	for k in top.size():
-		if top[k].group == "hero":
-			var hero = top[k]
-			top.remove_at(k)
-			top.insert(top.size() / 2, hero)
-			break
+	return rows
+
+func _write(out_path: String):
+	# Top step: the hero and allies. Steps 1-5: factions in this order, filled in sequence (a
+	# faction may wrap onto the next step). Ground: bosses + giants, with whatever's left between.
+	var order := ["elf", "dark", "soldier", "bandit", "undead", "human", "desert", "npc", "town", "monster", "wolf", "animal"]
+	var by_group := {}
+	for it in items:
+		if not by_group.has(it.group): by_group[it.group] = []
+		by_group[it.group].append(it)
+	var queue := []
+	for g in order:
+		queue.append_array(by_group.get(g, []))
+	var last := ROWS.size() - 1
+	var big: Array = by_group.get("giant", []) + by_group.get("boss", [])
+	var ground_free := _span(last)
+	for it in big: ground_free -= it.slot.ContentRect.size.x + GAP
+	# Biggest size at which everyone fits.
+	var mult := FIGURE_MULT
+	var rows := []
+	while mult > 0.5:
+		rows = _fill(queue, mult, ground_free)
+		if not rows.is_empty(): break
+		mult -= 0.02
+	print("figure size: %.2fx in-game" % mult)
+	for it in items:
+		if it.has("base_scale"):
+			it.slot.FigureScale = it.base_scale * mult
+	rows[0].append_array(by_group.get("ally", []))
+	var hero: Array = by_group.get("hero", [])
 	# Ground row: giants at the far edges, bosses in the centre, the rest around them.
-	var ground: Array = rows[ROWS.size() - 1]
-	var giants := ground.filter(func(x): return x.group == "giant")
-	var bosses := ground.filter(func(x): return x.group == "boss")
-	var others := ground.filter(func(x): return x.group != "giant" and x.group != "boss")
+	var giants: Array = by_group.get("giant", [])
+	var others: Array = rows[last]
 	var half := others.size() / 2
 	var arranged := []
-	if giants.size() > 0: arranged.append(giants[0])
+	var ghalf := (giants.size() + 1) / 2
+	arranged.append_array(giants.slice(0, ghalf))
 	arranged.append_array(others.slice(0, half))
-	arranged.append_array(bosses)
+	arranged.append_array(by_group.get("boss", []))
 	arranged.append_array(others.slice(half))
-	if giants.size() > 1: arranged.append(giants[1])
-	rows[ROWS.size() - 1] = arranged
+	arranged.append_array(giants.slice(ghalf))
+	rows[last] = arranged
 
-	for i in ROWS.size():
-		var tw := 0.0
-		for it in rows[i]: tw += it.slot.ContentRect.size.x + GAP
-		print("row %d: %d figures, %d / %d px" % [i, rows[i].size(), tw, (ROWS[i][2] - ROWS[i][1]) * BG_SCALE])
-	var lines := []
-	var ext := []
-	var ext_ids := {}
 	ext.append('[ext_resource type="Script" path="res://scripts/world/RosterSlot.cs" id="slot"]')
 	ext.append('[ext_resource type="Texture2D" uid="uid://p5pqv51madx3" path="res://assets/sprites/deco/Roster.png" id="bg"]')
 	ext.append('[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="player"]')
-	var center_x := 887.0 * BG_SCALE
-	var names := {}
 	for i in ROWS.size():
 		var row: Array = rows[i]
-		if row.is_empty(): continue
-		lines.append('\n[node name="Row%d" type="Node2D" parent="Figures"]' % i)
+		var span := _span(i)
+		var x0: float = ROWS[i][1] * BG_SCALE
+		var y: float = ROWS[i][0] * BG_SCALE
 		var total := 0.0
 		for it in row: total += it.slot.ContentRect.size.x + GAP
-		total -= GAP
-		var span: float = (ROWS[i][2] - ROWS[i][1]) * BG_SCALE
-		var x: float = ROWS[i][1] * BG_SCALE + max(0.0, (span - total) * 0.5)
-		var spacing_extra: float = 0.0 if total >= span or row.size() < 2 else (span - total) / (row.size() - 1) if i == ROWS.size() - 1 else min(40.0, (span - total) / (row.size() - 1))
-		x = ROWS[i][1] * BG_SCALE + max(0.0, (span - total - spacing_extra * (row.size() - 1)) * 0.5)
-		var y: float = ROWS[i][0] * BG_SCALE
-		for it in row:
-			var r: Rect2 = it.slot.ContentRect
-			var w: float = r.size.x
-			var px: float = x - r.position.x   # content's left edge at x
-			x += w + GAP + spacing_extra
-			if not ext_ids.has(it.path):
-				var id := "r%d" % ext_ids.size()
-				ext_ids[it.path] = id
-				var t := "PackedScene" if it.path.ends_with(".tscn") else "SpriteFrames"
-				ext.append('[ext_resource type="%s" path="%s" id="%s"]' % [t, it.path, id])
-			var base: String = it.path.get_file().get_basename().replace("SpriteFrames", "")
-			if it.group == "hero": base = "Protagonista"
-			var nm := base
-			var n := 2
-			while names.has(nm):
-				nm = "%s%d" % [base, n]; n += 1
-			names[nm] = true
-			var mirror: bool = (px + r.position.x + w * 0.5) > center_x
-			print("FIG %s %d %.0f %.0f %.0f %.0f" % [nm, i, px + r.position.x, y + r.position.y, w, r.size.y])
-			lines.append('\n[node name="%s" type="Node2D" parent="Figures/Row%d"]' % [nm, i])
-			lines.append('position = Vector2(%.1f, %.1f)' % [px, y])
-			lines.append('script = ExtResource("slot")')
-			if it.path.ends_with(".tscn"):
-				lines.append('Source = ExtResource("%s")' % ext_ids[it.path])
-			else:
-				lines.append('Frames = ExtResource("%s")' % ext_ids[it.path])
-			if abs(it.slot.FigureScale - 1.0) > 0.0001:
-				lines.append('FigureScale = %.4f' % it.slot.FigureScale)
-			if mirror:
-				lines.append('Mirror = true')
-			if it.path.ends_with("MonsterMimicSpriteFrames.tres"):
-				lines.append('Animation = "idle_transformed"')
+		if i == 0: total += hero[0].slot.ContentRect.size.x + GAP
+		var front := []
+		var back := []
+		if i == last or total - GAP <= span:
+			front = row.duplicate()
+		else:
+			for k in row.size():
+				if k % 2 == 0: front.append(row[k])
+				else: back.append(row[k])
+			# Taller figure of each pair goes to the back so nobody's hidden.
+			for k in back.size():
+				if front[k].slot.ContentRect.size.y > back[k].slot.ContentRect.size.y + 6:
+					var t = front[k]
+					front[k] = back[k]
+					back[k] = t
+		if i == 0:
+			front.insert(front.size() / 2, hero[0])
+		print("row %d: %d front + %d back, %d px of figures on a %d px step" % [i, front.size(), back.size(), total, span])
+		if front.is_empty(): continue
+		var front_name := "Row%d" % i
+		lines.append('\n[node name="%s" type="Node2D" parent="Figures"]\nz_index = %d' % [front_name, 2 * i - 15])
+		if back.is_empty():
+			# Single rank: packed and centred (the ground spreads out over its whole width).
+			var tw := 0.0
+			for it in front: tw += it.slot.ContentRect.size.x + GAP
+			tw -= GAP
+			var extra: float = 0.0
+			if tw < span and front.size() > 1:
+				extra = (span - tw) / (front.size() - 1)
+				if i != last: extra = min(40.0, extra)
+			var x: float = x0 + max(0.0, (span - tw - extra * (front.size() - 1)) * 0.5)
+			for it in front:
+				var r: Rect2 = it.slot.ContentRect
+				_emit(it, front_name, x + r.size.x * 0.5, y)
+				x += r.size.x + GAP + extra
+		else:
+			# Two ranks: front evenly over the step, back centred in the front's gaps.
+			var step := span / front.size()
+			for k in front.size():
+				_emit(front[k], front_name, x0 + (k + 0.5) * step, y)
+			var back_name := "Row%dAtras" % i
+			lines.append('\n[node name="%s" type="Node2D" parent="Figures"]\nz_index = %d\nmodulate = %s' % [back_name, 2 * i - 16, BACK_TINT])
+			var bstep: float = span / (back.size() + 1) if back.size() >= front.size() else step
+			for k in back.size():
+				_emit(back[k], back_name, x0 + (k + 1) * bstep, y - BACK_RAISE)
 
 	var out := []
 	out.append('[gd_scene format=3]\n')
 	out.append_array(ext)
 	out.append('\n[sub_resource type="RectangleShape2D" id="ground_shape"]\nsize = Vector2(%.1f, 80)' % (1774.0 * BG_SCALE))
 	out.append('\n[node name="Roster" type="Node2D"]')
-	out.append('\n[node name="Background" type="Sprite2D" parent="."]\nz_index = -10\ntexture = ExtResource("bg")\ncentered = false\nscale = Vector2(%.1f, %.1f)' % [BG_SCALE, BG_SCALE])
+	out.append('\n[node name="Background" type="Sprite2D" parent="."]\nz_index = -20\ntexture = ExtResource("bg")\ncentered = false\nscale = Vector2(%.1f, %.1f)' % [BG_SCALE, BG_SCALE])
 	out.append('\n[node name="Ground" type="StaticBody2D" parent="."]\nposition = Vector2(%.1f, %.1f)' % [887.0 * BG_SCALE, 782.0 * BG_SCALE + 40.0])
 	out.append('\n[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]\nshape = SubResource("ground_shape")')
 	for i in range(ROWS.size() - 1):
@@ -352,3 +459,36 @@ func _write(out_path: String):
 	f.store_string(text)
 	f.close()
 	print("WROTE ", out_path)
+
+# One figure node with its visible centre at cx and feet at y, facing the middle of the steps.
+func _emit(it, parent: String, cx: float, y: float):
+	var r: Rect2 = it.slot.ContentRect
+	var px: float = cx - (r.position.x + r.size.x * 0.5)
+	if not ext_ids.has(it.path):
+		var id := "r%d" % ext_ids.size()
+		ext_ids[it.path] = id
+		var t := "PackedScene" if it.path.ends_with(".tscn") else "SpriteFrames"
+		ext.append('[ext_resource type="%s" path="%s" id="%s"]' % [t, it.path, id])
+	var base: String = it.path.get_file().get_basename().replace("SpriteFrames", "")
+	if it.group == "hero": base = "Protagonista"
+	var nm := base
+	var n := 2
+	while names.has(nm):
+		nm = "%s%d" % [base, n]
+		n += 1
+	names[nm] = true
+	var mirror: bool = cx > 887.0 * BG_SCALE
+	print("FIG %s %s %.0f %.0f %.0f %.0f" % [nm, parent, cx - r.size.x * 0.5, y + r.position.y, r.size.x, r.size.y])
+	lines.append('\n[node name="%s" type="Node2D" parent="Figures/%s"]' % [nm, parent])
+	lines.append('position = Vector2(%.1f, %.1f)' % [px, y])
+	lines.append('script = ExtResource("slot")')
+	if it.path.ends_with(".tscn"):
+		lines.append('Source = ExtResource("%s")' % ext_ids[it.path])
+	else:
+		lines.append('Frames = ExtResource("%s")' % ext_ids[it.path])
+	if abs(it.slot.FigureScale - 1.0) > 0.0001:
+		lines.append('FigureScale = %.4f' % it.slot.FigureScale)
+	if mirror:
+		lines.append('Mirror = true')
+	if it.path.ends_with("MonsterMimicSpriteFrames.tres") or it.path.ends_with("Mimico.tscn"):
+		lines.append('Animation = "idle_transformed"')

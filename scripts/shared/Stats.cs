@@ -199,6 +199,15 @@ public partial class Stats : Node
 		return true;
 	}
 
+	// Gives stamina back right away (a parry pays for itself), without touching the regen delay.
+	public void RestoreStamina(int amount)
+	{
+		if (amount <= 0 || CurrentStamina >= MaxStamina)
+			return;
+		CurrentStamina = Mathf.Min(MaxStamina, CurrentStamina + amount);
+		EmitSignal(SignalName.StaminaChanged, CurrentStamina, MaxStamina);
+	}
+
 	public void SpendStaminaClamped(int amount)
 	{
 		int actual = Mathf.Min(amount, CurrentStamina);
