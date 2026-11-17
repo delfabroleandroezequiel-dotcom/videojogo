@@ -238,6 +238,26 @@ En los dos se aplica la lección del devlog de Malenia: el jefe famoso tiene que
 - **"La ESCENA que convierte a Bowser en el mejor villano de Nintendo"** (Bozz Killer, 8:00, publicado el 15 nov 2026 a las 18:00): ensayo con el formato de la biblia, aplicado a un villano de videojuegos. Miniatura C: recortes con contorno, Bowser en gris con ❌ → flecha → Bowser con Jr. a color con ✅, sin texto. **A las ~2 h (20:07):** 117 impresiones, **CTR 5.1%**, 10 vistas. **6 vistas interesadas de desconocidos, con una duración media de 6:48 de 8:00 (~85%)**. Fuentes: exploración 50%, sugeridos 40% y externa 10% (Creator Studio, o sea el autor).
   - **Lectura:** es el mejor arranque de un largo reciente. El jefe pequeño tenía 1.3% de CTR a las 2.5 h, y Calamardo, 305 impresiones y 3.6% recién a las 41 h. Además, el 90% de la distribución ya viene de exploración y sugeridos.
   - **Cautela:** con 117 impresiones el CTR es ruido, y 6 vistas no hacen una curva. No tocar la miniatura ni el título hasta pasar las ~1.000 impresiones. Volver a mirar a las 48 h, a los 7 días y a los 28–30 días.
+  - **A las ~15 h (16 nov, 8:44):** 283 impresiones, **CTR 2.8%** (bajó desde 5.1%), 18 vistas, 1.2 h, 2 me gusta, 0 suscriptores. Fuentes: exploración 8, otras 6, sugeridos 4. Duración media según Studio 6:25 (~80%); 1.2 h / 18 vistas da ~4:00 (~50%), así que el dato todavía se está procesando. Cualquiera de las dos cifras está arriba de los 3:45 de los largos de octubre. Retención todavía no disponible.
+  - **Lectura:** es el ritmo de impresiones más rápido de un largo reciente (~19/h, contra ~7/h de Calamardo y 181 en 18 h del jefe pequeño). La caída del CTR es el patrón de siempre: primero gente cercana, después desconocidos. Con 283 impresiones el margen es ~1–5%. Las vistas se aplanaron después de las primeras ~3 h. Es el cuarto largo seguido que retiene bien y depende de la distribución. No tocar nada hasta ~1.000 impresiones; mirar a las 48 h si las impresiones siguen subiendo o se aplanan (Midir se aplanó al día ~1.3).
+- **Plankton en Don Bozz a las ~15 h (mismo horario de publicación que Bowser):** 7.6K impresiones, 95% sugeridos, CTR 0.9%, duración media ~25%. Es el problema opuesto al de Bowser: Don Bozz se distribuye pero no consigue el clic. Detalle en `Diseno/CanalAnimacion.md` §6.
+- **Bowser a las ~21 h (16 nov, 14:48):** 325 impresiones (+42 en 6 h, el ritmo bajó de ~19/h a ~7/h), **CTR 2.8%**, 25 vistas, 1.3 h, 0 suscriptores. Desde la miniatura: 267 impresiones, CTR 2.6%, **7 vistas interesadas con 5:50 de 8:00 (~73%)**. Fuentes: exploración 60%, sugeridos 16%, otras 12%, externas 8% (Creator Studio), canales 4%. Los sugeridos vinieron de 4 videos sin relación entre sí (Metroid Prime 4, Sonic.exe, un OST de Mega Man y un clip meme), 1 vista cada uno: YouTube todavía no sabe con qué emparentarlo. Regla para las 48 h: si las impresiones se aplanan antes de ~600 con el CTR debajo de 3%, probar otra miniatura con "Probar y comparar", sin tocar el título.
+- **Diagnóstico de nicho de Bozz Killer (Studio, 16 nov 2026, últimos 28 días):**
+  - **Datos:** público mensual 224.9K y +328 suscriptores. Nuevos 60.5%, ocasionales 36.9%, habituales 2.6%, campana 1.6%.
+    - "Popular entre públicos nuevos": shorts de Mario y Cuphead con 20–27K cada uno.
+    - "Videos que aumentan tu público": 4 de 5 son **shorts de Cuphead**.
+    - El 95% mira sin subtítulos y el 3.3% en español. Conectados de 12 a 23 h (GMT−3), con el pico a la tarde y noche.
+    - **Canales que mira el público:** Candel+, Código: YAJO, DJ.JEFFY, Magmuh, OnlyGOD.
+    - **Largos que mira (última semana):** "El juego flash de Tails que todos olvidaron" (Sonek Plus), "El port olvidado de Sonic" (Golden Pingui), el tráiler de Sonic 4 (Análisis Crítico), una reacción a "el video prohibido" (Amlex R) y "soy GOKU y me enfrento a TODOS los jefes de…" (c3jo). **Tres de cinco son de Sonic y dos son "lo olvidado".**
+  - **Cómo lo ve YouTube:** un canal de shorts de clásicos de plataformas (Mario, Cuphead, Sonic) para gamers latinos adultos que consumen **curiosidades retro: lo olvidado, lo prohibido, lo raro**, además de reacciones y humor. No es soulslike, no es ensayo emotivo y no son rankings genéricos. Ninguno de los largos del canal aparece entre lo que más mira su público.
+  - **Fórmula para los próximos largos:** jefes (el fuerte del canal) × Sonic, Mario o Cuphead × "olvidado / borrado / nadie recuerda / el más GIGANTE". Ejemplos:
+    - "Los jefes OLVIDADOS de Sonic"
+    - "El jefe de Sonic que SEGA borró"
+    - "El jefe más GIGANTE de Sonic"
+    - "El jefe de Mario que nadie recuerda"
+    - "Todos los jefes de Cuphead, del peor al mejor"
+  - **Distribución:** cada largo lleva un short de quiz de la misma franquicia con el enlace "video relacionado" al largo. Es lo que ubicó a Don Bozz con el short A.
+  - **Bowser y Calamardo:** quedaron a mitad de camino, con la franquicia correcta y el formato de Don Bozz. Por eso retienen muy bien y no se distribuyen.
 - **El canal secundario viejo (~94 suscriptores)** no está penalizado: tuvo un pico con shorts del juego (2–3K en julio) y se murió por falta de constancia.
 
 ---

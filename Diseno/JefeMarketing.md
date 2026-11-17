@@ -203,6 +203,12 @@ Chris Zukowski (howtomarketagame) recomienda **abrir la página temprano**, apen
   - **ffmpeg 9 ya no tiene `-filter_complex_script`**: usar `-/filter_complex archivo.txt`.
   - **Cierre en primer plano de la cara** de la cinemática (recorte 300×533, ×3.6), que además empalma con el primer cuadro (ella de rodillas → se levanta).
   - El filtro completo quedó en `Marketing/Shorts/Artemisa_Malenia_2D_filtro.txt` (entradas: grabación y voz).
+- **2026-11-16, largo "Malenia en 2D" (Jekyria, primer corte de 3:13):**
+  - **Narradora de los largos: Tess - Direct and Grounded** (`4BAlflaQyhIcCfHiEI7x`, eleven_v4), por pedido del autor. Una toma por bloque del guion, así la duración de cada archivo marca el ritmo del bloque.
+  - **Armado reproducible:** `Marketing/Canal/Malenia2D/edl.txt` (una toma por línea: fuente, entrada, duración, volumen, franja, subtítulo, voz que arranca ahí) + `build.sh`. Renderiza cada toma, las concatena, ubica las voces con `adelay`, mete la música de Artemisa al 10% y agacha juego + música bajo la voz con `sidechaincompress`. Termina con `loudnorm` a −14 LUFS. Para retocar se cambia el `.txt` y se vuelve a correr.
+  - **El juego graba en español:** las cinemáticas tapan su cuadro de diálogo con una franja negra (y 852–1080) y llevan el subtítulo en inglés encima (Georgia itálica). En esas tomas el audio del juego va a 0 y suena el mp3 limpio de la voz. Los carteles de nombre y "HAS MUERTO" se dejan afuera.
+  - **El mapa de una grabación larga** se hace con hojas de contacto a 1 cuadro por segundo, en tramos de 30 s, solo sobre las peleas; la hoja general cada 3 s sirve para ubicar los intentos.
+  - **Sin `bc` en este Git Bash:** las cuentas del script van con `awk`. En PowerShell, un parámetro `[string]$Bg` y una variable `$bg` son la misma (no distingue mayúsculas): al asignarle una imagen la convierte en texto.
 
 ---
 

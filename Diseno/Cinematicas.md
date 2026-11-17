@@ -147,6 +147,12 @@ En 2D no hay lentes ni ángulos: los planos se arman con **zoom + punto de foco 
 - **El ritmo lo decide la cinemática, no el botón** (decisión del autor, 2026-10-28): cada línea de `StepSay` avanza cuando termina su voz, con una pausa (`GapAfterVoice`, 0.7 s por defecto; 0.9 en la narración), y no se puede saltear. Si la línea no tiene voz, espera su tiempo de lectura (15 caracteres por segundo). Los diálogos con NPCs fuera de cinemáticas siguen avanzando con el botón.
 - **Pausa antes de un cambio de tono** (`StepSay.ExtraPauses`, por línea): después de una línea fuerte, 1.5 s extra de silencio antes de que alguien cambie de tono. Ejemplo: "ya no me necesitarás" → 1.6 s → "la cena se enfría".
 - **La voz en off no lleva nombre** (`SpeakerKeys` vacío en `StepSay`): se lee como el libro, no como un personaje en escena. Sirve para no confundirla con el Delfrad joven.
+- **Cambio de fase de un jefe en cuatro tiempos** (Artemisa, 2026-11-16; el autor pidió una "más grande", al estilo de la flor de Malenia):
+  1. **Se quiebra:** se tambalea, cae de rodillas y la sala se oscurece.
+  2. **Se encierra** (jugador retenido): un capullo procedural sale del suelo y la envuelve, la cámara se cierra (zoom 1.5) y la frase se dice desde adentro.
+  3. **Se transforma** (jugador libre, es el aviso): el capullo se hincha y tiembla cada vez más, la luz crece y el temblor de cámara va en aumento, ~2.5 s.
+  4. **Florece:** el capullo se rompe, explota, arranca la música de la fase 2 y ella queda suspendida ~1 s con alas antes de bajar.
+  - **Regla:** retener al jugador solo mientras se habla; el aviso se juega con control. Nada de formas geométricas: bordes que se rehacen cada pocos cuadros, temblor y luz.
 
 ## 7. Lo que falta en las herramientas (sumar cuando una escena lo pida)
 
