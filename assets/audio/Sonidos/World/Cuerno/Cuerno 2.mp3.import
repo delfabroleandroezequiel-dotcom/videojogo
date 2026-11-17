@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cv3pg6l6xbghn"
+path="res://.godot/imported/Cuerno 2.mp3-34a279ba18462a9de71c57eb63626c17.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sonidos/World/Cuerno/Cuerno 2.mp3"
+dest_files=["res://.godot/imported/Cuerno 2.mp3-34a279ba18462a9de71c57eb63626c17.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

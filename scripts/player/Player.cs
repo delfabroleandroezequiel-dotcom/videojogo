@@ -6055,7 +6055,11 @@ public partial class Player : CharacterBody2D
 			|| SaveManager.Instance.GetItemCount(item.Id) <= 0)
 			return false;
 		if (item.CallsAlly)
+		{
+			// The horn always sounds, whether or not anyone answers.
+			Sfx.PlayAt(this, "World/Cuerno", "Cuerno", 1600f);
 			return Metroidvania.World.PuntoAlathea.TryCall(this);
+		}
 		if (item.ImbueElement == DamageElement.Normal)
 			return false;
 		SaveManager.Instance.ConsumeItem(item.Id);
