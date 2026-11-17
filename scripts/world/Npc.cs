@@ -350,7 +350,7 @@ public partial class Npc : CharacterBody2D
 		string doneKey = $"queststep:{QuestStepQuestId}:{_persistenceId}";
 		if (SaveManager.Instance.IsPickupCollected(doneKey))
 			return false;
-		if (QuestStepTakesItem is not null && !SaveManager.Instance.ConsumeItem(QuestStepTakesItem.Id))
+		if (QuestStepTakesItem is not null && !TakeQuestStepItem(QuestStepTakesItem))
 			return false;
 
 		if (QuestStepGivesItem is not null)
@@ -360,6 +360,18 @@ public partial class Npc : CharacterBody2D
 		SaveManager.Instance.MarkPickupCollected(doneKey);
 		QuestManager.Instance.AddProgress(QuestStepQuestId);
 		DialogueBox.Instance.Show(NpcName, QuestStepLines, null, this);
+		return true;
+	}
+
+	// ConsumeItem only counts stackables (Bram's fish); a one-off item like Arthur's net is
+	// collected once, so it's checked with HasItem and taken with RemoveItem instead.
+	private static bool TakeQuestStepItem(Metroidvania.Items.Item item)
+	{
+		if (item.Stackable)
+			return SaveManager.Instance.ConsumeItem(item.Id);
+		if (!SaveManager.Instance.HasItem(item.Id))
+			return false;
+		SaveManager.Instance.RemoveItem(item.Id);
 		return true;
 	}
 
