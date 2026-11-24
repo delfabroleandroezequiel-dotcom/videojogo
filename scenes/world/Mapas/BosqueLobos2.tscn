@@ -3783,7 +3783,7 @@ position = Vector2(-3, 2)
 shape = SubResource("RectangleShape2D_floor")
 
 [node name="Player" parent="." unique_id=2145623876 instance=ExtResource("10_player")]
-position = Vector2(1065, 265)
+position = Vector2(300, 265)
 
 [node name="ToBosqueLobos1" parent="." unique_id=1893594719 instance=ExtResource("11_transition")]
 position = Vector2(80, 290)
@@ -3798,12 +3798,12 @@ TargetSpawnPosition = Vector2(150, 263)
 Height = 900.0
 
 [node name="Entradaarbol" type="Sprite2D" parent="." unique_id=2143336118]
-position = Vector2(1042, 164)
+position = Vector2(1480, 164)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("12_ldpml")
 
 [node name="EntradaArbolTransition" parent="." unique_id=1042002001 instance=ExtResource("11_transition")]
-position = Vector2(1042, 290)
+position = Vector2(1480, 290)
 TargetScenePath = "res://scenes/world/Mapas/Arbol1/InteriorArbolBosqueLobos2.tscn"
 TargetSpawnPosition = Vector2(0, 280)
 RequireInteract = true
@@ -3889,6 +3889,7 @@ offset = Vector2(0, -31)
 color = Color(0.56, 0.52, 0.6, 1)
 
 [node name="Barricada" type="Node2D" parent="."]
+position = Vector2(-500, 0)
 
 [node name="CarretasRotas" type="Sprite2D" parent="Barricada"]
 z_index = 1

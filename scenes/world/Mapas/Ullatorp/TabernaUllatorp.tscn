@@ -1,0 +1,119 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="2_bootstrap"]
+[ext_resource type="Texture2D" uid="uid://clu7un5mvouei" path="res://assets/backgrounds/MesonOstigado.png" id="3_tavern"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/TavernGuest1.tscn" id="4_fnkqi"]
+[ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="4_transition"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/TavernGuest2.tscn" id="5_m7xmo"]
+[ext_resource type="PackedScene" uid="uid://d8tq20x6upcu" path="res://scenes/world/Npc.tscn" id="5_npc"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/TavernGuest3.tscn" id="6_bfv42"]
+[ext_resource type="Resource" uid="uid://beqplhalhp4r6" path="res://resources/camera/ClosedRoomCamera.tres" id="7_camera_profile"]
+[ext_resource type="Texture2D" uid="uid://bnxhpt62p5fd2" path="res://scenes/world/MesonOstigadobarra.png" id="9_o0uk4"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/MatheoSpriteFrames.tres" id="10_matheo"]
+[ext_resource type="Script" path="res://scripts/world/VisionMatheo.cs" id="11_vision"]
+
+[ext_resource type="SpriteFrames" path="res://resources/sprites/NixLioSpriteFrames.tres" id="lio_frames"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(816.4462, 24.48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bn06r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sidewall"]
+size = Vector2(30.6, 459)
+[node name="TabernaUllatorp" type="Node2D"]
+script = ExtResource("2_bootstrap")
+ScenePath = "res://scenes/world/Mapas/Ullatorp/TabernaUllatorp.tscn"
+CameraProfile = ExtResource("7_camera_profile")
+
+[node name="Backdrop" type="Polygon2D" parent="."]
+z_index = -10
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-1100, -650, 1100, -650, 1100, 650, -1100, 650)
+
+[node name="TavernBackground" type="Sprite2D" parent="."]
+z_index = -9
+scale = Vector2(0.447525, 0.447525)
+texture = ExtResource("3_tavern")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(0, 127.755)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Floor2" type="StaticBody2D" parent="."]
+position = Vector2(0, 255.51)
+collision_layer = 33
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor2"]
+position = Vector2(272, -173.91)
+shape = SubResource("RectangleShape2D_bn06r")
+one_way_collision = true
+
+[node name="Floor3" type="StaticBody2D" parent="."]
+position = Vector2(154.70259, 72.53672)
+collision_layer = 33
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor3"]
+position = Vector2(-1.8573761, 11.278809)
+shape = SubResource("RectangleShape2D_bn06r")
+one_way_collision = true
+
+[node name="TavernGuest1" parent="." instance=ExtResource("4_fnkqi")]
+position = Vector2(-164, 53)
+
+[node name="TavernGuest2" parent="." instance=ExtResource("5_m7xmo")]
+position = Vector2(-42, 72)
+
+[node name="TavernGuest3" parent="." instance=ExtResource("6_bfv42")]
+position = Vector2(-258, 49)
+flip_h = true
+
+[node name="ReturnTransition" parent="." instance=ExtResource("4_transition")]
+position = Vector2(-357.02, 107.1)
+TargetScenePath = "res://scenes/world/Mapas/Ullatorp/Ullatorp.tscn"
+TargetSpawnPosition = Vector2(1300, -40)
+RequireInteract = true
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(-423.81, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+position = Vector2(23.809998, -9)
+shape = SubResource("RectangleShape2D_sidewall")
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+position = Vector2(423.81, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+position = Vector2(-16.809998, -2)
+shape = SubResource("RectangleShape2D_sidewall")
+
+[node name="MesonOstigadobarra" type="Sprite2D" parent="."]
+position = Vector2(166, 85)
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("9_o0uk4")
+
+[node name="Matheo" parent="." instance=ExtResource("5_npc")]
+position = Vector2(20, 40)
+NpcName = "NPC_MATHEO_ENCAPUCHADO"
+DialogueLines = PackedStringArray("NPC_MATHEO_1")
+AfterItemId = "item_tela_emblema"
+AfterItemDialogueLines = PackedStringArray("NPC_MATHEO_TELA_1", "NPC_MATHEO_TELA_2")
+FacePlayerEnabled = false
+CustomSpriteFrames = ExtResource("10_matheo")
+CustomSpriteScale = Vector2(1.158, 1.158)
+CustomSpriteYOffset = 2.0
+CollisionSize = Vector2(30, 64)
+
+[node name="VisionMatheo" type="Node2D" parent="."]
+script = ExtResource("11_vision")
+MatheoPath = NodePath("../Matheo")
+VisionScenePath = "res://scenes/world/Mapas/Ullatorp/VisionMatheo.tscn"
+VisionSpawn = Vector2(-200, 220)
+ReturnLines = PackedStringArray("CIN_MATHEO_VISION_1", "CIN_MATHEO_VISION_2")
+ReturnPauses = PackedFloat32Array(0.3, 1.2)
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(-263, -5)

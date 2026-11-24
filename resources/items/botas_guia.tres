@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Item" format=3]
+
+[ext_resource type="Script" path="res://scripts/items/Item.cs" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/iconos/ability_double_jump.png" id="icono"]
+
+[resource]
+script = ExtResource("1_script")
+Id = "item_botas_guia"
+ItemName = "ITEM_BOTAS_GUIA_NAME"
+Description = "ITEM_BOTAS_GUIA_DESC"
+Type = 0
+AbilityId = "double_jump"
+Icon = ExtResource("icono")

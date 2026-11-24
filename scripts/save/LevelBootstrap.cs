@@ -42,6 +42,16 @@ public partial class LevelBootstrap : Node
 	[Export] public bool GrantAllAbilities;
 	// Boss/test arenas: the player's max stamina × this while in the map (not saved).
 	[Export] public float PlayerStaminaMultiplier = 1f;
+	// A vision map (Matheo's flash in Ullatorp's tavern): dying here isn't a real death — no Ecos
+	// dropped, no respawn at the bonfire — it drops the player back at VisionReturnSpawn in
+	// VisionReturnScenePath with the health they had before (VisionMatheo.HealthBefore). If they
+	// somehow outlast it, the vision kills them after VisionKillAfterSeconds (0 = never).
+	[Export(PropertyHint.File, "*.tscn")] public string VisionReturnScenePath = "";
+	[Export] public Vector2 VisionReturnSpawn = Vector2.Zero;
+	[Export] public float VisionKillAfterSeconds = 0f;
+
+	public bool IsVision => !string.IsNullOrEmpty(VisionReturnScenePath);
+	public bool VisionDeathHandled { get; set; }
 
 	private Player.Player _player;
 
@@ -68,6 +78,13 @@ public partial class LevelBootstrap : Node
 			summonSlots.Visible = !HideSummonSlots;
 		if (ExtraHealCharges > 0)
 			_player.GetNode<HealFlask>("HealFlask").AddBonusCharges(ExtraHealCharges);
+		if (IsVision && VisionKillAfterSeconds > 0f)
+			GetTree().CreateTimer(VisionKillAfterSeconds).Timeout += () =>
+			{
+				// Already dead (she got him first): a second death would run the return twice.
+				if (IsInstanceValid(_player) && _player.GetNode<Stats>("Stats").CurrentHealth > 0)
+					_player.GetNode<Stats>("Stats").Kill();
+			};
 		if (!Mathf.IsEqualApprox(PlayerStaminaMultiplier, 1f))
 		{
 			Stats playerStats = _player.GetNode<Stats>("Stats");
@@ -309,6 +326,16 @@ public partial class LevelBootstrap : Node
 		SaveManager.Instance.SessionTorchEquipped = null;
 		SaveManager.Instance.SessionShadowEssence = null;
 		GetTree().CallDeferred(SceneTree.MethodName.ReloadCurrentScene);
+	}
+
+	// Death inside a vision map: back to where the vision started, as if nothing happened.
+	public void ReturnFromVision()
+	{
+		SaveManager.Instance.SessionCurrentHealth = World.VisionMatheo.HealthBefore;
+		World.VisionMatheo.PendingReturn = true;
+		SaveManager.Instance.PendingSpawnPosition = VisionReturnSpawn;
+		SaveManager.Instance.PendingSpawnOnLadder = false;
+		GetTree().CallDeferred(SceneTree.MethodName.ChangeSceneToFile, VisionReturnScenePath);
 	}
 
 	public void RespawnPlayer()

@@ -6316,6 +6316,17 @@ public partial class Player : CharacterBody2D
 		_isDead = true;
 		_sprite.Play("death");
 		// Only this player's own level may drive the respawn — never a scene that already replaced it.
+		if (GetTree().CurrentScene is LevelBootstrap vision && vision.IsAncestorOf(this) && vision.IsVision)
+		{
+			// Her follow-up hits land on the corpse and fire Died again: only the first one counts,
+			// or the second death screen calls back into a level that's already gone.
+			if (!vision.VisionDeathHandled)
+			{
+				vision.VisionDeathHandled = true;
+				DeathScreen.Instance.Show(vision.ReturnFromVision);
+			}
+			return;
+		}
 		if (GetTree().CurrentScene is LevelBootstrap level && level.IsAncestorOf(this))
 		{
 			SaveManager.Instance.DropEcosOnDeath(level.ScenePath, _lastFloorPosition ?? GlobalPosition);
