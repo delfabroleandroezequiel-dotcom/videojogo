@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://3jdj5trpq0qa" path="res://assets/sprites/misprite/ChatGPT_Image_3_jul_2026__16_08_43-removebg-preview.png" id="6_4lgvp"]
 [ext_resource type="Texture2D" uid="uid://b5l8budx7n772" path="res://assets/sprites/misprite/ChatGPT_Image_5_jul_2026__16_34_47-removebg-preview.png" id="6_24ren"]
 [ext_resource type="PackedScene" uid="uid://d8tq20x6upcu" path="res://scenes/world/Npc.tscn" id="6_npc"]
+[ext_resource type="Resource" path="res://resources/quests/ayuda_nix.tres" id="quest_ayuda_nix"]
+[ext_resource type="Resource" path="res://resources/items/tela_emblema.tres" id="item_tela_emblema"]
 [ext_resource type="Texture2D" uid="uid://cn2r5e0g836s5" path="res://assets/sprites/misprite/ChatGPT_Image_5_jul_2026__16_41_35-removebg-preview.png" id="7_o41q6"]
 [ext_resource type="Texture2D" uid="uid://cg4i8u5soknn2" path="res://assets/sprites/misprite/ChatGPT_Image_3_jul_2026__16_17_50-removebg-preview.png" id="7_vffn0"]
 [ext_resource type="Texture2D" uid="uid://g0fypoysvun" path="res://assets/sprites/misprite/ChatGPT_Image_6_jul_2026__19_37_56-removebg-preview.png" id="11_dpwbv"]
@@ -15569,6 +15571,8 @@ position = Vector2(-1400, 351)
 position = Vector2(816, 435)
 NpcName = "NPC_GARRIK_NAME"
 DialogueLines = PackedStringArray("NPC_HERRERO_L1")
+AfterQuestId = "carro_morlok"
+AfterQuestDialogueLines = PackedStringArray("NPC_GARRIK_MIEDO_1", "NPC_GARRIK_MIEDO_2")
 QuestStepQuestId = "encargo_arthur"
 QuestStepGivesItem = ExtResource("enc_red")
 QuestStepLines = PackedStringArray("NPC_GARRIK_ENCARGO_1", "NPC_GARRIK_ENCARGO_2", "NPC_GARRIK_ENCARGO_3")
@@ -15582,6 +15586,8 @@ CollisionSize = Vector2(30, 64)
 position = Vector2(-537, 428)
 NpcName = "NPC_BRAM_NAME"
 DialogueLines = PackedStringArray("NPC_CARNICERO_L1")
+AfterQuestId = "carro_morlok"
+AfterQuestDialogueLines = PackedStringArray("NPC_BRAM_MIEDO_1", "NPC_BRAM_MIEDO_2")
 QuestStepQuestId = "encargo_arthur"
 QuestStepTakesItem = ExtResource("enc_pescado")
 QuestStepGold = 5
@@ -15889,7 +15895,12 @@ CollisionSize = Vector2(30, 64)
 [node name="NpcLeomax" parent="." unique_id=1025932143 instance=ExtResource("6_npc")]
 position = Vector2(250, 428)
 NpcName = "NPC_BRUNO_NAME"
-DialogueLines = PackedStringArray("NPC_BRUNO_NIX_L1", "NPC_BRUNO_NIX_L2")
+DialogueLines = PackedStringArray("NPC_BRUNO_NIX_L1", "NPC_BRUNO_NIX_L2", "NPC_LEOMAX_AYUDA_1", "NPC_LEOMAX_AYUDA_2")
+InProgressDialogueLines = PackedStringArray("NPC_BRUNO_NIX_L1", "NPC_BRUNO_NIX_L2")
+CompletedDialogueLines = PackedStringArray("NPC_BRUNO_NIX_L1", "NPC_BRUNO_NIX_L2")
+Quest = ExtResource("quest_ayuda_nix")
+GrantsOwnObjective = false
+QuestStartGivesItem = ExtResource("item_tela_emblema")
 AppearOnlyWhenQuestCompleted = "carro_morlok"
 CustomSpriteFrames = ExtResource("cm_bruno")
 CustomSpriteYOffset = 2.0
@@ -15914,6 +15925,8 @@ CollisionSize = Vector2(30, 64)
 position = Vector2(3300, 428)
 NpcName = "NPC_EDDA_NAME"
 DialogueLines = PackedStringArray("NPC_EDDA_L1")
+AfterQuestId = "carro_morlok"
+AfterQuestDialogueLines = PackedStringArray("NPC_EDDA_MIEDO_1", "NPC_EDDA_MIEDO_2")
 CustomSpriteFrames = ExtResource("pob_edda")
 CustomSpriteYOffset = 2.0
 CustomSpriteScale = Vector2(1.158, 1.158)
@@ -15942,9 +15955,20 @@ CollisionSize = Vector2(24, 48)
 [node name="NpcHalvar" parent="." unique_id=1025140242 instance=ExtResource("6_npc")]
 position = Vector2(5080, 428)
 NpcName = "NPC_HALVAR_NAME"
+DisappearWhenQuestCompleted = "carro_morlok"
 DialogueLines = PackedStringArray("NPC_HALVAR_L1")
 AfterItemId = "item_espada_arthur"
 AfterItemDialogueLines = PackedStringArray("NPC_HALVAR_ESPADA_1", "NPC_HALVAR_ESPADA_2", "NPC_HALVAR_ESPADA_3")
+CustomSpriteFrames = ExtResource("pob_halvar")
+CustomSpriteYOffset = 2.0
+CustomSpriteScale = Vector2(1.158, 1.158)
+CollisionSize = Vector2(30, 64)
+
+[node name="NpcHalvarTela" parent="." instance=ExtResource("6_npc")]
+position = Vector2(5080, 428)
+NpcName = "NPC_HALVAR_NAME"
+DialogueLines = PackedStringArray("NPC_HALVAR_ESPADA_1", "NPC_HALVAR_ESPADA_2", "NPC_HALVAR_ESPADA_3", "NPC_HALVAR_TELA_1", "NPC_HALVAR_TELA_2", "NPC_HALVAR_TELA_3", "NPC_HALVAR_TELA_4")
+AppearOnlyWhenQuestCompleted = "carro_morlok"
 CustomSpriteFrames = ExtResource("pob_halvar")
 CustomSpriteYOffset = 2.0
 CustomSpriteScale = Vector2(1.158, 1.158)

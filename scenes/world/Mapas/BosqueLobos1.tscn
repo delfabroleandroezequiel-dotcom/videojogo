@@ -31,6 +31,7 @@
 [ext_resource type="Script" uid="uid://ca3by7a2nprbd" path="res://scripts/world/LootEntry.cs" id="cm_lootscript"]
 [ext_resource type="PackedScene" uid="uid://d8tq20x6upcu" path="res://scenes/world/Npc.tscn" id="cm_npc"]
 [ext_resource type="PackedScene" path="res://scenes/world/ItemPickup.tscn" id="cm_pickup"]
+[ext_resource type="Resource" path="res://resources/quests/ayuda_nix.tres" id="quest_ayuda_nix"]
 [ext_resource type="Resource" path="res://resources/items/tela_emblema.tres" id="cm_tela"]
 [ext_resource type="Texture2D" uid="uid://dh51pxnn5etxm" path="res://assets/sprites/deco/pixellab/bosque/CartelGarras.png" id="dpl_CartelGarras"]
 [ext_resource type="Texture2D" uid="uid://b22hoi3nby3k2" path="res://assets/sprites/deco/pixellab/bosque/Flores.png" id="dpl_Flores"]
@@ -12988,7 +12989,11 @@ position = Vector2(1026, 311)
 [node name="LeomaxHerido" parent="CarroDeMorlok" unique_id=479129746 instance=ExtResource("cm_npc")]
 position = Vector2(393, 267)
 NpcName = "NPC_BRUNO_NAME"
-DialogueLines = PackedStringArray("NPC_BRUNO_HERIDO_L1", "NPC_BRUNO_HERIDO_L2", "NPC_BRUNO_HERIDO_L3", "NPC_BRUNO_HERIDO_L4")
+DialogueLines = PackedStringArray("NPC_BRUNO_HERIDO_L1", "NPC_BRUNO_HERIDO_L2", "NPC_BRUNO_HERIDO_L3", "NPC_LEOMAX_AYUDA_1", "NPC_LEOMAX_AYUDA_2", "NPC_BRUNO_HERIDO_L4")
+InProgressDialogueLines = PackedStringArray("NPC_BRUNO_HERIDO_L4")
+Quest = ExtResource("quest_ayuda_nix")
+GrantsOwnObjective = false
+QuestStartGivesItem = ExtResource("cm_tela")
 DisappearWhenQuestCompleted = "carro_morlok"
 CustomSpriteFrames = ExtResource("cm_bruno")
 CustomSpriteYOffset = 2.0
