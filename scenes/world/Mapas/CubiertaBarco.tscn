@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="5_transition"]
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Barco.tscn" id="6_barco"]
 [ext_resource type="Script" uid="uid://xy323prms1ue" path="res://scripts/world/RockingFloor.cs" id="7_rockingfloor"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Barquero.tscn" id="8_barquero"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1015.876, 29)
@@ -68,3 +69,6 @@ UseStoredReturnPosition = true
 [node name="Barco" parent="." unique_id=1919393143 instance=ExtResource("6_barco")]
 position = Vector2(0, 129)
 scale = Vector2(0.64, 0.64)
+
+[node name="Barquero" parent="." instance=ExtResource("8_barquero")]
+position = Vector2(-200, 180)

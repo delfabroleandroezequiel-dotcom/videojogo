@@ -647,3 +647,64 @@ AMB_ULL_FLORISTA_1,"Flores para tu amada, viajero.","Flowers for your sweetheart
 AMB_ULL_FLORISTA_2,"Recién cortadas esta mañana.","Freshly cut this morning.","Colhidas hoje de manhã."
 AMB_ULL_MALABARISTA_1,"¡Tres bolas, cero manos! ...Bueno, dos.","Three balls, no hands! ...Well, two.","Três bolas, nenhuma mão! ...Bom, duas."
 AMB_ULL_MALABARISTA_2,"¡Una moneda y lo hago con los ojos cerrados!","One coin and I'll do it blindfolded!","Uma moeda e eu faço de olhos fechados!"
+NPC_BARQUERO_NAME,Capitana Coka,Captain Coka,Capitã Coka
+NPC_BARQUERO_SALUDO,"Este barco no sale a pescar, muchacho. Lleva gente al norte, hasta la Montaña Extraña.","This boat doesn't go fishing, lad. It takes folk north, all the way to the Strange Mountain.","Este barco não sai para pescar, rapaz. Leva gente para o norte, até a Montanha Estranha."
+NPC_BARQUERO_SIN_MONEDAS,"Sin monedas no zarpa nadie.","No coin, no sailing.","Sem moedas, ninguém zarpa."
+NPC_BARQUERO_VUELTA_SALUDO,"¿Ya te cansaste de esa montaña? La vuelta corre por mi cuenta.","Had enough of that mountain? The way back's on me.","Já se cansou daquela montanha? A volta é por minha conta."
+BARQUERO_PREGUNTA,"¿Viajar a {0} por {1} monedas?","Sail to {0} for {1} coins?","Viajar para {0} por {1} moedas?"
+BARQUERO_PREGUNTA_GRATIS,"¿Volver a {0}?","Sail back to {0}?","Voltar para {0}?"
+LUGAR_MONTANIA_EXTRANIA,la Montaña Extraña,the Strange Mountain,a Montanha Estranha
+LUGAR_NIX,Nix,Nix,Nix
+ITEM_BOTAS_GUIA_NAME,Botas de guía,Guide's Boots,Botas de guia
+NPC_GRANTHIN_NAME,Granthin,Granthin,Granthin
+NPC_SAMURAI_NAME,El Samurái,The Samurai,O Samurai
+NPC_SAMURAI_SALUDO,"Esa forma de pararte... Te enseñaron a pelear, pero nadie te enseñó a saltar.","The way you stand... Someone taught you to fight, but nobody taught you to jump.","Esse jeito de ficar de pé... Te ensinaram a lutar, mas ninguém te ensinou a saltar."
+NPC_SAMURAI_PREGUNTA,"¿Entrenar con el samurái en la arena?","Train with the samurai in the arena?","Treinar com o samurai na arena?"
+NPC_SAMURAI_RECHAZO,"Cuando quieras. La arena no se mueve.","Whenever you're ready. The arena isn't going anywhere.","Quando quiser. A arena não vai sair do lugar."
+NPC_SAMURAI_VAMOS,"A la arena. No me hagas perder el tiempo.","To the arena. Don't waste my time.","Para a arena. Não me faça perder tempo."
+NPC_GRANTHIN_1,"¿Y tú quién eres? No, espera... ¿Quién soy yo? ¡Hic!","And who are you? No, wait... who am I? Hic!","E você, quem é? Não, espera... quem sou eu? Hic!"
+NPC_GRANTHIN_2,"Granthin. Eso. El mejor guía de Ullatorp. El mejor guía sentado, digo.","Granthin. That's it. Best guide in Ullatorp. Best sitting guide, I mean.","Granthin. Isso. O melhor guia de Ullatorp. O melhor guia sentado, quero dizer."
+NPC_GRANTHIN_3,"¿Llevarte a algún lado? Mis piernas ya no van ni a casa. Mira, aquí duermo.","Take you somewhere? My legs don't even make it home. Look, I sleep right here.","Te levar a algum lugar? Minhas pernas não chegam nem em casa. Olha, eu durmo aqui."
+NPC_GRANTHIN_4,"Busca a mi hijo, Gransin. Puerta este. Es el que habla más que yo.","Find my son, Gransin. East gate. He's the one who talks more than me.","Procure meu filho, Gransin. Portão leste. É o que fala mais do que eu."
+NPC_GRANSIN_ULL_1,"¿Te mandó mi padre? ¿Y seguía de pie? Entonces hoy es un buen día.","My father sent you? And he was still standing? Then today's a good day.","Meu pai te mandou? E ele ainda estava de pé? Então hoje é um bom dia."
+NPC_GRANSIN_ULL_2,"Gransin, guía, hijo de guía. Mi abuelo también era guía, pero se perdió.","Gransin. Guide, son of a guide. My grandfather was a guide too, but he got lost.","Gransin, guia, filho de guia. Meu avô também era guia, mas se perdeu."
+NPC_GRANSIN_ULL_3,"¿A Enterbill? Mala suerte. Se vino abajo media ladera sobre el paso.","Enterbill? Bad luck. Half the hillside came down on the pass.","Para Enterbill? Que azar. Metade da encosta desabou sobre a passagem."
+NPC_GRANSIN_ULL_4,"Ahora hay una roca del tamaño de una casa. Si la ves, salúdala. Ya es vecina.","Now there's a rock the size of a house. Say hi if you see it. It's a neighbor now.","Agora tem uma rocha do tamanho de uma casa. Se a vir, cumprimente. Já é vizinha."
+NPC_GRANSIN_ULL_5,"Queda el desierto: vuelves al bosque, tomas la bifurcación y cruzas las dunas.","There's still the desert: back to the forest, take the fork and cross the dunes.","Resta o deserto: volta para a floresta, pega a bifurcação e atravessa as dunas."
+NPC_GRANSIN_ULL_6,"Yo te llevo hasta Enterbill. Cobro barato y hablo gratis. Mucho.","I'll take you to Enterbill. I charge cheap and talk for free. A lot.","Eu te levo até Enterbill. Cobro barato e falo de graça. Muito."
+NPC_SAMURAI_DESPUES,"Esas botas ya son tuyas. Salta como si el suelo ardiera.","Those boots are yours now. Jump like the ground is burning.","Essas botas agora são suas. Salte como se o chão estivesse em chamas."
+NPC_BARQUERO_RECHAZO,"El mar no espera. Yo sí, un rato. Aquí estaré.","The sea won't wait. I will, for a while. I'll be right here.","O mar não espera. Eu espero, um pouco. Estarei aqui."
+NPC_BARQUERO_ZARPA,"Agárrate fuerte. Zarpamos.","Hold on tight. We're casting off.","Segure firme. Vamos zarpar."
+ITEM_BOTAS_GUIA_DESC,"Suela gastada de tanto saltar. El samurái las usó antes que tú. Con ellas puedes impulsarte una segunda vez en el aire.","Soles worn thin from jumping. The samurai wore them before you. With them you can push off a second time in midair.","Sola gasta de tanto saltar. O samurai as usou antes de você. Com elas você pode se impulsionar uma segunda vez no ar."
+QUEST_BUSCAR_GRANSIN_TITLE,El hijo del guía,The Guide's Son,O filho do guia
+QUEST_BUSCAR_GRANSIN_DESC,"Granthin, bastante borracho, dice que su hijo Gransin puede guiarte. Lo encontrarás en la puerta este de Ullatorp.","Granthin, rather drunk, says his son Gransin can guide you. You'll find him at Ullatorp's east gate.","Granthin, bem bêbado, diz que o filho Gransin pode te guiar. Você o encontrará no portão leste de Ullatorp."
+QUEST_BUSCAR_GRANSIN_OBJECTIVE,Hablar con Gransin en la puerta este,Talk to Gransin at the east gate,Falar com Gransin no portão leste
+QUEST_BUSCAR_GRANSIN_REWARD,Gransin se ofrece a guiarte hasta Enterbill.,Gransin offers to guide you to Enterbill.,Gransin se oferece para te guiar até Enterbill.
+NPC_GRANTHIN_ESPERA,"¿Sigues aquí? La puerta este. Al este. Donde sale el sol... creo. ¡Hic!","Still here? The east gate. East. Where the sun comes up... I think. Hic!","Ainda aqui? O portão leste. Leste. Onde o sol nasce... acho. Hic!"
+NPC_GRANTHIN_DESPUES,"¿Lo encontraste? Habla tanto que seguro te encontró él a ti.","Found him? He talks so much he probably found you.","Encontrou? Ele fala tanto que deve ter te encontrado primeiro."
+NPC_GRANSIN_EXTRANIO_1,"¿Y tú quién eres? ¿Te perdiste? Yo también, pero con estilo.","And who are you? Lost? Me too, but with style.","E você, quem é? Se perdeu? Eu também, mas com estilo."
+NPC_GRANSIN_EXTRANIO_2,"Si buscas guía, habla antes con mi padre. Es el que duerme junto a su casa.","If you want a guide, talk to my father first. He's the one asleep by his house.","Se quer um guia, fale antes com meu pai. É o que dorme ao lado de casa."
+NPC_GRANSIN_RECORDATORIO,"El desierto no se cruza solo. Bueno, sí, pero conmigo se cruza mejor.","Nobody crosses the desert alone. Well, they do, but it's better with me.","Ninguém atravessa o deserto sozinho. Bom, atravessa, mas comigo é melhor."
+NPC_MATHEO_ENCAPUCHADO,El encapuchado,The Hooded Man,O encapuzado
+NPC_MATHEO_1,"Los caminos se cierran solos cuando alguien quiere que se cierren.","Roads close on their own when someone wants them closed.","As estradas se fecham sozinhas quando alguém quer que se fechem."
+NPC_MATHEO_TELA_1,"¿De dónde sacaste esa tela?","Where did you get that cloth?","Onde você conseguiu esse pano?"
+NPC_MATHEO_TELA_2,"Guárdala. No se la muestres a nadie.","Put it away. Don't show it to anyone.","Guarde. Não mostre a ninguém."
+CIN_MATHEO_VISION_1,"¿Estás bien, muchacho? Te quedaste mirando la nada.","You all right, lad? You were staring at nothing.","Você está bem, rapaz? Ficou olhando para o nada."
+CIN_MATHEO_VISION_2,La cerveza de aquí pega fuerte.,The beer here hits hard.,A cerveja daqui bate forte.
+NPC_HALVAR_TELA_1,"Y esa tela del emblema... no la bordó ningún bandido de por aquí.","And that emblem cloth... no bandit from around here stitched that.","E esse pano do emblema... nenhum bandido daqui bordou isso."
+NPC_HALVAR_TELA_3,"Por el camino no pasas. Pero tú siempre encuentras por dónde.","You won't get through by the road. But you always find a way.","Pela estrada você não passa. Mas você sempre acha um jeito."
+NPC_GRANSIN_ULL_TELA,"Tienes cara de llevar un recado importante. ¿Para el rey? Mejor por el desierto.","You've got the face of someone carrying an important errand. For the king? Better take the desert.","Você tem cara de quem leva um recado importante. Para o rei? Melhor pelo deserto."
+QUEST_AYUDA_NIX_TITLE,Ayuda para Nix,Help for Nix,Ajuda para Nix
+QUEST_AYUDA_NIX_OBJECTIVE,Pedir ayuda al rey en el castillo de Enterbill,Ask the king for help at Enterbill castle,Pedir ajuda ao rei no castelo de Enterbill
+QUEST_AYUDA_NIX_REWARD,Soldados del rey para defender Nix.,The king's soldiers to defend Nix.,Soldados do rei para defender Nix.
+NPC_HALVAR_TELA_2,"Tengo seis hombres y una lanza rota. Si vuelven en serio, Nix no aguanta.","I've got six men and a broken spear. If they come back for real, Nix won't hold.","Tenho seis homens e uma lança quebrada. Se voltarem de verdade, Nix não aguenta."
+NPC_HALVAR_TELA_4,"Ve al castillo de Enterbill. Pídele soldados al rey y muéstrale esa tela.","Go to Enterbill castle. Ask the king for soldiers and show him that cloth.","Vá ao castelo de Enterbill. Peça soldados ao rei e mostre a ele esse pano."
+NPC_GARRIK_MIEDO_1,"Tres encargos de lanzas esta semana. Esto es un pueblo de pescadores, no un cuartel.","Three spear orders this week. This is a fishing village, not a barracks.","Três encomendas de lanças esta semana. Isto é uma vila de pescadores, não um quartel."
+NPC_GARRIK_MIEDO_2,"Si vienen en serio, no alcanzan ni mis martillos.","If they come for real, not even my hammers will be enough.","Se vierem de verdade, nem meus martelos vão bastar."
+NPC_BRAM_MIEDO_1,"Ya no llega carne de Ullatorp. Ni sal. Ni nada.","No meat's coming from Ullatorp anymore. No salt. Nothing.","Não chega mais carne de Ullatorp. Nem sal. Nem nada."
+NPC_BRAM_MIEDO_2,"Si esto sigue, voy a tener que fiar. Y yo no fío.","If this keeps up, I'll have to sell on credit. And I don't sell on credit.","Se isso continuar, vou ter que vender fiado. E eu não vendo fiado."
+NPC_EDDA_MIEDO_1,"Las madres ya no dejan salir a los chicos. Ni al muelle.","The mothers won't let the kids out anymore. Not even to the dock.","As mães não deixam mais as crianças saírem. Nem até o cais."
+NPC_EDDA_MIEDO_2,"Alguien tiene que ir al castillo. Y aquí nadie se mueve.","Someone has to go to the castle. And nobody here moves.","Alguém tem que ir ao castelo. E aqui ninguém se mexe."
+QUEST_AYUDA_NIX_DESC,"Los ataques en el camino tienen a Nix con miedo y nadie puede defenderla. Leomax te pidió llevar la tela del emblema al castillo de Enterbill y pedirle soldados al rey.","The attacks on the road have Nix afraid, and no one can defend it. Leomax asked you to take the emblem cloth to Enterbill castle and ask the king for soldiers.","Os ataques na estrada deixaram Nix com medo, e ninguém pode defendê-la. Leomax pediu que você levasse o pano do emblema ao castelo de Enterbill e pedisse soldados ao rei."
+NPC_LEOMAX_AYUDA_1,"Nix sola no aguanta otra de estas. Alguien tiene que avisar al rey.","Nix can't take another one of these on its own. Someone has to warn the king.","Nix sozinha não aguenta outra dessas. Alguém tem que avisar o rei."
+NPC_LEOMAX_AYUDA_2,"Lleva esa tela al castillo de Enterbill. Que vean el emblema con sus propios ojos.","Take that cloth to Enterbill castle. Let them see the emblem with their own eyes.","Leve esse pano ao castelo de Enterbill. Que vejam o emblema com os próprios olhos."

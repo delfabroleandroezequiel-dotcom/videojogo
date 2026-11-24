@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://65edj5ogfvp2" path="res://assets/backgrounds/MontaniaExtrania0.png" id="2_bg"]
 [ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="3_transition"]
 [ext_resource type="PackedScene" path="res://scenes/world/Enemigos/RangerArcher.tscn" id="4_vk7xl"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/Barquero.tscn" id="5_barquero"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1w6wg"]
 size = Vector2(3690, 60)
@@ -33,3 +34,12 @@ Height = 1000.0
 
 [node name="RangerArcher" parent="." index="10" unique_id=818994035 instance=ExtResource("4_vk7xl")]
 position = Vector2(973, 238)
+
+[node name="BarqueroVuelta" parent="." instance=ExtResource("5_barquero")]
+position = Vector2(230, 250)
+Fare = 0
+DestinationScenePath = "res://scenes/world/Mapas/MarNix.tscn"
+DestinationSpawnPosition = Vector2(979, 26)
+DestinationNameKey = "LUGAR_NIX"
+GreetingLines = PackedStringArray("NPC_BARQUERO_VUELTA_SALUDO")
+DialogueLines = PackedStringArray("NPC_BARQUERO_VUELTA_SALUDO")

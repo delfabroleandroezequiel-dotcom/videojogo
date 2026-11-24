@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://d8tq20x6upcu" path="res://scenes/world/Npc.tscn" id="1_npc"]
+[ext_resource type="Script" path="res://scripts/world/BarqueroNpc.cs" id="2_script"]
+[ext_resource type="SpriteFrames" path="res://resources/sprites/CapitanaCokaSpriteFrames.tres" id="3_frames"]
+
+[node name="Barquero" instance=ExtResource("1_npc")]
+script = ExtResource("2_script")
+Fare = 100
+DestinationScenePath = "res://scenes/world/Mapas/MontaniaExtrania0.tscn"
+DestinationSpawnPosition = Vector2(110, 251.5)
+DestinationNameKey = "LUGAR_MONTANIA_EXTRANIA"
+GreetingLines = PackedStringArray("NPC_BARQUERO_SALUDO")
+NoGoldLines = PackedStringArray("NPC_BARQUERO_SIN_MONEDAS")
+DeclineLines = PackedStringArray("NPC_BARQUERO_RECHAZO")
+DepartLines = PackedStringArray("NPC_BARQUERO_ZARPA")
+NpcName = "NPC_BARQUERO_NAME"
+DialogueLines = PackedStringArray("NPC_BARQUERO_SALUDO")
+CustomSpriteFrames = ExtResource("3_frames")
+CustomSpriteYOffset = 2.0
+CustomSpriteScale = Vector2(1.158, 1.158)

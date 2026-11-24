@@ -4856,3 +4856,9 @@ DialogueLines = PackedStringArray("NPC_VENDEDORA_L1")
 CustomSpriteFrames = ExtResource("19_2n8hd")
 CustomSpriteScale = Vector2(1.39, 1.39)
 CollisionSize = Vector2(24, 64)
+
+[node name="SubirAlBarco" parent="." instance=ExtResource("7_transition")]
+position = Vector2(979, 130)
+TargetScenePath = "res://scenes/world/Mapas/CubiertaBarco.tscn"
+TargetSpawnPosition = Vector2(-600, 140)
+RequireInteract = true
