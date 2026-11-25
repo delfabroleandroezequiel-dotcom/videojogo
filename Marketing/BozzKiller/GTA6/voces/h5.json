@@ -1,0 +1,93 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\V9JgeA64VYE\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_GTA.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_GTA.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA6\\voces\\h5.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA\\Short12_PinaBobEsponja.mp4",
+ "body": 7.12,
+ "clips": [
+  {
+   "t": 314.5,
+   "d": 1.3,
+   "mode": "crop",
+   "x": 1000
+  },
+  {
+   "t": 315.8,
+   "d": 1.3,
+   "mode": "crop",
+   "x": 1000
+  },
+  {
+   "t": 319.8,
+   "d": 1.6,
+   "mode": "still",
+   "x": 1150,
+   "y": 0,
+   "w": 608,
+   "h": 1080,
+   "zoom": 0.12
+  },
+  {
+   "t": 317.1,
+   "d": 1.2,
+   "mode": "crop",
+   "x": 950
+  },
+  {
+   "t": 318.3,
+   "d": 1.0,
+   "mode": "crop",
+   "x": 1000
+  },
+  {
+   "t": 318.6,
+   "d": 0.72,
+   "mode": "still",
+   "x": 1000,
+   "y": 0,
+   "w": 608,
+   "h": 1080,
+   "zoom": 0.15
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.54
+  ],
+  [
+   "EN GTA 6",
+   "white",
+   0.54,
+   1.42
+  ],
+  [
+   "HAY UNA PARADA|DE AUTOBUS",
+   "white",
+   1.42,
+   2.62
+  ],
+  [
+   "IGUALITA A LA CASA|DE BOB ESPONJA",
+   "white,yellow",
+   2.62,
+   4.2
+  ],
+  [
+   "UNA PIÑA|GIGANTE",
+   "white,yellow",
+   4.3,
+   5.24
+  ],
+  [
+   "EN PLENA|VICE CITY",
+   "white",
+   5.24,
+   7.0
+  ]
+ ]
+}

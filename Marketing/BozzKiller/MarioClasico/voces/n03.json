@@ -1,0 +1,86 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\5I9gkzpffh8\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Mario.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Mario.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioClasico\\voces\\n03.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioClasico\\Short03_NubesArbustos.mp4",
+ "body": 7.82,
+ "clips": [
+  {
+   "t": 314.0,
+   "d": 1.5,
+   "mode": "fit"
+  },
+  {
+   "t": 318.0,
+   "d": 1.4,
+   "mode": "fit"
+  },
+  {
+   "t": 324.0,
+   "d": 1.0,
+   "mode": "fit"
+  },
+  {
+   "t": 325.0,
+   "d": 2.5,
+   "mode": "fit"
+  },
+  {
+   "t": 321.0,
+   "d": 1.42,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.5
+  ],
+  [
+   "EN MARIO BROS",
+   "white",
+   0.5,
+   1.46
+  ],
+  [
+   "LAS NUBES Y|LOS ARBUSTOS",
+   "white,yellow",
+   1.46,
+   2.56
+  ],
+  [
+   "SON EL MISMO|DIBUJO",
+   "white,yellow",
+   2.56,
+   3.7
+  ],
+  [
+   "SOLO LES|CAMBIARON",
+   "white",
+   3.7,
+   4.42
+  ],
+  [
+   "EL COLOR",
+   "yellow",
+   4.42,
+   5.18
+  ],
+  [
+   "PORQUE EN EL|CARTUCHO",
+   "white",
+   5.18,
+   6.04
+  ],
+  [
+   "NO ENTRABA|NADA MAS",
+   "white,yellow",
+   6.04,
+   7.82
+  ]
+ ]
+}

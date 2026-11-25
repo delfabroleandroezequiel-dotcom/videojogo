@@ -1,0 +1,106 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\xAhXaaxYhdg\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Mario.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Mario.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Mario64\\voces\\m1_f.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Mario64\\Short01_RisaBoo.mp4",
+ "body": 6.87,
+ "clips": [
+  {
+   "t": 193.0,
+   "d": 1.4,
+   "mode": "fit"
+  },
+  {
+   "t": 195.0,
+   "d": 1.2,
+   "mode": "crop",
+   "x": 650
+  },
+  {
+   "t": 198.0,
+   "d": 1.0,
+   "mode": "still",
+   "x": 656,
+   "y": 0,
+   "w": 608,
+   "h": 1080,
+   "zoom": 0.12
+  },
+  {
+   "t": 199.5,
+   "d": 0.9,
+   "mode": "still",
+   "x": 656,
+   "y": 0,
+   "w": 608,
+   "h": 1080,
+   "zoom": 0.12
+  },
+  {
+   "t": 201.5,
+   "d": 1.1,
+   "mode": "still",
+   "x": 656,
+   "y": 0,
+   "w": 608,
+   "h": 1080,
+   "zoom": 0.12
+  },
+  {
+   "t": 205.0,
+   "d": 1.27,
+   "mode": "still",
+   "x": 656,
+   "y": 0,
+   "w": 608,
+   "h": 1080,
+   "zoom": 0.12
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.52
+  ],
+  [
+   "EN MARIO 64",
+   "white",
+   0.52,
+   1.52
+  ],
+  [
+   "LA RISA|DE LOS BOO",
+   "white,yellow",
+   1.6,
+   2.46
+  ],
+  [
+   "ES LA RISA|DE BOWSER",
+   "white,yellow",
+   2.46,
+   3.46
+  ],
+  [
+   "ACELERADA",
+   "yellow",
+   3.46,
+   4.4
+  ],
+  [
+   "SI LA PONES|LENTA",
+   "white",
+   4.5,
+   5.45
+  ],
+  [
+   "SE ESCUCHA|CLARITO",
+   "white,yellow",
+   5.5,
+   6.77
+  ]
+ ]
+}

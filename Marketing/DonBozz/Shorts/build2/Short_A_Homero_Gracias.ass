@@ -1,0 +1,17 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Short,Georgia,78,&H00D0E8F6,&H00D0E8F6,&H00000000,&H96000000,1,0,0,0,100,100,0,0,1,6,3,8,60,60,330,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:02.25,Short,,0,0,0,,Si alguien en tu casa\Ntiene una placa así,
+Dialogue: 0,0:00:02.25,0:00:03.55,Short,,0,0,0,,tapada con tu foto,
+Dialogue: 0,0:00:03.55,0:00:05.85,Short,,0,0,0,,no esperes a ser grande\Npara entenderlo.
+Dialogue: 0,0:00:05.85,0:00:08.05,Short,,0,0,0,,Hoy es un buen día\Npara decirle gracias.

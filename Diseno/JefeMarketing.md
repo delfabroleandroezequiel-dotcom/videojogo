@@ -231,3 +231,12 @@ Casi todas son blogs, guías de herramientas y relatos de desarrolladores, sin d
 - presskit.gg — línea de tiempo de marketing indie: https://presskit.gg/field-guides/indie-game-marketing-timeline
 - OpenClip — objetivos de LUFS por plataforma: https://openclip.app/learn/audio-normalization
 - Sage Audio — normalización en plataformas de streaming: https://www.sageaudio.com/articles/mastering-for-streaming-platform-loudness-and-normalization-explained
+- **2026-11-23, lote de 5 shorts con material ya grabado (`Marketing/Shorts/Noviembre/`):**
+  - **Script reutilizable:** `render_jk.py` + `specs.py` (un JSON por short: clips de varias fuentes con recorte/brillo/volumen, subtítulos con tiempos absolutos, música opcional). Hace sidechain bajo la voz, `loudnorm` −14 y revisa la duración de cada pista. Cumple el punto 4 de la sección 6.
+  - **Las grabaciones de octubre (Midir, bosque) son 720p:** el script las escala a 1080p antes de recortar, así las coordenadas son siempre las de 1080p. Se ven más blandas.
+  - **Planos de cara o paisaje que no entran en 608 px:** modo `fit` con un recorte de ~1000–1100 de ancho, apoyado en y=720 sobre el fondo difuminado, para que no choque con los subtítulos (y=520). Centrado quedaba chico y tapado por el texto.
+  - **Las grabaciones del 2 nov son streams de Dark Souls**, no del juego; la de la vagoneta (9 nov) es greybox anterior al tileset: no sirve hasta regrabarla.
+  - **La pregunta de cierre va al comentario fijado**, no como cartel mudo.
+- **2026-11-25, lote vacaciones (`Marketing/Shorts/Vacaciones/`, 5 shorts de 7–8 s):** `specs.py` + `../Noviembre/render_jk.py`. Fuentes nuevas: apertura y entrenamiento (`2026-11-24 22-40-24`), arena de día de Artemisa (`2026-11-16 11-52-01`), Gigante trepando (`2026-11-05 20-34-05`).
+  - **Recortes 9:16 con `y` y `h` explícitos** para dejar afuera los carteles de controles en español (arriba, y<~120) y los diálogos en español + "Activar Windows" (abajo, y>~870): 450×800 desde y=130 en el entrenamiento, 416×740 desde y=130 en la arena de Artemisa (esa grabación tiene franja negra arriba).
+  - `2026-11-01 23-24-58` no es del juego (es un walkthrough de Mega Man 2); `2026-11-02` son streams de Dark Souls.

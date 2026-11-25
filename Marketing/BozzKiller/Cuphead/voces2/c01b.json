@@ -1,0 +1,97 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\r72F3rf-UDA\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Cuphead.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Cuphead.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Cuphead\\voces2\\c01b.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Cuphead\\Short07_PezCadaver.mp4",
+ "body": 7.3,
+ "clips": [
+  {
+   "t": 501.0,
+   "d": 1.2,
+   "mode": "fit",
+   "x": 60,
+   "w": 1500,
+   "y": 0,
+   "h": 880
+  },
+  {
+   "t": 519.0,
+   "d": 2.0,
+   "mode": "fit",
+   "x": 60,
+   "w": 1500,
+   "y": 0,
+   "h": 880
+  },
+  {
+   "t": 523.6,
+   "d": 2.4,
+   "mode": "fit",
+   "x": 60,
+   "w": 1500,
+   "y": 0,
+   "h": 880
+  },
+  {
+   "t": 526.4,
+   "d": 1.7,
+   "mode": "fit",
+   "x": 60,
+   "w": 1500,
+   "y": 0,
+   "h": 880
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.5
+  ],
+  [
+   "EN CUPHEAD",
+   "white",
+   0.5,
+   1.1
+  ],
+  [
+   "SI MATAS AL|PEZ GLOBO",
+   "white,yellow",
+   1.2,
+   2.3
+  ],
+  [
+   "DE CALA MARIA",
+   "white",
+   2.3,
+   3.3
+  ],
+  [
+   "PUEDES HACERLE|PARRY",
+   "white,yellow",
+   3.4,
+   4.4
+  ],
+  [
+   "A SU CADAVER",
+   "yellow",
+   4.4,
+   5.8
+  ],
+  [
+   "MORBOSO",
+   "white",
+   5.9,
+   6.55
+  ],
+  [
+   "PERO FUNCIONA",
+   "yellow",
+   6.55,
+   7.3
+  ]
+ ]
+}

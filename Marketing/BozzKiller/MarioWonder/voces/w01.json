@@ -1,0 +1,87 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\IuiFRG3nY_w\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Mario.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Mario.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioWonder\\voces\\w01.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioWonder\\Short01_DaisyHijas.mp4",
+ "body": 7.0,
+ "clips": [
+  {
+   "t": 446.0,
+   "d": 1.6,
+   "mode": "fit"
+  },
+  {
+   "t": 451.0,
+   "d": 1.9,
+   "mode": "fit"
+  },
+  {
+   "t": 455.0,
+   "d": 1.5,
+   "mode": "fit"
+  },
+  {
+   "t": 447.6,
+   "d": 2.0,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.54
+  ],
+  [
+   "DAISY",
+   "yellow",
+   0.54,
+   1.04
+  ],
+  [
+   "ESTA EN|MARIO WONDER",
+   "white",
+   1.04,
+   1.66
+  ],
+  [
+   "PORQUE|LAS HIJAS",
+   "white",
+   1.66,
+   2.42
+  ],
+  [
+   "DEL DIRECTOR",
+   "white",
+   2.42,
+   2.92
+  ],
+  [
+   "SE PELEABAN",
+   "yellow",
+   2.92,
+   3.84
+  ],
+  [
+   "POR JUGAR|CON PEACH",
+   "white,yellow",
+   3.84,
+   4.72
+  ],
+  [
+   "ASI QUE|PAPA",
+   "white",
+   4.72,
+   5.4
+  ],
+  [
+   "METIO OTRA|PRINCESA",
+   "white,yellow",
+   5.4,
+   7.0
+  ]
+ ]
+}

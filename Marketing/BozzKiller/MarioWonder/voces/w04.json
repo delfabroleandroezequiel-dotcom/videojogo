@@ -1,0 +1,105 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\IuiFRG3nY_w\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Mario.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Mario.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioWonder\\voces\\w04.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioWonder\\Short04_FloresVictimas.mp4",
+ "body": 7.5,
+ "clips": [
+  {
+   "t": 82.6,
+   "d": 1.3,
+   "mode": "still",
+   "x": 250,
+   "y": 300,
+   "w": 550,
+   "h": 978
+  },
+  {
+   "t": 63.0,
+   "d": 1.4,
+   "mode": "fit"
+  },
+  {
+   "t": 72.4,
+   "d": 1.3,
+   "mode": "fit"
+  },
+  {
+   "t": 74.9,
+   "d": 0.85,
+   "mode": "fit"
+  },
+  {
+   "t": 87.4,
+   "d": 1.6,
+   "mode": "fit"
+  },
+  {
+   "t": 88.2,
+   "d": 1.05,
+   "mode": "still",
+   "x": 560,
+   "y": 0,
+   "w": 608,
+   "h": 1080
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.52
+  ],
+  [
+   "SI DESACTIVAS",
+   "white",
+   0.52,
+   1.16
+  ],
+  [
+   "LAS FLORES|QUE HABLAN",
+   "white,yellow",
+   1.16,
+   2.02
+  ],
+  [
+   "EN MARIO|WONDER",
+   "white",
+   2.02,
+   2.6
+  ],
+  [
+   "SE HACEN LAS|VICTIMAS",
+   "white,yellow",
+   2.6,
+   3.88
+  ],
+  [
+   "Y TE DICEN",
+   "white",
+   3.88,
+   4.68
+  ],
+  [
+   "FUE ALGO|QUE DIJE?",
+   "yellow",
+   4.68,
+   5.32
+  ],
+  [
+   "SOLO PARA QUE|TE SIENTAS",
+   "white",
+   5.32,
+   6.64
+  ],
+  [
+   "CULPABLE",
+   "yellow",
+   6.64,
+   7.5
+  ]
+ ]
+}

@@ -1,0 +1,96 @@
+{
+ "src": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\29cd9cd3bec8a5b2\\ee630078-cc08-4d22-bbf8-977938d74edc\\scratchpad\\bk\\src_smb3.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Mario.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Mario.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\29cd9cd3bec8a5b2\\ee630078-cc08-4d22-bbf8-977938d74edc\\scratchpad\\bk\\mario\\m02.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Mario\\Short02_BooEsposa.mp4",
+ "body": 6.85,
+ "clips": [
+  {
+   "t": 367.0,
+   "d": 1.5,
+   "mode": "box",
+   "x": 600,
+   "y": 0,
+   "w": 607,
+   "h": 1080
+  },
+  {
+   "t": 377.0,
+   "d": 1.9,
+   "mode": "fit"
+  },
+  {
+   "t": 395.0,
+   "d": 1.5,
+   "mode": "fit"
+  },
+  {
+   "t": 388.3,
+   "d": 1.0,
+   "mode": "fit"
+  },
+  {
+   "t": 396.4,
+   "d": 0.95,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.54
+  ],
+  [
+   "BOO",
+   "yellow",
+   0.54,
+   0.9
+  ],
+  [
+   "ESTA|INSPIRADO",
+   "white",
+   0.9,
+   1.5
+  ],
+  [
+   "EN LA ESPOSA",
+   "yellow",
+   1.5,
+   1.98
+  ],
+  [
+   "DE UN|DISEÑADOR",
+   "white",
+   1.98,
+   2.88
+  ],
+  [
+   "DEL JUEGO",
+   "white",
+   2.88,
+   3.54
+  ],
+  [
+   "ERA MUY|TIMIDA",
+   "white,yellow",
+   3.54,
+   4.38
+  ],
+  [
+   "HASTA QUE|UN DIA",
+   "white",
+   4.38,
+   5.04
+  ],
+  [
+   "EXPLOTO|CON EL",
+   "yellow,white",
+   5.04,
+   6.85
+  ]
+ ]
+}

@@ -1,0 +1,99 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\IuiFRG3nY_w\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Mario.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Mario.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioWonder\\voces\\w05.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioWonder\\Short05_MarioRealista.mp4",
+ "body": 7.5,
+ "clips": [
+  {
+   "t": 252.5,
+   "d": 1.0,
+   "mode": "fit"
+  },
+  {
+   "t": 242.2,
+   "d": 1.8,
+   "mode": "fit"
+  },
+  {
+   "t": 245.0,
+   "d": 0.95,
+   "mode": "crop",
+   "x": 900
+  },
+  {
+   "t": 254.0,
+   "d": 1.9,
+   "mode": "fit"
+  },
+  {
+   "t": 256.0,
+   "d": 0.95,
+   "mode": "crop",
+   "x": 750
+  },
+  {
+   "t": 257.1,
+   "d": 0.9,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.52
+  ],
+  [
+   "MARIO WONDER",
+   "white",
+   0.52,
+   1.02
+  ],
+  [
+   "CASI TIENE|UN MARIO",
+   "white",
+   1.02,
+   1.82
+  ],
+  [
+   "REALISTA",
+   "yellow",
+   1.82,
+   2.4
+  ],
+  [
+   "DE TAMAÑO|HUMANO",
+   "white,yellow",
+   2.4,
+   3.02
+  ],
+  [
+   "QUE TARAREABA|LA MUSICA",
+   "white",
+   3.02,
+   4.08
+  ],
+  [
+   "MIENTRAS|SALTABA",
+   "white",
+   4.08,
+   5.34
+  ],
+  [
+   "POR SUERTE",
+   "yellow",
+   5.34,
+   5.88
+  ],
+  [
+   "NINTENDO|LO DESCARTO",
+   "white,yellow",
+   5.88,
+   7.5
+  ]
+ ]
+}

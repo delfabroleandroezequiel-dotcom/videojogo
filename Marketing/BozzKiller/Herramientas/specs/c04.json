@@ -1,0 +1,81 @@
+{
+ "src": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\29cd9cd3bec8a5b2\\ee630078-cc08-4d22-bbf8-977938d74edc\\scratchpad\\bk\\src_cuphead_dlc.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Cuphead.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Cuphead.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\29cd9cd3bec8a5b2\\ee630078-cc08-4d22-bbf8-977938d74edc\\scratchpad\\bk\\cup\\c04.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Cuphead\\Short04_CabezasCortadas.mp4",
+ "body": 6.6,
+ "clips": [
+  {
+   "t": 231.5,
+   "d": 1.2,
+   "mode": "fit"
+  },
+  {
+   "t": 233.5,
+   "d": 0.75,
+   "x": 420
+  },
+  {
+   "t": 235.5,
+   "d": 2.45,
+   "mode": "fit"
+  },
+  {
+   "t": 238.5,
+   "d": 2.2,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.5
+  ],
+  [
+   "LAS CABEZAS|CORTADAS",
+   "yellow",
+   0.5,
+   1.46
+  ],
+  [
+   "DE LA TORRE",
+   "white",
+   1.46,
+   1.96
+  ],
+  [
+   "SON DEL REY",
+   "white",
+   1.96,
+   2.42
+  ],
+  [
+   "LUIS XVI",
+   "yellow",
+   2.42,
+   3.12
+  ],
+  [
+   "Y MARIA|ANTONIETA",
+   "yellow",
+   3.12,
+   4.54
+  ],
+  [
+   "LOS DOS|FUERON",
+   "white",
+   4.54,
+   5.16
+  ],
+  [
+   "DECAPITADOS",
+   "yellow",
+   5.16,
+   6.6
+  ]
+ ]
+}

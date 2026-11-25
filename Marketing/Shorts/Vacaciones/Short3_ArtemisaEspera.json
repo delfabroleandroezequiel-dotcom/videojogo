@@ -1,0 +1,67 @@
+{
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Shorts\\Vacaciones\\voces/k3.mp3",
+ "clips": [
+  {
+   "src": "C:\\Users\\delfa\\Videos\\2026-11-16 11-52-01.mp4",
+   "t": 17.0,
+   "d": 1.5,
+   "x": 660,
+   "w": 416,
+   "h": 740,
+   "y": 130
+  },
+  {
+   "src": "C:\\Users\\delfa\\Videos\\2026-11-16 11-52-01.mp4",
+   "t": 27.0,
+   "d": 1.5,
+   "x": 720,
+   "w": 416,
+   "h": 740,
+   "y": 130
+  },
+  {
+   "src": "C:\\Users\\delfa\\Videos\\2026-11-16 11-52-01.mp4",
+   "t": 36.0,
+   "d": 1.4,
+   "x": 720,
+   "w": 416,
+   "h": 740,
+   "y": 130
+  },
+  {
+   "src": "C:\\Users\\delfa\\Videos\\2026-11-16 11-52-01.mp4",
+   "t": 44.0,
+   "d": 1.0,
+   "x": 670,
+   "w": 416,
+   "h": 740,
+   "y": 130
+  },
+  {
+   "src": "C:\\Users\\delfa\\Videos\\2026-11-16 11-52-01.mp4",
+   "t": 45.6,
+   "d": 1.6,
+   "x": 1270,
+   "w": 416,
+   "h": 740,
+   "y": 130
+  }
+ ],
+ "caps": [
+  [
+   "SHE HAS WAITED|FOR CENTURIES",
+   "white,yellow",
+   0.15,
+   2.8
+  ],
+  [
+   "NO BATTLE HAS EVER|SEEN HER FALL",
+   "white,yellow",
+   3.1,
+   6.8
+  ]
+ ],
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Shorts\\Vacaciones\\Short3_ArtemisaEspera.mp4",
+ "voice_start": 0.15
+}

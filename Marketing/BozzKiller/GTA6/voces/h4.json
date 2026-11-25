@@ -1,0 +1,84 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\V9JgeA64VYE\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_GTA.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_GTA.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA6\\voces\\h4.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA\\Short11_SkunkApe.mp4",
+ "body": 7.95,
+ "clips": [
+  {
+   "t": 241.0,
+   "d": 1.4,
+   "mode": "crop",
+   "x": 656
+  },
+  {
+   "t": 252.0,
+   "d": 1.5,
+   "mode": "fit"
+  },
+  {
+   "t": 254.6,
+   "d": 1.5,
+   "mode": "crop",
+   "x": 450
+  },
+  {
+   "t": 256.2,
+   "d": 1.3,
+   "mode": "crop",
+   "x": 400
+  },
+  {
+   "t": 263.0,
+   "d": 1.3,
+   "mode": "crop",
+   "x": 450
+  },
+  {
+   "t": 265.5,
+   "d": 0.95,
+   "mode": "crop",
+   "x": 500
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.56
+  ],
+  [
+   "EN GTA 6",
+   "white",
+   0.56,
+   1.42
+  ],
+  [
+   "EXISTE EL|SKUNK APE",
+   "white,yellow",
+   1.42,
+   2.95
+  ],
+  [
+   "EL PIE GRANDE|DE FLORIDA",
+   "white,yellow",
+   3.0,
+   4.2
+  ],
+  [
+   "CAZA ANIMALES|EN EL PANTANO",
+   "white",
+   4.5,
+   6.1
+  ],
+  [
+   "Y HAY CARTELES|QUE TE ADVIERTEN",
+   "white",
+   6.2,
+   7.85
+  ]
+ ]
+}

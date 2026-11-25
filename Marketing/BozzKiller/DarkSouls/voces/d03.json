@@ -1,0 +1,86 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\916iheNY3rE\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_DarkSouls.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_DarkSouls.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\DarkSouls\\voces\\d03.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\DarkSouls\\Short03_NieblaSeath.mp4",
+ "body": 7.6,
+ "clips": [
+  {
+   "t": 375.0,
+   "d": 1.5,
+   "mode": "fit"
+  },
+  {
+   "t": 379.5,
+   "d": 1.5,
+   "mode": "fit"
+  },
+  {
+   "t": 385.5,
+   "d": 1.5,
+   "mode": "fit"
+  },
+  {
+   "t": 388.0,
+   "d": 1.5,
+   "mode": "fit"
+  },
+  {
+   "t": 398.2,
+   "d": 1.6,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.5
+  ],
+  [
+   "LA NIEBLA|DE SEATH",
+   "white,yellow",
+   0.5,
+   1.3
+  ],
+  [
+   "ES LA UNICA|DE DARK SOULS",
+   "white",
+   1.3,
+   2.54
+  ],
+  [
+   "DE LA QUE|PUEDES SALIR",
+   "white,yellow",
+   2.54,
+   3.58
+  ],
+  [
+   "DANDOTE|LA VUELTA",
+   "white",
+   3.58,
+   4.72
+  ],
+  [
+   "PERO DA IGUAL",
+   "white",
+   4.72,
+   5.48
+  ],
+  [
+   "ESA PELEA|ESTA HECHA",
+   "white",
+   5.48,
+   6.52
+  ],
+  [
+   "PARA QUE|MUERAS",
+   "white,yellow",
+   6.52,
+   7.6
+  ]
+ ]
+}

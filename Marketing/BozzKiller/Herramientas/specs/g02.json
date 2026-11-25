@@ -1,0 +1,83 @@
+{
+ "src": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\51167c1745fb5a2a\\888d5030-cdf8-4972-abab-305d93998caa\\scratchpad\\gta\\src_gta.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_GTA.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_GTA.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\51167c1745fb5a2a\\888d5030-cdf8-4972-abab-305d93998caa\\scratchpad\\gta\\voz\\g02.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA\\Short02_AvionetaLlamas.mp4",
+ "body": 7.45,
+ "clips": [
+  {
+   "t": 215.0,
+   "d": 1.5
+  },
+  {
+   "t": 228.5,
+   "d": 1.4,
+   "mode": "fit"
+  },
+  {
+   "t": 233.5,
+   "d": 1.2
+  },
+  {
+   "t": 287.5,
+   "d": 1.3
+  },
+  {
+   "t": 312.0,
+   "d": 2.05,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.52
+  ],
+  [
+   "CAMINO A|LA CIUDAD",
+   "white",
+   0.52,
+   1.5
+  ],
+  [
+   "UNA AVIONETA|EN LLAMAS",
+   "white,yellow",
+   1.5,
+   2.64
+  ],
+  [
+   "SE ESTRELLA|FRENTE A TI",
+   "white",
+   2.64,
+   3.7
+  ],
+  [
+   "Y SI LA|REGISTRAS",
+   "white",
+   3.7,
+   4.82
+  ],
+  [
+   "EL SUELO|QUEDA LLENO",
+   "white",
+   4.82,
+   5.76
+  ],
+  [
+   "DE DINERO",
+   "yellow",
+   5.76,
+   6.16
+  ],
+  [
+   "Y ARMAS|GRATIS",
+   "yellow",
+   6.16,
+   7.45
+  ]
+ ]
+}

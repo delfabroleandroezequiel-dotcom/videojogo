@@ -1,0 +1,97 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\xAhXaaxYhdg\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Mario.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Mario.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Mario64\\voces\\m3_f.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Mario64\\Short03_EscaleraInfinita.mp4",
+ "body": 7.95,
+ "clips": [
+  {
+   "t": 822.0,
+   "d": 1.5,
+   "mode": "crop",
+   "x": 656
+  },
+  {
+   "t": 825.0,
+   "d": 0.9,
+   "mode": "crop",
+   "x": 656
+  },
+  {
+   "t": 829.0,
+   "d": 1.2,
+   "mode": "crop",
+   "x": 656
+  },
+  {
+   "t": 836.0,
+   "d": 2.0,
+   "mode": "crop",
+   "x": 656
+  },
+  {
+   "t": 841.0,
+   "d": 1.4,
+   "mode": "crop",
+   "x": 656
+  },
+  {
+   "t": 843.0,
+   "d": 0.95,
+   "mode": "crop",
+   "x": 656
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.6
+  ],
+  [
+   "LA ESCALERA|INFINITA",
+   "white,yellow",
+   0.6,
+   1.5
+  ],
+  [
+   "DE MARIO 64",
+   "white",
+   1.5,
+   2.36
+  ],
+  [
+   "ES UNA TRAMPA",
+   "yellow",
+   2.36,
+   3.4
+  ],
+  [
+   "REPITE EL|MISMO TRAMO",
+   "white",
+   3.6,
+   4.72
+  ],
+  [
+   "UNA Y OTRA VEZ",
+   "yellow",
+   4.72,
+   5.64
+  ],
+  [
+   "Y LA MUSICA|PARECE SUBIR",
+   "white",
+   5.64,
+   7.0
+  ],
+  [
+   "PARA SIEMPRE",
+   "yellow",
+   7.2,
+   7.85
+  ]
+ ]
+}

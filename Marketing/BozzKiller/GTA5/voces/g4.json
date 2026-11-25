@@ -1,0 +1,100 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\yVbPvycZ_Xg\\fuente1080.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_GTA.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_GTA.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA5\\voces\\g4_f.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA5\\Short04_PandillaGrove.mp4",
+ "body": 7.7,
+ "clips": [
+  {
+   "t": 63.5,
+   "d": 1.6,
+   "mode": "crop",
+   "x": 400
+  },
+  {
+   "t": 65.2,
+   "d": 1.55,
+   "mode": "crop",
+   "x": 360
+  },
+  {
+   "t": 71.0,
+   "d": 1.3,
+   "mode": "box",
+   "x": 1200,
+   "y": 100,
+   "w": 480,
+   "h": 850
+  },
+  {
+   "t": 72.3,
+   "d": 1.3,
+   "mode": "box",
+   "x": 1200,
+   "y": 100,
+   "w": 480,
+   "h": 850
+  },
+  {
+   "t": 74.0,
+   "d": 1.95,
+   "mode": "box",
+   "x": 700,
+   "y": 0,
+   "w": 520,
+   "h": 920
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.52
+  ],
+  [
+   "EN GTA 5",
+   "white",
+   0.52,
+   1.34
+  ],
+  [
+   "CUANDO FRANKLIN|VA A GROVE STREET",
+   "white,yellow",
+   1.5,
+   2.9
+  ],
+  [
+   "PASAN EN BICI",
+   "white",
+   3.0,
+   3.62
+  ],
+  [
+   "TRES TIPOS|IDENTICOS",
+   "white",
+   3.62,
+   4.56
+  ],
+  [
+   "A CJ",
+   "yellow",
+   4.56,
+   5.1
+  ],
+  [
+   "BIG SMOKE|Y SWEET",
+   "yellow",
+   5.2,
+   6.4
+  ],
+  [
+   "LA PANDILLA|SIGUE AHI",
+   "white,yellow",
+   6.5,
+   7.6
+  ]
+ ]
+}

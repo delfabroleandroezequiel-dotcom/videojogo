@@ -1,0 +1,90 @@
+{
+ "src": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\51167c1745fb5a2a\\888d5030-cdf8-4972-abab-305d93998caa\\scratchpad\\gta\\src_gta.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_GTA.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_GTA.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\51167c1745fb5a2a\\888d5030-cdf8-4972-abab-305d93998caa\\scratchpad\\gta\\voz\\g07.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA\\Short07_PistaKarts.mp4",
+ "body": 7.6,
+ "clips": [
+  {
+   "t": 770.0,
+   "d": 1.4
+  },
+  {
+   "t": 773.0,
+   "d": 1.3
+  },
+  {
+   "t": 779.5,
+   "d": 1.2,
+   "mode": "fit"
+  },
+  {
+   "t": 801.0,
+   "d": 1.2,
+   "mode": "fit"
+  },
+  {
+   "t": 811.5,
+   "d": 2.5,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.52
+  ],
+  [
+   "AL LADO DEL|CENTRO",
+   "white",
+   0.52,
+   1.2
+  ],
+  [
+   "COMERCIAL",
+   "white",
+   1.2,
+   1.68
+  ],
+  [
+   "HAY UNA PISTA|DE KARTS",
+   "white,yellow",
+   1.68,
+   2.84
+  ],
+  [
+   "EN|CONSTRUCCION",
+   "white",
+   2.84,
+   3.74
+  ],
+  [
+   "CON|CARTELES DE",
+   "white",
+   3.74,
+   4.6
+  ],
+  [
+   "PROXIMAMENTE",
+   "yellow",
+   4.6,
+   5.6
+  ],
+  [
+   "HUELE A",
+   "white",
+   5.6,
+   6.0
+  ],
+  [
+   "GTA ONLINE",
+   "yellow",
+   6.0,
+   7.6
+  ]
+ ]
+}

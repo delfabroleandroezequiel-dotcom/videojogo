@@ -1,0 +1,92 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\5I9gkzpffh8\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Mario.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Mario.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioClasico\\voces\\n02.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioClasico\\Short02_LadrillosToad.mp4",
+ "body": 7.85,
+ "clips": [
+  {
+   "t": 165.5,
+   "d": 1.6,
+   "mode": "fit"
+  },
+  {
+   "t": 171.0,
+   "d": 2.2,
+   "mode": "fit"
+  },
+  {
+   "t": 174.0,
+   "d": 1.0,
+   "mode": "fit"
+  },
+  {
+   "t": 175.0,
+   "d": 1.5,
+   "mode": "fit"
+  },
+  {
+   "t": 184.0,
+   "d": 1.55,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.46
+  ],
+  [
+   "SEGUN EL|MANUAL",
+   "white,yellow",
+   0.46,
+   1.18
+  ],
+  [
+   "DE MARIO BROS",
+   "white",
+   1.18,
+   1.98
+  ],
+  [
+   "BOWSER|CONVIRTIO",
+   "white",
+   1.98,
+   2.96
+  ],
+  [
+   "A LA GENTE|HONGO",
+   "white,yellow",
+   2.96,
+   3.8
+  ],
+  [
+   "EN LOS|LADRILLOS",
+   "white,yellow",
+   3.8,
+   4.48
+  ],
+  [
+   "QUE MARIO|ROMPE",
+   "white",
+   4.48,
+   5.14
+  ],
+  [
+   "A CABEZAZOS",
+   "yellow",
+   5.14,
+   5.9
+  ],
+  [
+   "O SEA MARIO|ES UN ASESINO",
+   "white,yellow",
+   5.9,
+   7.85
+  ]
+ ]
+}

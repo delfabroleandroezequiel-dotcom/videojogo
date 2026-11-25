@@ -1,0 +1,73 @@
+{
+ "src": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\29cd9cd3bec8a5b2\\ee630078-cc08-4d22-bbf8-977938d74edc\\scratchpad\\bk\\src_smb3.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Mario.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Mario.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\29cd9cd3bec8a5b2\\ee630078-cc08-4d22-bbf8-977938d74edc\\scratchpad\\bk\\mario\\m03.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Mario\\Short03_MarioCentauro.mp4",
+ "body": 6.85,
+ "clips": [
+  {
+   "t": 553.0,
+   "d": 1.78,
+   "mode": "fit"
+  },
+  {
+   "t": 567.0,
+   "d": 2.16,
+   "mode": "fit"
+  },
+  {
+   "t": 572.0,
+   "d": 1.5,
+   "mode": "still",
+   "x": 620,
+   "y": 0,
+   "w": 607,
+   "h": 1080
+  },
+  {
+   "t": 583.0,
+   "d": 1.41,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.5
+  ],
+  [
+   "ANTES DEL|TRAJE TANUKI",
+   "white,yellow",
+   0.5,
+   1.78
+  ],
+  [
+   "MARIO SE IBA A|TRANSFORMAR",
+   "white",
+   1.78,
+   2.98
+  ],
+  [
+   "EN UN|CENTAURO",
+   "white,yellow",
+   2.98,
+   3.94
+  ],
+  [
+   "MITAD|CABALLO",
+   "yellow",
+   3.94,
+   5.02
+  ],
+  [
+   "MITAD|FONTANERO",
+   "yellow",
+   5.02,
+   6.85
+  ]
+ ]
+}

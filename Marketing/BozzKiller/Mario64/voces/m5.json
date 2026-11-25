@@ -1,0 +1,89 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\xAhXaaxYhdg\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Mario.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Mario.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Mario64\\voces\\m5_f.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Mario64\\Short05_MariposasRuleta.mp4",
+ "body": 7.95,
+ "clips": [
+  {
+   "t": 661.0,
+   "d": 1.6,
+   "mode": "crop",
+   "x": 656
+  },
+  {
+   "t": 662.6,
+   "d": 1.4,
+   "mode": "crop",
+   "x": 656
+  },
+  {
+   "t": 664.0,
+   "d": 1.0,
+   "mode": "fit"
+  },
+  {
+   "t": 665.0,
+   "d": 1.5,
+   "mode": "fit"
+  },
+  {
+   "t": 668.0,
+   "d": 0.8,
+   "mode": "crop",
+   "x": 900
+  },
+  {
+   "t": 673.4,
+   "d": 1.65,
+   "mode": "crop",
+   "x": 500
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.64
+  ],
+  [
+   "EN MARIO 64",
+   "white",
+   0.64,
+   1.64
+  ],
+  [
+   "ALGUNAS|MARIPOSAS",
+   "white,yellow",
+   1.64,
+   2.58
+  ],
+  [
+   "SON UNA|RULETA",
+   "white,yellow",
+   2.58,
+   3.8
+  ],
+  [
+   "SI LAS|GOLPEAS",
+   "white",
+   4.0,
+   4.84
+  ],
+  [
+   "PUEDEN DARTE UNA|VIDA EXTRA",
+   "white,yellow",
+   4.84,
+   6.3
+  ],
+  [
+   "O EXPLOTARTE|EN LA CARA",
+   "white,yellow",
+   6.5,
+   7.85
+  ]
+ ]
+}

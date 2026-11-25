@@ -1,0 +1,83 @@
+{
+ "src": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\29cd9cd3bec8a5b2\\ee630078-cc08-4d22-bbf8-977938d74edc\\scratchpad\\bk\\src_smb3.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Mario.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Mario.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\29cd9cd3bec8a5b2\\ee630078-cc08-4d22-bbf8-977938d74edc\\scratchpad\\bk\\mario\\m05.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Mario\\Short05_DetrasDelEscenario.mp4",
+ "body": 7.1,
+ "clips": [
+  {
+   "t": 282.0,
+   "d": 1.0,
+   "mode": "box",
+   "x": 700,
+   "y": 150,
+   "w": 500,
+   "h": 889
+  },
+  {
+   "t": 285.0,
+   "d": 1.98,
+   "mode": "still",
+   "x": 700,
+   "y": 150,
+   "w": 500,
+   "h": 889
+  },
+  {
+   "t": 289.0,
+   "d": 1.62,
+   "mode": "fit"
+  },
+  {
+   "t": 290.5,
+   "d": 2.5,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.56
+  ],
+  [
+   "SI TE AGACHAS|UN RATO",
+   "white",
+   0.56,
+   1.54
+  ],
+  [
+   "SOBRE UN|BLOQUE BLANCO",
+   "white,yellow",
+   1.54,
+   2.98
+  ],
+  [
+   "MARIO SE CAE",
+   "white",
+   2.98,
+   3.74
+  ],
+  [
+   "DETRAS DEL|ESCENARIO",
+   "yellow",
+   3.74,
+   4.6
+  ],
+  [
+   "Y PUEDE PASAR|EL NIVEL",
+   "white",
+   4.6,
+   5.88
+  ],
+  [
+   "POR ATRAS",
+   "yellow",
+   5.88,
+   7.1
+  ]
+ ]
+}

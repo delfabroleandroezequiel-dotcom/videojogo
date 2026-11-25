@@ -1,0 +1,75 @@
+{
+ "src": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\29cd9cd3bec8a5b2\\ee630078-cc08-4d22-bbf8-977938d74edc\\scratchpad\\bk\\src_cuphead_dlc.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Cuphead.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Cuphead.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\29cd9cd3bec8a5b2\\ee630078-cc08-4d22-bbf8-977938d74edc\\scratchpad\\bk\\cup\\c03.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Cuphead\\Short03_AlfilTrinidad.mp4",
+ "body": 6.7,
+ "clips": [
+  {
+   "t": 245.5,
+   "d": 1.7,
+   "x": 640
+  },
+  {
+   "t": 248.0,
+   "d": 1.9,
+   "mode": "fit"
+  },
+  {
+   "t": 250.0,
+   "d": 2.0,
+   "mode": "fit"
+  },
+  {
+   "t": 242.6,
+   "d": 1.1,
+   "x": 640
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.54
+  ],
+  [
+   "EL ALFIL|DE TRES CARAS",
+   "white,yellow",
+   0.54,
+   1.62
+  ],
+  [
+   "REPRESENTA A",
+   "white",
+   1.62,
+   2.36
+  ],
+  [
+   "LA SANTISIMA|TRINIDAD",
+   "yellow",
+   2.36,
+   3.8
+  ],
+  [
+   "EL PADRE",
+   "white",
+   3.8,
+   4.48
+  ],
+  [
+   "EL HIJO",
+   "white",
+   4.48,
+   5.14
+  ],
+  [
+   "Y EL ESPIRITU|SANTO",
+   "yellow",
+   5.14,
+   6.7
+  ]
+ ]
+}

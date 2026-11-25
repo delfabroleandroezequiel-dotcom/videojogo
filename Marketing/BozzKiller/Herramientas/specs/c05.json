@@ -1,0 +1,73 @@
+{
+ "src": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\29cd9cd3bec8a5b2\\ee630078-cc08-4d22-bbf8-977938d74edc\\scratchpad\\bk\\src_cuphead_dlc.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Cuphead.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Cuphead.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\29cd9cd3bec8a5b2\\ee630078-cc08-4d22-bbf8-977938d74edc\\scratchpad\\bk\\cup\\c05.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Cuphead\\Short05_PastelMentira.mp4",
+ "body": 6.8,
+ "clips": [
+  {
+   "t": 459.0,
+   "d": 2.0,
+   "x": 1050
+  },
+  {
+   "t": 461.5,
+   "d": 1.3,
+   "x": 900
+  },
+  {
+   "t": 476.0,
+   "d": 1.2,
+   "x": 1000
+  },
+  {
+   "t": 471.5,
+   "d": 2.3,
+   "mode": "box",
+   "x": 720,
+   "y": 0,
+   "w": 506,
+   "h": 900
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.56
+  ],
+  [
+   "EL PASTEL",
+   "yellow",
+   0.56,
+   1.12
+  ],
+  [
+   "DEL CHEF|SALEROSO",
+   "white",
+   1.12,
+   1.92
+  ],
+  [
+   "ES UNA|MENTIRA",
+   "white,yellow",
+   1.92,
+   3.16
+  ],
+  [
+   "IGUAL QUE|EN PORTAL",
+   "white,yellow",
+   3.16,
+   4.44
+  ],
+  [
+   "EL PASTEL|NUNCA EXISTIO",
+   "yellow",
+   4.44,
+   6.8
+  ]
+ ]
+}

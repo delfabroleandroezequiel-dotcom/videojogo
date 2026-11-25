@@ -1,0 +1,84 @@
+{
+ "src": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\29cd9cd3bec8a5b2\\ee630078-cc08-4d22-bbf8-977938d74edc\\scratchpad\\bk\\src_smb3.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Mario.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Mario.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\29cd9cd3bec8a5b2\\ee630078-cc08-4d22-bbf8-977938d74edc\\scratchpad\\bk\\mario\\m04.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Mario\\Short04_ChompLibre.mp4",
+ "body": 7.3,
+ "clips": [
+  {
+   "t": 637.0,
+   "d": 2.5,
+   "mode": "box",
+   "x": 330,
+   "y": 0,
+   "w": 607,
+   "h": 1080
+  },
+  {
+   "t": 640.0,
+   "d": 0.64,
+   "mode": "fit"
+  },
+  {
+   "t": 645.9,
+   "d": 1.4,
+   "mode": "fit"
+  },
+  {
+   "t": 648.3,
+   "d": 0.48,
+   "mode": "fit"
+  },
+  {
+   "t": 651.0,
+   "d": 2.28,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.52
+  ],
+  [
+   "SI DEJAS AL|CHOMP CADENAS",
+   "white,yellow",
+   0.52,
+   1.58
+  ],
+  [
+   "TIRANDO UNAS|50 VECES",
+   "white,yellow",
+   1.58,
+   3.14
+  ],
+  [
+   "ROMPE LA|CADENA",
+   "yellow",
+   3.14,
+   4.06
+  ],
+  [
+   "Y SALE|VOLANDO",
+   "white",
+   4.06,
+   5.02
+  ],
+  [
+   "Y EN MARIO|MAKER 2",
+   "white",
+   5.02,
+   6.02
+  ],
+  [
+   "TAMBIEN PASA",
+   "yellow",
+   6.02,
+   7.3
+  ]
+ ]
+}

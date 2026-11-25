@@ -1,0 +1,85 @@
+{
+ "src": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\29cd9cd3bec8a5b2\\ee630078-cc08-4d22-bbf8-977938d74edc\\scratchpad\\bk\\src_smb3.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Mario.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Mario.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\29cd9cd3bec8a5b2\\ee630078-cc08-4d22-bbf8-977938d74edc\\scratchpad\\bk\\mario\\m01.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Mario\\Short01_SilbatoZelda.mp4",
+ "body": 7.4,
+ "clips": [
+  {
+   "t": 85.6,
+   "d": 1.5,
+   "mode": "box",
+   "x": 880,
+   "y": 0,
+   "w": 607,
+   "h": 1080
+  },
+  {
+   "t": 88.5,
+   "d": 1.3,
+   "mode": "fit"
+  },
+  {
+   "t": 98.0,
+   "d": 2.6,
+   "mode": "fit"
+  },
+  {
+   "t": 113.0,
+   "d": 2.0,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.52
+  ],
+  [
+   "EL SILBATO",
+   "yellow",
+   0.52,
+   1.1
+  ],
+  [
+   "DE MARIO 3",
+   "white",
+   1.1,
+   1.52
+  ],
+  [
+   "TOCA LAS|PRIMERAS NOTAS",
+   "white",
+   1.52,
+   3.02
+  ],
+  [
+   "DE LA CANCION|DE ZELDA",
+   "white,yellow",
+   3.02,
+   4.12
+  ],
+  [
+   "OCARINA|OF TIME",
+   "yellow",
+   4.12,
+   5.48
+  ],
+  [
+   "10 AÑOS ANTES",
+   "white",
+   5.48,
+   6.12
+  ],
+  [
+   "DE QUE|SALIERA",
+   "white",
+   6.12,
+   7.4
+  ]
+ ]
+}

@@ -1,0 +1,86 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\IuiFRG3nY_w\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Mario.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Mario.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioWonder\\voces\\w06.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioWonder\\Short06_GoombaMuerde.mp4",
+ "body": 7.45,
+ "clips": [
+  {
+   "t": 385.0,
+   "d": 0.95,
+   "mode": "fit"
+  },
+  {
+   "t": 389.0,
+   "d": 1.0,
+   "mode": "fit"
+  },
+  {
+   "t": 392.0,
+   "d": 1.5,
+   "mode": "fit"
+  },
+  {
+   "t": 394.0,
+   "d": 1.9,
+   "mode": "fit"
+  },
+  {
+   "t": 396.2,
+   "d": 2.1,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.5
+  ],
+  [
+   "EN CASI|40 AÑOS",
+   "white,yellow",
+   0.5,
+   1.56
+  ],
+  [
+   "NUNCA VIMOS",
+   "white",
+   1.56,
+   2.32
+  ],
+  [
+   "COMO ATACA|UN GOOMBA",
+   "white,yellow",
+   2.32,
+   3.44
+  ],
+  [
+   "HASTA|MARIO WONDER",
+   "white",
+   3.44,
+   4.36
+  ],
+  [
+   "DONDE|POR FIN",
+   "white",
+   4.36,
+   5.2
+  ],
+  [
+   "TE MUERDEN",
+   "yellow",
+   5.2,
+   5.72
+  ],
+  [
+   "A MENOS QUE|ESTEN DORMIDOS",
+   "white,yellow",
+   5.72,
+   7.45
+  ]
+ ]
+}

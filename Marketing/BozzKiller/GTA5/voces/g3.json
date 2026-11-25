@@ -1,0 +1,111 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\yVbPvycZ_Xg\\fuente1080.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_GTA.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_GTA.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA5\\voces\\g3_f.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA5\\Short03_AsesinoEnSerie.mp4",
+ "body": 7.85,
+ "clips": [
+  {
+   "t": 269.0,
+   "d": 1.2,
+   "mode": "crop",
+   "x": 900
+  },
+  {
+   "t": 271.0,
+   "d": 1.2,
+   "mode": "crop",
+   "x": 900
+  },
+  {
+   "t": 274.6,
+   "d": 1.4,
+   "mode": "still",
+   "x": 650,
+   "y": 0,
+   "w": 608,
+   "h": 1080,
+   "zoom": 0.12
+  },
+  {
+   "t": 276.0,
+   "d": 1.45,
+   "mode": "fit",
+   "x": 360,
+   "w": 1200,
+   "y": 80,
+   "h": 860
+  },
+  {
+   "t": 283.0,
+   "d": 1.9,
+   "mode": "fit",
+   "x": 360,
+   "w": 1200,
+   "y": 80,
+   "h": 860
+  },
+  {
+   "t": 284.2,
+   "d": 0.7,
+   "mode": "still",
+   "x": 500,
+   "y": 200,
+   "w": 450,
+   "h": 800,
+   "zoom": 0.12
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.56
+  ],
+  [
+   "GTA 5",
+   "yellow",
+   0.56,
+   1.22
+  ],
+  [
+   "ESCONDE PISTAS",
+   "white",
+   1.22,
+   1.98
+  ],
+  [
+   "DE UN ASESINO|EN SERIE",
+   "white,yellow",
+   1.98,
+   2.82
+  ],
+  [
+   "POR TODO|EL MAPA",
+   "white",
+   2.82,
+   3.7
+  ],
+  [
+   "SI LAS SIGUES|TODAS",
+   "white",
+   3.92,
+   4.64
+  ],
+  [
+   "ENCUENTRAS DONDE|ESCONDIO LOS CUERPOS",
+   "white,yellow",
+   4.64,
+   6.6
+  ],
+  [
+   "BAJO EL AGUA",
+   "yellow",
+   6.8,
+   7.75
+  ]
+ ]
+}

@@ -1,0 +1,85 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\r72F3rf-UDA\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Cuphead.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Cuphead.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Cuphead\\voces2\\c06a.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Cuphead\\Short11_TresChalice.mp4",
+ "body": 7.1,
+ "clips": [
+  {
+   "t": 348.4,
+   "d": 1.4,
+   "mode": "fit",
+   "x": 340,
+   "w": 1240,
+   "y": 0,
+   "h": 700
+  },
+  {
+   "t": 350.0,
+   "d": 1.5,
+   "mode": "fit",
+   "x": 340,
+   "w": 1240,
+   "y": 0,
+   "h": 700
+  },
+  {
+   "t": 353.0,
+   "d": 2.8,
+   "mode": "fit",
+   "x": 280,
+   "w": 1310,
+   "y": 100,
+   "h": 740
+  },
+  {
+   "t": 357.0,
+   "d": 1.4,
+   "mode": "box",
+   "x": 760,
+   "y": 110,
+   "w": 405,
+   "h": 720
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.5
+  ],
+  [
+   "SI ACEPTAS EL|TRATO DEL DIABLO",
+   "white,yellow",
+   0.5,
+   1.8
+  ],
+  [
+   "CON MS CHALICE",
+   "white",
+   1.8,
+   2.8
+  ],
+  [
+   "ELLA APARECE|EN EL FINAL MALVADO",
+   "white,yellow",
+   2.88,
+   4.35
+  ],
+  [
+   "JUNTO A CUPHEAD|Y MUGMAN",
+   "white",
+   4.35,
+   5.85
+  ],
+  [
+   "COMO EXISTEN|LOS TRES?",
+   "white,yellow",
+   5.95,
+   7.1
+  ]
+ ]
+}

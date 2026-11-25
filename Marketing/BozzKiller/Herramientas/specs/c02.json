@@ -1,0 +1,73 @@
+{
+ "src": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\29cd9cd3bec8a5b2\\ee630078-cc08-4d22-bbf8-977938d74edc\\scratchpad\\bk\\src_cuphead_dlc.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Cuphead.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Cuphead.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\29cd9cd3bec8a5b2\\ee630078-cc08-4d22-bbf8-977938d74edc\\scratchpad\\bk\\cup\\c02.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Cuphead\\Short02_PasitoAPasito.mp4",
+ "body": 7.52,
+ "clips": [
+  {
+   "t": 113.6,
+   "d": 2.5,
+   "mode": "fit"
+  },
+  {
+   "t": 118.0,
+   "d": 1.9,
+   "mode": "fit"
+  },
+  {
+   "t": 122.0,
+   "d": 0.7
+  },
+  {
+   "t": 126.0,
+   "d": 2.42
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.48
+  ],
+  [
+   "SI PIERDES|CONTRA",
+   "white",
+   0.48,
+   1.1
+  ],
+  [
+   "LOS PEONES|DEL REY",
+   "yellow",
+   1.1,
+   2.54
+  ],
+  [
+   "TE DICEN",
+   "white",
+   2.54,
+   3.04
+  ],
+  [
+   "PASITO A|PASITO",
+   "yellow",
+   3.04,
+   5.14
+  ],
+  [
+   "UNA|REFERENCIA",
+   "white",
+   5.14,
+   6.08
+  ],
+  [
+   "A|DESPACITO",
+   "white,yellow",
+   6.08,
+   7.5
+  ]
+ ]
+}

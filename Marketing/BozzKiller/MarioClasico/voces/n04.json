@@ -1,0 +1,90 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\5I9gkzpffh8\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Mario.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Mario.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioClasico\\voces\\n04.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioClasico\\Short04_MundoMenosUno.mp4",
+ "body": 7.65,
+ "clips": [
+  {
+   "t": 365.0,
+   "d": 1.2,
+   "mode": "fit"
+  },
+  {
+   "t": 361.0,
+   "d": 1.3,
+   "mode": "still",
+   "x": 680,
+   "y": 90,
+   "w": 506,
+   "h": 900
+  },
+  {
+   "t": 367.0,
+   "d": 1.25,
+   "mode": "fit"
+  },
+  {
+   "t": 372.0,
+   "d": 2.0,
+   "mode": "fit"
+  },
+  {
+   "t": 374.0,
+   "d": 1.9,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.48
+  ],
+  [
+   "EN MARIO BROS|EXISTE",
+   "white",
+   0.48,
+   1.44
+  ],
+  [
+   "EL MUNDO -1",
+   "yellow",
+   1.44,
+   2.74
+  ],
+  [
+   "UN NIVEL|SECRETO",
+   "white,yellow",
+   2.74,
+   3.58
+  ],
+  [
+   "BAJO EL AGUA",
+   "white",
+   3.58,
+   4.24
+  ],
+  [
+   "DEL QUE ES|IMPOSIBLE SALIR",
+   "white,yellow",
+   4.24,
+   5.7
+  ],
+  [
+   "MARIO NADA AHI",
+   "white",
+   5.7,
+   6.54
+  ],
+  [
+   "PARA SIEMPRE",
+   "yellow",
+   6.54,
+   7.65
+  ]
+ ]
+}

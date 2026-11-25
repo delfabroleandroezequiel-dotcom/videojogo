@@ -1,0 +1,97 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\V9JgeA64VYE\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_GTA.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_GTA.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA6\\voces\\h3.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA\\Short10_DepartamentoDexter.mp4",
+ "body": 7.7,
+ "clips": [
+  {
+   "t": 95.5,
+   "d": 1.3,
+   "mode": "crop",
+   "x": 470
+  },
+  {
+   "t": 100.6,
+   "d": 1.5,
+   "mode": "crop",
+   "x": 480
+  },
+  {
+   "t": 102.6,
+   "d": 1.2,
+   "mode": "crop",
+   "x": 450
+  },
+  {
+   "t": 105.6,
+   "d": 1.6,
+   "mode": "crop",
+   "x": 600
+  },
+  {
+   "t": 108.0,
+   "d": 1.0,
+   "mode": "crop",
+   "x": 700
+  },
+  {
+   "t": 109.0,
+   "d": 1.1,
+   "mode": "crop",
+   "x": 650
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.52
+  ],
+  [
+   "EN GTA 6",
+   "white",
+   0.52,
+   1.36
+  ],
+  [
+   "PUEDES ENCONTRAR|EL DEPARTAMENTO",
+   "white",
+   1.36,
+   2.98
+  ],
+  [
+   "DE DEXTER",
+   "yellow",
+   2.98,
+   3.7
+  ],
+  [
+   "EN EL TECHO",
+   "white",
+   3.8,
+   4.3
+  ],
+  [
+   "ESTAN SU|CUCHILLO",
+   "white,yellow",
+   4.3,
+   5.1
+  ],
+  [
+   "SUS CUERDAS Y|SU PLASTICO",
+   "white",
+   5.2,
+   6.6
+  ],
+  [
+   "EL KIT COMPLETO",
+   "yellow",
+   6.7,
+   7.6
+  ]
+ ]
+}

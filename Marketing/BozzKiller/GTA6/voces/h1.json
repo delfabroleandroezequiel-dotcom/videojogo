@@ -1,0 +1,90 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\V9JgeA64VYE\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_GTA.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_GTA.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA6\\voces\\h1.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA\\Short08_HuevoAntena.mp4",
+ "body": 7.3,
+ "clips": [
+  {
+   "t": 12.0,
+   "d": 1.4,
+   "mode": "crop",
+   "x": 450
+  },
+  {
+   "t": 16.5,
+   "d": 1.0,
+   "mode": "crop",
+   "x": 656
+  },
+  {
+   "t": 18.0,
+   "d": 0.9,
+   "mode": "crop",
+   "x": 656
+  },
+  {
+   "t": 19.4,
+   "d": 1.0,
+   "mode": "crop",
+   "x": 656
+  },
+  {
+   "t": 23.0,
+   "d": 1.3,
+   "mode": "crop",
+   "x": 1000
+  },
+  {
+   "t": 26.0,
+   "d": 1.0,
+   "mode": "fit"
+  },
+  {
+   "t": 31.3,
+   "d": 0.7,
+   "mode": "crop",
+   "x": 900
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.52
+  ],
+  [
+   "EN GTA 6",
+   "white",
+   0.52,
+   1.36
+  ],
+  [
+   "PUEDES SUBIR A UNA|ANTENA GIGANTE",
+   "white,yellow",
+   1.36,
+   3.18
+  ],
+  [
+   "TARDAS|6 MINUTOS",
+   "white",
+   3.3,
+   4.14
+  ],
+  [
+   "Y ARRIBA|EN UN NIDO",
+   "white",
+   4.14,
+   5.64
+  ],
+  [
+   "HAY UN HUEVO DE|PASCUA DE VERDAD",
+   "white,yellow",
+   5.64,
+   7.2
+  ]
+ ]
+}

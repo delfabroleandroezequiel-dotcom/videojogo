@@ -1,0 +1,111 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\xAhXaaxYhdg\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Mario.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Mario.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Mario64\\voces\\m4_f.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Mario64\\Short04_ConejoMips.mp4",
+ "body": 7.95,
+ "clips": [
+  {
+   "t": 340.0,
+   "d": 1.6,
+   "mode": "crop",
+   "x": 656
+  },
+  {
+   "t": 344.0,
+   "d": 1.0,
+   "mode": "crop",
+   "x": 656
+  },
+  {
+   "t": 352.0,
+   "d": 1.0,
+   "mode": "still",
+   "x": 200,
+   "y": 0,
+   "w": 608,
+   "h": 1080,
+   "zoom": 0.12
+  },
+  {
+   "t": 351.5,
+   "d": 0.7,
+   "mode": "still",
+   "x": 1120,
+   "y": 0,
+   "w": 608,
+   "h": 1080,
+   "zoom": 0.12
+  },
+  {
+   "t": 356.0,
+   "d": 1.0,
+   "mode": "crop",
+   "x": 656
+  },
+  {
+   "t": 342.2,
+   "d": 1.6,
+   "mode": "crop",
+   "x": 656
+  },
+  {
+   "t": 357.0,
+   "d": 1.05,
+   "mode": "crop",
+   "x": 656
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.5
+  ],
+  [
+   "EL CONEJO|AMARILLO",
+   "white,yellow",
+   0.5,
+   1.4
+  ],
+  [
+   "DE MARIO 64",
+   "white",
+   1.4,
+   2.36
+  ],
+  [
+   "SE LLAMA|MIPS",
+   "white,yellow",
+   2.36,
+   3.2
+  ],
+  [
+   "POR EL|PROCESADOR",
+   "white",
+   3.2,
+   4.05
+  ],
+  [
+   "DE LA|NINTENDO 64",
+   "white",
+   4.05,
+   5.26
+  ],
+  [
+   "ERA SOLO UN|PERSONAJE DE PRUEBA",
+   "white,yellow",
+   5.3,
+   6.86
+  ],
+  [
+   "Y SE QUEDO",
+   "yellow",
+   6.9,
+   7.85
+  ]
+ ]
+}

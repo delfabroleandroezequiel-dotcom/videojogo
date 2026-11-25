@@ -1,0 +1,82 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\1slEGU4AX0E\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Cuphead.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Cuphead.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Cuphead\\voces3\\c4_f.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Cuphead\\Short15_NavePayaso.mp4",
+ "body": 7.0,
+ "clips": [
+  {
+   "t": 535.0,
+   "d": 1.0,
+   "mode": "fit"
+  },
+  {
+   "t": 540.5,
+   "d": 1.5,
+   "mode": "fit"
+  },
+  {
+   "t": 541.5,
+   "d": 1.2,
+   "mode": "crop",
+   "x": 1050
+  },
+  {
+   "t": 546.6,
+   "d": 1.5,
+   "mode": "crop",
+   "x": 820
+  },
+  {
+   "t": 543.0,
+   "d": 1.8,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.5
+  ],
+  [
+   "EL DOCTOR KAHL|DE CUPHEAD",
+   "yellow,white",
+   0.5,
+   1.66
+  ],
+  [
+   "HUYE VOLANDO",
+   "white",
+   1.66,
+   2.4
+  ],
+  [
+   "EN LA MISMA|NAVE PAYASO",
+   "white,yellow",
+   2.4,
+   3.44
+  ],
+  [
+   "DE BOWSER",
+   "yellow",
+   3.44,
+   3.86
+  ],
+  [
+   "EN SUPER|MARIO WORLD",
+   "white",
+   3.86,
+   5.24
+  ],
+  [
+   "HASTA LOS VILLANOS|SE COPIAN",
+   "white,yellow",
+   5.24,
+   6.9
+  ]
+ ]
+}

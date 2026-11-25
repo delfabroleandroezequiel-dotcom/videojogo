@@ -1,0 +1,86 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\WhPwDlickWM\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Mario.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Mario.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioWorld\\voces\\m01.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioWorld\\Short01_BooPompis.mp4",
+ "body": 7.0,
+ "clips": [
+  {
+   "t": 146.0,
+   "d": 1.4,
+   "mode": "fit"
+  },
+  {
+   "t": 148.0,
+   "d": 1.3,
+   "mode": "fit"
+  },
+  {
+   "t": 150.0,
+   "d": 1.3,
+   "mode": "fit"
+  },
+  {
+   "t": 152.5,
+   "d": 1.5,
+   "mode": "fit"
+  },
+  {
+   "t": 157.0,
+   "d": 1.5,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.5
+  ],
+  [
+   "EN SUPER|MARIO WORLD",
+   "white",
+   0.5,
+   1.36
+  ],
+  [
+   "PUEDES MATAR",
+   "white",
+   1.36,
+   1.98
+  ],
+  [
+   "A ENEMIGOS|INVENCIBLES",
+   "white,yellow",
+   1.98,
+   2.98
+  ],
+  [
+   "COMO EL|GRAN BOO",
+   "white,yellow",
+   2.98,
+   4.0
+  ],
+  [
+   "SOLO|DESLIZANDOTE",
+   "white",
+   4.0,
+   4.88
+  ],
+  [
+   "CUESTA ABAJO",
+   "white",
+   4.88,
+   5.5
+  ],
+  [
+   "CON LAS|POMPIS",
+   "white,yellow",
+   5.5,
+   7.0
+  ]
+ ]
+}

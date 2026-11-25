@@ -1,0 +1,90 @@
+{
+ "src": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\51167c1745fb5a2a\\888d5030-cdf8-4972-abab-305d93998caa\\scratchpad\\gta\\src_gta.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_GTA.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_GTA.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\51167c1745fb5a2a\\888d5030-cdf8-4972-abab-305d93998caa\\scratchpad\\gta\\voz\\g01.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA\\Short01_FloresSangre.mp4",
+ "body": 8.25,
+ "clips": [
+  {
+   "t": 912.5,
+   "d": 1.6
+  },
+  {
+   "t": 921.0,
+   "d": 1.7
+  },
+  {
+   "t": 926.0,
+   "d": 1.5,
+   "mode": "fit"
+  },
+  {
+   "t": 937.5,
+   "d": 1.6,
+   "mode": "fit"
+  },
+  {
+   "t": 942.0,
+   "d": 1.85,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.58
+  ],
+  [
+   "LA MONTAÑA|MAS ALTA",
+   "white",
+   0.58,
+   1.66
+  ],
+  [
+   "DE GTA 6",
+   "white",
+   1.66,
+   2.58
+  ],
+  [
+   "DESDE EL|HELICOPTERO",
+   "white",
+   2.58,
+   3.7
+  ],
+  [
+   "PARECEN|CHARCOS",
+   "white",
+   3.7,
+   4.46
+  ],
+  [
+   "DE SANGRE",
+   "yellow",
+   4.46,
+   4.92
+  ],
+  [
+   "PERO CUANDO|ATERRIZAS",
+   "white",
+   4.92,
+   6.28
+  ],
+  [
+   "DESCUBRES|QUE SON",
+   "white",
+   6.28,
+   7.16
+  ],
+  [
+   "FLORES|ROJAS",
+   "yellow",
+   7.16,
+   8.25
+  ]
+ ]
+}

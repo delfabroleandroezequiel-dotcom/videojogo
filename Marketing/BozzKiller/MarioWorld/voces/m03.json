@@ -1,0 +1,86 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\WhPwDlickWM\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Mario.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Mario.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioWorld\\voces\\m03.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioWorld\\Short03_YoshiEnNES.mp4",
+ "body": 7.65,
+ "clips": [
+  {
+   "t": 111.0,
+   "d": 1.3,
+   "mode": "fit"
+  },
+  {
+   "t": 104.0,
+   "d": 1.4,
+   "mode": "fit"
+  },
+  {
+   "t": 114.0,
+   "d": 1.4,
+   "mode": "fit"
+  },
+  {
+   "t": 119.0,
+   "d": 1.5,
+   "mode": "fit"
+  },
+  {
+   "t": 133.0,
+   "d": 2.05,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.48
+  ],
+  [
+   "MIYAMOTO|QUERIA",
+   "yellow,white",
+   0.48,
+   1.32
+  ],
+  [
+   "METER A YOSHI",
+   "yellow",
+   1.32,
+   1.9
+  ],
+  [
+   "DESDE EL PRIMER|MARIO BROS",
+   "white",
+   1.9,
+   3.34
+  ],
+  [
+   "PERO LA NES|NO AGUANTABA",
+   "white",
+   3.34,
+   4.68
+  ],
+  [
+   "UN DINOSAURIO",
+   "yellow",
+   4.68,
+   5.52
+  ],
+  [
+   "ASI QUE TUVO|QUE ESPERAR",
+   "white",
+   5.52,
+   6.38
+  ],
+  [
+   "A MARIO WORLD",
+   "yellow",
+   6.38,
+   7.65
+  ]
+ ]
+}

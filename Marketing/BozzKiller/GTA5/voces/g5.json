@@ -1,0 +1,94 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\yVbPvycZ_Xg\\fuente1080.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_GTA.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_GTA.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA5\\voces\\g5_f.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA5\\Short05_MichaelMaxPayne.mp4",
+ "body": 7.55,
+ "clips": [
+  {
+   "t": 100.0,
+   "d": 1.5,
+   "mode": "crop",
+   "x": 560
+  },
+  {
+   "t": 102.5,
+   "d": 1.6,
+   "mode": "crop",
+   "x": 700
+  },
+  {
+   "t": 105.0,
+   "d": 1.5,
+   "mode": "crop",
+   "x": 700
+  },
+  {
+   "t": 107.0,
+   "d": 0.9,
+   "mode": "crop",
+   "x": 560
+  },
+  {
+   "t": 108.2,
+   "d": 1.0,
+   "mode": "crop",
+   "x": 660
+  },
+  {
+   "t": 111.6,
+   "d": 1.05,
+   "mode": "box",
+   "x": 1020,
+   "y": 0,
+   "w": 600,
+   "h": 1065
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.54
+  ],
+  [
+   "EN GTA 5",
+   "white",
+   0.54,
+   1.32
+  ],
+  [
+   "SI A MICHAEL|LE PONES",
+   "white",
+   1.52,
+   2.4
+  ],
+  [
+   "CAMISA|HAWAIANA",
+   "white,yellow",
+   2.4,
+   3.4
+  ],
+  [
+   "LA CABEZA|RAPADA",
+   "white",
+   3.54,
+   4.45
+  ],
+  [
+   "BARBA Y LENTES|DE AVIADOR",
+   "white",
+   4.6,
+   5.7
+  ],
+  [
+   "SE CONVIERTE|EN MAX PAYNE",
+   "white,yellow",
+   5.88,
+   7.45
+  ]
+ ]
+}

@@ -1,0 +1,93 @@
+{
+ "src": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\51167c1745fb5a2a\\888d5030-cdf8-4972-abab-305d93998caa\\scratchpad\\gta\\src_gta.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_GTA.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_GTA.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\51167c1745fb5a2a\\888d5030-cdf8-4972-abab-305d93998caa\\scratchpad\\gta\\voz\\g03.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA\\Short03_CarcelLucia.mp4",
+ "body": 7.8,
+ "clips": [
+  {
+   "t": 1091.0,
+   "d": 1.4,
+   "mode": "fit"
+  },
+  {
+   "t": 1094.0,
+   "d": 1.3,
+   "mode": "fit"
+  },
+  {
+   "t": 1096.5,
+   "d": 1.2
+  },
+  {
+   "t": 1116.0,
+   "d": 1.2
+  },
+  {
+   "t": 1123.0,
+   "d": 1.4
+  },
+  {
+   "t": 1129.5,
+   "d": 1.3
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.54
+  ],
+  [
+   "PUEDES|LANZARTE",
+   "white",
+   0.54,
+   1.24
+  ],
+  [
+   "EN PARACAIDAS",
+   "white",
+   1.24,
+   1.86
+  ],
+  [
+   "DENTRO DE|LA CARCEL",
+   "white,yellow",
+   1.86,
+   2.66
+  ],
+  [
+   "PARA|RESCATAR",
+   "white",
+   2.66,
+   3.34
+  ],
+  [
+   "A LUCIA",
+   "yellow",
+   3.34,
+   4.4
+  ],
+  [
+   "PERO CUANDO|POR FIN",
+   "white",
+   4.4,
+   5.3
+  ],
+  [
+   "ABRES|LA CELDA",
+   "white",
+   5.3,
+   6.4
+  ],
+  [
+   "LUCIA|NO ESTA",
+   "yellow",
+   6.4,
+   7.8
+  ]
+ ]
+}

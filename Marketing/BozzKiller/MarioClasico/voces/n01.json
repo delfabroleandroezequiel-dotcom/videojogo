@@ -1,0 +1,86 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\5I9gkzpffh8\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Mario.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Mario.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioClasico\\voces\\n01.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioClasico\\Short01_BowserFalsos.mp4",
+ "body": 7.92,
+ "clips": [
+  {
+   "t": 121.0,
+   "d": 1.4,
+   "mode": "fit"
+  },
+  {
+   "t": 124.0,
+   "d": 1.4,
+   "mode": "fit"
+  },
+  {
+   "t": 128.0,
+   "d": 1.5,
+   "mode": "fit"
+  },
+  {
+   "t": 130.0,
+   "d": 0.9,
+   "mode": "fit"
+  },
+  {
+   "t": 131.0,
+   "d": 2.72,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.48
+  ],
+  [
+   "LOS BOWSER|DE LOS CASTILLOS",
+   "yellow,white",
+   0.48,
+   2.2
+  ],
+  [
+   "DE MARIO BROS",
+   "white",
+   2.2,
+   2.8
+  ],
+  [
+   "SON FALSOS",
+   "yellow",
+   2.8,
+   4.0
+  ],
+  [
+   "SI LOS MATAS|CON FUEGO",
+   "white,yellow",
+   4.0,
+   4.98
+  ],
+  [
+   "DESCUBRES QUE",
+   "white",
+   4.98,
+   5.8
+  ],
+  [
+   "DEBAJO DEL|DISFRAZ",
+   "white",
+   5.8,
+   6.72
+  ],
+  [
+   "HAY UN|GOOMBA",
+   "white,yellow",
+   6.72,
+   7.92
+  ]
+ ]
+}

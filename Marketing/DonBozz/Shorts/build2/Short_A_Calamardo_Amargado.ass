@@ -1,0 +1,17 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Short,Georgia,78,&H00D0E8F6,&H00D0E8F6,&H00000000,&H96000000,1,0,0,0,100,100,0,0,1,6,3,8,60,60,330,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:02.10,Short,,0,0,0,,Calamardo no es un\Namargado porque sí.
+Dialogue: 0,0:00:02.10,0:00:05.80,Short,,0,0,0,,Es un artista que nunca tuvo\Nun solo momento de reconocimiento.
+Dialogue: 0,0:00:05.80,0:00:07.10,Short,,0,0,0,,Y eso, con los años…
+Dialogue: 0,0:00:07.10,0:00:09.00,Short,,0,0,0,,a cualquiera lo vuelve amargo.

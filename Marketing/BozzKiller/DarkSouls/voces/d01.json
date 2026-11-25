@@ -1,0 +1,90 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\916iheNY3rE\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_DarkSouls.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_DarkSouls.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\DarkSouls\\voces\\d01.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\DarkSouls\\Short01_BansheeBebes.mp4",
+ "body": 7.45,
+ "clips": [
+  {
+   "t": 240.0,
+   "d": 1.6,
+   "mode": "fit"
+  },
+  {
+   "t": 242.0,
+   "d": 1.3,
+   "mode": "fit"
+  },
+  {
+   "t": 247.5,
+   "d": 1.4,
+   "mode": "fit"
+  },
+  {
+   "t": 249.0,
+   "d": 1.6,
+   "mode": "fit"
+  },
+  {
+   "t": 249.5,
+   "d": 1.55,
+   "mode": "still",
+   "x": 560,
+   "y": 0,
+   "w": 560,
+   "h": 996
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.5
+  ],
+  [
+   "EN LAS RUINAS|DE NUEVO LONDO",
+   "white",
+   0.5,
+   1.64
+  ],
+  [
+   "HAY FANTASMAS",
+   "yellow",
+   1.64,
+   2.64
+  ],
+  [
+   "QUE CARGAN|BEBES EN BRAZOS",
+   "white,yellow",
+   2.64,
+   3.76
+  ],
+  [
+   "Y TE ATACAN",
+   "white",
+   3.76,
+   4.44
+  ],
+  [
+   "DISPARANDOTE|RAYOS",
+   "white,yellow",
+   4.44,
+   5.3
+  ],
+  [
+   "CON LOS BEBES",
+   "yellow",
+   5.3,
+   6.1
+  ],
+  [
+   "SI, CON|LOS BEBES",
+   "white,yellow",
+   6.1,
+   7.45
+  ]
+ ]
+}

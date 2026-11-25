@@ -1,0 +1,94 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\V9JgeA64VYE\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_GTA.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_GTA.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA6\\voces\\h2.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA\\Short09_BarcoMichael.mp4",
+ "body": 8.25,
+ "clips": [
+  {
+   "t": 47.5,
+   "d": 1.5,
+   "mode": "crop",
+   "x": 500
+  },
+  {
+   "t": 49.2,
+   "d": 1.5,
+   "mode": "fit"
+  },
+  {
+   "t": 53.0,
+   "d": 1.5,
+   "mode": "crop",
+   "x": 400
+  },
+  {
+   "t": 56.0,
+   "d": 1.0,
+   "mode": "fit"
+  },
+  {
+   "t": 64.0,
+   "d": 1.2,
+   "mode": "crop",
+   "x": 600
+  },
+  {
+   "t": 68.6,
+   "d": 1.55,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.54
+  ],
+  [
+   "EN GTA 6",
+   "white",
+   0.54,
+   1.38
+  ],
+  [
+   "FRENTE A LA|CASA DE JASON",
+   "white",
+   1.5,
+   2.8
+  ],
+  [
+   "ESTA EL BARCO",
+   "white",
+   2.9,
+   3.54
+  ],
+  [
+   "QUE LE ROBARON|A MICHAEL",
+   "white,yellow",
+   3.54,
+   4.46
+  ],
+  [
+   "EN GTA 5",
+   "yellow",
+   4.46,
+   5.46
+  ],
+  [
+   "Y SU GPS|TODAVIA MUESTRA",
+   "white",
+   5.46,
+   7.36
+  ],
+  [
+   "LOS SANTOS",
+   "yellow",
+   7.36,
+   8.2
+  ]
+ ]
+}

@@ -1,0 +1,42 @@
+# Gigantes de Sonic — plan de montaje. Una línea por bloque:
+# id | voz (Parte:párrafo, o SEP:segundos) | planos (src:in[+dur], separados por espacio) | cartel (o -) | música
+# src = archivo en fuentes/ (1080p) o clips/ (720p); IMG:nombre = imagen fija de ref/
+# ESC:recorte:veces_sonic:TEXTO_CON_GUIONES_BAJOS[:0 sin borde blanco] = escala en fondo negro (escala.sh)
+# Si un plano no dice +dur, el bloque se reparte en partes iguales entre los planos sin duración fija.
+# música (originales, en escalada): Y=Spring Yard, E=Emerald Hill, R=Boss Sonic 1, B=Boss Sonic 2, D=Doomsday Zone, F=Final Boss Sonic 3 (reserva), M=I'm Here instrumental (tema de The End), 0=silencio
+B01|1:1|giganto:2 pchaos:24 giganto:33 theend:690 theend:470|-|Y
+B02|SEP:1.6|-|BOZZ KILLER PRESENTA|Y
+B03|1:2|overlord:22 biolizard:21 giganto:112 pdgaia:76 devildoom:18 pchaos:47 theend:550|-|Y
+B04|1:3|deathegg:64+7 giganto:64 giganto:33|LA REGLA: LO MÁS GRANDE DEL CUERPO · SONIC = 1 m|Y
+B05|1:4|deathegg:50 deathegg:56 deathegg:60 deathegg:68|#9  DEATH EGG ROBOT · SONIC 2 (1992)|E
+B06|1:5|deathegg:64+4 ESC:deathegg:4:4_METROS+6.5 deathegg:145|4 METROS = 4 SONICS|E
+B07|1:6|deathegg:170 deathegg:195|4 SONICS|E
+B08|1:7|overlord:1 overlord:34 overlord:45 overlord:56 overlord:67|#8  METAL OVERLORD · SONIC HEROES (2003)|E
+B09|1:8|overlord:79 ESC:metaloverlord2:40:40_METROS:0+6 overlord:143|40 METROS · DATO OFICIAL|E
+B10|1:9|pchaos:1 pchaos:16 pchaos:40 pchaos:63 pchaos:78|#7  PERFECT CHAOS · SONIC ADVENTURE (1998)|R
+B11|1:10|pchaos:86 ESC:perfectchaos:45:~45_METROS:0+6 pchaos:125|~45 METROS|R
+B12|1:11|biolizard:1 biolizard:21 biolizard:32 biolizard:98|#6  BIOLIZARD · SONIC ADVENTURE 2 (2001)|R
+B13|1:12|biolizard:108 ESC:biolizard:60:60_METROS_DE_LARGO+6.5 biolizard:192|~60 METROS DE LARGO|R
+B14|SEP:1.2|-|-|0
+B15|2:1|giganto:2 theend:80|-|B
+B16|2:2|giganto:33 giganto:50 IMG:giganto giganto:64|MODELOS 3D SACADOS DEL JUEGO · SONIC = 1 m|B
+B17|2:3|giganto:95 giganto:128 giganto:142 giganto:160|#5  GIGANTO · SONIC FRONTIERS (2022)|B
+B18|2:4|giganto:190 ESC:giganto:151:151_METROS+7 giganto:112|151 METROS|B
+B19|2:5|supreme:70 supreme:95 supreme:110|#4  SUPREME · SONIC FRONTIERS (2022)|B
+B20|2:6|supreme:128 ESC:supreme:164:164_METROS:0+6.5|164 METROS|B
+B21|2:7|knight:18 knight:72 knight:117 ESC:knight:224:224_METROS+6.5|#3  KNIGHT · SONIC FRONTIERS (2022) · 224 METROS|B
+B22|2:8|wyvern:12+2.5 wyvern:72 wyvern:132 wyvern:216 wyvern:312|#2  WYVERN · SONIC FRONTIERS (2022)|B
+B23|2:9|ESC:wyvern:370:370_METROS|370 METROS|B
+B24|SEP:1.2|-|-|0
+B25|3:1|devildoom:6 pdgaia:61 finalhazard:150|LOS QUE NO PUDE MEDIR|D
+B26|3:2|pdgaia:92 pdgaia:107 pdgaia:137 pdgaia:195|PERFECT DARK GAIA · ¿100 m – 1 km?|D
+B27|3:3|finalhazard:128 finalhazard:175 finalhazard:205|FINALHAZARD · SIN MEDIDA|D
+B28|3:4|devildoom:35 devildoom:47 devildoom:64|DEVIL DOOM · ¿13 – 100 m?|D
+B29|3:5|solaris:0+2.5 solaris:77 solaris:196 solaris:228 timeeater:12+2 timeeater:30 timeeater:84 timeeater:186|FUERA DE ESCALA: SOLARIS · TIME EATER|D
+B30|SEP:2.0|-|#1|0
+B31|4:1|theend:311 theend:390|#1  THE END · SONIC FRONTIERS (2022)|M
+B32|4:2|theend:470 theend:550|EN LA PELEA: 75 METROS|M
+B33|4:3|theend:620 theend:466 theend:690|-|M
+B34|4:4|theend:690+6 IMG:theend theend:699|~21.000 KM · ESTIMACIÓN DE FANS|M
+B35|4:5|theend:705 giganto:2|-|M
+B36|SEP:18|theend:1166+18|-|M

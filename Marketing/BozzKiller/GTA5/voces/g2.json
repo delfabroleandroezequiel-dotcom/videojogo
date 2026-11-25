@@ -1,0 +1,92 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\yVbPvycZ_Xg\\fuente1080.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_GTA.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_GTA.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA5\\voces\\g2_f.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA5\\Short02_AlienCongelado.mp4",
+ "body": 7.55,
+ "clips": [
+  {
+   "t": 202.0,
+   "d": 1.0,
+   "mode": "fit",
+   "x": 360,
+   "w": 1200,
+   "y": 80,
+   "h": 860
+  },
+  {
+   "t": 203.0,
+   "d": 1.5,
+   "mode": "crop",
+   "x": 656
+  },
+  {
+   "t": 204.5,
+   "d": 0.9,
+   "mode": "crop",
+   "x": 656
+  },
+  {
+   "t": 205.4,
+   "d": 1.0,
+   "mode": "crop",
+   "x": 656
+  },
+  {
+   "t": 206.4,
+   "d": 0.7,
+   "mode": "crop",
+   "x": 700
+  },
+  {
+   "t": 207.8,
+   "d": 2.45,
+   "mode": "still",
+   "x": 780,
+   "y": 280,
+   "w": 360,
+   "h": 640,
+   "zoom": 0.25
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.52
+  ],
+  [
+   "EN EL PROLOGO|DE GTA 5",
+   "white",
+   0.52,
+   1.86
+  ],
+  [
+   "SI PASAS POR|DEBAJO DEL PUENTE",
+   "white",
+   2.12,
+   3.64
+  ],
+  [
+   "HAY UN ALIEN|CONGELADO",
+   "white,yellow",
+   3.88,
+   4.9
+  ],
+  [
+   "EN EL HIELO",
+   "yellow",
+   4.9,
+   5.42
+  ],
+  [
+   "Y NADIE DICE|ABSOLUTAMENTE NADA",
+   "white,yellow",
+   5.42,
+   7.4
+  ]
+ ]
+}

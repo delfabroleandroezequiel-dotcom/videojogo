@@ -1,0 +1,87 @@
+{
+ "src": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\29cd9cd3bec8a5b2\\ee630078-cc08-4d22-bbf8-977938d74edc\\scratchpad\\bk\\src_cuphead_dlc.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Cuphead.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Cuphead.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\29cd9cd3bec8a5b2\\ee630078-cc08-4d22-bbf8-977938d74edc\\scratchpad\\bk\\cup\\c06.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Cuphead\\Short06_ReyHielo.mp4",
+ "body": 6.6,
+ "clips": [
+  {
+   "t": 506.0,
+   "d": 1.8,
+   "mode": "box",
+   "x": 1300,
+   "y": 0,
+   "w": 500,
+   "h": 889
+  },
+  {
+   "t": 508.5,
+   "d": 1.7,
+   "mode": "box",
+   "x": 180,
+   "y": 0,
+   "w": 500,
+   "h": 889
+  },
+  {
+   "t": 509.5,
+   "d": 1.5,
+   "mode": "box",
+   "x": 0,
+   "y": 180,
+   "w": 500,
+   "h": 889
+  },
+  {
+   "t": 511.0,
+   "d": 1.6,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.56
+  ],
+  [
+   "GENOVEVO|EL GELIDO",
+   "yellow",
+   0.56,
+   1.54
+  ],
+  [
+   "SE PARECE",
+   "white",
+   1.54,
+   2.1
+  ],
+  [
+   "SOSPECHOSAMENTE",
+   "white",
+   2.1,
+   2.98
+  ],
+  [
+   "AL MISMISIMO",
+   "white",
+   2.98,
+   4.14
+  ],
+  [
+   "REY HIELO",
+   "yellow",
+   4.14,
+   4.96
+  ],
+  [
+   "DE HORA DE|AVENTURAS",
+   "white,yellow",
+   4.96,
+   6.6
+  ]
+ ]
+}

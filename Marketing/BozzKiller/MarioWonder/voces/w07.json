@@ -1,0 +1,90 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\IuiFRG3nY_w\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Mario.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Mario.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioWonder\\voces\\w07.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\MarioWonder\\Short07_YoshiSandia.mp4",
+ "body": 7.7,
+ "clips": [
+  {
+   "t": 341.0,
+   "d": 1.4,
+   "mode": "fit"
+  },
+  {
+   "t": 342.4,
+   "d": 1.5,
+   "mode": "fit"
+  },
+  {
+   "t": 350.5,
+   "d": 1.4,
+   "mode": "fit"
+  },
+  {
+   "t": 351.3,
+   "d": 1.0,
+   "mode": "still",
+   "x": 500,
+   "y": 200,
+   "w": 500,
+   "h": 880
+  },
+  {
+   "t": 346.0,
+   "d": 2.4,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.52
+  ],
+  [
+   "EN MARIO|WONDER",
+   "white",
+   0.52,
+   1.44
+  ],
+  [
+   "SI YOSHI|SE COME",
+   "white,yellow",
+   1.44,
+   2.12
+  ],
+  [
+   "UNA PLANTA|PIRAÑA SANDIA",
+   "white,yellow",
+   2.12,
+   3.56
+  ],
+  [
+   "EMPIEZA A|ESCUPIR",
+   "white",
+   3.56,
+   4.36
+  ],
+  [
+   "SEMILLAS",
+   "yellow",
+   4.36,
+   4.98
+  ],
+  [
+   "COMO|AMETRALLADORA",
+   "white,yellow",
+   4.98,
+   6.04
+  ],
+  [
+   "IGUAL QUE EN|YOSHIS ISLAND",
+   "white,yellow",
+   6.04,
+   7.7
+  ]
+ ]
+}

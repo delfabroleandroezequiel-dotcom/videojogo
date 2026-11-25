@@ -1,0 +1,94 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\r72F3rf-UDA\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Cuphead.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Cuphead.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Cuphead\\voces2\\c05a.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Cuphead\\Short10_ChauAbeja.mp4",
+ "body": 6.75,
+ "clips": [
+  {
+   "t": 529.2,
+   "d": 1.4,
+   "mode": "fit",
+   "x": 60,
+   "w": 1500,
+   "y": 0,
+   "h": 880
+  },
+  {
+   "t": 531.0,
+   "d": 1.7,
+   "mode": "fit",
+   "x": 60,
+   "w": 1500,
+   "y": 0,
+   "h": 880
+  },
+  {
+   "t": 543.0,
+   "d": 1.9,
+   "mode": "fit",
+   "x": 60,
+   "w": 1500,
+   "y": 0,
+   "h": 880
+  },
+  {
+   "t": 556.0,
+   "d": 0.7,
+   "mode": "fit",
+   "x": 60,
+   "w": 1500,
+   "y": 0,
+   "h": 880
+  },
+  {
+   "t": 557.0,
+   "d": 1.05,
+   "mode": "fit",
+   "x": 60,
+   "w": 1500,
+   "y": 0,
+   "h": 880
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.5
+  ],
+  [
+   "PUEDES SALTARTE|LA ULTIMA FASE",
+   "white,yellow",
+   0.5,
+   2.0
+  ],
+  [
+   "DE RUMOR|HONEYBOTTOMS",
+   "white",
+   2.0,
+   3.1
+  ],
+  [
+   "SI LE HACES|SUFICIENTE DAÑO",
+   "white,yellow",
+   3.2,
+   4.5
+  ],
+  [
+   "MIENTRAS SE|TRANSFORMA",
+   "white",
+   4.5,
+   5.65
+  ],
+  [
+   "CHAU ABEJA",
+   "yellow",
+   5.7,
+   6.75
+  ]
+ ]
+}

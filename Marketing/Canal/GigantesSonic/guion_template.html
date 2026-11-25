@@ -1,0 +1,171 @@
+<title>Los Gigantes de Sonic</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one reading column; the ranking descends 10→1 like the video, each entry a row of image + script. */
+:root{
+  --bg:#f3f5fa; --panel:#ffffff; --fg:#141a2b; --muted:#56607a; --line:#d9deea;
+  --blue:#1f5bd6; --gold:#b98200; --risk:#c2410c; --ok:#15803d; --hatch:#c9d0e0;
+  --display:"Anton", Impact, "Arial Narrow", sans-serif;
+  --body:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0b1020; --panel:#141b31; --fg:#e8ecf6; --muted:#9aa4c0; --line:#26304d;
+  --blue:#6b9bff; --gold:#f2c14e; --risk:#fb923c; --ok:#4ade80; --hatch:#2c3656; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b1020; --panel:#141b31; --fg:#e8ecf6; --muted:#9aa4c0; --line:#26304d;
+  --blue:#6b9bff; --gold:#f2c14e; --risk:#fb923c; --ok:#4ade80; --hatch:#2c3656; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 64px}
+.wrap{max-width:860px;margin:0 auto;display:grid;gap:40px}
+h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:.01em;text-wrap:balance;margin:0;line-height:1.05}
+h1{font-size:clamp(2.6rem,7vw,4.2rem)}
+h2{font-size:1.9rem}
+h3{font-size:1.5rem}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.lead{color:var(--muted);max-width:62ch;margin-top:10px}
+section{display:grid;gap:16px}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px;display:grid;gap:10px}
+ul{margin:0;padding-left:1.2em;display:grid;gap:6px}
+.say{border-left:3px solid var(--blue);padding-left:14px;font-size:1.02rem;max-width:65ch}
+.say + .say{margin-top:8px}
+.note{font-size:.88rem;color:var(--muted)}
+.chip{display:inline-block;font-family:var(--mono);font-size:.72rem;padding:2px 8px;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
+.chip.ok{color:var(--ok)} .chip.risk{color:var(--risk)} .chip.est{color:var(--gold)}
+/* ruler */
+.ruler{position:relative;height:120px;margin:6px 8px 0}
+.ruler .axis{position:absolute;left:0;right:0;top:58px;height:4px;border-radius:2px;background:linear-gradient(90deg,var(--blue),var(--gold))}
+.tick{position:absolute;top:50px;width:2px;height:20px;background:var(--fg);transform:translateX(-1px)}
+.lab{position:absolute;font-size:.74rem;line-height:1.2;transform:translateX(-50%);text-align:center;white-space:nowrap}
+.lab b{display:block;font-family:var(--mono);font-weight:500}
+.lab.up{top:4px} .lab.down{top:76px}
+.lab.end{transform:translateX(-100%);text-align:right} .lab.start{transform:none;text-align:left}
+/* entries */
+.entry{display:grid;grid-template-columns:200px 1fr;gap:20px;align-items:start;padding-top:22px;border-top:1px solid var(--line)}
+.entry .pic{position:relative;border-radius:8px;overflow:hidden;background:var(--hatch);aspect-ratio:1/1;max-width:100%}
+.entry .pic img{width:100%;height:100%;object-fit:contain;display:block}
+.rank{position:absolute;left:8px;top:4px;font-family:var(--display);font-size:2.6rem;color:#fff;text-shadow:0 2px 0 #000,0 0 12px rgba(0,0,0,.6)}
+.entry .txt{display:grid;gap:10px;min-width:0}
+.meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.game{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+.size{font-weight:700}
+.entry.top .pic{outline:3px solid var(--gold)}
+.mini{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.mini .entry{grid-template-columns:110px 1fr;border-top:none;padding-top:0}
+.mini .rank{display:none}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+td,th{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.tbl{overflow-x:auto}
+@media (max-width:560px){.entry{grid-template-columns:1fr}.entry .pic{max-width:240px}.mini .entry{grid-template-columns:90px 1fr}}
+</style>
+
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Bozz Killer · guion resumido · largo de ~8–10 min · 19 nov 2026</p>
+  <h1>Los Gigantes de Sonic</h1>
+  <p class="lead">Top 9 de los jefes más grandes de la saga, medidos contra Sonic (1 metro). Sigue la fórmula del diagnóstico del 16 nov: jefes × Sonic × superlativo que se ve. <b>Solo entran los que tienen una medida con fuente</b>; los que no, van en un bloque aparte que responde los comentarios antes de que lleguen.</p>
+</header>
+
+<section>
+  <h2>Empaque</h2>
+  <div class="box">
+    <p class="eyebrow">Título (elegir uno)</p>
+    <ul>
+      <li><b>Medí a los jefes más GIGANTES de Sonic</b> ← recomendado: promete lo que el video cumple</li>
+      <li>El jefe más GIGANTE de Sonic es más grande que la Luna (depende de un cálculo de fans: más clic, más pelea)</li>
+      <li>Sonic mide 1 metro… y venció a ESTO</li>
+    </ul>
+    <p class="eyebrow">Miniatura</p>
+    <p>Sonic diminuto abajo a la izquierda, con su contorno blanco. Wyvern ocupando el cuadro y The End atrás, en el espacio. Sin texto, o una sola palabra: <b>GIGANTE</b>. Es el superlativo que se ve a 160 px y el que hizo el 29K del canal.</p>
+    <p class="eyebrow">Short de quiz (sale el mismo día, con "video relacionado" a este largo)</p>
+    <p>"¿Qué tanto sabes de Sonic?" → "¿Sabías que el jefe final de Sonic 2 mide solo CUATRO metros?" → gatos con zapatillas de Sonic → "¡Increíble!". Es el dato más sorpresivo que salió de medir. Receta de <code>Diseno/BozzKillerShorts.md</code>, 9.30–10.45 s.</p>
+  </div>
+</section>
+
+<section>
+  <h2>La regla (se dice en voz alta, a los 20 s)</h2>
+  <p class="say">"Para que no haya pelea en los comentarios, la regla es simple: solo jefes que peleas, y la medida es lo más grande de su cuerpo, comparado contra Sonic, que mide un metro. Los que no tienen tamaño, porque son el tiempo o un dios, van aparte, al final."</p>
+  <p class="note">Esta regla deja afuera, con argumento, a Solaris y al Time Eater, que son los que más discusión generan. Sonic mide 100 cm según su perfil oficial.</p>
+</section>
+
+<section>
+  <h2>De dónde sale cada número</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>#</th><th>Jefe</th><th>Medida</th><th>Cómo se obtuvo</th><th>Confianza</th></tr></thead>
+    <tbody>
+      <tr><td>9</td><td>Death Egg Robot</td><td>~4 m</td><td>Lo medí yo: cuadro de Sonic 2 con Sonic parado en el mismo piso. El robot mide 3,95 Sonics. Es un sprite 2D, sin perspectiva.</td><td><span class="chip ok">alta</span></td></tr>
+      <tr><td>8</td><td>Metal Overlord</td><td>40 m</td><td>Hoja de personaje oficial de Sonic Heroes (citada en la Sonic Wiki).</td><td><span class="chip ok">oficial</span></td></tr>
+      <tr><td>7</td><td>Perfect Chaos</td><td>~45 m</td><td>Cálculo de un fan en VS Battles Wiki, en píxeles contra los pisos de los edificios de Station Square.</td><td><span class="chip est">media</span></td></tr>
+      <tr><td>6</td><td>Biolizard</td><td>~60 m de largo (~18 m de alto)</td><td>Descripción de la Sonic Wiki. Por la regla cuenta el largo.</td><td><span class="chip est">media</span></td></tr>
+      <tr><td>5–2</td><td>Giganto · Supreme · Knight · Wyvern</td><td>151 · 164 · 224 · 370 m</td><td>Modelos 3D sacados del juego y medidos en Blender por un fan (VS Battles Wiki). Con el mismo método, Sonic da 1 m.</td><td><span class="chip ok">alta</span></td></tr>
+      <tr><td>1</td><td>The End</td><td>75 m en la pelea · ~21.000 km en las escenas</td><td>El modelo de la pelea está achicado. Los 21.000 km salen de un cálculo de fans por tamaño angular en una escena, que supone un planeta 10 veces más grande que la Tierra.</td><td><span class="chip risk">baja</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Mi medición de Giganto mirando cuadros dio ~70 m, la mitad del modelo real. Por eso en 3D se usan los modelos y no la medición a ojo.</p>
+</section>
+
+<section>
+  <h2>La escala</h2>
+  <p class="note">Escala logarítmica de 1 m a 21.000 km. El salto de los titanes a The End es el remate del video.</p>
+  <div class="ruler" role="img" aria-label="Escala logarítmica: Sonic 1 metro, Death Egg Robot 4 metros, Metal Overlord, Perfect Chaos y Biolizard entre 40 y 60 metros, los cuatro titanes entre 151 y 370 metros, la Luna 3.474 kilómetros, The End unos 21.000 kilómetros">
+    <div class="axis"></div>
+    <div class="tick" style="left:0%"></div><div class="lab up start" style="left:0%"><b>1 m</b>Sonic</div>
+    <div class="tick" style="left:8.2%"></div><div class="lab down" style="left:8.2%"><b>4 m</b>Death Egg Robot</div>
+    <div class="tick" style="left:21.9%"></div><div class="tick" style="left:22.6%"></div><div class="tick" style="left:24.3%"></div><div class="lab up" style="left:23%"><b>40–60 m</b>Overlord · Chaos · Biolizard</div>
+    <div class="tick" style="left:29.8%"></div><div class="tick" style="left:30.3%"></div><div class="tick" style="left:32.1%"></div><div class="tick" style="left:35.1%"></div><div class="lab down" style="left:33%"><b>151–370 m</b>los 4 titanes</div>
+    <div class="tick" style="left:89.4%"></div><div class="lab down" style="left:86%"><b>3.474 km</b>la Luna</div>
+    <div class="tick" style="left:100%"></div><div class="lab up end" style="left:100%"><b>~21.000 km</b>The End</div>
+  </div>
+</section>
+
+<section>
+  <h2>Guion</h2>
+
+  <div class="box">
+    <p class="eyebrow">Gancho · 0:00–0:30 · imagen: Sonic parado solo, la cámara se aleja y aparece The End</p>
+    <p class="say">"Sonic mide un metro. Un metro. Y en treinta y cinco años le tocó pelear contra robots, dragones del tamaño de un rascacielos… y una cosa que flota en el espacio como si fuera una luna."</p>
+    <p class="say">"Siempre supe que los jefes de Sonic eran grandes, pero nunca nadie me dijo cuánto. Así que los medí contra Sonic. Y hubo sorpresas: el jefe final de Sonic 2 es mucho más chico de lo que recuerdas, y el número uno… no lo vas a creer."</p>
+    <p class="note">Confesión + promesa concreta (medidos, con un número uno sorprendente). Después, la regla y "Bozz Killer presenta".</p>
+  </div>
+
+  {{ENTRIES}}
+
+  <div class="box">
+    <p class="eyebrow">Los que no pude medir · antes del #1 · 50 s · anticipa los comentarios</p>
+    <p class="say">"Antes del número uno, los que seguro me vas a pedir. No están en el top por una razón: nadie tiene una medida confiable de ellos, y no voy a inventarla."</p>
+    <div class="mini">{{OUT}}</div>
+  </div>
+
+  <div class="box">
+    <p class="eyebrow">Fuera de escala · 20 s</p>
+    <div class="mini">{{ASK}}</div>
+  </div>
+
+  <div class="box">
+    <p class="eyebrow">Cierre · última imagen: Super Sonic atravesando a The End</p>
+    <p class="say">"Un erizo de un metro contra algo que, según la cuenta, es más grande que la Luna. Y le ganó."</p>
+    <p class="note">Termina ahí, sin anunciar el próximo video. Pantalla final: el short de quiz o el video del jefe gigante.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Antes de grabar</h2>
+  <div class="box">
+    <ul>
+      <li><b>Texto para ElevenLabs:</b> <code>Marketing/Canal/Guiones/GigantesSonic_ElevenLabs.txt</code>, 7.1K caracteres en 4 partes (≈7:30–8 min, como Bowser). v3 no respeta los <code>[long pause]</code>: sirven de marca para cortar.</li><li><b>Medidas:</b> hechas, ver la tabla de fuentes. En la voz, los números de fans van con "unos" o "más o menos". El de The End se dice como estimación, que es lo que es.</li>
+      <li><b>Clips:</b> las 10 peleas que usé para medir están en <code>Marketing/Canal/GigantesSonic/clips/</code> (720p, sin audio, solo de referencia). Para el video conviene bajar las mismas con audio y en 1080p. "Every Sonic Boss in the ENTIRE Series (No damage)" de Shadiochao tiene casi todo (913K).</li>
+      <li><b>Comparaciones en pantalla:</b> Sonic en la escala de cada jefe. El cuadro del Death Egg Robot de Sonic 2 (0:48 del clip) ya sirve tal cual: Sonic y el robot en el mismo piso.</li>
+      <li><b>Competencia:</b> en español existe "Comparación de tamaños del universo de Sonic" (Data Ball, 272K, hace 6 meses). Es una animación 3D de todos los personajes, no un top de jefes narrado. Diferenciarse con la medición en el juego y la regla.</li>
+      <li><b>Voz:</b> el clon "Bozz Killer" (<code>seOn15qLHcKLOg5XXTjt</code>, eleven_v3), el mismo de Don Bozz y Bowser. La PVC "bozz profesional" es solo para los shorts. Generarla solo cuando lo digas.</li>
+    </ul>
+  </div>
+  <p class="note">Imágenes de referencia: Sonic Wiki Zone (Fandom). Son para planificar, no para el video.</p>
+</section>
+
+</div>

@@ -1,0 +1,85 @@
+{
+ "src": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\51167c1745fb5a2a\\888d5030-cdf8-4972-abab-305d93998caa\\scratchpad\\gta\\src_gta.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_GTA.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_GTA.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\AppData\\Local\\Temp\\claude\\51167c1745fb5a2a\\888d5030-cdf8-4972-abab-305d93998caa\\scratchpad\\gta\\voz\\g05.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA\\Short05_CirculoPiedras.mp4",
+ "body": 7.15,
+ "clips": [
+  {
+   "t": 926.5,
+   "d": 1.4,
+   "mode": "fit"
+  },
+  {
+   "t": 949.0,
+   "d": 1.3
+  },
+  {
+   "t": 955.5,
+   "d": 1.2,
+   "mode": "fit"
+  },
+  {
+   "t": 958.0,
+   "d": 1.5,
+   "mode": "fit"
+  },
+  {
+   "t": 960.5,
+   "d": 1.75,
+   "mode": "fit"
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.5
+  ],
+  [
+   "EN LA CIMA|MAS ALTA",
+   "white",
+   0.5,
+   1.5
+  ],
+  [
+   "DEL MAPA",
+   "white",
+   1.5,
+   1.8
+  ],
+  [
+   "HAY UNA ROCA",
+   "white",
+   1.8,
+   2.6
+  ],
+  [
+   "RODEADA|DE PIEDRAS",
+   "white",
+   2.6,
+   3.56
+  ],
+  [
+   "FORMANDO UN|CIRCULO",
+   "white,yellow",
+   3.56,
+   4.68
+  ],
+  [
+   "Y TODAVIA|NADIE SABE",
+   "white,yellow",
+   4.68,
+   5.9
+  ],
+  [
+   "QUE|SIGNIFICA",
+   "white",
+   5.9,
+   7.15
+  ]
+ ]
+}

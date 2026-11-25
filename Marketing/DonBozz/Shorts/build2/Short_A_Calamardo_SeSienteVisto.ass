@@ -1,0 +1,16 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Short,Georgia,78,&H00D0E8F6,&H00D0E8F6,&H00000000,&H96000000,1,0,0,0,100,100,0,0,1,6,3,8,60,60,330,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:02.85,Short,,0,0,0,,Su cara durante Dulce Victoria\Nlo dice todo.
+Dialogue: 0,0:00:02.85,0:00:04.50,Short,,0,0,0,,No es la cara de\Nalguien que ganó.
+Dialogue: 0,0:00:04.50,0:00:07.50,Short,,0,0,0,,Es la cara de alguien\Nque por fin se siente visto.

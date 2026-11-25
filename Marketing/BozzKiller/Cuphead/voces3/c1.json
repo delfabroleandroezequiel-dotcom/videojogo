@@ -1,0 +1,93 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\1slEGU4AX0E\\fuente.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_Cuphead.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_Cuphead.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Cuphead\\voces3\\c1_f.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Cuphead\\Short12_TazaPropaganda.mp4",
+ "body": 6.6,
+ "clips": [
+  {
+   "t": 46.0,
+   "d": 1.0,
+   "mode": "crop",
+   "x": 700
+  },
+  {
+   "t": 51.0,
+   "d": 1.6,
+   "mode": "fit"
+  },
+  {
+   "t": 53.0,
+   "d": 1.5,
+   "mode": "fit",
+   "x": 330,
+   "w": 1260,
+   "y": 60,
+   "h": 960
+  },
+  {
+   "t": 54.0,
+   "d": 1.1,
+   "mode": "fit",
+   "x": 330,
+   "w": 1260,
+   "y": 60,
+   "h": 960
+  },
+  {
+   "t": 55.5,
+   "d": 1.4,
+   "mode": "fit",
+   "x": 300,
+   "w": 1300,
+   "y": 40,
+   "h": 1000
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE|CUPHEAD",
+   "white,yellow",
+   0,
+   0.92
+  ],
+  [
+   "SE INSPIRO EN|UNA CARICATURA",
+   "white",
+   0.92,
+   2.1
+  ],
+  [
+   "JAPONESA",
+   "yellow",
+   2.1,
+   2.68
+  ],
+  [
+   "DONDE UN HOMBRE",
+   "white",
+   2.68,
+   3.3
+  ],
+  [
+   "CON CABEZA|DE TAZA",
+   "white,yellow",
+   3.3,
+   4.22
+  ],
+  [
+   "SE VUELVE|TANQUE",
+   "white,yellow",
+   4.22,
+   5.2
+  ],
+  [
+   "Y ATACA A|MICKEY MOUSE",
+   "white,yellow",
+   5.2,
+   6.5
+  ]
+ ]
+}

@@ -1,0 +1,113 @@
+{
+ "src": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Descargas\\yVbPvycZ_Xg\\fuente1080.mp4",
+ "intro": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Intro_GTA.mp4",
+ "cats": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\Plantillas\\Gatitos_GTA.mp4",
+ "font": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\Recursos\\Fuentes\\Anton-Regular.ttf",
+ "voice": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA5\\voces\\g1_f.mp3",
+ "out": "C:\\Users\\delfa\\Desktop\\Videojogo\\Marketing\\BozzKiller\\GTA5\\Short01_FantasmaMonteGordo.mp4",
+ "body": 8.2,
+ "clips": [
+  {
+   "t": 341.0,
+   "d": 1.4,
+   "mode": "crop",
+   "x": 560
+  },
+  {
+   "t": 342.4,
+   "d": 1.1,
+   "mode": "crop",
+   "x": 560
+  },
+  {
+   "t": 345.8,
+   "d": 1.3,
+   "mode": "still",
+   "x": 656,
+   "y": 0,
+   "w": 608,
+   "h": 1080,
+   "zoom": 0.18
+  },
+  {
+   "t": 347.0,
+   "d": 1.3,
+   "mode": "crop",
+   "x": 560
+  },
+  {
+   "t": 348.6,
+   "d": 1.3,
+   "mode": "crop",
+   "x": 560
+  },
+  {
+   "t": 350.5,
+   "d": 1.0,
+   "mode": "crop",
+   "x": 760
+  },
+  {
+   "t": 352.0,
+   "d": 0.8,
+   "mode": "crop",
+   "x": 800
+  }
+ ],
+ "caps": [
+  [
+   "SABIAS QUE",
+   "white",
+   0,
+   0.5
+  ],
+  [
+   "EN GTA 5",
+   "white",
+   0.5,
+   1.36
+  ],
+  [
+   "A LAS 11|DE LA NOCHE",
+   "white",
+   1.36,
+   2.48
+  ],
+  [
+   "APARECE UN|FANTASMA",
+   "white,yellow",
+   2.48,
+   3.78
+  ],
+  [
+   "EN LA CIMA DEL|MONTE GORDO",
+   "white",
+   3.78,
+   4.9
+  ],
+  [
+   "SI TE ACERCAS",
+   "white",
+   5.1,
+   5.82
+  ],
+  [
+   "DESAPARECE",
+   "yellow",
+   5.82,
+   6.42
+  ],
+  [
+   "Y DEJA ESCRITO|UN NOMBRE",
+   "white",
+   6.42,
+   7.5
+  ],
+  [
+   "JACK",
+   "yellow",
+   7.6,
+   8.1
+  ]
+ ]
+}

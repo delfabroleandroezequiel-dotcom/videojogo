@@ -1,0 +1,914 @@
+[
+ {
+  "tipo": "V",
+  "i": 1,
+  "t0": 0.0,
+  "dur": 24.23,
+  "take": "p1",
+  "a": 0,
+  "b": 23.880000000000003,
+  "sent": [
+   [
+    0,
+    5.28,
+    "Este jefe de Mario salió en un juego que vendió más de dieciocho millones de copias…"
+   ],
+   [
+    5.32,
+    8.4,
+    "y en treinta y siete años nadie le vio la cara."
+   ],
+   [
+    8.43,
+    9.28,
+    "No es el único."
+   ],
+   [
+    9.32,
+    14.56,
+    "Mario tiene jefes que pelearon una sola vez y después Nintendo los dejó tirados en un cajón."
+   ],
+   [
+    14.6,
+    18.08,
+    "Hoy te muestro diez, del menos olvidado al más olvidado."
+   ],
+   [
+    18.12,
+    23.04,
+    "Y para que nadie me discuta, voy a contar cuántas veces volvió a pelear en un juego nuevo."
+   ],
+   [
+    23.06,
+    23.76,
+    "Comencemos."
+   ]
+  ]
+ },
+ {
+  "tipo": "R",
+  "t0": 24.230000000000004,
+  "dur": 3.0,
+  "src": "smb2_wart",
+  "ss": 60
+ },
+ {
+  "tipo": "V",
+  "i": 2,
+  "t0": 27.230000000000004,
+  "dur": 32.69,
+  "take": "p1",
+  "a": 24.02,
+  "b": 56.36,
+  "sent": [
+   [
+    24.07,
+    25.76,
+    "Empecemos por el que tuvo suerte."
+   ],
+   [
+    25.84,
+    28.64,
+    "Wart, el sapo rey de Super Mario Bros dos."
+   ],
+   [
+    28.68,
+    31.52,
+    "¿Sabías que ni siquiera nació como jefe de Mario?"
+   ],
+   [
+    31.56,
+    37.2,
+    "Salió en Doki Doki Panic, un juego japonés que Nintendo transformó en Mario para venderlo en Occidente."
+   ],
+   [
+    37.25,
+    40.48,
+    "Lo vencías tirándole verduras a la boca, porque las odia."
+   ],
+   [
+    40.52,
+    41.28,
+    "Y después…"
+   ],
+   [
+    41.34,
+    41.68,
+    "nada."
+   ],
+   [
+    41.74,
+    45.84,
+    "Treinta y ocho años de remakes del mismo juego y un espíritu en Smash."
+   ],
+   [
+    45.88,
+    47.92,
+    "Hasta que en dos mil veintiséis volvió…"
+   ],
+   [
+    47.95,
+    52.32,
+    "pero no en un juego, sino en la película de Super Mario Galaxy, como el dueño de un casino."
+   ],
+   [
+    52.35,
+    54,
+    "Peleas nuevas desde entonces:"
+   ],
+   [
+    54.04,
+    54.48,
+    "cero."
+   ],
+   [
+    54.53,
+    56.24,
+    "Pero por lo menos tiene película."
+   ]
+  ]
+ },
+ {
+  "tipo": "R",
+  "t0": 59.92000000000001,
+  "dur": 3.0,
+  "src": "smg_megaleg",
+  "ss": 9
+ },
+ {
+  "tipo": "V",
+  "i": 3,
+  "t0": 62.92000000000001,
+  "dur": 31.34,
+  "take": "p1",
+  "a": 56.49,
+  "b": 87.48,
+  "sent": [
+   [
+    56.54,
+    61.04,
+    "Megaleg, el robot de tres patas de Bowser Junior en Super Mario Galaxy."
+   ],
+   [
+    61.07,
+    64.72,
+    "Para ganarle tenías que trepar por su cuerpo como si fuera una montaña."
+   ],
+   [
+    64.75,
+    65.84,
+    "Quiero que notes esto:"
+   ],
+   [
+    65.88,
+    69.76,
+    "esa idea de escalar al jefe era para Ganon, en Ocarina of Time."
+   ],
+   [
+    69.79,
+    73.12,
+    "La descartaron porque, parado encima de Ganon, no lo veías."
+   ],
+   [
+    73.16,
+    74.72,
+    "Y la terminaron usando acá."
+   ],
+   [
+    74.8,
+    79.04,
+    "En dos mil diez una revista anunció que Megaleg volvía en Galaxy dos."
+   ],
+   [
+    79.08,
+    79.76,
+    "Era mentira:"
+   ],
+   [
+    79.79,
+    82.64,
+    "el que volvió fue otro robot, Diga Leg."
+   ],
+   [
+    82.69,
+    84.24,
+    "Peleas nuevas desde entonces:"
+   ],
+   [
+    84.36,
+    84.88,
+    "cero."
+   ],
+   [
+    84.93,
+    86.16,
+    "Solo el port de Switch…"
+   ],
+   [
+    86.2,
+    87.36,
+    "y un cameo en la película."
+   ]
+  ]
+ },
+ {
+  "tipo": "R",
+  "t0": 94.26000000000002,
+  "dur": 2.5,
+  "src": "smg_kingfin",
+  "ss": 16
+ },
+ {
+  "tipo": "V",
+  "i": 4,
+  "t0": 96.76000000000002,
+  "dur": 18.14,
+  "take": "p1",
+  "a": 87.78,
+  "b": 105.57000000000001,
+  "sent": [
+   [
+    87.83,
+    88.25,
+    "Kingfin."
+   ],
+   [
+    88.33,
+    93.61,
+    "Un tiburón esqueleto gigante que te persigue bajo el agua mientras te lanza peces torpedo."
+   ],
+   [
+    93.64,
+    96.81,
+    "En los archivos del juego su nombre es todavía más directo:"
+   ],
+   [
+    96.88,
+    98.81,
+    "Skull Shark, tiburón calavera."
+   ],
+   [
+    98.87,
+    101.45,
+    "Era de los jefes más intimidantes de Galaxy…"
+   ],
+   [
+    101.49,
+    103.37,
+    "y nunca más lo volviste a pelear."
+   ],
+   [
+    103.42,
+    105.05,
+    "Peleas nuevas desde entonces:"
+   ],
+   [
+    105.09,
+    105.45,
+    "cero."
+   ]
+  ]
+ },
+ {
+  "tipo": "R",
+  "t0": 114.90000000000003,
+  "dur": 3.0,
+  "src": "sm64_eyerok",
+  "ss": 80
+ },
+ {
+  "tipo": "V",
+  "i": 5,
+  "t0": 117.90000000000003,
+  "dur": 28.93,
+  "take": "p1",
+  "a": 105.79,
+  "b": 134.37,
+  "sent": [
+   [
+    105.84,
+    111.85,
+    "Eyerok, las dos manos de piedra con un ojo en la palma, adentro de la pirámide de Super Mario sesenta y cuatro."
+   ],
+   [
+    111.88,
+    114.09,
+    "En España le pusieron \"Tutanmanón\":"
+   ],
+   [
+    114.17,
+    115.81,
+    "Tutankamón, más mano."
+   ],
+   [
+    115.85,
+    117.77,
+    "Un detalle que casi nadie notó:"
+   ],
+   [
+    117.8,
+    121.29,
+    "en el sesenta y cuatro original habla con la voz del Rey Whomp."
+   ],
+   [
+    121.37,
+    124.49,
+    "Recién en el remake de la de ese le dieron voz propia."
+   ],
+   [
+    124.49,
+    126.17,
+    "¿Y la única vez que volvió a pelear?"
+   ],
+   [
+    126.21,
+    128.01,
+    "Una misión de Mario Kart de ese…"
+   ],
+   [
+    128.03,
+    128.97,
+    "en dos mil cinco."
+   ],
+   [
+    129.0,
+    130.97,
+    "Le tirabas caparazones desde un auto."
+   ],
+   [
+    131.02,
+    132.65,
+    "Peleas nuevas desde entonces:"
+   ],
+   [
+    132.73,
+    133.09,
+    "una."
+   ],
+   [
+    133.15,
+    134.25,
+    "Y en un kart."
+   ]
+  ]
+ },
+ {
+  "tipo": "R",
+  "t0": 146.83000000000004,
+  "dur": 2.5,
+  "src": "yi_hookbill",
+  "ss": 36
+ },
+ {
+  "tipo": "V",
+  "i": 6,
+  "t0": 149.33000000000004,
+  "dur": 27.02,
+  "take": "p1",
+  "a": 134.42999999999998,
+  "b": 161.1,
+  "sent": [
+   [
+    134.48,
+    138.02,
+    "Hookbill, el jefe del castillo del mundo cuatro en Yoshi's Island."
+   ],
+   [
+    138.06,
+    139.94,
+    "Parece un dinosaurio con caparazón…"
+   ],
+   [
+    139.97,
+    141.94,
+    "pero su nombre japonés lo delata:"
+   ],
+   [
+    141.99,
+    144.02,
+    "significa \"Koopa Troopa grande\"."
+   ],
+   [
+    144.07,
+    145.14,
+    "Es un Koopa común."
+   ],
+   [
+    145.18,
+    147.78,
+    "Kamek lo agrandó con magia y listo, jefe."
+   ],
+   [
+    147.9,
+    150.9,
+    "Salió en Tetris Attack, en el remake de Game Boy Advance…"
+   ],
+   [
+    150.98,
+    156.9,
+    "y su última aparición fue un cameo de un segundo en la intro de Yoshi's Island de ese, en dos mil seis."
+   ],
+   [
+    156.95,
+    158.66,
+    "Peleas nuevas desde entonces:"
+   ],
+   [
+    158.72,
+    159.06,
+    "una."
+   ],
+   [
+    159.1,
+    160.98,
+    "Y fue en un juego de bloques."
+   ]
+  ]
+ },
+ {
+  "tipo": "R",
+  "t0": 176.35000000000005,
+  "dur": 3.0,
+  "src": "smrpg_smithy",
+  "ss": 232
+ },
+ {
+  "tipo": "V",
+  "i": 7,
+  "t0": 179.35000000000005,
+  "dur": 31.67,
+  "take": "p2",
+  "a": 0,
+  "b": 31.32,
+  "sent": [
+   [
+    0,
+    5.68,
+    "Smithy, el villano final de Super Mario RPG, el juego que Nintendo hizo junto a Square."
+   ],
+   [
+    5.73,
+    9.36,
+    "Un rey herrero con barba blanca que quería llenar el mundo de armas."
+   ],
+   [
+    9.39,
+    11.6,
+    "Su nombre en japonés es literalmente eso:"
+   ],
+   [
+    11.72,
+    12.88,
+    "\"Rey herrero\"."
+   ],
+   [
+    12.91,
+    15.2,
+    "Le cambiaba la cabeza a martillazos:"
+   ],
+   [
+    15.26,
+    17.64,
+    "tanque, magia, cofre del tesoro."
+   ],
+   [
+    17.7,
+    20.08,
+    "Y después de mil novecientos noventa y seis…"
+   ],
+   [
+    20.12,
+    21.04,
+    "desapareció."
+   ],
+   [
+    21.07,
+    22.8,
+    "Ni un cameo, ni un trofeo."
+   ],
+   [
+    22.88,
+    26.76,
+    "Veintisiete años, hasta que en dos mil veintitrés salió el remake."
+   ],
+   [
+    26.8,
+    28.56,
+    "Peleas nuevas desde entonces:"
+   ],
+   [
+    28.6,
+    28.96,
+    "cero."
+   ],
+   [
+    29.02,
+    31.2,
+    "Solo la misma pelea, otra vez."
+   ]
+  ]
+ },
+ {
+  "tipo": "R",
+  "t0": 211.02000000000004,
+  "dur": 2.5,
+  "src": "smb2_clawgrip",
+  "ss": 50
+ },
+ {
+  "tipo": "V",
+  "i": 8,
+  "t0": 213.52000000000004,
+  "dur": 31.77,
+  "take": "p2",
+  "a": 33.34,
+  "b": 64.76,
+  "sent": [
+   [
+    33.39,
+    36.48,
+    "Clawgrip, el cangrejo gigante de Super Mario Bros dos."
+   ],
+   [
+    36.51,
+    39.04,
+    "Le devolvías sus propias rocas hasta que caía."
+   ],
+   [
+    39.08,
+    42.48,
+    "¿Te acuerdas de que Super Mario Bros dos era Doki Doki Panic?"
+   ],
+   [
+    42.51,
+    42.88,
+    "Bueno:"
+   ],
+   [
+    42.93,
+    45.6,
+    "en Doki Doki Panic, Clawgrip no existía."
+   ],
+   [
+    45.68,
+    49.44,
+    "En su lugar peleabas por tercera vez contra Mouser, el ratón."
+   ],
+   [
+    49.49,
+    52.32,
+    "El cangrejo lo agregaron solo para la versión de Mario."
+   ],
+   [
+    52.36,
+    53.92,
+    "Y nunca salió en otro juego:"
+   ],
+   [
+    53.95,
+    55.28,
+    "solo en versiones del mismo."
+   ],
+   [
+    55.31,
+    58.08,
+    "En la película de dos mil veintiséis aparece de fondo…"
+   ],
+   [
+    58.12,
+    62.52,
+    "y es el único de su grupo de villanos que no tiene ni una carta coleccionable."
+   ],
+   [
+    62.56,
+    64.24,
+    "Peleas nuevas desde entonces:"
+   ],
+   [
+    64.28,
+    64.64,
+    "cero."
+   ]
+  ]
+ },
+ {
+  "tipo": "R",
+  "t0": 245.29000000000005,
+  "dur": 3.0,
+  "src": "sml_longplay",
+  "ss": 1782
+ },
+ {
+  "tipo": "V",
+  "i": 9,
+  "t0": 248.29000000000005,
+  "dur": 39.76,
+  "take": "p2",
+  "a": 66.55,
+  "b": 105.96000000000001,
+  "sent": [
+   [
+    66.6,
+    70.24,
+    "Y ahora sí, entramos al juego que Nintendo olvidó por completo:"
+   ],
+   [
+    70.29,
+    73.8,
+    "Super Mario Land, de Game Boy, mil novecientos ochenta y nueve."
+   ],
+   [
+    73.85,
+    77.2,
+    "Tatanga, un alienígena que secuestra a una princesa."
+   ],
+   [
+    77.23,
+    78.16,
+    "Pero no a Peach…"
+   ],
+   [
+    78.2,
+    78.96,
+    "a Daisy."
+   ],
+   [
+    79.01,
+    81.12,
+    "Este juego fue el debut de Daisy."
+   ],
+   [
+    81.17,
+    82.32,
+    "Piénsalo un segundo:"
+   ],
+   [
+    82.39,
+    84.24,
+    "Daisy se volvió una estrella."
+   ],
+   [
+    84.28,
+    87.04,
+    "Está en Mario Kart, en Mario Party, en Smash."
+   ],
+   [
+    87.08,
+    88.04,
+    "¿Y el que la secuestró?"
+   ],
+   [
+    88.08,
+    92.72,
+    "Peleó una vez más en Super Mario Land dos, en mil novecientos noventa y dos…"
+   ],
+   [
+    92.86,
+    93.92,
+    "y después, nada."
+   ],
+   [
+    94,
+    95.6,
+    "Solo un espíritu de Smash."
+   ],
+   [
+    95.64,
+    96.32,
+    "Por cierto:"
+   ],
+   [
+    96.35,
+    100.48,
+    "el pez esqueleto de ese juego es lo que quedó de un pez que Tatanga se comió."
+   ],
+   [
+    100.53,
+    101.36,
+    "Lo dice el manual."
+   ],
+   [
+    101.44,
+    103.2,
+    "Peleas nuevas desde entonces:"
+   ],
+   [
+    103.28,
+    103.64,
+    "una."
+   ],
+   [
+    103.7,
+    105.84,
+    "Y fue hace más de treinta años."
+   ]
+  ]
+ },
+ {
+  "tipo": "R",
+  "t0": 288.05000000000007,
+  "dur": 2.5,
+  "src": "sml_longplay",
+  "ss": 355
+ },
+ {
+  "tipo": "V",
+  "i": 10,
+  "t0": 290.55000000000007,
+  "dur": 33.88,
+  "take": "p2",
+  "a": 107.71000000000001,
+  "b": 141.24,
+  "sent": [
+   [
+    107.76,
+    112.24,
+    "El puesto dos se lo llevan tres jefes juntos, porque comparten el mismo destino."
+   ],
+   [
+    112.32,
+    117.76,
+    "El Rey Totomesu, una esfinge que escupe fuego; su nombre sale de Tutmosis, el faraón."
+   ],
+   [
+    117.79,
+    120.88,
+    "Dragonzamasu, un dragón de mar que se pelea en submarino."
+   ],
+   [
+    120.92,
+    124.24,
+    "Y Hiyoihoi, un moái con patas que te tira rocas."
+   ],
+   [
+    124.32,
+    126.48,
+    "Los tres salieron en Super Mario Land…"
+   ],
+   [
+    126.56,
+    128.4,
+    "y en ningún otro juego."
+   ],
+   [
+    128.48,
+    129.2,
+    "Nunca."
+   ],
+   [
+    129.25,
+    130.72,
+    "Solo en mangas japoneses."
+   ],
+   [
+    130.76,
+    132.32,
+    "Totomesu casi la zafa:"
+   ],
+   [
+    132.35,
+    137.2,
+    "en el libro de arte de Super Mario Odyssey hay un dibujo de él, seguramente para el Reino Arenoso."
+   ],
+   [
+    137.22,
+    138.96,
+    "Pero en el juego final no está."
+   ],
+   [
+    139.01,
+    140.68,
+    "Peleas nuevas desde entonces:"
+   ],
+   [
+    140.78,
+    141.12,
+    "cero."
+   ]
+  ]
+ },
+ {
+  "tipo": "R",
+  "t0": 324.43000000000006,
+  "dur": 3.0,
+  "src": "sml_longplay",
+  "ss": 1726
+ },
+ {
+  "tipo": "V",
+  "i": 11,
+  "t0": 327.43000000000006,
+  "dur": 36.22,
+  "take": "p2",
+  "a": 142.97,
+  "b": 177.24,
+  "sent": [
+   [
+    143.02,
+    145.36,
+    "Y llegamos al más olvidado de todos."
+   ],
+   [
+    145.39,
+    146.88,
+    "El que te prometí al principio."
+   ],
+   [
+    146.93,
+    147.84,
+    "Biokinton."
+   ],
+   [
+    147.87,
+    151.6,
+    "El jefe del último reino de Super Mario Land, justo antes de Tatanga."
+   ],
+   [
+    151.64,
+    152.96,
+    "¿Cómo es Biokinton?"
+   ],
+   [
+    153,
+    153.84,
+    "Nadie lo sabe."
+   ],
+   [
+    153.87,
+    156.88,
+    "Se esconde adentro de una nube y desde ahí te tira…"
+   ],
+   [
+    156.92,
+    157.52,
+    "pollos."
+   ],
+   [
+    157.57,
+    162.48,
+    "Veinte misiles después, la nube desaparece y te quedas sin saber qué había adentro."
+   ],
+   [
+    162.51,
+    166.4,
+    "La guía oficial de Game Boy de mil novecientos noventa y uno tiene una teoría:"
+   ],
+   [
+    166.42,
+    168.72,
+    "que la nube esconde una máquina de pollos."
+   ],
+   [
+    168.76,
+    171.28,
+    "Treinta y siete años después, sigue igual."
+   ],
+   [
+    171.32,
+    174.16,
+    "Cero juegos, cero cameos, cero trofeos…"
+   ],
+   [
+    174.2,
+    177.12,
+    "y ni siquiera una cara para recordarlo."
+   ]
+  ]
+ },
+ {
+  "tipo": "V",
+  "i": 12,
+  "t0": 363.6500000000001,
+  "dur": 8.3,
+  "take": "p2",
+  "a": 178.32999999999998,
+  "b": 186.28,
+  "sent": [
+   [
+    178.38,
+    180,
+    "Diez jefes que Mario venció…"
+   ],
+   [
+    180.04,
+    182.4,
+    "y que Nintendo nunca volvió a llamar."
+   ],
+   [
+    182.44,
+    183.44,
+    "Y ahora te pregunto a ti:"
+   ],
+   [
+    183.52,
+    184.76,
+    "¿de cuál te acordabas?"
+   ],
+   [
+    184.8,
+    186.16,
+    "Te leo en los comentarios."
+   ]
+  ]
+ }
+]
