@@ -78,6 +78,16 @@ public partial class LavaFall : Node2D
 		set { _hasBottom = value; Rebuild(); }
 	}
 
+	private bool _falsa;
+
+	// Fake fall: same look, no damage — walk through it (hides passages in Las Lavas).
+	[Export]
+	public bool Falsa
+	{
+		get => _falsa;
+		set { _falsa = value; Rebuild(); }
+	}
+
 	private bool _instantKill = true;
 
 	[Export]
@@ -194,6 +204,14 @@ public partial class LavaFall : Node2D
 					LavaTileSheet.AddTile(this, $"BottomSurface{cx + 1}_{tx + 1}", bottomSurfaceFrames, fallX + tx * contentStride, y - LavaTileSheet.BottomSurfaceTopInset, phase++);
 				y += tileSize;
 			}
+		}
+
+		// Cortina falsa (Las Lavas): looks exactly like the others but you walk through it — a
+		// hidden passage behind a lava curtain. No hazard at all.
+		if (Falsa)
+		{
+			ElementGlow.AddTo(this, new Vector2(_width * fallPitch / 2f, stackHeight / 2f), _element);
+			return;
 		}
 
 		Hazard hazard = Hazard.CreateArea(this, _instantKill, _damage, _knockbackForce);

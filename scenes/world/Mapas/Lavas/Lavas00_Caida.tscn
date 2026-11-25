@@ -1,0 +1,653 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/BloqueoPorBandera.tscn" id="bloqueo"]
+[ext_resource type="Script" path="res://scripts/save/LevelBootstrap.cs" id="bootstrap"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="camera"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/world/LevelTransition.tscn" id="transition"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/CorrienteAire.tscn" id="viento"]
+
+[sub_resource type="RectangleShape2D" id="R_120x30"]
+size = Vector2(120, 30)
+
+[sub_resource type="RectangleShape2D" id="R_20x2740"]
+size = Vector2(20, 2740)
+
+[sub_resource type="RectangleShape2D" id="R_40x140"]
+size = Vector2(40, 140)
+
+[sub_resource type="RectangleShape2D" id="R_40x180"]
+size = Vector2(40, 180)
+
+[sub_resource type="RectangleShape2D" id="R_40x220"]
+size = Vector2(40, 220)
+
+[sub_resource type="RectangleShape2D" id="R_40x400"]
+size = Vector2(40, 400)
+
+[sub_resource type="RectangleShape2D" id="R_220x40"]
+size = Vector2(220, 40)
+
+[sub_resource type="RectangleShape2D" id="R_500x40"]
+size = Vector2(500, 40)
+
+[sub_resource type="RectangleShape2D" id="R_660x140"]
+size = Vector2(660, 140)
+
+[sub_resource type="RectangleShape2D" id="R_740x40"]
+size = Vector2(740, 40)
+
+[node name="Lavas00_Caida" type="Node2D"]
+script = ExtResource("bootstrap")
+ScenePath = "res://scenes/world/Mapas/Lavas/Lavas00_Caida.tscn"
+ZoneName = "LAS LAVAS"
+CameraProfile = ExtResource("camera")
+CameraLimitLeft = 0
+CameraLimitRight = 660
+CameraLimitTop = -3200
+CameraLimitBottom = 140
+
+[node name="Fondo" type="ColorRect" parent="."]
+z_index = -50
+offset_left = -400
+offset_top = -3600
+offset_right = 1060
+offset_bottom = 540
+color = Color(0.1, 0.04, 0.035, 1)
+
+[node name="Calor" type="CanvasModulate" parent="."]
+color = Color(1, 0.86, 0.8, 1)
+
+[node name="Colisiones" type="StaticBody2D" parent="."]
+
+[node name="PlataformasOneWay" type="StaticBody2D" parent="."]
+collision_layer = 49
+
+[node name="Visible" type="Node2D" parent="."]
+z_index = -1
+
+[node name="Carteles" type="Node2D" parent="."]
+
+[node name="ParedO1" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(-20, -3000)
+shape = SubResource("R_40x400")
+
+[node name="ParedO2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(-20, -2600)
+shape = SubResource("R_40x400")
+
+[node name="ParedO3" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(-20, -2200)
+shape = SubResource("R_40x400")
+
+[node name="ParedO4" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(-20, -1800)
+shape = SubResource("R_40x400")
+
+[node name="ParedO5" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(-20, -1400)
+shape = SubResource("R_40x400")
+
+[node name="ParedO6" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(-20, -1000)
+shape = SubResource("R_40x400")
+
+[node name="ParedO7" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(-20, -600)
+shape = SubResource("R_40x400")
+
+[node name="ParedO8" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(-20, -200)
+shape = SubResource("R_40x400")
+
+[node name="ParedO9" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(-20, 70)
+shape = SubResource("R_40x140")
+
+[node name="ParedE1" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(680, -2910)
+shape = SubResource("R_40x220")
+
+[node name="ParedE2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(680, -2600)
+shape = SubResource("R_40x400")
+
+[node name="ParedE3" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(680, -2200)
+shape = SubResource("R_40x400")
+
+[node name="ParedE4" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(680, -1800)
+shape = SubResource("R_40x400")
+
+[node name="ParedE5" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(680, -1400)
+shape = SubResource("R_40x400")
+
+[node name="ParedE6" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(680, -1000)
+shape = SubResource("R_40x400")
+
+[node name="ParedE7" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(680, -600)
+shape = SubResource("R_40x400")
+
+[node name="ParedE8" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(680, -310)
+shape = SubResource("R_40x180")
+
+[node name="ParedE9" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(680, 70)
+shape = SubResource("R_40x140")
+
+[node name="Techo" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(330, -3220)
+shape = SubResource("R_740x40")
+
+[node name="RepisaEntrada" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(550, -3000)
+shape = SubResource("R_220x40")
+
+[node name="Descanso1" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(220, -2665)
+shape = SubResource("R_120x30")
+
+[node name="Descanso2" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(600, -2325)
+shape = SubResource("R_120x30")
+
+[node name="Descanso3" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(220, -1985)
+shape = SubResource("R_120x30")
+
+[node name="Descanso4" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(600, -1645)
+shape = SubResource("R_120x30")
+
+[node name="Descanso5" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(220, -1305)
+shape = SubResource("R_120x30")
+
+[node name="Descanso6" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(600, -965)
+shape = SubResource("R_120x30")
+
+[node name="Descanso7" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(220, -625)
+shape = SubResource("R_120x30")
+
+[node name="Descanso8" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(600, -285)
+shape = SubResource("R_120x30")
+
+[node name="Separador" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(150, -1590)
+shape = SubResource("R_20x2740")
+
+[node name="Fondo" type="CollisionShape2D" parent="Colisiones"]
+position = Vector2(330, 70)
+shape = SubResource("R_660x140")
+
+[node name="CorrienteVuelta" parent="." instance=ExtResource("viento")]
+position = Vector2(70, 0)
+Width = 100.0
+Height = 3060.0
+
+[node name="Escombros" parent="." instance=ExtResource("bloqueo")]
+position = Vector2(0, -210)
+Width = 140.0
+Height = 210.0
+Bandera = "lavas_vuelta_caida"
+
+[node name="SalidaCueva" parent="." instance=ExtResource("transition")]
+position = Vector2(70, -3020)
+TargetScenePath = "res://scenes/world/Mapas/SpiderBossArena.tscn"
+TargetSpawnPosition = Vector2(0, 0)
+Width = 100
+Height = 60
+
+[node name="HaciaLavas01" parent="." instance=ExtResource("transition")]
+position = Vector2(645, 0)
+TargetScenePath = "res://scenes/world/Mapas/Lavas/Lavas_Forja.tscn"
+TargetSpawnPosition = Vector2(160, -100)
+Width = 30
+Height = 200
+
+[node name="Cartel1" type="Label" parent="Carteles"]
+offset_left = 220
+offset_top = -3160
+offset_right = 620
+offset_bottom = -3136
+text = "Las Lavas — la caída"
+horizontal_alignment = 1
+
+[node name="Cartel2" type="Label" parent="Carteles"]
+offset_left = -130
+offset_top = -330
+offset_right = 270
+offset_bottom = -306
+text = "(se abre desde la Forja)"
+horizontal_alignment = 1
+
+[node name="ParedO1" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -3200
+offset_right = 0
+offset_bottom = -2800
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedO1Borde" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -3200
+offset_right = 0
+offset_bottom = -3196
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedO2" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -2800
+offset_right = 0
+offset_bottom = -2400
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedO2Borde" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -2800
+offset_right = 0
+offset_bottom = -2796
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedO3" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -2400
+offset_right = 0
+offset_bottom = -2000
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedO3Borde" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -2400
+offset_right = 0
+offset_bottom = -2396
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedO4" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -2000
+offset_right = 0
+offset_bottom = -1600
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedO4Borde" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -2000
+offset_right = 0
+offset_bottom = -1996
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedO5" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -1600
+offset_right = 0
+offset_bottom = -1200
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedO5Borde" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -1600
+offset_right = 0
+offset_bottom = -1596
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedO6" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -1200
+offset_right = 0
+offset_bottom = -800
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedO6Borde" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -1200
+offset_right = 0
+offset_bottom = -1196
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedO7" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -800
+offset_right = 0
+offset_bottom = -400
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedO7Borde" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -800
+offset_right = 0
+offset_bottom = -796
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedO8" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -400
+offset_right = 0
+offset_bottom = 0
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedO8Borde" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -400
+offset_right = 0
+offset_bottom = -396
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedO9" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = 0
+offset_right = 0
+offset_bottom = 140
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedO9Borde" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = 0
+offset_right = 0
+offset_bottom = 4
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedE1" type="ColorRect" parent="Visible"]
+offset_left = 660
+offset_top = -3020
+offset_right = 700
+offset_bottom = -2800
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedE1Borde" type="ColorRect" parent="Visible"]
+offset_left = 660
+offset_top = -3020
+offset_right = 700
+offset_bottom = -3016
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedE2" type="ColorRect" parent="Visible"]
+offset_left = 660
+offset_top = -2800
+offset_right = 700
+offset_bottom = -2400
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedE2Borde" type="ColorRect" parent="Visible"]
+offset_left = 660
+offset_top = -2800
+offset_right = 700
+offset_bottom = -2796
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedE3" type="ColorRect" parent="Visible"]
+offset_left = 660
+offset_top = -2400
+offset_right = 700
+offset_bottom = -2000
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedE3Borde" type="ColorRect" parent="Visible"]
+offset_left = 660
+offset_top = -2400
+offset_right = 700
+offset_bottom = -2396
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedE4" type="ColorRect" parent="Visible"]
+offset_left = 660
+offset_top = -2000
+offset_right = 700
+offset_bottom = -1600
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedE4Borde" type="ColorRect" parent="Visible"]
+offset_left = 660
+offset_top = -2000
+offset_right = 700
+offset_bottom = -1996
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedE5" type="ColorRect" parent="Visible"]
+offset_left = 660
+offset_top = -1600
+offset_right = 700
+offset_bottom = -1200
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedE5Borde" type="ColorRect" parent="Visible"]
+offset_left = 660
+offset_top = -1600
+offset_right = 700
+offset_bottom = -1596
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedE6" type="ColorRect" parent="Visible"]
+offset_left = 660
+offset_top = -1200
+offset_right = 700
+offset_bottom = -800
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedE6Borde" type="ColorRect" parent="Visible"]
+offset_left = 660
+offset_top = -1200
+offset_right = 700
+offset_bottom = -1196
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedE7" type="ColorRect" parent="Visible"]
+offset_left = 660
+offset_top = -800
+offset_right = 700
+offset_bottom = -400
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedE7Borde" type="ColorRect" parent="Visible"]
+offset_left = 660
+offset_top = -800
+offset_right = 700
+offset_bottom = -796
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedE8" type="ColorRect" parent="Visible"]
+offset_left = 660
+offset_top = -400
+offset_right = 700
+offset_bottom = -220
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedE8Borde" type="ColorRect" parent="Visible"]
+offset_left = 660
+offset_top = -400
+offset_right = 700
+offset_bottom = -396
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedE9" type="ColorRect" parent="Visible"]
+offset_left = 660
+offset_top = 0
+offset_right = 700
+offset_bottom = 140
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedE9Borde" type="ColorRect" parent="Visible"]
+offset_left = 660
+offset_top = 0
+offset_right = 700
+offset_bottom = 4
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="Techo" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -3240
+offset_right = 700
+offset_bottom = -3200
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="TechoBorde" type="ColorRect" parent="Visible"]
+offset_left = -40
+offset_top = -3240
+offset_right = 700
+offset_bottom = -3236
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="RepisaEntrada" type="ColorRect" parent="Visible"]
+offset_left = 440
+offset_top = -3020
+offset_right = 660
+offset_bottom = -2980
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="RepisaEntradaBorde" type="ColorRect" parent="Visible"]
+offset_left = 440
+offset_top = -3020
+offset_right = 660
+offset_bottom = -3016
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="Descanso1" type="ColorRect" parent="Visible"]
+offset_left = 160
+offset_top = -2680
+offset_right = 280
+offset_bottom = -2650
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="Descanso1Borde" type="ColorRect" parent="Visible"]
+offset_left = 160
+offset_top = -2680
+offset_right = 280
+offset_bottom = -2676
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="Descanso2" type="ColorRect" parent="Visible"]
+offset_left = 540
+offset_top = -2340
+offset_right = 660
+offset_bottom = -2310
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="Descanso2Borde" type="ColorRect" parent="Visible"]
+offset_left = 540
+offset_top = -2340
+offset_right = 660
+offset_bottom = -2336
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="Descanso3" type="ColorRect" parent="Visible"]
+offset_left = 160
+offset_top = -2000
+offset_right = 280
+offset_bottom = -1970
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="Descanso3Borde" type="ColorRect" parent="Visible"]
+offset_left = 160
+offset_top = -2000
+offset_right = 280
+offset_bottom = -1996
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="Descanso4" type="ColorRect" parent="Visible"]
+offset_left = 540
+offset_top = -1660
+offset_right = 660
+offset_bottom = -1630
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="Descanso4Borde" type="ColorRect" parent="Visible"]
+offset_left = 540
+offset_top = -1660
+offset_right = 660
+offset_bottom = -1656
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="Descanso5" type="ColorRect" parent="Visible"]
+offset_left = 160
+offset_top = -1320
+offset_right = 280
+offset_bottom = -1290
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="Descanso5Borde" type="ColorRect" parent="Visible"]
+offset_left = 160
+offset_top = -1320
+offset_right = 280
+offset_bottom = -1316
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="Descanso6" type="ColorRect" parent="Visible"]
+offset_left = 540
+offset_top = -980
+offset_right = 660
+offset_bottom = -950
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="Descanso6Borde" type="ColorRect" parent="Visible"]
+offset_left = 540
+offset_top = -980
+offset_right = 660
+offset_bottom = -976
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="Descanso7" type="ColorRect" parent="Visible"]
+offset_left = 160
+offset_top = -640
+offset_right = 280
+offset_bottom = -610
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="Descanso7Borde" type="ColorRect" parent="Visible"]
+offset_left = 160
+offset_top = -640
+offset_right = 280
+offset_bottom = -636
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="Descanso8" type="ColorRect" parent="Visible"]
+offset_left = 540
+offset_top = -300
+offset_right = 660
+offset_bottom = -270
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="Descanso8Borde" type="ColorRect" parent="Visible"]
+offset_left = 540
+offset_top = -300
+offset_right = 660
+offset_bottom = -296
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="Separador" type="ColorRect" parent="Visible"]
+offset_left = 140
+offset_top = -2960
+offset_right = 160
+offset_bottom = -220
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="SeparadorBorde" type="ColorRect" parent="Visible"]
+offset_left = 140
+offset_top = -2960
+offset_right = 160
+offset_bottom = -2956
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="Fondo" type="ColorRect" parent="Visible"]
+offset_left = 0
+offset_top = 0
+offset_right = 660
+offset_bottom = 140
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="FondoBorde" type="ColorRect" parent="Visible"]
+offset_left = 0
+offset_top = 0
+offset_right = 660
+offset_bottom = 4
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="Player" parent="." instance=ExtResource("player")]
+position = Vector2(580, -3060)

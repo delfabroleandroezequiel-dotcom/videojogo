@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Item" format=3]
+
+[ext_resource type="Script" path="res://scripts/items/Item.cs" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/iconos/llave_campamento.png" id="icono"]
+
+[resource]
+script = ExtResource("1_script")
+Id = "item_crisol_ambar"
+ItemName = "ITEM_CRISOL_AMBAR_NAME"
+Description = "ITEM_CRISOL_AMBAR_DESC"
+Type = 5
+Stackable = true
+Icon = ExtResource("icono")

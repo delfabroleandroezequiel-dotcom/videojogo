@@ -1,0 +1,350 @@
+[gd_scene format=3 uid="uid://c2mjdmfhgslqs"]
+
+[ext_resource type="Script" uid="uid://cf0cw8l5t4n47" path="res://scripts/save/LevelBootstrap.cs" id="bootstrap"]
+[ext_resource type="Resource" path="res://resources/camera/OpenZoneCamera.tres" id="camera"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/GeiserVapor.tscn" id="geiser"]
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PozaLava.tscn" id="lava"]
+[ext_resource type="PackedScene" uid="uid://b3xqj8m0p7v2k" path="res://scenes/player/Player.tscn" id="player"]
+[ext_resource type="PackedScene" uid="uid://dwgsommb60mbk" path="res://scenes/world/LevelTransition.tscn" id="transition"]
+
+[sub_resource type="RectangleShape2D" id="R_40x400"]
+size = Vector2(40, 400)
+
+[sub_resource type="RectangleShape2D" id="R_40x40"]
+size = Vector2(40, 40)
+
+[sub_resource type="RectangleShape2D" id="R_40x160"]
+size = Vector2(40, 160)
+
+[sub_resource type="RectangleShape2D" id="R_40x200"]
+size = Vector2(40, 200)
+
+[sub_resource type="RectangleShape2D" id="R_40x140"]
+size = Vector2(40, 140)
+
+[sub_resource type="RectangleShape2D" id="R_1580x40"]
+size = Vector2(1580, 40)
+
+[sub_resource type="RectangleShape2D" id="R_300x660"]
+size = Vector2(300, 660)
+
+[sub_resource type="RectangleShape2D" id="R_140x600"]
+size = Vector2(140, 600)
+
+[sub_resource type="RectangleShape2D" id="R_300x40"]
+size = Vector2(300, 40)
+
+[sub_resource type="RectangleShape2D" id="R_380x40"]
+size = Vector2(380, 40)
+
+[node name="Lavas04_Geiser" type="Node2D" unique_id=1445327897]
+script = ExtResource("bootstrap")
+ScenePath = "res://scenes/world/Mapas/Lavas/Lavas04_Geiser.tscn"
+ZoneName = "LAS LAVAS"
+CameraProfile = ExtResource("camera")
+CameraLimitLeft = 0
+CameraLimitRight = 1500
+CameraLimitTop = -1100
+CameraLimitBottom = 300
+
+[node name="Fondo" type="ColorRect" parent="." unique_id=1897475704]
+z_index = -50
+offset_left = -400.0
+offset_top = -1500.0
+offset_right = 1900.0
+offset_bottom = 700.0
+color = Color(0.1, 0.04, 0.035, 1)
+
+[node name="Calor" type="CanvasModulate" parent="." unique_id=106183106]
+color = Color(1, 0.86, 0.8, 1)
+
+[node name="Colisiones" type="StaticBody2D" parent="." unique_id=1349330902]
+
+[node name="ParedO1" type="CollisionShape2D" parent="Colisiones" unique_id=966398333]
+position = Vector2(-20, -900)
+shape = SubResource("R_40x400")
+
+[node name="ParedO2" type="CollisionShape2D" parent="Colisiones" unique_id=983945226]
+position = Vector2(-20, -500)
+shape = SubResource("R_40x400")
+
+[node name="ParedO3" type="CollisionShape2D" parent="Colisiones" unique_id=452407344]
+position = Vector2(-20, -280)
+shape = SubResource("R_40x40")
+
+[node name="ParedO4" type="CollisionShape2D" parent="Colisiones" unique_id=1047654324]
+position = Vector2(-20, 20)
+shape = SubResource("R_40x160")
+
+[node name="ParedO5" type="CollisionShape2D" parent="Colisiones" unique_id=249302178]
+position = Vector2(-20, 200)
+shape = SubResource("R_40x200")
+
+[node name="ParedE1" type="CollisionShape2D" parent="Colisiones" unique_id=648168753]
+position = Vector2(1520, -1030)
+shape = SubResource("R_40x140")
+
+[node name="ParedE2" type="CollisionShape2D" parent="Colisiones" unique_id=609065559]
+position = Vector2(1520, -500)
+shape = SubResource("R_40x400")
+
+[node name="ParedE3" type="CollisionShape2D" parent="Colisiones" unique_id=1813499292]
+position = Vector2(1520, -100)
+shape = SubResource("R_40x400")
+
+[node name="ParedE4" type="CollisionShape2D" parent="Colisiones" unique_id=1721731315]
+position = Vector2(1520, 200)
+shape = SubResource("R_40x200")
+
+[node name="Techo" type="CollisionShape2D" parent="Colisiones" unique_id=169278053]
+position = Vector2(750, -1120)
+shape = SubResource("R_1580x40")
+
+[node name="Orilla" type="CollisionShape2D" parent="Colisiones" unique_id=1641165440]
+position = Vector2(150, 270)
+shape = SubResource("R_300x660")
+
+[node name="Hoyo" type="CollisionShape2D" parent="Colisiones" unique_id=1596701803]
+position = Vector2(370, 300)
+shape = SubResource("R_140x600")
+
+[node name="RepisaMedia" type="CollisionShape2D" parent="Colisiones" unique_id=2096035586]
+position = Vector2(670, -380)
+shape = SubResource("R_300x40")
+
+[node name="RepisaAlta" type="CollisionShape2D" parent="Colisiones" unique_id=1117767113]
+position = Vector2(1310, -680)
+shape = SubResource("R_380x40")
+
+[node name="PlataformasOneWay" type="StaticBody2D" parent="." unique_id=1231598183]
+collision_layer = 49
+
+[node name="Visible" type="Node2D" parent="." unique_id=1448712139]
+z_index = -1
+
+[node name="ParedO1" type="ColorRect" parent="Visible" unique_id=1552345710]
+offset_left = -40.0
+offset_top = -1100.0
+offset_bottom = -700.0
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedO1Borde" type="ColorRect" parent="Visible" unique_id=1497325136]
+offset_left = -40.0
+offset_top = -1100.0
+offset_bottom = -1096.0
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedO2" type="ColorRect" parent="Visible" unique_id=1828867990]
+offset_left = -40.0
+offset_top = -700.0
+offset_bottom = -300.0
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedO2Borde" type="ColorRect" parent="Visible" unique_id=1975331479]
+offset_left = -40.0
+offset_top = -700.0
+offset_bottom = -696.0
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedO3" type="ColorRect" parent="Visible" unique_id=17334825]
+offset_left = -40.0
+offset_top = -300.0
+offset_bottom = -260.0
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedO3Borde" type="ColorRect" parent="Visible" unique_id=2133399784]
+offset_left = -40.0
+offset_top = -300.0
+offset_bottom = -296.0
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedO4" type="ColorRect" parent="Visible" unique_id=1427461186]
+offset_left = -40.0
+offset_top = -60.0
+offset_bottom = 100.0
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedO4Borde" type="ColorRect" parent="Visible" unique_id=1597894719]
+offset_left = -40.0
+offset_top = -60.0
+offset_bottom = -56.0
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedO5" type="ColorRect" parent="Visible" unique_id=828672062]
+offset_left = -40.0
+offset_top = 100.0
+offset_bottom = 300.0
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedO5Borde" type="ColorRect" parent="Visible" unique_id=1506439338]
+offset_left = -40.0
+offset_top = 100.0
+offset_bottom = 104.0
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedE1" type="ColorRect" parent="Visible" unique_id=724187321]
+offset_left = 1500.0
+offset_top = -1100.0
+offset_right = 1540.0
+offset_bottom = -960.0
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedE1Borde" type="ColorRect" parent="Visible" unique_id=962330305]
+offset_left = 1500.0
+offset_top = -1100.0
+offset_right = 1540.0
+offset_bottom = -1096.0
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedE2" type="ColorRect" parent="Visible" unique_id=1316025424]
+offset_left = 1500.0
+offset_top = -700.0
+offset_right = 1540.0
+offset_bottom = -300.0
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedE2Borde" type="ColorRect" parent="Visible" unique_id=52866036]
+offset_left = 1500.0
+offset_top = -700.0
+offset_right = 1540.0
+offset_bottom = -696.0
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedE3" type="ColorRect" parent="Visible" unique_id=1784840824]
+offset_left = 1500.0
+offset_top = -300.0
+offset_right = 1540.0
+offset_bottom = 100.0
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedE3Borde" type="ColorRect" parent="Visible" unique_id=66321256]
+offset_left = 1500.0
+offset_top = -300.0
+offset_right = 1540.0
+offset_bottom = -296.0
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="ParedE4" type="ColorRect" parent="Visible" unique_id=45702211]
+offset_left = 1500.0
+offset_top = 100.0
+offset_right = 1540.0
+offset_bottom = 300.0
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="ParedE4Borde" type="ColorRect" parent="Visible" unique_id=635144692]
+offset_left = 1500.0
+offset_top = 100.0
+offset_right = 1540.0
+offset_bottom = 104.0
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="Techo" type="ColorRect" parent="Visible" unique_id=2104896753]
+offset_left = -40.0
+offset_top = -1140.0
+offset_right = 1540.0
+offset_bottom = -1100.0
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="TechoBorde" type="ColorRect" parent="Visible" unique_id=1612692867]
+offset_left = -40.0
+offset_top = -1140.0
+offset_right = 1540.0
+offset_bottom = -1136.0
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="Orilla" type="ColorRect" parent="Visible" unique_id=877076023]
+offset_top = -60.0
+offset_right = 300.0
+offset_bottom = 600.0
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="OrillaBorde" type="ColorRect" parent="Visible" unique_id=528235616]
+offset_top = -60.0
+offset_right = 300.0
+offset_bottom = -56.0
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="Hoyo" type="ColorRect" parent="Visible" unique_id=765851099]
+offset_left = 300.0
+offset_right = 440.0
+offset_bottom = 600.0
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="HoyoBorde" type="ColorRect" parent="Visible" unique_id=293683181]
+offset_left = 300.0
+offset_right = 440.0
+offset_bottom = 4.0
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="RepisaMedia" type="ColorRect" parent="Visible" unique_id=477065058]
+offset_left = 520.0
+offset_top = -400.0
+offset_right = 820.0
+offset_bottom = -360.0
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="RepisaMediaBorde" type="ColorRect" parent="Visible" unique_id=2143288981]
+offset_left = 520.0
+offset_top = -400.0
+offset_right = 820.0
+offset_bottom = -396.0
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="RepisaAlta" type="ColorRect" parent="Visible" unique_id=1980822465]
+offset_left = 1120.0
+offset_top = -700.0
+offset_right = 1500.0
+offset_bottom = -660.0
+color = Color(0.17, 0.12, 0.11, 1)
+
+[node name="RepisaAltaBorde" type="ColorRect" parent="Visible" unique_id=1450088872]
+offset_left = 1120.0
+offset_top = -700.0
+offset_right = 1500.0
+offset_bottom = -696.0
+color = Color(0.36, 0.22, 0.16, 1)
+
+[node name="Carteles" type="Node2D" parent="." unique_id=1393337284]
+
+[node name="Cartel2" type="Label" parent="Carteles" unique_id=638869233]
+offset_left = 170.0
+offset_top = -180.0
+offset_right = 570.0
+offset_bottom = -156.0
+text = "géiser: esperá el chorro"
+horizontal_alignment = 1
+
+[node name="Lava1" parent="." unique_id=35490966 instance=ExtResource("lava")]
+position = Vector2(440, 0)
+Width = 1060.0
+Depth = 600.0
+
+[node name="Geiser1" parent="." unique_id=2052588827 instance=ExtResource("geiser")]
+position = Vector2(370, 0)
+Height = 380.0
+LaunchVelocity = 800.0
+Marea = NodePath("")
+
+[node name="Geiser2" parent="." unique_id=270278264 instance=ExtResource("geiser")]
+position = Vector2(1000, 0)
+Height = 440.0
+LaunchVelocity = 860.0
+StartOffset = 1.2
+Marea = NodePath("")
+
+[node name="HaciaLavas03" parent="." unique_id=1249115386 instance=ExtResource("transition")]
+position = Vector2(15, -60)
+TargetScenePath = "res://scenes/world/Mapas/Lavas/Lavas03_Chispas.tscn"
+TargetSpawnPosition = Vector2(1820, -100)
+Width = 30.0
+Height = 200.0
+
+[node name="HaciaLavas05" parent="." unique_id=436751209 instance=ExtResource("transition")]
+position = Vector2(1485, -700)
+TargetScenePath = "res://scenes/world/Mapas/Lavas/Lavas05_Forja.tscn"
+TargetSpawnPosition = Vector2(200, -740)
+Width = 30.0
+Height = 200.0
+
+[node name="Player" parent="." unique_id=247903684 instance=ExtResource("player")]
+position = Vector2(150, -100)
