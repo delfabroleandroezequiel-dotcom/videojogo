@@ -575,6 +575,8 @@ public partial class Player : CharacterBody2D
 	public bool IsParryRecovering => _parryRecoveryTimer > 0f;
 	public bool IsAttacking => _attacking;
 	public bool IsDashing => _isDashing;
+	// Diving with the pound (down attack): Las Lavas' PisoAgrietado only breaks under this.
+	public bool IsPounding => _isPounding;
 	// Snared (a bear trap clamped on the feet): no walking, jumping, dashing or rolling until it runs
 	// out — turning, attacking and parrying still work, so the answer is to fight from the spot.
 	public bool IsSnared => _snareTimer > 0f;

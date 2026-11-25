@@ -358,6 +358,7 @@ public partial class SaveManager : Node
 
 	public bool HasAbility(string id) => _unlockedAbilities.Contains(id);
 	public void UnlockAbility(string id) => _unlockedAbilities.Add(id);
+	public void LockAbility(string id) => _unlockedAbilities.Remove(id);
 	public IReadOnlyCollection<string> GetUnlockedAbilities() => _unlockedAbilities;
 
 	public const int MaxEquippedRings = 2;

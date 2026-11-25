@@ -136,6 +136,14 @@ public partial class PlayerAbilities : Node
 	// the young-Delfrad tutorial). Not saved: the next scene's player starts from the save again.
 	public void LockForScene(string abilityId) => _unlocked.Remove(abilityId);
 
+	// Debug menu (F8): takes it away from the save too. Abilities Player.tscn starts with (StartWith*)
+	// come back on the next scene load.
+	public void Lock(string abilityId)
+	{
+		_unlocked.Remove(abilityId);
+		SaveManager.Instance.LockAbility(abilityId);
+	}
+
 	// The opposite, also unsaved: a scene that needs abilities the player hasn't earned yet (the
 	// future-Delfrad escape run in the opening).
 	public void GrantForScene(string abilityId) => _unlocked.Add(abilityId);

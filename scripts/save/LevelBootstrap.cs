@@ -67,6 +67,9 @@ public partial class LevelBootstrap : Node
 		SaveManager.Instance.MarkSceneVisited(SceneFilePath);
 		ApplyCameraConfig();
 		AddChild(new LacquerLayer { Name = "CapaLaqueado", ScenePath = SceneFilePath });
+		// Dev-only: F2 opens the abilities checklist (never in an exported release build).
+		if (OS.HasFeature("debug"))
+			AddChild(new Debug.MenuHabilidadesDebug { Name = "MenuHabilidadesDebug" });
 		DecoRocaViva.Apply(this);
 		_player.MapHidesHud = HideHud;
 		_player.RefreshHudVisibility();

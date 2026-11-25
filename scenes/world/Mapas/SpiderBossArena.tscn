@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Rehusables/NieblaFondo.tscn" id="niebla_fondo"]
 [ext_resource type="Script" path="res://scripts/world/ArqueraTorre.cs" id="at_script"]
 [ext_resource type="SpriteFrames" path="res://resources/sprites/AlatheaPixelLabSpriteFrames.tres" id="at_frames"]
+[ext_resource type="Script" uid="uid://4mtch3ihux0j" path="res://scripts/world/VozAmbiente.cs" id="voz_amb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1615, 60)
@@ -2797,3 +2798,14 @@ BossAliveId = "spider_boss_arena_test"
 Damage = 20
 Cooldown = 2.2
 Range = 1300.0
+DespedidaKey = "AMB_ALATHEA_ARANA_6"
+
+[node name="CharlaAlathea" type="Node2D" parent="AlatheaCornisa"]
+script = ExtResource("voz_amb")
+LineKeys = PackedStringArray("AMB_ALATHEA_ARANA_1", "AMB_ALATHEA_ARANA_2", "AMB_ALATHEA_ARANA_3", "AMB_ALATHEA_ARANA_4", "AMB_ALATHEA_ARANA_5")
+Conversation = false
+MinInterval = 7.0
+MaxInterval = 12.0
+HearDistance = 1400.0
+MaxDistance = 1600.0
+SubtitleHeight = 50.0

@@ -595,6 +595,12 @@ AMB_ALATHEA_TORRE_1,"¡Cuida a Leomax! Yo te cubro desde aquí arriba.","Watch o
 AMB_ALATHEA_TORRE_2,"¿Con un palo, Delfrad? Tú distráelos, que yo apunto.","With a stick, Delfrad? You keep them busy, I'll aim.","Com um pedaço de pau, Delfrad? Você os distrai, eu miro."
 AMB_ALATHEA_TORRE_3,"¡Agáchate! Esta va para el del hacha.","Duck! This one's for the axe guy.","Abaixa! Esta é para o do machado."
 AMB_ALATHEA_TORRE_4,"¡Eso es! Me debes una cerveza.","That's it! You owe me an ale.","Isso! Você me deve uma cerveja."
+AMB_ALATHEA_ARANA_1,"¡A las patas, Delfrad! Yo me encargo de los ojos.","Go for the legs, Delfrad! I'll take the eyes.","Nas pernas, Delfrad! Eu cuido dos olhos."
+AMB_ALATHEA_ARANA_2,"¡Atrás! Esa pata iba a tu cabeza.","Back! That leg was going for your head.","Para trás! Essa pata ia na sua cabeça."
+AMB_ALATHEA_ARANA_3,"Esta vez tiro a matar. Tú no te mueras.","This time I'm shooting to kill. You just don't die.","Desta vez eu atiro para matar. Você, não morra."
+AMB_ALATHEA_ARANA_4,"¡El veneno! Sal de ahí, te necesito entero.","The poison! Get out of there, I need you in one piece.","O veneno! Sai daí, preciso de você inteiro."
+AMB_ALATHEA_ARANA_5,"¡Eso es! Ya casi la tenemos.","That's it! We almost have it.","Isso! Já quase a pegamos."
+AMB_ALATHEA_ARANA_6,"Salimos vivos. La cerveza la pago yo.","We made it. The beer's on me.","Saímos vivos. A cerveja é por minha conta."
 NPC_LIO_NAME,Lio,Lio,Lio
 NPC_LIO_L1,"¡Delfrad! ¿Otra vez te tiró Arthur? Tienes arena hasta en las orejas.","Delfrad! Did Arthur knock you down again? You've got sand in your ears.","Delfrad! O Arthur te derrubou de novo? Tem areia até nas orelhas."
 NPC_EDDA_NAME,Edda,Edda,Edda
@@ -708,3 +714,9 @@ NPC_EDDA_MIEDO_2,"Alguien tiene que ir al castillo. Y aquí nadie se mueve.","So
 QUEST_AYUDA_NIX_DESC,"Los ataques en el camino tienen a Nix con miedo y nadie puede defenderla. Leomax te pidió llevar la tela del emblema al castillo de Enterbill y pedirle soldados al rey.","The attacks on the road have Nix afraid, and no one can defend it. Leomax asked you to take the emblem cloth to Enterbill castle and ask the king for soldiers.","Os ataques na estrada deixaram Nix com medo, e ninguém pode defendê-la. Leomax pediu que você levasse o pano do emblema ao castelo de Enterbill e pedisse soldados ao rei."
 NPC_LEOMAX_AYUDA_1,"Nix sola no aguanta otra de estas. Alguien tiene que avisar al rey.","Nix can't take another one of these on its own. Someone has to warn the king.","Nix sozinha não aguenta outra dessas. Alguém tem que avisar o rei."
 NPC_LEOMAX_AYUDA_2,"Lleva esa tela al castillo de Enterbill. Que vean el emblema con sus propios ojos.","Take that cloth to Enterbill castle. Let them see the emblem with their own eyes.","Leve esse pano ao castelo de Enterbill. Que vejam o emblema com os próprios olhos."
+ITEM_CRISOL_ROJO_NAME,Crisol rojo,Red Crucible,Crisol vermelho
+ITEM_CRISOL_ROJO_DESC,"Un crisol pequeño que todavía quema. Encaja en uno de los sellos de la Forja.","A small crucible that still burns. It fits one of the Forge's seals.","Um crisol pequeno que ainda queima. Encaixa em um dos selos da Forja."
+ITEM_CRISOL_AMBAR_NAME,Crisol ámbar,Amber Crucible,Crisol âmbar
+ITEM_CRISOL_AMBAR_DESC,"Un crisol pequeño que todavía quema. Encaja en uno de los sellos de la Forja.","A small crucible that still burns. It fits one of the Forge's seals.","Um crisol pequeno que ainda queima. Encaixa em um dos selos da Forja."
+ITEM_CRISOL_NEGRO_NAME,Crisol negro,Black Crucible,Crisol negro
+ITEM_CRISOL_NEGRO_DESC,"Un crisol pequeño que todavía quema. Encaja en uno de los sellos de la Forja.","A small crucible that still burns. It fits one of the Forge's seals.","Um crisol pequeno que ainda queima. Encaixa em um dos selos da Forja."

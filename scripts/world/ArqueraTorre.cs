@@ -31,6 +31,10 @@ public partial class ArqueraTorre : Node2D
 	// After this many arrows she leaves (fades out); 0 = no limit. The hunting-horn call uses it so
 	// she eases a fight instead of winning it.
 	[Export] public int MaxShots;
+	// Line she says when the BossAliveId boss dies, before fading out (Alathea over the dead spider).
+	// Empty = she just fades, as before.
+	[Export] public string DespedidaKey = "";
+	[Export] public float DespedidaSubtitleHeight = 50f;
 
 	private AnimatedSprite2D _sprite;
 	private int _shotsFired;
@@ -124,8 +128,28 @@ public partial class ArqueraTorre : Node2D
 	private void Leave()
 	{
 		_leaving = true;
+		float wait = 0.6f;
+		bool bossDead = !string.IsNullOrEmpty(BossAliveId) && Metroidvania.Save.SaveManager.Instance.IsBossDefeated(BossAliveId);
+		if (bossDead && !string.IsNullOrEmpty(DespedidaKey))
+		{
+			// No more fight barks over the farewell.
+			foreach (Node child in GetChildren())
+				if (child is VozAmbiente voz)
+					voz.LineKeys = System.Array.Empty<string>();
+			AudioStream stream = Sfx.LoadVoice(DespedidaKey);
+			float length = stream is null ? 2.5f : (float)stream.GetLength();
+			if (stream is not null)
+			{
+				var player = new AudioStreamPlayer2D { Stream = stream, MaxDistance = 1400f, Attenuation = 1.2f, PanningStrength = 0.5f, VolumeDb = -4f };
+				AddChild(player);
+				player.Position = new Vector2(0f, -40f);
+				player.Play();
+			}
+			FloatingSubtitle.Show(this, DespedidaKey, length, DespedidaSubtitleHeight);
+			wait = length + 0.3f;
+		}
 		Tween tween = CreateTween();
-		tween.TweenInterval(0.6f);
+		tween.TweenInterval(wait);
 		tween.TweenProperty(this, "modulate:a", 0f, 0.8f);
 		tween.TweenCallback(Callable.From(QueueFree));
 	}

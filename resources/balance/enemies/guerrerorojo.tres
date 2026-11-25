@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyProfile" format=3]
+[gd_resource type="Resource" script_class="EnemyProfile" format=3 uid="uid://bgo8p6kmtylrk"]
 
 [ext_resource type="Script" uid="uid://cut1jnir3fng6" path="res://scripts/world/EnemyProfile.cs" id="1_script"]
 [ext_resource type="PackedScene" path="res://scenes/world/Coin.tscn" id="2_coin"]
@@ -13,7 +13,6 @@ script = ExtResource("1_script")
 MaxHealth = 80
 AttackPower = 13
 Defense = 2
-MaxStamina = 30
 Weakness = 2
 MoveSpeed = 100.0
 DetectionRange = 480.0
