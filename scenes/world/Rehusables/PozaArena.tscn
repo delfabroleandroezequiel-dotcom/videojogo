@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/Rehusables/PozaAcido.tscn" id="1_poza"]
+
+[node name="PozaArena" instance=ExtResource("1_poza")]
+Width = 400.0
+Depth = 300.0
+Damage = 15
+AcidColor = Color(0.78, 0.62, 0.36, 1)
